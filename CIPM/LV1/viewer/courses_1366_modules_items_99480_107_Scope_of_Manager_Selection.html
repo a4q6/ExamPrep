@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.07 | Scope of Manager Selection</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 1: Performance Evaluation: An Introduction</nav>
+<h1 class="page-title screenreader-only">1.07 | Scope of Manager Selection</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0143-R-s07-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.07 | Scope of Manager Selection"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 1: Performance Evaluation: An Introduction</span>1.07 | Scope of Manager Selection</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0143-R-s07-los-1"><li class="cfa-curriculum-los-item">explain ethical concerns related to investment performance presentations.</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>Manager selection is closely related to performance appraisal but also often very much involves an evaluation of the investment philosophy and process, as well as the asset manager’s human resources, ethical underpinning, and organizational strengths and weaknesses. Manager selection includes both (a) the initial selection of managers and (b) the continuous monitoring and reassessment of their performance, not only in relation to return and risk but also with respect to compliance with investment guidelines, quality of reporting, and “soft factors.” Soft factors include reputation in the marketplace and client relationship management. Manager selection (including hiring, monitoring, and firing decisions) uses performance appraisal analysis along with information about investment managers gained from their written materials, their presentations, company visits, audit reports, and interviews, among other sources. Selection is also guided by the particular needs and requirements of the entity choosing the manager, and investment consultants often play a significant role by screening a vast number of investment managers for those most likely to satisfy an investor’s needs. Investment consultants may use proprietary databases, know-how, and techniques, as well as personal relationships and experience with other clients.</p><p>Hiring investment managers initially involves searching using specific screening criteria, both quantitative and qualitative. This process also requires a great deal of data management—gathering and maintaining information on each investment manager. This information comes from detailed questionnaires completed by investment managers covering various aspects of the manager’s products and processes, as well as from other sources external to the manager. Often, the relevant manager universe is screened to identify those managers deemed most capable of managing a portfolio according to the asset owner’s expectations. After further analysis to narrow the list down to a shortlist, detailed discussions or presentations take place to give the various managers the opportunity to explain why they are able to meet the asset owner’s expectations. Finally, a pricing discussion leads to a final proposal or decision.</p><p>The manager selection process requires asset owners to obtain full, transparent, and accurate information about the managers in question to enable asset owners to make well-founded decisions. An inherent conflict exists because managers are obviously interested in winning the investment mandate and are tempted to present themselves in the best possible light. Asset owners should, therefore, apply certain safeguards and techniques, ask relevant questions, and apply reasonability checks to the information provided by the managers. Among the first questions that the manager should be challenged with are inquiries about its compliance with relevant regulations, being subject to regulatory supervision, and compliance with industry ethical guidelines, such as the GIPS standards and the CFA Institute Asset Manager Code. Negative responses to these inquiries do not necessarily exclude the manager from the selection process but do represent a possible warning sign and should be challenged by asset owners.</p><p>The presentation of historical performance information introduces many ethical concerns. Asset owners should pay particular attention to matters that are prone to potential misrepresentation, such as the following:</p><ul id="CIPM0143-R-s07-L1" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>claiming GIPS compliance but showing performance figures that do not originate from a GIPS-compliant performance presentation;</p></li><li class="cfa-curriculum-list-item"><p>showing portfolios or strategies that do not represent the asset owner’s objectives;</p></li><li class="cfa-curriculum-list-item"><p>“cherry picking” portfolios—that is, showing portfolios with good performance and hiding those with bad performance (e.g., portfolios managed in the past that have since been liquidated because of poor performance);</p></li><li class="cfa-curriculum-list-item"><p>showing model and backtested performance instead of the “real” track record when it is available and not disclosing it as such;</p></li><li class="cfa-curriculum-list-item"><p>using return calculation methodologies that are inappropriate or not transparent;</p></li><li class="cfa-curriculum-list-item"><p>selecting unsuitable benchmarks to give the false impression of outperformance;</p></li><li class="cfa-curriculum-list-item"><p>“hiding” the strategy’s risk profile—for example, by not presenting appropriate risk statistics and risk-adjusted returns or ratios;</p></li><li class="cfa-curriculum-list-item"><p>cherry picking time periods—that is, showing periods of good performance and hiding periods of bad performance;</p></li><li class="cfa-curriculum-list-item"><p>presenting attribution analysis that does not fit the investment process; and</p></li><li class="cfa-curriculum-list-item"><p>hiding the impact of fees, taxes, and transaction costs.</p></li></ul><p>Many asset owners lack the necessary personnel resources to perform onsite due diligence at the manager’s place of business. In such cases, it is also advisable to obtain the most recent audited reports on internal controls at the investment management firm for useful insights into the manager’s internal control system around the investment management process and operational risk management. In addition, it is advisable to require that the firm be independently verified.</p><p>Effective ongoing monitoring of managers depends heavily on the quality of the reporting provided by the manager (or by the appointed third party, such as a custodian bank or investment consultant). The content, form, and frequency of the reporting ideally should be specified in cooperation between asset owner and asset manager, and the methodology, assumptions, appropriate risk measures, and conventions underlying the calculation of statistics used in the reporting should be clear to the asset owner. The manager must also be responsive to asset owner queries and be available for periodic presentations and explanations of investment results.</p><section id="CIPM0143-R-s07-01-01"><h3 class="dp-heading">Scope of Performance Presentation</h3><p>Performance presentation is the fourth major component of performance evaluation. It deals with all aspects of the illustration of performance information for portfolios or investment products. Performance presentation summarizes the information produced by performance measurement, performance attribution, and performance appraisal. It is sometimes supplemented by data and information produced or delivered by other processes, such as financial research, investment accounting, or compliance monitoring. Performance presentation is viewed as investment reporting, which focuses on the presentation of the returns achieved and the risks taken within an investment portfolio during some specified measurement period.</p><p>Different kinds of performance presentations can be defined considering four determining factors: (a) the performance information presented, (b) the intended user of the presentation, (c) the intended use of the presentation, and (d) the preparer of the presentation. In practice, performance presentations are often tailored to fit specific needs and circumstances. In general, these presentations are used in sales (including client relationship management), management, and monitoring processes. Along these lines, <a class="internal" role="button" href="#CIPM0143-R-s07-EXH12" aria-label="View Exhibit 12">Exhibit 12</a> illustrates major areas of focus of performance presentation—especially from an investment manager’s point of view.</p><figure id="CIPM0143-R-s07-EXH12" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 12<span style="display: block;">Performance Presentations: Major Area of Focus</span></figcaption><div class="cfa-curriculum-graphic"><img alt="A diagram for focus areas of investment performance presentation includes three processes that are sales processes, management processes and monitoring processes." src="https://learn.cfainstitute.org/courses/1366/files/224117/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" aria-describedby="CIPM0143-R-s07-EXH12-extended-desc" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224117" data-api-returntype="File" data-width="600"><details id="CIPM0143-R-s07-EXH12-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;"><summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary><p class="dp-panel-outside-panel">Sales processes followed by example: sales support, further followed by prospective and existing clients. Management processes followed by example: quality review, further followed by investment portfolios and products. Monitoring processes followed by example: compliance checks, further followed by investment policies guidelines and regulations.</p></details></div></figure><p>In sales, performance presentations are used to attract new clients by illustrating managers’ performance capabilities. Furthermore, as part of the after-sales support, the presentations are also used to increase transparency on portfolio performance for existing clients and as a tool to increase client retention.</p><p>Because of their importance within the sales process, these kinds of external presentations bear a high risk for being in some way biased or misleading. For example, an investment manager might present the performance track record of a sample of its best-performing portfolios instead of a composite constructed in accordance with the GIPS standards that represents the complete performance track record.</p><p>As <a class="internal" role="button" href="#CIPM0143-R-s07-EXH12" aria-label="View Exhibit 12">Exhibit 12</a> illustrates, performance presentations are used to provide feedback on the investment management process. An example would be a watch list used by the investment manager to highlight and to monitor portfolios with performance problems based on company-specific performance quality criteria.</p><p>The monitoring role of performance presentation focuses on compliance with all relevant investment restrictions and provisions. Client agreements increasingly contain specific portfolio characteristics expressed in terms of performance measures—especially risk measures, such as limits for an investment portfolio’s expected tracking risk or target volatility. Other investment restrictions include—for example, for a fixed-income portfolio—the maximum average duration, the minimum credit rating of a single bond, or minimum hedged ratios for foreign currencies.</p></section><div class="dp-content-block cfa-curriculum-reflist"><h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"></i>Reference List</h3><div class="dp-panels-wrapper dp-accordion-default"><h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel0"><a href="#dpPanel0" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3><div class="dp-panel-content " tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region"><ul id="CIPM0143-R-s07-ref1"><li id="CIPM0143-R-s07-R1list">Bacon, Carl, Cariño, David and Stancil, Arin (2011). <em>Performance Evaluation: Rate-of-Return Measurement</em>. Charlottesville, VA: CFA Institute.</li><li id="CIPM0143-R-s07-R2list">Grégoire, Philippe (2007). “Risk Attribution.” In <em>Advanced Portfolio Attribution Analysis</em>, ed. Bacon, CarlLondon: Risk Books.</li></ul></div></div></div>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99478_106_The_Scope_of_the_Performance_Evaluation_Process.html">← Previous</a><a href="courses_1366_modules_items_99482_108_Summary.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

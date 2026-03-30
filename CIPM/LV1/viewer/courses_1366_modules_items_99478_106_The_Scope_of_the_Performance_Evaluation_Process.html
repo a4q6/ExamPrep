@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.06 | The Scope of the Performance Evaluation Process</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 1: Performance Evaluation: An Introduction</nav>
+<h1 class="page-title screenreader-only">1.06 | The Scope of the Performance Evaluation Process</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0143-R-s06-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.06 | The Scope of the Performance Evaluation Process"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 1: Performance Evaluation: An Introduction</span>1.06 | The Scope of the Performance Evaluation Process</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul id="CIPM0143-R-s06-los-1">
+<li class="cfa-curriculum-los-item">describe the scope of the performance evaluation process and its major activities, including how these activities are interrelated</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary">
+<p>An earlier lesson described how a set of major questions of interest to investment managers, asset owners, prospective clients, and other stakeholders can be used to distinguish among the major activities or component processes of performance evaluation. Actually, performance evaluation can address many more questions. This lesson provides more detailed information on the scope of performance evaluation.</p>
+<p><a class="internal" role="button" href="#CIPM0143-R-s06-EXH6" aria-label="View Exhibit 6">Exhibit 6</a> presents a fairly general representation of the performance evaluation process. It is a recurring production, analytical, and communication process that uses input from, but also generates feedback to, the various participants and stakeholders in the investment management process. In practice, this process is not standardized, because it depends on specific organizational characteristics and on the historical development of the performance-related department(s) and related sub-processes. For example, at one extreme, performance measurement, attribution, presentation, and appraisal may be centralized for all types of investment products or client segments and managed within one department. At the other extreme, all of these processes might be separately managed and uncoordinated. In some organizations, the performance measurement function and performance analysis function (attribution and appraisal) are separated, with performance measurement more aligned with the operations function in the back office and performance analysis closely supporting portfolio managers and risk management in the front office. Increasingly, performance evaluation and all its elements are joined with risk control in the middle office of asset managers.</p>
+<figure id="CIPM0143-R-s06-EXH6" class="cfa-curriculum-exhibit-figure">
+<figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 6<span style="display: block;">Generic Performance Evaluation</span></figcaption>
+<div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 800px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1366/files/224088/preview" alt="A flowchart for generic performance evaluation under which operating processes are followed by integrative processes.  Data management is followed by manager selection and other management and support processes." aria-describedby="CIPM0143-R-s06-EXH6-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224088" data-api-returntype="File" loading="lazy" data-width="800"><details id="CIPM0143-R-s06-EXH6-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+<summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+<p class="dp-panel-outside-panel">Operating Processes: Data management includes first four steps that are performance measurement, performance attribution, performance appraisal, and investment performance presentation. Integrative processes: Includes fifth step, manager selection, and other management and support processes, which are labeled, other considerations and information.</p>
+</details></div>
+</figure>
+<p><a class="internal" role="button" href="#CIPM0143-R-s06-EXH6" aria-label="View Exhibit 6">Exhibit 6</a> illustrates that the overall process is usually split into operating processes—covering performance measurement, attribution, appraisal, and presentation—and integrative processes, including manager selection and other management or support processes. <a class="internal" role="button" href="#CIPM0143-R-s06-EXH6" aria-label="View Exhibit 6">Exhibit 6</a> also highlights that manager selection often uses a wide range of information, including qualitative information that may be only indirectly related to performance.</p>
+<p>Operating processes are typically production oriented and data management driven and are used for calculating, managing, visualizing, and reporting performance figures. In contrast, integrative processes focus less on processing and more on detailed analysis, including qualitative analysis, of investment performance and on activities that depend on such analysis. Here, performance evaluation acts as a management information system, providing information to enable the senior management to make future-oriented management decisions—for example, on investment products to be introduced or withdrawn from the marketplace, on investment processes to be adjusted to better meet investors’ expectations or to improve future performance, and on determining remuneration of portfolios managers.</p>
+<section id="CIPM0143-R-s06-01-01">
+<h3 class="dp-heading">Scope of Performance Measurement</h3>
+<p>The first step of the performance evaluation process, performance measurement, deals with all aspects of return and risk measurement for portfolios. Often, performance measurement is taken to be synonymous with return calculation, but it should be understood more broadly to cover the measurement of return as well as risk, whether on an absolute basis or compared with a selected benchmark.</p>
+<p>Performance measurement poses various challenges. The complexity starts with ensuring the quality of the input data underlying performance, such as valuation of securities and investment instruments, in terms of both their accuracy and their comparability with the benchmark. Even for liquid marketable securities, such as “blue chip” equities, prices may be available from various sources (e.g., stock exchanges) and consistency must be monitored to ensure that the portfolio and its benchmark use the same pricing source. “Corporate action” events (e.g., share splits and dividend payments) must also be consistently accounted for, with respect to using the “ex-date” or “value date” convention. Valuation of fixed-income securities may be subject to different interest accrual assumptions. Over-the-counter derivatives, such as non-traded options or swaps, are usually estimated at fair value using a model, and it is important that such models be accurate. Private equity investments, such as private equity funds that hold portfolios of non-traded companies, pose big challenges in terms of determining their accurate values and, hence, meaningful returns. Different return methodologies and different assumptions may apply to different asset categories and different situations. Performance analysts will require detailed and well-documented policies and procedures to avoid self-selection of return methodologies and assumptions designed to improve the apparent performance of the portfolio manager.</p>
+<p>Calculating rates of return appears simple when timely and accurate prices are available. More than one measurement methodology is often available, however, and in such cases, a return calculation’s intended purpose can be an important consideration in choosing the appropriate calculation. Two major return measurement methodologies are the money-weighted rate of return (MWRR) and the time-weighted rate of return (TWRR). Broadly speaking, MWRR is the compound rate of growth that would produce the ending value of the portfolios given the timing and magnitude of all cash flows over the measurement period. In contrast, TWRR is the compound rate of growth of one unit of money invested in the portfolio at the start of the measurement period. TWRR neutralizes the impact of cash flow into and out of the portfolio—decisions that are typically beyond the manager’s control—in order to isolate and better measure returns that derive from the manager’s decision making. These concepts need to be presented in detail to be fully appreciated; the learning module on rate of return measurement will do that.</p>
+<p>Performance measurement also concerns measuring risk, both absolute and relative. Absolute risk relates to the risk of a portfolio, a benchmark, or a composite on a standalone basis—that is, not compared with anything else. In contrast, relative risk concerns risk relative to some reference point, such as a market index.</p>
+</section>
+<section id="CIPM0143-R-s06-01-02">
+<h3 class="dp-heading">Scope of Performance Attribution</h3>
+<p>Performance attribution is the second major component of the performance evaluation process. It deals with all aspects of explaining what accounts for the return and risk of portfolios.</p>
+<p>Performance attribution is often seen as synonymous with return attribution, but—as illustrated in <a class="internal" role="button" href="#CIPM0143-R-s06-EXH7" aria-label="View Exhibit 7">Exhibit 7</a>—this approach addresses only one aspect of performance. Performance attribution covers the decomposition of excess return as well as relative risk and brings both aspects of performance together by decomposing the risk-adjusted return.</p>
+<figure id="CIPM0143-R-s06-EXH7" class="cfa-curriculum-exhibit-figure">
+<figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 7<span style="display: block;">Overview of Performance Attribution</span></figcaption>
+<div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 800px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1366/files/224124/preview" alt="A flowchart on performance attribution followed by two processes that are absolute and relative (to benchmark), under return and risk on ex post and ex ante basis." aria-describedby="CIPM0143-R-s06-EXH7-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224124" data-api-returntype="File" loading="lazy" data-width="800"><details id="CIPM0143-R-s06-EXH7-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+<summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+<p class="dp-panel-outside-panel">Contributions to both absolute and relative include sector or instruments, factors, decision makers, and investment activities. Sector or instruments includes countries, industries, sectors, and stocks. Factors include fundamental, stock, and specific. Decision makers include asset owner, consultants, and portfolio manager. Investment activities include benchmark, strategic and tactical asset allocation.</p>
+</details></div>
+</figure>
+<p><a class="internal" role="button" href="#CIPM0143-R-s06-EXH7" aria-label="View Exhibit 7">Exhibit 7</a> also shows that performance attribution may be conducted not only on an absolute but also on a relative basis. Absolute attribution—often also called “contribution analysis”—deals with the decomposition of standalone return and risk measures. For example, if a portfolio that is invested one-half in government bonds and one-half in corporate bonds returned 8% in a year and the returns on government bonds and corporate bonds were, respectively, 6% and 10%, a return contribution analysis (absolute return analysis) would be as follows: The contribution of the allocation to government bonds to the portfolio return was (1/2) × 6% = 3%, and the contribution of corporate bonds was (1/2) × 10% = 5%; 3% + 5% = 8%. This approach of explaining a whole (8%) by analysis of the parts (3% and 5%) is characteristic of attribution analysis in general. Further contribution analysis could also be performed within individual asset classes—for example, for the corporate bonds with respect to contribution from movements of the yield curve and credit spreads. A relative return attribution analysis would explain the portfolio’s total excess return in relation to its benchmark and would attribute the sources of excess return to investment decisions. Exhibit 5 previously illustrated a risk contribution—also called “absolute risk attribution.”</p>
+<p>A key point is that performance attribution analysis needs to consider who was responsible for each investment decision—that is, it must be consistent with the specific investment decision-making process. Consider, for example, a charity with the following characteristics: (a) The board of directors meets annually to decide on the normal allocation of funds to asset classes—the “policy portfolio” or “strategic asset allocation”—and the benchmark for the overall portfolio (the “policy benchmark”); (b) the charity’s treasurer decides on short-run deviations from the strategic asset allocation (“tactical asset allocation”); and (c) monies allocated to equities and bonds are turned over to hired external equity and fixed-income managers, respectively, who are responsible for selecting market sector allocations and individual securities within those sectors. An appropriate relative return attribution analysis would seek to quantify the impact of the treasurer’s tactical asset allocation decisions and the equity and fixed-income managers’ sector and security selection decisions. The comparison point for the treasurer would be the return to the policy portfolio, and those for the external managers would be the benchmarks they were assigned after considering their respective investment disciplines.</p>
+<p>The feedback provided by performance attribution into the investment management process can be useful in many ways. The following are two examples of such feedback and how it is used by different decision makers.</p>
+<ul id="CIPM0143-R-s06-L1" class="cfa-curriculum-list-bullet">
+<li class="cfa-curriculum-list-item">
+<p>The sector allocation (i.e., industry groups) and security selection effects of an equity portfolio versus the relevant equity benchmark highlight the investment decisions that led to the excess return and where specifically—for instance, in what sector or by which investments—the portfolio manager added value. This information can lead to improved decision making. For example, if the sector allocation effect was consistently negative for a considerable period and the security selection effect was consistently positive during the same period, one might conclude that the investment manager is sector neutral to the benchmark and that she takes active bets against the benchmark only through security selection.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The level of a portfolio’s expected total excess risk in relation to a benchmark is a measure of the level of active risk of the portfolio management (the variability of a manager’s deviations from the benchmark). It might serve as an investment restriction or risk budget—for example, expressed in terms of tracking risk—that a portfolio manager would need to observe. However, an investor might use tracking risk to check whether an active portfolio manager (a) has taken excessive risk in the portfolio in order to increase its performance or (b) has not managed the portfolio as actively as expected. If such an investor concludes that the manager is running an almost indexed investment, he might negotiate a reduction in management fees or even cancel the investment management contract.</p>
+</li>
+</ul>
+<p>A very simple scenario in <a class="internal" role="button" href="#CIPM0143-R-s06-EXH8" aria-label="View Exhibit 8">Exhibit 8</a> illustrates well how performance attribution introduces feedback into the investment management process and how the respective performance information may be used in practice—using stylized data.</p>
+<figure id="CIPM0143-R-s06-EXH8" class="dp-content-block cfa-curriculum-exhibit-box">
+<figcaption class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 8<span style="display: block;">Feedback from Performance Evaluation: Attribution</span></figcaption>
+<p>Spring Investment Management (SIM) manages an equity portfolio for Mr. Cleaver. Cleaver chose SIM to manage the equity investments because the portfolio manager convinced him that the proposed active investment style should lead to substantial outperformance. Cleaver asked a performance analyst, Mr. Fairborn, to measure the investment performance (over a two-year period) of his equity portfolio managed by SIM. The portfolio delivered –5.5% return (annualized, on a TWRR basis), compared with its benchmark’s –4.8% return. Cleaver specifically wished to have a closer look at the source of the equity portfolio’s excess (in this case negative) return. Fairborn prepared the following on the basis of historical data.</p>
+<div id="CIPM0143-R-s06-Ta" class="cfa-curriculum-table-wrap">
+<div class="cfa-curriculum-table-title" aria-hidden="true"><span style="display: block;">Fairborn’s Attribution Analysis</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0143-R-s06-Ta-title"><caption id="CIPM0143-R-s06-Ta-title" class="cfa-curriculum-table-caption-hidden">Fairborn’s Attribution Analysis</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;" colspan="7"><em>Panel A: Absolute and Excess Returns</em></th>
+</tr>
+<tr>
+<th style="text-align: center; vertical-align: top; padding: 8px;">&nbsp;</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;" colspan="2">Weights</th>
+<th style="text-align: left; vertical-align: top; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;" colspan="2">Returns</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;" rowspan="2">Excess Returns</th>
+</tr>
+<tr>
+<th style="text-align: center; vertical-align: top; padding: 8px;">&nbsp;</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Portfolio</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Index</th>
+<th style="text-align: left; vertical-align: top; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Portfolio</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Sector A</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">50.00%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">60.00%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−8.00%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−7.00%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−1.00%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Sector B</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">50.00%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">40.00%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−3.00%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−1.50%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−1.50%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Total</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">100.00%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">100.00%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−5.50%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−4.80%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−0.70%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0143-R-s06-Ta-title"><caption id="CIPM0143-R-s06-Ta-title" class="cfa-curriculum-table-caption-hidden">Fairborn’s Attribution Analysis</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;" colspan="4"><em>Panel B: Management Effects*</em></th>
+</tr>
+<tr>
+<th style="text-align: center; vertical-align: top; padding: 8px;">&nbsp;</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Sector Allocation Effect</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Security Selection Effect</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Sector A</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">+0.70%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−0.50%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">+0.20%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Sector B</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−0.15%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−0.75%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−0.90%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Total</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">+0.55%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−1.25%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−0.70%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><span class="cfa-curriculum-table-wrap-foot">* For the record, the excess return is decomposed using the Brinson–Hood–Beebower model, assuming that the two sectors are independently managed by different portfolio managers. Here the interaction effect is assigned to the security selection effect, and for simplicity, the whole time period was treated as a single measurement period. Details are provided in the CIPM curriculum learning module on return attribution.</span></p>
+</div>
+<p>Looking at this additional investment performance information, Cleaver came to the following conclusions:</p>
+<ol id="CIPM0143-R-s06-L2" class="cfa-curriculum-list-lower-alpha">
+<li class="cfa-curriculum-list-item">
+<p>The management effects do not correspond with the expectations, because SIM claimed an active sector allocation investment approach that avoids taking big security bets. It turns out that security selection more than offset the positive effect of sector allocation.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The equity portfolio and its portfolio manager need to be further investigated to enable Cleaver to better understand the sources of portfolio performance.</p>
+</li>
+</ol>
+</figure>
+</section>
+<section id="CIPM0143-R-s06-01-03">
+<h3 class="dp-heading">Scope of Performance Appraisal</h3>
+<p>As discussed, one of the major issues addressed by performance appraisal is identifying active investment skill. Such analysis may result in various conclusions.</p>
+<ul id="CIPM0143-R-s06-L3" class="cfa-curriculum-list-bullet">
+<li class="cfa-curriculum-list-item">
+<p>If the analysis concludes that superior results are based on investment skill, then normally no further action is needed except to check whether the manager’s investment strategy or style is still appropriate in a forward-looking sense. In contrast, if the analysis concludes that the superior results are likely the result of luck or are not sustainable, then the rationale of the investment strategy or style for the coming investment period and/or the adequacy of the portfolio manager should be analyzed in detail.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>If the analysis concludes that inferior results are based on lack of active investment skill, then the rationale for the investment strategy or style for the coming investment period and the adequacy of the portfolio manager are in question. In contrast, if the analysis concludes that the inferior results were based on bad luck, then normally no further action is needed to improve future performance except to check whether the investment strategy or style still makes sense.</p>
+</li>
+</ul>
+<p>Often, performance appraisal is misunderstood as pertaining only to what happened in the past. As illustrated on the left-hand side of <a class="internal" role="button" href="#CIPM0143-R-s06-EXH9" aria-label="View Exhibit 9">Exhibit 9</a>, performance appraisal can deal with analyzing and interpreting historical investment performance. In contrast, as shown on the right-hand side of <a class="internal" role="button" href="#CIPM0143-R-s06-EXH9" aria-label="View Exhibit 9">Exhibit 9</a>, the second part of the performance appraisal cycle—maybe the more important one—takes the results of the historical performance interpretation as well as current information and draws conclusions used as feedback for selecting managers (for the asset owner) or for improving the investment management process (for the asset management company). Producing historical performance information by itself has little value if not used as input or feedback into the investment management process to define, confirm, or adjust future actions. For example, suppose the portfolio manager’s investment philosophy favored securities that fell out of favor with most investors during the measurement period. The next activity would be to analyze whether the underlying investment idea and strategy are still rational for the coming period.</p>
+<p>The outcome of this analysis will help an investor choose between the following alternatives: (a) Adhere to the investment idea and strategy in the hope public sentiment will change or (b) discontinue investing in the manager’s strategy if it is believed either that the public sentiment will not change or that a structural change occurred in the financial markets such that the strategy no longer makes sense.</p>
+<figure id="CIPM0143-R-s06-EXH9" class="cfa-curriculum-exhibit-figure">
+<figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 9<span style="display: block;">Performance Appraisal Cycle</span></figcaption>
+<div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 800px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1366/files/224120/preview" alt="Performance appraisal cycle divided into two sections: measuring and analyzing historical performance information and interpreting and drawing conclusions from historical and current performance information." aria-describedby="CIPM0143-R-s06-EXH9-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224120" data-api-returntype="File" loading="lazy" data-width="800"><details id="CIPM0143-R-s06-EXH9-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+<summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+<p class="dp-panel-outside-panel">The investment decision-making process is as follows. Analyzing the proposed and implemented investment strategy, followed by interpreting the proposed and implemented investment strategy and drawing conclusions from the proposed and implemented strategy. This is followed by measuring, analyzing and interpreting the results of past investment decisions.</p>
+</details></div>
+</figure>
+<p>Despite the arsenal of available quantitative performance appraisal tools, qualitative criteria and subjective judgment are often important in a performance appraisal’s final conclusions. That is why a performance appraisal should be conducted by very experienced performance analysts who have a broad knowledge of and long experience with investment management. The problems that may complicate a strictly quantitatively oriented performance appraisal include the following:</p>
+<ul id="CIPM0143-R-s06-L4" class="cfa-curriculum-list-bullet">
+<li class="cfa-curriculum-list-item">
+<p>asset owner investment restrictions that place constraints on the manager in implementing the investment strategy;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>opaque investment guidelines or decision making;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>changes to the investment management process, the investment strategy, the investment guidelines, or the manager team during the period being analyzed;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>lack of an appropriate investable benchmark for the investment strategy; and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>taxes and other costs that reduce the return of the portfolio but are not under control of the portfolio manager.</p>
+</li>
+</ul>
+<p>Performance appraisal is often part of performance review meetings. The purpose of these meetings is to discuss with all stakeholders whether the portfolio is still on track to meet the investment objectives and to discuss any corrective measures that might improve the future performance or whether the assets invested with the manager should be increased, decreased, or removed entirely.</p>
+<p>Using simplified data, <a class="internal" role="button" href="#CIPM0143-R-s06-EXH10" aria-label="View Exhibit 10">Exhibit 10</a> and <a class="internal" role="button" href="#CIPM0143-R-s06-EXH11" aria-label="View Exhibit 11">Exhibit 11</a> illustrate how performance appraisal produces feedback in the investment management process.</p>
+<figure id="CIPM0143-R-s06-EXH10" class="dp-content-block cfa-curriculum-exhibit-box">
+<figcaption class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 10<span style="display: block;">Feedback from Performance Evaluation: Appraisal</span></figcaption>
+<p>Following the analytics provided by the performance analyst, Mr. Fairborn (see <a class="internal" role="button" href="#CIPM0143-R-s06-EXH8" aria-label="View Exhibit 8">Exhibit 8</a>), Mr. Cleaver decided to have an even closer look at the equity portfolio managed by SIM. He called the portfolio manager, Mr. Sill, and mentioned his concerns about the performance of the equity portfolio. He also mentioned that the first analytic results did not support a conclusion that SIM was following the originally proposed and approved investment strategy. Sill was quite surprised about Cleaver’s feedback and promised to send him a return attribution report examining SIM’s investment professionalism.</p>
+<p>After speaking with a SIM internal performance analyst, Sill sent the promised return attribution report—knowing that Cleaver already received a different analysis from Fairborn. The following is a summary of what Sill sent to Cleaver, all based on historical data.</p>
+<div id="CIPM0143-R-s06-Tb" class="cfa-curriculum-table-wrap">
+<div class="cfa-curriculum-table-title" aria-hidden="true"><span style="display: block;">Sill’s Attribution Analysis</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0143-R-s06-Tb-title"><caption id="CIPM0143-R-s06-Tb-title" class="cfa-curriculum-table-caption-hidden">Sill’s Attribution Analysis</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;" colspan="7"><em>Panel A: Absolute and Excess Returns</em></th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;" colspan="2">Weights</th>
+<th style="text-align: left; vertical-align: top; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;" colspan="2">Returns</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;" rowspan="2">Excess Returns</th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Portfolio</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Index</th>
+<th style="text-align: left; vertical-align: top; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Portfolio</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Sector 1</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">64.20%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">40.00%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒6.50%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒6.52%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">+0.02%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Sector 2</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">35.80%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">60.00%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒3.70%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒3.65%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒0.05%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Total</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">100.00%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">100.00%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒5.50%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−4.80%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒0.70%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0143-R-s06-Tb-title"><caption id="CIPM0143-R-s06-Tb-title" class="cfa-curriculum-table-caption-hidden">Sill’s Attribution Analysis</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;" colspan="4"><em>Panel B: Management Effects*</em></th>
+</tr>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">&nbsp;</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Sector Allocation Effect</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Security Selection Effect</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Sector 1</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒1.58%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">+0.01%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒1.57%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Sector 2</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">+0.88%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒0.02%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">+0.87%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Total</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒0.69%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒0.01%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">‒0.70%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><span class="cfa-curriculum-table-wrap-foot">* For the record, the excess return is decomposed using the Brinson–Hood–Beebower model, assuming that the two sectors are independently managed by different portfolio managers. Here the interaction effect is assigned to the security selection effect, and for simplicity, the whole time period was treated as a single measurement period. Details are provided in the CIPM curriculum learning module on return attribution.</span></p>
+</div>
+<p>Looking at the return attribution report provided by SIM, Cleaver came to the following conclusions:</p>
+<ol id="CIPM0143-R-s06-L5" class="cfa-curriculum-list-lower-alpha">
+<li class="cfa-curriculum-list-item">
+<p>The return attribution in <a class="internal" role="button" href="#CIPM0143-R-s06-EXH8" aria-label="View Exhibit 8">Exhibit 8</a> did not reflect the relevant classification scheme of the investment strategy. The management effects do correspond with the expectations because SIM sold an active sector allocation investment approach without taking big security bets.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The active asset allocation investment approach was not profitable over the measurement period, and a detailed discussion on the pursued investment strategy and the portfolio manager’s investment skill is needed.</p>
+</li>
+</ol>
+</figure>
+<figure id="CIPM0143-R-s06-EXH11" class="dp-content-block cfa-curriculum-exhibit-box">
+<figcaption class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 11<span style="display: block;">Feedback from Performance Evaluation: Appraisal (continued)</span></figcaption>
+<p>Following the detailed return attribution on the equity portfolio provided by SIM (see <a class="internal" role="button" href="#CIPM0143-R-s06-EXH10" aria-label="View Exhibit 10">Exhibit 10</a>), Mr. Cleaver asked for a performance review meeting with SIM to discuss whether corrective measures are necessary. To prepare for the meeting, Cleaver asked the performance analyst, Mr. Fairborn, to gather and summarize other important information relevant to assessing the performance of the equity portfolio. Furthermore, he asked Fairborn to provide some performance statistics on comparable investment products available in the market.</p>
+<p>The performance review meeting went well and was very helpful for Cleaver to get the whole picture, to better understand what happened over the last two years, and to decide on subsequent actions.</p>
+<p>Looking at the additional investment performance information and other relevant but non-performance-related information, Cleaver came to the following conclusions:</p>
+<ol id="CIPM0143-R-s06-L6" class="cfa-curriculum-list-lower-alpha">
+<li class="cfa-curriculum-list-item">
+<p>The performance comparison with other investment products was not of great help because not many alternatives were available for investment. Furthermore, despite the short history of 24 months of data, the performance appraisal measures used were quite comparable.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The portfolio manager could prove that he implemented the proposed investment strategy—by using a different sector classification than that used by Fairborn—but had to confirm that since inception, the active investment approach did not achieve positive results. Furthermore, the portfolio manager could not convince Cleaver that the past and current financial circumstances did not affect the rationale of the pursued investment approach.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>It is necessary to investigate other investment strategies and approaches for managing his equity portfolio.</p>
+</li>
+</ol>
+</figure>
+</section>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99476_105_Factors_Defining_the_Output_of_Performance_Evaluation_Activities.html">← Previous</a><a href="courses_1366_modules_items_99480_107_Scope_of_Manager_Selection.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

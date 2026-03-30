@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.06 | Currency Exposure and Return Discrepancies</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 3: Data Integrity</nav>
+<h1 class="page-title screenreader-only">3.06 | Currency Exposure and Return Discrepancies</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM2105-R-s06-R-1" class="dp-wrapper dp-flat-sections variation-2" title="3.06 | Currency Exposure and Return Discrepancies"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 3: Data Integrity</span>3.06 | Currency Exposure and Return Discrepancies</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM2105-R-s06-los-1"><li class="cfa-curriculum-los-item">explain return discrepancies in a portfolio or a composite that may arise from currency issues</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>For any portfolio that invests in assets outside of its own base currency, there will be performance impacts from currency exposure. These include both real investment impacts and, potentially, issues caused by accounting policies and calculation methodology.</p><section id="CIPM2105-R-s06-01-01"><h3 class="dp-heading">Accounting Policy</h3><p>The choice of exchange rates used for end-of-day asset valuation will influence the return on a portfolio. If the exchange rates used are not aligned with those in the relevant portfolio benchmark, it will make the assessment of relative performance difficult. For example, if a well-constructed index-tracking global equity portfolio were to use valuation exchange rates that are different from its benchmark, its performance would diverge from the benchmark return.</p><p>Although there are a multitude of daily exchange rates available, the London 4:00 p.m. rates are commonly used by major global index providers for end-of-day currency conversion. Aligning accounting valuation exchange rates to these rates will eliminate one source of return discrepancy from currency exposure.</p><p>Accounting policy will also determine which exchange rates are applied to transactions for conversion to base or reporting currency. Accounting policies tend to be simplistic, such as using end-of-day rates. More sophisticated approaches exist, such as linking trades to specific spot foreign exchange (FX) transactions.</p><p>For simplistic approaches, such as applying start-of-day or end-of-day exchange rates, there will be a policy calculation effect present on each asset for which a transaction occurs. Because the transaction creates a cash impact with opposite signage (i.e., buy asset = sell cash), there is an offsetting effect within the cash return. Consequently, at a total level, the portfolio return will not show any impact from the policy.</p><p>The impact of accounting policy exchange rates on transactions works differently for purchases and sales, as shown in <a class="internal" role="button" href="#CIPM2105-R-s06-EXH18" aria-label="View Exhibit 18">Exhibit 18</a>. This exhibit introduces the subject of the impact of exchange rate accounting policy, and <a class="internal" role="button" href="#CIPM2105-R-s06-EXH19" aria-label="View Exhibit 19">Exhibit 19</a> builds on it. Candidates may find it useful to consider these exhibits together.</p><figure id="CIPM2105-R-s06-Ba" class="dp-content-block cfa-curriculum-shaded-box"><figcaption class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title"><i class="fas fa-info-circle" style="background: inherit !important;" aria-hidden="true"></i><span style="display: block;">Impact of FX Rate Accounting Policy on Returns</span></figcaption><p>A euro-based portfolio starts with USD100 worth of assets, and the EUR/USD exchange rate is 1.1 (USD1.1 per EUR1). The assets are sold for proceeds of USD102, and at the end of the period, the EUR/USD rate is 1.05. The first sale proceeds row shows gain or loss on the asset using a start-of-period exchange rate for the trade. The bottom row shows the same calculation using the end-of-period exchange rate. A different base currency gain is calculated for the two rates.</p><div id="CIPM2105-R-s06-EXH18" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 18<span style="display: block;">Impact of FX Rate Accounting Policy on Returns, Excluding Cash</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM2105-R-s06-EXH18-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM2105-R-s06-EXH18-title">Exhibit 18: Impact of FX Rate Accounting Policy on Returns, Excluding Cash</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; " rowspan="2"></th><th style="text-align: center; vertical-align: bottom; padding: 8px; " colspan="2"><strong>Values</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>FX Rate</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; " colspan="2"><strong>Gain/Loss</strong></th></tr><tr><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>USD</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>EUR</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>EUR/USD</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>USD</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>EUR</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Start-of-period value</th><td style="text-align: center; vertical-align: top; padding: 8px; ">100.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">90.91</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.10</td><td style="text-align: center; vertical-align: top; padding: 8px; ">—</td><td style="text-align: center; vertical-align: top; padding: 8px; ">—</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Sale proceeds: Start FX</th><td style="text-align: center; vertical-align: top; padding: 8px; ">−102.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−92.73</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.10</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.82</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Sale proceeds: End FX</th><td style="text-align: center; vertical-align: top; padding: 8px; ">−102.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−97.14</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.05</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.23</td></tr></tbody></table></div></div></div></figure><p><a class="internal" role="button" href="#CIPM2105-R-s06-EXH19" aria-label="View Exhibit 19">Exhibit 19</a> builds on <a class="internal" role="button" href="#CIPM2105-R-s06-EXH18" aria-label="View Exhibit 18">Exhibit 18</a> and shows the same example with cash impacts included. It also shows sale and purchase scenarios. The transaction value in the sale and purchase scenarios has been set to create a gain of 2 on US dollar assets in both scenarios. In both tables, the same total fund gain in euros is observed, but the amounts attributed between assets and cash are different because of the exchange rate effect. Performance practitioners should be aware of the potential impact of FX accounting policy and use this potential impact as a channel of investigation when base currency returns on an asset are being questioned.</p><div id="CIPM2105-R-s06-EXH19" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 19<span style="display: block;">Impact of FX Rate Accounting Policy on Returns, Including Cash</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM2105-R-s06-EXH19-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM2105-R-s06-EXH19-title">Exhibit 19: Impact of FX Rate Accounting Policy on Returns, Including Cash</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; " colspan="8"><strong>Asset Sale</strong></th></tr><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Assets</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>USD Cash</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Total</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Assets</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>EUR Cash</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Total</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>FX Rate EUR/USD</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Start-of-period value</th><td style="text-align: center; vertical-align: top; padding: 8px; ">100.00</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">100.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">90.91</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">90.91</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.10</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Transactions</th><td style="text-align: center; vertical-align: top; padding: 8px; ">−102.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">102.00</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">−92.73</td><td style="text-align: center; vertical-align: top; padding: 8px; ">92.73</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.10</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">End-of-period value</th><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">102.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">102.00</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">97.14</td><td style="text-align: center; vertical-align: top; padding: 8px; ">97.14</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.05</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Gain/loss</th><td style="text-align: center; vertical-align: top; padding: 8px; ">2.00</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.82</td><td style="text-align: center; vertical-align: top; padding: 8px; ">4.41</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.23</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td></tr></tbody></table></div></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM2105-R-s06-EXH19-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM2105-R-s06-EXH19-title">Exhibit 19: Impact of FX Rate Accounting Policy on Returns, Including Cash</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; " colspan="8"><strong>Asset Purchase</strong></th></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Assets</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>USD Cash</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Total</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Assets</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>EUR Cash</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Total</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>FX Rate EUR/USD</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Start-of-period value</th><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">100.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">100.00</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">90.91</td><td style="text-align: center; vertical-align: top; padding: 8px; ">90.91</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.10</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Transactions</th><td style="text-align: center; vertical-align: top; padding: 8px; ">100.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−100.00</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">90.91</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−90.91</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.10</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">End-of-period value</th><td style="text-align: center; vertical-align: top; padding: 8px; ">102.00</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">102.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">97.14</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">97.14</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.05</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Gain/loss</th><td style="text-align: center; vertical-align: top; padding: 8px; ">2.00</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.00</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.23</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.23</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td></tr></tbody></table></div></div></div><p>One scenario where transaction exchange rate policy will not “wash out” is when a portfolio experiences a cash flow (inflow or outflow) that is not in its own base currency. If this situation occurs, the choice of exchange rate to be applied will directly affect the starting valuation on which subsequent gains or losses are calculated. Such instances are likely to be rare because mutual funds have such mechanisms as currency share classes to deal with them and separate accounts will have a designated base currency.</p></section><section id="CIPM2105-R-s06-01-02"><h3 class="dp-heading">Currency Hedging</h3><p>Forward FX contracts, where rates at which currencies will be exchanged in a
+                     month are locked into today, can be used to reduce the currency exposure in
+                     particular assets or on a portfolio as a whole. Implementation of hedging is
+                     imperfect because the value of the assets being hedged will move with the
+                     market. This movement leaves the portfolio either over- or underhedged as the
+                     sold amount on the forward FX remains unchanged. This will generate a real
+                     return impact on the portfolio that can be quantified, and the amount will be
+                     of interest to portfolio managers. Where a portfolio is managed against a
+                     currency-hedged benchmark, there may be relative performance impacts caused by
+                     the benchmark hedging methodology. A common approach in benchmark hedging
+                     methodology is for the index provider to take the currency composition of the
+                     index at the beginning of the month and use prevailing market rates to apply
+                     notional one-month forward FX positions back to 100% base currency. The forward
+                     contracts are revalued each day until month end, when they are replaced by new
+                     one-month forward hedges using the same process. This approach has the same
+                     imperfections as portfolio hedging, noted previously. It also means that where
+                     the portfolio hedging approach is different from the benchmark, there will be
+                     real relative return impacts. For example, the portfolio managers may use
+                     three-month forward FX contracts, or they may adjust hedging positions when
+                     asset trading occurs in the portfolio.</p></section><section id="CIPM2105-R-s06-01-03"><h3 class="dp-heading">Dual Currencies</h3><p>In some cases, an investment may be valued in one currency but pay dividends or coupons in another. Such instruments can be difficult for accounting systems to handle automatically because of this unusual feature since they may be able to use only a single currency. If this is the case, dividends and coupons may be accrued and recorded in one currency but settled in another. Such situations may require intervention, and the implied exchange rate (received amount/expected amount) can cause a performance impact if it varies from prevailing rates.</p><p>Similar situations occur with trades in securities within a restricted market. In a restricted market, the local government places controls that include limiting who is allowed to buy and sell the local currency. Here, securities traded in local currency may be settled by the custodian in a fund’s base currency. The effective exchange rate applied to the trade will create a real performance impact if it diverges from prevailing rates used in portfolio accounting.</p><p><a class="internal" role="button" href="#CIPM2105-R-s06-EXH20" aria-label="View Exhibit 20">Exhibit 20</a> illustrates how performance can be affected when coupon proceeds in a restricted market currency are converted into another currency by an external custodian and then paid to the portfolio. Because the conversion is a real trade, its impact on performance is not an error. In this example, the fund receives USD392 less than it was expecting in dollar terms, which will result in the portfolio’s cash return and total level return being lower by the basis point equivalent of USD392. The return on the bond will be unaffected because the accounting policy conversion amount of USD56,192 will be used for calculating its return.</p><div id="CIPM2105-R-s06-EXH20" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 20<span style="display: block;">Dual-Currency Coupon Payment</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM2105-R-s06-EXH20-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM2105-R-s06-EXH20-title">Exhibit 20: Dual-Currency Coupon Payment</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Coupon on Korean Won Bond</strong></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Coupon proceeds</th><td style="text-align: center; vertical-align: top; padding: 8px; ">KRW</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">100,000,000</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Accounting value of coupon converted</th><td style="text-align: center; vertical-align: top; padding: 8px; ">USD</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">56,192</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Custodian executed FX sold</th><td style="text-align: center; vertical-align: top; padding: 8px; ">KRW</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">100,000,000</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Custodian executed FX bought</th><td style="text-align: center; vertical-align: top; padding: 8px; ">USD</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">55,800</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Performance impact from FX</th><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">−392</td></tr></tbody></table></div></div></div></section><section id="CIPM2105-R-s06-01-04"><h3 class="dp-heading">Global Investment Performance Standards (GIPS®) Compliant Composites</h3><p>Composites involve combining the performance track records of multiple funds using a weighted average approach. Combining portfolios with different base currencies is allowable if the investment strategies are similar and consistent with the composite definition, but the correct approach needs to be followed. If different currency track records are combined without first converting into a common currency, it will create meaningless results. This is due to both (1) combining different currency returns and (2) weighting using market values in different currencies.</p><p>In order to accurately construct composites containing funds with different base currencies, they must first be converted into a common currency. As long as the same exchange rates are applied to each portfolio and benchmark return, then the relative geometric return will remain consistent. <a class="internal" role="button" href="#CIPM2105-R-s06-EXH21" aria-label="View Exhibit 21">Exhibit 21</a> illustrates the issue.</p><figure id="CIPM2105-R-s06-Bb" class="dp-content-block cfa-curriculum-shaded-box"><figcaption class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title"><i class="fas fa-info-circle" style="background: inherit !important;" aria-hidden="true"></i><span style="display: block;">Composite Constituents and Currencies</span></figcaption><p>This example shows a composite made up of four constituent funds running similar investment strategies. The funds’ base currencies are different. The total line in the first table shows the outcome if an incorrect approach is used—if local currency values are combined before converting to a common currency. The second table shows the correct results, where individual fund values and returns are first converted into the composite’s base currency, the US dollar. The US dollar results are then combined to give the total composite return.</p><p>The individual funds’ relative returns on a geometric basis are the same under both methodologies. The total composite relative return is distorted in the first table mainly by the overweighting due to Fund D being valued in Japanese yen. The individual funds’ returns in the second table are also comparable because they are presented in a common currency, showing the correct calculation of the composite’s relative return.</p><div id="CIPM2105-R-s06-EXH21" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 21<span style="display: block;">Converting Reporting Currencies for GIPS-Compliant Composites</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM2105-R-s06-EXH21-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM2105-R-s06-EXH21-title">Exhibit 21: Converting Reporting Currencies for GIPS-Compliant Composites</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; " colspan="6"><strong>Global Treasury Composite: All Local Currency</strong></th></tr><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Constituent</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Base Currency</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Value Base (m)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Fund Base CCY</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Benchmark Base CCY</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Relative Base CCY</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Fund A</th><td style="text-align: center; vertical-align: top; padding: 8px; ">USD</td><td style="text-align: center; vertical-align: top; padding: 8px; ">350</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.6%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.2%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.4%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Fund B</th><td style="text-align: center; vertical-align: top; padding: 8px; ">EUR</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,000</td><td style="text-align: center; vertical-align: top; padding: 8px; ">8.3%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">8.0%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.3%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Fund C</th><td style="text-align: center; vertical-align: top; padding: 8px; ">EUR</td><td style="text-align: center; vertical-align: top; padding: 8px; ">275</td><td style="text-align: center; vertical-align: top; padding: 8px; ">8.4%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">8.0%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.4%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Fund D</th><td style="text-align: center; vertical-align: top; padding: 8px; ">JPY</td><td style="text-align: center; vertical-align: top; padding: 8px; ">50,000</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.6%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.0%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.6%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Total composite</th><td style="text-align: center; vertical-align: top; padding: 8px; ">Local</td><td style="text-align: center; vertical-align: top; padding: 8px; ">51,625</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.7%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.1%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.6%</td></tr></tbody></table></div></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM2105-R-s06-EXH21-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM2105-R-s06-EXH21-title">Exhibit 21: Converting Reporting Currencies for GIPS-Compliant Composites</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; " colspan="6"><strong>Global Treasury Composite: Converted to USD</strong></th></tr><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Constituent</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Base Currency</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Value Base (USD)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Fund USD</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Benchmark USD</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Relative USD</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Fund A</th><td style="text-align: center; vertical-align: top; padding: 8px; ">USD</td><td style="text-align: center; vertical-align: top; padding: 8px; ">350</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.6%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.2%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.4%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Fund B</th><td style="text-align: center; vertical-align: top; padding: 8px; ">EUR</td><td style="text-align: center; vertical-align: top; padding: 8px; ">909</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.1%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.8%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.3%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Fund C</th><td style="text-align: center; vertical-align: top; padding: 8px; ">EUR</td><td style="text-align: center; vertical-align: top; padding: 8px; ">250</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.2%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.8%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.4%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Fund D</th><td style="text-align: center; vertical-align: top; padding: 8px; ">JPY</td><td style="text-align: center; vertical-align: top; padding: 8px; ">500</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.7%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.1%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.6%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Total composite</th><td style="text-align: center; vertical-align: top; padding: 8px; ">USD</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2,009</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.1%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.7%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.4%</td></tr></tbody></table></div></div></div><p>Calculations are based on currency moves over the period against the dollar of +2% for the euro and –2% for the Japanese yen and on market value conversion rates of 1.10 for EUR/USD and 100 for USD/JPY.</p></figure><figure id="CIPM2105-R-s06-Bc" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Accounting Policy on Exchange Rates</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2105-R-s06-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>The client reporting team has challenged the returns on a global equity index tracking fund that aims to be fully currency hedged back to the US dollar. The total fund performance is out of line with the hedged benchmark. The unhedged portfolio return including cash is in line with the unhedged benchmark. The portfolio experienced a large cash inflow during the reporting period, which has seen high level of market volatility. Which of the following is the <em>most likely</em> cause of this outcome?</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>It is due to the portfolio accounting policy choice of valuation FX rates being different from those used in the benchmark.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-1"><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>The investment of the large inflow may not have been well executed.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-2"><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>The hedging methodology is different for the fund and its benchmark.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h4 class="cfa-curriculum-solution-title">Solution</h4><p>C is correct. Hedging methodology may well be different for the portfolio and the benchmark. Any difference may be amplified because the portfolio has managed an inflow, which would likely result in an update to currency hedging positions. A is incorrect because it would result in a variance between fund and benchmark performance when looking at unhedged returns, excluding cash. B is incorrect because if it were the case, then it would affect the unhedged portfolio return.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure></section>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99540_305_Data_Errors_Arising_from_Corporate_Actions.html">← Previous</a><a href="courses_1366_modules_items_99543_307_Data_Revisions_and_Prior-Period_Returns.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

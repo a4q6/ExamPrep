@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.28 | Composite Construction</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Investment Performance Presentation and GIPS › Module 2: An Introduction to the Global Investment Performance Standards (GIPS®)</nav>
+<h1 class="page-title screenreader-only">2.28 | Composite Construction</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM2113-R-s28-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.28 | Composite Construction"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 2: An Introduction to the Global Investment Performance Standards (GIPS®)</span>2.28 | Composite Construction</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcomes</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM2113-R-s28-los-1CIPM2113-R-s28-los-2"><li class="cfa-curriculum-los-item">describe the purpose of composites in performance reporting</li><li class="cfa-curriculum-los-item">explain the requirements of the GIPS standards with respect to composite construction, including switching portfolios among composites, the timing of the inclusion of new portfolios in composites, and the timing of the exclusion of terminated portfolios from composites</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>The portfolios included in a composite may change over time. Common examples include the following:</p><ul id="CIPM2113-R-s28-L1" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>new portfolios open and must be added to composites,</p></li><li class="cfa-curriculum-list-item"><p>portfolios terminate and must be removed from composites prospectively, and</p></li><li class="cfa-curriculum-list-item"><p>portfolios change their investment objectives to a degree that warrants transitioning them to a different composite (or, if discretion has been lost, to no composite at all).</p></li></ul><p>Firms must address each of these scenarios in their policies and procedures and specify how and when portfolios will be added to or removed from composites. Once established, policies related to composite membership must be followed consistently.</p><p>The firm’s policy must address how new portfolios that come under management will be treated. The general requirement under the GIPS standards is that new portfolios must be included in composites <em>on a timely and consistent basis</em>. It is up to each firm to determine what “timely” means in the context of its composites. The timeline for including new portfolios in composites should reflect the amount of time generally required to invest a new portfolio to the given strategy.</p><p>Composites must include only portfolios that are managed for the <em>full performance measurement period</em> for which the composite return is calculated. Portfolios that are not managed for the full performance measurement period must not be included in the composite for that period. Generally, firms calculate composite performance on a monthly basis, so a full performance measurement period would typically be considered a full month. Note that a full performance measurement period is not necessarily the time period for which performance is presented; rather, it reflects the intervals at which performance is calculated.</p><p>Typical policies that a firm may establish would include new portfolios in a particular composite</p><ul id="CIPM2113-R-s28-L2" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>at the beginning of their first full month under management,</p></li><li class="cfa-curriculum-list-item"><p>following the first full month under management,</p></li><li class="cfa-curriculum-list-item"><p>following two full months under management,</p></li><li class="cfa-curriculum-list-item"><p>following the first full quarter under management, or</p></li><li class="cfa-curriculum-list-item"><p>potentially following a longer period, depending on the specific strategy.</p></li></ul><p>Consider a policy in which a firm includes new portfolios in composites following the first full month under management and assume a new portfolio opens on 25 April. In this scenario, April is a partial month and thus is not considered the first full month under management. The first full month is May, so the new portfolio will be eligible for inclusion in composites beginning in June.</p><p>The appropriate timing for a portfolio to be included in a composite can vary based on the particular strategy and the manner in which the firm manages portfolios. Although a firm may establish a standardized policy across the firm, it may be more appropriate for a firm to have separate policies for different strategies or composites. For example, if a strategy invests in less liquid securities and, therefore, takes longer for the firm to implement, a longer period before new portfolios are included in the composite associated with that strategy may be warranted. It would be inappropriate, however, for a firm to establish a policy that arbitrarily delays composite inclusion for strategies that are more liquid and for which a portfolio typically would be representative of the strategy in a shorter period.</p><p>With regard to the removal of terminated portfolios, portfolios that were previously under the discretionary management of the firm but have closed or are in the process of closing must be removed from composites prospectively. However, their historical performance must remain in composites up to the last full measurement period that the portfolio was under management and for which the firm had discretion. For a firm that calculates composite performance on a monthly basis, the last full measurement period is the last full month that a terminated portfolio was under discretionary management. Once the firm receives notification of a pending termination, its ability to manage the portfolio freely is generally lost, and discretion would be considered revoked.</p><p>For example, if a firm receives notification on 19 May that a client intends close his or her portfolio and withdraw the assets as of 31 May, the firm effectively no longer has full discretion over the portfolio as of the date of notification (19 May). If the firm calculates composite performance monthly, the last full measurement period during which the firm had discretion is the month of April. So, the portfolio will remain in the composite until the end of April but will be removed from the composite for May and all subsequent periods.</p><p>If a portfolio changes its investment objective or strategy and no longer meets the composite definition, it will effectively be treated as a terminated portfolio with respect to the composite(s) in which it was included. Concurrently, it becomes a new portfolio with respect to any new composite(s) to which it is added. For example, assume that a firm calculates composite performance using monthly measurement periods and has a policy of including new portfolios in composites at the beginning of their first full month under discretionary management and a policy of removing terminated portfolios from composites at the end of their last full month under discretionary management. If the firm receives notification from a client on 12 September specifying a wish to change the portfolio’s investment strategy from investing in fixed income to investing in equities,</p><ul id="CIPM2113-R-s28-L3" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>the portfolio will be eligible for inclusion in the fixed income composite through the end of August, because August will be the last full month that the portfolio is managed to the fixed-income strategy;</p></li><li class="cfa-curriculum-list-item"><p>the portfolio will not be managed exclusively to either strategy during the month of September, so it will be excluded from all composites for that month; and</p></li><li class="cfa-curriculum-list-item"><p>October will be the first full month that the portfolio is managed to the equity strategy. Therefore, the portfolio will be eligible for inclusion in the equity composite beginning in October, following the standard inclusion policy for new portfolios.</p></li></ul><p>Ideally, a firm’s composites should be constructed in a manner that minimizes the movement of portfolios into, out of, or between composites. The GIPS standards offer only two potential reasons why a portfolio would be moved from one composite to another:</p><ol id="CIPM2113-R-s28-L4" class="cfa-curriculum-list-decimal"><li class="cfa-curriculum-list-item"><p>because of documented client-directed changes to a portfolio’s investment mandate, objective, or strategy or</p></li><li class="cfa-curriculum-list-item"><p>if the redefinition of the composite makes it appropriate.</p></li></ol><p>If a client requests a change in mandate that impacts the portfolio’s investment objective or strategy, then a change in composite assignment may be justified. However, changes to portfolios resulting from tactical investment decisions made by the firm that are not directed by the client (e.g., a decision to shift asset allocation exposures based on market conditions) are not an appropriate basis for changing composite assignments. To address this issue, the GIPS standards specifically prohibit firms from moving portfolios into or out of composites as a result of the firm’s tactical changes. This prohibition prevents firms from making tactical adjustments to select portfolios in order to opportunistically modify composite membership. If the portfolio qualified for a particular composite prior to the manager’s tactical change, it should continue to qualify for the same composite after the change.</p><p>The second potential reason why a portfolio could be moved from one composite to another is if the firm changes the rules that govern which portfolios will be assigned to a composite (i.e., the composite is redefined). Changes to composite definitions should be infrequent, and changes to an investment strategy should typically result in the creation of a new composite. In some instances, however, it may be appropriate to alter a composite definition to a degree, as long as the composite’s historical track record is still representative of the strategy going forward. For example, a composite for a strategy that generally invests a small portion of its assets in foreign securities may include portfolios that allow investing in foreign securities as well as those that do not, as long as the ability to invest in foreign securities is not considered a material aspect of the investment strategy. If over time the strategy begins to invest more heavily in foreign securities, however, the firm may decide that the ability to invest in foreign securities is now a vital aspect of implementing the investment strategy. As such, the firm may elect to redefine the composite prospectively in order to include only portfolios that allow investing in foreign securities. All portfolios that prohibit foreign securities will be removed from the composite from that point forward. In all instances, changes to composite definitions must not be applied retroactively (i.e., the historical composite membership and performance cannot be altered as a result of a redefinition). If a composite is redefined, this fact is required to be disclosed in GIPS Reports for the specific composite.</p><p>In all cases where portfolios are removed from composites or moved from one composite to another, the historical performance of the portfolio must remain with the original composite.</p><section id="CIPM2113-R-s28-01-01"><h3 class="dp-heading">Significant Cash Flows</h3><p>Another element that can potentially affect composite construction is the treatment of portfolios that experience significant cash flows. Firms are not required to establish policies related to the treatment of significant cash flows. However, if a firm chooses to establish such a policy, the firm must define “significant” on an <em>ex ante</em> (before the fact), composite-specific basis and must consistently follow the policy. The size of cash flow to be considered significant must be determined as either (1) a specific monetary amount or (2) a percentage of portfolio assets. The determination of significance should be based primarily on the liquidity of the asset class and how quickly cash can be invested or raised when needed. No other criteria, such as the impact or lack of impact of the significant cash flow on a specific portfolio’s performance, may be considered.</p><p>Like any of a firm’s policies for complying with the GIPS standards, policies related to significant cash flows—including the firm’s definition of significance—may change on a prospective basis. However, changes to a firm’s significant cash flow policy cannot be applied retroactively.</p><p>When a significant cash flow occurs, a firm may establish policies for taking one of the following actions:</p><ol id="CIPM2113-R-s28-L5" class="cfa-curriculum-list-decimal"><li class="cfa-curriculum-list-item"><p>removing the portfolio experiencing the flow from composites for a specified period of time,</p></li><li class="cfa-curriculum-list-item"><p>using temporary new accounts to manage the impact of significant cash flows, or</p></li><li class="cfa-curriculum-list-item"><p>doing nothing, because firms are not required to establish significant cash flow policies.</p></li></ol><p>A firm that establishes a policy for removing portfolios from a particular composite because of significant cash flows must</p><ul id="CIPM2113-R-s28-L6" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>consistently remove from the composite all portfolios that experience a significant cash flow and</p></li><li class="cfa-curriculum-list-item"><p>re-include portfolios following a significant cash flow according to the firm’s established policy.</p></li></ul><p>If a firm establishes a policy of removing portfolios that experience significant cash flows from composites that include a limited number of portfolios, the firm risks creating a break in their track record. If a composite includes only a single portfolio and that portfolio is removed from the composite because of a significant cash flow policy, the performance history of the composite ends. If the portfolio is subsequently re-included in the same composite, the composite must be reactivated, but when creating the GIPS Composite Report, performance must be presented both before and after the break. Performance before and after the break must not be linked, which results in a shorter continuous investment track record for the composite.</p><p>As an alternative to temporarily removing from composites portfolios that experience significant cash flows, the GIPS standards recommend that firms use temporary new accounts. A <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-TemporaryNewAccountContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">temporary new account</a> is an accounting mechanism created for temporarily holding client-directed external cash flows until they are either invested according to the composite strategy or disbursed. If a firm chooses to implement a policy for using temporary new accounts to remove the effect of a significant cash flow on a portfolio, the firm must establish policies on an <em>ex ante</em>, composite-specific basis. When a significant cash flow occurs, the firm will direct the external cash flow to the temporary new account. For contributions, the assets will remain in the temporary new account until they are invested and reflect the investment mandate for the portfolio. For withdrawals, securities will remain in the temporary new account until they are liquidated or otherwise distributed to the client. Temporary new accounts should be treated as a non-discretionary portfolio and, therefore, must not be included in any composites.</p><figure id="CIPM2113-R-s28-Ba" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Composite Construction : false</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s28-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>A composite return reflects the performance of:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>all portfolios managed by the firm, regardless of investment strategy.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-1"><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>all discretionary portfolios that meet the composite definition.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>B is correct. Composites must be defined based on investment mandate, objective, or strategy. Composites can include only discretionary portfolios.</p></section></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-2"><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>all discretionary and non-discretionary portfolios that meet the composite definition.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s28-Q2"><legend><span class="cfa-curriculum-question-with-label">2. </span><p>Criteria that may be factored into the definition of a composite include differences in:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-0"><label for="dp-qc-1-0"><p><span class="cfa-curriculum-option-label">A. </span>investment management fees charged.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1"><p><span class="cfa-curriculum-option-label">B. </span>legal structure.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-2"><label for="dp-qc-1-2"><p><span class="cfa-curriculum-option-label">C. </span>the ability to use derivatives.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>C is correct. A composite definition may consider the ability to use certain instruments, such as derivatives. Differences in legal structure or fees charged to the underlying portfolios should not be used as criteria for defining composites. Differences in portfolio type or legal structure could lead to differences in how a strategy is implemented, which could warrant defining separate composites to capture the different variations of the strategy, but differences in legal structure alone should not be a primary consideration.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s28-Q3"><legend><span class="cfa-curriculum-question-with-label">3. </span><p>A properly constructed composite:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-2-0" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-0"><label for="dp-qc-2-0"><p><span class="cfa-curriculum-option-label">A. </span>excludes terminated portfolios.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse2-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-2-1" class="dp-qc-field" type="radio" name="dp-qc-2" value="true" data-response="dpQcResponse2-1"><label for="dp-qc-2-1"><p><span class="cfa-curriculum-option-label">B. </span>includes new portfolios on a timely and consistent basis.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse2-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>B is correct. New portfolios must be included in composites on a timely and consistent basis. Terminated portfolios must remain in composites during the periods when they were under discretionary management. A composite may include both segregated accounts and pooled funds.</p></section></div></dd><dt class="dp-qc-answer"><input id="dp-qc-2-2" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-2"><label for="dp-qc-2-2"><p><span class="cfa-curriculum-option-label">C. </span>includes either segregated accounts or pooled funds, but not both.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse2-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s28-Q4"><legend><span class="cfa-curriculum-question-with-label">4. </span><p>Options provided in the GIPS standards for addressing significant cash flows include:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-3-0" class="dp-qc-field" type="radio" name="dp-qc-3" value="false" data-response="dpQcResponse3-0"><label for="dp-qc-3-0"><p><span class="cfa-curriculum-option-label">A. </span>temporarily removing portfolios from composites that experience external cash flows that have a material impact on performance.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse3-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-3-1" class="dp-qc-field" type="radio" name="dp-qc-3" value="false" data-response="dpQcResponse3-1"><label for="dp-qc-3-1"><p><span class="cfa-curriculum-option-label">B. </span>temporarily removing portfolios from composites that experience external cash flows that exceed the firm’s definition of a large cash flow.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse3-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-3-2" class="dp-qc-field" type="radio" name="dp-qc-3" value="true" data-response="dpQcResponse3-2"><label for="dp-qc-3-2"><p><span class="cfa-curriculum-option-label">C. </span>moving assets related to the external cash flow to a temporary new account.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse3-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>C is correct. The use of temporary new accounts is one of the options outlined in the GIPS standards for handling significant cash flows. Firms may also establish a significant cash flow policy for temporarily removing portfolios that experience significant cash flows, but the policy must be based on the size of the cash flow, not the degree to which performance is impacted. Also, a significant cash flow is different from a large cash flow. Large cash flows should not initiate the removal of portfolios from composite; instead, they should trigger the portfolio to be valued on the date of the cash flow.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure></section><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip0Content" role="tooltip" style="display: none;"><p>An account for temporarily holding client-directed external cash flows until they are either invested according to the composite strategy or disbursed.</p></div>
+<div class="nav-buttons"><a href="courses_1370_modules_items_99535_227_Minimum_Asset_Level.html">← Previous</a><a href="courses_1370_modules_items_99544_229_Composite_Return_Calculation_Composite_Time-Weighted_Returns.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.03 | Data Governance</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 3: Data Integrity</nav>
+<h1 class="page-title screenreader-only">3.03 | Data Governance</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM2105-R-s03-R-1" class="dp-wrapper dp-flat-sections variation-2" title="3.03 | Data Governance"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 3: Data Integrity</span>3.03 | Data Governance</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM2105-R-s03-los-1"><li class="cfa-curriculum-los-item">describe elements of sound investment data governance</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>In this lesson, we will explain what is meant by data governance and why it is important to the firm and its existing and potential clients. We will also describe desirable characteristics of sound data governance frameworks.</p><section id="CIPM2105-R-s03-01-01"><h3 class="dp-heading">What Is Data Governance?</h3><p><a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-DataGovernanceContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">Data governance</a> is the ownership and oversight of the firm’s data over its life cycle. The <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip1Content" aria-describedby="CIPM-DataLifeCycleContent" data-transformed="true" id="transformedTip1" role="button" aria-expanded="false">data life cycle</a>, as we will describe, is the sequence of stages that data will go through within a firm. Data governance provides overall management and integrity over data and drives good data management practices. Data governance will put in place the framework and oversight within the firm’s departments to ensure the transparency, accuracy, and ownership of data across the organization. This outcome is achieved by implementing standards, policies, and procedures to support and guide the framework.</p></section><section id="CIPM2105-R-s03-01-02"><h3 class="dp-heading">Why Data Governance Is Important</h3><p>Failure to implement a robust data governance framework creates a number of risks to the firm’s strategic and customer outcomes. It could also negatively affect the quality and accuracy of disclosures to regulators and asset owners. Not managing data appropriately erodes and may ultimately destroy the credibility of and reliance on the accuracy and completeness of the firm’s data.</p><p>Sound data governance adds value to the organization in many different ways. The most substantial ones are as follows:</p><ul id="CIPM2105-R-s03-L1" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>It protects clients’ interests and helps ensure accurate reporting to asset owners and regulators. Demonstrating strong data governance should also help win and retain business.</p></li><li class="cfa-curriculum-list-item"><p>It helps staff and management make more informed decisions and identify business opportunities (for example, reduction in duplication of data across the firm can result in reduced operational processes, leading to time and cost efficiencies).</p></li><li class="cfa-curriculum-list-item"><p>It provides senior management with a central view of how data are being managed across the organization. It also provides senior management with reassurance that data are being managed in a controlled, efficient, and consistent manner throughout the organization.</p></li></ul><p><a class="internal" role="button" href="#CIPM2105-R-s03-EXH2" aria-label="View Exhibit 2">Exhibit 2</a> shows an example of an asset management firm’s data governance framework. When such a framework exists, it typically features a committee that oversees the firm’s data governance policy. In turn, it defines controls and processes that are implemented by <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip2Content" aria-describedby="CIPM-DataOwnersContent" data-transformed="true" id="transformedTip2" role="button" aria-expanded="false">data owners</a>, individuals who are accountable for the data and its source. The exhibit also shows that data owners are responsible for defining the accuracy and completeness of all data within the data domains (of which the firm will typically have several, such as top-level “Performance”) and data entities (a few dozen, such as “performance attribution” or “relative performance”). Data owners oversee and appoint data stewards who are responsible for monitoring the quality of data attributes (potentially thousands of actual data items—for example, ISIN [International Securities Identification Number], SEDOL [Stock Exchange Daily Official List], fund name, fund identifier, and security name). The framework exists to the benefit of both internal and external stakeholders.</p><figure id="CIPM2105-R-s03-EXH2" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 2<span style="display: block;">Data Governance Framework</span></figcaption><div class="cfa-curriculum-graphic"><img alt="A flowchart of data governance committee that starts from setting the data policy, defining the controls and processes, which are then implemented by the data owner who is appointed by data stewards." src="https://learn.cfainstitute.org/courses/1366/files/224132/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" aria-describedby="CIPM2105-R-s03-EXH2-extended-desc" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224132" data-api-returntype="File" data-width="600"><details id="CIPM2105-R-s03-EXH2-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;"><summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary><p class="dp-panel-outside-panel">Data owner is accountable for defining the accuracy and completeness of all data within the data domain and data entity. Data stewards are responsible for maintaining the quality of the data attributes. Data attributes are used for specific purposes and needs of the data consumers, who are connected with the data owner as they drive the data requirements and priorities. Data attributes are created and maintained in a system of record which feeds into a golden copy.</p></details></div></figure></section><section id="CIPM2105-R-s03-01-03"><h3 class="dp-heading">Features of Data Governance Framework</h3><p>There are two main features of a data governance framework:</p><ul id="CIPM2105-R-s03-L2" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>The data life cycle and governance principles</p></li><li class="cfa-curriculum-list-item"><p>Key roles within the data governance framework</p></li></ul><p>Next, we provide an overview of each.</p><section id="CIPM2105-R-s03-01-03-01"><h4>The Data Life Cycle and Governance Principles</h4><p><a class="internal" role="button" href="#CIPM2105-R-s03-EXH3" aria-label="View Exhibit 3">Exhibit 3</a> provides a high-level illustration of what a typical data life cycle would look like, reflecting the fact that data go through several stages. These span from creation, through secure storage, distribution, and use, all the way to retention and possible deletion, which we label as the “destruction” stage. The data owner is accountable for ensuring this life cycle is managed for the data that he or she is assigned ownership of. This life cycle should drive the principles that an organization adopts to ensure effective and good data governance principles, as shown in <a class="internal" role="button" href="#CIPM2105-R-s03-EXH4" aria-label="View Exhibit 4">Exhibit 4</a>.</p><figure id="CIPM2105-R-s03-EXH3" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 3<span style="display: block;">Data Life Cycle</span></figcaption><div class="cfa-curriculum-graphic"><img alt="A data life cycle under the principal of accountable and starts from consume and create, store and secure, distribution and use, hold and discover, retention and archive, and destruction." src="https://learn.cfainstitute.org/courses/1366/files/224137/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224137" data-api-returntype="File" data-width="600"></div></figure><div id="CIPM2105-R-s03-EXH4" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 4<span style="display: block;">Data Governance Principles</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM2105-R-s03-EXH4-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM2105-R-s03-EXH4-title">Exhibit 4: Data Governance Principles</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Principle</strong></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Description</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Accountable</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring that the organization will implement a framework that will oversee and lead data governance and delegate roles and responsibilities to appropriate individuals. The organization will develop policies and controls to support individuals with their data governance–related roles and responsibilities.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Consume &amp; Create</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring that all data consumed or created by an organization have a purpose and reason and undergo review for quality to ensure accuracy and completeness is maintained in all circumstances.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Store &amp; Secure</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring that data are classified within the organization so that the appropriate level of security and encryption is applied at an attribute, file, and application level.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Distribution &amp; Use</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring the distribution and usage of the organization’s data, both internally or externally, will be legal, with lineage documented. Business justification and purpose must be documented, making sure that the correct governance, assurance, and security arrangements are in place and sustained.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Hold &amp; Discover</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring that data will be held in a manner that allows for timely, efficient, and accurate discovery from any interested party, including regulatory bodies or clients that may legitimately request access to the data.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Retention &amp; Archive</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring that data will be held for the appropriate amount of time, considering all legal, regulatory, business, and historical requirements.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Destruction</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring that once data have passed the retention period or if there is a specific request from an authorized party that does not conflict with any legal or regulatory requirements, secure destruction arrangements are in place.</td></tr></tbody></table></div></div></div><figure id="CIPM2105-R-s03-Ba" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Data Governance Principles</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2105-R-s03-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>An investment management firm has policies and arrangements to classify and handle data to ensure that the appropriate level of security and encryption is used for the data it holds. These policies will also ensure that data are held in a manner that allows timely, efficient, and accurate discovery from any legitimate party that requests to view it. Finally, the firm has secure data destruction arrangements in place. Data are subject to a destruction principle that requires that data be held for seven years or as long as there is secure storage capacity on the firm’s systems. Once storage limits are reached, data can be destroyed until enough storage again exists in the system.</p><p>Which data governance principle is the firm <em>most likely</em> violating?</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>Store and secure</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-1"><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>Hold and discover</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-2"><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>Destruction</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>C is correct. Data can be destroyed only once it has passed its retention period or if there is a specific request from an authorized party that does not conflict with any legal or regulatory requirements. A is incorrect because the store and secure principle is satisfied since the firm is ensuring an appropriate level of security and encryption. B is incorrect because the hold and discover principle is satisfied. The description states that policies must ensure that data are held in a manner that allows timely, efficient, and accurate discovery from any legitimate party.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure></section><section id="CIPM2105-R-s03-01-03-02"><h4>Key Roles within the Data Governance Framework</h4><p>The data governance framework features key roles that need to be assigned within an organization to support it, enable its functioning, and implement its principles. <a class="internal" role="button" href="#CIPM2105-R-s03-EXH5" aria-label="View Exhibit 5">Exhibit 5</a> outlines some of the key roles that should be considered within a firm and a brief description of what the role holder’s responsibilities should be. At the top level, the firm’s executive committee includes a member responsible for the effective deployment of data governance capabilities. It also features a data governance officer who develops an environment that ensures transparency of all current data governance–related policies and objectives across the organization. The data governance officer is supported by the data governance leads, who are responsible for the day-to-day oversight of the principles and activities and for reporting any issues or violations to the data governance officer. Data owners and data stewards actually work with the data on day-to-day basis, as part of their performance measurement functions. It should be noted that each firm is different and that some roles may or may not exist. To maintain simplicity, we do not provide descriptions of some roles that exist in some firms (such as data protection officer or systems of record IT owner).</p><figure id="CIPM2105-R-s03-EXH5" class="dp-content-block cfa-curriculum-exhibit-box"><figcaption class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 5<span style="display: block;">Key Roles in Data Governance Framework</span></figcaption><img id="CIPM2105-R-s03-EXH5" src="https://learn.cfainstitute.org/courses/1366/files/224134/preview" class="cfa-curriculum-inline-image" alt="Accountable executives divided into data owners and data governance officer. Data owners is followed by data stewards and data governance officer is followed by data governance lead." loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224134" data-api-returntype="File" style="max-width: 100%;" data-width="820"><div id="CIPM2105-R-s03-Ta" class="cfa-curriculum-table-wrap"><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true"><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Role Name</strong></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Role Description</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Accountable Executive</th><td style="text-align: left; vertical-align: top; padding: 8px; ">The accountable executive is a member of the executive committee and is responsible for the effective deployment of data governance capabilities to improve data within the organization and its use in achieving the organization’s strategic goals and objectives.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Data Governance Officer</th><td style="text-align: left; vertical-align: top; padding: 8px; ">The individual who is responsible for developing an environment that ensures transparency of all current data governance–related policies and objectives for the organization.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Data Governance Lead</th><td style="text-align: left; vertical-align: top; padding: 8px; ">The person in this role provides day-to-day support for the data governance officer and is responsible for ensuring that all data governance–related principles and activities are operating as expected through the implementation (or “operationalization”) of the data governance structure. He or she monitors for non-compliance, escalates any such occurrences to the data governance officer, and builds awareness within the organization. Typically, a firm would have one such person in place for each major business line.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Data Owner</th><td style="text-align: left; vertical-align: top; padding: 8px; ">The individual who is accountable for making sure data stewards are in place for the data that he or she has been assigned. They also act as the deciding vote on any changes to any of the data definitions, rules, systems of record, or usage for their dataset.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Data Steward</th><td style="text-align: left; vertical-align: top; padding: 8px; ">The individual responsible for ensuring data maintenance is upheld within a specific system of record.</td></tr></tbody></table></div></div></div></figure></section></section><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip0Content" role="tooltip" style="display: none;"><p>The ownership and oversight of the firm’s data over its life cycle.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip1Content" role="tooltip" style="display: none;"><p>The sequence of stages that data will go through within a firm.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip2Content" role="tooltip" style="display: none;"><p>Individuals who are accountable for the data and the data source.</p></div>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99537_302_Dimensions_of_Data_Quality.html">← Previous</a><a href="courses_1366_modules_items_99539_304_Data_Errors_in_the_Performance_and_Risk_Measurement_Process.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

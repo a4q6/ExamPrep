@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.05 | Interpreting Data Sets</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Risk Measurement and Attribution › Module 1: Risk Measurement and Risk Attribution</nav>
+<h1 class="page-title screenreader-only">1.05 | Interpreting Data Sets</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0018-R-s05-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.05 | Interpreting Data Sets">
+    <header class="dp-header dp-flat-sections variation-2">
+        <h2 class="dp-heading"><span class="dp-header-pre">Module 1: Risk Measurement and Risk Attribution</span>1.05 | Interpreting Data Sets</h2>
+    </header>
+    <div class="cfa-curriculum-los-box">
+        <h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Learning Outcome</h3>
+        <p class="p1">The candidate should be able to:</p>
+        <ul id="CIPM0018-R-s05-los-1">
+            <li class="cfa-curriculum-los-item">describe and interpret return data sets with respect to their implications for market risk</li>
+        </ul>
+    </div>
+    <hr class="dp-hr-solid-light dp-hr-color-dp-primary">
+    <p>With several basic risk concepts in hand, it is appropriate to introduce the specific concepts and tools for analyzing investment data sets. In this lesson, we introduce the concepts of frequency distributions, histograms, and measures of central tendency.</p>
+    <p>One way to examine the performance of a portfolio manager is to summarize the manager’s holding period returns into a frequency distribution. A <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-FrequencyDistributionContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">frequency distribution</a> uses intervals of returns into which each period’s return is placed.</p>
+    <p>As an example, we will use the historical monthly returns for the Argentina stock market from January 1976 to March 2011, calculated in US dollars. Upon sorting the returns, the smallest return is −64.95%. We will use interval values from −65% to +65%, with interval widths of 5%. After each monthly return has been placed in an interval, some intervals will have more than one observation. The resulting frequency distribution table is shown in <a class="internal" role="button" href="#CIPM0018-R-s05-EXH3" aria-label="View Exhibit 3">Exhibit 3</a>.</p>
+    <div id="CIPM0018-R-s05-EXH3" class="cfa-curriculum-table-wrap">
+        <div class="cfa-curriculum-exhibit-table-title" aria-hidden="true"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 3<span style="display: block;">Frequency Distribution for Argentina Stock Returns</span></div>
+        <div class="cfa-curriculum-table-container">
+            <div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0018-R-s05-EXH3-title">
+                <caption id="CIPM0018-R-s05-EXH3-title" class="cfa-curriculum-table-caption-hidden">Exhibit 3: Frequency Distribution for Argentina Stock Returns</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Interval</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Frequency of Observations</strong></th>
+                    </tr>
+                </thead>
+                <tbody style="border-left: 1px solid #dee2e6; border-collapse: collapse;">
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−65% to −60%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−60% to −55%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−55% to −50%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−50% to −45%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−45% to −40%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−40% to −35%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−35% to −30%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">4</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−30% to −25%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−25% to −20%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">16</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−20% to −15%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">17</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−15% to −10%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">26</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−10% to −5%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">54</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">−5% to 0%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">61</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">0% to 5%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">70</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">5% to 10%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">65</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">10% to 15%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">32</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">15% to 20%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">18</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">20% to 25%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">13</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">25% to 30%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">7</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">30% to 35%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">7</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">35% to 40%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">4</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">40% to 45%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">45% to 50%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">50% to 55%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">55% to 60%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">60% to 65%</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">65% and above</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">8</td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+        <p><span class="cfa-curriculum-table-wrap-foot"><em>Source</em>: Frequency distribution created using data from Datastream.</span></p>
+    </div>
+    <p>The table would be read as follows: In the first interval, there are two return observations greater than or equal to −65% and less than −60%. There are no observations between −60% and −55%. The interval with the highest frequency of observations is 0% to 5%. There are eight returns that are greater than the highest interval value of 65%.<a id="transformedTip1" class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0018-R-s05-FN1_Content" data-transformed="true" role="button" aria-expanded="false"><sup>8</sup></a></p>
+    <p>Another method of summarizing data is to use the frequency distribution to plot a bar chart, with the resulting figure in <a class="internal" role="button" href="#CIPM0018-R-s05-EXH4" aria-label="View Exhibit 4">Exhibit 4</a> referred to as a <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip2Content" aria-describedby="CIPM-HistogramContent" data-transformed="true" id="transformedTip2" role="button" aria-expanded="false">histogram</a>.</p>
+    <figure id="CIPM0018-R-s05-EXH4" class="cfa-curriculum-exhibit-figure">
+        <figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 4<span style="display: block;">Histogram of Argentina Stock Returns</span></figcaption>
+        <div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1368/files/224022/preview" alt="A histogram for return interval in percent from negative 65 to 65 and higher on x-axis; frequency from 0 to 80 on y-axis. Some values. Maximum, 70, 0 to 5. Minimum, 0, negative 60 to negative 55. From Negative 50 to negative 45, 2. From 5 to 10, 65." data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1368/files/224022" data-api-returntype="File" loading="lazy" data-width="600"></div>
+        <p><span class="cfa-curriculum-fig-attrib"><em>Source</em>: Histogram created using data from Datastream.</span></p>
+    </figure>
+    <p>The histogram provides a visual confirmation of the frequency distribution, where again the interval with the highest number of observations is 0% to 5%, with 70 returns in that range. If an investor believed that these <em>ex post</em> return frequencies were indicative of the future, he or she might conclude that the <em>ex ante</em> return was between 0% and 5%.</p>
+    <p>However, instead of providing only a range of <em>ex post</em> returns, we can also calculate the average, or <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip3Content" aria-describedby="CIPM-ArithmeticMeanReturnContent" data-transformed="true" id="transformedTip3" role="button" aria-expanded="false">arithmetic mean return</a>, for a historical time period. Given returns <em>R<sub>i</sub></em>, from <em>i</em> = 1, …, <em>n</em>, the arithmetic mean of returns, <span class="cfa-curriculum-display-inline-formula"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mrow><mover accent=&quot;true&quot;><mi>R</mi><mo>&amp;#xAF;</mo></mover><mo>,</mo></mrow></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.767ex" height="2.725ex" viewBox="0 -905.6 1191.3 1173.4" role="img" focusable="false" style="vertical-align: -0.622ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-52" x="35" y="0"></use><g transform="translate(83,220)"><use xlink:href="#MJMAIN-AF" x="-70" y="0"></use><g transform="translate(353.7804709141274,0) scale(0.1038781163434903,1)"><use xlink:href="#MJMAIN-AF"></use></g><use xlink:href="#MJMAIN-AF" x="329" y="0"></use></g><use xlink:href="#MJMAIN-2C" x="912" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover accent="true"><mi>R</mi><mo>¯</mo></mover><mo>,</mo></mrow></math></span></span><script type="math/mml" id="MathJax-Element-1"><math id="m1">
+                <mrow>
+                    <mover accent="true">
+                        <mi>R</mi>
+                        <mo>¯</mo>
+                    </mover>
+                    <mo>,</mo>
+                </mrow>
+            </math></script></span> is:</p>
+    <div id="CIPM0018-R-s05-E1" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-2-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mover accent=&quot;true&quot;><mi>R</mi><mo>&amp;#xAF;</mo></mover><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mn>1</mn><mi>n</mi></mfrac></mstyle><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x2211;</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><msub><mi>R</mi><mi>i</mi></msub></mrow></mstyle></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="14.142ex" height="6.799ex" viewBox="0 -1649.8 6089 2927.5" role="img" focusable="false" style="vertical-align: -2.968ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-52" x="35" y="0"></use><g transform="translate(83,220)"><use xlink:href="#MJMAIN-AF" x="-70" y="0"></use><g transform="translate(353.7804709141274,0) scale(0.1038781163434903,1)"><use xlink:href="#MJMAIN-AF"></use></g><use xlink:href="#MJMAIN-AF" x="329" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="1190" y="0"></use><g transform="translate(2246,0)"><g transform="translate(120,0)"><rect stroke="none" width="720" height="60" x="0" y="220"></rect><use xlink:href="#MJMAIN-31" x="110" y="676"></use><use xlink:href="#MJMATHI-6E" x="60" y="-686"></use></g></g><g transform="translate(3374,0)"><use xlink:href="#MJSZ2-2211" x="0" y="0"></use><g transform="translate(147,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1124" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="721" y="1627"></use><g transform="translate(1611,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>R</mi><mo>¯</mo></mover><mo>=</mo><mstyle displaystyle="true"><mfrac><mn>1</mn><mi>n</mi></mfrac></mstyle><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><msub><mi>R</mi><mi>i</mi></msub></mrow></mstyle></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-2"><math id="m2">
+            <semantics>
+                <mrow>
+                    <mover accent="true">
+                        <mi>R</mi>
+                        <mo>¯</mo>
+                    </mover>
+                    <mo>=</mo>
+                    <mstyle displaystyle="true">
+                        <mfrac>
+                            <mn>1</mn>
+                            <mi>n</mi>
+                        </mfrac>
+                    </mstyle>
+                    <mstyle displaystyle="true">
+                        <munderover>
+                            <mo>∑</mo>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo>=</mo>
+                                <mn>1</mn>
+                            </mrow>
+                            <mi>n</mi>
+                        </munderover>
+                        <mrow>
+                            <msub>
+                                <mi>R</mi>
+                                <mi>i</mi>
+                            </msub>
+                        </mrow>
+                    </mstyle>
+                </mrow>
+            </semantics>
+        </math></script><span class="cfa-curriculum-display-formula-number">1</span></div>
+    <p>These <em>ex post</em> Argentina stock market returns consist of 423 monthly returns. The sum of the returns is 1,463.71%. The arithmetic mean is then 1,463.71%/423 = 3.46%. The investor might then conclude that the most likely return in the next month would be 3.46%.</p>
+    <p>Instead of using the arithmetic mean return as a measure of central tendency, the investor may instead want to use the median return. The <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip4Content" aria-describedby="CIPM-MedianContent" data-transformed="true" id="transformedTip4" role="button" aria-expanded="false">median</a> is the “middlemost” observation; i.e., in a set of observations that has been ranked from highest to lowest, the median will lie in the middle. The advantage of the median is that it is not affected by the magnitudes of extreme values, as is the mean. However, this advantage can also be viewed as a disadvantage in that the median does not incorporate the magnitudes of values, only the relative ranking of the data.</p>
+    <p>In our example, there are 423 observations. To find the middle observation, we calculate (<em>n</em> + 1)/2, where <em>n</em> is the total number of observations. The median is then the (423 + 1)/2 = 212th observation. When we rank the returns from highest to lowest, the 212th return is 1.55%.<a id="transformedTip5" class="dp-popover-trigger" href="#transformedTip5Content" aria-describedby="CIPM0018-R-s05-FN2_Content" data-transformed="true" role="button" aria-expanded="false"><sup>9</sup></a></p>
+    <p>Being simply the “middlemost” value, the median is not affected by the magnitudes of extreme values on either end of the histogram. The arithmetic mean, on the other hand, is affected because those extreme values are included in calculating the sum. If the arithmetic mean is greater than the median, it is usually the case that there are extreme positive values pulling the arithmetic mean up. This generally results in <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip6Content" aria-describedby="CIPM-PositiveSkewnessContent" data-transformed="true" id="transformedTip6" role="button" aria-expanded="false">positive skewness</a>. When large losses weigh down the arithmetic mean, <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip7Content" aria-describedby="CIPM-NegativeSkewnessContent" data-transformed="true" id="transformedTip7" role="button" aria-expanded="false">negative skewness</a> generally results.<a id="transformedTip8" class="dp-popover-trigger" href="#transformedTip8Content" aria-describedby="CIPM0018-R-s05-FN3_Content" data-transformed="true" role="button" aria-expanded="false"><sup>10</sup></a> Investors generally prefer positive skewness because it indicates the opportunity for large positive returns.</p>
+    <p>As shown in <a class="internal" role="button" href="#CIPM0018-R-s05-EXH5" aria-label="View Exhibit 5">Exhibit 5</a>, a positively skewed distribution is asymmetric, as there are more large gains than large losses. As a result, the right tail is longer than the left tail. In a negatively skewed distribution, there are large losses that lengthen the left tail.</p>
+    <figure id="CIPM0018-R-s05-EXH5" class="cfa-curriculum-exhibit-figure">
+        <figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 5<span style="display: block;">Positively and Negatively Skewed Distributions</span></figcaption>
+        <div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1368/files/224019/preview" alt="A set of two distributions, one with negative skew and one with positive skew. Negative skew, the left tail is longer than the right tail and is highlighted. Positive skew, the right tail is longer than the left tail and half portion is highlighted." aria-describedby="CIPM0018-R-s05-EXH5-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1368/files/224019" data-api-returntype="File" loading="lazy" data-width="600">
+            <details id="CIPM0018-R-s05-EXH5-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+                <summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+                <p class="dp-panel-outside-panel">A set of two distributions, one with negative skew and one with positive skew. Negative skew, the left tail is longer than the right tail and is highlighted. Positive skew, the right tail is longer than the left tail and half portion on right is highlighted.</p>
+            </details>
+        </div>
+    </figure>
+    <p>The analysis we have used so far is <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip9Content" aria-describedby="CIPM-TimeSeriesAnalysisContent" data-transformed="true" id="transformedTip9" role="button" aria-expanded="false">time-series analysis</a>, in which the returns for an asset are examined over time. The returns for the Argentina stock market are clustered around the middle values, but there also appears to be a fair amount of variability. This variability represents risk to the investor because it indicates that large losses are possible. But how variable are they relative to some other investment? To address this question, we turn to <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip10Content" aria-describedby="CIPM-CrossSectionalAnalysisContent" data-transformed="true" id="transformedTip10" role="button" aria-expanded="false">cross-sectional analysis</a>, where we compare the returns for one asset against those for another.</p>
+    <p>We next examine the US dollar returns for the Morgan Stanley Capital International (MSCI) Europe/Australasia/Far East (EAFE) Index. EAFE is an index that includes the returns for more than 20 developed country markets. We would expect EAFE to have less variable returns than Argentina because it is composed of more mature countries and because it is diversified across many countries. Argentina is often classified as an emerging market, and emerging markets usually entail greater return variability. The histogram of EAFE returns, using the same return intervals and time period as for Argentina, is shown in <a class="internal" role="button" href="#CIPM0018-R-s05-EXH6" aria-label="View Exhibit 6">Exhibit 6</a>.</p>
+    <figure id="CIPM0018-R-s05-EXH6" class="cfa-curriculum-exhibit-figure">
+        <figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 6<span style="display: block;">Histogram of EAFE Index Returns</span></figcaption>
+        <div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1368/files/224018/preview" alt="A histogram for return interval in percent from negative 65 to 65 and higher on x-axis; frequency from 0 to 200 on y-axis. Maximum, 180, 0 to 5. Minimum, 10, negative 15 to negative 10 and 10 to 15." aria-describedby="CIPM0018-R-s05-EXH6-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1368/files/224018" data-api-returntype="File" loading="lazy" data-width="600">
+            <details id="CIPM0018-R-s05-EXH6-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+                <summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+                <p class="dp-panel-outside-panel">Return interval in percent from negative 65 to 65 and higher on x-axis; frequency from 0 to 200 on y-axis. Some values. Maximum, 180, 0 to 5. Minimum, 10, negative 15 to negative 10 and 10 to 15. Negative 10 to negative 5, 30. From 5 to 10, 60. Negative 5 to 0, 120.</p>
+            </details>
+        </div>
+        <p><span class="cfa-curriculum-fig-attrib"><em>Source</em>: Histogram created using data from Datastream.</span></p>
+    </figure>
+    <p>It is obvious that the returns for EAFE are much less variable than those for Argentina. Although the highest frequency of returns is again in the 0% to 5% range, there are no returns less than −25% or greater than 20%. We would conclude that the dispersion in EAFE returns is relatively low.</p>
+    <p>There is also very little skewness, as the return distribution is fairly symmetric. The arithmetic mean and median are quite close at 0.98% and 1.07%, respectively. If an investor had invested in the EAFE Index, there would have been no opportunity to earn returns of 65% or greater, as there was during eight months for Argentina.</p>
+    <p>However, there was also no month in which the investor lost more than 25% of EAFE value. In the case of Argentina, there were 16 months during which the loss was greater than 25%. The possibility of extreme losses, referred to as <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip11Content" aria-describedby="CIPM-TailRiskContent" data-transformed="true" id="transformedTip11" role="button" aria-expanded="false">tail risk</a> (in reference to the left tail in a distribution), results in much more value destruction in the case of Argentina. The lowest return in Argentina was almost −65%, whereas it was −20% for EAFE. The potential for a loss, often referred to as <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip12Content" aria-describedby="CIPM-DownsideRiskContent" data-transformed="true" id="transformedTip12" role="button" aria-expanded="false">downside risk</a>, is 45% for Argentina, as 190 of the 423 monthly returns are negative. For EAFE, this statistic is lower at 39%, as 163 returns are negative.</p>
+    <p>Previously, we used the median to separate the Argentina returns into halves. Another method of examining the returns would be to divide the data into four sections, or <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip13Content" aria-describedby="CIPM-QuartilesContent" data-transformed="true" id="transformedTip13" role="button" aria-expanded="false">quartiles</a>. The three values that separate the returns into fourths are referred to as the first quartile, the second quartile (the median), and the third quartile. We rank the returns from lowest to highest to determine each quartile value. Doing so for both Argentina and EAFE, we would obtain the values shown in <a class="internal" role="button" href="#CIPM0018-R-s05-EXH7" aria-label="View Exhibit 7">Exhibit 7</a>.</p>
+    <div id="CIPM0018-R-s05-EXH7" class="cfa-curriculum-table-wrap">
+        <div class="cfa-curriculum-exhibit-table-title" aria-hidden="true"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 7<span style="display: block;">Quartile Values for Argentina and EAFE Index Returns</span></div>
+        <div class="cfa-curriculum-table-container">
+            <div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0018-R-s05-EXH7-title">
+                <caption id="CIPM0018-R-s05-EXH7-title" class="cfa-curriculum-table-caption-hidden">Exhibit 7: Quartile Values for Argentina and EAFE Index Returns</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Argentina</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>EAFE</strong></th>
+                    </tr>
+                </thead>
+                <tbody style="border-left: 1px solid #dee2e6; border-collapse: collapse;">
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">1st Quartile</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">−7.46%</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">−1.73%</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">2nd Quartile</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.55</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.07</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">3rd Quartile</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">9.66</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">4.00</td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+        <p><span class="cfa-curriculum-table-wrap-foot"><em>Source</em>: Quartiles created using data from Datastream.</span></p>
+    </div>
+    <p>The quartile statistics confirm the results from the histogram. The potential for high returns is much greater for the Argentina stock index than it is for the EAFE Index. A quarter of the returns for the former index are greater than 9.66%, as opposed to 4.00% for the EAFE Index. But again, there is also a greater potential for losses. A quarter of the returns for Argentina are lower than −7.46%, as opposed to −1.73% for the EAFE Index. We could also divide the data into <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip14Content" aria-describedby="CIPM-QuintilesContent" data-transformed="true" id="transformedTip14" role="button" aria-expanded="false">quintiles</a> (fifths) or <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip15Content" aria-describedby="CIPM-DecilesContent" data-transformed="true" id="transformedTip15" role="button" aria-expanded="false">deciles</a> (tenths) or <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip16Content" aria-describedby="CIPM-PercentilesContent" data-transformed="true" id="transformedTip16" role="button" aria-expanded="false">percentiles</a> (hundredths) to make comparisons.</p>
+    <p>Using visual comparisons and rankings of returns, it is easy to determine that the returns for EAFE are much less variable than those for Argentina. Some comparisons aren’t quite as obvious. In these cases, more exact risk measures are needed. We now examine other methods of quantifying return variability.</p>
+    <figure id="CIPM0018-R-s05-Ba" class="dp-content-block cfa-curriculum-exercise-box">
+        <figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Knowledge Check: Interpreting Histograms</figcaption>
+        <section>
+            <p>The histogram below provides the percentage changes in the value of the Brazilian real (BRL) relative to the US dollar from February 2007 to February 2012. There were 259 weekly observations. Reflecting the appreciation of the real over this time period, the sum of its weekly returns during the measurement period was 23.31%.</p>
+            <figure id="CIPM0018-R-s05-EXH8" class="cfa-curriculum-exhibit-figure">
+                <figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 8<span style="display: block;">Histogram of Changes in the Value of the Brazilian Real Relative to the US Dollar</span></figcaption>
+                <div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1368/files/224023/preview" alt="Change in BRL in percent from negative 12 to 5 on x-axis and frequency from 0 to 80 on y-axis. Maximum Frequency, 75 at 1% change in BRL. Minimum frequency 0.5 at negative 12% change in BRL." data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1368/files/224023" data-api-returntype="File" loading="lazy" data-width="600"></div>
+                <p><span class="cfa-curriculum-fig-attrib"><em>Source</em>: Histogram created using data from OANDA.</span></p>
+            </figure>
+            <p>Using the information provided, address the following:</p>
+            <div class="dp-content-block">
+                <div id="CIPM0018-R-s05-Q1" class="dp-qc cfa-curriculum-question-with-label dp-qc-built"><fieldset><span class="cfa-curriculum-question-with-label">1. </span>
+                    <p>Determine how the median observation would be found for these data.</p>
+                    <div class="dp-panels-wrapper dp-accordion-default">
+                        
+                            <h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer dp-panels-built" style="display: inline-block;" id="dpPanel0" href="javascript:void(0)"><a href="javascript:void(0)" role="button" class="dp-panel-toggler , dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: rgb(255, 255, 255) !important; display: inline-block;" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Check Answer</a></h4>
+                            <div class="dp-panel-content cfa-curriculum-solution" tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region">
+                                <section>
+                                    <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                    <p>To determine the median, calculate (<em>n</em> + 1)/2, where <em>n</em> is the total number of observations. For these data, the median is equal to the (259 + 1)/2 = 130th observation. If we had the original data for the exchange rate changes and ranked the returns from highest to lowest, we would find that the 130th return was equal to 0.28%.</p>
+                                </section>
+                            </div>
+                        
+                    </div>
+                </fieldset></div>
+            </div>
+            <div class="dp-content-block">
+                <div id="CIPM0018-R-s05-Q2" class="dp-qc cfa-curriculum-question-with-label dp-qc-built"><fieldset><span class="cfa-curriculum-question-with-label">2. </span>
+                    <p>Calculate the arithmetic mean of the weekly percentage changes in the value of the real.</p>
+                    <div class="dp-panels-wrapper dp-accordion-default">
+                        
+                            <h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer dp-panels-built" style="display: inline-block;" id="dpPanel1" href="javascript:void(0)"><a href="javascript:void(0)" role="button" class="dp-panel-toggler , dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: rgb(255, 255, 255) !important; display: inline-block;" aria-controls="dpPanel1Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Check Answer</a></h4>
+                            <div class="dp-panel-content cfa-curriculum-solution" tabindex="0" id="dpPanel1Content" style="display: none;" aria-labelledby="dpPanel1" role="region">
+                                <section>
+                                    <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                    <p>The arithmetic mean is the sum divided by the total number of observations. In this case, we calculate 23.31%/259 = 0.09%.</p>
+                                </section>
+                            </div>
+                        
+                    </div>
+                </fieldset></div>
+            </div>
+            <div class="dp-content-block">
+                <div id="CIPM0018-R-s05-Q3" class="dp-qc cfa-curriculum-question-with-label dp-qc-built"><fieldset><span class="cfa-curriculum-question-with-label">3. </span>
+                    <p>Discuss the presence of tail risk in the data.</p>
+                    <div class="dp-panels-wrapper dp-accordion-default">
+                        
+                            <h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer dp-panels-built" style="display: inline-block;" id="dpPanel2" href="javascript:void(0)"><a href="javascript:void(0)" role="button" class="dp-panel-toggler , dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: rgb(255, 255, 255) !important; display: inline-block;" aria-controls="dpPanel2Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Check Answer</a></h4>
+                            <div class="dp-panel-content cfa-curriculum-solution" tabindex="0" id="dpPanel2Content" style="display: none;" aria-labelledby="dpPanel2" role="region">
+                                <section>
+                                    <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                    <p>There is one extreme value in the −12% interval, which is in the far left tail of the distribution. This change in value of the real was −12.6% and occurred during the week of 12 October 2008, a period of heightened market variability.</p>
+                                    <p>We refer to the possibility of extreme losses as tail risk, and we would characterize changes in the value of the real as being subject to this risk. The extreme loss of −12.6% represents negative skewness and helps “pull” the mean (0.09%) down below the median of 0.28%.</p>
+                                </section>
+                            </div>
+                        
+                    </div>
+                </fieldset></div>
+            </div>
+        </section>
+    </figure>
+    <div class="dp-content-block cfa-curriculum-reflist">
+        <h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Reference List</h3>
+        <div class="dp-panels-wrapper dp-accordion-default">
+            
+                <h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel3"><a href="#dpPanel3" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel3Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3>
+                <div class="dp-panel-content " tabindex="0" id="dpPanel3Content" style="display: none;" aria-labelledby="dpPanel3" role="region">
+                    <ul id="CIPM0018-R-s05-ref1">
+                        <li id="CIPM0018-R-s05-R1list">von Hippel, P. T. (2005). “Mean, Median, and Skew: Correcting a Textbook Rule.” <em>Journal of Statistics Education : An International Journal on the Teaching and Learning of Statistics</em> 13 (2). <a href="http://www.amstat.org/publications/jse/v13n2/vonhippel.html" target="_blank" class="external" rel="noreferrer noopener"><span>www.amstat.org/publications/jse/v13n2/vonhippel.html</span><span class="external_link_icon" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; " role="presentation"><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" style="width:1em; height:1em; vertical-align:middle; fill:currentColor">
+    <path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a></li>
+                    </ul>
+                </div>
+            
+        </div>
+    </div>
+    <div id="transformedTip1Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+        <p><sup>8</sup> A standard frequency distribution and histogram would plot all the intervals that returns reside in, but to simplify the presentation, we categorize the eight highest returns in the interval “65% and above.”</p>
+    </div>
+    <div id="transformedTip5Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+        <p><sup>9</sup> Note that if there were an even number of observations, the median would be the average of the <em>n</em>/2 and (<em>n</em> + 2)/2 observations.</p>
+    </div>
+    <div id="transformedTip8Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+        <p><sup>10</sup> It is sometimes said that if the distribution is positively skewed, the mean will be greater than the median, and with negative skewness, the mean will be less than the median. However, this is not always true, especially in the case of discrete distributions. For more information, see von Hippel (2005).</p>
+    </div>
+    <div id="transformedTip0Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>A tabular display of data summarized into a relatively small number of intervals.</p>
+    </div>
+    <div id="transformedTip2Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>A bar chart of data that have been grouped into a frequency distribution.</p>
+    </div>
+    <div id="transformedTip3Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The sum of a set of returns divided by the number of returns summed.</p>
+    </div>
+    <div id="transformedTip4Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The “middlemost” observation; i.e., in a set of observations that has been ranked from highest to lowest, the median will lie in the middle.</p>
+    </div>
+    <div id="transformedTip6Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The condition of being skewed towards larger values; skewed to the right.</p>
+    </div>
+    <div id="transformedTip7Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The condition of being skewed towards smaller values; skewed to the left.</p>
+    </div>
+    <div id="transformedTip9Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>Analysis of where the returns for an asset were examined over time.</p>
+    </div>
+    <div id="transformedTip10Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>Analysis over a group as of a given time.</p>
+    </div>
+    <div id="transformedTip11Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The possibility of extreme losses.</p>
+    </div>
+    <div id="transformedTip12Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The potential for loss.</p>
+    </div>
+    <div id="transformedTip13Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>Values that divide a distribution into four equal parts.</p>
+    </div>
+    <div id="transformedTip14Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>Values that divide a distribution into five equal parts.</p>
+    </div>
+    <div id="transformedTip15Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>Values that divide a distribution ranked smallest to largest into 10 equal parts.</p>
+    </div>
+    <div id="transformedTip16Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>Values that divide a distribution into 100 equal parts.</p>
+    </div>
+<div class="nav-buttons"><a href="courses_1368_modules_items_99342_104_Contrasting_Perspectives_on_Risk.html">← Previous</a><a href="courses_1368_modules_items_99344_106_Measures_of_Dispersion.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

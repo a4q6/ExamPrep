@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.10 | Value at Risk and Stress Tests</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Risk Measurement and Attribution › Module 1: Risk Measurement and Risk Attribution</nav>
+<h1 class="page-title screenreader-only">1.10 | Value at Risk and Stress Tests</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0018-R-s10-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.10 | Value at Risk and Stress Tests"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 1: Risk Measurement and Risk Attribution</span>1.10 | Value at Risk and Stress Tests</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcomes</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0018-R-s10-los-1CIPM0018-R-s10-los-2"><li class="cfa-curriculum-los-item">describe and interpret value at risk, stress tests, and scenario analysis and explain the strengths and weaknesses of each</li><li class="cfa-curriculum-los-item">describe approaches to estimating value at risk</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>In the following lessons, we describe value at risk and stress tests and explain the strengths and weaknesses of each.</p><section id="CIPM0018-R-s10-01-01"><h3 class="dp-heading">Value at Risk</h3><p>Value at risk is one of the most common forward-looking risk measures, but it is also possible to calculate as a measure of historic returns. Value at risk is a probability-based measure of loss potential—expressed by convention as a positive number either in units of currency or as a percentage—that can be applied to an investment, a portfolio, a strategy, or a company. More formally, <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-ValueAtRiskContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">value at risk</a> (VaR) is an estimate of the loss that we expect to be exceeded with a given level of probability over a specified time period.<a class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0018-R-s10-FN1_Content" id="transformedTip1" data-transformed="true" role="button" aria-expanded="false"><sup>26</sup></a> In the definition, “that we expect to be exceeded” indicates that VaR is a <em>minimum</em>. The statement “The portfolio’s daily 1% VaR is €3 million” means that there is a 1% probability that over a day the portfolio will lose at least €3 million. Equivalently, we can state that with 99% confidence the portfolio’s daily VaR is €3 million.<a class="dp-popover-trigger" href="#transformedTip2Content" aria-describedby="CIPM0018-R-s10-FN2_Content" id="transformedTip2" data-transformed="true" role="button" aria-expanded="false"><sup>27</sup></a> VaR is sometimes misunderstood to represent the maximum amount at risk of loss; this error could lead an investor to underestimate the amount of risk within a portfolio.</p><p>VaR is usually a forward-looking or <em>ex ante</em> risk measure, and any estimation of VaR is calculated within a probability or confidence level. The probability statement for a 95% confidence level is that 95% of the time, the loss in the portfolio will be less than the calculated VaR. An alternative view of the same information is that 5% of the time, the loss in the portfolio is expected to be at least as great as the VaR. A wider confidence level would lead to a greater VaR calculation and the assumption of a less frequent loss of the VaR amount or more. A 99% confidence level is a more conservative VaR calculation because it focuses the user on evaluating more extreme outcomes than does a 95% level. The most commonly used confidence levels are 95% and 99%.</p><p>The simplest way to calculate a VaR measure is to sort a series of returns to identify the worst returns and then identify the return representing the desired probability level. For example, consider the series of expected monthly returns in <a class="internal" role="button" href="#CIPM0018-R-s10-EXH17" aria-label="View Exhibit 17">Exhibit 17</a>.</p><div id="CIPM0018-R-s10-EXH17" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 17<span style="display: block;">Value at Risk</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0018-R-s10-EXH17-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0018-R-s10-EXH17-title">Exhibit 17: Value at Risk</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Monthly Return Observations</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Return (%)</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">1</th><td style="text-align: center; vertical-align: top; padding: 8px; ">8.9</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">2</th><td style="text-align: center; vertical-align: top; padding: 8px; ">3.2</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">3</th><td style="text-align: center; vertical-align: top; padding: 8px; ">−7.8</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">4</th><td style="text-align: center; vertical-align: top; padding: 8px; ">2.1</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">5</th><td style="text-align: center; vertical-align: top; padding: 8px; ">−13.7</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">6</th><td style="text-align: center; vertical-align: top; padding: 8px; ">11.0</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">7</th><td style="text-align: center; vertical-align: top; padding: 8px; ">5.7</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">8</th><td style="text-align: center; vertical-align: top; padding: 8px; ">−8.2</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">9</th><td style="text-align: center; vertical-align: top; padding: 8px; ">15.2</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">10</th><td style="text-align: center; vertical-align: top; padding: 8px; ">9.4</td></tr></tbody></table></div></div></div><p>To identify the VaR with a 90% confidence interval and a one-month time horizon, sort the returns from highest to lowest. The worst return in this series is −13.7, and the next worst is −8.2. Nine times out of ten, or 90% of the time, if this return series is representative of expected returns, we would expect to lose no more than −8.2% in a given month. In practice, a much larger set of observations would be appropriate, but this simple example illustrates the concept.</p><p>The time horizon is another critical element to any VaR description. The time horizon measures the amount of time over which returns will be calculated. In our example above, we considered a portfolio with a 90% confidence level, a time period of one month, and a VaR of 8.2%. In this example, the portfolio could be expected to have a single monthly loss worse than 8.2% only 10% of the time. This measure does not describe the probability of consecutive monthly losses, which might produce losses that were significantly greater than 8.2%.</p><p>The selection of the time horizon is dependent upon the characteristics of the investor. VaR was developed by investment banks as a way of measuring their daily earnings at risk. Some financial institutions that currently report VaR show a daily VaR calculation, representing an actively traded investment portfolio. Some pension funds report weekly or monthly VaR, reflecting the lower frequency of reporting that may correspond with a longer investment horizon. All else equal, a longer time horizon will lead to a larger calculated VaR measure.</p><p>There are three common approaches to estimating VaR, each with different assumptions, data requirements, advantages, and disadvantages:</p><ul id="CIPM0018-R-s10-L1" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>analytical (sometimes called “variance–covariance” or “parametric”),</p></li><li class="cfa-curriculum-list-item"><p>historical, and</p></li><li class="cfa-curriculum-list-item"><p>Monte Carlo.</p></li></ul><p>The analytical approach to estimating VaR is relatively easy to calculate, requiring only an expected return and standard deviation of returns. The analytical approach has a significant disadvantage, however, in its reliance on the assumption of a normal distribution of returns. Depending upon the strategy analyzed, the assumption of a normal distribution may be appropriate or inappropriate. For example, a developed markets equity portfolio would be more likely to exhibit a normal distribution of returns than a fixed-income arbitrage hedge fund. A portfolio utilizing options as a significant portion of the strategy is more likely to exhibit returns that have significant differences from the normal bell curve distribution, so the analytical approach to estimating VaR would be inappropriate for this portfolio.</p><p>Another approach to estimating VaR is the historical method. For example, if there are 100 observations of historical returns, an estimated historical VaR with a 99% confidence level is the second-to-worst return in the entire series because it was exceeded by 1% of the observations.</p><p>One advantage of the historical method is that it does not require assumptions about the distribution of portfolio returns. The data required are a series of historical returns for the portfolio or security being analyzed. However, the historical method does make the assumption that historical returns are an appropriate representation of the likelihood of future returns. This assumption may or may not be true depending upon the time periods under evaluation. A historical time period that lacked a market crash, for example, would not incorporate the risk of a crash in simulations. A disadvantage of the historical method of estimating VaR is that it is extremely unlikely that the specific set of circumstances that occurred during a given historical period will occur again with exactly the same effect.</p><p>One complication with the use of the historical method to estimate VaR is the requirement that the current investments be associated with a relevant historical return stream. New stock or debt issuances, for example, may not have existed for the entire period under analysis. In this case, it may be possible to identify a proxy investment and consider the historical period of relevant returns. VaR calculations can be very sensitive to the accuracy and completeness of the input data.</p><p>The Monte Carlo method of estimating VaR might be appropriate for a portfolio that displays a return distribution significantly different from the normal distribution. Many hedge funds are characterized by return distributions with fat tails, indicating a relatively higher percentage of return outcomes in the outer ranges of observed returns. The Monte Carlo method uses a random number generator to estimate potential return outcomes, making it easier to incorporate the effect of options and other derivatives into the analysis. A disadvantage of the Monte Carlo method of estimating VaR is that as the number of individual investments increases, the complexity of the calculations requires significant computer resources.</p><p>One criticism of VaR is that it sounds like the maximum value that could be lost, when it is more accurately defined as the minimum value that can be expected to be lost over a specified period and with a given probability. Extensions of VaR have been developed to address estimates of the magnitude of expected losses in excess of the VaR amount. For example, <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip3Content" aria-describedby="CIPM-TailValueAtRiskContent" data-transformed="true" id="transformedTip3" role="button" aria-expanded="false">tail value at risk</a> (TVaR; also known as conditional VaR, conditional tail expectation, and expected shortfall) is equal to VaR plus the expected loss in excess of VaR, given that such excess loss occurs. For example, for 99% VaR, TVaR would capture the average of the worst 1% of outcomes. In this context, the condition relevant to conditional tail expectation or conditional VaR is that returns are worse than the VaR.</p><p><a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip4Content" aria-describedby="CIPM-ContributionToVaRContent" data-transformed="true" id="transformedTip4" role="button" aria-expanded="false">Contribution to VaR</a> is a useful adaptation of the VaR measure, although the different methods of calculating contribution to VaR are beyond the scope of this learning module. Contribution to VaR is a measure of the relative volatility of the different segments of a fund compared to the volatility of the total fund. Consider the pension risk analysis in <a class="internal" role="button" href="#CIPM0018-R-s10-EXH18" aria-label="View Exhibit 18">Exhibit 18</a>, illustrating contribution to VaR across different asset classes of a pension fund.</p><div id="CIPM0018-R-s10-EXH18" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 18<span style="display: block;">Pension Risk Analysis (% of total fund)</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0018-R-s10-EXH18-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0018-R-s10-EXH18-title">Exhibit 18: Pension Risk Analysis (% of total fund)</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Contribution to Value at Risk</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Asset Allocation</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Global equities</th><td style="text-align: center; vertical-align: top; padding: 8px; ">75%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">61%</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Treasuries</th><td style="text-align: center; vertical-align: top; padding: 8px; ">−4</td><td style="text-align: center; vertical-align: top; padding: 8px; ">11</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Hedge funds</th><td style="text-align: center; vertical-align: top; padding: 8px; ">2</td><td style="text-align: center; vertical-align: top; padding: 8px; ">4</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">TIPS</th><td style="text-align: center; vertical-align: top; padding: 8px; ">1</td><td style="text-align: center; vertical-align: top; padding: 8px; ">8</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Real assets</th><td style="text-align: center; vertical-align: top; padding: 8px; ">17</td><td style="text-align: center; vertical-align: top; padding: 8px; ">9</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Commodities</th><td style="text-align: center; vertical-align: top; padding: 8px; ">9</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Cash</th><td style="text-align: center; vertical-align: top; padding: 8px; ">0</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2</td></tr></tbody></table></div></div></div><p><a class="internal" role="button" href="#CIPM0018-R-s10-EXH18" aria-label="View Exhibit 18">Exhibit 18</a> shows that the global equities segment represents 75% of the VaR of the total fund but only 61% of the assets. In this example, the Treasuries segment is a powerful risk diversifier within the total fund, representing 11% of the assets but offsetting 4% of the total fund VaR. This implies that increasing the allocation to global equities would tend to increase the total fund VaR and increasing the allocation to Treasuries would tend to decrease the total fund VaR.</p><p>In addition to the parameters described above (confidence level, time horizon, and methodology), there are several types of VaR measures that can provide different information about portfolios. For example, the VaR at an overall portfolio level can be calculated in many ways, but exploring the relationships within the component segments provides insights into relative risks that can help support investment allocation decisions. Within an overall portfolio, the contribution to VaR can be calculated as the amount a given segment contributes to the calculated VaR, without showing the cross-asset-class diversification benefits separately. Another way to show such an analysis would be to report the benefits of diversification as a separate segment, or to show an alternative calculation of undiversified VaR for each segment separately. The calculated VaR can be reported as a percentage of market value, as a percentage of total VaR, or as an absolute market value. Incremental VaR can be shown as the effect of simply removing one or more segments, with or without re-allocating the market value to the remaining segments. There is no single standard way to estimate VaR or the different extensions of VaR, and in each case, it is important to clarify which calculation is reported simply as “VaR.”</p><p>The choices in calculating VaR have a material impact on the numbers reported, so it is important to understand the assumptions that were used in calculating the VaR measures before making investment decisions based on such estimates. Once VaR is calculated for a total portfolio and its underlying segments, reviewing the relative risk of the segments compared to the total portfolio, of the portfolio compared to the benchmark, and the various measures over time provides useful insights.</p><figure id="CIPM0018-R-s10-Ba" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Analysis of VaR</figcaption><section><p>Assume the following:</p><ul id="CIPM0018-R-s10-L2" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>Portfolio value = €1,000 million; total VaR = €100 million</p></li><li class="cfa-curriculum-list-item"><p>Equity allocation = €500 million; equity contribution to VaR = €80 million</p></li><li class="cfa-curriculum-list-item"><p>Treasuries allocation = €500 million; Treasuries contribution to VaR = €20 million (or 4% of €500 million)</p></li></ul><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0018-R-s10-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>If €100 million is moved from equities to Treasuries, holding all else equal, total VaR would be <em>closest</em> to:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>€80 million.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-1"><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>€88 million.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h4 class="cfa-curriculum-solution-title">Solution</h4><p>B is correct. The equity and Treasuries contributions to VaR as a percentage of the amount invested in equity and Treasuries were, respectively, €80 million/€500 million = 16% and €20 million/€500 million = 4%. After the movement of €100 million from equities into Treasuries, the equity contribution to VaR is 16% of €400 million = €64 million; the Treasuries contribution to VaR = 4% of €600 million = €24 million. Total VaR = €64 million + €24 million = €88 million.</p></section></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-2"><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>€100 million.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></section></figure></section><section id="CIPM0018-R-s10-01-02"><h3 class="dp-heading">Stress Tests</h3><p>Another application of forward-looking risk analysis is stress testing. Many regulators are now requiring firms to report the results of stress testing, in some cases with very specific parameters and in other cases with broad guidelines allowing room for interpretation. Stress testing is a process by which we can estimate the expected impact on a portfolio of changes in different parameters, such as changes in equity markets, commodity prices, or interest rates. Scenario analysis is related to stress testing in that it illustrates the expected portfolio impact of specific historic scenarios were they to happen again.</p><p>Stress testing and scenario analysis usually incorporate factor analysis to simplify the computational requirements. Each investment or portfolio is affected by changes in relevant market factors, which can be represented by different indexes or securities. Once we know the correlation of the investment returns to the factor returns, we can calculate the expected impact on the investments of changes in the factors. Stress testing involves selecting the specific factors or combinations of factors that we want to analyze and identifying the effects of large unfavorable movements in the values of those factors. For example, the US Securities and Exchange Commission requires money market funds to review the impact of changes in interest rates, credit quality, and fund liquidity separately and in combination and to identify the point at which the fund cannot maintain a constant per share value.</p><p>Historical scenario analysis has some of the same disadvantages as the historical method of calculating VaR. The investments in the current portfolio may not have been in existence during the historical period considered in the scenario. Historical scenarios are usually selected for memorable periods of dramatic loss or volatility. The use of factor exposures enables an estimate of the probable impact on a current portfolio if past changes in factors were to repeat. A disadvantage of historical scenario analysis is the fact that history tends not to repeat itself with precisely the same effects. One advantage of historical scenario analysis is that it is intuitive and can help to show the importance of managing investment risk.</p><figure id="CIPM0018-R-s10-Bb" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Value at Risk and Stress Testing</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0018-R-s10-Q2"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>Which methodology for estimating VaR would <em>most likely</em> be appropriate for a portfolio that includes a significant number of options and other derivatives?</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-0"><label for="dp-qc-1-0"><p><span class="cfa-curriculum-option-label">A. </span>Historical</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1"><p><span class="cfa-curriculum-option-label">B. </span>Parametric</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-2"><label for="dp-qc-1-2"><p><span class="cfa-curriculum-option-label">C. </span>Monte Carlo</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h4 class="cfa-curriculum-solution-title">Solution</h4><p>C is correct. The Monte Carlo methodology uses a random number generator to predict a large number of possible return outcomes, and this approach is less reliant than the other methodologies on the assumption of normally distributed or stable returns.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0018-R-s10-Q3"><legend><span class="cfa-curriculum-question-with-label">2. </span><p>Given a one-month value at risk number of $1 million with a confidence interval of 99%, an investor would be expected:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-2-0" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-0"><label for="dp-qc-2-0"><p><span class="cfa-curriculum-option-label">A. </span>not to lose more than $1 million in any given month.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse2-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-2-1" class="dp-qc-field" type="radio" name="dp-qc-2" value="true" data-response="dpQcResponse2-1"><label for="dp-qc-2-1"><p><span class="cfa-curriculum-option-label">B. </span>to lose more than $1 million in a month 1% of the time.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse2-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h4 class="cfa-curriculum-solution-title">Solution</h4><p>B is correct. The VaR calculation is an estimate of the minimum loss expected with a given confidence level over a specified time horizon.</p></section></div></dd><dt class="dp-qc-answer"><input id="dp-qc-2-2" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-2"><label for="dp-qc-2-2"><p><span class="cfa-curriculum-option-label">C. </span>to lose approximately $1 million in a month 1% of the time.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse2-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0018-R-s10-Q4"><legend><span class="cfa-curriculum-question-with-label">3. </span><p>What kind of adjustment in calculating value at risk would be an example of stress testing?</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-3-0" class="dp-qc-field" type="radio" name="dp-qc-3" value="false" data-response="dpQcResponse3-0"><label for="dp-qc-3-0"><p><span class="cfa-curriculum-option-label">A. </span>Increasing the confidence interval from 95% to 99%</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse3-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-3-1" class="dp-qc-field" type="radio" name="dp-qc-3" value="false" data-response="dpQcResponse3-1"><label for="dp-qc-3-1"><p><span class="cfa-curriculum-option-label">B. </span>Decreasing the time horizon from one week to one day</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse3-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-3-2" class="dp-qc-field" type="radio" name="dp-qc-3" value="true" data-response="dpQcResponse3-2"><label for="dp-qc-3-2"><p><span class="cfa-curriculum-option-label">C. </span>Increasing the correlation of returns across investments to one</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse3-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h4 class="cfa-curriculum-solution-title">Solution</h4><p>C is correct. Adjusting the confidence level or time horizon used to calculate value at risk will change the resulting value, but these parameters do not describe any change to the risk of the current portfolio or market. Adjusting the assumed correlation is an example of stressing a parameter that describes the risk of the market, so the resulting value would describe the impact on the portfolio of changing conditions in the market.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure></section><div class="dp-content-block cfa-curriculum-reflist"><h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"></i>Reference List</h3><div class="dp-panels-wrapper dp-accordion-default"><h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel0"><a href="#dpPanel0" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3><div class="dp-panel-content " tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region"><ul id="CIPM0018-R-s10-ref1"><li id="CIPM0018-R-s10-R1list">Chance, D., Grant, K. and Marsland, J. (2007). “Risk Management.” In <em>Managing Investment Portfolios: A Dynamic Process</em>. 3rd ed., ed. Maginn, J. L., Tuttle, D. L., Pinto, J. E. and McLeavey, D. W.Hoboken, NJ: John Wiley &amp; Sons.</li></ul></div></div></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip1Content" role="tooltip" style="display: none;"><p><sup>26</sup> In the terminology of statistics, VaR with an <em>x</em> percent probability for a given time interval represents the <em>x</em>th percentile of the distribution of outcomes (ranked from worst to best) over that time period.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip2Content" role="tooltip" style="display: none;"><p><sup>27</sup> This discussion draws heavily on Chance, Grant, and Marsland (2007).</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip0Content" role="tooltip" style="display: none;"><p>An estimate of the loss that we expect to be exceeded with a given level of probability over a specified time period.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip3Content" role="tooltip" style="display: none;"><p>Equal to VaR plus the expected loss in excess of VaR, given that such excess loss occurs.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip4Content" role="tooltip" style="display: none;"><p>A measure of the relative volatility of the different segments compared to the volatility of the total fund.</p></div>
+<div class="nav-buttons"><a href="courses_1368_modules_items_99347_109_Drawdown_Measures.html">← Previous</a><a href="courses_1368_modules_items_99349_111_Analysis_of_Investment_Characteristics.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

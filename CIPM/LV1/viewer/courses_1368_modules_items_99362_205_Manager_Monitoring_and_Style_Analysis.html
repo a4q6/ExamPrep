@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.05 | Manager Monitoring and Style Analysis</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Risk Measurement and Attribution › Module 2: Equity Portfolio Characteristics in Performance Analysis</nav>
+<h1 class="page-title screenreader-only">2.05 | Manager Monitoring and Style Analysis</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0008-R-s05-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.05 | Manager Monitoring and Style Analysis"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 2: Equity Portfolio Characteristics in Performance Analysis</span>2.05 | Manager Monitoring and Style Analysis</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcomes</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0008-R-s05-los-1CIPM0008-R-s05-los-2"><li class="cfa-curriculum-los-item">determine the investment style of a portfolio, given pertinent data such as the market capitalization, price-to-earnings (P/E) and price-to-book (P/B) ratios, dividend yield (D/P), and growth characteristics of the portfolio and one or more style indexes</li><li class="cfa-curriculum-los-item">compare holdings-based and returns-based style analysis</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>Examining portfolio composition, and tracking changes over time, is an essential element in a sound manager monitoring process.<a class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0008-R-s05-FN1_Content" id="transformedTip0" data-transformed="true" role="button" aria-expanded="false"><sup>4</sup></a> In combination with performance attribution, portfolio characteristics analysis can provide valuable insights into the manager’s thinking. Comparing the portfolio’s sector weights and other pertinent characteristics with those of a valid benchmark at the same point in time enables the client or consultant to see what bets the manager has made. In addition, while tactical adjustments are normal, an apparent trend in portfolio characteristics relative to the benchmark may alert the client or consultant to possible departures from the manager’s investment mandate.</p><p>Style analysis is a specific type of manager monitoring based upon the characterization of investment strategies in two dimensions: size (small cap, mid-cap, and large cap) and valuation (value, neutral or core, and growth). In a given measurement period, one style may be in favor, generating highly positive returns, while another is out of favor, producing disappointing results. For example, the returns of small cap growth portfolios, taken as a group, may differ systematically from those of large cap value portfolios in the same period. Style analysis has two major variations: returns-based and holdings-based.</p><p>Returns-based style analysis<a class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0008-R-s05-FN2_Content" id="transformedTip1" data-transformed="true" role="button" aria-expanded="false"><sup>5</sup></a> determines the combination of indexes that best explains the style in which a portfolio is managed. For example, a portfolio might be described as 53.2% large growth, 32.7% small growth, and 14.1% small value. Given the ease with which commercially available returns-based style models can be used, this approach has great practical appeal; the only data the performance analyst need compile is the portfolio’s historical return series and those of appropriate indexes. In comparison, holdings-based style analysis requires extensive security-level data. In addition, returns-based style analysis graphically displays how the manager’s profile has changed over time. It is more effortful to interpret period-to-period comparisons of holdings-based characteristics. However, beyond observing that the manager’s effective mix of style-based benchmarks has evolved, the holdings-based approach described below may enable astute clients and consultants to ask the manager appreciably more pointed questions about potentially significant changes in portfolio structure.</p><p>In holdings-based style analysis, an equity portfolio’s investment strategy may be profiled by observing its size and value–growth characteristics. Rather than merely tracking changes in the portfolio, however, it is essential to compare the portfolio to a valid benchmark in each period, because the general level of market valuations changes over the course of the business cycle (and over longer periods as well). For example, price-to-earnings (P/E) ratios tend to be high and rising when the outlook for earnings improves, as in the early stages of an economic recovery, and low and falling when the outlook worsens.<a class="dp-popover-trigger" href="#transformedTip2Content" aria-describedby="CIPM0008-R-s05-FN3_Content" id="transformedTip2" data-transformed="true" role="button" aria-expanded="false"><sup>6</sup></a></p><p>Size is measured by the stock’s market capitalization. Some capital market index providers adjust market cap weights for each issue’s floating supply of shares or “free float,” the number of shares outstanding that are actually available to investors after excluding such categories as corporate cross-holdings in the same index, large corporate and private holdings, and government positions in partially privatized companies.</p><p>A stock’s position on the value–growth spectrum may be indicated by its price-to-earnings (P/E) ratio and/or its price-to-book (P/B) ratio, among other factors. Because the market pays a premium for projected earnings increases, growing companies generally have higher P/E and P/B ratios than companies that are considered to have more limited prospects for expansion.</p><p>A stock’s dividend yield (D/P) and its issuer’s dividend payout ratio provide further information. Generally, growth companies have low dividend yields and dividend payout ratios because they retain most of their income to finance future expansion. Mature companies which do not have attractive reinvestment opportunities distribute a greater portion of their earnings to shareholders. Other measures of a company’s relative position are its trailing and forecasted growth in per-share earnings.</p><p>Index providers typically use multiple factors when assigning companies to value
+                  and growth style categories. For example, the methodology employed in the
+                  construction of Standard &amp; Poor’s US Style indexes uses three factors to
+                  measure growth and four factors to measure value. The growth factors are the
+                  three-year net change in earnings per share (excluding extra items) over current
+                  price, the three-year sales per share growth rate, and momentum, defined as
+                  12-month percent price change. The value factors are B/P, the earnings-to-price
+                  ratio, the sales-to-price ratio, and dividend yield. Standard &amp; Poor’s
+                  classifies stocks after ranking them according to their scores on the growth and
+                  value dimensions.<a class="dp-popover-trigger" href="#transformedTip3Content" aria-describedby="CIPM0008-R-s05-FN4_Content" id="transformedTip3" data-transformed="true" role="button" aria-expanded="false"><sup>7</sup></a> Russell Style Indexes are built using two growth characteristics and one
+                  value characteristic. Medium-term forecast earnings growth rate based on I/B/E/S
+                  two-year forecasts and sales-per-share growth rate based on five-year historical
+                  sales are the growth characteristics. Book-to-price ratio (B/P) is the value
+                     characteristic.<a class="dp-popover-trigger" href="#transformedTip4Content" aria-describedby="CIPM0008-R-s05-FN5_Content" id="transformedTip4" data-transformed="true" role="button" aria-expanded="false"><sup>8</sup></a></p><p><a class="internal" role="button" href="#CIPM0008-R-s05-EXH4" aria-label="View Exhibit 4">Exhibit 4</a> displays comparative values of four Russell style indexes. The Russell 1000<sup>®</sup> indexes are large-cap indexes and the Russell 2000<sup>®</sup> indexes are small-cap indexes. As expected, the large-cap and small-cap value indexes have lower P/B and P/E ratios, higher dividend yields, and lower earnings growth statistics than the corresponding growth indexes. Similar comparisons may be done within other index families.</p><div id="CIPM0008-R-s05-EXH4" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 4<span style="display: block;">Comparative Index Characteristics</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0008-R-s05-EXH4-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0008-R-s05-EXH4-title">Exhibit 4: Comparative Index Characteristics</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; " colspan="4"><strong>Monthly Data From 31 May 2006 Through 31 May 2007</strong></th></tr><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Characteristic</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Russell 1000<sup>®</sup> Value Index</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Russell 1000<sup>®</sup> Growth Index</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Russell 2000<sup>®</sup> Value Index</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Russell 2000<sup>®</sup> Growth Index</strong></th></tr></thead><tbody><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Average Market Cap in Billions ($-WTD)</td><td style="text-align: center; vertical-align: top; padding: 8px; ">115.939</td><td style="text-align: center; vertical-align: top; padding: 8px; ">73.622</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.347</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.420</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Median Market Cap in Billions</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.033</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.223</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.686</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.677</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Price/Book</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.29</td><td style="text-align: center; vertical-align: top; padding: 8px; ">4.30</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.94</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.67</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Dividend Yield</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.35</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.11</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.75</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.43</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">P/E Ex-Neg Earnings</td><td style="text-align: center; vertical-align: top; padding: 8px; ">14.88</td><td style="text-align: center; vertical-align: top; padding: 8px; ">21.44</td><td style="text-align: center; vertical-align: top; padding: 8px; ">19.25</td><td style="text-align: center; vertical-align: top; padding: 8px; ">23.93</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">LT Growth Forecast-IBES</td><td style="text-align: center; vertical-align: top; padding: 8px; ">9.48%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">14.51%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">11.22%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">18.77%</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">EPS Growth 5 years</td><td style="text-align: center; vertical-align: top; padding: 8px; ">19.42</td><td style="text-align: center; vertical-align: top; padding: 8px; ">22.15</td><td style="text-align: center; vertical-align: top; padding: 8px; ">12.64</td><td style="text-align: center; vertical-align: top; padding: 8px; ">21.95</td></tr></tbody></table></div></div><p><span class="cfa-curriculum-table-wrap-foot">Russell Investment Group is the source and owner of the trademarks, service marks and copyrights related to the Russell Indexes. Russell<sup>®</sup> is a trademark of Russell Investment Group.</span></p></div><p>When conducting holdings-based style analysis, it is helpful to be familiar with the methodologies employed by the market data service provider who supplies security-level characteristics for the portfolio as well as by the index provider who assigns individual stocks to style categories according to its own index construction rules. By observing the different characteristics of the portfolio and those of the benchmark, it is possible to go beyond a simple classification of the manager’s style and gain a deeper understanding of some of the factors that the manager emphasizes in his security selection process.</p><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip0Content" role="tooltip" style="display: none;"><p><sup>4</sup> See Russell, L. Olson, The Independent Fiduciary; Investing for Pension Funds and Endowment Funds (John Wiley &amp; Sons, 1999), pp. 124–125.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip1Content" role="tooltip" style="display: none;"><p><sup>5</sup> Laurence, B. 2003. Siegel, Benchmarks and Investment Management, 66–73. The Research Foundation of CFA Institute.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip2Content" role="tooltip" style="display: none;"><p><sup>6</sup> John, P. Calverley, Alan M. Meder, Brian D. Singer, and Renato Staub, “Capital Market Expectations,” Chapter 4 in John L. Maginn, Donald L. Tuttle, Dennis W. McLeavey, and Jerald E. Pinto, eds., Managing Investment Portfolios; A Dynamic Process, Third Edition (CFA Institute, 2007), pp. 219–220.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip3Content" role="tooltip" style="display: none;"><p><sup>7</sup> S&amp;P U.S. Style Indices Methodology:
+                        www.spglobal.com/spdji/en/documents/methodologies/methodology-sp-us-style.pdf,
+                        page 5.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip4Content" role="tooltip" style="display: none;"><p><sup>8</sup> www.lseg.com/en/ftse-russell/indices/russell-us-style.</p></div>
+<div class="nav-buttons"><a href="courses_1368_modules_items_99361_204_Types_of_Characteristics.html">← Previous</a><a href="courses_1368_modules_items_99363_206_Attribution_Analysis.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

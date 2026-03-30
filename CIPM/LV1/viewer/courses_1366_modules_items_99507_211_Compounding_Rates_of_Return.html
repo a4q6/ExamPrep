@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.11 | Compounding Rates of Return</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 2: Performance Evaluation: Rate-of-Return Measurement</nav>
+<h1 class="page-title screenreader-only">2.11 | Compounding Rates of Return</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0005-R-s11-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.11 | Compounding Rates of Return"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 2: Performance Evaluation: Rate-of-Return Measurement</span>2.11 | Compounding Rates of Return</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul id="CIPM0005-R-s11-los-1">
+<li class="cfa-curriculum-los-item">explain and demonstrate discrete and continuous compounding</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary">
+<p>In principle, a return over a long holding period (a year, for instance) can be calculated in the same manner as that for a shorter holding period (such as a month) using beginning and ending market values—if there are no external cash flows within the period. It is common, however, to calculate returns over short holding periods and then to combine or link returns over multiple periods. Such a procedure is necessary when external cash flows exist, as we explain in Section 4. Storing return (or return relative) data allows users the flexibility of calculating returns over arbitrary holding periods.</p>
+<section id="CIPM0005-R-s11-01-01">
+<h3 class="dp-heading">Compounding Rates of Return</h3>
+<p>If returns are generated at a constant rate over time, the portfolio’s value will grow faster than it will if returns are generated in proportion to time. Such growth is called geometric growth, as opposed to linear growth. This fact is the result of <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-CompoundingContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">compounding</a>. A compounded return over two periods can be calculated as</p>
+<div id="CIPM0005-R-s11-E" class="cfa-curriculum-display-formula-container">(1 + <em>R</em><sub>1</sub>)(1 + <em>R</em><sub>2</sub>) – 1 = <em>R</em><sub>1</sub> + <em>R</em><sub>2</sub> + <em>R</em><sub>1</sub><em>R</em><sub>2</sub></div>
+<p>where the subscripts indicate time periods. The term <em>R</em><sub>1</sub> + <em>R</em><sub>2</sub> reflects linear growth in value over time, while the interaction term <em>R</em><sub>1</sub><em>R</em><sub>2</sub> represents “interest on interest,” the key to geometric growth, also known as compound growth.</p>
+<section id="CIPM0005-R-s11-01-01-01">
+<h4>Chain Linking Returns</h4>
+<p>Suppose a portfolio is valued at month ends over the course of a year. Let <em>V<sub>t</sub></em> be the portfolio value at the end of month <em>t</em>, and let <em>V</em><sub>0</sub> be the portfolio value at the beginning of the year. If there were no external cash flows into or out of the portfolio during the year, then the return relative for the year can be written as the product of the monthly return relatives,</p>
+<div id="CIPM0005-R-s11-E12" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>&amp;#xD7;</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><msub><mi>V</mi><mn>2</mn></msub></mrow><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow></mfrac></mstyle><mo>&amp;#xD7;</mo><mo>&amp;#x22EF;</mo><mo>&amp;#xD7;</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mrow><mn>11</mn></mrow></msub></mrow></mfrac></mstyle></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="28.969ex" height="5.565ex" viewBox="0 -1437.2 12472.8 2396" role="img" focusable="false" style="vertical-align: -2.227ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(120,0)"><rect stroke="none" width="1511" height="60" x="0" y="220"></rect><g transform="translate(60,676)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><g transform="translate(583,-150)"><use transform="scale(0.707)" xlink:href="#MJMAIN-31"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="500" y="0"></use></g></g><g transform="translate(236,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g><use xlink:href="#MJMAIN-3D" x="2029" y="0"></use><g transform="translate(3085,0)"><g transform="translate(120,0)"><rect stroke="none" width="1157" height="60" x="0" y="220"></rect><g transform="translate(60,676)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="825" y="-213"></use></g><g transform="translate(60,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-D7" x="4704" y="0"></use><g transform="translate(5705,0)"><g transform="translate(120,0)"><rect stroke="none" width="1157" height="60" x="0" y="220"></rect><g transform="translate(60,676)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="825" y="-213"></use></g><g transform="translate(60,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-D7" x="7325" y="0"></use><use xlink:href="#MJMAIN-22EF" x="8326" y="0"></use><use xlink:href="#MJMAIN-D7" x="9720" y="0"></use><g transform="translate(10721,0)"><g transform="translate(120,0)"><rect stroke="none" width="1511" height="60" x="0" y="220"></rect><g transform="translate(60,676)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><g transform="translate(583,-150)"><use transform="scale(0.707)" xlink:href="#MJMAIN-31"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="500" y="0"></use></g></g><g transform="translate(60,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><g transform="translate(583,-150)"><use transform="scale(0.707)" xlink:href="#MJMAIN-31"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="500" y="0"></use></g></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>×</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mn>2</mn></msub></mrow><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow></mfrac></mstyle><mo>×</mo><mo>⋯</mo><mo>×</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mrow><mn>11</mn></mrow></msub></mrow></mfrac></mstyle></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-1"><math id="m1"><semantics><mrow><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>×</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mn>2</mn></msub></mrow><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow></mfrac></mstyle><mo>×</mo><mo>⋯</mo><mo>×</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mrow><mn>11</mn></mrow></msub></mrow></mfrac></mstyle></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">15</span></div>
+<p>because the intermediate values <em>V</em><sub>1</sub>, <em>V</em><sub>2</sub>, ..., <em>V</em><sub>11</sub> cancel in the expression on the right-hand side. Substituting the monthly holding period returns <em>V<sub>t</sub></em>/<em>V<sub>t</sub></em><sub>–1</sub> = 1 + <em>R<sub>t</sub></em> into the preceding expression leaves</p>
+<div id="CIPM0005-R-s11-E___1" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-2-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>1</mn></msub></mrow><mo>)</mo></mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>2</mn></msub></mrow><mo>)</mo></mrow><mo>&amp;#x22EF;</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mrow><mn>12</mn></mrow></msub></mrow><mo>)</mo></mrow></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="37.764ex" height="5.565ex" viewBox="0 -1437.2 16259.3 2396" role="img" focusable="false" style="vertical-align: -2.227ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(120,0)"><rect stroke="none" width="1511" height="60" x="0" y="220"></rect><g transform="translate(60,676)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><g transform="translate(583,-150)"><use transform="scale(0.707)" xlink:href="#MJMAIN-31"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="500" y="0"></use></g></g><g transform="translate(236,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g><use xlink:href="#MJMAIN-3D" x="2029" y="0"></use><g transform="translate(3085,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1074" y="-213"></use></g></g><use xlink:href="#MJMAIN-29" x="3326" y="0"></use></g><g transform="translate(6967,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="1074" y="-213"></use></g></g><use xlink:href="#MJMAIN-29" x="3326" y="0"></use></g><use xlink:href="#MJMAIN-22EF" x="10850" y="0"></use><g transform="translate(12189,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><g transform="translate(759,-150)"><use transform="scale(0.707)" xlink:href="#MJMAIN-31"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="500" y="0"></use></g></g></g><use xlink:href="#MJMAIN-29" x="3680" y="0"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>1</mn></msub></mrow><mo>)</mo></mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>2</mn></msub></mrow><mo>)</mo></mrow><mo>⋯</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mrow><mn>12</mn></mrow></msub></mrow><mo>)</mo></mrow></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-2"><math id="m2"><semantics><mrow><mstyle displaystyle="true"><mfrac><mrow><msub><mi>V</mi><mrow><mn>12</mn></mrow></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>1</mn></msub></mrow><mo>)</mo></mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>2</mn></msub></mrow><mo>)</mo></mrow><mo>⋯</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mrow><mn>12</mn></mrow></msub></mrow><mo>)</mo></mrow></mrow></semantics></math></script></div>
+<p>More generally, if <em>R</em> = <em>V<sub>T</sub></em>/<em>V</em><sub>0</sub> – 1 is the return over <em>T</em> periods, then <em>R</em> can be calculated from the <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip1Content" aria-describedby="CIPM-LinkingFormulaContent" data-transformed="true" id="transformedTip1" role="button" aria-expanded="false">linking formula</a>:</p>
+<div id="CIPM0005-R-s11-E13" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-3-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mi>R</mi><mo>=</mo><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x220F;</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mi>t</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle><mo>&amp;#x2212;</mo><mn>1</mn></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="20.624ex" height="7.17ex" viewBox="0 -1809.3 8879.7 3087" role="img" focusable="false" style="vertical-align: -2.968ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use xlink:href="#MJMAIN-3D" x="1037" y="0"></use><g transform="translate(2093,0)"><use xlink:href="#MJSZ2-220F" x="0" y="0"></use><g transform="translate(59,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="361" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1140" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="551" y="1627"></use><g transform="translate(1445,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1074" y="-213"></use></g></g><use xlink:href="#MJMAIN-29" x="3228" y="0"></use></g></g><use xlink:href="#MJMAIN-2212" x="7378" y="0"></use><use xlink:href="#MJMAIN-31" x="8379" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mstyle displaystyle="true"><munderover><mo>∏</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mi>t</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-3"><math id="m3"><semantics><mrow><mi>R</mi><mo>=</mo><mstyle displaystyle="true"><munderover><mo>∏</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mi>t</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle><mo>−</mo><mn>1</mn></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">16</span></div>
+<p>where the product operator ∏(•) denotes the product of terms. The procedure described by this formula is also called <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip2Content" aria-describedby="CIPM-ChainLinkingContent" data-transformed="true" id="transformedTip2" role="button" aria-expanded="false">chain linking</a> returns or <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip3Content" aria-describedby="CIPM-GeometricCompoundingContent" data-transformed="true" id="transformedTip3" role="button" aria-expanded="false">geometric compounding</a> of returns. When there are no external cash flows, the cumulative return <em>R</em> can be interpreted as the change in value of the portfolio as a fraction of the beginning value.</p>
+<figure id="CIPM0005-R-s11-EXM15" class="dp-content-block cfa-curriculum-example-box">
+<figcaption class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i class="fas fa-search" style="background: inherit !important;" aria-hidden="true"></i>Example 15<span style="display: block;">Chain Linking Returns</span></figcaption>
+<div class="dp-content-block">
+<div id="CIPM0005-R-s11-Q1" class="dp-qc cfa-curriculum-question-with-label dp-qc-built"><fieldset><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate the cumulative return for the following 5 years:</p>
+<div id="CIPM0005-R-s11-Ta" class="cfa-curriculum-table-wrap">
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true">
+<tbody>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;">Year 1</th>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10.5%</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;">Year 2</th>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–3.6%</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;">Year 3</th>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20.7%</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;">Year 4</th>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.4%</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;">Year 5</th>
+<td style="text-align: center; vertical-align: top; padding: 8px;">12.3%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer dp-panels-built" style="display: inline-block;" id="dpPanel0" href="javascript:void(0)"><a href="javascript:void(0)" role="button" class="dp-panel-toggler , dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: rgb(255, 255, 255) !important; display: inline-block;" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Check Answer</a></h4>
+<div class="dp-panel-content cfa-curriculum-solution" tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region">
+<section>
+<h5 class="cfa-curriculum-solution-title">Solution</h5>
+<div id="CIPM0005-R-s11-E___2" class="cfa-curriculum-display-formula-container">1.105 × 0.964 × 1.207 × 1.064 × 1.123 – 1 = 53.63%.</div>
+</section>
+</div>
+
+</div>
+</fieldset></div>
+</div>
+</figure>
+<p><a class="internal" role="button" href="#CIPM0005-R-s11-E13">Equation 13</a> applies to compounding <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip4Content" aria-describedby="CIPM-DiscreteReturnsContent" data-transformed="true" id="transformedTip4" role="button" aria-expanded="false">discrete returns</a> (returns measured over finite time intervals). The compounding of discrete returns is called <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip5Content" aria-describedby="CIPM-DiscreteCompoundingContent" data-transformed="true" id="transformedTip5" role="button" aria-expanded="false">discrete compounding</a>. It is also possible to define a continuously compounded return: the return which results when a finite time interval is divided into infinitely many parts. The compounding of continuously compounded returns is called <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip6Content" aria-describedby="CIPM-ContinuousCompoundingContent" data-transformed="true" id="transformedTip6" role="button" aria-expanded="false">continuous compounding</a>. The next section explains these concepts in detail.</p>
+</section>
+<section id="CIPM0005-R-s11-01-01-02">
+<h4>Discrete and Continuous Compounding</h4>
+<p>Whenever an interest rate is quoted, the compounding frequency must be specified. By convention, the <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip7Content" aria-describedby="CIPM-StatedAnnualRateContent" data-transformed="true" id="transformedTip7" role="button" aria-expanded="false">stated annual rate</a> of interest is the periodic rate multiplied by the number <em>n</em> of compounding periods per year. Thus, the periodic rate associated with a stated annual rate <em>i</em> is <em>i</em>/<em>n.</em> The <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip8Content" aria-describedby="CIPM-EffectiveAnnualRateContent" data-transformed="true" id="transformedTip8" role="button" aria-expanded="false">effective annual rate</a> is defined as<a id="transformedTip9" class="dp-popover-trigger" href="#transformedTip9Content" aria-describedby="CIPM0005-R-s11-FN1_Content" data-transformed="true" role="button" aria-expanded="false"><sup>17</sup></a></p>
+<div id="CIPM0005-R-s11-E14" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-4-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mtext>EAR</mtext><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>&amp;#x2212;</mo><mn>1</mn></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="23.011ex" height="6.059ex" viewBox="0 -1596.6 9907.6 2608.6" role="img" focusable="false" style="vertical-align: -2.35ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMAIN-45"></use><use xlink:href="#MJMAIN-41" x="681" y="0"></use><use xlink:href="#MJMAIN-52" x="1432" y="0"></use><use xlink:href="#MJMAIN-3D" x="2446" y="0"></use><g transform="translate(3502,0)"><use xlink:href="#MJSZ3-28"></use><g transform="translate(736,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><g transform="translate(120,0)"><rect stroke="none" width="720" height="60" x="0" y="220"></rect><use xlink:href="#MJMATHI-69" x="187" y="676"></use><use xlink:href="#MJMATHI-6E" x="60" y="-686"></use></g></g></g><use xlink:href="#MJSZ3-29" x="3420" y="-1"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="5878" y="1665"></use></g><use xlink:href="#MJMAIN-2212" x="8406" y="0"></use><use xlink:href="#MJMAIN-31" x="9407" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>EAR</mtext><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-4"><math id="m4"><semantics><mrow><mtext>EAR</mtext><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">17</span></div>
+<p>Thus, if the stated annual rate is 12 percent and there are 12 compounding periods per year, the periodic rate is 12%/12 = 1% and the EAR = (1.01)<sup>12</sup> – 1 = 0.1268 or 12.68 percent. In other words, a dollar invested at a 12 percent stated annual rate with monthly compounding produces the same amount in one year as one dollar invested at 12.68 percent without compounding.</p>
+<p>In principle, the compounding frequency can be increased without bound, resulting in continuous compounding. For a given nominal rate, as the compounding frequency gets large, the annual return approaches a limit</p>
+<div id="CIPM0005-R-s11-E___3" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-5-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><munder><mrow><mi>lim</mi></mrow><mrow><mi>n</mi><mo>&amp;#x2192;</mo><mi>&amp;#x221E;</mi></mrow></munder><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>=</mo><msup><mi>e</mi><mi>i</mi></msup></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="20.127ex" height="6.059ex" viewBox="0 -1596.6 8666 2608.6" role="img" focusable="false" style="vertical-align: -2.35ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(224,0)"><use xlink:href="#MJMAIN-6C"></use><use xlink:href="#MJMAIN-69" x="278" y="0"></use><use xlink:href="#MJMAIN-6D" x="557" y="0"></use></g><g transform="translate(0,-601)"><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-2192" x="600" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-221E" x="1601" y="0"></use></g><g transform="translate(1839,0)"><use xlink:href="#MJSZ3-28"></use><g transform="translate(736,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><g transform="translate(120,0)"><rect stroke="none" width="720" height="60" x="0" y="220"></rect><use xlink:href="#MJMATHI-69" x="187" y="676"></use><use xlink:href="#MJMATHI-6E" x="60" y="-686"></use></g></g></g><use xlink:href="#MJSZ3-29" x="3420" y="-1"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="5878" y="1665"></use></g><use xlink:href="#MJMAIN-3D" x="6798" y="0"></use><g transform="translate(7855,0)"><use xlink:href="#MJMATHI-65" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="659" y="513"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mrow><mi>lim</mi></mrow><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow></munder><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>=</mo><msup><mi>e</mi><mi>i</mi></msup></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-5"><math id="m5"><semantics><mrow><munder><mrow><mi>lim</mi></mrow><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow></munder><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>=</mo><msup><mi>e</mi><mi>i</mi></msup></mrow></semantics></math></script></div>
+<p>where <em>e</em> is the base of the natural logarithm, a constant approximately equal to 2.718. Also, one dollar invested at an annual rate <em>R</em> without compounding gives the same ending amount as <em>i<sub>c</sub></em> = ln(1 + <em>R</em>) compounded continuously. Consequently, <em>i<sub>c</sub></em> is called a continuously compounded return. For example, <a class="internal" role="button" href="#CIPM0005-R-s11-EXH3" aria-label="View Exhibit 3">Exhibit 3</a> shows the nominal rates at different compounding frequencies that give the same effective annual rate. The EAR associated with <em>i<sub>c</sub></em> compounded continuously is exp(<em>i<sub>c</sub></em>) –1. Thus, 11.3329 percent continuously compounded is equal to e<sup>0.113329</sup> – 1 = .12 or 12 percent.</p>
+<div id="CIPM0005-R-s11-EXH3" class="cfa-curriculum-table-wrap">
+<div class="cfa-curriculum-exhibit-table-title" aria-hidden="true"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 3<span style="display: block;">Equivalent Effective Annual Rates of Return</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0005-R-s11-EXH3-title"><caption id="CIPM0005-R-s11-EXH3-title" class="cfa-curriculum-table-caption-hidden">Exhibit 3: Equivalent Effective Annual Rates of Return</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Compounding Frequency</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Stated Annual Rate (%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Annual</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">12.0000</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Semi-annual</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">11.6601</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Quarterly</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">11.4949</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Monthly</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">11.3866</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Weekly</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">11.3452</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Daily (365 days)</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">11.3346</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Continuously compounded</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">11.3329</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>Although the interpretation of continuous compounding justifies the terminology, the use of logarithms can also be thought of as simply a transformation. A useful property of logarithms is the fact that the logarithm of a product is equal to the sum of the logarithms of individual terms. For example, the linking formula, <a class="internal" role="button" href="#CIPM0005-R-s11-E13">Equation 13</a>, can be written as</p>
+<div id="CIPM0005-R-s11-E___4" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-6-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mi>R</mi><mo>=</mo><mi>exp</mi><mrow><mo>(</mo><mrow><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x2211;</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mrow><mi>ln</mi><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mi>t</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><mn>1</mn></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="30.957ex" height="7.293ex" viewBox="0 -1809.3 13328.6 3140.1" role="img" focusable="false" style="vertical-align: -3.091ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use xlink:href="#MJMAIN-3D" x="1037" y="0"></use><g transform="translate(2093,0)"><use xlink:href="#MJMAIN-65"></use><use xlink:href="#MJMAIN-78" x="444" y="0"></use><use xlink:href="#MJMAIN-70" x="973" y="0"></use></g><g transform="translate(3789,0)"><use xlink:href="#MJSZ4-28"></use><g transform="translate(792,0)"><use xlink:href="#MJSZ2-2211" x="0" y="0"></use><g transform="translate(142,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="361" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1140" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="669" y="1627"></use><g transform="translate(1611,0)"><use xlink:href="#MJMAIN-6C"></use><use xlink:href="#MJMAIN-6E" x="278" y="0"></use><g transform="translate(1001,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1074" y="-213"></use></g></g><use xlink:href="#MJMAIN-29" x="3228" y="0"></use></g></g></g><use xlink:href="#MJSZ4-29" x="7022" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="11827" y="0"></use><use xlink:href="#MJMAIN-31" x="12828" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mi>exp</mi><mrow><mo>(</mo><mrow><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mrow><mi>ln</mi><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mi>t</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle></mrow><mo>)</mo></mrow><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-6"><math id="m6"><semantics><mrow><mi>R</mi><mo>=</mo><mi>exp</mi><mrow><mo>(</mo><mrow><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mrow><mi>ln</mi><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mi>t</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle></mrow><mo>)</mo></mrow><mo>−</mo><mn>1</mn></mrow></semantics></math></script></div>
+<p>where exp(•) is the exponential function. Computationally, it is sometimes convenient to calculate sums of terms instead of products.</p>
+<figure id="CIPM0005-R-s11-EXM16" class="dp-content-block cfa-curriculum-example-box">
+<figcaption class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i class="fas fa-search" style="background: inherit !important;" aria-hidden="true"></i>Example 16<span style="display: block;">Continuously Compounded Returns</span></figcaption>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div id="CIPM0005-R-s11-Q2" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">1. </span>
+<p>What is the continuously compounded rate that produces the same cumulative return as in the solution to <a class="internal" role="button" href="#CIPM0005-R-s11-EXM15" aria-label="View Example 15">Example 15</a>?</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-0"><label for="dp-qc-1-0">
+<p><span class="cfa-curriculum-option-label">A. </span>42.94%</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h5 class="cfa-curriculum-solution-title">Solution</h5>
+<p>A is correct. ln(1 + 53.63%) = 42.94%</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1">
+<p><span class="cfa-curriculum-option-label">B. </span>47.28%</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-2"><label for="dp-qc-1-2">
+<p><span class="cfa-curriculum-option-label">C. </span>53.63%</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div id="CIPM0005-R-s11-Q3" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Given a stated interest rate of 10.9 percent paid semi-annually, calculate the effective annual rate.</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer"><input id="dp-qc-2-0" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-0"><label for="dp-qc-2-0">
+<p><span class="cfa-curriculum-option-label">A. </span>11.0%</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse2-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-2-1" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-1"><label for="dp-qc-2-1">
+<p><span class="cfa-curriculum-option-label">B. </span>11.1%</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse2-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-2-2" class="dp-qc-field" type="radio" name="dp-qc-2" value="true" data-response="dpQcResponse2-2"><label for="dp-qc-2-2">
+<p><span class="cfa-curriculum-option-label">C. </span>11.2%</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse2-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h5 class="cfa-curriculum-solution-title">Solution</h5>
+<p>C is correct.</p>
+<div id="CIPM0005-R-s11-E___5" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax_SVG" id="MathJax-Element-7-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mi>R</mi><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>&amp;#x2212;</mo><mn>1</mn><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mn>0.109</mn></mrow><mn>2</mn></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mn>2</mn></msup><mo>&amp;#x2212;</mo><mn>1</mn><mo>=</mo><mn>1.1120</mn><mo>&amp;#x2212;</mo><mn>1</mn><mo>=</mo><mn>11.2</mn><mi>%</mi></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="64.213ex" height="6.429ex" viewBox="0 -1756.1 27647 2768.1" role="img" focusable="false" style="vertical-align: -2.35ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use xlink:href="#MJMAIN-3D" x="1037" y="0"></use><g transform="translate(2093,0)"><use xlink:href="#MJSZ3-28"></use><g transform="translate(736,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><g transform="translate(120,0)"><rect stroke="none" width="720" height="60" x="0" y="220"></rect><use xlink:href="#MJMATHI-69" x="187" y="676"></use><use xlink:href="#MJMATHI-6E" x="60" y="-686"></use></g></g></g><use xlink:href="#MJSZ3-29" x="3420" y="-1"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="5878" y="1665"></use></g><use xlink:href="#MJMAIN-2212" x="6997" y="0"></use><use xlink:href="#MJMAIN-31" x="7998" y="0"></use><use xlink:href="#MJMAIN-3D" x="8776" y="0"></use><g transform="translate(9832,0)"><use xlink:href="#MJSZ3-28"></use><g transform="translate(736,0)"><use xlink:href="#MJMAIN-31" x="0" y="0"></use><use xlink:href="#MJMAIN-2B" x="722" y="0"></use><g transform="translate(1723,0)"><g transform="translate(120,0)"><rect stroke="none" width="2400" height="60" x="0" y="220"></rect><g transform="translate(60,676)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-31" x="779" y="0"></use><use xlink:href="#MJMAIN-30" x="1279" y="0"></use><use xlink:href="#MJMAIN-39" x="1780" y="0"></use></g><use xlink:href="#MJMAIN-32" x="950" y="-686"></use></g></g></g><use xlink:href="#MJSZ3-29" x="5100" y="-1"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="8254" y="1665"></use></g><use xlink:href="#MJMAIN-2212" x="16345" y="0"></use><use xlink:href="#MJMAIN-31" x="17346" y="0"></use><use xlink:href="#MJMAIN-3D" x="18124" y="0"></use><g transform="translate(19180,0)"><use xlink:href="#MJMAIN-31"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-31" x="779" y="0"></use><use xlink:href="#MJMAIN-31" x="1279" y="0"></use><use xlink:href="#MJMAIN-32" x="1780" y="0"></use><use xlink:href="#MJMAIN-30" x="2280" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="22184" y="0"></use><use xlink:href="#MJMAIN-31" x="23184" y="0"></use><use xlink:href="#MJMAIN-3D" x="23963" y="0"></use><g transform="translate(25019,0)"><use xlink:href="#MJMAIN-31"></use><use xlink:href="#MJMAIN-31" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-32" x="1279" y="0"></use></g><use xlink:href="#MJMAINI-25" x="26799" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle="true"><mfrac><mrow><mn>0.109</mn></mrow><mn>2</mn></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mn>2</mn></msup><mo>−</mo><mn>1</mn><mo>=</mo><mn>1.1120</mn><mo>−</mo><mn>1</mn><mo>=</mo><mn>11.2</mn><mi>%</mi></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-7"><math id="m7"><semantics><mrow><mi>R</mi><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>i</mi><mi>n</mi></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo>=</mo><msup><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mstyle displaystyle="true"><mfrac><mrow><mn>0.109</mn></mrow><mn>2</mn></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mn>2</mn></msup><mo>−</mo><mn>1</mn><mo>=</mo><mn>1.1120</mn><mo>−</mo><mn>1</mn><mo>=</mo><mn>11.2</mn><mi>%</mi></mrow></semantics></math></script></div>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+</figure>
+</section>
+<section id="CIPM0005-R-s11-01-01-03">
+<h4>Practical Issues</h4>
+<p>Although some investments (such as term deposits) have well-defined compounding periods, in performance measurement the holding period of a return is generally dictated by the availability of valuation data. The periodicity of the return is not a characteristic of the investment; it is a parameter chosen by the performance measurer. In principle, market values may exist at any point in time regardless of whether they are measured and recorded. For analytical purposes, discrete compounding and continuous compounding constitute alternative models of growth. The models are equivalent if portfolio values match at the given valuation time points. The choice of holding period or the use of continuous compounding depends on the nature of the analyst’s task at hand and the data with which the analyst is working.</p>
+<figure id="CIPM0005-R-s11-EXM17" class="dp-content-block cfa-curriculum-example-box">
+<figcaption class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i class="fas fa-search" style="background: inherit !important;" aria-hidden="true"></i>Example 17<span style="display: block;">Equivalent Returns with Different Compounding Intervals</span></figcaption>
+<section>
+<p>Calculate the effective annual rate given the stated annual rate and number of compounding periods for the three cases given below.</p>
+<div class="dp-content-block">
+<div id="CIPM0005-R-s11-Q4" class="dp-qc cfa-curriculum-question-with-label dp-qc-built"><fieldset><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Stated annual rate: 12%</p>
+<p>Number of compounding periods per year: 4</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer dp-panels-built" style="display: inline-block;" id="dpPanel1" href="javascript:void(0)"><a href="javascript:void(0)" role="button" class="dp-panel-toggler , dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: rgb(255, 255, 255) !important; display: inline-block;" aria-controls="dpPanel1Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Check Answer</a></h4>
+<div class="dp-panel-content cfa-curriculum-solution" tabindex="0" id="dpPanel1Content" style="display: none;" aria-labelledby="dpPanel1" role="region">
+<section>
+<h5 class="cfa-curriculum-solution-title">Solution</h5>
+<p>The periodic rate of return is 12%/4 = 3%. EAR = (1.03)<sup>4</sup> – 1 = 0.1255 or 12.55%.</p>
+</section>
+</div>
+
+</div>
+</fieldset></div>
+</div>
+<div class="dp-content-block">
+<div id="CIPM0005-R-s11-Q5" class="dp-qc cfa-curriculum-question-with-label dp-qc-built"><fieldset><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Stated annual rate: 10%</p>
+<p>Number of compounding periods per year: 12</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer dp-panels-built" style="display: inline-block;" id="dpPanel2" href="javascript:void(0)"><a href="javascript:void(0)" role="button" class="dp-panel-toggler , dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: rgb(255, 255, 255) !important; display: inline-block;" aria-controls="dpPanel2Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Check Answer</a></h4>
+<div class="dp-panel-content cfa-curriculum-solution" tabindex="0" id="dpPanel2Content" style="display: none;" aria-labelledby="dpPanel2" role="region">
+<section>
+<h5 class="cfa-curriculum-solution-title">Solution</h5>
+<p>The periodic rate of return is 10%/12 = 0.8333%. EAR = (1.008333)<sup>12</sup> – 1 = 0.1047 or 10.47%.</p>
+</section>
+</div>
+
+</div>
+</fieldset></div>
+</div>
+<div class="dp-content-block">
+<div id="CIPM0005-R-s11-Q6" class="dp-qc cfa-curriculum-question-with-label dp-qc-built"><fieldset><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Stated annual rate: 8%</p>
+<p>Number of compounding periods per year: continuous</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer dp-panels-built" style="display: inline-block;" id="dpPanel3" href="javascript:void(0)"><a href="javascript:void(0)" role="button" class="dp-panel-toggler , dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: rgb(255, 255, 255) !important; display: inline-block;" aria-controls="dpPanel3Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Check Answer</a></h4>
+<div class="dp-panel-content cfa-curriculum-solution" tabindex="0" id="dpPanel3Content" style="display: none;" aria-labelledby="dpPanel3" role="region">
+<section>
+<h5 class="cfa-curriculum-solution-title">Solution</h5>
+<p>ln(1 + R) = ln(1 + 0.08) = 8.3287%.</p>
+</section>
+</div>
+
+</div>
+</fieldset></div>
+</div>
+</section>
+</figure>
+</section>
+</section>
+<div id="transformedTip9Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+<p><sup>17</sup> A wide variety of synonyms may be encountered in various world markets for these terms.</p>
+</div>
+<div id="transformedTip0Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The calculation of interest on principal and accrued interest.</p>
+</div>
+<div id="transformedTip1Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>An expression for combining returns on a portfolio or asset over multiple periods so as to account for the cumulative effect on wealth.</p>
+</div>
+<div id="transformedTip2Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>With respect to returns, combining them using the linking formula. Also called <em>geometric compounding</em>.</p>
+</div>
+<div id="transformedTip3Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>See <em>chain linking</em>.</p>
+</div>
+<div id="transformedTip4Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>A return measured over a finite time interval.</p>
+</div>
+<div id="transformedTip5Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The compounding of discrete returns.</p>
+</div>
+<div id="transformedTip6Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The compounding of continuously compounded returns (returns measured over infinitely small time intervals).</p>
+</div>
+<div id="transformedTip7Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The stated interest rate for a year ignoring the effect of any compounding; the periodic rate multiplied by the number of compounding periods per year.</p>
+</div>
+<div id="transformedTip8Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The amount by which a unit of currency will grow in a year, with interest on interest included.</p>
+</div>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99505_210_Factors_Affecting_Returns_and_Related_Adjustments.html">← Previous</a><a href="courses_1366_modules_items_99508_212_Averaging_Rates_of_Return.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

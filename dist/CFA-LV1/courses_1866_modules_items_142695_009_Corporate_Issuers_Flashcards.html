@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.09 | Corporate Issuers Flashcards</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="VolumeCFACorporate_Issuers-flashcards" title="0.09 | Corporate Issuers Flashcards"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">モジュール0：はじめに 0.09 | 企業発行者(Corporate Issuers)フラッシュカード(Flashcards)</h2>
+</header>
+<h3 class="dp-has-icon"><i aria-hidden="true" class="dp-icon fas fa-book-reader"></i></h3>
+<p class="cfa-curriculum-flashcard-inst">下のカード(Card)をクリックすると、その用語(Term)の定義(Definition)が表示されます。次(Next)または前(Previous)をクリックしてカードをスクロール(Scroll)できます。</p>
+<div class="flashcard-container">
+<div class="flashcard" id="flashcard1">
+<div class="front">
+<p>廃止権(Abandonment Option)</p>
+</div>
+<div class="back">
+<p>将来のある時点で、財務結果(Financial Results)が期待外れの場合に投資(Investment)を終了する権利(Option)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard2" style="display: none;">
+<div class="front">
+<p>認定投資家(Accredited Investors)</p>
+</div>
+<div class="back">
+<p>特定の種類の代替資産(Alternative Assets)に投資するために、一定の最低規制純資産(Net Worth)やその他の要件を満たす投資家(Investors)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard3" style="display: none;">
+<div class="front">
+<p>臨時委員会(Ad Hoc Committee)</p>
+</div>
+<div class="back">
+<p>発行者(Issuer)が全ての貸し手(Lenders)および債権者(Bondholders)に最終提案を提出する前に、債務再編(Debt Restructuring)や再融資(Refinancing)について交渉する少数の貸し手または債権者のグループ。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard4" style="display: none;">
+<div class="front">
+<p>付加価格設定(Add-On Pricing)</p>
+</div>
+<div class="back">
+<p>高マージンのオプション機能(High-Margin Optional Features)、カスタマイズ(Customizations)、および追加コンテンツ(Additional Content)に基づく価格設定手法(Pricing Approach)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard5" style="display: none;">
+<div class="front">
+<p>エージェンシーコスト(Agency Costs)</p>
+</div>
+<div class="back">
+<p>主に情報の非対称性(Information Asymmetries)に起因して、プリンシパル-エージェント関係(Principal-Agent Relationship)において委託者(Principal)が負担する直接費用および間接費用。エージェンシーコストには、エージェント(Agent)の監督(Monitoring)および評価(Assessing)のコスト、ならびに機会損失(Missed Opportunities)が含まれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard6" style="display: none;">
+<div class="front">
+<p>償却(Amortization)</p>
+</div>
+<div class="back">
+<p>使用期間が有限の無形長期資産(Intangible Long-Term Assets)の費用(Cost)を会計期間(Accounting Periods)に配分するプロセス；債券(Bond)のプレミアム(Premium)やディスカウント(Discount)の額を債券償還(Bond Maturity)までの残存期間に配分すること。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard7" style="display: none;">
+<div class="front">
+<p>年次総会(Annual General Meeting, AGM)</p>
+</div>
+<div class="back">
+<p>企業取締役会(Board of Directors)および株主(Shareholders)による年次総会；通常、対面(In Person)およびデジタル(Digitally)で開催され、取締役(Directors)、報酬計画(Compensation Plans)、株主決議(Shareholder Resolutions)、その他議題に対する投票(Votes)が行われる。発行者管理(Issuer Management)もプレゼンテーション(Presentations)やイベント(Events)を行う場合がある。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard8" style="display: none;">
+<div class="front">
+<p>情報の非対称性(Asymmetric Information)</p>
+</div>
+<div class="back">
+<p>情報の非対称性(Information Asymmetry)とも呼ばれる；企業インサイダー(Corporate Insiders)と外部者(Outsiders)の間で、企業の業績(Performance)や見通し(Prospects)に関する情報差。経営者(Managers)は通常、所有者(Owners)や債権者(Creditors)よりも情報を多く持つ。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard9" style="display: none;">
+<div class="front">
+<p>オークション/リバースオークションモデル(Auction/Reverse Auction Models)</p>
+</div>
+<div class="back">
+<p>入札(Bidding)によって価格を決定する価格モデル(Pricing Models)；リバースオークション(Reverse Auctions)の場合は売り手(Sellers)による。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard10" style="display: none;">
+<div class="front">
+<p>取締役会(Board of Directors)</p>
+</div>
+<div class="back">
+<p>有限会社(Limited Company)の構成員(Member)または株主(Shareholders)によって選出され、会社定款(Charter)に従って会社を管理する機関または個人。通常、規模の大きい企業では取締役会が経営陣(Executive Management)を任命(Appoint)・監督(Oversee)する。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard11" style="display: none;">
+<div class="front">
+<p>債券契約(Bond Indenture)</p>
+</div>
+<div class="back">
+<p>債券発行者(Bond Issuer)と投資家(Investors)間の法的文書(Legal Document)で、各当事者の権利(Rights)と責任(Responsibilities)を規定する。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard12" style="display: none;">
+<div class="front">
+<p>債権者(Bondholders)</p>
+</div>
+<div class="back">
+<p>コマーシャルペーパー(Commercial Paper)、手形(Notes)、債券(Bonds)など企業の証券化債務(Securitized Debt)請求権に投資する投資家(Investors)。一般的な債権者には、投資ファンド(Investment Funds)や機関投資家(Institutional Investors)が含まれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard13" style="display: none;">
+<div class="front">
+<p>バンドル販売(Bundling)</p>
+</div>
+<div class="back">
+<p>複数の製品(Product)やサービス(Service)を組み合わせ、顧客(Customers)がまとめて購入することを促すまたは義務付ける価格設定手法(Pricing Approach)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard14" style="display: none;">
+<div class="front">
+<p>ビジネスモデル(Business Model)</p>
+</div>
+<div class="back">
+<p>企業(Business)がどのように機能し、収益(Revenues)や利益(Profits)を得るかを簡潔に説明するもの；顧客(Customers)、製品(Product)やサービス(Service)、顧客へのチャネル(Channels)、価格設定(Pricing)を含む。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard15" style="display: none;">
+<div class="front">
+<p>企業(Businesses)</p>
+</div>
+<div class="back">
+<p>投資家(Investors)や所有者(Owners)にリターン(Return)や経済的利益(Economic Benefits)を提供する目的で設立・運営される組織体(Organization Entities)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard16" style="display: none;">
+<div class="front">
+<p>資本配分(Capital Allocation)</p>
+</div>
+<div class="back">
+<p>企業が資本投資(Capital Investments)に関する意思決定を行うプロセス；対象は1年以上の寿命(Life)を持つプロジェクト(Project)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard17" style="display: none;">
+<div class="front">
+<p>資本投資(Capital Investments)</p>
+</div>
+<div class="back">
+<p>耐用年数(Useful Life)が1年以上の資産(Asset)やリソース(Resource)への支出(Expenditure)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard18" style="display: none;">
+<div class="front">
+<p>資本構成(Capital Structure)</p>
+</div>
+<div class="back">
+<p>企業が事業(Business)を資金調達(Finance)するために用いる負債(Debt)と株式(Equity)の組み合わせ(Mix)；企業特有の長期資金調達(Long-Term Financing)の組み合わせ。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard19" style="display: none;">
+<div class="front">
+<p>資本集約型企業(Capital-Intensive Businesses)</p>
+</div>
+<div class="back">
+<p>固定資産回転率(Fixed Asset Turnover)が低く、売上に対する資本支出(Capital Expenditure)比率が高い、または売上に対する純運転資本(Net Working Capital)比率が高い企業や事業活動(Business Activities)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard20" style="display: none;">
+<div class="front">
+<p>資本軽量型企業(Capital-Light Businesses)</p>
+</div>
+<div class="back">
+<p>アセットライト(Asset Light)企業とも呼ばれる；固定資産回転率(Fixed Asset Turnover)が比較的高く、売上に対する資本支出(Capital Expenditures to Sales)比率が低く、または売上に対する純運転資本(Net Working Capital to Sales)比率が低い企業や事業活動(Business Activities)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard21" style="display: none;">
+<div class="front">
+<p>現金回転サイクル(Cash Conversion Cycle)</p>
+</div>
+<div class="back">
+<p>発行者(Issuer)が仕入先(Suppliers)に現金(Cash)で支払いを行ってから、顧客(Customers)から現金を受け取るまでの期間(Time)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard22" style="display: none;">
+<div class="front">
+<p>営業キャッシュフロー(Cash Flow from Operations)</p>
+</div>
+<div class="back">
+<p>発行者(Issuer)の主要事業活動(Primary Business Activities)における一定期間の現金(Cash)利益測定値(Profit Measure)。顧客からの現金、金融投資(Financial Investments)からの利息(Interest)および配当(Dividends)を含み、従業員(Employee)や仕入先(Suppliers)への現金支払、政府(Governments)への税金(Taxes)、貸し手(Lenders)への利息を差し引く。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard23" style="display: none;">
+<div class="front">
+<p>現金比率(Cash Ratio)</p>
+</div>
+<div class="back">
+<p>現金(Cash)および市場性証券(Marketable Securities)と流動負債(Current Liabilities)の比率で表される流動性(Liquidity)の指標。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard24" style="display: none;">
+<div class="front">
+<p>チャネル(Channels)</p>
+</div>
+<div class="back">
+<p>企業(Company)が製品(Product)やサービス(Service)を市場(Market)に出すまたは提供(Deliver)する場(Venues)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard25" style="display: none;">
+<div class="front">
+<p>商品(Commodities)</p>
+</div>
+<div class="back">
+<p>他社の製品(Product)やサービス(Service)と区別がつかない製品やサービス；通常、慣習(Convention)や規制(Regulation)で課される共通基準(Common Standard)や等級(Grade)に従う。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard26" style="display: none;">
+<div class="front">
+<p>商品生産者(Commodity Producers)</p>
+</div>
+<div class="back">
+<p>商品(Commodities)を製造(Make)および/または販売(Sell)する企業(Firm)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard27" style="display: none;">
+<div class="front">
+<p>企業(Companies)</p>
+</div>
+<div class="back">
+<p>投資家(Investors)や所有者(Owners)にリターン(Return)や経済的利益(Economic Benefits)を提供する目的で設立・運営される組織体(Organization Entities)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard28" style="display: none;">
+<div class="front">
+<p>受託製造会社(Contract Manufacturers)</p>
+</div>
+<div class="back">
+<p>他社(Companies)向けに、特定の条件(Terms)や仕様(Specifications)を満たす製品(Product)を製造(Make)する企業。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard29" style="display: none;">
+<div class="front">
+<p>支配株主(Controlling Shareholder)</p>
+</div>
+<div class="back">
+<p>企業(Corporation)における議決権(Voting Rights)の過半数(Majority)を所有する個人または法人(Entity)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard30" style="display: none;">
+<div class="front">
+<p>転換社債(Convertible Debt)</p>
+</div>
+<div class="back">
+<p>債務(Debt)の特徴と株式(Equity)の特徴を条件付き特徴(Contingent Feature)で組み合わせ、将来の所定価格(Fixed Price)で債権者(Debtholders)が普通株(Common Shares)に請求権(Claim)を交換できる固定収入(Fixed-Income Instrument)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard31" style="display: none;">
+<div class="front">
+<p>企業発行者(Corporate Issuers)</p>
+</div>
+<div class="back">
+<p>金融市場(Financial Markets)で資金調達(Financing)を行う有限会社(Limited Companies)または株式会社(Corporations)；例として債務(Debt)や株式(Equity)証券を発行する。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard32" style="display: none;">
+<div class="front">
+<p>株式会社(Corporations)</p>
+</div>
+<div class="back">
+<p>有限会社(Limited Companies)の別名(Term)；ただし多くの場合、公開有限会社(Public Limited Companies)を指す。有限会社(Limited Company)、非公開有限会社(Private Limited Company)、公開有限会社(Public Limited Company)参照。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard33" style="display: none;">
+<div class="front">
+<p>資本コスト(Cost of Capital)</p>
+</div>
+<div class="back">
+<p>企業の資金調達(Cost of Financing)にかかる費用(Cost)；資本提供者(Suppliers of Capital)が資本(Capital)提供の対価として要求するリターン率(Rate of Return)（機会費用(Opportunity Cost of Funds)とも呼ばれる）。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard34" style="display: none;">
+<div class="front">
+<p>負債コスト(Cost of Debt)</p>
+</div>
+<div class="back">
+<p>債務(Debt)による資金調達(Financing)に対して企業が要求されるリターン(Return)；債券(Bond)発行、銀行ローン(Bank Loan)借入、ファイナンスリース(Finance Lease)による資産(Asset)リース時など。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard35" style="display: none;">
+<div class="front">
+<p>株式コスト(Cost of Equity)</p>
+</div>
+<div class="back">
+<p>株式投資家(Equity Investors)が時間価値(Time Value of Money)とリスク(Risk)に対する補償として要求するリターン(Return)；普通株(Common Stock)の要求リターン(Required Rate of Return on Common Stock)または株式の要求リターン(Required Return on Equity)とも呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard36" style="display: none;">
+<div class="front">
+<p>クラウドソーシング(Crowdsourcing)</p>
+</div>
+<div class="back">
+<p>ユーザー(Users)が製品(Product)、サービス(Service)、オンラインコンテンツ(Online Content)に直接貢献できるビジネスモデル(Business Model)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard37" style="display: none;">
+<div class="front">
+<p>流動比率(Current Ratio)</p>
+</div>
+<div class="back">
+<p>流動資産(Current Assets)と流動負債(Current Liabilities)の比率で表される流動性(Liquidity)の指標。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard38" style="display: none;">
+<div class="front">
+<p>在庫日数(Days of Inventory on Hand, DOH)</p>
+</div>
+<div class="back">
+<p>在庫(Inventory)を販売するのにかかる平均日数(Average Number of Days)；期末または平均在庫(Ending or Average Balance of Inventories)を期間中の売上原価(Cost of Goods Sold)/日数(Days in the Period)で計算。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard39" style="display: none;">
+<div class="front">
+<p>買掛金支払日数(Days Payable Outstanding, DPO)</p>
+</div>
+<div class="back">
+<p>仕入先(Suppliers)への支払いにかかる平均日数(Average Number of Days)；期末または平均買掛金(Balance of Accounts Payable)を期間中の売上原価(Cost of Goods Sold)/日数(Days in the Period)で計算。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard40" style="display: none;">
+<div class="front">
+<p><strong>Days sales outstanding (DSO)</strong></p>
+</div>
+<div class="back">
+<p>The average number of days it takes for a company to receive payment from customers who purchase goods or services on credit. It is calculated as either the ending or average balance of accounts receivable divided by (revenues/days in the period).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard41" style="display: none;">
+<div class="front">
+<p><strong>Debt</strong></p>
+</div>
+<div class="back">
+<p>A claim against an entity to receive cash, stock, or other assets at a future date. From the perspective of the debtor or borrower, an obligation to pay cash, stock, or other assets at a future date. Generally, debt claims are unconditional and are senior to equity claims.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard42" style="display: none;">
+<div class="front">
+<p><strong>Debt tax shield</strong></p>
+</div>
+<div class="back">
+<p>The tax benefit from interest paid on debt being tax deductible from income, equal to the marginal tax rate multiplied by the value of the debt.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard43" style="display: none;">
+<div class="front">
+<p><strong>Depreciation</strong></p>
+</div>
+<div class="back">
+<p>The process of systematically allocating the cost of long-lived (tangible) assets to the periods during which the assets are expected to provide economic benefits.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard44" style="display: none;">
+<div class="front">
+<p><strong>Differentiated products</strong></p>
+</div>
+<div class="back">
+<p>A product or service from a firm that is distinguishable or distinct from those of competing firms. It is customers who determine and value whether a product is differentiated.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard45" style="display: none;">
+<div class="front">
+<p><strong>Dilution</strong></p>
+</div>
+<div class="back">
+<p>An increase in the number of shares outstanding from share issuance that decreases the percentage of shares owned by existing shareholders.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard46" style="display: none;">
+<div class="front">
+<p><strong>Direct listing</strong></p>
+</div>
+<div class="back">
+<p>Where the equity of a security is floated on the public markets directly, without underwriters, reducing the complexity and cost of the transaction.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard47" style="display: none;">
+<div class="front">
+<p><strong>Direct sales</strong></p>
+</div>
+<div class="back">
+<p>Marketing and/or delivering products and services to customers without an intermediary or third party between the customer and seller.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard48" style="display: none;">
+<div class="front">
+<p><strong>Dividends</strong></p>
+</div>
+<div class="back">
+<p>Distributions of profits and/or net assets from a corporation to its shareholders. While often in cash, dividends can be also be paid in stock or assets, such as property.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard49" style="display: none;">
+<div class="front">
+<p><strong>Double taxation</strong></p>
+</div>
+<div class="back">
+<p>Income is taxed twice.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard50" style="display: none;">
+<div class="front">
+<p><strong>Drag on liquidity</strong></p>
+</div>
+<div class="back">
+<p>An action or event that reduces available funds or delays cash inflows.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard51" style="display: none;">
+<div class="front">
+<p><strong>Dual-class structure</strong></p>
+</div>
+<div class="back">
+<p>A capital structure that includes at least two classes of equity shares with unequal voting rights.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard52" style="display: none;">
+<div class="front">
+<p><strong>Dynamic pricing</strong></p>
+</div>
+<div class="back">
+<p>A pricing approach that charges different prices at different times. Specific examples include off-peak pricing, “surge” pricing, and “congestion” pricing.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard53" style="display: none;">
+<div class="front">
+<p><strong>Employee stock ownership plan (ESOP)</strong></p>
+</div>
+<div class="back">
+<p>A type of employee benefit plan in which a company sets up a trust fund to receive contributions of newly issued shares or cash to buy existing shares. Contributions are tax deductible up to certain limits. Shares in the trust fund are allocated to individual employees based on relative pay or a formula.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard54" style="display: none;">
+<div class="front">
+<p><strong>Equity</strong></p>
+</div>
+<div class="back">
+<p>Ownership interest in an entity. A residual claim on the assets of an entity after more senior claims, such as debt, have been satisfied. Also known as <em>net assets</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard55" style="display: none;">
+<div class="front">
+<p><strong>Exchange</strong></p>
+</div>
+<div class="back">
+<p>A rules-based, open access market venue where financial instruments are traded, with price and volume transparency accessible by issuers, investors, and their intermediaries.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard56" style="display: none;">
+<div class="front">
+<p><strong>Exercise</strong></p>
+</div>
+<div class="back">
+<p>The decision to transact the underlying by an option holder.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard57" style="display: none;">
+<div class="front">
+<p><strong>Extraordinary general meetings (EGMs)</strong></p>
+</div>
+<div class="back">
+<p>Meetings besides an AGM of the corporate board and shareholders, typically held to deliberate and vote on urgent matters. Corporate charters and bylaws specify who can call an EGM and under what conditions.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard58" style="display: none;">
+<div class="front">
+<p><strong>Financial leverage</strong></p>
+</div>
+<div class="back">
+<p>The use of debt in the capital structure. Measured using ratios such as operating income to operating income less interest expense, total assets to total equity, or debt to equity.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard59" style="display: none;">
+<div class="front">
+<p><strong>Franchising</strong></p>
+</div>
+<div class="back">
+<p>A situation where an owner of an asset and associated intellectual property divests the asset and licenses intellectual property to a third-party operator (franchisee) in exchange for royalties. Franchisees operate under the constraints of a franchise agreement.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard60" style="display: none;">
+<div class="front">
+<p><strong>Free cash flow</strong></p>
+</div>
+<div class="back">
+<p>The actual cash that would be available to the company’s investors after making all investments necessary to maintain the company as an ongoing enterprise (also referred to as free cash flow to the firm); the internally generated funds that can be distributed to the company’s investors (e.g., shareholders and bondholders) without impairing the value of the company.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard61" style="display: none;">
+<div class="front">
+<p><strong>Free cash flow hypothesis</strong></p>
+</div>
+<div class="back">
+<p>The hypothesis that higher debt levels discipline managers by forcing them to make fixed debt service payments and by reducing the company’s free cash flow.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard62" style="display: none;">
+<div class="front">
+<p><strong>Free float</strong></p>
+</div>
+<div class="back">
+<p>The portion of a listed company’s equity securities that are not held by insiders, strategic investors, sponsors, founders, and so on, that are more freely available for trading.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard63" style="display: none;">
+<div class="front">
+<p><strong>Freemium business model</strong></p>
+</div>
+<div class="back">
+<p>A pricing approach that allows customers a certain level of usage or functionality at no charge. Those who wish to use more must pay.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard64" style="display: none;">
+<div class="front">
+<p><strong>General partners (GPs)</strong></p>
+</div>
+<div class="back">
+<p>Private fund managers responsible for sourcing and deploying capital from limited partner investors over an investment life cycle and distributing returns to those investors over a finite investment holding period.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard65" style="display: none;">
+<div class="front">
+<p><strong>General partnership</strong></p>
+</div>
+<div class="back">
+<p>A business organizational form owned entirely by general partners.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard66" style="display: none;">
+<div class="front">
+<p><strong>Growth option</strong></p>
+</div>
+<div class="back">
+<p>The option to make additional investments in a project at some future time if the financial results are strong. Also called an <em>expansion option</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard67" style="display: none;">
+<div class="front">
+<p><strong>Hidden revenue business model</strong></p>
+</div>
+<div class="back">
+<p>Business models that provide services to users at no charge and generate revenues elsewhere.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard68" style="display: none;">
+<div class="front">
+<p><strong>Hostile takeover</strong></p>
+</div>
+<div class="back">
+<p>When a potential acquirer seeks to acquire a company (the target) against the wishes of the target’s board of directors. Typically, a tender offer is used to carry out the hostile takeover, against which a board might use a poison pill in its defense.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard69" style="display: none;">
+<div class="front">
+<p><strong>Human capital</strong></p>
+</div>
+<div class="back">
+<p>The present value of an individual’s future expected labor income.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard70" style="display: none;">
+<div class="front">
+<p><strong>Hurdle rate</strong></p>
+</div>
+<div class="back">
+<p>Also called “preferred return.” The minimum rate of return on investment that a fund must reach before a GP receives carried interest.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard71" style="display: none;">
+<div class="front">
+<p><strong>Independent directors</strong></p>
+</div>
+<div class="back">
+<p>Members of a corporation’s board of directors who do not have an employment or familial relationship with the company, nor do they have a relationship that would impair their independence such as an economic interest in a vendor or competitor of the company.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard72" style="display: none;">
+<div class="front">
+<p><strong>Initial public offering (IPO)</strong></p>
+</div>
+<div class="back">
+<p>The first issuance of common shares to the public by a formerly private corporation.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard73" style="display: none;">
+<div class="front">
+<p><strong>Inside directors</strong></p>
+</div>
+<div class="back">
+<p>Members of a corporation’s board of directors who are not independent. Typically, inside directors are employees or founders (and their family) of the company.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard74" style="display: none;">
+<div class="front">
+<p><strong>Internal rate of return (IRR)</strong></p>
+</div>
+<div class="back">
+<p>The uniform discount rate for a series of cash flows over <em>n</em> periods that returns a net present value of zero.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard75" style="display: none;">
+<div class="front">
+<p><strong>Licensing arrangements</strong></p>
+</div>
+<div class="back">
+<p>Rights to produce a product or have access to intangible assets using someone else’s brand name in return for a royalty (often a percentage of revenues).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard76" style="display: none;">
+<div class="front">
+<p><strong>Limited company</strong></p>
+</div>
+<div class="back">
+<p>A business organizational form owned by shareholders or members with limited liability who elect a board of directors to appoint management. Generally, limited companies have indefinite life and easier transfer of ownership interests than limited partnerships.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard77" style="display: none;">
+<div class="front">
+<p><strong>Limited liability partnership (LLP)</strong></p>
+</div>
+<div class="back">
+<p>A business organizational form available in some jurisdictions owned entirely by limited partners with limited liability.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard78" style="display: none;">
+<div class="front">
+<p><strong>Limited partners (LPs)</strong></p>
+</div>
+<div class="back">
+<p>Outside investors in a private market fund who own a fractional interest in a limited, closed-end partnership managed by a general partner based on the investment commitment and other terms set out in a limited partner agreement.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard79" style="display: none;">
+<div class="front">
+<p><strong>Limited partnership</strong></p>
+</div>
+<div class="back">
+<p>Closed-end form of ownership frequently used in private market funds in which private market fund investors, or limited partners, commit capital that is invested, managed, and distributed by a private market fund manager, or general partner, over an investment holding period.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard80" style="display: none;">
+<div class="front">
+<p><strong>Liquidity</strong></p>
+</div>
+<div class="back">
+<p>The extent to which a company is able to meet its short-term obligations using cash flows and those assets that can be readily transformed into cash.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard81" style="display: none;">
+<div class="front">
+<p><strong>Maintenance capital expenditures</strong></p>
+</div>
+<div class="back">
+<p>Investments in assets to keep them in operation or increase their efficiency without extending their useful lives.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard82" style="display: none;">
+<div class="front">
+<p><strong>Match funding</strong></p>
+</div>
+<div class="back">
+<p>Financing an asset with a source, such as a loan or bond, that is aligned with certain attributes of the asset, such as duration and the respective streams of income and financing costs.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard83" style="display: none;">
+<div class="front">
+<p><strong>Material</strong></p>
+</div>
+<div class="back">
+<p>(materiality) Refers to information that is decision-useful for a reasonable investor.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard84" style="display: none;">
+<div class="front">
+<p><strong>Minority shareholder</strong></p>
+</div>
+<div class="back">
+<p>An individual or entity that owns less than a majority of the voting rights in a corporation.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard85" style="display: none;">
+<div class="front">
+<p><strong>Negative externalities</strong></p>
+</div>
+<div class="back">
+<p>A cost to a third party because of the production or consumption of a good or service.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard86" style="display: none;">
+<div class="front">
+<p><strong>Net present value (NPV)</strong></p>
+</div>
+<div class="back">
+<p>The present value of an investment’s cash inflows (benefits) minus the present value of its cash outflows (costs).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard87" style="display: none;">
+<div class="front">
+<p><strong>Net working capital</strong></p>
+</div>
+<div class="back">
+<p>Working capital excluding short-term items unrelated to business operations, such as cash, marketable securities, and short-term debt.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard88" style="display: none;">
+<div class="front">
+<p><strong>Network effects</strong></p>
+</div>
+<div class="back">
+<p>A business model that enables users to contribute directly to a product, service, or online content.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard89" style="display: none;">
+<div class="front">
+<p><strong>Omnichannel</strong></p>
+</div>
+<div class="back">
+<p>Refers to a company selling its products or services in multiple channels, such as in store and online.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard90" style="display: none;">
+<div class="front">
+<p><strong>Operating cycle</strong></p>
+</div>
+<div class="back">
+<p>The length of time between a company’s acquisition of goods or raw materials and the collection of cash from sales to customers.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard91" style="display: none;">
+<div class="front">
+<p><strong>Operating leverage</strong></p>
+</div>
+<div class="back">
+<p>The sensitivity of a firm’s operating profit to a change in revenues, determined by the composition of fixed and variable operating costs.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard92" style="display: none;">
+<div class="front">
+<p><strong>Optimal capital structure</strong></p>
+</div>
+<div class="back">
+<p>The capital structure at which the value of the company is maximized.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard93" style="display: none;">
+<div class="front">
+<p><strong>Organizational form</strong></p>
+</div>
+<div class="back">
+<p>A legal and tax classification of a business, specific to a jurisdiction, that determines the organization’s legal identity, owner–manager relationship, owner liability, taxation, and access to financing.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard94" style="display: none;">
+<div class="front">
+<p><strong>Pass-through businesses</strong></p>
+</div>
+<div class="back">
+<p>Businesses that, by virtue of their organizational form and/or other legal and regulatory attributes, do not pay entity-level taxes on income or loss; income or loss is passed through to owners, who pay personal taxes.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard95" style="display: none;">
+<div class="front">
+<p><strong>Pecking order theory</strong></p>
+</div>
+<div class="back">
+<p>The theory that managers consider how their actions might be interpreted by outsiders and thereby order their preferences for various forms of corporate financing. Forms of financing that are least visible to outsiders (e.g., internally generated funds) are most preferable to managers, and those that are most visible (e.g., equity issuance) are least preferable.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard96" style="display: none;">
+<div class="front">
+<p><strong>Penetration pricing</strong></p>
+</div>
+<div class="back">
+<p>A discount pricing approach used when a firm willingly sacrifices margins in order to build scale and market share.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard97" style="display: none;">
+<div class="front">
+<p><strong>Pet projects</strong></p>
+</div>
+<div class="back">
+<p>A capital investment that is pursued by management but is not economically justifiable by a disinterested party. Motivations for pet projects include self-dealing and vanity.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard98" style="display: none;">
+<div class="front">
+<p><strong>Physical risks</strong></p>
+</div>
+<div class="back">
+<p>Economic and financial losses from the increase in the severity and frequency of extreme weather due to climate change—for example, the loss of coastal real estate from a storm.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard99" style="display: none;">
+<div class="front">
+<p><strong>Poison pill</strong></p>
+</div>
+<div class="back">
+<p>Officially known as a shareholder rights plan, a poison pill is a hostile-takeover defense adopted by boards of directors according to rules specified in the corporate charter. There are several types of poison pills. Generally, they allow shareholders, <em>excluding</em> the shareholder making the hostile bid and their affiliates, to buy newly issued shares at a discounted price. The share issuance would dilute the bidder’s ownership percentage, rendering it impossible for the bidder to attain control.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard100" style="display: none;">
+<div class="front">
+<p><strong>Price discrimination</strong></p>
+</div>
+<div class="back">
+<p>顧客の支払意欲に基づいて、異なる顧客に異なる価格を課す価格設定手法。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard101" style="display: none;">
+<div class="front">
+<p>価格設定オプション (Price-setting option)</p>
+</div>
+<div class="back">
+<p>需要または供給が予測と異なる場合に価格を調整するオプション。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard102" style="display: none;">
+<div class="front">
+<p>価格決定力 (Pricing power)</p>
+</div>
+<div class="back">
+<p>売上高に影響を与えずに、顧客に対して価格やその他の経済条件を設定する企業の能力。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard103" style="display: none;">
+<div class="front">
+<p>主従関係 (Principal-agent relationship)</p>
+</div>
+<div class="back">
+<p>一方（代理人）が他方（委任者）のために行動する権限を持つ取り決め。そのような取り決めは、代理人が委任者の最善の利益のために行動する義務を課す。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard104" style="display: none;">
+<div class="front">
+<p>非上場企業 (Private company)</p>
+</div>
+<div class="back">
+<p>通常、有限会社であり、株式を取引所で上場していない企業。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard105" style="display: none;">
+<div class="front">
+<p>非上場債権者 (Private debtholders)</p>
+</div>
+<div class="back">
+<p>ローンやリースのような証券化されていない債務請求権を持つ投資家。最も一般的な非上場債権者は銀行である。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard106" style="display: none;">
+<div class="front">
+<p>非公開有限会社 (Private limited company)</p>
+</div>
+<div class="back">
+<p>多くの法域における有限会社の一種で、パススルー課税が適用されるが、株主やメンバーの数、および所有権の譲渡に制限がある。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard107" style="display: none;">
+<div class="front">
+<p>私募 (Private placement)</p>
+</div>
+<div class="back">
+<p>少数の投資家に対して規制されていない形で債務または株式を販売すること。募集条件は発行者と投資家が交渉する。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard108" style="display: none;">
+<div class="front">
+<p>生産柔軟性オプション (Production flexibility option)</p>
+</div>
+<div class="back">
+<p>需要が予測と異なる場合に生産を変更するオプション。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard109" style="display: none;">
+<div class="front">
+<p>委任状争奪戦 (Proxy contest)</p>
+</div>
+<div class="back">
+<p>株主または株主グループが株主投票に提出した特定の事項、しばしば現任取締役会や経営陣に反対する取締役候補名簿のためにキャンペーンを行う場合。現任取締役会と経営陣も同時に自分たちの立場を支持するキャンペーンを行う。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard110" style="display: none;">
+<div class="front">
+<p>委任状投票 (Proxy voting)</p>
+</div>
+<div class="back">
+<p>有権者が指示に従って代表者に投票を委任する投票形態。企業の選挙では、株主が通常、会社の秘書を代表者として指示通りに投票させる委任状を投じる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard111" style="display: none;">
+<div class="front">
+<p>上場企業 (Public (listed) company)</p>
+</div>
+<div class="back">
+<p>株式が取引所で取引されている企業。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard112" style="display: none;">
+<div class="front">
+<p>公開有限会社 (Public limited companies)</p>
+</div>
+<div class="back">
+<p>多くの法域で、法人レベルで課税され、株主数や所有権譲渡に制限のない有限会社の一種。上場を目指す企業に最適な組織形態。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard113" style="display: none;">
+<div class="front">
+<p>流動性の引き出し (Pull on liquidity)</p>
+</div>
+<div class="back">
+<p>現金流出を加速させる行動または事象。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard114" style="display: none;">
+<div class="front">
+<p>クイック比率 (Quick ratio)</p>
+</div>
+<div class="back">
+<p>現金、流動性の高い証券、売掛金の合計を流動負債で割った流動性指標。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard115" style="display: none;">
+<div class="front">
+<p>レーザー・レザーブレード方式の価格設定 (Razor, razorblade pricing)</p>
+</div>
+<div class="back">
+<p>設備に低価格を設定し、消耗品には高マージン価格を課す価格設定手法。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard116" style="display: none;">
+<div class="front">
+<p>実物オプション (Real option)</p>
+</div>
+<div class="back">
+<p>将来のキャッシュフローを元の予測シナリオから変更する資本投資に関して経営陣が意思決定する権利（義務ではない）。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard117" style="display: none;">
+<div class="front">
+<p>投下資本利益率 (Return on invested capital (ROIC))</p>
+</div>
+<div class="back">
+<p>株主および債権者によって投資された資本に対する企業の収益性の指標。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard118" style="display: none;">
+<div class="front">
+<p>証券 (Security)</p>
+</div>
+<div class="back">
+<p>株式や債権の利権、または関連する権利（デリバティブなど）の証拠。多くの場合、証券取引所の要件に合わせて標準化される。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard119" style="display: none;">
+<div class="front">
+<p>セグメンテーション (Segmenting)</p>
+</div>
+<div class="back">
+<p>意思決定に有用な属性に基づき顧客を特定してグループ化するプロセス。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard120" style="display: none;">
+<div class="front">
+<p>株式クラス (Share class)</p>
+</div>
+<div class="back">
+<p>異なる議決権を持つ株式の種類。例えば、発行者が1株につき1票のAクラス株と1株につき10票のBクラス株を発行する場合。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard121" style="display: none;">
+<div class="front">
+<p>株主活動 (Shareholder activism)</p>
+</div>
+<div class="back">
+<p>株主が企業に何らかの変化をもたらすことを目的として行う一連の行動。通常は取締役会、経営陣、または事業戦略の変更を伴う。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard122" style="display: none;">
+<div class="front">
+<p>株主代表訴訟 (Shareholder derivative lawsuit)</p>
+</div>
+<div class="back">
+<p>株主が個人としてではなく企業を代表して第三者に対して行う法的措置。多くの場合、第三者は株主が企業に損害を与えたと考える取締役または管理者である。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard123" style="display: none;">
+<div class="front">
+<p>株主中心の企業統治理論 (Shareholder theory of corporate governance)</p>
+</div>
+<div class="back">
+<p>ミルトン・フリードマン(Milton Friedman)が1970年の有名な論文で唱えた理論で、企業の目的は利益と株主価値を最大化することであるとする。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard124" style="display: none;">
+<div class="front">
+<p>株主 (Shareholders)</p>
+</div>
+<div class="back">
+<p>企業に直接的な株式保有を持つ個人または金融機関。用語は、個人や投資会社が文字通り企業の「株」を持つことに由来する。株主としての権利や義務（経営監督、投票、関与など）を説明する際によく用いられる。これは、個人や投資会社が貸付や債券に投資する場合（すなわち企業の株主ではない場合）との違いを示す。債券投資家は株を持たず企業の所有者ではないため、投票できない。しかし、ローンや債券に投資する者への関与に関する期待は高まっており、この二つの用語の差はより微妙になっている。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard125" style="display: none;">
+<div class="front">
+<p>株式 (Shares)</p>
+</div>
+<div class="back">
+<p>有限会社における所有権の単位。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard126" style="display: none;">
+<div class="front">
+<p>高度な投資家 (Sophisticated investors)</p>
+</div>
+<div class="back">
+<p>法域内で、未登録または一般に規制の少ない証券（非上場企業の株式を含む）を取引することが許されている個人または法人。認定投資家 (accredited investors) とも呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard127" style="display: none;">
+<div class="front">
+<p>特別目的買収会社 (Special purpose acquisition company)</p>
+</div>
+<div class="back">
+<p>定められた期間内に未特定の非上場企業を取得すること、または投資家に資本を返還することを唯一の目的とする「ブランクチェック」会社。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard128" style="display: none;">
+<div class="front">
+<p>分割取締役会 (Staggered board)</p>
+</div>
+<div class="back">
+<p>取締役会の選挙構造で、一度に選出されるのは取締役会の一部のみ。例えば、毎年取締役の3分の1のみが選挙にかけられ、全席が毎年選挙される場合に比べ、3年かけて取締役会を刷新できる。この構造は取締役の継続性を高めるが、株主が変化をもたらすのを妨げる障害となる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard129" style="display: none;">
+<div class="front">
+<p>ステークホルダー中心の企業統治理論 (Stakeholder theory of corporate governance)</p>
+</div>
+<div class="back">
+<p>株主中心の企業統治理論を拡張した理論で、企業の目的は株主、従業員、社会、非人間環境など幅広いステークホルダーの価値を最大化し、利害を調整することにある。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard130" style="display: none;">
+<div class="front">
+<p>ステークホルダー (Stakeholders)</p>
+</div>
+<div class="back">
+<p>企業またはその活動に対して、財務的または非財務的に利害を持つあらゆる関係者。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard131" style="display: none;">
+<div class="front">
+<p>キャッシュ・フロー計算書 (Statement of cash flows)</p>
+</div>
+<div class="back">
+<p>一定期間における現金の動きを詳細に示す財務諸表。営業活動、投資活動、財務活動に分類される。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard132" style="display: none;">
+<div class="front">
+<p>資本構成の静的トレードオフ理論 (Static trade-off theory of capital structure)</p>
+</div>
+<div class="back">
+<p>企業の最適な資本構成に関する理論。追加の負債による節税効果の利益よりも財務困難コストの増加が大きくなる点で負債の最適水準が決まる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard133" style="display: none;">
+<div class="front">
+<p>株式取引所 (Stock exchange)</p>
+</div>
+<div class="back">
+<p>株式が取引される取引所。関連項目は取引所 (exchanges) を参照。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard134" style="display: none;">
+<div class="front">
+<p>立ち往生資産 (Stranded assets)</p>
+</div>
+<div class="back">
+<p>需要、規制、代替品の利用可能性の変化により経済的価値を持たなくなった資源。例：新たに発見された油井だが生産されないもの。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard135" style="display: none;">
+<div class="front">
+<p>沈没費用 (Sunk costs)</p>
+</div>
+<div class="back">
+<p>既に発生している費用。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard136" style="display: none;">
+<div class="front">
+<p>監査役会 (Supervisory board)</p>
+</div>
+<div class="back">
+<p>一部の法域では、企業の取締役会は監査役会と経営委員会で構成される。監査役会は経営委員会を任命・監督し、従業員や非株主ステークホルダーの代表を含むことが多い。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard137" style="display: none;">
+<div class="front">
+<p>サプライチェーン (Supply chain)</p>
+</div>
+<div class="back">
+<p>物理的製品を最終顧客に届けるまでの一連のプロセス。企業内外で実行されるステップを問わない。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard138" style="display: none;">
+<div class="front">
+<p>目標資本構成 (Target capital structure)</p>
+</div>
+<div class="back">
+<p>経営陣が望む負債と株式の資金比率。通常は簿価ベースで示すか、純・総負債対EBITDAや信用格付けなどの財務レバレッジ指標で間接的に示す。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard139" style="display: none;">
+<div class="front">
+<p>公開買付 (Tender offer)</p>
+</div>
+<div class="back">
+<p>現在または将来の株主が他の株主に対して、指定価格で株式の大部分（100%を含む）を取得するよう求める行為。通常は、発行者の取締役会により拒否された買収者が株主に直接訴える場合に行われる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard140" style="display: none;">
+<div class="front">
+<p>階層別価格設定 (Tiered pricing)</p>
+</div>
+<div class="back">
+<p>異なる購入者に異なる価格を課す価格設定手法。一般的には購入量に基づく。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard141" style="display: none;">
+<div class="front">
+<p>総運転資本 (Total working capital)</p>
+</div>
+<div class="back">
+<p>流動資産と流動負債の差額。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard142" style="display: none;">
+<div class="front">
+<p>移行リスク (Transition risks)</p>
+</div>
+<div class="back">
+<p>気候変動に対応した低炭素経済への移行による経済的・財務的損失。例：もはや経済的でない油井の放棄。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard143" style="display: none;">
+<div class="front">
+<p>単位経済 (Unit economics)</p>
+</div>
+<div class="back">
+<p>1単位あたりの収益と費用の表現。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard144" style="display: none;">
+<div class="front">
+<p>付加価値再販業者 (Value added resellers)</p>
+</div>
+<div class="back">
+<p>製品を流通させるだけでなく、製品の設置、カスタマイズ、サービス、サポートなどより複雑な側面も扱う事業者。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard145" style="display: none;">
+<div class="front">
+<p>価値連鎖 (Value chain)</p>
+</div>
+<div class="back">
+<p>顧客に価値を提供する企業内のシステムとプロセス。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard146" style="display: none;">
+<div class="front">
+<p>価値提案 (Value proposition)</p>
+</div>
+<div class="back">
+<p>企業のターゲット顧客にとって価値がある製品やサービスの属性で、それにより顧客がその企業の提供するものを選好する。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard147" style="display: none;">
+<div class="front">
+<p>価値基準価格設定 (Value-based pricing)</p>
+</div>
+<div class="back">
+<p>主に顧客にとっての製品やサービスの価値を基準に設定される価格。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard148" style="display: none;">
+<div class="front">
+<p>議決権 (Voting rights)</p>
+</div>
+<div class="back">
+<p>株主が取締役や株主投票に提出されたその他の事項について投票できる権限。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard149" style="display: none;">
+<div class="front">
+<p>加重平均資本コスト (Weighted-average cost of capital (WACC))</p>
+</div>
+<div class="back">
+<p>企業の株式、負債、優先株、その他の長期資金源に対する税引後必要収益率の加重平均。加重は各資金源の現在の市場価値に占める割合、または経営陣の目標資本構成に基づく。</p>
+</div>
+</div>
+</div>
+<div class="controls">
+<div class="control-button" id="prevBtn">Previous Card</div>
+<div class="control-button" id="nextBtn">Next Card</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1866_modules_items_142692_008_Corporate_Issuers_Glossary.html" >← 前へ</a>
+  <span class="title">0.09 | Corporate Issuers Flashcards</span>
+  <a href="courses_1866_modules_items_142698_010_Using_Your_Program_Dashboard.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

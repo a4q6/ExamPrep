@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.03 | The Direct Method for Cash Flows from Operating Activities</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2420-R-s03-R-1" title="4.03 | The Direct Method for Cash Flows from Operating Activities">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 4: Analyzing Statements of Cash Flows I</span>4.03 | The Direct Method for Cash Flows from Operating Activities</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe the steps in the preparation of direct and indirect cash flow statements, including how cash flows can be computed using income statement and balance sheet data</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>The first step in preparing the cash flow statement is to determine cash flows from operating activities, which can be presented using the direct or indirect method. The direct method uses the major categories of gross cash receipts and payments, and the indirect method reconciles net income to net cash flow. Cash flows from investing activities and from financing activities are identical regardless of whether the direct or indirect method is used to present operating cash flows.</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2420-R-s03-L1">
+<li class="cfa-curriculum-list-item">
+<p>Companies often disclose only indirect operating cash flow information but understanding how cash flow information is put together will enable you to take an indirect statement apart and reconfigure it to approximate a direct cash flow statement, which—while not perfectly accurate—can be useful. This lesson demonstrates the approximate preparation of a direct cash flow statement using the income statement and the comparative balance sheets for Acme Corporation (a fictitious retail company) shown in <a aria-label="View Exhibit 9" class="internal" href="#CFA2420-R-s03-EXH-1-9" role="button">Exhibit 9</a> and <a aria-label="View Exhibit 10" class="internal" href="#CFA2420-R-s03-EXH-1-10" role="button">Exhibit 10</a>.</p>
+</li>
+</ul>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-9">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 9<span style="display: block;">Acme Corporation Income Statement Year Ended 31 December 2018</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue (net)</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD23,598</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cost of goods sold</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">11,456</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Gross profit</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12,142</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Salary and wage expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD4,123</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Depreciation expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,052</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other operating expenses</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,577</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> Total operating expenses</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">8,752</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating profit</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,390</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other revenues (expenses):</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> Gain on sale of equipment</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> Interest expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(246)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(41)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Income before tax</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,349</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Income tax expense</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,139</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net income</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD2,210</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-10">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 10<span style="display: block;">Acme Corporation Comparative Balance Sheets 31 December 2018 and 2017</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong> </strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2018</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2017</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>Net Change</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD1,011</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD1,163</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD(152)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,012</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">957</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">55</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Inventory</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,984</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,277</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">707</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Prepaid expenses</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">155</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">178</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(23)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> Total current assets</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,162</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,575</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">587</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Land</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">510</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">510</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">—</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Buildings</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,680</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,680</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">—</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Equipment*</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">8,798</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">8,555</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">243</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less: accumulated depreciation</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(3,443)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(2,891)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(552)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> Total long-term assets</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">9,545</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">9,854</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(309)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total assets</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD15,707</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD15,429</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD278</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD3,588</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD3,325</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD263</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Salary and wage payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">85</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">75</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Interest payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">62</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">74</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(12)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Income tax payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">55</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">50</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other accrued liabilities</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,126</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,104</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">22</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> Total current liabilities</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4,916</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4,628</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">288</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Long-term debt</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,075</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,575</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(500)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Common stock</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,750</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4,350</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(600)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Retained earnings</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,966</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,876</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,090</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total liabilities and equity</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD15,707</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD15,429</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD278</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">* During 2018, Acme purchased new equipment for a total cost of $1,300. No items impacted retained earnings other than net income and dividends.</span>
+</p>
+</div>
+<section id="CFA2420-R-s03-01-01">
+<h3 class="dp-heading">Operating Activities: Direct Method</h3>
+<p>We first determine how much cash Acme received from its customers (sometimes referred to as “cash collections”), followed by how much cash was paid to suppliers and to employees, as well as how much cash was paid for other operating expenses, interest, and income taxes.</p>
+<section id="CFA2420-R-s03-01-01-01">
+<h4>Cash Received From Customers</h4>
+<p>The income statement for Acme reported revenue of USD23,598 for the year ended 31 December 2018. To determine the approximate cash receipts from its customers, it is necessary to adjust this revenue amount by the net change in accounts receivable for the year. If accounts receivable increase during the year, revenue on an accrual basis is higher than cash receipts from customers, and vice versa. For Acme Corporation, accounts receivable increased by USD55, so cash received from customers was USD23,543, as shown in <a aria-label="View Exhibit 11" class="internal" href="#CFA2420-R-s03-EXH-1-11" role="button">Exhibit 11</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-11">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 11<span style="display: block;">Cash Received from Customers</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD23,598</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less: Increase in accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(USD55)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash received from customers</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>USD23,543</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Cash received from customers affects the accounts receivable account as shown in <a aria-label="View Exhibit 12" class="internal" href="#CFA2420-R-s03-EXH-1-12" role="button">Exhibit 12</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-12">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 12<span style="display: block;">Effect on Accounts Receivable, 1</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Beginning accounts receivable </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">957</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Plus revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">23,598</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Minus cash collected from customers</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>(23,543)</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Ending accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD1,012</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The accounts receivable account information can also be presented as shown in <a aria-label="View Exhibit 13" class="internal" href="#CFA2420-R-s03-EXH-1-13" role="button">Exhibit 13</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-13">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 13<span style="display: block;">Effect on Accounts Receivable, 2</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Beginning accounts receivable </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD957</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Plus revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">23,598</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Minus ending accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(1,012)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash collected from customers</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>USD23,543</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Acme did not have any deferred or unearned revenue. If it did, further adjustment would be required to arrive at cash collected from customers (a decrease in deferred revenue would be a negative adjustment and vice versa).</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2420-R-s03-EXM-1-5">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+               Example 5<span style="display: block;">Computing Cash Received from Customers</span>
+</h5>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2420-R-s03-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Blue Bayou, a fictitious advertising company, reported revenues of USD50 million, total expenses of USD35 million, and net income of USD15 million in the most recent year. If accounts receivable decreased by USD12 million, how much cash did the company receive from customers?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>USD38 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Revenues of USD50 million plus the decrease in accounts receivable of USD12 million equals USD62 million cash received from customers. The decrease in accounts receivable means that the company received more in cash than the amount of revenue it reported.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>USD50 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Revenues of USD50 million plus the decrease in accounts receivable of USD12 million equals USD62 million cash received from customers. The decrease in accounts receivable means that the company received more in cash than the amount of revenue it reported.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>USD62 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Revenues of USD50 million plus the decrease in accounts receivable of USD12 million equals USD62 million cash received from customers. The decrease in accounts receivable means that the company received more in cash than the amount of revenue it reported.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</section>
+<section id="CFA2420-R-s03-01-01-02">
+<h4>Cash Paid to Suppliers</h4>
+<p>For Acme, the cash paid to suppliers was USD11,900, determined as shown in <a aria-label="View Exhibit 14" class="internal" href="#CFA2420-R-s03-EXH-1-14" role="button">Exhibit 14</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-14">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 14<span style="display: block;">Cash Paid to Suppliers</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cost of goods sold </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD11,456</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Plus: Increase in inventory</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">707</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Equals purchases from suppliers</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD12,163</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less: Increase in accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(263)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash paid to suppliers</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>USD11,900</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>There are two pieces to this calculation: the amount of inventory purchased and the amount paid for it. To determine purchases from suppliers, cost of goods sold is adjusted for the change in inventory. If inventory increased during the year, then purchases during the year exceeded cost of goods sold, and vice versa. Acme reported cost of goods sold of USD11,456 for the year ended 31 December 2018. For Acme Corporation, inventory increased by USD707, so purchases from suppliers was USD12,163. Purchases from suppliers affect the inventory account, as shown in <a aria-label="View Exhibit 15" class="internal" href="#CFA2420-R-s03-EXH-1-15" role="button">Exhibit 15</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-15">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 15<span style="display: block;">Effect on Inventory</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Beginning inventory </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD3,277</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Plus purchases</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12,163</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Minus cost of goods sold</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(11,456)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Ending inventory</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD3,984</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Acme purchased USD12,163 of inventory from suppliers in 2018, but is this the amount of cash that Acme paid to its suppliers during the year? Not necessarily. Acme may not have yet paid for all of these purchases and may yet owe for some of the purchases made this year. In other words, Acme may have paid less cash to its suppliers than the amount of this year’s purchases, in which case Acme’s liability (accounts payable) will have increased by the difference. Alternatively, Acme may have paid even more to its suppliers than the amount of this year’s purchases, in which case Acme’s accounts payable will have decreased.</p>
+<p>Therefore, once purchases have been determined, cash paid to suppliers can be calculated by adjusting purchases for the change in accounts payable. If the company made all purchases with cash, then accounts payable would not change and cash outflows would equal purchases. If accounts payable increased during the year, then purchases on an accrual basis would be higher than they would be on a cash basis, and vice versa. In this example, Acme made more purchases than it paid in cash, so the balance in accounts payable increased. For Acme, the cash paid to suppliers was USD11,900, determined as shown in <a aria-label="View Exhibit 16" class="internal" href="#CFA2420-R-s03-EXH-1-16" role="button">Exhibit 16</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-16">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 16<span style="display: block;">Cash Paid to Suppliers</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Purchases from suppliers</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD12,163</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Less: Increase in accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(263)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Cash paid to suppliers</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>USD11,900</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The amount of cash paid to suppliers is reflected in the accounts payable account, as shown in <a aria-label="View Exhibit 17" class="internal" href="#CFA2420-R-s03-EXH-1-17" role="button">Exhibit 17</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-17">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 17<span style="display: block;">Cash Paid to Suppliers</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Beginning accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD3,325</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Plus purchases</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12,163</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Minus cash paid to suppliers</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>(11,900)</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Ending accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD3,588</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2420-R-s03-EXM-1-6">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+               Example 6<span style="display: block;">Computing Cash Paid to Suppliers</span>
+</h5>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2420-R-s03-Q2">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Orange Beverages Plc., a fictitious manufacturer of tropical drinks, reported cost of goods sold for the year of USD100 million. Total assets increased by USD55 million, but inventory declined by USD6 million. Total liabilities increased by USD45 million, but accounts payable decreased by USD2 million. How much cash did the company pay to its suppliers during the year?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>USD96 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Cost of goods sold of USD100 million less the decrease in inventory of USD6 million equals purchases from suppliers of USD94 million. The decrease in accounts payable of USD2 million means that the company paid USD96 million in cash (USD94 million plus USD2 million).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>USD104 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Cost of goods sold of USD100 million less the decrease in inventory of USD6 million equals purchases from suppliers of USD94 million. The decrease in accounts payable of USD2 million means that the company paid USD96 million in cash (USD94 million plus USD2 million).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>USD108 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Cost of goods sold of USD100 million less the decrease in inventory of USD6 million equals purchases from suppliers of USD94 million. The decrease in accounts payable of USD2 million means that the company paid USD96 million in cash (USD94 million plus USD2 million).</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</section>
+<section id="CFA2420-R-s03-01-01-03">
+<h4>Cash Paid to Employees</h4>
+<p>To determine the cash paid to employees, it is necessary to adjust salary and wage expenses by the net change in salary and wages payable for the year. If salary and wages payable increased during the year, then salary and wage expenses on an accrual basis would be higher than the amount of cash paid for this expense, and vice versa. For Acme, salary and wages payable increased by USD10, so cash paid for salary and wages was USD4,113, as shown in <a aria-label="View Exhibit 18" class="internal" href="#CFA2420-R-s03-EXH-1-18" role="button">Exhibit 18</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-18">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 18<span style="display: block;">Salary and Wages</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Salary and wages expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD4,123</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less: Increase in salary and wages payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(10)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash paid to employees</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>USD4,113</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The amount of cash paid to employees is reflected in the salary and wages payable account, as shown in <a aria-label="View Exhibit 19" class="internal" href="#CFA2420-R-s03-EXH-1-19" role="button">Exhibit 19</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-19">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 19<span style="display: block;">Cash Paid to Employees</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Beginning salary and wages payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD75</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Plus salary and wages expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4,123</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Minus cash paid to employees</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>(4,113)</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Ending salary and wages payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD85</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="CFA2420-R-s03-01-01-04">
+<h4>Cash Paid for Other Operating Expenses</h4>
+<p>To determine the cash paid for other operating expenses, it is necessary to adjust the other operating expense amounts on the income statement by the net changes in prepaid expenses and accrued expense liabilities for the year. If prepaid expenses increased during the year, other operating expenses on a cash basis would be higher than on an accrual basis, and vice versa. Likewise, if accrued expense liabilities increased during the year, other operating expenses on a cash basis would be lower than on an accrual basis, and vice versa. For Acme Corporation, the amount of cash paid for operating expenses in 2018 was USD3,532, as shown in <a aria-label="View Exhibit 20" class="internal" href="#CFA2420-R-s03-EXH-1-20" role="button">Exhibit 20</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-20">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 20<span style="display: block;">Cash Paid for Operating Expenses</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other operating expenses</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD3,577</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less: Decrease in prepaid expenses</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(23)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less: Increase in other accrued liabilities</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(22)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash paid for other operating expenses</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>USD3,532</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2420-R-s03-EXM-1-7">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+               Example 7<span style="display: block;">Computing Cash Paid for Other Operating Expenses</span>
+</h5>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2420-R-s03-Q3">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Black Ice, a fictitious sportswear manufacturer, reported other operating expenses of USD30 million. Prepaid insurance expense increased by USD4 million, and accrued utilities payable decreased by USD7 million. Insurance and utilities are the only two components of other operating expenses. How much cash did the company pay in other operating expenses?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>USD19 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Other operating expenses of USD30 million plus the increase in prepaid insurance expense of USD4 million plus the decrease in accrued utilities payable of USD7 million equals USD41 million.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>USD33 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Other operating expenses of USD30 million plus the increase in prepaid insurance expense of USD4 million plus the decrease in accrued utilities payable of USD7 million equals USD41 million.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>USD41 million</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Other operating expenses of USD30 million plus the increase in prepaid insurance expense of USD4 million plus the decrease in accrued utilities payable of USD7 million equals USD41 million.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</section>
+<section id="CFA2420-R-s03-01-01-05">
+<h4>Cash Paid for Interest</h4>
+<p>The cash paid for interest is included in operating cash flows under US GAAP and may be included in operating or financing cash flows under IFRS. To determine the cash paid for interest, it is necessary to adjust interest expense by the net change in interest payable for the year. If interest payable increases during the year, then interest expense on an accrual basis will be higher than the amount of cash paid for interest, and vice versa. For Acme Corporation, interest payable decreased by USD12, and cash paid for interest was USD258, as shown in <a aria-label="View Exhibit 21" class="internal" href="#CFA2420-R-s03-EXH-1-21" role="button">Exhibit 21</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-21">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 21<span style="display: block;">Cash Paid for Interest</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Interest expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD246</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Plus: Decrease in interest payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash paid for interest</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>USD258</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Alternatively, cash paid for interest may also be determined by an analysis of the interest payable account, as shown in <a aria-label="View Exhibit 22" class="internal" href="#CFA2420-R-s03-EXH-1-22" role="button">Exhibit 22</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-22">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 22<span style="display: block;">Interest Payable Account</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Beginning interest payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD74</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Plus interest expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">246</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Minus cash paid for interest</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>(258)</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Ending interest payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD62</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="CFA2420-R-s03-01-01-06">
+<h4>Cash Paid for Income Taxes</h4>
+<p>To determine the cash paid for income taxes, it is necessary to adjust the income tax expense amount on the income statement by the net changes in taxes receivable, taxes payable, and deferred income taxes for the year. If taxes receivable or deferred tax assets increase during the year, income taxes on a cash basis will be higher than on an accrual basis, and vice versa. Likewise, if taxes payable or deferred tax liabilities increase during the year, income tax expense on a cash basis will be lower than on an accrual basis, and vice versa. For Acme Corporation, the amount of cash paid for income taxes in 2018 was USD1,134, as shown in <a aria-label="View Exhibit 23" class="internal" href="#CFA2420-R-s03-EXH-1-23" role="button">Exhibit 23</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s03-EXH-1-23">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 23<span style="display: block;">Cash Paid for Income Taxes</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Income tax expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">USD1,139</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less: Increase in income tax payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(5)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash paid for income taxes</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>USD1,134</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1867_modules_items_143544_402_Linkages_between_the_Financial_Statements.html" >← 前へ</a>
+  <span class="title">4.03 | The Direct Method for Cash Flows from Operating Activities</span>
+  <a href="courses_1867_modules_items_143550_404_The_Indirect_Method_for_Cash_Flows_from_Operating_Activities.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

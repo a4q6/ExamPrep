@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.09 | Drawdown Measures</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Risk Measurement and Attribution › Module 1: Risk Measurement and Risk Attribution</nav>
+<h1 class="page-title screenreader-only">1.09 | Drawdown Measures</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0018-R-s09-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.09 | Drawdown Measures">
+    <header class="dp-header dp-flat-sections variation-2">
+        <h2 class="dp-heading"><span class="dp-header-pre">Module 1: Risk Measurement and Risk Attribution</span>1.09 | Drawdown Measures</h2>
+    </header>
+    <div class="cfa-curriculum-los-box">
+        <h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Learning Outcome</h3>
+        <p class="p1">The candidate should be able to:</p>
+        <ul id="CIPM0018-R-s09-los-1">
+            <li class="cfa-curriculum-los-item">calculate, interpret, and critique drawdown, average drawdown, maximum drawdown, and largest individual drawdown</li>
+        </ul>
+    </div>
+    <hr class="dp-hr-solid-light dp-hr-color-dp-primary">
+    <p>Another class of risk measures is known as drawdown measures. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-DrawdownMeasuresContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">Drawdown measures</a> capture various aspects of peak-to-trough value declines. Common measures include drawdown, average drawdown, maximum drawdown, largest individual drawdown, and drawdown duration. An <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip1Content" aria-describedby="CIPM-IndividualDrawdownContent" data-transformed="true" id="transformedTip1" role="button" aria-expanded="false">individual drawdown</a>, or simply a <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip2Content" aria-describedby="CIPM-DrawdownContent" data-transformed="true" id="transformedTip2" role="button" aria-expanded="false">drawdown</a>, is a decline in value (represented by a series of negative returns only) following a peak valuation.</p>
+    <p>Consider the return stream in <a class="internal" role="button" href="#CIPM0018-R-s09-EXH14" aria-label="View Exhibit 14">Exhibit 14</a>. To determine the drawdowns in this return stream, calculate the percentage drop in value relative to a higher preceding value. The initial return is negative, so the first drawdown is equal to the first month’s negative return. Following periods quickly regain the initial loss to reach higher values. The next loss begins in the fifth month with a series of four negative returns, for a cumulative drop of:</p>
+    <div id="CIPM0018-R-s09-E" class="cfa-curriculum-display-formula-container">[1 + (−4.2/100)] × [1 + (−0.7/100)] × [1 + (−1.2/100)] × [1 + (−3.4/100)] – 1 = −9.2%</div>
+    <p>Subsequent months exhibit positive returns, so they do not affect the drawdown calculations in this return series. For ease of reference, the two individual drawdowns in <a class="internal" role="button" href="#CIPM0018-R-s09-EXH14" aria-label="View Exhibit 14">Exhibit 14</a> are shown in bold text to distinguish the individual drawdowns from the component returns within the multi-period drawdown in this example.</p>
+    <div id="CIPM0018-R-s09-EXH14" class="cfa-curriculum-table-wrap">
+        <div class="cfa-curriculum-exhibit-table-title" aria-hidden="true"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 14<span style="display: block;">Monthly Fund Returns</span></div>
+        <div class="cfa-curriculum-table-container">
+            <div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0018-R-s09-EXH14-title">
+                <caption id="CIPM0018-R-s09-EXH14-title" class="cfa-curriculum-table-caption-hidden">Exhibit 14: Monthly Fund Returns</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Month</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Return</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Unit Value</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Individual Drawdowns</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">0</th>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.000</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">1</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–2.4</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.976</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−2.4</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">2</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.4</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.990</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">3</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.012</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">4</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">3.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.045</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">5</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–4.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.001</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">−4.2</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">6</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–0.7</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.994</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">−4.9</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">7</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">−1.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.982</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">−6.0</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">8</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–3.4</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.949</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−9.2</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">9</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2.7</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.974</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">10</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">7.9</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.051</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">11</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">6.6</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.121</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">12</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.144</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+    </div>
+    <p>By itself, measuring a single drawdown does not provide much insight unless we can determine the drawdown relative to some additional information. To gain a better understanding of the context of losses experienced by the investors of a given fund, we can calculate additional measures: The <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip3Content" aria-describedby="CIPM-AverageDrawdownContent" data-transformed="true" id="transformedTip3" role="button" aria-expanded="false">average drawdown</a> is the average of a specified number of the largest drawdowns over a given period, the <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip4Content" aria-describedby="CIPM-MaximumDrawdownContent" data-transformed="true" id="transformedTip4" role="button" aria-expanded="false">maximum drawdown</a> is the largest peak-to-trough loss within a period, and <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip5Content" aria-describedby="CIPM-DrawdownDurationContent" data-transformed="true" id="transformedTip5" role="button" aria-expanded="false">drawdown duration</a> is the time it takes to experience and then recover from the maximum drawdown. Of these, the most commonly used measure is maximum drawdown.</p>
+    <p>According to the US Commodity Futures Trading Commission, worst peak-to-trough drawdown (<a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip6Content" aria-describedby="CIPM-MaximumDrawdownContent" data-transformed="true" id="transformedTip6" role="button" aria-expanded="false">maximum drawdown</a>) means the greatest cumulative percentage decline in month-end net asset value due to losses sustained by a pool, account, or trading program during any period in which the initial month-end net asset value is not equaled or exceeded by a subsequent month-end net asset value. Such a decline must be expressed as a percentage of the initial month-end net asset value, together with an indication of the months and year(s) of the decline from the initial month-end net asset value to the lowest month-end net asset value of the decline.<a id="transformedTip7" class="dp-popover-trigger" href="#transformedTip7Content" aria-describedby="CIPM0018-R-s09-FN1_Content" data-transformed="true" role="button" aria-expanded="false"><sup>23</sup></a></p>
+    <p><a class="internal" role="button" href="#CIPM0018-R-s09-EXH15" aria-label="View Exhibit 15">Exhibit 15</a> shows two years of monthly returns<a id="transformedTip8" class="dp-popover-trigger" href="#transformedTip8Content" aria-describedby="CIPM0018-R-s09-FN2_Content" data-transformed="true" role="button" aria-expanded="false"><sup>24</sup></a> for two hedge funds, along with the unit values and individual drawdowns.</p>
+    <div id="CIPM0018-R-s09-EXH15" class="cfa-curriculum-table-wrap">
+        <div class="cfa-curriculum-exhibit-table-title" aria-hidden="true"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 15<span style="display: block;">Two Hedge Fund Return Series</span></div>
+        <div class="cfa-curriculum-table-container">
+            <div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0018-R-s09-EXH15-title">
+                <caption id="CIPM0018-R-s09-EXH15-title" class="cfa-curriculum-table-caption-hidden">Exhibit 15: Two Hedge Fund Return Series</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left; vertical-align: bottom; padding: 8px;" rowspan="2"><strong>Month</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;" colspan="4"><strong>Fund A</strong></th>
+                        <th style="text-align: left; vertical-align: bottom; padding: 8px;" rowspan="2"></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;" colspan="3"><strong>Fund B</strong></th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Return (%)</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Unit Value</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Individual Drawdowns (in bold) (%)</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Maximum Drawdown (in bold) (%)</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Return (%)</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Unit Value</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Individual Drawdowns (in bold) (%)</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">0</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.00</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.000</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.00</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.000</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">1</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2.6</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.026</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–1.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.987</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–1.3</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">2</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">9.7</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.126</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">3.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.019</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">3</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">6.5</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.199</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.030</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">4</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–3.8</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.153</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–3.8</strong></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–3.8</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–5.4</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.974</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–5.4</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">5</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.6</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.172</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–2.3</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">9.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.065</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">6</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–0.7</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.163</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–0.7</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–2.9</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–13.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.924</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–13.2</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">7</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–3.4</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.124</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–4.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–6.2</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–3.7</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.890</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–16.4</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">8</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–11.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.997</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–14.9</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–16.8</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–2.5</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.868</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–18.5</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">9</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–2.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.974</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–16.9</strong></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–18.8</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">8.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.938</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">10</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2.9</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.002</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–16.4</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.7</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.945</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">11</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">4.6</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.048</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–12.5</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–0.5</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.940</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–0.5</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">12</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">9.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.145</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–4.5</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–10.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.845</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–10.5</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">13</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–7.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.063</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–7.1</strong></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–11.3</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">3.8</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.877</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">14</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.6</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.070</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–10.8</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">12.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.984</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">15</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–2.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.047</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–2.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–12.6</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–5.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.934</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–5.1</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">16</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–5.0</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.995</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–7.0</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–17.0</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–0.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.932</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–5.3</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">17</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–1.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.982</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–8.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–18.1</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">4.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.972</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">18</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–4.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.942</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–12.0</strong></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–21.4</strong></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">11.9</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.088</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">19</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">9.5</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.031</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–5.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.030</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–5.3</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">20</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">5.6</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.089</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2.1</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.052</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">21</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">10.2</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.200</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">6.5</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.120</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">22</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–5.4</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.135</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–5.4</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.8</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.129</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">23</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–1.6</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.117</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–6.9</strong></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">–2.9</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.096</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;"><strong>–2.9</strong></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">24</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">0.4</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.122</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">2.3</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">1.122</td>
+                        <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+    </div>
+    <div id="CIPM0018-R-s09-Ta" class="cfa-curriculum-table-wrap">
+        <div class="cfa-curriculum-table-container">
+            <div class="dp-table-scroll"><table class="table" data-active-table="true">
+                <thead>
+                    <tr>
+                        <th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Two-Year Total</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Fund A</strong></th>
+                        <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Fund B</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">Cumulative return</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">12.2%</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">12.2%</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">Annualized return</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">5.9</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">5.9</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; vertical-align: top; padding: 8px;">Standard deviation</th>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">5.6</td>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">6.2</td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+    </div>
+    <p>Both funds earned the same cumulative return over the two-year period, but their drawdown measures and standard deviations are different. Standard deviations in this example are calculated as the standard deviation of the population of two years of monthly returns, rather than as an annualized standard deviation.</p>
+    <p>As stated earlier, an individual drawdown is the cumulative loss represented by a series of negative returns only. The largest individual drawdown is different from the maximum drawdown in that a positive return will determine the end of the series of returns for an individual drawdown, but the maximum drawdown may include positive returns between the peak and subsequent trough.</p>
+    <p>Individual drawdowns in <a class="internal" role="button" href="#CIPM0018-R-s09-EXH15" aria-label="View Exhibit 15">Exhibit 15</a> are shown in bold to distinguish them from the negative returns for any specific month within a drawdown series. The largest individual drawdown experienced by Fund A during the period was −16.9%, followed in order of decreasing magnitude by −12.0%, −7.1%, and −6.9%. The number of drawdowns can vary greatly across funds within the same time period, so to enable comparability among funds, the average drawdown is usually stated in terms of a specific number of the largest individual drawdowns during a given period. For example, the average drawdown (3) within the two-year period for Fund A is calculated as the average of the three largest individual drawdowns, or (–16.9% – 12.0% – 7.1%)/3 = −12.0%. In calculating the largest individual drawdowns, large cumulative drawdowns that are components of larger cumulative drawdowns cannot be included without double counting. For example, −14.9% in <a class="internal" role="button" href="#CIPM0018-R-s09-EXH15" aria-label="View Exhibit 15">Exhibit 15</a> is not counted as one of the three largest individual drawdowns because it is a component of the −16.9% drawdown.</p>
+    <p>The maximum drawdown for Fund A is illustrated in <a class="internal" role="button" href="#CIPM0018-R-s09-EXH16" aria-label="View Exhibit 16">Exhibit 16</a>. The maximum drawdown includes periods of positive and negative returns, as it defines the maximum peak-to-trough percentage loss experienced by the fund during the period. <a class="internal" role="button" href="#CIPM0018-R-s09-EXH16" aria-label="View Exhibit 16">Exhibit 16</a> shows the relative values for Fund A represented by the peaks and troughs. In this example, the peak that begins the maximum drawdown period is not the highest peak during the period; there is a later, higher peak that represents the high-water mark, the highest value achieved by the fund during the entire period. The drawdown that occurred after the high-water mark was only −6.9%, while the maximum drawdown for Fund A was −21.4%.</p>
+    <figure id="CIPM0018-R-s09-EXH16" class="cfa-curriculum-exhibit-figure">
+        <figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 16<span style="display: block;">Peaks and Troughs, Fund A Drawdowns</span></figcaption>
+        <div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1368/files/224026/preview" alt="Months from 1 to 25 on x-axis, relative value 0.90 to 1.25 on y-axis. Line rises from 1 at month 1, reach peak at 1.20 at time 4, falls to 0.98 at time 10, rises to 1.15 at time 13, reach trough 0.93 at time 19, rises to recovery at 1.20 at time 22." aria-describedby="CIPM0018-R-s09-EXH16-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1368/files/224026" data-api-returntype="File" loading="lazy" data-width="600">
+            <details id="CIPM0018-R-s09-EXH16-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+                <summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+                <p class="dp-panel-outside-panel">Months from 1 to 25 on x-axis, relative value 0.90 to 1.25 on y-axis. Line rises from 1 at month 1, reaches peak at 1.20 at time 4, falls to 0.98 at time 10, rises to 1.15 at time 13, reaches trough of 0.93 at time 19, and rises to recovery at 1.20 at time 22.</p>
+            </details>
+        </div>
+    </figure>
+    <p>To calculate the maximum drawdown, we identify the highest and lowest unit values during the period and calculate the percentage decline from one of the highest values to a subsequent low value. We repeat the process until we have found the largest percentage drop during the period. For example, in <a class="internal" role="button" href="#CIPM0018-R-s09-EXH15" aria-label="View Exhibit 15">Exhibit 15</a>, the highest unit value for Fund A is 1.200 (Month 21), but the lowest value after that peak is 1.117, which represents a drawdown of –6.9%. The next-highest peak is 1.199 (Month 3), and the lowest value after that peak is 0.942. The drawdown from the peak of 1.199 to the trough of 0.942 is (0.942 – 1.199)/1.199 = –21.4%. This is the maximum drawdown for Fund A for the period.</p>
+    <p>The drawdown duration is a measure of the length of time a fund experienced the maximum drawdown before recovering. In <a class="internal" role="button" href="#CIPM0018-R-s09-EXH15" aria-label="View Exhibit 15">Exhibit 15</a>, Fund A started to experience the maximum drawdown after the peak at Month 3 (1.199) and didn’t recover full value until Month 21 (1.200). The drawdown duration for Fund A was 21 – 3 = 18 months.</p>
+    <p>All else equal, a fund with a larger (more negative) maximum drawdown is considered to be “riskier” than a fund with a smaller (less negative) maximum drawdown.</p>
+    <p>Drawdown measures are frequently used in analyzing the returns of hedge funds and commodity funds. Hedge funds are generally lightly regulated pooled investment vehicles with high investment minimums. Hedge funds represent many different strategies, but they are generally characterized by more investment flexibility, less transparency, less regulation, and less frequent valuations than more traditional equity and fixed-income investment fund structures.</p>
+    <p>There are two major reasons for the popularity of drawdown measures in the analysis of hedge fund risk.</p>
+    <p>First, many hedge funds’ return streams depart from the normal distribution to a greater extent than those of traditional investments. As a result, traditional volatility-based risk measures may be less useful. Some hedge fund strategies, particularly those that include less liquid investments, may exhibit lower return volatility than traditional strategies with more frequently priced investments. Investors who perceive relatively lower hedge fund return volatility as equivalent to lower risk may not recognize that many hedge funds also include significant risks of loss. Drawdown measures do not rely on the assumption of a normal distribution of returns.<a id="transformedTip9" class="dp-popover-trigger" href="#transformedTip9Content" aria-describedby="CIPM0018-R-s09-FN3_Content" data-transformed="true" role="button" aria-expanded="false"><sup>25</sup></a></p>
+    <p>Second, drawdown measures may be informative about the business risks of hedge funds because of the way these funds compensate the investment manager. Hedge funds often compensate the investment manager with a fixed asset management fee (such as 2% of average assets under management) and an additional incentive fee equal to a substantial percentage (e.g., 20%) of the increase in value above the previous high level, known as the high-water mark. If a hedge fund earns high returns leading to a high valuation in an early period and subsequently has negative performance with generally lower valuations, hedge fund staff may believe it is unlikely that they can erase the losses and earn the incentive compensation that is only possible above the earlier high valuation. This situation may present business risks for an investor because the investment team may take more risk in an attempt to exceed the high-water mark and earn the incentive fee. Furthermore, the investment team may experience key staff turnover if compensation declines with performance, decreasing the chances that the fund can recover the losses. Drawdowns are often also associated with fund redemptions, because investors tend to withdraw money after periods of negative performance, sometimes leading to the liquidation of the hedge fund. Note that the fund may have experienced a maximum drawdown in some historic period and have already recovered and hit new high-water marks, so the presence of a large maximum drawdown somewhere in the fund’s return stream may or may not indicate the current risk of staff turnover.</p>
+    <p>A disadvantage of maximum drawdown relative to other measures of risk is that it is a single observation based on a time-dependent data series. More data, in the form of more frequent returns or a longer track record, tend to generate larger maximum drawdown calculations, so it is important to compare consistent time periods and return frequencies when evaluating the maximum drawdowns of multiple hedge funds.</p>
+    <figure id="CIPM0018-R-s09-Ba" class="dp-content-block cfa-curriculum-exercise-box">
+        <figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Knowledge Check: Hedge Fund Drawdown Measures</figcaption>
+        <div class="dp-content-block">
+            <div class="dp-qc dp-qc-built"><fieldset>
+                <div class="dp-qc-question"><legend>
+                    <div id="CIPM0018-R-s09-Q1" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">1. </span>
+                        <p>An analyst evaluating two hedge funds is considering increasing the number of drawdowns used in calculating average drawdown from three to five. The new average drawdown calculated from five drawdowns would be:</p>
+                    </legend></div>
+                </legend></div>
+                <dl class="dp-qc-answers">
+                    <dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-0"><label for="dp-qc-0-0">
+                            <p><span class="cfa-curriculum-option-label">A. </span>less negative.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+                            <section>
+                                <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                <p>A is correct. Increasing the number of drawdowns included in calculating the average drawdown will always result in a smaller (less negative) average drawdown. The drawdowns used in the average drawdown calculation are the largest (most negative) individual drawdowns, so the additional observations included in the calculation will be smaller (less negative) individual drawdowns.</p>
+                            </section>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-1"><label for="dp-qc-0-1">
+                            <p><span class="cfa-curriculum-option-label">B. </span>unchanged.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-2"><label for="dp-qc-0-2">
+                            <p><span class="cfa-curriculum-option-label">C. </span>more negative.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                </dl>
+                <a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a>
+            </fieldset></div>
+        </div>
+        <div class="dp-content-block">
+            <div class="dp-qc dp-qc-built"><fieldset>
+                <div class="dp-qc-question"><legend>
+                    <div id="CIPM0018-R-s09-Q2" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">2. </span>
+                        <p><a class="internal" role="button" href="#CIPM0018-R-s09-EXH15" aria-label="View Exhibit 15">Exhibit 15</a> shows the return stream of Fund B. The maximum drawdown of Fund B is:</p>
+                    </legend></div>
+                </legend></div>
+                <dl class="dp-qc-answers">
+                    <dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-0"><label for="dp-qc-1-0">
+                            <p><span class="cfa-curriculum-option-label">A. </span>−20.6.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+                            <section>
+                                <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                <p>A is correct. The highest value of Fund B is in Month 22 (1.129), but the lowest value after that high-water mark represents a drawdown of only −2.9%. The next-highest peak earlier in the return stream before a decline is in Month 18 (1.088), but the subsequent drawdown is only −5.3%. The lowest value during the period was in Month 12 (0.845). The highest peak before that low point was in Month 5 (1.065), which represents a drawdown of −20.6%. This is the maximum drawdown during the period.</p>
+                            </section>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1">
+                            <p><span class="cfa-curriculum-option-label">B. </span>−18.5.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-2"><label for="dp-qc-1-2">
+                            <p><span class="cfa-curriculum-option-label">C. </span>−13.2.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                </dl>
+                <a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a>
+            </fieldset></div>
+        </div>
+        <div class="dp-content-block">
+            <div class="dp-qc dp-qc-built"><fieldset>
+                <div class="dp-qc-question"><legend>
+                    <div id="CIPM0018-R-s09-Q3" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">3. </span>
+                        <p>The largest individual drawdown of Fund B is:</p>
+                    </legend></div>
+                </legend></div>
+                <dl class="dp-qc-answers">
+                    <dt class="dp-qc-answer"><input id="dp-qc-2-0" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-0"><label for="dp-qc-2-0">
+                            <p><span class="cfa-curriculum-option-label">A. </span>−20.6.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse2-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-2-1" class="dp-qc-field" type="radio" name="dp-qc-2" value="true" data-response="dpQcResponse2-1"><label for="dp-qc-2-1">
+                            <p><span class="cfa-curriculum-option-label">B. </span>−18.5.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response dp-qc-correct" id="dpQcResponse2-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+                            <section>
+                                <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                <p>B is correct. The largest individual drawdown is not the same as the maximum drawdown; the largest individual drawdown must be a series of unbroken negative returns. The largest cumulative loss represented by an unbroken series of negative returns is −18.5.</p>
+                            </section>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-2-2" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-2"><label for="dp-qc-2-2">
+                            <p><span class="cfa-curriculum-option-label">C. </span>−13.2.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse2-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                </dl>
+                <a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a>
+            </fieldset></div>
+        </div>
+        <div class="dp-content-block">
+            <div class="dp-qc dp-qc-built"><fieldset>
+                <div class="dp-qc-question"><legend>
+                    <div id="CIPM0018-R-s09-Q4" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">4. </span>
+                        <p>The drawdown duration of Fund B in months is:</p>
+                    </legend></div>
+                </legend></div>
+                <dl class="dp-qc-answers">
+                    <dt class="dp-qc-answer"><input id="dp-qc-3-0" class="dp-qc-field" type="radio" name="dp-qc-3" value="false" data-response="dpQcResponse3-0"><label for="dp-qc-3-0">
+                            <p><span class="cfa-curriculum-option-label">A. </span>5.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse3-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-3-1" class="dp-qc-field" type="radio" name="dp-qc-3" value="false" data-response="dpQcResponse3-1"><label for="dp-qc-3-1">
+                            <p><span class="cfa-curriculum-option-label">B. </span>7.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse3-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-3-2" class="dp-qc-field" type="radio" name="dp-qc-3" value="true" data-response="dpQcResponse3-2"><label for="dp-qc-3-2">
+                            <p><span class="cfa-curriculum-option-label">C. </span>13.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response dp-qc-correct" id="dpQcResponse3-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+                            <section>
+                                <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                <p>C is correct. The drawdown duration includes the period of decline from the peak (Month 5) to the trough (Month 12), and it also includes the period until full recovery (Month 18). The duration from Month 5 to Month 18 is the drawdown duration, 13 months.</p>
+                            </section>
+                        </div>
+                    </dd>
+                </dl>
+                <a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a>
+            </fieldset></div>
+        </div>
+    </figure>
+    <div class="dp-content-block cfa-curriculum-reflist">
+        <h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Reference List</h3>
+        <div class="dp-panels-wrapper dp-accordion-default">
+            
+                <h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel0"><a href="#dpPanel0" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3>
+                <div class="dp-panel-content " tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region">
+                    <ul id="CIPM0018-R-s09-ref1">
+                        <li id="CIPM0018-R-s09-R1list">Rogers, D. and Van Dyke, C. (2006). “Measuring the Volatility of Hedge Fund Returns.” <em>Journal of Wealth Management</em> 9 (1): 45–53. <a href="https://doi.org/10.3905/jwm.2006.628683" target="_blank" class="external" rel="noreferrer noopener"><span>https://doi.org/10.3905/jwm.2006.628683</span><span class="external_link_icon" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; " role="presentation"><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" style="width:1em; height:1em; vertical-align:middle; fill:currentColor">
+    <path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a></li>
+                    </ul>
+                </div>
+            
+        </div>
+    </div>
+    <div id="transformedTip7Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+        <p><sup>23</sup> 17 CFR 4.10.</p>
+    </div>
+    <div id="transformedTip8Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+        <p><sup>24</sup> To simplify the exhibit, two years of monthly returns are shown, but three years of monthly returns is a more common and more statistically robust time period for calculating drawdown measures.</p>
+    </div>
+    <div id="transformedTip9Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+        <p><sup>25</sup> Rogers and Van Dyke (2006).</p>
+    </div>
+    <div id="transformedTip0Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>Measures that capture various aspects of peak-to-trough declines.</p>
+    </div>
+    <div id="transformedTip1Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>A decline in value (represented by a series of negative returns only) following a peak fund valuation.</p>
+    </div>
+    <div id="transformedTip2Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>A decline in value (represented by a series of negative returns only) following a peak fund valuation. See <em>individual drawdown</em>.</p>
+    </div>
+    <div id="transformedTip3Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The average of a specified number of the largest drawdowns over a given period.</p>
+    </div>
+    <div id="transformedTip4Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The largest peak to trough loss within a period.</p>
+    </div>
+    <div id="transformedTip5Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The time it takes to experience and then recover from the maximum drawdown; time from peak to trough to peak.</p>
+    </div>
+    <div id="transformedTip6Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The largest peak to trough loss within a period.</p>
+    </div>
+<div class="nav-buttons"><a href="courses_1368_modules_items_99346_108_Measures_of_Downside_Risk.html">← Previous</a><a href="courses_1368_modules_items_99348_110_Value_at_Risk_and_Stress_Tests.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

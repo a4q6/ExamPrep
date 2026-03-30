@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.09 | Market Indexes and Style Indexes</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Return Attribution and Benchmarks › Module 2: Introduction to Benchmarks</nav>
+<h1 class="page-title screenreader-only">2.09 | Market Indexes and Style Indexes</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0146-R-s09-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.09 | Market Indexes and Style Indexes"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 2: Introduction to Benchmarks</span>2.09 | Market Indexes and Style Indexes</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0146-R-s09-los-1"><li class="cfa-curriculum-los-item">explain uses of asset class indexes;</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>One of the most popular methods of assessing portfolio managers in the financial press is to compare their returns with those of a market index, such as the CAC 40, FTSE 100 Index, or Dow Jones Industrial Average (DJIA) for, respectively, French, UK, and US equities. The basic idea is that such indexes reasonably represent the performance of all securities in a market. Market indexes played a key role in modern portfolio theory, and the success of low-cost index funds furthered their popularity. They are more readily recognizable by the general public than most other benchmark types.</p><p>Currently, thousands of market indexes are available for more than 100 countries,
+                  spanning developed markets, such as the United States; emerging markets, such as
+                  Brazil; and smaller frontier markets, such as Kazakhstan. Indexes are created by
+                  traditional providers (e.g., MSCI), as well as exchanges (e.g., Euronext) and
+                  investment banks (e.g., Bank of America Merrill Lynch). Equity indexes were the
+                  first to be developed but were soon followed by bond and alternative asset
+                  indexes.</p><p>In addition to the indexes mentioned, many other well-known broad market equity
+                  index series are provided by such vendors as FTSE Russell, MSCI, and S&amp;P Dow
+                  Jones Indices. Major providers for broad market fixed-income indexes include
+                  Bloomberg, JP Morgan, and S&amp;P Dow Jones Indices. Bond index examples include
+                  the S&amp;P Africa Sovereign Bond Index, the iBoxx USD Liquid Investment Grade
+                  Index, and the JP Morgan Emerging Markets Bond Index.</p><p>Given the abundance and the importance of security market indexes, it is constructive to understand their many uses. We discuss the uses of indexes in the approximate order that a sponsor would: as asset allocation proxies, investment management mandates, performance benchmarks, and portfolio analysis applications. Additionally, we discuss the use of indexes as a gauge of market sentiment and as the basis for investment vehicles.<a class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0146-R-s09-FN1_Content" id="transformedTip0" data-transformed="true" role="button" aria-expanded="false"><sup>15</sup></a></p><section id="CIPM0146-R-s09-01-01"><h3 class="dp-heading">Asset allocation proxies</h3><p>Used for asset allocation, an index constructed consistently over time provides the investor a tool to measure asset class <em>ex ante</em> return, risk, and correlations. It allows investors to determine the incremental expected return and risk from adding a new asset to a portfolio. These measurements can be used to design an investment policy suitable for different risk aversion levels.</p><p>The assets of many large institutions are managed in a top-down manner, with decisions made at the highest level (e.g., the <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip1Content" aria-describedby="CIPM-PlanSponsorContent" data-transformed="true" id="transformedTip1" role="button" aria-expanded="false">plan sponsor</a> level) to allocate among broad asset classes. The expectations of asset class risk and return formed from indexes can serve as proxies for the intended investments. The actual, specific investments within asset classes are usually chosen by managers separately from the asset allocation decision, with the assumption that the actual investments will be broadly in line with the characteristics of the index. Thus, the decision to implement a chosen security selection through the use of active management is made independently of the asset allocation decision.</p></section><section id="CIPM0146-R-s09-01-02"><h3 class="dp-heading">Investment management mandates</h3><p>As a result of their effectiveness as asset allocation proxies, investment mandates can include a specified benchmark index. The benchmark index for a mandate communicates the asset owner’s expectations to the asset manager: The manager is generally expected to select securities primarily from the constituents of the index. Exceeding an index return is frequently considered an objective of an actively managed portfolio (and matching the index return is the objective of a passively managed portfolio). Such an index will be valid as an evaluation tool, of course, only to the extent that it meets the criteria for a valid benchmark.</p></section><section id="CIPM0146-R-s09-01-03"><h3 class="dp-heading">Performance benchmarks</h3><p>Indexes are often used as <em>ex post</em> performance benchmarks, where they answer the basic question, did the manager beat the market? With the development of the capital asset pricing model (CAPM) in the 1960s, the “market” index return representing the entirety of assets became important in investment theory. Investment practitioners subsequently looked to various indexes as proxies of this “market” return. The same benchmark validity criteria apply. Sometimes, a combination of more than one index is used to create a benchmark for the manager, under the assumption that the manager’s portfolio cannot be captured by a single index.<a class="dp-popover-trigger" href="#transformedTip2Content" aria-describedby="CIPM0146-R-s09-FN2_Content" id="transformedTip2" data-transformed="true" role="button" aria-expanded="false"><sup>16</sup></a></p></section><section id="CIPM0146-R-s09-01-04"><h3 class="dp-heading">Portfolio analysis</h3><p>In addition to benchmarking the manager’s performance, indexes can be used for more detailed portfolio analysis. In particular, return attribution of the manager’s return against a benchmark will identify detailed sources of added and subtracted value and will be useful for investigating investment management skill.</p></section><section id="CIPM0146-R-s09-01-05"><h3 class="dp-heading">Gauge of market sentiment</h3><p>Possibly the most common use of indexes is as a gauge of public or market
+                     sentiment. They answer the question, how did the market do today? Index values
+                     are cited incessantly in business media as an indicator of daily (and even
+                     intra-day) market movements. Such movements are influenced by a wide variety of
+                     factors, such as the prospects for economic expansion or recession, war and
+                     rumors of war, and general feelings of investor confidence. Market indexes
+                     provide a convenient summary statistic of expectations because they are
+                     succinctly summarized in a single number, the current return on the index.
+                     Market indexes convey the perceived importance of both past events and the
+                     probability of future events. As a specific example of the latter, the Chicago
+                     Board Options Exchange (CBOE) Volatility Index (VIX) is a frequently used
+                     measure of market uncertainty.</p></section><section id="CIPM0146-R-s09-01-06"><h3 class="dp-heading">Basis for investment vehicles</h3><p>Indexes are also used as a basis for investments, such as index mutual funds, ETFs, and derivatives. Index funds, ETFs, and derivative instruments are created on the basis of indexes ranging in breadth from broad markets to narrow market segments and investment themes. The royalties from licensing indexes for such uses has been a major driver of the proliferation of market indexes. Derivative instruments, such as futures and options, are used in hedging, trading, and asset reallocation and have other uses as well. More recently, indexes have served as the basis for ETFs that straddle the line between passive and active investments, such as fundamentally weighted ETFs. These ETFs take active weights (non-market-value weights) in securities but do not actively trade portfolio securities. The ETFs seek to exploit market inefficiencies or target a particular style or risk factor.<a class="dp-popover-trigger" href="#transformedTip3Content" aria-describedby="CIPM0146-R-s09-FN3_Content" id="transformedTip3" data-transformed="true" role="button" aria-expanded="false"><sup>17</sup></a></p><p>There is a great deal of research suggesting that it is difficult for active managers to earn their fees, so passive investments in low-cost index funds have become increasingly popular. There are also enhanced-index managers, who take active bets away from the index while simultaneously trying to limit their deviation from the index’s risk. For an index to be useful as the basis for an investment vehicle, an investor must be able to replicate it at low cost without much difficulty.</p><p>In sum, indexes serve many vital purposes for asset owners and investors at large. There are aspects of index construction that can be more or less suited for a particular use. We next examine the construction of indexes.</p></section><div class="dp-content-block cfa-curriculum-reflist"><h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"></i>Reference List</h3><div class="dp-panels-wrapper dp-accordion-default"><h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel0"><a href="#dpPanel0" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3><div class="dp-panel-content " tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region"><ul id="CIPM0146-R-s09-ref1"><li id="CIPM0146-R-s09-R1list">Amenc, Noel, Goltz, Felix and Tang, Lin (2011). EDHEC-Risk European Index Survey 2011. EDHEC Risk Institute (October): <a href="http://professoral.edhec.com/servlet/com.univ.collaboratif.utils.LectureFichiergw?ID_FICHIER=1328885973962" target="_blank" class="external" rel="noreferrer noopener"><span>http://professoral.edhec.com/servlet/com.univ.collaboratif.utils.LectureFichiergw?ID_FICHIER=1328885973962</span><span class="external_link_icon" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; " role="presentation"><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" style="width:1em; height:1em; vertical-align:middle; fill:currentColor">
+    <path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a>.</li><li id="CIPM0146-R-s09-R2list">Christopherson, Jon A. (2012). “<em>The Making of a Better Benchmark.</em>” Russell Research (March).</li><li id="CIPM0146-R-s09-R3list">Schoenfeld, Steven A. (2002). “<em>Perfection Impossible—Why Simply ‘Good’ Indexes Can Result in a More Perfect Solution.</em>” Journal of Indexes (2nd quarter).</li><li id="CIPM0146-R-s09-R4list">Schoenfeld, Steven A. (2003). <em>Active Index Investing—Maximizing Portfolio Performance and Minimizing Risk through Global Index Strategies</em>. Hoboken, NJ: John Wiley &amp; Sons.</li><li id="CIPM0146-R-s09-R5list">Siegel, L. (2003). <em>Benchmarks and Investment Management</em>. Charlottesville, VA: Research Foundation of CFA Institute.</li></ul></div></div></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip0Content" role="tooltip" style="display: none;"><p><sup>15</sup> Schoenfeld (2002), Schoenfeld (2003), and Siegel (2003) elaborated further on four uses of asset class indexes, to which we add two more.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip2Content" role="tooltip" style="display: none;"><p><sup>16</sup> According to a survey of European portfolio managers, there is general agreement that a benchmark can be created from a combination of indexes (Amenc, Goltz, and Tang 2011, p. 67).</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip3Content" role="tooltip" style="display: none;"><p><sup>17</sup> Christopherson (2012).</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip1Content" role="tooltip" style="display: none;"><p>The trustee, company, or employer responsible for a public or private institutional investment plan.</p></div>
+<div class="nav-buttons"><a href="courses_1367_modules_items_99619_208_Peer_Group_Benchmarks.html">← Previous</a><a href="courses_1367_modules_items_99623_210_Asset_Class_Index_Construction.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

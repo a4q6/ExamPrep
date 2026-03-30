@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.10 | Jensen's Alpha</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Investment Performance Appraisal › Module 1: Investment Performance Appraisal</nav>
+<h1 class="page-title screenreader-only">1.10 | Jensen's Alpha</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM1509-R-s10-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.10 | Jensen's Alpha">
+    <header class="dp-header dp-flat-sections variation-2">
+        <h2 class="dp-heading"><span class="dp-header-pre">Module 1: Investment Performance Appraisal</span>1.10 | Jensen's Alpha</h2>
+    </header>
+    <div class="cfa-curriculum-los-box">
+        <h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Learning Outcomes</h3>
+        <p class="p1">The candidate should be able to:</p>
+        <ul id="CIPM1509-R-s10-los-1CIPM1509-R-s10-los-2CIPM1509-R-s10-los-3CIPM1509-R-s10-los-4CIPM1509-R-s10-los-5">
+            <li class="cfa-curriculum-los-item">calculate, interpret, and compare the Sharpe ratio, M<sup>2</sup>, the Treynor ratio, Jensen’s alpha, alpha, the information ratio, and the appraisal ratio</li>
+            <li class="cfa-curriculum-los-item">identify and justify appropriate uses of performance appraisal measures</li>
+            <li class="cfa-curriculum-los-item">calculate, interpret, and compare performance appraisal measures</li>
+            <li class="cfa-curriculum-los-item">describe how non-symmetrical return distributions affect appraisal measures</li>
+            <li class="cfa-curriculum-los-item">describe challenges in determining Jensen’s alpha</li>
+        </ul>
+    </div>
+    <hr class="dp-hr-solid-light dp-hr-color-dp-primary">
+    <p>In this learning module, we distinguish two definitions of “alpha,” one based on the CAPM—Jensen’s alpha—the other not specifying the model for priced risk. Jensen (1968) did not give his measure a name but referred to it using α, the Greek letter alpha. Subsequently, the measure he described was called <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-JensensAlphaContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">Jensen’s alpha</a> (or just alpha) or the <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip1Content" aria-describedby="CIPM-JensenMeasureContent" data-transformed="true" id="transformedTip1" role="button" aria-expanded="false">Jensen measure</a>. This learning module uses Jensen’s alpha for the measure as exactly described by Jensen, and alpha for a more general concept allowing for other asset pricing models.</p>
+    <p>Jensen’s alpha measures the return of a portfolio in excess of the theoretical required return given the equilibrium model for asset returns known as the CAPM. According to the CAPM, the theoretical expected value of a portfolio’s return is given by <a class="internal" role="button" href="#CIPM1509-R-s10-E7">Equation 7</a>, where β<em><sub>p</sub></em> is the beta of the portfolio.</p>
+    <div id="CIPM1509-R-s10-E7" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mi>E</mi><mrow><mo>(</mo><mrow><msub><mi>r</mi><mi>p</mi></msub></mrow><mo>)</mo></mrow><mo>=</mo><msub><mi>r</mi><mi>F</mi></msub><mo>+</mo><msub><mi>&amp;#x3B2;</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><mi>E</mi><mrow><mo>(</mo><mrow><msub><mi>r</mi><mi>m</mi></msub></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>r</mi><mi>F</mi></msub></mrow><mo>]</mo></mrow></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="30.634ex" height="2.849ex" viewBox="0 -852.5 13189.6 1226.6" role="img" focusable="false" style="vertical-align: -0.869ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-45" x="0" y="0"></use><g transform="translate(931,0)"><use xlink:href="#MJMAIN-28"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="638" y="-213"></use></g><use xlink:href="#MJMAIN-29" x="1297" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="2895" y="0"></use><g transform="translate(3951,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g><use xlink:href="#MJMAIN-2B" x="5255" y="0"></use><g transform="translate(6256,0)"><use xlink:href="#MJMATHI-3B2" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="801" y="-213"></use></g><g transform="translate(7445,0)"><use xlink:href="#MJMAIN-5B" x="0" y="0"></use><g transform="translate(278,0)"><use xlink:href="#MJMATHI-45" x="0" y="0"></use><g transform="translate(931,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6D" x="638" y="-213"></use></g><use xlink:href="#MJMAIN-29" x="1562" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="3105" y="0"></use><g transform="translate(4105,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g></g><use xlink:href="#MJMAIN-5D" x="5465" y="0"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo>(</mo><mrow><msub><mi>r</mi><mi>p</mi></msub></mrow><mo>)</mo></mrow><mo>=</mo><msub><mi>r</mi><mi>F</mi></msub><mo>+</mo><msub><mi>β</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><mi>E</mi><mrow><mo>(</mo><mrow><msub><mi>r</mi><mi>m</mi></msub></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>r</mi><mi>F</mi></msub></mrow><mo>]</mo></mrow></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-1"><math id="m1">
+            <semantics>
+                <mrow>
+                    <mi>E</mi>
+                    <mrow>
+                        <mo>(</mo>
+                        <mrow>
+                            <msub>
+                                <mi>r</mi>
+                                <mi>p</mi>
+                            </msub>
+                        </mrow>
+                        <mo>)</mo>
+                    </mrow>
+                    <mo>=</mo>
+                    <msub>
+                        <mi>r</mi>
+                        <mi>F</mi>
+                    </msub>
+                    <mo>+</mo>
+                    <msub>
+                        <mi>β</mi>
+                        <mi>p</mi>
+                    </msub>
+                    <mrow>
+                        <mo>[</mo>
+                        <mrow>
+                            <mi>E</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <mrow>
+                                    <msub>
+                                        <mi>r</mi>
+                                        <mi>m</mi>
+                                    </msub>
+                                </mrow>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>−</mo>
+                            <msub>
+                                <mi>r</mi>
+                                <mi>F</mi>
+                            </msub>
+                        </mrow>
+                        <mo>]</mo>
+                    </mrow>
+                </mrow>
+            </semantics>
+        </math></script><span class="cfa-curriculum-display-formula-number">7</span></div>
+    <p>Based on a particular outcome of market return in month <em>t</em>, <em>r<sub>m</sub></em>(<em>t</em>), and the risk-free rate of month <em>t</em>, <em>r<sub>F</sub></em>(<em>t</em>), the expected return for the portfolio is given by <a class="internal" role="button" href="#CIPM1509-R-s10-E8">Equation 8</a>.</p>
+    <div id="CIPM1509-R-s10-E8" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-2-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mi>E</mi><mrow><mo>(</mo><mrow><msub><mi>r</mi><mi>p</mi></msub></mrow><mo>)</mo></mrow><mo>=</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>+</mo><msub><mi>&amp;#x3B2;</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>m</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="35.77ex" height="2.849ex" viewBox="0 -852.5 15401 1226.6" role="img" focusable="false" style="vertical-align: -0.869ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-45" x="0" y="0"></use><g transform="translate(931,0)"><use xlink:href="#MJMAIN-28"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="638" y="-213"></use></g><use xlink:href="#MJMAIN-29" x="1297" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="2895" y="0"></use><g transform="translate(3951,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g><g transform="translate(5199,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2B" x="6562" y="0"></use><g transform="translate(7563,0)"><use xlink:href="#MJMATHI-3B2" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="801" y="-213"></use></g><g transform="translate(8752,0)"><use xlink:href="#MJMAIN-5B" x="0" y="0"></use><g transform="translate(278,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6D" x="638" y="-213"></use><g transform="translate(1339,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="2702" y="0"></use><g transform="translate(3702,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g><g transform="translate(4950,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g></g><use xlink:href="#MJMAIN-5D" x="6369" y="0"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo>(</mo><mrow><msub><mi>r</mi><mi>p</mi></msub></mrow><mo>)</mo></mrow><mo>=</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>+</mo><msub><mi>β</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>m</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-2"><math id="m2">
+            <semantics>
+                <mrow>
+                    <mi>E</mi>
+                    <mrow>
+                        <mo>(</mo>
+                        <mrow>
+                            <msub>
+                                <mi>r</mi>
+                                <mi>p</mi>
+                            </msub>
+                        </mrow>
+                        <mo>)</mo>
+                    </mrow>
+                    <mo>=</mo>
+                    <msub>
+                        <mi>r</mi>
+                        <mi>F</mi>
+                    </msub>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>t</mi>
+                        <mo>)</mo>
+                    </mrow>
+                    <mo>+</mo>
+                    <msub>
+                        <mi>β</mi>
+                        <mi>p</mi>
+                    </msub>
+                    <mrow>
+                        <mo>[</mo>
+                        <mrow>
+                            <msub>
+                                <mi>r</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>−</mo>
+                            <msub>
+                                <mi>r</mi>
+                                <mi>F</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                        <mo>]</mo>
+                    </mrow>
+                </mrow>
+            </semantics>
+        </math></script><span class="cfa-curriculum-display-formula-number">8</span></div>
+    <p>Consider a sample of monthly returns of a portfolio and the market. Let the fund’s return in month <em>t</em> be <em>r<sub>p</sub></em>(<em>t</em>). Then Jensen’s alpha, α<em><sub>p</sub></em>(<em>t</em>), is given by <a class="internal" role="button" href="#CIPM1509-R-s10-E9">Equation 9</a> and is the difference between the fund’s actual return and that which is predicted by the CAPM. As <a class="internal" role="button" href="#CIPM1509-R-s10-E9">Equation 9</a> also shows, Jensen’s alpha is equivalent to the fund’s actual risk premium less the risk premium predicted by the CAPM.</p>
+    <div id="CIPM1509-R-s10-E9" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-3-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mtable><mtr><mtd><msub><mi>&amp;#x3B1;</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>=</mo><msub><mi>r</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>&amp;#x2212;</mo><mrow><mo>{</mo><mrow><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>+</mo><msub><mi>&amp;#x3B2;</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>m</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow></mrow><mo>}</mo></mrow></mtd></mtr><mtr><mtd><mo>=</mo><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow><mo>&amp;#x2212;</mo><mrow><mo>{</mo><mrow><msub><mi>&amp;#x3B2;</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>m</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow></mrow><mo>}</mo></mrow></mtd></mtr></mtable></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="46.325ex" height="6.429ex" viewBox="0 -1649.8 19945.5 2768.1" role="img" focusable="false" style="vertical-align: -2.597ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(167,0)"><g transform="translate(-15,0)"><g transform="translate(0,753)"><use xlink:href="#MJMATHI-3B1" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="905" y="-213"></use><g transform="translate(1263,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="2681" y="0"></use><g transform="translate(3737,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="638" y="-213"></use></g><g transform="translate(4811,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="6174" y="0"></use><g transform="translate(7175,0)"><use xlink:href="#MJMAIN-7B"></use><g transform="translate(500,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use><g transform="translate(1248,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2B" x="2610" y="0"></use><g transform="translate(3611,0)"><use xlink:href="#MJMATHI-3B2" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="801" y="-213"></use></g><g transform="translate(4800,0)"><use xlink:href="#MJMAIN-5B" x="0" y="0"></use><g transform="translate(278,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6D" x="638" y="-213"></use><g transform="translate(1339,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="2702" y="0"></use><g transform="translate(3702,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g><g transform="translate(4950,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g></g><use xlink:href="#MJMAIN-5D" x="6369" y="0"></use></g></g><use xlink:href="#MJMAIN-7D" x="11949" y="0"></use></g></g><g transform="translate(1062,-766)"><use xlink:href="#MJMAIN-3D" x="0" y="0"></use><g transform="translate(1056,0)"><use xlink:href="#MJMAIN-5B"></use><g transform="translate(278,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="638" y="-213"></use><g transform="translate(1074,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="2436" y="0"></use><g transform="translate(3437,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g><g transform="translate(4685,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g></g><use xlink:href="#MJMAIN-5D" x="6104" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="7661" y="0"></use><g transform="translate(8662,0)"><use xlink:href="#MJMAIN-7B"></use><g transform="translate(500,0)"><use xlink:href="#MJMATHI-3B2" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="801" y="-213"></use><g transform="translate(1189,0)"><use xlink:href="#MJMAIN-5B" x="0" y="0"></use><g transform="translate(278,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6D" x="638" y="-213"></use><g transform="translate(1339,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="2702" y="0"></use><g transform="translate(3702,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g><g transform="translate(4950,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g></g><use xlink:href="#MJMAIN-5D" x="6369" y="0"></use></g></g><use xlink:href="#MJMAIN-7D" x="8338" y="0"></use></g></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd><msub><mi>α</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>=</mo><msub><mi>r</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><mrow><mo>{</mo><mrow><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>+</mo><msub><mi>β</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>m</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow></mrow><mo>}</mo></mrow></mtd></mtr><mtr><mtd><mo>=</mo><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow><mo>−</mo><mrow><mo>{</mo><mrow><msub><mi>β</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>m</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow></mrow><mo>}</mo></mrow></mtd></mtr></mtable></semantics></math></span></span><script type="math/mml" id="MathJax-Element-3"><math id="m3">
+            <semantics>
+                <mtable>
+                    <mtr>
+                        <mtd>
+                            <msub>
+                                <mi>α</mi>
+                                <mi>p</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>=</mo>
+                            <msub>
+                                <mi>r</mi>
+                                <mi>p</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>−</mo>
+                            <mrow>
+                                <mo>{</mo>
+                                <mrow>
+                                    <msub>
+                                        <mi>r</mi>
+                                        <mi>F</mi>
+                                    </msub>
+                                    <mrow>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>+</mo>
+                                    <msub>
+                                        <mi>β</mi>
+                                        <mi>p</mi>
+                                    </msub>
+                                    <mrow>
+                                        <mo>[</mo>
+                                        <mrow>
+                                            <msub>
+                                                <mi>r</mi>
+                                                <mi>m</mi>
+                                            </msub>
+                                            <mrow>
+                                                <mo>(</mo>
+                                                <mi>t</mi>
+                                                <mo>)</mo>
+                                            </mrow>
+                                            <mo>−</mo>
+                                            <msub>
+                                                <mi>r</mi>
+                                                <mi>F</mi>
+                                            </msub>
+                                            <mrow>
+                                                <mo>(</mo>
+                                                <mi>t</mi>
+                                                <mo>)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mo>]</mo>
+                                    </mrow>
+                                </mrow>
+                                <mo>}</mo>
+                            </mrow>
+                        </mtd>
+                    </mtr>
+                    <mtr>
+                        <mtd>
+                            <mo>=</mo>
+                            <mrow>
+                                <mo>[</mo>
+                                <mrow>
+                                    <msub>
+                                        <mi>r</mi>
+                                        <mi>p</mi>
+                                    </msub>
+                                    <mrow>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>−</mo>
+                                    <msub>
+                                        <mi>r</mi>
+                                        <mi>F</mi>
+                                    </msub>
+                                    <mrow>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                </mrow>
+                                <mo>]</mo>
+                            </mrow>
+                            <mo>−</mo>
+                            <mrow>
+                                <mo>{</mo>
+                                <mrow>
+                                    <msub>
+                                        <mi>β</mi>
+                                        <mi>p</mi>
+                                    </msub>
+                                    <mrow>
+                                        <mo>[</mo>
+                                        <mrow>
+                                            <msub>
+                                                <mi>r</mi>
+                                                <mi>m</mi>
+                                            </msub>
+                                            <mrow>
+                                                <mo>(</mo>
+                                                <mi>t</mi>
+                                                <mo>)</mo>
+                                            </mrow>
+                                            <mo>−</mo>
+                                            <msub>
+                                                <mi>r</mi>
+                                                <mi>F</mi>
+                                            </msub>
+                                            <mrow>
+                                                <mo>(</mo>
+                                                <mi>t</mi>
+                                                <mo>)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mo>]</mo>
+                                    </mrow>
+                                </mrow>
+                                <mo>}</mo>
+                            </mrow>
+                        </mtd>
+                    </mtr>
+                </mtable>
+            </semantics>
+        </math></script><span class="cfa-curriculum-display-formula-number">9</span></div>
+    <p>If we assume that the portfolio’s beta is 1.25, the portfolio’s excess return is 12%, and the market’s excess return is 8%, then Jensen’s alpha is 2%: α<em><sub>p</sub></em>(<em>t</em>) = 12% − 1.25(8%) = 2%. The graphical representation of the CAPM formula, showing the relationship between expected return and beta, is called the <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip2Content" aria-describedby="CIPM-SecurityMarketLineContent" data-transformed="true" id="transformedTip2" role="button" aria-expanded="false">security market line</a> (SML). Jensen’s alpha represents vertical deviation from the equilibrium expected return predicted by the SML and thus a return greater or less than the CAPM required rate of return.</p>
+    <p><a class="internal" role="button" href="#CIPM1509-R-s10-EXH9" aria-label="View Exhibit 11">Exhibit 11</a> illustrates Jensen’s alpha. The formula for the SML is the CAPM. The risk-free rate, <span class="cfa-curriculum-display-inline-formula"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-4-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mrow><msub><mover accent=&quot;true&quot;><mi>r</mi><mo>&amp;#xAF;</mo></mover><mi>F</mi></msub></mrow></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.804ex" height="1.985ex" viewBox="0 -639.9 1207.1 854.5" role="img" focusable="false" style="vertical-align: -0.498ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-72" x="35" y="0"></use><g transform="translate(55,-20)"><use xlink:href="#MJMAIN-AF" x="-70" y="0"></use><use xlink:href="#MJMAIN-AF" x="21" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="816" y="-213"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mover accent="true"><mi>r</mi><mo>¯</mo></mover><mi>F</mi></msub></mrow></math></span></span><script type="math/mml" id="MathJax-Element-4"><math id="m4">
+                <mrow>
+                    <msub>
+                        <mover accent="true">
+                            <mi>r</mi>
+                            <mo>¯</mo>
+                        </mover>
+                        <mi>F</mi>
+                    </msub>
+                </mrow>
+            </math></script></span>, is the intercept of the SML and the market risk premium, <span class="cfa-curriculum-display-inline-formula"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-5-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mrow><msub><mover accent=&quot;true&quot;><mi>r</mi><mo>&amp;#xAF;</mo></mover><mi>m</mi></msub><mo>&amp;#x2212;</mo><msub><mover accent=&quot;true&quot;><mi>r</mi><mo>&amp;#xAF;</mo></mover><mi>F</mi></msub></mrow></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="8.659ex" height="1.985ex" viewBox="0 -639.9 3728.3 854.5" role="img" focusable="false" style="vertical-align: -0.498ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-72" x="35" y="0"></use><g transform="translate(55,-20)"><use xlink:href="#MJMAIN-AF" x="-70" y="0"></use><use xlink:href="#MJMAIN-AF" x="21" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMATHI-6D" x="816" y="-213"></use><use xlink:href="#MJMAIN-2212" x="1520" y="0"></use><g transform="translate(2521,0)"><use xlink:href="#MJMATHI-72" x="35" y="0"></use><g transform="translate(55,-20)"><use xlink:href="#MJMAIN-AF" x="-70" y="0"></use><use xlink:href="#MJMAIN-AF" x="21" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="816" y="-213"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mover accent="true"><mi>r</mi><mo>¯</mo></mover><mi>m</mi></msub><mo>−</mo><msub><mover accent="true"><mi>r</mi><mo>¯</mo></mover><mi>F</mi></msub></mrow></math></span></span><script type="math/mml" id="MathJax-Element-5"><math id="m5">
+                <mrow>
+                    <msub>
+                        <mover accent="true">
+                            <mi>r</mi>
+                            <mo>¯</mo>
+                        </mover>
+                        <mi>m</mi>
+                    </msub>
+                    <mo>−</mo>
+                    <msub>
+                        <mover accent="true">
+                            <mi>r</mi>
+                            <mo>¯</mo>
+                        </mover>
+                        <mi>F</mi>
+                    </msub>
+                </mrow>
+            </math></script></span>, is the slope term. The mean return‒beta combinations for Portfolio A and Portfolio B are shown. Given its beta, Portfolio A’s mean return is higher than that predicted by the CAPM and it has a positive Jensen’s alpha. Given its beta, Portfolio B’s mean return is lower than predicted by the CAPM and it has a negative Jensen’s alpha.</p>
+    <figure id="CIPM1509-R-s10-EXH9" class="cfa-curriculum-exhibit-figure">
+        <figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 11<span style="display: block;">Jensen’s Alpha</span></figcaption>
+        <div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1369/files/224213/preview" alt="Beta hat sub p on x-axis and r bar sub p on y-axis. A line, SML, starts from a point, r bar sub F on y-axis and passes through point M. " aria-describedby="CIPM1509-R-s10-EXH9-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1369/files/224213" data-api-returntype="File" loading="lazy" data-width="600">
+            <details id="CIPM1509-R-s10-EXH9-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+                <summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+                <p class="dp-panel-outside-panel">A line, SML, starts from a point, r bar sub F on y-axis and passes through M (Beta hat sub M + 1.0, r bar sub M). Point A above the line and below the point r bar sub M, is labeled alpha sub A. Point B below the line on right, is labeled alpha sub B. Slope of the line is labeled, r bar sub M minus r bar sub F.</p>
+            </details>
+        </div>
+    </figure>
+    <p>In practice, Jensen’s alpha is frequently determined by the coefficient estimate of the intercept in a <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip3Content" aria-describedby="CIPM-MarketModelContent" data-transformed="true" id="transformedTip3" role="button" aria-expanded="false">market model</a> regression as given by <a class="internal" role="button" href="#CIPM1509-R-s10-E10">Equation 10</a>, where ε<em><sub>p</sub></em>(<em>t</em>) is the error term of the regression.</p>
+    <div id="CIPM1509-R-s10-E10" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-6-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><msub><mi>r</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>=</mo><msub><mi>&amp;#x3B1;</mi><mi>p</mi></msub><mo>+</mo><msub><mi>&amp;#x3B2;</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>m</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow><mo>+</mo><msub><mi>&amp;#x3B5;</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="48.24ex" height="2.849ex" viewBox="0 -852.5 20770.1 1226.6" role="img" focusable="false" style="vertical-align: -0.869ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="638" y="-213"></use><g transform="translate(1074,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="2436" y="0"></use><g transform="translate(3437,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g><g transform="translate(4685,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="6104" y="0"></use><g transform="translate(7160,0)"><use xlink:href="#MJMATHI-3B1" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="905" y="-213"></use></g><use xlink:href="#MJMAIN-2B" x="8479" y="0"></use><g transform="translate(9479,0)"><use xlink:href="#MJMATHI-3B2" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="801" y="-213"></use></g><g transform="translate(10669,0)"><use xlink:href="#MJMAIN-5B" x="0" y="0"></use><g transform="translate(278,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6D" x="638" y="-213"></use><g transform="translate(1339,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="2702" y="0"></use><g transform="translate(3702,0)"><use xlink:href="#MJMATHI-72" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-46" x="638" y="-213"></use></g><g transform="translate(4950,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g></g><use xlink:href="#MJMAIN-5D" x="6369" y="0"></use></g><use xlink:href="#MJMAIN-2B" x="17539" y="0"></use><g transform="translate(18540,0)"><use xlink:href="#MJMATHI-3B5" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="659" y="-213"></use></g><g transform="translate(19629,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><use xlink:href="#MJMATHI-74" x="389" y="0"></use><use xlink:href="#MJMAIN-29" x="751" y="0"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>=</mo><msub><mi>α</mi><mi>p</mi></msub><mo>+</mo><msub><mi>β</mi><mi>p</mi></msub><mrow><mo>[</mo><mrow><msub><mi>r</mi><mi>m</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>−</mo><msub><mi>r</mi><mi>F</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow><mo>+</mo><msub><mi>ε</mi><mi>p</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-6"><math id="m6">
+            <semantics>
+                <mrow>
+                    <msub>
+                        <mi>r</mi>
+                        <mi>p</mi>
+                    </msub>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>t</mi>
+                        <mo>)</mo>
+                    </mrow>
+                    <mo>−</mo>
+                    <msub>
+                        <mi>r</mi>
+                        <mi>F</mi>
+                    </msub>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>t</mi>
+                        <mo>)</mo>
+                    </mrow>
+                    <mo>=</mo>
+                    <msub>
+                        <mi>α</mi>
+                        <mi>p</mi>
+                    </msub>
+                    <mo>+</mo>
+                    <msub>
+                        <mi>β</mi>
+                        <mi>p</mi>
+                    </msub>
+                    <mrow>
+                        <mo>[</mo>
+                        <mrow>
+                            <msub>
+                                <mi>r</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>−</mo>
+                            <msub>
+                                <mi>r</mi>
+                                <mi>F</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                        <mo>]</mo>
+                    </mrow>
+                    <mo>+</mo>
+                    <msub>
+                        <mi>ε</mi>
+                        <mi>p</mi>
+                    </msub>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>t</mi>
+                        <mo>)</mo>
+                    </mrow>
+                </mrow>
+            </semantics>
+        </math></script><span class="cfa-curriculum-display-formula-number">10</span></div>
+    <p>Common practice is to assemble 60 months of return data for both the fund and a proxy for the market portfolio, such as the S&amp;P 500, as well as (the same) 60 months of monthly returns on T-bills as a proxy for the risk-free rate. Note that the market model provides an estimate of both the portfolio’s beta and Jensen’s alpha.</p>
+    <p><a class="internal" role="button" href="#CIPM1509-R-s10-EXH10" aria-label="View Exhibit 12">Exhibit 12</a> presents the results of a market model regression for Invesco's Power Shares Dynamic Market ETF (ticker: PWC) using monthly data from January 2009 to December 2013. Beta was estimated to be 0.9996 and Jensen’s alpha was estimated to be ‒0.01%. Over this time period, PWC’s empirical beta was virtually equal to that of the market (1.0) and its Jensen’s alpha was estimated to be very close to zero, and that estimate was statistically insignificant. The <em>R</em><sup>2</sup> indicates that variation in the market’s excess return explained roughly 89% of the variation in PWC’s excess return.</p>
+    <figure id="CIPM1509-R-s10-EXH10" class="cfa-curriculum-exhibit-figure">
+        <figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 12<span style="display: block;">Market Model Results for PWC, January 2009 to December 2013</span></figcaption>
+        <div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1369/files/224221/preview" alt="Negative 15 to 15 in percent on x-axis and y-axis. A rising line passes through (negative 10, negative 9), (negative 5, negative 5), (0, 0), (5, 5), (10, 10). Dots are scattered around the line. R squared = 0.8916.  " aria-describedby="CIPM1509-R-s10-EXH10-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1369/files/224221" data-api-returntype="File" loading="lazy" data-width="600">
+            <details id="CIPM1509-R-s10-EXH10-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+                <summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+                <p class="dp-panel-outside-panel">This exhibit presents the results of a market model regression for Invesco’s Power Shares Dynamic Market ETF using monthly data from January 2009 to December 2013. Negative 15 to 15 in percent on x-axis and y-axis. A rising line passes through (negative 10, negative 9), (negative 5, negative 5), (0, 0), (5, 5), (10, 10). Dots are scattered around the line. R squared = 0.8916.</p>
+            </details>
+        </div>
+        <p><span class="cfa-curriculum-fig-note"><em>Note</em>: The results are based on monthly data.</span></p>
+    </figure>
+    <p>In the case of index replication, a performance appraisal could conclude that PWC tracked changes in the underlying index essentially one-for-one (technically, 0.9996-to-1) while only slightly underperforming the index (−0.01% Jensen alpha per month or −0.12% per year)—most likely a result of modest operating expenses. Furthermore, most of the variation in monthly returns, 89%+, can be attributed to the underlying benchmark portfolio returns. This high level of explanatory power of a single broad market factor is typical for a diversified equity fund, and it indicates that the model results for alpha and beta, at least as a first pass, contain useful information about the fund.</p>
+    <p>Jensen’s alpha can be calculated relative to any benchmark by replacing the S&amp;P 500 return with the return on the benchmark portfolio. Positive and statistically significant coefficient estimates for Jensen’s alpha indicates the presence of excess return that can be attributed to non-benchmark factors. Typically, one of the factors is assumed to be the security selection ability of the fund’s manager. This conclusion is most valid when the systematic risk of the fund matches that of the benchmark—that is, the fund’s beta is approximately 1.0. A negative and statistically significant coefficient estimate for Jensen’s alpha indicates underperformance.</p>
+    <p>Versions of Jensen’s alpha, until about 1997, were the most popular performance measures in academic studies. Since about 1997, multifactor versions of performance measurement and holdings-based versions have become more popular, but Jensen’s alpha is usually also presented in academic studies as a baseline measure. (Multifactor versions are presented in a later lesson).</p>
+    <p>Jensen’s alpha has been widely used to evaluate a portfolio manager’s ability to “beat the market.” Intuitively, Jensen’s alpha computes risk-adjusted performance by adjusting for the systematic risk of the fund as measured by beta. Implicit in this approach is that there are two determinants of a fund’s return: (1) its exposure to the market, and (2) the security selection ability of its manager. Thus, the major advantage of Jensen’s alpha over simply comparing a fund’s return to the benchmark is that it controls for systematic risk differences between the fund and the benchmark.<a id="transformedTip4" class="dp-popover-trigger" href="#transformedTip4Content" aria-describedby="CIPM1509-R-s10-FN1_Content" data-transformed="true" role="button" aria-expanded="false"><sup>13</sup></a></p>
+    <p>Another advantage of Jensen’s alpha is it is easy to interpret because it is measured as an excess return rather than being a ratio, as is the case for the Treynor ratio. For example, the implications of a Jensen’s alpha of 2.0% versus a Jensen’s alpha of −0.5% are much easier to understand than are Treynor indexes of 0.90 and 0.72. The market model approach also provides an easy way to test the statistical significance of the Jensen’s alpha estimate.</p>
+    <p>There are several limitations and concerns in using Jensen’s alpha. First, like the Treynor ratio, it may not well serve an investor dedicated to a single fund. Although adjusting for systematic risk makes sense for an investor holding the market portfolio, it may not be adequate when the fund under evaluation is not fully diversified and is the investor’s only investment.</p>
+    <p>Second, Dybvig and Ross (1985) have argued that Jensen’s alpha can be misleading if the fund manager attempts to time the market. With a market-timing strategy, portfolio beta will frequently change. Yet estimating beta via a market model regression assumes beta is constant over the time period of the study.</p>
+    <p>Finally, using Jensen’s alpha as a performance measure is only as accurate as the predictions of the pricing model used to estimate the expected return. For example, if the CAPM is not an adequate approach for pricing securities, then determining Jensen’s alpha by assuming the CAPM is the correct pricing model is a flawed approach. In this regard, <a id="transformedTip5" class="dp-popover-trigger" href="#transformedTip5Content" aria-describedby="CIPM1509-R-s10-R1 CIPM1509-R-s10-R2_Content" data-transformed="true" role="button" aria-expanded="false">Fama and French (1992, 1993)</a> provided evidence that in US capital markets and over a very long term, small-cap stocks have outperformed large-cap stocks and value stocks have outperformed growth stocks. These capitalization and value effects are not captured by the CAPM. Using multiple risk factors to incorporate these additional risk premiums is common practice and will be addressed in the lesson “Multifactor Models in Performance Appraisal.”</p>
+    <figure id="CIPM1509-R-s10-Ba" class="dp-content-block cfa-curriculum-exercise-box">
+        <figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Knowledge Check: Jensen’s Alpha</figcaption>
+        <div class="dp-content-block">
+            <div class="dp-qc dp-qc-built"><fieldset>
+                <div class="dp-qc-question"><legend>
+                    <div id="CIPM1509-R-s10-Q1" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">1. </span>
+                        <p>Bob O’Reilly, a portfolio manager at Overture Asset Management, manages a portfolio consisting of large-cap US equities. He wants to determine how well his portfolio performed relative to the S&amp;P 500 last year. During the prior year, the S&amp;P 500 had a total return of 15%, the beta of his portfolio relative to the S&amp;P 500 was 0.90, and the risk-free rate is 3%. Using the CAPM, if O’Reilly’s portfolio generated a total return of 16% in the prior year, his realized Jensen’s alpha was:</p>
+                    </legend></div>
+                </legend></div>
+                <dl class="dp-qc-answers">
+                    <dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0">
+                            <p><span class="cfa-curriculum-option-label">A. </span>1.0%.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-1"><label for="dp-qc-0-1">
+                            <p><span class="cfa-curriculum-option-label">B. </span>2.2%.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+                            <section>
+                                <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                <p>B is correct. Required return according to the CAPM = <em>r<sub>P</sub></em> = <em>r<sub>F</sub></em> + β<em><sub>p</sub></em>[<em>r<sub>M</sub></em> – <em>r<sub>F</sub></em>] = 3% + (0.90)(15% – 3%) = 13.8%. <em>Ex post</em> alpha = 16% – 13.8% = 2.2%.</p>
+                            </section>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-2"><label for="dp-qc-0-2">
+                            <p><span class="cfa-curriculum-option-label">C. </span>5.2%.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                </dl>
+                <a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a>
+            </fieldset></div>
+        </div>
+        <div class="dp-content-block">
+            <div class="dp-qc dp-qc-built"><fieldset>
+                <div class="dp-qc-question"><legend>
+                    <div id="CIPM1509-R-s10-Q2" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">2. </span>
+                        <p>Which of these risk-adjusted performance indicators is <strong>not</strong> measured in units of percent?</p>
+                    </legend></div>
+                </legend></div>
+                <dl class="dp-qc-answers">
+                    <dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-0"><label for="dp-qc-1-0">
+                            <p><span class="cfa-curriculum-option-label">A. </span>Sharpe ratio</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+                            <section>
+                                <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                <p>A is correct. Jensen’s alpha and the Treynor ratio, but not the Sharpe ratio, are stated in units of percent.</p>
+                            </section>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1">
+                            <p><span class="cfa-curriculum-option-label">B. </span>Treynor ratio</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-2"><label for="dp-qc-1-2">
+                            <p><span class="cfa-curriculum-option-label">C. </span>Jensen’s alpha</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                </dl>
+                <a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a>
+            </fieldset></div>
+        </div>
+        <div class="dp-content-block">
+            <div class="dp-qc dp-qc-built"><fieldset>
+                <div class="dp-qc-question"><legend>
+                    <div id="CIPM1509-R-s10-Q3" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">3. </span>
+                        <p>In which of the following applications is Jensen’s alpha <em>most</em> appropriate as a measure of risk-adjusted performance? Evaluating a fund manager who attempts to outperform his or her benchmark by:</p>
+                    </legend></div>
+                </legend></div>
+                <dl class="dp-qc-answers">
+                    <dt class="dp-qc-answer"><input id="dp-qc-2-0" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-0"><label for="dp-qc-2-0">
+                            <p><span class="cfa-curriculum-option-label">A. </span>timing the market.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse2-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-2-1" class="dp-qc-field" type="radio" name="dp-qc-2" value="true" data-response="dpQcResponse2-1"><label for="dp-qc-2-1">
+                            <p><span class="cfa-curriculum-option-label">B. </span>superior security selection.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response dp-qc-correct" id="dpQcResponse2-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+                            <section>
+                                <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                <p>B is correct. A market model regression is the typical approach for estimating Jensen’s alpha. Implicit to that approach is that a fund’s beta is constant over the time period of the study. A fund manager who moves in and out of equities in an effort to time the market is constantly changing the beta of his or her portfolio.</p>
+                            </section>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-2-2" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-2"><label for="dp-qc-2-2">
+                            <p><span class="cfa-curriculum-option-label">C. </span>timing the market and superior security selection.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse2-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                </dl>
+                <a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a>
+            </fieldset></div>
+        </div>
+        <div class="dp-content-block">
+            <div class="dp-qc dp-qc-built"><fieldset>
+                <div class="dp-qc-question"><legend>
+                    <div id="CIPM1509-R-s10-Q4" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">4. </span>
+                        <p>Assume the manager of a small-cap value fund chooses the S&amp;P 500 as her fund’s benchmark and estimates Jensen’s alpha using the market model with the CAPM as the assumed pricing model. Which result is <em>most likely</em> to occur?</p>
+                    </legend></div>
+                </legend></div>
+                <dl class="dp-qc-answers">
+                    <dt class="dp-qc-answer"><input id="dp-qc-3-0" class="dp-qc-field" type="radio" name="dp-qc-3" value="false" data-response="dpQcResponse3-0"><label for="dp-qc-3-0">
+                            <p><span class="cfa-curriculum-option-label">A. </span>Her estimate of Jensen’s alpha is unbiased.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse3-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-3-1" class="dp-qc-field" type="radio" name="dp-qc-3" value="true" data-response="dpQcResponse3-1"><label for="dp-qc-3-1">
+                            <p><span class="cfa-curriculum-option-label">B. </span>Her estimate of Jensen’s alpha is upwardly biased.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response dp-qc-correct" id="dpQcResponse3-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+                            <section>
+                                <h3 class="cfa-curriculum-solution-title">Solution</h3>
+                                <p>B is correct. The manager’s estimate of Jensen’s alpha would likely reflect risk premiums not captured in the performance of the S&amp;P 500 because it is a large-cap index consisting of both value and growth stocks. The estimate would most likely be upwardly biased because small-cap stocks have historically outperformed large-cap stocks.</p>
+                            </section>
+                        </div>
+                    </dd>
+                    <dt class="dp-qc-answer"><input id="dp-qc-3-2" class="dp-qc-field" type="radio" name="dp-qc-3" value="false" data-response="dpQcResponse3-2"><label for="dp-qc-3-2">
+                            <p><span class="cfa-curriculum-option-label">C. </span>Her estimate of Jensen’s alpha is downwardly biased.</p>
+                        </label><br>
+                        
+                    </dt>
+                    <dd class="dp-qc-response" id="dpQcResponse3-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+                        <div class="dp-qc-content cfa-curriculum-solution">
+                            <p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+                        </div>
+                    </dd>
+                </dl>
+                <a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a>
+            </fieldset></div>
+        </div>
+    </figure>
+    <p>The term “alpha,” which once made clear reference to the CAPM, has for a long time become generic in the investment industry as a reference to incremental risk-adjusted performance. In the most precise current writing, alpha can be interpreted as an excess risk-adjusted return based on any model assumed to explain differences in expected returns across assets. The next lesson describes this more expansive usage.</p>
+    <div class="dp-content-block cfa-curriculum-reflist">
+        <h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Reference List</h3>
+        <div class="dp-panels-wrapper dp-accordion-default">
+            
+                <h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel0"><a href="#dpPanel0" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3>
+                <div class="dp-panel-content " tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region">
+                    <ul id="CIPM1509-R-s10-ref1">
+                        <li id="CIPM1509-R-s10-R1list">Fama, E. and French, K. (1992). “The Cross-Section of Expected Stock Returns.” <em>Journal of Finance</em> 47 (2): 427–65. <a href="https://doi.org/10.1111/j.1540-6261.1992.tb04398.x" target="_blank" class="external" rel="noreferrer noopener"><span>doi:10.1111/j.1540-6261.1992.tb04398.x</span><span class="external_link_icon" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; " role="presentation"><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" style="width:1em; height:1em; vertical-align:middle; fill:currentColor">
+    <path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a></li>
+                        <li id="CIPM1509-R-s10-R2list">Fama, E. and French, K. (1993). “Common Risk Factors in the Returns on Stocks and Bonds.” <em>Journal of Financial Economics</em> 33 (1): 3–56. <a href="https://doi.org/10.1016/0304-405X(93)90023-5" target="_blank" class="external" rel="noreferrer noopener"><span>doi:10.1016/0304-405X(93)90023-5</span><span class="external_link_icon" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; " role="presentation"><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" style="width:1em; height:1em; vertical-align:middle; fill:currentColor">
+    <path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a></li>
+                    </ul>
+                </div>
+            
+        </div>
+    </div>
+    <div id="transformedTip4Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+        <p><sup>13</sup> For example, assume a fund’s return is 12% and the benchmark’s return is 10%. Also assume that the systematic risk of the fund greatly exceeds that of the benchmark and the fund’s beta is 1.5. The fund outperformed the benchmark by 12% − 10% = 2% if differences in systematic risk are ignored. But assuming a risk-free rate of 3%, Jensen’s alpha is 12% − [3% + 1.5(10% − 3%)] = −1.5%. Based on Jensen’s alpha, the fund underperformed the benchmark on a risk-adjusted basis.</p>
+    </div>
+    <div id="transformedTip5Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" role="tooltip" style="display: none;">
+        <p>Fama, E. F. and French, K. R. (1992). “The Cross-Section of Expected Stock Returns.” <em>Journal of Finance</em> 47 (2): 427–65. <a href="https://doi.org/10.1111/j.1540-6261.1992.tb04398.x" target="_blank" class="external" rel="noreferrer noopener"><span>https://doi.org/10.1111/j.1540-6261.1992.tb04398.x</span><span class="external_link_icon" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; " role="presentation"><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" style="width:1em; height:1em; vertical-align:middle; fill:currentColor">
+    <path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a></p>
+        <p>Fama, E. F. and French, K. R. (1993). “Common Risk Factors in the Returns on Stocks and Bonds.” <em>Journal of Financial Economics</em> 33 (1): 3–56. <a href="https://doi.org/10.1016/0304-405X(93)90023-5" target="_blank" class="external" rel="noreferrer noopener"><span>https://doi.org/10.1016/0304-405X(93)90023-5</span><span class="external_link_icon" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; " role="presentation"><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" style="width:1em; height:1em; vertical-align:middle; fill:currentColor">
+    <path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a></p>
+    </div>
+    <div id="transformedTip0Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>Measures the return of a portfolio in excess of the theoretical required return given the equilibrium model for asset returns known as the CAPM. Also called <em>Jensen measure</em>.</p>
+    </div>
+    <div id="transformedTip1Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>See <em>Jensen’s alpha</em>.</p>
+    </div>
+    <div id="transformedTip2Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>The graphical representation of the CAPM formula, showing the relationship between expected return and beta.</p>
+    </div>
+    <div id="transformedTip3Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+        <p>A regression equation that specifies a linear relationship between the return on a security (or portfolio) and the return on a broad market index.</p>
+    </div>
+<div class="nav-buttons"><a href="courses_1369_modules_items_99610_109_The_Treynor_Ratio.html">← Previous</a><a href="courses_1369_modules_items_99614_111_Alpha.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

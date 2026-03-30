@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.15 | Other Benchmarks</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Return Attribution and Benchmarks › Module 2: Introduction to Benchmarks</nav>
+<h1 class="page-title screenreader-only">2.15 | Other Benchmarks</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0146-R-s15-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.15 | Other Benchmarks"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 2: Introduction to Benchmarks</span>2.15 | Other Benchmarks</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul id="CIPM0146-R-s15-los-1">
+<li class="cfa-curriculum-los-item">describe considerations in using hedge fund benchmarks, liability-based benchmarks, and hedged benchmarks</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary">
+<p>This lesson introduces types of benchmarks besides custom benchmarks and those based on peer groups, market indexes, and style indexes.</p>
+<section id="CIPM0146-R-s15-01-01">
+<h3 class="dp-heading">Hedge Fund Benchmarks</h3>
+<p>Hedge funds are more complex than traditional funds in part because of their ability to pursue nonconventional strategies. They do not represent an asset class, such as equities or fixed income; rather, they reflect a manager’s strategy for exploiting market inefficiencies. Hedge funds may have an unlimited investment universe, vary substantially from one to another, and can vary their strategies and asset allocations over time. These characteristics make it difficult to create a single standard against which hedge funds should be judged. Often, hedge funds have been promoted as absolute return vehicles, having an objective of providing a positive absolute return in all market environments. But this characterization is often misleading, as the record of hedge funds and a simple consideration of the objectives and risks in their investment disciplines show.<a id="transformedTip0" class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0146-R-s15-FN1_Content" data-transformed="true" role="button" aria-expanded="false"><sup>41</sup></a></p>
+<p>Hedge fund benchmarks are also difficult to create because they can use higher leverage, sell assets short, take positions in derivatives, and be opportunistic in choice of strategy. Some hedge funds lever 5 times their capital base, which increases their expected return and risk. Short positions and derivatives used in long–short strategies can increase return or reduce risk. A manager’s use of style, leverage, short positions, and derivatives may change over time, in which case the original benchmark will no longer be appropriate. As such, it will be more difficult to choose an appropriate benchmark that is consistent over time.</p>
+<p>Hedge funds also typically lack transparency, are difficult to monitor, and are illiquid. Although a proprietary strategy and long-term focus can result in higher returns, evaluating performance also becomes more difficult. In contrast, benchmark determination for a traditional asset manager is relatively straightforward. From this discussion, it should be obvious that broad market indexes are inappropriate hedge fund benchmarks.</p>
+<p>The risk-free rate, as proxied by an appropriate market reference rate, plus a spread (e.g., 3%–6%) is sometimes advocated as a hedge fund benchmark. The argument for using the risk-free rate is that investors desire a positive return and that arbitrage strategies are risk free, with the spread reflecting the active management return and management costs. Most funds, however—even those that target market-neutral strategies—are not completely free of systematic risk. Furthermore, many funds use leverage, which could magnify systematic risk. In this case, the spread should be adjusted upward.</p>
+<p>Broad market indexes and the risk-free rate will be weakly correlated or uncorrelated with hedge fund returns, thus failing a benchmark quality test of <a id="transformedTip1" class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0146-R-s15-R1_Content" data-transformed="true" role="button" aria-expanded="false">Bailey (1992b)</a> and <a id="transformedTip2" class="dp-popover-trigger" href="#transformedTip2Content" aria-describedby="CIPM0146-R-s15-R3_1_Content" data-transformed="true" role="button" aria-expanded="false">Bailey, Richards, and Tierney (2007)</a>, whereby portfolio and benchmark factor sensitivities should be similar. Because of the shortcomings of broad market indexes and the risk-free rate, hedge fund manager universes from such providers as HFR are often used as hedge fund benchmarks. Comparing hedge fund managers with other managers is consistent with the fact that they pursue nonconventional strategies and are thus not comparable against a basket of traditional assets. Investors also use manager universes to screen the performance of prospective hedge fund manager hires.</p>
+<p>As previously discussed, however, manager universes (peer groups) have serious shortcomings as benchmarks. In terms of the validity criteria, we determined that they fully satisfy only the measurability criteria.</p>
+<p>Manager universes are also used to construct hedge fund indexes. These indexes report an average return for various categories of hedge funds. Hedge fund indexes are susceptible to survivorship bias, which results in misrepresentation of hedge fund performance.<a id="transformedTip3" class="dp-popover-trigger" href="#transformedTip3Content" aria-describedby="CIPM0146-R-s15-FN2_Content" data-transformed="true" role="button" aria-expanded="false"><sup>42</sup></a> When an index creator forms an index, sometimes the only companies included are those in existence (i.e., the survivors) when the index is created. Another form of survivorship bias is sometimes referred to as self-reporting bias or self-selection bias. Hedge funds voluntarily report to index providers. If managers decide to stop reporting their returns because of poor performance or because they exit the industry, their entire history of returns may be dropped from a database. In such cases, only successful funds will remain in the database, with the index return thus artificially overstated. Alternatively, however, large, successful funds may stop reporting because they cannot accept additional capital and are no longer motivated to make the effort to report results. In such cases, fund returns will be biased downward. As to which bias would prevail, there probably are more weak performers of all sizes than there are large, outstanding performers that are refusing additional capital. Therefore, it is likely that, in net terms, the self-reporting bias results in upwardly biased returns as well as downwardly biased risk.</p>
+<p>Another bias exists when additional managers’ returns are added to an index. The index provider may add the entire return history of such managers to the index. The resulting bias is referred to as backfill bias, also called “inclusion bias” or “instant history bias.” Consider a manager that launches several hedge funds. After an incubation period, some funds will be successful and others not. The manager could close the unsuccessful funds and advertise the success of the others by reporting only the successful funds’ returns to an index. When the index provider adds the fund, the manager’s historical record of attractive returns may be added to the index. The index provider may also have its own criteria for adding new funds (e.g., minimum assets under management) that are more likely to be met by successful funds. The combination of the manager’s option to report and index provider criteria results in an upward bias in returns. Furthermore, some of the more successful hedge funds that report will be closed to new investors, thus potentially overstating the performance a sponsor could achieve in this asset class.</p>
+<p>In addition to managers having discretion in reporting, self-reported hedge fund data are typically not confirmed by index providers and a fund’s reported net asset value may be a managed value. Even if the manager has no intention to misreport the data, hedge funds hold illiquid assets that require some subjectivity in pricing. If the previous period’s price is used as the current price or an appraisal is used, then the data will be smoothed. The presence of stale pricing will result in downward-biased standard deviations and temporal instability in correlations, with hedge funds potentially given larger portfolio allocations than are appropriate. The presence of stale pricing results in what is sometimes referred to as infrequent pricing or illiquidity bias.</p>
+<p>Another potential problem with hedge fund indexes is their comparability. Some indexes contain a large number of funds and are more representative than others. Providers construct indexes using a variety of methodologies, so indexes differ from one provider to the next, even if they have the same style. For example, both interest rate arbitrage and forward yield curve arbitrage funds could be classified as fixed-income arbitrage funds, yet they have very different strategies and performance. Providers may also change the constituent funds, so the same index is not consistent from one period to the next. Survivorship and other biases will also vary by hedge fund style, creating problems in comparing the returns across various style indexes.</p>
+<p>In addition to provider methods creating style comparability issues, the reporting of the funds creates additional difficulties because managers may intentionally misrepresent or vary their styles over time to boost relative or absolute performance. As an example of the latter, in periods when the merger market is dry, merger arbitrage managers may switch styles to obtain greater opportunities. Thus, investors may find that indexes do not serve as valid benchmarks because they do not match the manager’s style. Indexes may have very different performance even if their stated styles are the same.</p>
+<p>Another concern with hedge fund indexes is their weighting. Most traditional assets have indexes that are cap weighted, reflecting the economic importance of the underlying securities. In the case of hedge funds, however, the size of the underlying funds reflects the amount of money entrusted to the manager and nothing more. Consequently, the size of a hedge fund is not a capitalization in the traditional sense. Because of this fact, many hedge fund benchmarks are equally weighted, thereby reflecting the return of the average hedge fund. However, cap weighting reflects the investment availability of the underlying benchmark positions and the future value of a dollar invested. The fact that most investors’ primary concern is how their average dollars would grow suggests that cap weighting is appropriate. In addition, most investments are compared against cap-weighted indexes and benchmarks, and consistency would require that hedge fund indexes be cap weighted too. Furthermore, equally weighted indexes are not easily investable because a tracking portfolio must be rebalanced often to maintain equal weighting. To maintain equal weighting, capital needs to be reallocated from winners (the best-performing hedge funds) to losers. Because hedge fund liquidity is limited, this process would be not only expensive but also difficult. On balance, capitalization weighting makes the most sense.</p>
+<p>In sum, the record of hedge fund performance is distorted by the manager’s option to report, and the data from index providers may present an overly rosy view of hedge fund risk and return. Used as traditional asset benchmarks, manager universes satisfy only the measurability criteria of <a id="transformedTip4" class="dp-popover-trigger" href="#transformedTip4Content" aria-describedby="CIPM0146-R-s15-R2_Content" data-transformed="true" role="button" aria-expanded="false">Bailey and Tierney (1998)</a>. When applied to hedge funds, the use of manager universes becomes even more problematic because there are no regulatory requirements for hedge fund managers to report. Because of their private nature, hedge fund manager universes will not be unambiguous in composition, nor will they reflect the manager’s knowledge. Thus, they cannot be specified in advance. They typically are neither investable nor appropriate, given the difficulties in classifying index style. Even the idea that hedge fund manager universe returns are measurable benchmarks is questionable, because manager fees are often privately negotiated and the investor’s actual return may differ from that reflected in a hedge fund index’s return series.</p>
+<p>Because of their biases and issues in comparability and weighting, hedge fund indexes composed of manager universes will not serve as valid benchmarks. Manager universes are best used as a screen for hedge fund managers currently in existence. Factor-model-based, returns-based, and custom benchmarks are sometimes used to mimic a manager’s risk exposures and construct useful benchmarks for individual funds. <a id="transformedTip5" class="dp-popover-trigger" href="#transformedTip5Content" aria-describedby="CIPM0146-R-s15-R3_2_Content" data-transformed="true" role="button" aria-expanded="false">Bailey, Richards, and Tierney (2007)</a> suggested creating separate benchmarks for a manager’s long and short positions using a returns-based or custom benchmark process. The benchmarks for the long and short positions could then be combined in their respective proportions to create the manager’s benchmark.</p>
+<p>We next examine liability-based benchmarks, which shift the focus away from the manager’s assets to create the benchmark.</p>
+</section>
+<section id="CIPM0146-R-s15-01-02">
+<h3 class="dp-heading">Liability Benchmarks</h3>
+<p>So far, our focus has been asset-based benchmarks, in which the manager’s performance is compared with the performance of a collection of assets. We now examine liability-based benchmarks, which focus on the asset’s purpose—that is, the cash flows that the asset must generate obtain. <a id="transformedTip6" class="dp-popover-trigger" href="#transformedTip6Content" aria-describedby="CIPM0146-R-s15-R4_Content" data-transformed="true" role="button" aria-expanded="false">Bernstein (2000</a>, p. 5) made an argument for liability-based benchmarks in general. He stated that manager evaluation should be based on the question, “How much is this organization contributing to a return in excess of our required return, and at what level of volatility?” Bernstein believes these benchmarks are preferable to using cap-weighted security indexes, which are overweighted by the hot performers and for which the performance target is not defined quantitatively <em>a priori</em>. Liability-based benchmarks are superior because the manager knows the standard <em>ex ante</em> (e.g., a minimum return of 5%). For asset-based benchmarks, the manager is implicitly compared with a collection of the best-performing securities or managers. The users of asset-based benchmarks often assume that they can identify managers capable of consistently achieving an excess return, which is highly unlikely when a market is efficient.</p>
+<p>In practice, liability-based benchmarks are used most frequently when the assets are required to pay a specific future liability (e.g., as in a defined benefit pension plan). Here, by necessity, the emphasis must be on the liabilities because a portfolio could outperform a market index but still fail to meet its liabilities. Furthermore, a market-value-weighted index would likely be an inappropriate benchmark because the liability often has a targeted asset allocation and risk exposures that are different from the index. For example, for the fixed-income portion of the benchmark, cap-weighted indexes are typically not suitable because their duration is usually shorter than that of most plans’ liabilities. Also, if corporate bonds dominate the short end of the yield curve, the benchmark may contain more credit risk than the plan desires. Furthermore, as previously discussed, bond indexes are often not investable and are rebalanced frequently over time. As an alternative, a portfolio of individual bonds could be used as the benchmark, which should be well diversified to minimize idiosyncratic risk. Another alternative for the fixed-income portion of the liability-based benchmark has been developed recently: liability-driven investment (LDI) indexes. For example, in 2012, the Bloomberg LDI Index Series was launched; these indexes were constructed to be investable. They may not describe a plan’s particular liability structure as accurately as a portfolio constructed specifically for the plan, however.</p>
+<p>To best determine how the entire plan asset allocation and liability-based benchmark should be constructed, the manager first needs to obtain the plan’s projected future cash outflows from the plan trustee or actuary. Each plan will have its own unique characteristics, such as the availability of lump-sum payouts to retirees.</p>
+<p>For example, in a pension, the manager should have knowledge of the following plan features:</p>
+<ul id="CIPM0146-R-s15-L1" class="cfa-curriculum-list-bullet">
+<li class="cfa-curriculum-list-item">
+<p>average number of years to retirement in the workforce;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>the percentage of the workforce that is retired;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>average participant life expectancy;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>whether the benefits are indexed to inflation;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>whether the plan offers an early retirement option;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>whether the sponsor has the ability to increase its plan contributions (e.g., whether the sponsor is profitable and diversified);</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>the correlation between plan assets and the sponsoring company’s operating assets (a lower correlation is desired so that the sponsor can make contributions when the plan requires funds); and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>whether the plan is a going concern (e.g., plans will eventually terminate if the sponsor has exited its business).</p>
+</li>
+</ul>
+<p>These characteristics influence the composition of the pension plan portfolio and hence its liability-based benchmark.</p>
+<p>The primary goal of a pension plan is to generate a return that will satisfy the liabilities and minimize the risk of not meeting them. The two goals are distinct; for example, a plan’s assets may generate a high return, but if the plan asset value is volatile and falls short of that required in a given year, the liabilities will not be met.</p>
+<p>Historically, pension funds took very little gap risk, the risk that the assets move differently from the liabilities. The funds invested primarily in annuities and bonds successfully satisfied the liabilities. However, regulatory changes and benefits that were indexed with inflation caused the funds to change their asset allocations. More recently, <a id="transformedTip7" class="dp-popover-trigger" href="#transformedTip7Content" aria-describedby="CIPM0146-R-s15-R6_1_Content" data-transformed="true" role="button" aria-expanded="false">Meder and Staub (2013)</a> recognized that some plan liabilities grow as the economy grows and should be mimicked with equities. For example, if the economy and a company grow, the company’s wage expenses will grow and so will the company’s future liability. A failure to identify this liability risk could lead to a portfolio whose assets are insufficient to meet liabilities.</p>
+<p>To minimize the risk that plan assets move differently from the liabilities, <a id="transformedTip8" class="dp-popover-trigger" href="#transformedTip8Content" aria-describedby="CIPM0146-R-s15-R6_2_Content" data-transformed="true" role="button" aria-expanded="false">Meder and Staub (2013)</a> proposed that the plan be constructed with liability-mimicking assets. Although traditionally, many plans focused only on interest rate risk, Meder and Staub proposed decomposing the risk of plan liabilities into interest rate risk, inflation risk, and risk from economic growth. In this liability-relative approach, plan assets are chosen for their ability to mimic the liability so that they are highly correlated. In contrast, when a portfolio is constructed using an asset-only approach, the emphasis is on portfolio efficiency and assets that have low correlations. The liability-relative approach takes a long-term view of the liabilities and does not focus solely on changes in fixed-income values arising from changes in interest rates. A decomposition of the liability risk exposure will help the portfolio manager better understand pension liabilities.</p>
+<p>The pension obligation is first separated into that from inactive (no longer working) and active participants. The future benefits for inactive participants are fixed unless the benefits are indexed to inflation, so the relevant benchmark is a portfolio of bonds paying a nominal amount. If the benefits are indexed to inflation, the relevant benchmark is an inflation-indexed (real return) bond portfolio that satisfies the promised payments.</p>
+<p>The obligations to active participants (current employees) can be separated into the amounts owed for past and future service. The obligations for past service are matched with nominal and inflation-indexed bonds, depending on whether they are fixed. Ongoing funds will have obligations from future benefits, which are from future wages to be earned, service to be rendered, and new plan entrants. The first component will grow with the economy and inflation prior to the retirement date. It is hedged with nominal bonds, inflation-indexed bonds, and equities. The second component reflects benefits that have not yet been earned but will be in the future. Because it is uncertain, however, this component is not usually modeled in the benchmark. The third component is also uncertain and not modeled. Additionally, there will be liability noise from non-market exposures, such as that owing to model uncertainty, which is unpredictable and cannot be hedged.</p>
+<p>In sum, the best portfolio for a pension plan from an asset‒liability management perspective is typically one consisting of nominal bonds, real return bonds, and common shares. The asset allocation is determined by the proportion of accrued versus future obligations, whether the benefits are inflation indexed, and whether the plan is growing. A younger workforce means that more is allocated to equities. Greater inflation indexing of the benefits would imply more inflation-indexed bonds. If the fund’s managers outperform the benchmark constructed according to these principles, it will facilitate the pension obligations being met. Risk and noise that cannot be modeled in the benchmark may require future sponsor contributions. The goal for the pension plan is to outperform the benchmark while minimizing the risk of not meeting the obligations. A manager’s skill will be required to avoid credit downgrades and defaults and select equity positions wisely. The manager will also have to honor any plan investment restrictions; for example, some plans have social investing concerns that will have to be reflected in the portfolio and benchmark. In a liability-relative benchmark, the benchmark and portfolio are structured to satisfy the return required to meet the future obligations as well as mimic the volatility of the liabilities.</p>
+<figure id="CIPM0146-R-s15-Ba" class="dp-content-block cfa-curriculum-exercise-box">
+<figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Knowledge Check: Other Benchmarks</figcaption>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div id="CIPM0146-R-s15-Q1" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following <em>best</em> describes benchmarks for hedge funds?</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0">
+<p><span class="cfa-curriculum-option-label">A. </span>The risk-free rate is widely used as a benchmark.</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-1"><label for="dp-qc-0-1">
+<p><span class="cfa-curriculum-option-label">B. </span>Manager universes are widely used as benchmarks.</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h4 class="cfa-curriculum-solution-title">Solution</h4>
+<p>B is correct. Choice A is incorrect because just earning the risk-free rate is not the investment objective of hedge funds. Choice C is incorrect because hedge fund returns are not in general highly correlated with market index returns.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-2"><label for="dp-qc-0-2">
+<p><span class="cfa-curriculum-option-label">C. </span>Market indexes are widely used as benchmarks because indexes with returns that are highly correlated with hedge fund returns are generally available.</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div id="CIPM0146-R-s15-Q2" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">2. </span>
+<p>In which of the following cases is a liability-based benchmark <em>most</em> likely to be appropriate?</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-0"><label for="dp-qc-1-0">
+<p><span class="cfa-curriculum-option-label">A. </span>An income-oriented investor</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-1"><label for="dp-qc-1-1">
+<p><span class="cfa-curriculum-option-label">B. </span>A defined benefit pension plan</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h4 class="cfa-curriculum-solution-title">Solution</h4>
+<p>B is correct. Such pension plans must meet the pension payments owed to retired plan participants.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-2"><label for="dp-qc-1-2">
+<p><span class="cfa-curriculum-option-label">C. </span>A hedge fund operating in fixed-income markets</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+</figure>
+</section>
+<section id="CIPM0146-R-s15-01-03">
+<h3 class="dp-heading">Hedged Benchmarks</h3>
+<p>Many international index providers calculate and publish index returns in a specific base currency, in local currency terms, and hedged back to the base currency. In other words, they provide several different versions of returns of the same underlying index. Most international indexes use WM/Reuters London 4pm Closing spot rates (established in 1994) as standard exchange rates in the calculation of their international indexes, thus allowing fair comparison across a range of indexes and portfolios if managers choose to use the same exchange rates to value their portfolios.</p>
+<p>Hedged benchmarks (often 100% hedged but also partially hedged, say 50%) reflect the asset owner’s requirements. Asset owners may seek diversification through international assets while reducing the resulting currency risk by hedging using forward currency contracts or other currency derivative instruments. Hedged benchmarks also provide useful data that may be used in calculating detailed multi-currency attribution analysis.</p>
+<p>Hedged calculation methods differ, one approach being to sell notional one-month forward contracts at the start of the month and then calculate a return based on the gain or loss of these contracts in conjunction with the gain or loss in the underlying securities. This method does not dynamically hedge currency positions caused by the market gains (or losses) of the underlying securities during the month and is therefore not fully hedged, leading to a residual currency element even in a supposedly 100% hedged benchmark. Some index providers offer both monthly and daily hedged variations. A daily hedged index will respond to the changing currency exposures caused by market movements of underlying assets. Typical international index data is shown in <a class="internal" role="button" href="#CIPM0146-R-s15-EXH3" aria-label="View Exhibit 3">Exhibit 3</a>.</p>
+<div id="CIPM0146-R-s15-EXH3" class="cfa-curriculum-table-wrap">
+<div class="cfa-curriculum-exhibit-table-title" aria-hidden="true"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 3<span style="display: block;">Monthly Index Returns in Local Currency, in Base Currency (USD), and Hedged to Base Currency</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0146-R-s15-EXH3-title"><caption id="CIPM0146-R-s15-EXH3-title" class="cfa-curriculum-table-caption-hidden">Exhibit 3: Monthly Index Returns in Local Currency, in Base Currency (USD), and Hedged to Base Currency</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Country</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Weight</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Local Return</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>US Dollar Return</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>US Dollar Hedged Return</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Australia</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8.48%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.81</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.28</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.56</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">France</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">23.31%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–3.03</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.53</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–3.17</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Japan</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">48.46%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.68</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.23</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.84</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Singapore</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.16%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–3.22</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–1.88</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–3.19</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Switzerland</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">17.61%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.47</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.89</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.57</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.67</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.32</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.72</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>It can also be observed from the data that interest rates in Japan must have been lower than in the United States at that time, because the hedged return is greater than the local return. In effect, within the forward currency contract, investors are borrowing yen at low interest rates and reinvesting at a higher interest rate in US dollars. Conversely, interest rates in Australia must have been higher than in the United States, because Australia’s hedged return is lower than the local return. This is monthly data, and therefore interest rates must be 3% higher (0.81% – 0.56%) × 12 = 3% in Australia than in the United States. We next examine the consequences of poorly chosen benchmarks.</p>
+</section>
+<div class="dp-content-block cfa-curriculum-reflist">
+<h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Reference List</h3>
+<div class="dp-panels-wrapper dp-accordion-default">
+
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel0"><a href="#dpPanel0" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3>
+<div class="dp-panel-content " tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region">
+<ul id="CIPM0146-R-s15-ref1">
+<li id="CIPM0146-R-s15-R1list">Bailey, Jeffery V. (1992b). “Evaluating Benchmark Quality.” <em>Financial Analysts Journal</em> 48 (3): 33–39.</li>
+<li id="CIPM0146-R-s15-R3list">Bailey, Jeffery V., Richards, Thomas M. and Tierney, David E. (2007). “Evaluating Portfolio Performance.” In <em>Managing Investment Portfolios: A Dynamic Process</em>. 3rd ed., Maginn, John, Tuttle, Donald, McLeavey, Dennis and Pinto, JeraldHoboken, NJ: John Wiley &amp; Sons.</li>
+<li id="CIPM0146-R-s15-R2list">Bailey, Jeffery V. and Tierney, David E. (1998). <em>Controlling Misfit Risk in Multiple-Manager Investment Programs</em>. Charlottesville, VA: Research Foundation of CFA Institute.</li>
+<li id="CIPM0146-R-s15-R4list">Bernstein, Peter L. (2000). “<em>A Modest Proposal: Portfolio Management Practice for Modern Times.</em>” Economics &amp; Portfolio Strategy (15 April).</li>
+<li id="CIPM0146-R-s15-R5list">Lhabitant, Francois-Serge (2004). <em>Hedge Funds</em>. Hoboken, NJ: John Wiley &amp; Sons.</li>
+<li id="CIPM0146-R-s15-R6list">Meder, Aaron and Staub, Renato (2013). “Linking Pension Liabilities to Assets.” In <em>CFA Institute Level III Curriculum</em>. Charlottesville, VA: CFA Institute.</li>
+<li id="CIPM0146-R-s15-R7list">Waring, M. Barton and Siegel, Laurence (2006). “The Myth of the Absolute Return Investor.” <em>Financial Analysts Journal</em> 62 (2): 14–21.</li>
+<li id="CIPM0146-R-s15-R8list">Yau, Jot, Schneeweis, Thomas, Robinson, Thomas and Weiss, Lisa (2007). “Alternative Investments Portfolio Management.” In <em>Managing Investment Portfolios: A Dynamic Process</em>. 3rd ed., ed. Maginn, John, Tuttle, Donald, McLeavey, Dennis and Pinto, JeraldHoboken, NJ: John Wiley &amp; Sons.</li>
+</ul>
+</div>
+
+</div>
+</div>
+<div id="transformedTip0Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+<p><sup>41</sup> The classic critique is a study by Waring and Siegel (2006).</p>
+</div>
+<div id="transformedTip3Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+<p><sup>42</sup> Lhabitant (2004) Chapter 5 and Yau, Schneeweis, Robinson, and Weiss (2007) provide a discussion of hedge fund benchmark biases, upon which much of this discussion is based.</p>
+</div>
+<div id="transformedTip1Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" role="tooltip" style="display: none;">Bailey, Jeffery V. (1992b). “Evaluating Benchmark Quality.” <em>Financial Analysts Journal</em> 48 (3): 33–39.</div>
+<div id="transformedTip2Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" role="tooltip" style="display: none;">Bailey, Jeffery V., Richards, Thomas M. and Tierney, David E. (2007). “Evaluating Portfolio Performance.” In <em>Managing Investment Portfolios: A Dynamic Process</em>. 3rd ed., Maginn, John, Tuttle, Donald, McLeavey, Dennis and Pinto, JeraldHoboken, NJ: John Wiley &amp; Sons.</div>
+<div id="transformedTip4Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" role="tooltip" style="display: none;">Bailey, Jeffery V. and Tierney, David E. (1998). <em>Controlling Misfit Risk in Multiple-Manager Investment Programs</em>. Charlottesville, VA: Research Foundation of CFA Institute.</div>
+<div id="transformedTip5Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" role="tooltip" style="display: none;">Bailey, Jeffery V., Richards, Thomas M. and Tierney, David E. (2007). “Evaluating Portfolio Performance.” In <em>Managing Investment Portfolios: A Dynamic Process</em>. 3rd ed., Maginn, John, Tuttle, Donald, McLeavey, Dennis and Pinto, JeraldHoboken, NJ: John Wiley &amp; Sons.</div>
+<div id="transformedTip6Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" role="tooltip" style="display: none;">Bernstein, Peter L. (2000). “<em>A Modest Proposal: Portfolio Management Practice for Modern Times.</em>” Economics &amp; Portfolio Strategy (15 April).</div>
+<div id="transformedTip7Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" role="tooltip" style="display: none;">Meder, Aaron and Staub, Renato (2013). “Linking Pension Liabilities to Assets.” In <em>CFA Institute Level III Curriculum</em>. Charlottesville, VA: CFA Institute.</div>
+<div id="transformedTip8Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" role="tooltip" style="display: none;">Meder, Aaron and Staub, Renato (2013). “Linking Pension Liabilities to Assets.” In <em>CFA Institute Level III Curriculum</em>. Charlottesville, VA: CFA Institute.</div>
+<div class="nav-buttons"><a href="courses_1367_modules_items_99631_214_Custom_Benchmarks.html">← Previous</a><a href="courses_1367_modules_items_99634_216_Problems_in_Benchmark_Selection.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

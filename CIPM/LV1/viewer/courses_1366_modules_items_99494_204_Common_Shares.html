@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.04 | Common Shares</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 2: Performance Evaluation: Rate-of-Return Measurement</nav>
+<h1 class="page-title screenreader-only">2.04 | Common Shares</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0005-R-s04-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.04 | Common Shares"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 2: Performance Evaluation: Rate-of-Return Measurement</span>2.04 | Common Shares</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcomes</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul id="CIPM0005-R-s04-los-1CIPM0005-R-s04-los-2">
+<li class="cfa-curriculum-los-item">calculate and interpret the holding period rate of return on a stock or bond investment</li>
+<li class="cfa-curriculum-los-item">calculate and interpret a portfolio rate of return</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary">
+<p>When a dividend is announced, a certain date is set—the <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-ExDividendDateContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">ex-dividend date</a>—from which point forward a purchaser of a share is not entitled to the dividend payment. The trading day before the ex-dividend day is the last one in which an investor can purchase a share so as to appear as the owner of record as of a date called the record date; only owners as of that date are entitled to receive the dividend.<a id="transformedTip1" class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0005-R-s04-FN1_Content" data-transformed="true" role="button" aria-expanded="false"><sup>2</sup></a> The date at which the dividend amount is actually paid—the <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip2Content" aria-describedby="CIPM-PayDateContent" data-transformed="true" id="transformedTip2" role="button" aria-expanded="false">pay date</a>—can be weeks later.</p>
+<p>Consider a portfolio with beginning and ending values <em>V</em><sub>0</sub> and <em>V</em><sub>1</sub>, respectively, consisting initially of a single share of common stock. If the portfolio holds the stock over a period starting prior to the ex-dividend date and ending after the ex-dividend date but before the pay date and if the portfolio is valued after the ex-dividend date, the value of the dividend should be included in the portfolio value as accrued income when calculating total return because ownership of the dividend remains with the owner at the time the stock went ex-dividend. The expressions given for price and income return are then applicable.</p>
+<figure id="CIPM0005-R-s04-EXM4" class="dp-content-block cfa-curriculum-example-box">
+<figcaption class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i class="fas fa-search" style="background: inherit !important;" aria-hidden="true"></i>Example 4<span style="display: block;">Calculation of Income Return, Price Return, and Total Return for a Stock</span></figcaption>
+<section>
+<p>Exxon Mobil Corporation (XOM) announced a dividend of $0.44 per share in February 2011. The ex-dividend date was 8 February 2011, and the pay date was 10 March 2011. Closing prices of XOM on the New York Stock Exchange were</p>
+<div id="CIPM0005-R-s04-Ta" class="cfa-curriculum-table-wrap">
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Date</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Closing Price</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">31 January 2011</th>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$80.680</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">7 February 2011</th>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$83.930</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">8 February 2011</th>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$82.980</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">28 February 2011</th>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$85.530</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="dp-content-block">
+<div id="CIPM0005-R-s04-Q1" class="dp-qc cfa-curriculum-question-with-label dp-qc-built"><fieldset><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate the income return, price return, and total return on holding XOM from the close of trading on the 7 February through 8 February 2011 and for the month of February.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer dp-panels-built" style="display: inline-block;" id="dpPanel0" href="javascript:void(0)"><a href="javascript:void(0)" role="button" class="dp-panel-toggler , dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: rgb(255, 255, 255) !important; display: inline-block;" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Check Answer</a></h4>
+<div class="dp-panel-content cfa-curriculum-solution" tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region">
+<section>
+<h3 class="cfa-curriculum-solution-title">Solution</h3>
+<p>The closing price of XOM on 8 February is ex-dividend—that is, the value of owning a share without owning the dividend. The ending value of the portfolio should include the value of the dividend even though it had not yet been paid. Thus, we use portfolio value as given in the last column in calculating return. Because the pay date is after 28 February, the issue of reinvestment of the dividend does not arise.</p>
+<div id="CIPM0005-R-s04-Tb" class="cfa-curriculum-table-wrap">
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Closing Price</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Dividend Recognized on Ex-Dividend Date Forward</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Portfolio Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">31 January 2011</th>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$80.680</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$80.680</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">7 February 2011</th>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$83.930</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$83.930</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">8 February 2011</th>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$82.980</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$0.44</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$83.420</td>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">28 February 2011</th>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$85.530</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$0.44</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$85.970</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>For 8 February,</p>
+<div id="CIPM0005-R-s04-E" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mtable><mtr><mtd><mtext>Price&amp;#xA0;return&amp;#xA0;</mtext><mo>=</mo><mtext>&amp;#xA0;</mtext><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>&amp;#x2212;</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>83.42</mn><mo>&amp;#x2212;</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><mi>$</mi><mn>83.93</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mo>&amp;#x2212;</mo><mn>0.0113</mn><mo>=</mo><mo>&amp;#x2212;</mo><mn>1.13</mn><mi>%</mi></mtd></mtr></mtable></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="61.844ex" height="9.145ex" viewBox="0 -2234.5 26627.1 3937.5" role="img" focusable="false" style="vertical-align: -3.955ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(167,0)"><g transform="translate(-15,0)"><g transform="translate(0,653)"><use xlink:href="#MJMAIN-50"></use><use xlink:href="#MJMAIN-72" x="681" y="0"></use><use xlink:href="#MJMAIN-69" x="1074" y="0"></use><use xlink:href="#MJMAIN-63" x="1352" y="0"></use><use xlink:href="#MJMAIN-65" x="1797" y="0"></use><use xlink:href="#MJMAIN-72" x="2491" y="0"></use><use xlink:href="#MJMAIN-65" x="2884" y="0"></use><use xlink:href="#MJMAIN-74" x="3328" y="0"></use><use xlink:href="#MJMAIN-75" x="3718" y="0"></use><use xlink:href="#MJMAIN-72" x="4274" y="0"></use><use xlink:href="#MJMAIN-6E" x="4667" y="0"></use><use xlink:href="#MJMAIN-3D" x="5751" y="0"></use><g transform="translate(7057,0)"><g transform="translate(120,0)"><rect stroke="none" width="6248" height="60" x="0" y="220"></rect><g transform="translate(60,723)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="825" y="-213"></use><use xlink:href="#MJMAIN-2212" x="1259" y="0"></use><use xlink:href="#MJMATHI-44" x="2260" y="0"></use></g><use xlink:href="#MJMAIN-29" x="3478" y="0"></use><use xlink:href="#MJMAIN-2212" x="4090" y="0"></use><g transform="translate(5090,0)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g><g transform="translate(2605,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-3D" x="13823" y="0"></use><g transform="translate(14879,0)"><g transform="translate(120,0)"><rect stroke="none" width="11187" height="60" x="0" y="220"></rect><g transform="translate(60,723)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-33" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use><use xlink:href="#MJMAIN-32" x="1780" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="3003" y="0"></use><use xlink:href="#MJMAIN-24" x="4003" y="0"></use><g transform="translate(4504,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-34" x="779" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use></g></g><use xlink:href="#MJMAIN-29" x="6673" y="0"></use><use xlink:href="#MJMAIN-2212" x="7285" y="0"></use><use xlink:href="#MJMAIN-24" x="8286" y="0"></use><g transform="translate(8786,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-33" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-39" x="1279" y="0"></use><use xlink:href="#MJMAIN-33" x="1780" y="0"></use></g></g><g transform="translate(4203,-724)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-33" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-39" x="1279" y="0"></use><use xlink:href="#MJMAIN-33" x="1780" y="0"></use></g></g></g></g></g><g transform="translate(8475,-1429)"><use xlink:href="#MJMAIN-3D" x="0" y="0"></use><use xlink:href="#MJMAIN-2212" x="1056" y="0"></use><g transform="translate(1834,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-30" x="779" y="0"></use><use xlink:href="#MJMAIN-31" x="1279" y="0"></use><use xlink:href="#MJMAIN-31" x="1780" y="0"></use><use xlink:href="#MJMAIN-33" x="2280" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="4893" y="0"></use><use xlink:href="#MJMAIN-2212" x="5949" y="0"></use><g transform="translate(6728,0)"><use xlink:href="#MJMAIN-31"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-31" x="779" y="0"></use><use xlink:href="#MJMAIN-33" x="1279" y="0"></use></g><use xlink:href="#MJMAINI-25" x="8508" y="0"></use></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd><mtext>Price&nbsp;return&nbsp;</mtext><mo>=</mo><mtext>&nbsp;</mtext><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>83.42</mn><mo>−</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>−</mo><mi>$</mi><mn>83.93</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mo>−</mo><mn>0.0113</mn><mo>=</mo><mo>−</mo><mn>1.13</mn><mi>%</mi></mtd></mtr></mtable></semantics></math></span></span><script type="math/mml" id="MathJax-Element-1"><math id="m1"><semantics><mtable><mtr><mtd><mtext>Price return </mtext><mo>=</mo><mtext> </mtext><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>83.42</mn><mo>−</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>−</mo><mi>$</mi><mn>83.93</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mo>−</mo><mn>0.0113</mn><mo>=</mo><mo>−</mo><mn>1.13</mn><mi>%</mi></mtd></mtr></mtable></semantics></math></script></div>
+<div id="CIPM0005-R-s04-E___1" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax_SVG" id="MathJax-Element-2-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mtext>Income&amp;#xA0;return&amp;#xA0;</mtext><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0052</mn><mo>=</mo><mn>0.52</mn><mi>%</mi></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="50.298ex" height="5.688ex" viewBox="0 -1490.3 21656.1 2449.1" role="img" focusable="false" style="vertical-align: -2.227ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMAIN-49"></use><use xlink:href="#MJMAIN-6E" x="361" y="0"></use><use xlink:href="#MJMAIN-63" x="918" y="0"></use><use xlink:href="#MJMAIN-6F" x="1362" y="0"></use><use xlink:href="#MJMAIN-6D" x="1863" y="0"></use><use xlink:href="#MJMAIN-65" x="2696" y="0"></use><use xlink:href="#MJMAIN-72" x="3391" y="0"></use><use xlink:href="#MJMAIN-65" x="3783" y="0"></use><use xlink:href="#MJMAIN-74" x="4228" y="0"></use><use xlink:href="#MJMAIN-75" x="4617" y="0"></use><use xlink:href="#MJMAIN-72" x="5174" y="0"></use><use xlink:href="#MJMAIN-6E" x="5566" y="0"></use><use xlink:href="#MJMAIN-3D" x="6650" y="0"></use><g transform="translate(7707,0)"><g transform="translate(120,0)"><rect stroke="none" width="1157" height="60" x="0" y="220"></rect><use xlink:href="#MJMATHI-44" x="164" y="676"></use><g transform="translate(60,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-3D" x="9382" y="0"></use><g transform="translate(10438,0)"><g transform="translate(120,0)"><rect stroke="none" width="2901" height="60" x="0" y="220"></rect><g transform="translate(310,676)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-34" x="779" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use></g></g><g transform="translate(60,-724)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-33" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-39" x="1279" y="0"></use><use xlink:href="#MJMAIN-33" x="1780" y="0"></use></g></g></g></g><use xlink:href="#MJMAIN-3D" x="13857" y="0"></use><g transform="translate(14913,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-30" x="779" y="0"></use><use xlink:href="#MJMAIN-30" x="1279" y="0"></use><use xlink:href="#MJMAIN-35" x="1780" y="0"></use><use xlink:href="#MJMAIN-32" x="2280" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="17972" y="0"></use><g transform="translate(19028,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-35" x="779" y="0"></use><use xlink:href="#MJMAIN-32" x="1279" y="0"></use></g><use xlink:href="#MJMAINI-25" x="20808" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Income&nbsp;return&nbsp;</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0052</mn><mo>=</mo><mn>0.52</mn><mi>%</mi></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-2"><math id="m2"><semantics><mrow><mtext>Income return </mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0052</mn><mo>=</mo><mn>0.52</mn><mi>%</mi></mrow></semantics></math></script></div>
+<div id="CIPM0005-R-s04-E___2" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax_SVG" id="MathJax-Element-3-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mtable><mtr><mtd><mtext>Total&amp;#xA0;return</mtext><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>&amp;#x2212;</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>83.42</mn><mo>&amp;#x2212;</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><mi>$</mi><mn>83.93</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mo>&amp;#x2212;</mo><mn>0.0061</mn><mo>=</mo><mo>&amp;#x2212;</mo><mn>0.61</mn><mi>%</mi></mtd></mtr></mtable></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="77.253ex" height="9.145ex" viewBox="0 -2234.5 33261.4 3937.5" role="img" focusable="false" style="vertical-align: -3.955ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(167,0)"><g transform="translate(-15,0)"><g transform="translate(0,653)"><use xlink:href="#MJMAIN-54"></use><use xlink:href="#MJMAIN-6F" x="722" y="0"></use><use xlink:href="#MJMAIN-74" x="1223" y="0"></use><use xlink:href="#MJMAIN-61" x="1612" y="0"></use><use xlink:href="#MJMAIN-6C" x="2113" y="0"></use><use xlink:href="#MJMAIN-72" x="2641" y="0"></use><use xlink:href="#MJMAIN-65" x="3034" y="0"></use><use xlink:href="#MJMAIN-74" x="3478" y="0"></use><use xlink:href="#MJMAIN-75" x="3868" y="0"></use><use xlink:href="#MJMAIN-72" x="4424" y="0"></use><use xlink:href="#MJMAIN-6E" x="4817" y="0"></use><use xlink:href="#MJMAIN-3D" x="5651" y="0"></use><g transform="translate(6707,0)"><g transform="translate(120,0)"><rect stroke="none" width="6248" height="60" x="0" y="220"></rect><g transform="translate(60,723)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="825" y="-213"></use><use xlink:href="#MJMAIN-2212" x="1259" y="0"></use><use xlink:href="#MJMATHI-44" x="2260" y="0"></use></g><use xlink:href="#MJMAIN-29" x="3478" y="0"></use><use xlink:href="#MJMAIN-2212" x="4090" y="0"></use><g transform="translate(5090,0)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g><g transform="translate(2605,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-2B" x="13417" y="0"></use><g transform="translate(14418,0)"><g transform="translate(120,0)"><rect stroke="none" width="1157" height="60" x="0" y="220"></rect><use xlink:href="#MJMATHI-44" x="164" y="676"></use><g transform="translate(60,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-3D" x="16093" y="0"></use><g transform="translate(17150,0)"><g transform="translate(120,0)"><rect stroke="none" width="11187" height="60" x="0" y="220"></rect><g transform="translate(60,723)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-33" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use><use xlink:href="#MJMAIN-32" x="1780" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="3003" y="0"></use><use xlink:href="#MJMAIN-24" x="4003" y="0"></use><g transform="translate(4504,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-34" x="779" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use></g></g><use xlink:href="#MJMAIN-29" x="6673" y="0"></use><use xlink:href="#MJMAIN-2212" x="7285" y="0"></use><use xlink:href="#MJMAIN-24" x="8286" y="0"></use><g transform="translate(8786,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-33" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-39" x="1279" y="0"></use><use xlink:href="#MJMAIN-33" x="1780" y="0"></use></g></g><g transform="translate(4203,-724)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-33" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-39" x="1279" y="0"></use><use xlink:href="#MJMAIN-33" x="1780" y="0"></use></g></g></g></g><use xlink:href="#MJMAIN-2B" x="28799" y="0"></use><g transform="translate(29800,0)"><g transform="translate(120,0)"><rect stroke="none" width="2901" height="60" x="0" y="220"></rect><g transform="translate(310,676)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-34" x="779" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use></g></g><g transform="translate(60,-724)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-33" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-39" x="1279" y="0"></use><use xlink:href="#MJMAIN-33" x="1780" y="0"></use></g></g></g></g></g><g transform="translate(11792,-1429)"><use xlink:href="#MJMAIN-3D" x="0" y="0"></use><use xlink:href="#MJMAIN-2212" x="1056" y="0"></use><g transform="translate(1834,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-30" x="779" y="0"></use><use xlink:href="#MJMAIN-30" x="1279" y="0"></use><use xlink:href="#MJMAIN-36" x="1780" y="0"></use><use xlink:href="#MJMAIN-31" x="2280" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="4893" y="0"></use><use xlink:href="#MJMAIN-2212" x="5949" y="0"></use><g transform="translate(6728,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-36" x="779" y="0"></use><use xlink:href="#MJMAIN-31" x="1279" y="0"></use></g><use xlink:href="#MJMAINI-25" x="8508" y="0"></use></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd><mtext>Total&nbsp;return</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>83.42</mn><mo>−</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>−</mo><mi>$</mi><mn>83.93</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mo>−</mo><mn>0.0061</mn><mo>=</mo><mo>−</mo><mn>0.61</mn><mi>%</mi></mtd></mtr></mtable></semantics></math></span></span><script type="math/mml" id="MathJax-Element-3"><math id="m3"><semantics><mtable><mtr><mtd><mtext>Total return</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>83.42</mn><mo>−</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>−</mo><mi>$</mi><mn>83.93</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>83.93</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mo>−</mo><mn>0.0061</mn><mo>=</mo><mo>−</mo><mn>0.61</mn><mi>%</mi></mtd></mtr></mtable></semantics></math></script></div>
+<p>Written differently, Total return = Price return + Income return = –1.13% + 0.52% = –0.61%.</p>
+<p>For the month of February,</p>
+<div id="CIPM0005-R-s04-E___3" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax_SVG" id="MathJax-Element-4-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mtext>Price&amp;#xA0;return&amp;#xA0;</mtext><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>&amp;#x2212;</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>85.97</mn><mo>&amp;#x2212;</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><mi>$</mi><mn>80.68</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0601</mn><mo>=</mo><mn>6.01</mn><mi>%</mi></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="79.279ex" height="5.812ex" viewBox="0 -1543.5 34133.8 2502.3" role="img" focusable="false" style="vertical-align: -2.227ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMAIN-50"></use><use xlink:href="#MJMAIN-72" x="681" y="0"></use><use xlink:href="#MJMAIN-69" x="1074" y="0"></use><use xlink:href="#MJMAIN-63" x="1352" y="0"></use><use xlink:href="#MJMAIN-65" x="1797" y="0"></use><use xlink:href="#MJMAIN-72" x="2491" y="0"></use><use xlink:href="#MJMAIN-65" x="2884" y="0"></use><use xlink:href="#MJMAIN-74" x="3328" y="0"></use><use xlink:href="#MJMAIN-75" x="3718" y="0"></use><use xlink:href="#MJMAIN-72" x="4274" y="0"></use><use xlink:href="#MJMAIN-6E" x="4667" y="0"></use><use xlink:href="#MJMAIN-3D" x="5751" y="0"></use><g transform="translate(6807,0)"><g transform="translate(120,0)"><rect stroke="none" width="6248" height="60" x="0" y="220"></rect><g transform="translate(60,723)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="825" y="-213"></use><use xlink:href="#MJMAIN-2212" x="1259" y="0"></use><use xlink:href="#MJMATHI-44" x="2260" y="0"></use></g><use xlink:href="#MJMAIN-29" x="3478" y="0"></use><use xlink:href="#MJMAIN-2212" x="4090" y="0"></use><g transform="translate(5090,0)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g><g transform="translate(2605,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-3D" x="13573" y="0"></use><g transform="translate(14629,0)"><g transform="translate(120,0)"><rect stroke="none" width="11187" height="60" x="0" y="220"></rect><g transform="translate(60,723)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-35" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-39" x="1279" y="0"></use><use xlink:href="#MJMAIN-37" x="1780" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="3003" y="0"></use><use xlink:href="#MJMAIN-24" x="4003" y="0"></use><g transform="translate(4504,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-34" x="779" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use></g></g><use xlink:href="#MJMAIN-29" x="6673" y="0"></use><use xlink:href="#MJMAIN-2212" x="7285" y="0"></use><use xlink:href="#MJMAIN-24" x="8286" y="0"></use><g transform="translate(8786,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-30" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use><use xlink:href="#MJMAIN-38" x="1780" y="0"></use></g></g><g transform="translate(4203,-724)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-30" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use><use xlink:href="#MJMAIN-38" x="1780" y="0"></use></g></g></g></g><use xlink:href="#MJMAIN-3D" x="26334" y="0"></use><g transform="translate(27391,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-30" x="779" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use><use xlink:href="#MJMAIN-30" x="1780" y="0"></use><use xlink:href="#MJMAIN-31" x="2280" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="30450" y="0"></use><g transform="translate(31506,0)"><use xlink:href="#MJMAIN-36"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-30" x="779" y="0"></use><use xlink:href="#MJMAIN-31" x="1279" y="0"></use></g><use xlink:href="#MJMAINI-25" x="33286" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Price&nbsp;return&nbsp;</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>85.97</mn><mo>−</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>−</mo><mi>$</mi><mn>80.68</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0601</mn><mo>=</mo><mn>6.01</mn><mi>%</mi></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-4"><math id="m4"><semantics><mrow><mtext>Price return </mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>85.97</mn><mo>−</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>−</mo><mi>$</mi><mn>80.68</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0601</mn><mo>=</mo><mn>6.01</mn><mi>%</mi></mrow></semantics></math></script></div>
+<div id="CIPM0005-R-s04-E___4" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax_SVG" id="MathJax-Element-5-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mtext>Income&amp;#xA0;return</mtext><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0055</mn><mo>=</mo><mn>0.55</mn><mi>%</mi></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="49.718ex" height="5.688ex" viewBox="0 -1490.3 21406.1 2449.1" role="img" focusable="false" style="vertical-align: -2.227ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMAIN-49"></use><use xlink:href="#MJMAIN-6E" x="361" y="0"></use><use xlink:href="#MJMAIN-63" x="918" y="0"></use><use xlink:href="#MJMAIN-6F" x="1362" y="0"></use><use xlink:href="#MJMAIN-6D" x="1863" y="0"></use><use xlink:href="#MJMAIN-65" x="2696" y="0"></use><use xlink:href="#MJMAIN-72" x="3391" y="0"></use><use xlink:href="#MJMAIN-65" x="3783" y="0"></use><use xlink:href="#MJMAIN-74" x="4228" y="0"></use><use xlink:href="#MJMAIN-75" x="4617" y="0"></use><use xlink:href="#MJMAIN-72" x="5174" y="0"></use><use xlink:href="#MJMAIN-6E" x="5566" y="0"></use><use xlink:href="#MJMAIN-3D" x="6400" y="0"></use><g transform="translate(7457,0)"><g transform="translate(120,0)"><rect stroke="none" width="1157" height="60" x="0" y="220"></rect><use xlink:href="#MJMATHI-44" x="164" y="676"></use><g transform="translate(60,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-3D" x="9132" y="0"></use><g transform="translate(10188,0)"><g transform="translate(120,0)"><rect stroke="none" width="2901" height="60" x="0" y="220"></rect><g transform="translate(310,676)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-34" x="779" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use></g></g><g transform="translate(60,-724)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-30" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use><use xlink:href="#MJMAIN-38" x="1780" y="0"></use></g></g></g></g><use xlink:href="#MJMAIN-3D" x="13607" y="0"></use><g transform="translate(14663,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-30" x="779" y="0"></use><use xlink:href="#MJMAIN-30" x="1279" y="0"></use><use xlink:href="#MJMAIN-35" x="1780" y="0"></use><use xlink:href="#MJMAIN-35" x="2280" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="17722" y="0"></use><g transform="translate(18778,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-35" x="779" y="0"></use><use xlink:href="#MJMAIN-35" x="1279" y="0"></use></g><use xlink:href="#MJMAINI-25" x="20558" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Income&nbsp;return</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0055</mn><mo>=</mo><mn>0.55</mn><mi>%</mi></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-5"><math id="m5"><semantics><mrow><mtext>Income return</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>=</mo><mn>0.0055</mn><mo>=</mo><mn>0.55</mn><mi>%</mi></mrow></semantics></math></script></div>
+<div id="CIPM0005-R-s04-E___5" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax_SVG" id="MathJax-Element-6-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mtable><mtr><mtd><mtext>Total&amp;#xA0;return</mtext><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>&amp;#x2212;</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>85.97</mn><mo>&amp;#x2212;</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>&amp;#x2212;</mo><mi>$</mi><mn>80.68</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mn>0.0656</mn><mo>=</mo><mn>6.56</mn><mi>%</mi></mtd></mtr></mtable></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="77.253ex" height="9.145ex" viewBox="0 -2234.5 33261.4 3937.5" role="img" focusable="false" style="vertical-align: -3.955ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(167,0)"><g transform="translate(-15,0)"><g transform="translate(0,653)"><use xlink:href="#MJMAIN-54"></use><use xlink:href="#MJMAIN-6F" x="722" y="0"></use><use xlink:href="#MJMAIN-74" x="1223" y="0"></use><use xlink:href="#MJMAIN-61" x="1612" y="0"></use><use xlink:href="#MJMAIN-6C" x="2113" y="0"></use><use xlink:href="#MJMAIN-72" x="2641" y="0"></use><use xlink:href="#MJMAIN-65" x="3034" y="0"></use><use xlink:href="#MJMAIN-74" x="3478" y="0"></use><use xlink:href="#MJMAIN-75" x="3868" y="0"></use><use xlink:href="#MJMAIN-72" x="4424" y="0"></use><use xlink:href="#MJMAIN-6E" x="4817" y="0"></use><use xlink:href="#MJMAIN-3D" x="5651" y="0"></use><g transform="translate(6707,0)"><g transform="translate(120,0)"><rect stroke="none" width="6248" height="60" x="0" y="220"></rect><g transform="translate(60,723)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="825" y="-213"></use><use xlink:href="#MJMAIN-2212" x="1259" y="0"></use><use xlink:href="#MJMATHI-44" x="2260" y="0"></use></g><use xlink:href="#MJMAIN-29" x="3478" y="0"></use><use xlink:href="#MJMAIN-2212" x="4090" y="0"></use><g transform="translate(5090,0)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g><g transform="translate(2605,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-2B" x="13417" y="0"></use><g transform="translate(14418,0)"><g transform="translate(120,0)"><rect stroke="none" width="1157" height="60" x="0" y="220"></rect><use xlink:href="#MJMATHI-44" x="164" y="676"></use><g transform="translate(60,-686)"><use xlink:href="#MJMATHI-56" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="825" y="-213"></use></g></g></g><use xlink:href="#MJMAIN-3D" x="16093" y="0"></use><g transform="translate(17150,0)"><g transform="translate(120,0)"><rect stroke="none" width="11187" height="60" x="0" y="220"></rect><g transform="translate(60,723)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-35" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-39" x="1279" y="0"></use><use xlink:href="#MJMAIN-37" x="1780" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="3003" y="0"></use><use xlink:href="#MJMAIN-24" x="4003" y="0"></use><g transform="translate(4504,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-34" x="779" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use></g></g><use xlink:href="#MJMAIN-29" x="6673" y="0"></use><use xlink:href="#MJMAIN-2212" x="7285" y="0"></use><use xlink:href="#MJMAIN-24" x="8286" y="0"></use><g transform="translate(8786,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-30" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use><use xlink:href="#MJMAIN-38" x="1780" y="0"></use></g></g><g transform="translate(4203,-724)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-30" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use><use xlink:href="#MJMAIN-38" x="1780" y="0"></use></g></g></g></g><use xlink:href="#MJMAIN-2B" x="28799" y="0"></use><g transform="translate(29800,0)"><g transform="translate(120,0)"><rect stroke="none" width="2901" height="60" x="0" y="220"></rect><g transform="translate(310,676)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-34" x="779" y="0"></use><use xlink:href="#MJMAIN-34" x="1279" y="0"></use></g></g><g transform="translate(60,-724)"><use xlink:href="#MJMAIN-24" x="0" y="0"></use><g transform="translate(500,0)"><use xlink:href="#MJMAIN-38"></use><use xlink:href="#MJMAIN-30" x="500" y="0"></use><use xlink:href="#MJMAIN-2E" x="1001" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use><use xlink:href="#MJMAIN-38" x="1780" y="0"></use></g></g></g></g></g><g transform="translate(12571,-1429)"><use xlink:href="#MJMAIN-3D" x="0" y="0"></use><g transform="translate(1056,0)"><use xlink:href="#MJMAIN-30"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-30" x="779" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use><use xlink:href="#MJMAIN-35" x="1780" y="0"></use><use xlink:href="#MJMAIN-36" x="2280" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="4115" y="0"></use><g transform="translate(5171,0)"><use xlink:href="#MJMAIN-36"></use><use xlink:href="#MJMAIN-2E" x="500" y="0"></use><use xlink:href="#MJMAIN-35" x="779" y="0"></use><use xlink:href="#MJMAIN-36" x="1279" y="0"></use></g><use xlink:href="#MJMAINI-25" x="6951" y="0"></use></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd><mtext>Total&nbsp;return</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>85.97</mn><mo>−</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>−</mo><mi>$</mi><mn>80.68</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mn>0.0656</mn><mo>=</mo><mn>6.56</mn><mi>%</mi></mtd></mtr></mtable></semantics></math></span></span><script type="math/mml" id="MathJax-Element-6"><math id="m6"><semantics><mtable><mtr><mtd><mtext>Total return</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><mi>D</mi><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>$</mi><mn>85.97</mn><mo>−</mo><mi>$</mi><mn>0.44</mn></mrow><mo>)</mo></mrow><mo>−</mo><mi>$</mi><mn>80.68</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><mrow><mi>$</mi><mn>0.44</mn></mrow><mrow><mi>$</mi><mn>80.68</mn></mrow></mfrac></mstyle></mtd></mtr><mtr><mtd><mo>=</mo><mn>0.0656</mn><mo>=</mo><mn>6.56</mn><mi>%</mi></mtd></mtr></mtable></semantics></math></script></div>
+<p>Written differently, Total return = Price return + Income return = 6.01% + 0.55% = 6.56%.</p>
+</section>
+</div>
+
+</div>
+</fieldset></div>
+</div>
+</section>
+</figure>
+<section id="CIPM0005-R-s04-01-01">
+<h3 class="dp-heading">Portfolio Return Calculated from Returns to Individual Holdings</h3>
+<p>How do we calculate the holding period return on a portfolio consisting of many assets when the information given consists only of data for the individual assets? If we can calculate the returns on the individual assets, the return on a portfolio that buys and holds the assets can be calculated as a weighted average of the assets’ returns, using the beginning-of-period portfolio weights for the assets. Let <em>R<sub>i</sub></em> be the return on asset <em>i</em> and <em>w<sub>i</sub></em> be the portfolio weight of asset <em>i</em>—that is, <em>w<sub>i</sub></em> = (beginning-of-period market value of asset <em>i</em>)/(beginning-of-period market value of portfolio containing asset <em>i</em>)—so that the sum of portfolio weights equals 1. Denoting by <em>R<sub>p</sub></em> the return on the portfolio,</p>
+<div id="CIPM0005-R-s04-E5" class="cfa-curriculum-display-formula-container"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-7-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>=</mo><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x2211;</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow></mstyle></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="14.691ex" height="6.799ex" viewBox="0 -1649.8 6325.4 2927.5" role="img" focusable="false" style="vertical-align: -2.968ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="1074" y="-213"></use><use xlink:href="#MJMAIN-3D" x="1493" y="0"></use><g transform="translate(2549,0)"><use xlink:href="#MJSZ2-2211" x="0" y="0"></use><g transform="translate(147,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1124" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="721" y="1627"></use><g transform="translate(1611,0)"><use xlink:href="#MJMATHI-77" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1013" y="-213"></use><g transform="translate(1060,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>=</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow></mstyle></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-7"><math id="m7"><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>=</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow></mstyle></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">5</span></div>
+<p>Thus, if the portfolio consists of three assets with respective weights of 0.20, 0.50 and 0.30 and returns of 2%, 6%, and 12%, then the portfolio return is 7%, calculated as follows:</p>
+<div id="CIPM0005-R-s04-E___6" class="cfa-curriculum-display-formula-container"><em>R<sub>p</sub></em> = <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-8-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x2211;</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>3</mn></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow></mstyle></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="8.77ex" height="7.17ex" viewBox="0 -1809.3 3775.8 3087" role="img" focusable="false" style="vertical-align: -2.968ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJSZ2-2211" x="0" y="0"></use><g transform="translate(147,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1124" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMAIN-33" x="771" y="1627"></use><g transform="translate(1611,0)"><use xlink:href="#MJMATHI-77" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1013" y="-213"></use><g transform="translate(1060,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>3</mn></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow></mstyle></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-8"><math id="m8"><semantics><mrow><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>3</mn></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow></mstyle></mrow></semantics></math></script> = <em>w</em><sub>1</sub><em>R</em><sub>1</sub> + <em>w</em><sub>2</sub><em>R</em><sub>2</sub> + <em>w</em><sub>3</sub><em>R</em><sub>3</sub> = (0.20)(2%) + (0.50)(6%) + (0.30)(12%) = 7%</div>
+<figure id="CIPM0005-R-s04-EXM5" class="dp-content-block cfa-curriculum-example-box">
+<figcaption class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i class="fas fa-search" style="background: inherit !important;" aria-hidden="true"></i>Example 5<span style="display: block;">Calculating Portfolio Return from the Returns of Component Assets</span></figcaption>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div id="CIPM0005-R-s04-Q2" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">1. </span>
+<p>A portfolio consists of four assets with respective portfolio weights of 0.40, 0.25, 0.20, and 0.15. Over the year, the assets achieved returns of –10%, 4%, 20%, and 24%, respectively. The portfolio’s rate of return was closest to:</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-0"><label for="dp-qc-1-0">
+<p><span class="cfa-curriculum-option-label">A. </span>4.6%.</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h4 class="cfa-curriculum-solution-title">Solution</h4>
+<p>A is correct. 0.40(–10%) + 0.25(4%) + 0.20(20%) + 0.15(24%) = 4.6 percent.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1">
+<p><span class="cfa-curriculum-option-label">B. </span>9.5%.</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-2"><label for="dp-qc-1-2">
+<p><span class="cfa-curriculum-option-label">C. </span>9.8%.</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+</figure>
+</section>
+<div id="transformedTip1Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+<p><sup>2</sup> The record date may be defined as the date on which an investor needs to be on record as an owner of a share to receive a dividend that has been declared on it. Traditionally, payment for a share purchase was made three business days after the transaction date (“T + 3 settlement”), and the stock’s record date was commonly two business days after the ex-dividend date. Many countries now have shorter settlement periods.</p>
+</div>
+<div id="transformedTip0Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The first date that a share trades without the dividend; date from which point forward a purchaser of a share is not entitled to the dividend payment.</p>
+</div>
+<div id="transformedTip2Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The date at which a declared dividend is acutally paid.</p>
+</div>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99493_203_Holding_Period_Rates_of_Return.html">← Previous</a><a href="courses_1366_modules_items_99496_205_Bonds.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

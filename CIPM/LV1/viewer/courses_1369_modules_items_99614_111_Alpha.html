@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.11 | Alpha</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Investment Performance Appraisal › Module 1: Investment Performance Appraisal</nav>
+<h1 class="page-title screenreader-only">1.11 | Alpha</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM1509-R-s11-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.11 | Alpha"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 1: Investment Performance Appraisal</span>1.11 | Alpha</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcomes</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM1509-R-s11-los-1CIPM1509-R-s11-los-2CIPM1509-R-s11-los-3CIPM1509-R-s11-los-4"><li class="cfa-curriculum-los-item">calculate, interpret, and compare the Sharpe ratio, M<sup>2</sup>, the Treynor ratio, Jensen’s alpha, alpha, the information ratio, and the appraisal ratio</li><li class="cfa-curriculum-los-item">identify and justify appropriate uses of performance appraisal measures</li><li class="cfa-curriculum-los-item">calculate, interpret, and compare performance appraisal measures</li><li class="cfa-curriculum-los-item">describe how non-symmetrical return distributions affect appraisal measures</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p><a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-AlphaContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">Alpha</a> measures the difference between a portfolio’s or security’s return and the return required in the marketplace given that portfolio’s or security’s risk.<a class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM1509-R-s11-FN1_Content" id="transformedTip1" data-transformed="true" role="button" aria-expanded="false"><sup>14</sup></a> Alpha is sometimes referred to as an <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip2Content" aria-describedby="CIPM-AbnormalReturnContent" data-transformed="true" id="transformedTip2" role="button" aria-expanded="false">abnormal return</a>. It can be estimated on both an expected or <em>ex ante</em> basis and an actual or <em>ex post</em> basis.</p><p>The difference between the expected return and the required rate of return on an asset is the asset’s <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip3Content" aria-describedby="CIPM-ExpectedAlphaContent" data-transformed="true" id="transformedTip3" role="button" aria-expanded="false">expected alpha</a> or <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip4Content" aria-describedby="CIPM-ExAnteAlphaContent" data-transformed="true" id="transformedTip4" role="button" aria-expanded="false"><em>ex ante</em> alpha</a>, as shown in <a class="internal" role="button" href="#CIPM1509-R-s11-E11">Equation 11</a>.</p><div class="cfa-curriculum-display-formula-container" id="CIPM1509-R-s11-E11"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mtext>Expected&amp;#xA0;alpha</mtext><mo>=</mo><mtext>Expected&amp;#xA0;return</mtext><mo>&amp;#x2212;</mo><mtext>Required&amp;#xA0;return</mtext></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="53.869ex" height="2.478ex" viewBox="0 -799.3 23193.5 1067.1" role="img" focusable="false" style="vertical-align: -0.622ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMAIN-45"></use><use xlink:href="#MJMAIN-78" x="681" y="0"></use><use xlink:href="#MJMAIN-70" x="1210" y="0"></use><use xlink:href="#MJMAIN-65" x="1766" y="0"></use><use xlink:href="#MJMAIN-63" x="2211" y="0"></use><use xlink:href="#MJMAIN-74" x="2655" y="0"></use><use xlink:href="#MJMAIN-65" x="3045" y="0"></use><use xlink:href="#MJMAIN-64" x="3489" y="0"></use><use xlink:href="#MJMAIN-61" x="4296" y="0"></use><use xlink:href="#MJMAIN-6C" x="4796" y="0"></use><use xlink:href="#MJMAIN-70" x="5075" y="0"></use><use xlink:href="#MJMAIN-68" x="5631" y="0"></use><use xlink:href="#MJMAIN-61" x="6188" y="0"></use><use xlink:href="#MJMAIN-3D" x="6966" y="0"></use><g transform="translate(8022,0)"><use xlink:href="#MJMAIN-45"></use><use xlink:href="#MJMAIN-78" x="681" y="0"></use><use xlink:href="#MJMAIN-70" x="1210" y="0"></use><use xlink:href="#MJMAIN-65" x="1766" y="0"></use><use xlink:href="#MJMAIN-63" x="2211" y="0"></use><use xlink:href="#MJMAIN-74" x="2655" y="0"></use><use xlink:href="#MJMAIN-65" x="3045" y="0"></use><use xlink:href="#MJMAIN-64" x="3489" y="0"></use><use xlink:href="#MJMAIN-72" x="4296" y="0"></use><use xlink:href="#MJMAIN-65" x="4688" y="0"></use><use xlink:href="#MJMAIN-74" x="5133" y="0"></use><use xlink:href="#MJMAIN-75" x="5522" y="0"></use><use xlink:href="#MJMAIN-72" x="6079" y="0"></use><use xlink:href="#MJMAIN-6E" x="6471" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="15272" y="0"></use><g transform="translate(16273,0)"><use xlink:href="#MJMAIN-52"></use><use xlink:href="#MJMAIN-65" x="736" y="0"></use><use xlink:href="#MJMAIN-71" x="1181" y="0"></use><use xlink:href="#MJMAIN-75" x="1709" y="0"></use><use xlink:href="#MJMAIN-69" x="2266" y="0"></use><use xlink:href="#MJMAIN-72" x="2544" y="0"></use><use xlink:href="#MJMAIN-65" x="2937" y="0"></use><use xlink:href="#MJMAIN-64" x="3381" y="0"></use><use xlink:href="#MJMAIN-72" x="4188" y="0"></use><use xlink:href="#MJMAIN-65" x="4580" y="0"></use><use xlink:href="#MJMAIN-74" x="5025" y="0"></use><use xlink:href="#MJMAIN-75" x="5414" y="0"></use><use xlink:href="#MJMAIN-72" x="5971" y="0"></use><use xlink:href="#MJMAIN-6E" x="6363" y="0"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Expected&nbsp;alpha</mtext><mo>=</mo><mtext>Expected&nbsp;return</mtext><mo>−</mo><mtext>Required&nbsp;return</mtext></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-1"><math id="m1"><semantics><mrow><mtext>Expected alpha</mtext><mo>=</mo><mtext>Expected return</mtext><mo>−</mo><mtext>Required return</mtext></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">11</span></div><p>A fundamental issue in finance is the <em>ex ante</em> determination of the required return for a risky portfolio or security. A typical and conceptually appealing approach is to assume an asset pricing model, such as the CAPM (developed in the 1960s), Fama–French three-factor model (published in 1993), or the Carhart four-factor model (an extension of Fama–French model published in 1997). Unfortunately, although many of these models are theoretically and intuitively attractive, empirical testing suggests that none of them truly offers a complete explanation of security returns. Thus, although portfolio managers ordinarily choose among alternative securities based on their expected alphas, it is very difficult to even attempt to judge decision-making skills until actual returns are revealed.</p><p>To evaluate the actual results of an investment strategy, an analyst would examine <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip5Content" aria-describedby="CIPM-RealizedAlphaContent" data-transformed="true" id="transformedTip5" role="button" aria-expanded="false">realized alpha</a> or <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip6Content" aria-describedby="CIPM-ExPostAlphaContent" data-transformed="true" id="transformedTip6" role="button" aria-expanded="false"><em>ex post</em> alpha</a> over a given holding period, as shown in <a class="internal" role="button" href="#CIPM1509-R-s11-E12">Equation 12</a>. Contemporaneous required return is what assets of similar risk actually earned during the holding period.</p><div class="cfa-curriculum-display-formula-container" id="CIPM1509-R-s11-E12"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-2-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mtable><mtr><mtd><maligngroup /><mtext>Realized&amp;#xA0;alpha</mtext><mo>=</mo><malignmark /><mtext>Actual&amp;#xA0;holding-period&amp;#xA0;return</mtext><mo>&amp;#x2212;</mo></mtd></mtr><mtr><mtd><maligngroup /><mtext>&amp;#xA0;Contemporaneous&amp;#xA0;required&amp;#xA0;return</mtext></mtd></mtr></mtable></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="49.241ex" height="6.059ex" viewBox="0 -1543.5 21200.9 2608.6" role="img" focusable="false" style="vertical-align: -2.474ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(167,0)"><g transform="translate(-15,0)"><g transform="translate(0,668)"><use xlink:href="#MJMAIN-52"></use><use xlink:href="#MJMAIN-65" x="736" y="0"></use><use xlink:href="#MJMAIN-61" x="1181" y="0"></use><use xlink:href="#MJMAIN-6C" x="1681" y="0"></use><use xlink:href="#MJMAIN-69" x="1960" y="0"></use><use xlink:href="#MJMAIN-7A" x="2238" y="0"></use><use xlink:href="#MJMAIN-65" x="2683" y="0"></use><use xlink:href="#MJMAIN-64" x="3127" y="0"></use><use xlink:href="#MJMAIN-61" x="3934" y="0"></use><use xlink:href="#MJMAIN-6C" x="4434" y="0"></use><use xlink:href="#MJMAIN-70" x="4713" y="0"></use><use xlink:href="#MJMAIN-68" x="5269" y="0"></use><use xlink:href="#MJMAIN-61" x="5826" y="0"></use><use xlink:href="#MJMAIN-3D" x="6604" y="0"></use><g transform="translate(7660,0)"><use xlink:href="#MJMAIN-41"></use><use xlink:href="#MJMAIN-63" x="750" y="0"></use><use xlink:href="#MJMAIN-74" x="1195" y="0"></use><use xlink:href="#MJMAIN-75" x="1584" y="0"></use><use xlink:href="#MJMAIN-61" x="2141" y="0"></use><use xlink:href="#MJMAIN-6C" x="2641" y="0"></use><use xlink:href="#MJMAIN-68" x="3170" y="0"></use><use xlink:href="#MJMAIN-6F" x="3726" y="0"></use><use xlink:href="#MJMAIN-6C" x="4227" y="0"></use><use xlink:href="#MJMAIN-64" x="4505" y="0"></use><use xlink:href="#MJMAIN-69" x="5062" y="0"></use><use xlink:href="#MJMAIN-6E" x="5340" y="0"></use><use xlink:href="#MJMAIN-67" x="5897" y="0"></use><use xlink:href="#MJMAIN-2D" x="6397" y="0"></use><use xlink:href="#MJMAIN-70" x="6731" y="0"></use><use xlink:href="#MJMAIN-65" x="7287" y="0"></use><use xlink:href="#MJMAIN-72" x="7732" y="0"></use><use xlink:href="#MJMAIN-69" x="8124" y="0"></use><use xlink:href="#MJMAIN-6F" x="8403" y="0"></use><use xlink:href="#MJMAIN-64" x="8903" y="0"></use><use xlink:href="#MJMAIN-72" x="9710" y="0"></use><use xlink:href="#MJMAIN-65" x="10102" y="0"></use><use xlink:href="#MJMAIN-74" x="10547" y="0"></use><use xlink:href="#MJMAIN-75" x="10936" y="0"></use><use xlink:href="#MJMAIN-72" x="11493" y="0"></use><use xlink:href="#MJMAIN-6E" x="11885" y="0"></use></g><use xlink:href="#MJMAIN-2212" x="20102" y="0"></use></g><g transform="translate(2977,-769)"><use xlink:href="#MJMAIN-43" x="250" y="0"></use><use xlink:href="#MJMAIN-6F" x="972" y="0"></use><use xlink:href="#MJMAIN-6E" x="1473" y="0"></use><use xlink:href="#MJMAIN-74" x="2029" y="0"></use><use xlink:href="#MJMAIN-65" x="2419" y="0"></use><use xlink:href="#MJMAIN-6D" x="2863" y="0"></use><use xlink:href="#MJMAIN-70" x="3697" y="0"></use><use xlink:href="#MJMAIN-6F" x="4253" y="0"></use><use xlink:href="#MJMAIN-72" x="4754" y="0"></use><use xlink:href="#MJMAIN-61" x="5146" y="0"></use><use xlink:href="#MJMAIN-6E" x="5647" y="0"></use><use xlink:href="#MJMAIN-65" x="6203" y="0"></use><use xlink:href="#MJMAIN-6F" x="6648" y="0"></use><use xlink:href="#MJMAIN-75" x="7148" y="0"></use><use xlink:href="#MJMAIN-73" x="7705" y="0"></use><use xlink:href="#MJMAIN-72" x="8349" y="0"></use><use xlink:href="#MJMAIN-65" x="8742" y="0"></use><use xlink:href="#MJMAIN-71" x="9186" y="0"></use><use xlink:href="#MJMAIN-75" x="9715" y="0"></use><use xlink:href="#MJMAIN-69" x="10271" y="0"></use><use xlink:href="#MJMAIN-72" x="10550" y="0"></use><use xlink:href="#MJMAIN-65" x="10942" y="0"></use><use xlink:href="#MJMAIN-64" x="11387" y="0"></use><use xlink:href="#MJMAIN-72" x="12193" y="0"></use><use xlink:href="#MJMAIN-65" x="12586" y="0"></use><use xlink:href="#MJMAIN-74" x="13030" y="0"></use><use xlink:href="#MJMAIN-75" x="13420" y="0"></use><use xlink:href="#MJMAIN-72" x="13976" y="0"></use><use xlink:href="#MJMAIN-6E" x="14369" y="0"></use></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd><maligngroup></maligngroup><mtext>Realized&nbsp;alpha</mtext><mo>=</mo><malignmark></malignmark><mtext>Actual&nbsp;holding-period&nbsp;return</mtext><mo>−</mo></mtd></mtr><mtr><mtd><maligngroup></maligngroup><mtext>&nbsp;Contemporaneous&nbsp;required&nbsp;return</mtext></mtd></mtr></mtable></semantics></math></span></span><script type="math/mml" id="MathJax-Element-2"><math id="m2"><semantics><mtable><mtr><mtd><maligngroup></maligngroup><mtext>Realized alpha</mtext><mo>=</mo><malignmark></malignmark><mtext>Actual holding-period return</mtext><mo>−</mo></mtd></mtr><mtr><mtd><maligngroup></maligngroup><mtext> Contemporaneous required return</mtext></mtd></mtr></mtable></semantics></math></script><span class="cfa-curriculum-display-formula-number">12</span></div><p>It is important to be aware that the term “alpha” is commonly but imprecisely used by many practitioners to refer to what is more precisely called “active return.” <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip7Content" aria-describedby="CIPM-ActiveReturnContent" data-transformed="true" id="transformedTip7" role="button" aria-expanded="false">Active return</a> is return in excess of the benchmark return. In this view, the return on the benchmark portfolio is considered to be the contemporaneous required return in <a class="internal" role="button" href="#CIPM1509-R-s11-E12">Equation 12</a>.</p><p>Assuming that the benchmark represents a “passive” investment alternative to active management, the benchmark return is a plausible measuring rod to compare the performance of a portfolio that is actively managed. Unfortunately, active return generally provides only an approximation of alpha. The two quantities are technically equivalent only if we assume that the manager’s portfolio is exactly risk-matched with the benchmark (equivalently, the portfolio’s beta or sensitivity to the benchmark equals 1.0). If this assumption is incorrect and there is continued long-term reward for bearing systematic risk, outperformance or underperformance might be more closely linked to a systematic bias in tracking the benchmark. For example, during a time period of increasing security prices, outperformance could be the result of the manager tilting a portfolio to having greater systematic risk than the benchmark. During a time period of increasing security prices, underperformance might be explained by a manager who tilts the portfolio to having less systematic risk than the benchmark.</p><p>However, altering the systematic risk of a portfolio away from the benchmark need not be an indictment of the manager. Market-timing funds do frequently alter their systematic risk exposure as market expectations change, and a manager’s skill would clearly be associated with doing this successfully. Thus, active return is best used to evaluate managers whose supposed skill is in security selection and their portfolio remains risk-matched with the benchmark.</p><figure id="CIPM1509-R-s11-Ba" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Alpha</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM1509-R-s11-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>Using a three factor model describing asset required returns, an analyst forecasts a return for Stock Y of 15%, whereas the required return is 12%. The analyst’s excess return forecast of 15% ‒ 12% = 3% for Stock Y can <em>best</em> be described as:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>realized alpha.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-1"><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>Jensen’s alpha.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-2"><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>expected alpha.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h3 class="cfa-curriculum-solution-title">Solution</h3><p>C is correct, given that the analyst is forecasting an excess return. A is incorrect because realized alpha is based on past data. B is incorrect because the analyst is making use of a three-factor model and Jensen’s alpha assumes the CAPM predicts returns.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM1509-R-s11-Q2"><legend><span class="cfa-curriculum-question-with-label">2. </span><p>Active return is <em>most</em> appropriately described as:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-0"><label for="dp-qc-1-0"><p><span class="cfa-curriculum-option-label">A. </span>realized alpha.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1"><p><span class="cfa-curriculum-option-label">B. </span>expected alpha.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-2"><label for="dp-qc-1-2"><p><span class="cfa-curriculum-option-label">C. </span>a return in excess of the benchmark return.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h3 class="cfa-curriculum-solution-title">Solution</h3><p>C is correct. Active return is an approximation of alpha, so neither choice A nor choice B is the most appropriate description.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip1Content" role="tooltip" style="display: none;"><p><sup>14</sup> Models, such as the Fama-French three-factor model (1992, 1993) or the Carhart four-factor model (1997), that could be used for estimating required return will be covered in Section 4. But alpha, as used in this reading, includes Jensen’s alpha because the CAPM is one possible model for required return.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip0Content" role="tooltip" style="display: none;"><p>The return on an asset in excess of the asset’s required rate of return. Sometimes referred to as an <em>abnormal return</em>.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip2Content" role="tooltip" style="display: none;"><p>The return on an asset that is in excess of its required rate of return. Often synonymous with <em>alpha</em>.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip3Content" role="tooltip" style="display: none;"><p>The difference between the expected return and the required rate of return on an asset. Also called <em>ex ante alpha</em>.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip4Content" role="tooltip" style="display: none;"><p>Alpha in a forward-looking sense. See <em>expected alpha</em>.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip5Content" role="tooltip" style="display: none;"><p>The difference between the actual holding-period return and the contemporaneous required return. Also called <em>ex post alpha</em>.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip6Content" role="tooltip" style="display: none;"><p>Historical alpha. See <em>realized alpha</em>.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip7Content" role="tooltip" style="display: none;"><p>Portfolio return in excess of the benchmark return.</p></div>
+<div class="nav-buttons"><a href="courses_1369_modules_items_99612_110_Jensens_Alpha.html">← Previous</a><a href="courses_1369_modules_items_99616_112_Information_Ratio.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

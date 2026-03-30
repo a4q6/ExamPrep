@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.02 | Overview of Performance Evaluation</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 1: Performance Evaluation: An Introduction</nav>
+<h1 class="page-title screenreader-only">1.02 | Overview of Performance Evaluation</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0143-R-s02-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.02 | Overview of Performance Evaluation"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 1: Performance Evaluation: An Introduction</span>1.02 | Overview of Performance Evaluation</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0143-R-s02-los-1"><li class="cfa-curriculum-los-item">describe the feedback role of performance evaluation in the overall investment management process</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>This lesson explains why performance evaluation is an integral part of the overall investment management process and how it plays a feedback role in investment management. The process of performance evaluation is also outlined.</p><section id="CIPM0143-R-s02-01-01"><h3 class="dp-heading">Integration into the Investment Management Process</h3><p>Performance evaluation covers many distinct but interrelated activities, beginning with return calculation. These activities provide information on both final investment results and the investment decisions producing those results.</p><p>Performance evaluation’s place in portfolio management is shown in <a class="internal" role="button" href="#CIPM0143-R-s02-EXH1" aria-label="View Exhibit 1">Exhibit 1</a>, which illustrates a model of the investment management process as an integrated set of activities aimed at attaining investor objectives.<a class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0143-R-s02-FN1_Content" id="transformedTip0" data-transformed="true" role="button" aria-expanded="false"><sup>2</sup></a></p><figure id="CIPM0143-R-s02-EXH1" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 1<span style="display: block;">The Portfolio Construction, Monitoring, and Revision Process</span></figcaption><div class="cfa-curriculum-graphic"><img alt="A flowchart shows the activities for performance evaluation under the portfolio construction, monitoring and revision process. It is a model of the investment management process with an integrated set of activities for attaining investor objectives." src="https://learn.cfainstitute.org/courses/1366/files/224115/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" aria-describedby="CIPM0143-R-s02-EXH1-extended-desc" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224115" data-api-returntype="File" data-width="600"><details id="CIPM0143-R-s02-EXH1-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;"><summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary><p class="dp-panel-outside-panel">Specification and quantification of investor objectives, constraints, and preferences followed by portfolio policies and strategies. Relevant economic, social, political, and sector considerations followed by capital market expectations. These lead to portfolio construction and revision and asset allocation, which are impacted by monitoring investor-related input factors and monitoring economic and market input factor. This leads to attainment of investor objectives and performance evaluation.</p></details></div><p><span class="cfa-curriculum-fig-attrib"><em>Source</em>: John L. Maginn, Donald L. Tuttle, Jerald E. Pinto, and Dennis W. McLeavey, eds., “The Portfolio Management Process and the Investment Policy Statement,” Chapter 1 in <em>Managing Investment Portfolios: A Dynamic Approach</em>, 3rd ed. (Hoboken, NJ: Wiley, 2007), p. 6.</span></p></figure><p><a class="internal" role="button" href="#CIPM0143-R-s02-EXH1" aria-label="View Exhibit 1">Exhibit 1</a> shows a sequence of activities that begins with understanding investor objectives, constraints, and preferences. These investor-related input factors determine the range of portfolio policies and strategies that may be pursued. Such factors, in conjunction with capital market considerations, form the basis for asset allocation and the selection of individual investments. Portfolio managers or their traders then execute those decisions. The portfolio is reviewed on a regular basis to determine whether a revision of the current asset allocation or portfolio composition is required or advisable. Performance evaluation, as the final step, describes performance and analyzes why progress toward investor objectives turned out as it did. Such information may also be useful in judging whether an investment manager is likely to help an investor reach her investment goals in the future, which is why performance evaluation supports manager selection. Performance evaluation is a feedback mechanism that helps align portfolio characteristics with investor objectives.</p><p>This information provided by performance evaluation is of great interest to all stakeholders in the investment management process because of its value in evaluating the overall quality of the investment management process as well as individual investment decisions. One very important stakeholder is the investor/client/asset owner whose financial well-being is affected by how effectively his portfolio is managed. Other individuals and entities, however, also have an interest in the information provided by performance evaluation. <a class="internal" role="button" href="#CIPM0143-R-s02-EXH2" aria-label="View Exhibit 2">Exhibit 2</a> illustrates major stakeholders classified as internal or external to the investment manager.<a class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0143-R-s02-FN2_Content" id="transformedTip1" data-transformed="true" role="button" aria-expanded="false"><sup>3</sup></a></p><figure id="CIPM0143-R-s02-EXH2" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 2<span style="display: block;">Major Stakeholders in Performance Evaluation</span></figcaption><div class="cfa-curriculum-graphic"><img alt="An exhibit of nine major performance evaluation stakeholders that are divided into three external and six internal stakeholders. " src="https://learn.cfainstitute.org/courses/1366/files/224119/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" aria-describedby="CIPM0143-R-s02-EXH2-extended-desc" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224119" data-api-returntype="File" data-width="600"><details id="CIPM0143-R-s02-EXH2-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;"><summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary><p class="dp-panel-outside-panel">External performance evaluation stakeholders are regulator, asset owners, and investment consultant. Internal performance evaluation stakeholders are risk control, portfolio manager, operations, senior management, sales, marketing and product development, and compliance.</p></details></div></figure><p>Among external stakeholders, regulators are concerned that investment results are reported fairly and accurately and that prospective clients are aware of potential risks to their investment; investment consultants are stakeholders because they may be hired for advice on the selection of investment managers. Internally, portfolio managers and risk controllers (or risk managers) need performance information to control investment processes and manage risk; a firm’s marketing and sales departments needs such information to answer prospective client’ questions. Senior management needs to oversee individual portfolio managers as well as the entire investment process, and the operations function can use performance analysis to identify pricing and transaction errors and improve the overall quality of information provided.  </p></section><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip0Content" role="tooltip" style="display: none;"><p><sup>2</sup> For a detailed discussion of the investment management process, see John L. Maginn, Donald L. Tuttle, Jerald E. Pinto, and Dennis W. McLeavey, eds., <em>Managing Investment Portfolios: A Dynamic Process</em>, 3rd ed. (Hoboken, NJ: Wiley, 2007).</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip1Content" role="tooltip" style="display: none;"><p><sup>3</sup> Performance analysis may be conducted internally and externally to the investment manager (e.g., by custodians, investment consultants, independent performance measurement firms, and the asset owners themselves). </p></div>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99470_101_Introduction.html">← Previous</a><a href="courses_1366_modules_items_99474_103_Why_Performance_Evaluation_is_Important.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.02 | Dimensions of Data Quality</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 3: Data Integrity</nav>
+<h1 class="page-title screenreader-only">3.02 | Dimensions of Data Quality</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM2105-R-s02-R-1" class="dp-wrapper dp-flat-sections variation-2" title="3.02 | Dimensions of Data Quality"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 3: Data Integrity</span>3.02 | Dimensions of Data Quality</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM2105-R-s02-los-1"><li class="cfa-curriculum-los-item">describe dimensions of data quality</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>The scope of what data is can be varied and wide ranging. Dictionary definitions vary too. One such definition describes data as “facts and statistics collected together for reference or analysis” (this definition comes from Oxford University Press). Ultimately, data is all information in all forms. In the context of investment performance measurement, it is easier to consider data as being in one of two distinct forms. The first form is structured in the sense that data sits within a system or application, such as an accounting or a portfolio performance system. It is extractable and organized in a way that makes it useful and suitable for the application’s use. But data can also be less structured and can be found in Microsoft Excel spreadsheets, Microsoft Word documents, or paper documents. We will describe the dimensions of data quality, and by “dimensions,” we mean the different ways in which we can think about data quality, as follows:</p><ul id="CIPM2105-R-s02-L1" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>Accuracy: Data are valid and correct.</p></li><li class="cfa-curriculum-list-item"><p>Completeness: Data are complete given the intended purpose.</p></li><li class="cfa-curriculum-list-item"><p>Conformity: Data conform to standards and rules.</p></li><li class="cfa-curriculum-list-item"><p>Consistency: There is a consistent application of rules across different systems.</p></li><li class="cfa-curriculum-list-item"><p>Timeliness: Data must be available in time for use and regularly updated.</p></li><li class="cfa-curriculum-list-item"><p>Lineage: There is a record and knowledge of where the data come from.</p></li></ul><p>Such descriptions and examples are shown in <a class="internal" role="button" href="#CIPM2105-R-s02-EXH1" aria-label="View Exhibit 1">Exhibit 1</a>. These are characteristics or aspects of data that need to be considered when thinking about data quality. We consider both structured and unstructured data in the discussion of the dimensions. An overarching principle is that data should be “fit for purpose.”</p><div id="CIPM2105-R-s02-EXH1" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 1<span style="display: block;">Dimensions of Data Quality</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM2105-R-s02-EXH1-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM2105-R-s02-EXH1-title">Exhibit 1: Dimensions of Data Quality</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Dimension</strong></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Description</strong></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Examples and Scenarios</strong></th></tr></thead><tbody><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Accuracy</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Data are valid and correct. There is an appropriate level of accuracy of the data for its intended purpose. This outcome can be achieved through validation to an authoritative source of data or by comparing multiple sources of the same data.</td><td style="text-align: left; vertical-align: top; padding: 8px; ">Example of arrangements where one could apply different accuracy rules:<br><br>“Report any instances where the NAV has moved over 25 bps over a set period of time when being used for regulatory reports.”<br><br>“Report any instances where the NAV has moved over 40 bps over a set period of time when being used to prepare client reports.”</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Completeness</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Achieved when the dataset is complete given the purpose for which it was intended. It is worth noting that some data are mandatory and some are optional; this will all be part of the expected data collection.</td><td style="text-align: left; vertical-align: top; padding: 8px; ">An operations analyst may have a list of all open positions in the Investment Book of Records (the internal firm register of open positions). The analyst expects this information to be held by various brokers and counterparties. As a result, he or she will compare the independent multiple broker and counterparty position records with the internal Investment Book of Records view.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; " rowspan="2">Conformity</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring that the data conforms to internally defined standards and rules. For example:</td><td style="text-align: left; vertical-align: top; padding: 8px; " rowspan="2">When transferring a file from System A into another system or application, a check is run to ensure that the character type of the attribute in the file being sent matches what is expected to be received from the data warehouse (the in-house data store). A breach is reported if a mismatch is found.</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; "><ul id="CIPM2105-R-s02-L2" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>character length (maximum number of characters allowed)</p></li><li class="cfa-curriculum-list-item"><p>character type (alphanumeric, integer, numeric, Boolean, float, string, array, etc.)</p></li></ul></td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Consistency</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Ensuring that data quality rules are applied consistently across one or many systems or applications for the same attribute or dataset.</td><td style="text-align: left; vertical-align: top; padding: 8px; ">Net asset value (NAV) information is held in systems A, B, and C. If there is a rule to “report any instance where the NAV has moved over 5 bps a day” in System A but in Systems B and C the number is set at 10 bps and 15 bps, respectively, then the data consumers will have differing levels of confidence within the NAV data attribute (within different systems).</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Timeliness</th><td style="text-align: left; vertical-align: top; padding: 8px; ">With regard to data quality processes, timeliness would ensure that the data are being reviewed to ensure that they are not stale. The rule(s) will test whether the attribute has updated per the expected frequency. Actual frequency is compared with the expected frequency. Generally, timeliness refers to getting information at the right time and quickly enough to meet reporting and analytical requirements.</td><td style="text-align: left; vertical-align: top; padding: 8px; ">The NAV of a daily priced fund is expected to be updated on a daily basis. If the date of the NAV attribute value is not the expected most recent date, allowing for the time the attribute is expected to be updated and public holidays, then it is stale and not appropriate to use.</td></tr><tr><th style="text-align: left; vertical-align: top; padding: 8px; ">Lineage</th><td style="text-align: left; vertical-align: top; padding: 8px; ">Understanding where the data have come from (the origin), what happens to the data, and where the data move over time. It allows errors to be traced and helps ensure the data quality for all its intended purposes.</td><td style="text-align: left; vertical-align: top; padding: 8px; ">A particular data attribute is created and maintained in a particular system (say, ABC) and is distributed to a different system (DEF). For example, a performance system receives inputs from multiple source systems—where a particular source data item is missing or incorrect, it may be necessary to fix the problem at the source, and therefore, knowledge of the source of each data item is required.</td></tr></tbody></table></div></div><p><span class="cfa-curriculum-table-wrap-foot"><em>Note:</em> The above descriptions of different dimensions of
+                        data quality are broadly based on contributions by Brian Buzzelli. </span></p></div><figure id="CIPM2105-R-s02-Ba" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Dimensions of Data Quality</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2105-R-s02-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>The data governance officer, responsible for developing an environment that ensures transparency of all current data governance–related policies at a fund management firm, is meeting with an investment consultant to describe the firm’s data governance arrangements. She describes how the firm ensures that when data move from one system to another, there are no issues or errors arising from a mismatch of data attributes.</p><p>What dimension of data quality is the data governance officer <em>most likely</em> describing?</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>Accuracy</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-1"><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>Conformity</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h3 class="cfa-curriculum-solution-title">Solution</h3><p>B is correct. The character type and attribute in the file being sent must match what is expected to be received from the data warehouse (the in-house data store). A breach is reported if a mismatch is found. A is incorrect because accuracy requires data to be valid and correct. C is incorrect because consistency is ensuring that data quality rules are applied consistently across one or many systems or applications for the same attribute or dataset.</p></section></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-2"><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>Consistency</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99536_301_Introduction.html">← Previous</a><a href="courses_1366_modules_items_99538_303_Data_Governance.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

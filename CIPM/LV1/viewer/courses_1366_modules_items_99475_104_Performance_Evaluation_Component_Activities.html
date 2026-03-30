@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.04 | Performance Evaluation: Component Activities</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › Module 1: Performance Evaluation: An Introduction</nav>
+<h1 class="page-title screenreader-only">1.04 | Performance Evaluation: Component Activities</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0143-R-s04-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.04 | Performance Evaluation: Component Activities"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 1: Performance Evaluation: An Introduction</span>1.04 | Performance Evaluation: Component Activities</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0143-R-s04-los-1"><li class="cfa-curriculum-los-item">describe the major components of investment performance evaluation, including the questions they address</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>Feedback provided by performance evaluation relates to major questions important for the asset owner and other stakeholders. Associated with each question is a major component activity. Narrowly speaking, performance evaluation consists of performance measurement, attribution, appraisal, and presentation. Although manager selection considers many aspects of a manager in addition to evidence of skill in past performance—such as investment philosophy and risk control processes—manager selection is traditionally presented alongside performance appraisal. In the Certificate in Investment Performance Measurement (CIPM<sup>®</sup>) curriculum, manager selection is a component activity of performance evaluation. <a class="internal" role="button" href="#CIPM0143-R-s04-EXH3" aria-label="View Exhibit 3">Exhibit 3</a> illustrates these activities.</p><figure id="CIPM0143-R-s04-EXH3" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 3<span style="display: block;">Performance Evaluation: Major Component Activities</span></figcaption><div class="cfa-curriculum-graphic"><img alt="Major component activities of performance evaluation are performance measurement, performance attribution, performance appraisal, manager selection, and investment performance presentation." src="https://learn.cfainstitute.org/courses/1366/files/224122/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1366/files/224122" data-api-returntype="File" data-width="600"></div></figure><p>Performance evaluation answers a number of key questions within asset management:</p><ul id="CIPM0143-R-s04-L1" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>What was the portfolio’s past performance, and what may be expected in the future?</p></li><li class="cfa-curriculum-list-item"><p>How did the portfolio produce its observed performance, and what are the expected sources of expected future performance?</p></li><li class="cfa-curriculum-list-item"><p>Was the observed portfolio’s performance the result of investment skill or luck?</p></li><li class="cfa-curriculum-list-item"><p>Which portfolio managers should be hired, retained, or dismissed?</p></li><li class="cfa-curriculum-list-item"><p>What performance information should be presented, and in what way?</p></li></ul><section id="CIPM0143-R-s04-01-01"><h3 class="dp-heading">What may be expected in the future?</h3><p>Performance measurement answers the first question, the calculation of risk and return of the portfolio. Performance may either address a past time period (<em>ex post</em> performance) or look forward to a future time period (<em>ex ante</em> performance). “<em>Ex post</em>” and “<em>ex ante</em>” are Latin words that mean, respectively, “after the fact” and “before the fact.” </p><p>“Return” may be defined as the percentage gain or loss in wealth resulting from holding an investment over a specified period.<a class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0143-R-s04-FN1_Content" id="transformedTip0" data-transformed="true" role="button" aria-expanded="false"><sup>4</sup></a> Risk means different things to different stakeholders at different times. The Oxford English Dictionary provides a good definition of risk: “the potential impact of an event determined by combining the likelihood of the event occurring with the impact should it occur.” Risk is the combination of exposure and uncertainty.<a class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0143-R-s04-FN2_Content" id="transformedTip1" data-transformed="true" role="button" aria-expanded="false"><sup>5</sup></a> Risk within asset management may be broadly categorized into </p><ul id="CIPM0143-R-s04-L2" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>compliance risk,</p></li><li class="cfa-curriculum-list-item"><p>operational risk,</p></li><li class="cfa-curriculum-list-item"><p>liquidity risk,</p></li><li class="cfa-curriculum-list-item"><p>counterparty risk, and</p></li><li class="cfa-curriculum-list-item"><p>portfolio risk.</p></li></ul><p>Performance measurement is concerned with portfolio risk. Are the risks of the portfolio of assets—for example, market risk, interest rate risk, credit risk, and currency risks—managed to the client’s expectations?</p><p>Both return and risk can be viewed from <em>ex post</em> or <em>ex ante</em> perspectives. <em>Ex post</em>, or historical, risk is the analysis of risk after the event; it answers the question, How risky was the portfolio in the past? <em>Ex ante</em>, or prospective, risk is forward looking, based on a snapshot of the current securities and instruments in the portfolio and their historical relationship with each other. It is an estimate or forecast of the future risk of the portfolio.</p><p>In its coverage of performance evaluation, the CIPM curriculum begins with rate of return measurement because “calculation of rates of return is the crucial first step in performance evaluation: Without accurate rates of return, we can make no further progress in analyzing performance.”<a class="dp-popover-trigger" href="#transformedTip2Content" aria-describedby="CIPM0143-R-s04-FN3_Content" id="transformedTip2" data-transformed="true" role="button" aria-expanded="false"><sup>6</sup></a> The motto “garbage in, garbage out” supports the importance of this component—the first step, in fact, of the performance evaluation process. Logically, the learning module on return measurement is followed by coverage of risk measurement in the CIPM curriculum.</p></section><section id="CIPM0143-R-s04-01-02"><h3 class="dp-heading">How did the investment portfolio produce its observed performance, and what are the expected sources of expected future performance?</h3><p>Performance attribution is concerned with identifying and quantifying the sources of risk and return of a portfolio, and it answers the second question. Performance attribution is the key tool for performance analysts. It allows them to participate in the investment decision process and demonstrably add value. Attribution analysis allows the analyst to understand the sources of risk and return in a portfolio and communicate that understanding to portfolio managers, senior management, asset owners, and other stakeholders.</p><p>Effective attribution requires the analyst to thoroughly understand the decision process and quantify the decisions actually made. The attribution analysis must fit the investment decision process. There is less value in analyzing factors that are not part of the decision process other than to identify weaknesses and gaps in the current process. Bond managers, more concerned with the changing shape of the yield curve and credit risk, will manage portfolios in a different way from equity managers and will likely require a different attribution approach. Multi-currency strategies, portfolios with derivative instruments, overlay portfolios, illiquid assets, and bottom-up security-level strategies may each require a different approach aligned with the manager’s decision process.  </p><p>Following the two dimensions of performance—return and risk—attribution questions can be analyzed from two perspectives.</p><p>Focusing on return, analysts apply the tools of return attribution. Because most portfolios are assigned a benchmark or reference point for assessing the portfolio manager’s management of a portfolio, relative return attribution is usually defined as a set of techniques used to identify the sources of a portfolio’s excess return—against the assigned benchmark.</p><p>Focusing on risk, analysts apply the tools of risk attribution. Risk attribution is a set of techniques used to identify and quantify the sources of risk in a portfolio as well as the impact of investment decisions contributing to the portfolio’s total risk. In contrast to return attribution, which typically is performed only <em>ex post</em> (i.e., looking at the portfolio’s historical returns), risk attribution can be performed on both an <em>ex post</em> basis (i.e., considering the risk of the portfolio in past periods) and an <em>ex ante</em> basis (i.e., considering the risk associated with the current portfolio holdings).</p><p>Thus, performance attribution properly consists of return attribution and risk attribution, although many practitioners informally use the term “performance attribution” to refer only to return attribution. The asset management industry, however, appears to be moving to integrate risk into performance analytics. Consequently, the performance analytics function is being integrated with risk management or risk control.</p></section><section id="CIPM0143-R-s04-01-03"><h3 class="dp-heading">Was the observed investment portfolio’s performance the result of investment skill or luck?</h3><p>Performance appraisal is concerned with identifying and measuring investment skill, and it answers the third question. Performance appraisal distinctively treats returns in conjunction with risk. Were the returns (or rewards) earned sufficient compensation for the risks taken? Thus, part of the study of performance appraisal concerns making full adjustment to returns for the risks incurred (risk-adjusted returns). The complexity of the issues addressed suggests that, as in the CIPM curriculum, the topic of performance appraisal should be covered after performance measurement and attribution.</p><p>It should be obvious that performance appraisal can provide helpful information in the selection of active investment managers. Of course, many considerations besides questions of active investment skill may be important to an investment client—for example, financial stability and reputation of the investment management company, its operational risk management, and the quality of investment reporting. In that sense, investment manager selection is a broader topic than performance appraisal. Because of the connections between them, however, manager selection is often grouped with and studied along with or after performance appraisal, as in the CIPM curriculum.</p></section><section id="CIPM0143-R-s04-01-04"><h3 class="dp-heading">Which portfolio managers should be hired, retained, or dismissed?</h3><p>Manager selection is broadly understood as the analysis of whether to hire, retain, or dismiss a portfolio manager, and it answers the fourth question. Manager selection is used as shorthand to include all three aspects of hiring, retaining, and dismissing managers, and thus, it includes not only selection but also monitoring of manager performance.</p><p>In general, manager selection considers both quantitative and qualitative information and addresses not only observed portfolio performance but also operational and organizational factors that affect the repeatability of performance; the financial stability, creditworthiness, and integrity of the investment manager; operational risk management; and any other factors that are important to the client. Portfolio manager turnover, analyst capabilities, and the quality of the investment decision-making process are examples of organizational factors that can affect performance repeatability.</p><p>The three activities of hiring, retaining, and dismissing managers each have some unique considerations. For example, the decision to hire involves becoming acquainted in detail with an organization and its operational setup, reputation, risk management, internal control system, and regulatory supervision. When a client is deciding whether to retain a manager, she may have gained considerable further experience with the manager. Such experience includes not only the experience with the manager’s investment performance but also further operational experience, such as the quality of client relationship management and investment reporting. Considerations not present when the manager was hired may be important—for example, whether an investment strategy or style should be retained or changed to better reflect changed circumstances or investment objectives. In replacing a manager, a client also needs to consider the costs and risks in transitioning assets from the old to the new portfolio manager.</p></section><section id="CIPM0143-R-s04-01-05"><h3 class="dp-heading">What investment performance information should be presented, and in what way?</h3><p>Investment performance presentation is concerned with providing information about the performance of investment portfolios, and it answers the final key question.</p><p>Among stakeholders external to the investment manager, it is useful to distinguish between two kinds of consumers of performance information: prospective clients and existing clients. Reporting to prospective clients is very much sales driven—prepared from the perspective of the investment manager to reflect the manager’s track record and skills. Therefore, this type of reporting often needs to adhere to specific regulations or industry best practices that aim to protect less informed, non-professional investors. The Global Investment Performance Standards (GIPS<sup>®</sup>) address this need. Reporting to existing clients has other focuses, including explaining the investment manager’s recent investment decisions and information relevant to evaluating progress in achieving client objectives. Among the other stakeholders external to the investment manager that can shape performance presentation are regulators. Internal performance reporting to management is also a related topic.</p></section><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip0Content" role="tooltip" style="display: none;"><p><sup>4</sup> As defined in Bacon, Cariño, and Stancil (2011) in the CIPM curriculum.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip1Content" role="tooltip" style="display: none;"><p><sup>5</sup> Grégoire (2007, p. 309).</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip2Content" role="tooltip" style="display: none;"><p><sup>6</sup> Bacon et al. (2011).</p></div>
+<div class="nav-buttons"><a href="courses_1366_modules_items_99474_103_Why_Performance_Evaluation_is_Important.html">← Previous</a><a href="courses_1366_modules_items_99476_105_Factors_Defining_the_Output_of_Performance_Evaluation_Activities.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

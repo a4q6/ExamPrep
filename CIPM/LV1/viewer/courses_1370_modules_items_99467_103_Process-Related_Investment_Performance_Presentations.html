@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.03 | Process-Related Investment Performance Presentations</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Investment Performance Presentation and GIPS › Module 1: Investment Performance Presentation: An Introduction</nav>
+<h1 class="page-title screenreader-only">1.03 | Process-Related Investment Performance Presentations</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0024-R-s03-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.03 | Process-Related Investment Performance Presentations"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 1: Investment Performance Presentation: An Introduction</span>1.03 | Process-Related Investment Performance Presentations</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0024-R-s03-los-1"><li class="cfa-curriculum-los-item">describe the content and purposes of investment performance presentations when these presentations are classified by (i) type of process and (ii) type of performance evaluation information</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>As discussed in the previous lesson, the specific IPP is determined by the information presented, by the intended user, the intended use, and the preparer of the presentation. As illustrated in <a class="internal" role="button" href="#CIPM0024-R-s03-EXH5" aria-label="View Exhibit 5">Exhibit 5</a>, we identify three process-related types of IPPs, classified by intended use: sales-oriented presentations, management-oriented presentations, and monitoring-oriented presentations.</p><figure id="CIPM0024-R-s03-EXH5" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 5<span style="display: block;">Process-related Investment Performance Presentations <br><br>Classified by Intended Use</span></figcaption><div class="cfa-curriculum-graphic"><img alt="Process-related investment performance presentations are interrelated to sales-oriented presentations, management-oriented presentations and monitoring-oriented presentations." src="https://learn.cfainstitute.org/courses/1370/files/224138/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1370/files/224138" data-api-returntype="File" data-width="600"></div></figure><p>A sales-oriented investment performance presentation is a specific type of presentation used in the sales process of an investment management organization. Here we distinguish between pre-sales, time-of-sales, and after-sales processes, each having distinct characteristics:</p><ul id="CIPM0024-R-s03-L1" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>In the pre-sales process, IPPs normally cover more general, aggregated, and/or high level information about the investment product. These presentations often focus on time-series performance analytics such as rolling or period returns and risk metrics. Furthermore, the time series data may be associated with high-level holdings or portfolio information that provides a better sense of the (proposed) investment strategy and investment portfolio. This investment performance presentation is designed to lead prospective clients into a deeper discussion of the investment information. <a class="internal" role="button" href="#CIPM0024-R-s03-EXH6" aria-label="View Exhibit 6">Exhibit 6</a> provides an example of such a presentation commonly used in the investment management industry—a GIPS Composite Report.</p></li></ul><figure id="CIPM0024-R-s03-EXH6" class="dp-content-block cfa-curriculum-exhibit-box"><figcaption class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 6<span style="display: block;">Sample GIPS Composite Report</span></figcaption><div id="CIPM0024-R-s03-Ta" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-table-title"><span style="display: block;">Spinning Top Investments: Large-Cap Growth Composite, 1 January 2014 through 31 December 2023</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0024-R-s03-Ta-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0024-R-s03-Ta-title">Spinning Top Investments: Large-Cap Growth Composite, 1 January 2014 through 31 December 2023</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; " colspan="2"><strong>3 Year Std. Deviation</strong></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; " colspan="3"><strong>As of 31 December</strong></th></tr><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Year</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Composite Gross Return (%)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Composite Net Return (%)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Benchmark Return</strong><br><br><strong>(%)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Composite</strong><br><br><strong>(%)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Benchmark (%)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Internal </strong><br><br><strong>Dispersion (%)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>No. of Portfolios</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Composite Assets</strong><br><br><strong>($ M)</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Firm Assets</strong><br><br><strong>($ M)</strong></th></tr></thead><tbody><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2014</td><td style="text-align: center; vertical-align: top; padding: 8px; ">14.50</td><td style="text-align: center; vertical-align: top; padding: 8px; ">13.37</td><td style="text-align: center; vertical-align: top; padding: 8px; ">13.03</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.20</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.29</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.8</td><td style="text-align: center; vertical-align: top; padding: 8px; ">45</td><td style="text-align: center; vertical-align: top; padding: 8px; ">445</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,032</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2015</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.52</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.47</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.67</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.19</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.21</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.1</td><td style="text-align: center; vertical-align: top; padding: 8px; ">48</td><td style="text-align: center; vertical-align: top; padding: 8px; ">520</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,056</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2016</td><td style="text-align: center; vertical-align: top; padding: 8px; ">8.22</td><td style="text-align: center; vertical-align: top; padding: 8px; ">7.15</td><td style="text-align: center; vertical-align: top; padding: 8px; ">7.09</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.64</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.65</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.8</td><td style="text-align: center; vertical-align: top; padding: 8px; ">49</td><td style="text-align: center; vertical-align: top; padding: 8px; ">505</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,185</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2017</td><td style="text-align: center; vertical-align: top; padding: 8px; ">33.78</td><td style="text-align: center; vertical-align: top; padding: 8px; ">32.48</td><td style="text-align: center; vertical-align: top; padding: 8px; ">30.18</td><td style="text-align: center; vertical-align: top; padding: 8px; ">4.92</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.06</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.9</td><td style="text-align: center; vertical-align: top; padding: 8px; ">44</td><td style="text-align: center; vertical-align: top; padding: 8px; ">475</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,269</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2018</td><td style="text-align: center; vertical-align: top; padding: 8px; ">–0.84</td><td style="text-align: center; vertical-align: top; padding: 8px; ">–1.83</td><td style="text-align: center; vertical-align: top; padding: 8px; ">–0.65</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.67</td><td style="text-align: center; vertical-align: top; padding: 8px; ">6.21</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.1</td><td style="text-align: center; vertical-align: top; padding: 8px; ">47</td><td style="text-align: center; vertical-align: top; padding: 8px; ">493</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,091</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2019</td><td style="text-align: center; vertical-align: top; padding: 8px; ">33.08</td><td style="text-align: center; vertical-align: top; padding: 8px; ">31.78</td><td style="text-align: center; vertical-align: top; padding: 8px; ">29.76</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.71</td><td style="text-align: center; vertical-align: top; padding: 8px; ">7.45</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.5</td><td style="text-align: center; vertical-align: top; padding: 8px; ">51</td><td style="text-align: center; vertical-align: top; padding: 8px; ">549</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,252</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2020</td><td style="text-align: center; vertical-align: top; padding: 8px; ">35.17</td><td style="text-align: center; vertical-align: top; padding: 8px; ">33.86</td><td style="text-align: center; vertical-align: top; padding: 8px; ">35.11</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.44</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.34</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.5</td><td style="text-align: center; vertical-align: top; padding: 8px; ">54</td><td style="text-align: center; vertical-align: top; padding: 8px; ">575</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,414</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2021</td><td style="text-align: center; vertical-align: top; padding: 8px; ">24.64</td><td style="text-align: center; vertical-align: top; padding: 8px; ">23.43</td><td style="text-align: center; vertical-align: top; padding: 8px; ">26.26</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.06</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1.97</td><td style="text-align: center; vertical-align: top; padding: 8px; ">2.3</td><td style="text-align: center; vertical-align: top; padding: 8px; ">55</td><td style="text-align: center; vertical-align: top; padding: 8px; ">620</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,512</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2022</td><td style="text-align: center; vertical-align: top; padding: 8px; ">–33.15</td><td style="text-align: center; vertical-align: top; padding: 8px; ">–33.84</td><td style="text-align: center; vertical-align: top; padding: 8px; ">–31.81</td><td style="text-align: center; vertical-align: top; padding: 8px; ">9.38</td><td style="text-align: center; vertical-align: top; padding: 8px; ">9.19</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.6</td><td style="text-align: center; vertical-align: top; padding: 8px; ">49</td><td style="text-align: center; vertical-align: top; padding: 8px; ">551</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,399</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2023</td><td style="text-align: center; vertical-align: top; padding: 8px; ">47.64</td><td style="text-align: center; vertical-align: top; padding: 8px; ">46.22</td><td style="text-align: center; vertical-align: top; padding: 8px; ">41.73</td><td style="text-align: center; vertical-align: top; padding: 8px; ">10.40</td><td style="text-align: center; vertical-align: top; padding: 8px; ">9.81</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3.5</td><td style="text-align: center; vertical-align: top; padding: 8px; ">53</td><td style="text-align: center; vertical-align: top; padding: 8px; ">622</td><td style="text-align: center; vertical-align: top; padding: 8px; ">1,555</td></tr></tbody></table></div></div></div><p><strong>Disclosures</strong></p></figure><ol id="CIPM0024-R-s03-L2" class="cfa-curriculum-list-decimal"><li class="cfa-curriculum-list-item"><p>Spinning Top Investments claims compliance with the Global Investment Performance Standards (GIPS®) and has prepared and presented this report in compliance with the GIPS standards. Spinning Top Investments has been independently verified for the periods 1 January 2011 to 31 December 2023. The verification report is available upon request.</p><p>A firm that claims compliance with the GIPS standards must establish policies and procedures for complying with all the applicable requirements of the GIPS standards. Verification provides assurance on whether the firm’s policies and procedures related to composite and pooled fund maintenance, as well as the calculation, presentation, and distribution of performance, have been designed in compliance with the GIPS standards and have been implemented on a firm-wide basis. Verification does not provide assurance on the accuracy of any specific performance report.</p></li><li class="cfa-curriculum-list-item"><p>Spinning Top Investments is an equity investment manager that invests solely in US-based securities. Spinning Top Investments is defined as an independent investment management firm that is not affiliated with any parent organization. Spinning Top Investments acquired ABC Capital in May 2014.</p></li><li class="cfa-curriculum-list-item"><p>The Large-Cap Growth Composite includes all institutional portfolios that invest in large-cap US stocks that are considered to have growth in earnings prospects that are superior to that of the average company within the XYZ Large-Cap Growth Index. Key material risks include the risks that stock prices will decline and the composite will underperform its benchmark. The account minimum for the composite is $5 million. Prior to July 2016, the account minimum was $2 million.</p></li><li class="cfa-curriculum-list-item"><p>Performance prior to May 2014 occurred while the investment management team was affiliated with another firm. The investment management team has managed the composite since its inception, and the investment process has not changed. The historical performance has been linked to performance earned at Spinning Top Investments.</p></li><li class="cfa-curriculum-list-item"><p>The benchmark is the XYZ Large-Cap Growth Index, which is a market-capitalization-weighted equity index of all US stocks with a market cap greater than $10 billion and a growth tilt.</p></li><li class="cfa-curriculum-list-item"><p>Returns presented are time-weighted returns. Valuations are computed and performance is reported in US dollars.</p></li><li class="cfa-curriculum-list-item"><p>Gross-of-fees returns are presented before management and custodial fees but after all trading expenses. Composite and benchmark returns are presented gross of non-reclaimable withholding taxes. Net-of-fees returns are calculated by deducting a model management fee of 0.083%, 1/12 of the highest management fee of 1.00%, from the monthly gross composite return. The management fee schedule for separate accounts is as follows: 1.00% on the first $25 million; 0.60% thereafter. The management fee schedule and total expense ratio for the Large-Cap Collective Fund, which is included in the composite, are 0.65% on all assets and 0.93%, respectively.</p></li><li class="cfa-curriculum-list-item"><p>Policies for valuing investments, calculating performance, and preparing GIPS reports are available upon request.</p></li><li class="cfa-curriculum-list-item"><p>A list of composite descriptions and a list of broad distribution pooled funds are available upon request.</p></li><li class="cfa-curriculum-list-item"><p>The composite was created in November 2011, and the inception date is 1 February 2011.</p></li><li class="cfa-curriculum-list-item"><p>Internal dispersion is calculated using the equal-weighted standard deviation of annual gross returns of those portfolios that were included in the composite for the entire year.</p></li><li class="cfa-curriculum-list-item"><p>The three-year annualized standard deviation measures the variability of the composite gross returns and the benchmark returns over the preceding 36-month period.</p></li><li class="cfa-curriculum-list-item"><p>Portfolios are removed from the composite if they have a significant cash flow. A significant cash flow is defined as a contribution or withdrawal greater than 25% of the beginning market value of a portfolio. The portfolio is removed from the composite for the month in which the significant cash flow occurred.</p></li><li class="cfa-curriculum-list-item"><p>GIPS® is a registered trademark of CFA Institute. CFA Institute does not endorse or promote this organization, nor does it warrant the accuracy or quality of the content contained herein.</p></li></ol><ul id="CIPM0024-R-s03-L3" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>During the time-of-sales process, investment performance presentations may cover more detailed information on the specific investment product under consideration to even better understand its return and risk characteristics—such as a performance attribution or a risk analysis. The level of detail depends on the technical possibilities, on the system capabilities, and more importantly on the level of sophistication of the client. This investment information and the respective presentation are designed to convince the potential or prospective client that the considered investment product is of great value, managed professionally, and that it fits the investment requirements.</p></li><li class="cfa-curriculum-list-item"><p>In the after-sales process, investment performance presentations normally cover more detailed investment information not on a specific investment product, but on the individual client investment portfolio. In addition to time series performance analytics and high level investment information, this type of presentation often contains detailed information on the sources of the absolute and excess return or risk and may be associated by more detailed information on the transactions and current holdings of the portfolio.<a class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0024-R-s03-FN1_Content" id="transformedTip0" data-transformed="true" role="button" aria-expanded="false"><sup>10</sup></a> This investment information and the respective presentation are designed to get a better view on the implemented investment strategy and the recent investment portfolio. The objective is to prove that the proposed investment strategy was actually implemented and to illustrate the quality of the respective investment management decisions. These presentations are often the input for the regular performance review meetings between the investment management organization and the existing client.</p></li></ul><p>A management-oriented IPP is a specific type of presentation used in the investment management process. Here we distinguish between presentations used for investment reporting and for investment controlling:<a class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0024-R-s03-FN2_Content" id="transformedTip1" data-transformed="true" role="button" aria-expanded="false"><sup>11</sup></a></p><ul id="CIPM0024-R-s03-L4" class="cfa-curriculum-list-bullet"><li class="cfa-curriculum-list-item"><p>Similar to the before mentioned after-sales process, the investment reporting process deals with IPPs designed for use outside of the investment management organization and focuses on client investment portfolios. The content of these presentations depends very much on the level of sophistication of the client or user and the importance of the client for the investment management organization. Here, the IPP is normally part of a broader and more extensive investment report containing additional information like market commentary, detailed asset allocations, or transaction overviews.</p><p>Depending on the level of detail, we distinguish different types of investment reports containing distinct kinds of IPPs. A standard investment report may contain a simple IPP illustrating some performance numbers such as return and excess return for a specific reporting period. In contrast, a comprehensive investment report may contain a very detailed IPP covering multiple aspects of performance analysis from a detailed time series analysis to a client-specific tailor-made performance attribution. Between these two extreme types of investment reports, one can find endless variations. The objective should be to illustrate the return and risk characteristics of the investment portfolio as well as the results of the implemented investment strategy.</p></li><li class="cfa-curriculum-list-item"><p>In the investment controlling process, the content of the IPP depends on the intended use and the intended user (often from within the investment management organization). The presentation may refer to investment portfolios, to investment products, or to investment strategies and, depending on the specific purpose, may contain more or less detailed investment information or purpose-oriented performance analytics. For example, a peer group comparison may cover a time series analysis focusing on the absolute and excess return of the different investment products used to analyze the competitiveness of the investment management company. Another example would be a presentation featuring detailed return and risk attribution analytics that are relevant to evaluating the implementation of an investment strategy. <a class="internal" role="button" href="#CIPM0024-R-s03-EXH7" aria-label="View Exhibit 7">Exhibit 7</a> provides an example of an investment controlling report containing different analytics illustrating return and risk statistics and return decompositions.</p></li></ul><figure id="CIPM0024-R-s03-EXH7" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 7<span style="display: block;">Sample Investment Controlling Report</span></figcaption><div class="cfa-curriculum-graphic"><img alt="A screenshot of Sample Investment Controlling Report. The report includes performance tables, contribution by asset class and risk and return statistics. With this, bar graphs, histograms, and charts are given to represent the data.  " src="https://learn.cfainstitute.org/courses/1370/files/224144/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1370/files/224144" data-api-returntype="File" data-width="600"></div></figure><p>A monitoring-oriented IPP is a specific type of presentation used in the monitoring process. The monitoring may be done from inside or from outside the investment management organization. The focus of such investment performance presentation is often on investment management policies or guidelines and on regulatory requirements. The presentation may refer to investment portfolios, to investment products, to investment strategies, or to a total investment management organization. The objective of monitoring-oriented presentations is to provide certain investment performance information—often exposure and risk figures—to show that the investment mandate, strategy, or company was in compliance with investment policies or guidelines and regulatory requirements, or in compliance with specific transparency requirements. Depending on the individual guidelines or regulations, the performance analytics used can be manifold and complex. In addition, for more complex organizational setups such as pension funds, monitoring-oriented presentations are becoming more important over time as internal investment guidelines are becoming more detailed and as decision-oriented performance analytics are seen as fundamental for the future success of an organization. The objective of monitoring-oriented presentations is to increase transparency of activities as well as return and risk contributions resulting from individual decisions.</p><figure id="CIPM0024-R-s03-Ba" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Process-related Investment Performance Presentations</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0024-R-s03-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>Sales-oriented investment performance presentations are used for:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>existing clients.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-1"><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>prospective clients.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-2"><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>prospective as well as existing clients.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h3 class="cfa-curriculum-solution-title">Solution</h3><p>C is correct. Pre-sales and time-of-sales presentations are prepared for prospective clients and after-sales presentations are prepared for existing clients.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0024-R-s03-Q2"><legend><span class="cfa-curriculum-question-with-label">2. </span><p>After-sales investment performance presentations focus on:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-0"><label for="dp-qc-1-0"><p><span class="cfa-curriculum-option-label">A. </span>investment products or composites.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1"><p><span class="cfa-curriculum-option-label">B. </span>portfolio managers’ individual performance.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-2"><label for="dp-qc-1-2"><p><span class="cfa-curriculum-option-label">C. </span>existing clients’ individual portfolios.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h3 class="cfa-curriculum-solution-title">Solution</h3><p>C is correct. In contrast to pre-sales and time-of-sales presentations, after-sales presentations are designed for existing clients especially presenting the performance of the client’s individual investment portfolio.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0024-R-s03-Q3"><legend><span class="cfa-curriculum-question-with-label">3. </span><p>Pre-sales presentations normally do not contain:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input id="dp-qc-2-0" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-0"><label for="dp-qc-2-0"><p><span class="cfa-curriculum-option-label">A. </span>performance comparison against the benchmark.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse2-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-2-1" class="dp-qc-field" type="radio" name="dp-qc-2" value="true" data-response="dpQcResponse2-1"><label for="dp-qc-2-1"><p><span class="cfa-curriculum-option-label">B. </span>detailed information on the sources of the excess return.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse2-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h3 class="cfa-curriculum-solution-title">Solution</h3><p>B is correct. Detailed performance information, like a performance attribution analysis, is normally added to a pre-sales presentation only if the prospective client specifically asked for it.</p></section></div></dd><dt class="dp-qc-answer"><input id="dp-qc-2-2" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-2"><label for="dp-qc-2-2"><p><span class="cfa-curriculum-option-label">C. </span>general information about the investment management organization.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse2-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure><p>Despite the fact that the three different types of process-related IPPs may vary depending on the intended user and use, all types of presentation share the same overall purpose: creating or increasing transparency concerning the investments made, the results achieved, and the risks taken. Investment performance presentations are important components of the overall investment management process and are often used for investment reporting and controlling. In this respect, the objective of IPPs consists in arranging the presentation and the included analyses—within the framework of the investment management process—in such a way that the processes (e.g., forecasting, decision making, and implementation), their quality, results (e.g., returns), risks (e.g., of using derivatives), and costs (e.g., transaction fees) become more transparent. The investment management process shown in Exhibit 1 may in reality be highly complex because of the large number of possible financial instruments and the number of decision makers involved (e.g., research team, asset allocation team, and specialists in the various investment categories). The effect of this complexity is that the results of the investment management process and the factors that affect it are not always apparent. In this context, effective IPPs help users understand the contributions of the individual decisions of the investment management process, especially with respect to return and risk, and to allocate them to the responsible decision makers. The figures and measures illustrated and the conclusions drawn from the IPP provide important feedback and input into the investment management process which can enhance the quality and future performance of the investment managers.</p><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip0Content" role="tooltip" style="display: none;"><p><sup>10</sup> In the after-sales process, there is only a fine line between an investment performance presentation and an investment report—and it is the latter that existing clients normally receive from their investment managers.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip1Content" role="tooltip" style="display: none;"><p><sup>11</sup> Investment performance presentations or respective analytics may be used within other investment management sub-processes. For example, performance analytics like ex-ante risk attribution used for asset allocation or portfolio construction decision making.</p></div>
+<div class="nav-buttons"><a href="courses_1370_modules_items_99466_102_Overview_of_Investment_Performance_Presentation.html">← Previous</a><a href="courses_1370_modules_items_99469_104_Analytics-Related_Investment_Performance_Presentations.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

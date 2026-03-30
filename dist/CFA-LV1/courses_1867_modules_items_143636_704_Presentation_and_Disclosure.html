@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.04 | Presentation and Disclosure</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2424-R-s04-R-1" title="7.04 | Presentation and Disclosure">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">モジュール7：長期資産の分析（Analysis of Long-Term Assets） 7.04 | 表示および開示（Presentation and Disclosure）</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">有形固定資産（property, plant, and equipment）および無形資産（intangible assets）に関する財務諸表の開示を分析し、解釈する</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>IFRSの下では、有形固定資産の各クラスについて、企業は測定基準（measurement basis）、減価償却方法（depreciation method）、使用される耐用年数（useful life）（または同等の減価償却率）、期首および期末の総帳簿価額（gross carrying amount）および累計減価償却（accumulated depreciation）、ならびに期首から期末への帳簿価額の調整表（reconciliation）を開示しなければならない。さらに、有形固定資産の所有権に対する制限や担保としての差入（pledges as security）、および有形固定資産の取得に関する契約上の合意についても開示が求められる。再評価モデル（revaluation model）を使用している場合には、再評価日、どのように公正価値が算定されたかの詳細、原価モデル（cost model）に基づく帳簿価額、および再評価剰余金（revaluation surplus）を開示しなければならない。また、当期の減価償却費、主要な償却対象資産の残高、主要クラス別または合計の累計減価償却、および減価償却費を算定するために用いられた減価償却方法の一般的な説明も開示しなければならない。</p>
+<p>IFRSの下では、無形資産の各クラスについて、耐用年数が無期限（indefinite）か有限（finite）かを開示しなければならない。有限の場合には、各クラスについて、使用される耐用年数（または償却率）、償却方法（amortization methods）、期首および期末の総帳簿価額および累計償却（accumulated amortization）、損益計算書における償却の表示箇所、ならびに期首から期末への帳簿価額の調整表を開示する必要がある。無期限耐用年数の場合には、その資産の帳簿価額および無期限とみなされる理由を開示しなければならない。有形固定資産と同様に、無形資産に関する所有権の制限や担保差入、取得に関する契約上の合意についても開示が必要である。再評価モデルを使用している場合には、再評価日、公正価値の算定方法の詳細、原価モデルに基づく帳簿価額、および再評価剰余金を開示しなければならない。</p>
+<p>US GAAPの下では、企業は無形資産の総帳簿価額および累計償却を合計および主要クラス別に開示し、当期の総償却費および今後5会計年度の見積償却費を開示することが求められる。</p>
+<p>減損損失に関する開示も、IFRSとUS GAAPで異なる。IFRSの下では、企業は各資産クラスについて、当期に認識された減損損失およびその戻入額、ならびにそれらが財務諸表のどこに認識されているかを開示しなければならない。また、減損損失およびその戻入れの影響を受けた主要な資産クラスと、それらの認識に至った主な事象および状況を集約して開示する必要がある。US GAAPの下では、使用目的の資産については減損損失の戻入れは認められていない。企業は、減損した資産の説明、減損に至った要因、公正価値の算定方法、減損損失の金額、およびその損失が財務諸表のどこに認識されているかを開示しなければならない。</p>
+<p>長期資産に関する開示は、貸借対照表、損益計算書、キャッシュフロー計算書、および注記など、財務諸表全体にわたって示される。貸借対照表では資産の帳簿価額が報告される。損益計算書では、減価償却費が独立した項目として表示される場合もあれば、されない場合もある。IFRSの下では、減価償却費が別途開示されるかどうかは、「費用の性質別表示（nature of expense method）」を用いるか、「機能別表示（function of expense method）」を用いるかによって異なる。性質別表示では、企業は費用を「その性質に応じて（例：減価償却、材料購入費、輸送費、従業員給付、広告費）」集計し、機能ごとに再配分しない。一方、機能別表示では、費用は売上原価（cost of sales）や販売費および一般管理費（SG&amp;A: selling, general, and administrative expenses）などの機能に基づいて分類される。機能別表示を用いる場合、少なくとも売上原価の開示は必須であるが、その他の項目は企業によって異なる。</p>
+<p>キャッシュフロー計算書では、固定資産の取得および処分は投資活動（investing section）に反映される。また、間接法（indirect method）で作成される場合、通常、減価償却費（または減価償却費と償却費の合計）が、純利益から営業キャッシュフローへの調整項目として表示される。財務諸表の注記では、企業の会計方針、推定耐用年数の範囲、主要な固定資産カテゴリーごとの取得原価、累計減価償却、および年間減価償却費が説明される。</p>
+<p>次の例は、2017年12月31日終了年度のOrange SAの年次報告書から、無形資産および有形固定資産に関する抜粋を示している。</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2424-R-s04-EXM-1-5">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">例5 長期資産に関する財務諸表表示および開示（Financial Statement Presentation and Disclosures for Long-Lived Assets）</h3>
+<p>以下の図表は、フランスに本拠を置く国際通信企業Orange SAの2017年12月31日終了年度の年次報告書からの抜粋を含む。</p>
+<div class="dp-content-block cfa-curriculum-exhibit-box" id="CFA2424-R-s04-EXH-1-3">
+<h4 class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title">図表3 Orange SA 2017年連結財務諸表（Exhibit 3 Orange SA, 2017 Consolidated Financial Statement）</h4>
+<p>連結損益計算書からの抜粋（単位：百万ユーロ）（Excerpt from Consolidated Income Statement (euro millions)）</p>
+<p>（注：説明目的のため、選択された項目のみを表示している）</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2424-R-s04-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td rowspan="2" style="text-align: left; vertical-align: bottom; padding: 8px; "></td>
+<td colspan="3" style="text-align: center; vertical-align: bottom; padding: 8px; ">12か月間（12 Months Ended）</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2017年12月31日（31 Dec. 2017）</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2016年12月31日（31 Dec. 2016）</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2015年12月31日（31 Dec. 2015）</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">売上高（Revenues）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">41,096ユーロ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">40,918ユーロ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">40,236ユーロ</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">減価償却費および償却費（Depreciation and amortization）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（6,846）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（6,728）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（6,465）</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">のれんの減損（Impairment of goodwill）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(20)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(772)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">固定資産の減損（Impairment of fixed assets）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(190)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(207)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(38)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">営業利益（Operating income）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,917</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,077</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,742</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">継続事業の連結純利益（Consolidated net income of continuing operations）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,114</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,010</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,510</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">非継続事業（EE）の連結純利益（Consolidated net income of discontinued operations (EE)）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,253</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">448</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">連結純利益（Consolidated net income）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2,143</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>3,263</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2,958</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">親会社株主に帰属する純利益（Net income attributable to owners of the parent company）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,906</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,935</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,652</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">非支配持分（Non-controlling interests）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">€237</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">€328</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">€306</td>
+</tr>
+<tr>
+<td colspan="4" style="text-align: left; vertical-align: bottom; padding: 8px; ">連結財政状態計算書からの抜粋（単位：百万ユーロ）（Excerpt from the Consolidated Statement of Financial Position (euro millions)）</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">資産（Assets）</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2017年12月31日（31 Dec. 2017）</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2016年12月31日（31 Dec. 2016）</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2015年12月31日（31 Dec. 2015）</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">のれん（Goodwill）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,095ユーロ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,156ユーロ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,071ユーロ</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">その他の無形資産（Other intangible assets）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,339</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,602</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,327</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">有形固定資産（Property, plant, and equipment）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">26,665</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">25,912</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">25,123</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">非流動資産合計（Total non-current assets）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">74,035</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">74,819</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">71,330</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">流動資産合計（Total current assets）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20,679</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">19,849</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,312</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">売却目的保有資産（Assets held for sale）</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,788</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">総資産（Total assets）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">94,714</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">94,668</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">91,430</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">資本および負債（Equity and liabilities）</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">資本合計（Total equity）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,942</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33,174</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33,267</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">非流動負債合計（Total non-current liabilities）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,736</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">35,590</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">36,537</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>…</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">流動負債合計（Total current liabilities）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,036</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">25,904</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">21,626</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">資本および負債合計（Total equity and liabilities）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">94,714</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">94,668</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">91,430</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-exhibit-box" id="CFA2424-R-s04-EXH-1-4">
+<h4 class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title">図表4 Orange SA 2017年連結財務諸表注記（Exhibit 4 Orange SA, 2017 Notes to the Consolidated Financial Statement）</h4>
+<p>注記7.2 のれん（Goodwill）からの抜粋（Excerpt）</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2424-R-s04-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="4" style="text-align: center; vertical-align: bottom; padding: 8px; ">のれんの変動調整表からの抜粋（単位：百万ユーロ）（Excerpt from Reconciliation of Changes in Goodwill (euro millions)）</th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px; "></th>
+<th colspan="3" style="text-align: center; vertical-align: bottom; padding: 8px; ">12か月間（12 Months Ended）</th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">2017年12月31日（31 Dec. 2017）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">2016年12月31日（31 Dec. 2016）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">2015年12月31日（31 Dec. 2015）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">期首の総額（Gross value in the opening balance）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,689ユーロ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,606ユーロ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,271ユーロ</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">取得（Acquisitions）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">904</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,333</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">処分（Disposals）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(6)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(69)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">為替換算調整（Translation adjustment）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(40)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(815)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">再分類およびその他項目（Reclassifications and other items）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(2)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">売却目的保有資産への再分類（Reclassification to assets held for sale）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">期末の総額（Gross value in closing balance）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,687</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,689</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,606</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">期首の累計減損損失（Accumulated impairment losses in the opening balance）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（5,533）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（5,535）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（5,487）</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">減損（Impairment）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(20)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(772)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">処分（Disposals）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">為替換算調整（Translation adjustment）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(39)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">774</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">(48)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">再分類およびその他項目（Reclassifications and other items）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">売却目的保有資産への再分類（Reclassification to assets held for sale）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">期末の累計減損損失（Accumulated impairment losses in the closing balance）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（5,592ユーロ）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（5,533ユーロ）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">（5,535ユーロ）</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">のれんの純帳簿価額（Net book value of goodwill）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,095</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,156</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,071</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>注記7.3 回収可能価額を決定するために使用された主要仮定（Key assumptions used to determine recoverable amounts）からの抜粋（2017年12月31日現在）</p>
+<p>主要な連結事業の回収可能価額の決定に使用されたパラメータは以下のとおりである：</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2424-R-s04-T-1-c">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">フランス（France）</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Spain</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">ポーランド（Poland）</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">ベルギー（Belgium）</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">ルーマニア（Romania）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">永続成長率（Perpetuity growth rate）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.3%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">税引後割引率（Post-tax discount rate）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8.6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8.3%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8.8%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>注記7.4 回収可能価額の感応度（Sensitivity of recoverable amounts）からの抜粋（2017年12月31日現在）</p>
+<p>提示された感応度の水準は、財務諸表の利用者が自らの評価における影響を見積もることを可能にするものである。</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2424-R-s04-T-1-d">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">（単位：十億ユーロ）（in billions of euros）</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">フランス（France）</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Spain</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">ポーランド（Poland）</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">ベルギー（Belgium）</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">ルーマニア（Romania）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">永続成長率を1%引き下げた場合（Decrease by 1% in perpetuity growth rate）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10.4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.3</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">税引後割引率を1%引き上げた場合（An increase by 1% in post-tax discount rate）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">11.4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>※本表は、選択された前提および国のみを示している（Table extracted presents only selected assumptions and selected countries）。</p>
+</div>
+<p>同社の年次報告書には、より詳細な情報が提供されている。</p>
+<p>「のれん（Goodwill）は償却されない。少なくとも年1回、または減損の兆候がある場合にはより頻繁に減損テストが実施される……。これらのテストは、各キャッシュ・ジェネレーティング・ユニット（cash generating unit, CGU）（またはCGUのグループ）のレベルで実施される……。減損損失を認識すべきかどうかを判断するために、CGUまたはCGUグループの資産および負債の帳簿価額は回収可能価額と比較されるが、Orangeは主として使用価値（value in use）を用いている……。使用価値は将来の期待キャッシュフローの現在価値である。キャッシュフローの予測は、経済および規制上の前提、ライセンス更新の前提、ならびにグループ経営陣によって作成された営業および投資活動の予測に基づいている……。」</p>
+<p>注記8.3 その他の無形資産—純帳簿価額（Other intangible assets—Net book value）からの抜粋</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2424-R-s04-T-1-e">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+<th colspan="3" style="text-align: center; vertical-align: bottom; padding: 8px; ">12月31日（31 December）</th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">（単位：百万ユーロ）（in millions of euros）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2017</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2016</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2015</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">通信ライセンス（Telecommunications licenses）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,233</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,440</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,842</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Orangeブランド（Orange brand）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,133</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,133</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,133</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">その他ブランド（Other brands）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">88</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">102</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">137</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">顧客基盤（Customer bases）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">555</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">703</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">729</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">ソフトウェア（Software）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,946</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,781</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,815</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">その他の無形資産（Other intangible assets）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">384</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">443</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">671</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,339ユーロ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,602ユーロ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,327ユーロ</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>注記8.4 有形固定資産—純帳簿価額（Property, plant, and equipment—Net book value）からの抜粋</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2424-R-s04-T-1-f">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td colspan="3" style="text-align: center; vertical-align: bottom; padding: 8px; ">12月31日（31 December）</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">（単位：百万ユーロ）（in millions of euros）</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2017</strong>
+</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2016</strong>
+</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2015</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">土地および建物（Land and buildings）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,535</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,661</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,733</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">ネットワークおよび端末（Network and terminals）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22,880</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">21,984</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">21,194</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">IT機器（IT equipment）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">802</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">784</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">787</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">その他の有形固定資産（Other property, plant, and equipment）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">448</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">483</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">409</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">€26,665</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">€25,912</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">€25,123</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-exhibit-box" id="CFA2424-R-s04-EXH-1-5">
+<h4 class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>
+            Exhibit 5<span style="display: block;">Orange SA, 2017 Analysis of the Group’s Financial Position and Earnings</span>
+</h4>
+<p>“Orange group operating income stood at 4,077 million euros in 2016, compared with 4,742 million euros in 2015 on a historical basis, a drop of 14.0% or 665 million euros. This drop on a historical basis was largely attributable to:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2424-R-s04-L1">
+<li class="cfa-curriculum-list-item">
+<p>the recognition, in 2016, of 772 million euros in impairment loss of goodwill ... and 207 million euros in impairment loss of fixed assets ... primarily relating to:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2424-R-s04-L2">
+<li class="cfa-curriculum-list-item">
+<p>Poland for 507 million euros. This impairment loss mainly reflects a decline in competitiveness in the ADSL market, a deterioration in revenue assumptions in the mobile market and an increase in the post-tax discount rate due to the downgrading of the country’s sovereign rating by the rating agencies,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Egypt for 232 million euros. This impairment loss reflects the financial terms of the 4G license awarded in 2016, the sharp depreciation of the Egyptian pound and increased political and economic uncertainty,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>in the Congo (DRC), for 109 million euros. This impairment loss reflects political and economic uncertainty, a decline in purchasing power with a knock-on effect on the consumption of telecommunications products and services and an increased regulatory burden (particularly connected with the implementation of customer identification),</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Cameroon for 90 million euros. This impairment loss reflects a decline in voice revenues following the surge in messaging services and in VoIP of Over-The-Top (OTT) providers and heightened competition in the mobile market,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>and Niger for 26 million euros;</p>
+</li>
+</ul>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>and the 263 million euro increase in depreciation and amortization.”</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>What proportion of Orange’s total assets as of 31 December 2017 is represented by goodwill and other intangible assets? </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>As of 31 December 2017, goodwill represents 28.6 percent (= 27,095 ÷ 94,714) of Orange’s total assets. Other intangible assets represent 15.1 percent (= 14,339 ÷ 94,714). Data are from the company’s balance sheet in <a aria-label="View Exhibit 3" class="internal" href="#CFA2424-R-s04-EXH-1-3" role="button">Exhibit 3</a>.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>What is the largest component of the company’s impairment losses during the year ending December 2016? </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The largest component of the EUR772 impairment loss on goodwill and the EUR207 million impairment loss of fixed assets related to a EUR507 million loss in Poland. The company attributed the loss to a decline in the competitiveness of the market for its ADSL technology, a reduction in revenue assumptions, and an increase in the discount rate resulting from the downgrading of the country’s debt rating. From <a aria-label="View Exhibit 4" class="internal" href="#CFA2424-R-s04-EXH-1-4" role="button">Exhibit 4</a>:</p>
+<p>[The company’s financial statements define ADSL (Asymmetrical Digital Subscriber Line) as a “broadband data transmission technology on the traditional telephone network. It enables broadband data transmission (first and foremost Internet access) via twisted paired copper cable (the most common type of telephone line found in buildings).”]</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>The company discloses that it determines whether an impairment loss should be recognized by comparing the carrying value of a unit’s assets and liabilities to the “recoverable amount,” equal to the company’s estimate of its value in use. How does the company determine value in use? </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The company determines value in use – which it uses as a unit’s assets and liabilities “recoverable amount” in impairment testing – as the present value of the future expected cash flows. The cash flow projections are based on management’s assumptions. From Note 7.4 in <a aria-label="View Exhibit 4" class="internal" href="#CFA2424-R-s04-EXH-1-4" role="button">Exhibit 4</a>.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>By what amount would the estimated recoverable value of the company’s operations in France, Spain, Poland, Belgium, and Romania change if the company decreased its estimate of the perpetuity growth rate by 1 percent? By what amount would the estimated recoverable value of these operations change if the company increased its estimate of the post-tax discount rate by 1 percent? </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>If the company decreased its estimate of the perpetuity growth rate by 1 percent, the estimated recoverable value of the company’s operations in France, Spain, Poland, Belgium and Romania would be reduced by EUR13.2 billion (=10.4 + 1.6 + 0.6 + 0.3 + 0.3). A decrease in estimated growth decreases the present value of the cash flows. If the company increased its estimate of the post-tax discount rate by 1 percent, the estimated recoverable value of these operations would be reduced by EUR14.6 billion (=11.4 + 2.0 + 0.6 + 0.3 + 0.3). An increase in the discount rate decreases the present value of cash flows. Data are from Note 7.4 in <a aria-label="View Exhibit 4" class="internal" href="#CFA2424-R-s04-EXH-1-4" role="button">Exhibit 4</a>.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">5. </span>
+<p>What are the largest components of other intangible assets as of 31 December 2017? What is the largest component of property, plant and equipment as of 31 December 2017? </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The largest components of other intangible assets as of 31 December 2017 are telecommunications licenses, software, and the Orange brand, reported at EUR6,233 million, EUR3,946 million, and EUR3,133 million, respectively. The largest component of property, plant, and equipment as of 31 December 2017 is network and terminals (EUR22,880 million). Data are from Notes 8.3 and 8.4 in <a aria-label="View Exhibit 4" class="internal" href="#CFA2424-R-s04-EXH-1-4" role="button">Exhibit 4</a>.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Note that the exhibits in the previous example contain relatively brief excerpts from the company’s disclosures. The complete text of the disclosures concerning the company’s non-current assets spans numerous different footnotes, some of which are several pages long. Overall, an analyst can use the disclosures to understand a company’s investments in tangible and intangible assets, how those investments changed during a reporting period, how those changes affected current performance, and what those changes might indicate about future performance.</p>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA2424-R-s04-FN-1-1Content">
+<p>
+<sup>11</sup> IAS 16, <em>Property, Plant and Equipment</em>, paragraphs 73–79, <em>Disclosure</em>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA2424-R-s04-FN-1-2Content">
+<p>
+<sup>12</sup> IAS 38, <em>Intangible Assets</em>, paragraphs 118–128, <em>Disclosure</em>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA2424-R-s04-FN-1-3Content">
+<p>
+<sup>13</sup> FASB ASC, Section 350-30-50, <em>Intangibles–General–Disclosure</em>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA2424-R-s04-FN-1-4Content">
+<p>
+<sup>14</sup> IAS 36, <em>Impairment of Assets</em>, paragraphs 126–137, <em>Disclosure</em>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA2424-R-s04-FN-1-5Content">
+<p>
+<sup>15</sup> IAS 36, <em>Impairment of Assets</em>, paragraphs 126–137, <em>Disclosure</em>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA2424-R-s04-FN-1-6Content">
+<p>
+<sup>16</sup> IAS 1, paragraph 102.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1867_modules_items_143633_703_Impairment_and_Derecognition_of_Assets.html" >← 前へ</a>
+  <span class="title">7.04 | Presentation and Disclosure</span>
+  <a href="courses_1867_modules_items_143639_705_Using_Disclosures_in_Analysis.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

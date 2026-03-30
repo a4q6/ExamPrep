@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.02 | Revenue Recognition</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2418-R-s02-R-1" title="2.02 | Revenue Recognition">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 2: Analyzing Income Statements</span>2.02 | Revenue Recognition</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe general principles of revenue recognition, specific revenue recognition applications, and implications of revenue recognition choices for financial analysis</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<section id="CFA2418-R-s02-01-01">
+<h3 class="dp-heading">General Principles</h3>
+<p>A fundamental principle of accrual accounting is that revenue is recognized (reported on the income statement) when it is earned, so the company’s financial records reflect revenue from the sale when the risk and reward of ownership is transferred; this is often when the company delivers the goods or services. If the delivery was on credit, a related asset, such as trade or accounts receivable, is created. Later, when cash changes hands, the company’s financial records simply reflect that cash has been received to settle an account receivable. Similarly, in some situations, a company receives cash in advance and but delivers the product or service later, perhaps over a period of time. In this case, the company would record a liability for <a aria-describedby="UnearnedRevenueContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#UnearnedRevenueContent">unearned revenue</a>, or deferred revenue, when the cash is initially received, and revenue would be recognized over time as products and services are delivered. An example would be a subscription payment received in advance for cloud-based software delivered over a year.</p>
+</section>
+<section id="CFA2418-R-s02-01-02">
+<h3 class="dp-heading">Accounting Standards for Revenue Recognition</h3>
+<p>The converged accounting standards issued by the IASB and FASB in May 2014 introduced some changes to the basic principles of revenue recognition. The content of the two standards is nearly identical, and this discussion pertains to both, unless specified otherwise. The converged standard aims to provide a principles-based approach to revenue recognition that can be applied to many types of revenue-generating activities.</p>
+<p>The core principle of the converged standard is that revenue should be recognized to “depict the transfer of promised goods or services to customers in an amount that reflects the consideration to which the entity expects to be entitled in an exchange for those goods or services.” To achieve the core principle, the standard describes the application of the following five steps in recognizing revenue:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA2418-R-s02-L1">
+<li class="cfa-curriculum-list-item">
+<p>identify the contract(s) with a customer,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>identify the separate or distinct performance obligations in the contract,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>determine the transaction price,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>allocate the transaction price to the performance obligations in the contract, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>recognize revenue when (or as) the entity satisfies a performance obligation.</p>
+</li>
+</ol>
+<p>According to the standard, a contract is an agreement and commitment with commercial substance between the contacting parties. It establishes each party’s <em>obligations</em> and <em>rights,</em> including payment terms. In addition, a contract exists only if collectability is probable. Each standard uses the same wording, but the threshold for probable collectability differs. Under IFRS, probable means more likely than not, and under US GAAP, it means likely to occur. As a result, economically similar contracts may be treated differently under IFRS and US GAAP.</p>
+<p>The performance obligations within a contract represent promises to transfer distinct good(s) or service(s). A good or service is distinct if the customer can benefit from it on its own or in combination with readily available resources and if the promise to transfer it can be separated from other promises in the contract. Each identified performance obligation is accounted for separately.</p>
+<p>The transaction price is what the seller estimates will be received in exchange for transferring the good(s) or service(s) identified in the contract. The transaction price is then allocated to each identified performance obligation. Revenue is recognized when a performance obligation is fulfilled. Steps three and four address amounts, and step five addresses timing of recognition. The amounts recognized reflect expectations about collectability and (if applicable) an allocation to multiple obligations within the same contract.</p>
+<p>Revenue should be recognized only when it is highly probable that it will not be subsequently reversed. If it is likely to be reversed, the seller will record a minimal amount of revenue upon sale and recognize a refund liability and “right to returned goods” asset on the balance sheet based on the carrying amount of inventory less costs of recovery.</p>
+<p>The entity will recognize revenue when it is able to satisfy the performance obligation by transferring control of the good or service to the customer. Factors to consider when assessing whether the customer has obtained control of include the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2418-R-s02-L2">
+<li class="cfa-curriculum-list-item">
+<p>entity has a present right to payment,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>customer has legal title,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>customer has physical possession,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>customer has the significant risks and rewards of ownership, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>customer has accepted the good or service.</p>
+</li>
+</ul>
+<p>For a simple contract with only one deliverable at a single point in time, completing these five steps is straight-forward. For more complex contracts—such as when the performance obligations are satisfied over time, when the terms of the multiperiod contracts change, or when the performance obligation includes various components of goods and services—accounting choices are less obvious. The steps in the standards are intended to provide guidance that can be generalized to most situations.</p>
+<p>If the performance obligation is satisfied at the end of these five steps, and there is no contingency regarding payment, then revenue and accounts receivable are recognized. In cases in which revenue is recognized but the payment by the customer is conditional on some other future performance, a contract asset is initially presented on the balance sheet, until performance obligations are met, and a receivable can be recognized. If consideration is received in advance of transferring good(s) or service(s), the seller records a contract liability.</p>
+<p>As an analyst, you will encounter many companies with complex revenue recognition policies, reflecting the diversity of business models in practice. Several examples adapted from real companies are discussed in <a aria-label="View Example 1" class="internal" href="#CFA2418-R-s02-EXM-1-1" role="button">Example 1</a>.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2418-R-s02-EXM-1-1">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 1<span style="display: block;">Applying the Converged Revenue Recognition Standards</span>
+</h4>
+<section id="CFA2418-R-s02-01-02-01-01">
+<h6 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Principal Versus Agent</h6>
+<p>MegaDigital is an online marketplace that sells goods and delivers them quickly to customers. For some sales, MegaDigital acts as a principal in which it controls the product before the goods are transferred to the customer. In other sales, MegaDigital acts as an agent in which it arranges for the transfer of a product controlled by a third-party seller. In transactions in which MegaDigital is the principal, revenue is recorded as the total amount of considerations received for the transfer of the product. In transactions in which MegaDigital is the agent, it records revenue only for the portion of the considerations, which amounts to its fee or commission. This can have a significant impact on common size and ratio analysis. Revenue is lower but profit margins are higher for sales for which MegaDigital is an agent.</p>
+<p>Assume MegaDigital sells a particular product as a principal for USD100 that it purchased for USD70. Additionally, there are USD10 of other selling, general, and administrative costs. The margins would be:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2418-R-s02-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Sales</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">USD100</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100 percent</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cost of Sales</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">70 percent</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Gross Profit</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30 percent</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">SG&amp;A</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10 percent</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net Profit</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20 percent</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>If MegaDigital acts an agent for the same item with the same retail price, MegaDigital would receive a commission of USD30 and still incurs USD10 of other costs. Margins would be:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2418-R-s02-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Sales</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">USD30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100 percent</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cost of Sales</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0 percent</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Gross Profit</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100 percent</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">SG&amp;A</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33 percent</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net Profit</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">67 percent</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>For companies selling both as a principal and agent, such as many e-commerce companies, an analyst would need to evaluate the relative proportion of principal versus agent sales to evaluate and forecast overall margins. This is especially important if the mix of principal and agent sales is expected to change.</p>
+</section>
+<section id="CFA2418-R-s02-01-02-01-02">
+<h6 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Franchising/Licensing</h6>
+<p>Mahjong Pizza both operates and franchises pizza delivery restaurants around the world. Revenue recognition standards require that the company disaggregate revenue from contracts with customers into categories that depict how the nature, amount, timing, and uncertainty of revenue and cash flows are affected by economic factors. Companies must present revenues disaggregated in consolidated statements of income to satisfy this requirement. Mahjong Pizza presents the following disaggregated revenue items:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2418-R-s02-L3">
+<li class="cfa-curriculum-list-item">
+<p>company-owned stores revenues,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>franchise royalties and fees, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>supply chain revenues.</p>
+</li>
+</ul>
+<p>Company-owned stores revenues are of retail sales of food at stores that Mahjong owns and operates.</p>
+<p>Franchise royalties and fees are comprised of fees from third-party franchisees that are licensed to operate Mahjong restaurants. Each franchisee is generally required to pay fees equal to 5.5 percent of restaurant sales. The company recognizes the royalty fee as revenue, not the total sales of the franchisees’ restaurants. Upfront fees for opening new units are initially recognized as deferred revenue and subsequently amortized to revenue on a straight-line basis over the term of each respective franchise agreement, typically 10 years.</p>
+<p>Supply chain revenues are primarily composed of sales of food, equipment, and supplies to franchisees. Revenues are recognized upon delivery or shipment of the related products to franchisees, based on shipping terms.</p>
+</section>
+<section id="CFA2418-R-s02-01-02-01-03">
+<h6 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Software as a Service or License</h6>
+<p>CReaM Software and Services is a technology company providing customer relationship management software and services to business, government and not-for-profit organizations. Organizations may purchase a software license and install it on their own systems. Alternatively, they may subscribe to CReaM’s cloud services platform through which they can access CReaM’s software over the internet for a monthly subscription fee.</p>
+<p>Under IFRS 15, if a company provides a license to use software where the company will take possession of the software for installation on their own system, the company will report revenue either over the term of the license or at the time of the transfer of the license. Companies should report the revenue from the license over the term of the license, if under the contract or the company’s normal business activities:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2418-R-s02-L4">
+<li class="cfa-curriculum-list-item">
+<p>the software provider will continue to undertake activities that significantly affect the software (e.g., upgrades/enhancements),</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>the rights expose the customer to positive or negative impacts from those activities, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>the activities do not result in a transfer of goods or services.</p>
+</li>
+</ul>
+<p>If these criteria are not met, then the revenue is recognized when the license is transferred to the customer. CReaM’s annual report footnotes state:</p>
+<div class="cfa-curriculum-blockquote">
+<p>Software revenues include revenues associated with term and perpetual software licenses that provide the customer with a right to use the software as it exists when made available. Revenues from term and perpetual software licenses are generally recognized at the point in time when the software is made available to the customer. Revenue from software support and updates is recognized as the support and updates are provided, which is generally ratably over the contract term.</p>
+</div>
+<p>Under the terms of CReaM’s license, the software is sold “as is” and revenue is recognized at the time of the license transfer. CReaM, however, also provides a support contract for updates for which revenue is recognized over the contract term.</p>
+<p>CReaM’s cloud clients have access to constantly updated software. CReaM reports:</p>
+<div class="cfa-curriculum-blockquote">
+<p>Cloud services allow customers to use the Company’s software without taking possession of the software. Revenue is generally recognized over the contract term. Substantially all of the Company’s subscription service arrangements are non-cancelable and do not contain refund-type provisions.</p>
+</div>
+<p>In the case of CReaM, an analyst must understand the composition of revenue between licensed software in which case revenue is recognized upfront versus software as a service in which case revenue is recognized over time.</p>
+</section>
+<section id="CFA2418-R-s02-01-02-01-04">
+<h6 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Long-Term Contracts</h6>
+<p>Armored Vehicles Inc. (AVI) manufactures weapons systems and vehicles for military customers. The company enters long-term contracts that generally extend over several years. Performance on the contracts is satisfied over time. Under IFRS 15, a performance obligation is satisfied over time if one of the following criteria is met:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2418-R-s02-L5">
+<li class="cfa-curriculum-list-item">
+<p>The customer simultaneously receives and consumes the benefits provided by the entity’s performance as the entity performs (e.g., routine service contracts).</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The entity’s performance creates or enhances an asset that the customer controls as the asset is created or enhanced (e.g., refurbishment of a factory owned and controlled by the customer or building a road for a governmental agency).</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The entity’s performance does not create an asset with alternative use to the entity and the entity has an enforceable right to payment for performance completed to date (e.g., construction of a large unique asset that may not be able to be sold to another customer such as a weapons system).</p>
+</li>
+</ul>
+<p>AVI recognizes long-term contract revenue over the contract term as the work progresses, either as products are produced or as services are rendered because of the continuous transfer of control to the customer. For its military contracts, this continuous transfer of control to the customer is supported by clauses in the contract that allow the customer to unilaterally terminate the contract for convenience, pay for costs incurred plus a reasonable profit, and take control of any work in process.</p>
+<p>Under IFRS 15, the extent of progress towards completion may be measured by output methods (e.g., appraisals or units completed) or input methods (e.g., costs incurred relative to estimated total costs). AVI reports that its accounting for long-term contracts involves a judgmental process of estimating total sales, costs and profit for each performance obligation. Cost of sales is recognized as incurred. The amount reported as revenues is determined by adding a proportionate amount of the estimated profit to the amount reported as cost of sales. Recognizing revenue as costs are incurred provides an objective measure of progress on the long-term contract and thereby best depicts the extent of transfer of control to the customer.</p>
+<p>As an example, AVI has a contract to produce a weapons system for a total price of USD10 million. The expected total costs to produce the system is USD7 million and the estimated profit is USD3 million. The system will take two years to produce. In Year 1 of the contract, AVI incurs USD4.2 million of costs representing 60 percent of total estimated costs. AVI would recognize revenue of USD6 million and profit of USD1.8 million in Year 1 (both 60 percent of expected revenue and profits).</p>
+<p>If in Year 2, the system is completed with actual total cumulative costs of USD7.5 million, the company would report revenue of USD4 million and costs of USD3.3 million for a Year 2 profit of USD0.7 million and cumulative profit of USD2.5 million.</p>
+</section>
+<section id="CFA2418-R-s02-01-02-01-05">
+<h6 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Bill and Hold Arrangements</h6>
+<p>In addition to the long-term contracts discussed previously, AVI produces custom armored vehicles that some customers may not be able to take possession of immediately (because, for example, a lack of storage space). IFRS 15 provides that in such a “bill and hold” arrangement AVI can determine when it has satisfied its performance obligation based on when a customer obtains control of the product. Under IFRS 15, this is when all the following criteria are met:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2418-R-s02-L6">
+<li class="cfa-curriculum-list-item">
+<p>The reason for the bill and hold arrangement must be substantive (e.g., the customer has requested the arrangement).</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The product must be identified separately as belonging to the customer.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The product currently must be ready for physical transfer to the customer.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The entity cannot have the ability to use the product or to direct it to another customer.</p>
+</li>
+</ul>
+<p>In AVI’s case, each vehicle is identified by a unique vehicle identification number and upon completion, title and risk of loss has passed to the customer. AVI recognizes revenue when the product is ready for delivery to the customer but is directed by the customer to hold delivery.</p>
+</section>
+</div>
+<p>The disclosure requirements under IFRS 15 are quite extensive to provide sufficient information to financial statement users on the nature, amount, and timing of cash flows from customers. Companies are required to disclose revenue from contracts with customers disaggregated into different categories of contracts. The categories might be based on the type of product, the geographic region, the type of customer or sales channel, the type of contract pricing terms, the contract duration, or the timing of transfers. Companies are also required to disclose balances of any contract-related assets and liabilities and significant changes in those balances, remaining performance obligations and transaction price allocated to those obligations, and any significant judgments and changes in judgments related to revenue recognition. These disclosures are typically provided in a note to the financial statements titled “Revenue” or similar.</p>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="UnearnedRevenueContent">
+<p>A liability account for money that has been collected for goods or services that have not yet been delivered; payment received in advance of providing a good or service. Also called <em>deferred revenue</em> or <em>deferred income</em>.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1867_modules_items_143489_201_Introduction.html" >← 前へ</a>
+  <span class="title">2.02 | Revenue Recognition</span>
+  <a href="courses_1867_modules_items_143493_203_Expense_Recognition.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.04 | Types of Characteristics</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Risk Measurement and Attribution › Module 2: Equity Portfolio Characteristics in Performance Analysis</nav>
+<h1 class="page-title screenreader-only">2.04 | Types of Characteristics</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0008-R-s04-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.04 | Types of Characteristics"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 2: Equity Portfolio Characteristics in Performance Analysis</span>2.04 | Types of Characteristics</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcomes</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0008-R-s04-los-1CIPM0008-R-s04-los-2"><li class="cfa-curriculum-los-item">classify characteristics as macroeconomic, company fundamental, or company share-related</li><li class="cfa-curriculum-los-item">calculate and interpret the following equity characteristics: economic sector and industry membership; debt-to-equity (D/E) ratio; return on equity (ROE); market capitalization; price-to-book (P/B) ratio; price-to-earnings (P/E) ratio; dividend yield (D/P); price-to-sales (P/S) ratio; price-to-cash flow (P/CF) ratio; relative strength; liquidity; and volatility</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>Characteristics may generally be classified as belonging to three major groups: macroeconomic characteristics, company fundamental characteristics, and company share-related characteristics.</p><p>A company’s economic sector and industry membership, already mentioned, is a
+                  macroeconomic characteristic. The Global Industry Classification System
+                     (GICS<sup>®</sup>) developed by Standard &amp; Poor’s and MSCI is widely used
+                  in equity investing and performance measurement. GICS is a four-tier system
+                  composed of 11 sectors that are composed, in turn, of 25 industry groups, 74
+                  industries, and 163 sub-industries. For example, the Asset Management &amp;
+                  Custody Banks sub-industry belongs to the Capital Markets industry, which belongs
+                  to the Financial Services industry group, which belongs to the Financials sector.
+                  Standard &amp; Poor’s and MSCI jointly assign a company to a single GICS
+                  sub-industry in accordance with the company’s principal business activity.<a class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0008-R-s04-FN1_Content" id="transformedTip0" data-transformed="true" role="button" aria-expanded="false"><sup>3</sup></a> Similar breakdowns are done by other data service providers using the
+                  companies’ Standard Industry Classification code or the providers’ internal
+                  classification schemes.</p><p>Company fundamental characteristics include activity, liquidity, solvency, and profitability measures. For example, the ratio of sales to assets is an activity measure. The current ratio, a liquidity measure, compares the obligations that will become payable during the current operating cycle (current liabilities) with the cash that is or will become available to pay them (current assets). The debt-to-equity (D/E) ratio, an indicator of the company’s solvency, is the ratio of total debt to total shareholders’ equity. Return on equity (ROE) is a critically important profitability measure frequently encountered in portfolio characteristics analyses. It is calculated by dividing average common shareholders’ equity into the difference between net income and preferred dividends:</p><div class="cfa-curriculum-display-formula-container" id="CIPM0008-R-s04-E2"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mtext>ROE</mtext><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><mtext>Net&amp;#xA0;Income</mtext><mo>&amp;#x2212;</mo><mtext>Preferred&amp;#xA0;Dividends</mtext></mrow><mrow><mtext>Average&amp;#xA0;Common&amp;#xA0;Shareholders'&amp;#xA0;Equity</mtext></mrow></mfrac></mstyle></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="48.047ex" height="5.688ex" viewBox="0 -1490.3 20686.8 2449.1" role="img" focusable="false" style="vertical-align: -2.227ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMAIN-52"></use><use xlink:href="#MJMAIN-4F" x="736" y="0"></use><use xlink:href="#MJMAIN-45" x="1515" y="0"></use><use xlink:href="#MJMAIN-3D" x="2474" y="0"></use><g transform="translate(3252,0)"><g transform="translate(120,0)"><rect stroke="none" width="17194" height="60" x="0" y="220"></rect><g transform="translate(1165,676)"><use xlink:href="#MJMAIN-4E"></use><use xlink:href="#MJMAIN-65" x="750" y="0"></use><use xlink:href="#MJMAIN-74" x="1195" y="0"></use><use xlink:href="#MJMAIN-49" x="1834" y="0"></use><use xlink:href="#MJMAIN-6E" x="2196" y="0"></use><use xlink:href="#MJMAIN-63" x="2752" y="0"></use><use xlink:href="#MJMAIN-6F" x="3197" y="0"></use><use xlink:href="#MJMAIN-6D" x="3697" y="0"></use><use xlink:href="#MJMAIN-65" x="4531" y="0"></use><use xlink:href="#MJMAIN-2212" x="5197" y="0"></use><g transform="translate(6198,0)"><use xlink:href="#MJMAIN-50"></use><use xlink:href="#MJMAIN-72" x="681" y="0"></use><use xlink:href="#MJMAIN-65" x="1074" y="0"></use><use xlink:href="#MJMAIN-66" x="1518" y="0"></use><use xlink:href="#MJMAIN-65" x="1825" y="0"></use><use xlink:href="#MJMAIN-72" x="2269" y="0"></use><use xlink:href="#MJMAIN-72" x="2662" y="0"></use><use xlink:href="#MJMAIN-65" x="3054" y="0"></use><use xlink:href="#MJMAIN-64" x="3499" y="0"></use><use xlink:href="#MJMAIN-44" x="4305" y="0"></use><use xlink:href="#MJMAIN-69" x="5070" y="0"></use><use xlink:href="#MJMAIN-76" x="5348" y="0"></use><use xlink:href="#MJMAIN-69" x="5877" y="0"></use><use xlink:href="#MJMAIN-64" x="6155" y="0"></use><use xlink:href="#MJMAIN-65" x="6712" y="0"></use><use xlink:href="#MJMAIN-6E" x="7156" y="0"></use><use xlink:href="#MJMAIN-64" x="7713" y="0"></use><use xlink:href="#MJMAIN-73" x="8269" y="0"></use></g></g><g transform="translate(60,-690)"><use xlink:href="#MJMAIN-41"></use><use xlink:href="#MJMAIN-76" x="750" y="0"></use><use xlink:href="#MJMAIN-65" x="1279" y="0"></use><use xlink:href="#MJMAIN-72" x="1723" y="0"></use><use xlink:href="#MJMAIN-61" x="2116" y="0"></use><use xlink:href="#MJMAIN-67" x="2616" y="0"></use><use xlink:href="#MJMAIN-65" x="3117" y="0"></use><use xlink:href="#MJMAIN-43" x="3811" y="0"></use><use xlink:href="#MJMAIN-6F" x="4534" y="0"></use><use xlink:href="#MJMAIN-6D" x="5034" y="0"></use><use xlink:href="#MJMAIN-6D" x="5868" y="0"></use><use xlink:href="#MJMAIN-6F" x="6701" y="0"></use><use xlink:href="#MJMAIN-6E" x="7202" y="0"></use><use xlink:href="#MJMAIN-53" x="8008" y="0"></use><use xlink:href="#MJMAIN-68" x="8565" y="0"></use><use xlink:href="#MJMAIN-61" x="9121" y="0"></use><use xlink:href="#MJMAIN-72" x="9622" y="0"></use><use xlink:href="#MJMAIN-65" x="10014" y="0"></use><use xlink:href="#MJMAIN-68" x="10459" y="0"></use><use xlink:href="#MJMAIN-6F" x="11015" y="0"></use><use xlink:href="#MJMAIN-6C" x="11516" y="0"></use><use xlink:href="#MJMAIN-64" x="11794" y="0"></use><use xlink:href="#MJMAIN-65" x="12351" y="0"></use><use xlink:href="#MJMAIN-72" x="12795" y="0"></use><use xlink:href="#MJMAIN-73" x="13188" y="0"></use><use xlink:href="#MJMAIN-27" x="13582" y="0"></use><use xlink:href="#MJMAIN-45" x="14111" y="0"></use><use xlink:href="#MJMAIN-71" x="14792" y="0"></use><use xlink:href="#MJMAIN-75" x="15321" y="0"></use><use xlink:href="#MJMAIN-69" x="15877" y="0"></use><use xlink:href="#MJMAIN-74" x="16156" y="0"></use><use xlink:href="#MJMAIN-79" x="16545" y="0"></use></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>ROE</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mtext>Net&nbsp;Income</mtext><mo>−</mo><mtext>Preferred&nbsp;Dividends</mtext></mrow><mrow><mtext>Average&nbsp;Common&nbsp;Shareholders'&nbsp;Equity</mtext></mrow></mfrac></mstyle></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-1"><math id="m1"><semantics><mrow><mtext>ROE</mtext><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mtext>Net Income</mtext><mo>−</mo><mtext>Preferred Dividends</mtext></mrow><mrow><mtext>Average Common Shareholders' Equity</mtext></mrow></mfrac></mstyle></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">2</span></div><p>Of particular interest to performance analysts are company share-related characteristics. For example, market capitalization, broadly defined as the number of common stock shares outstanding multiplied by the price of a single share, is a key measure of the company’s size that is used in holdings-based style analysis, as explained below.</p><p>The price-to-book (P/B) ratio is another valuation measure frequently used to indicate the style of a portfolio. It is calculated by dividing the stock’s current market price by the book value per share, where the book value per share is defined as the total common shareholders’ equity on the business’s balance sheet divided by the number of common stock shares outstanding.</p><p>Other ratios that are frequently used to describe the style of the portfolio include the price-to-earnings (P/E) ratio, dividend yield (D/P), and the dividend payout ratio. The trailing P/E ratio, sometimes referred to as the current P/E, is calculated by dividing the current market price of a stock by the most recent four quarters’ earnings per share (EPS). The leading P/E ratio, also called the forward P/E or the prospective P/E, is the stock’s current price divided by next year’s expected earnings; in performance analysis, expected earnings may reflect consensus estimates compiled by market data service providers. For both historical and forward P/E ratios, data providers may have different policies regarding what earnings figures should be used when extraordinary items appear on the income statement. As the next lesson shows, comparatively high P/B and P/E ratios generally characterize growth stocks, whereas relatively low P/B and P/E ratios typify value stocks.</p><p>Dividend yield (D/P) expresses the relationship between a company’s distributions to shareholders and the price of its stock, or, from the investor’s point of view, between the investment income produced by an asset and the asset’s market value. Trailing dividend yield is generally calculated as four times the most recent quarterly per-share dividend divided by the current market price per share. (Note that, unlike the trailing P/E ratio, trailing dividend yield does not look to the historical record for the last four quarters.) The leading dividend yield is calculated as forecasted dividends per share over the next year divided by the current market price per share. The dividend payout ratio equals the percentage of earnings paid out as dividends, that is, dividends divided by net income. Relatively high dividend yields are generally indicators of value stocks, while comparatively low dividend yields are characteristic of growth stocks.</p><p>The price-to-sales (P/S) and price-to-cash-flow (P/CF) ratios are also often used by equity analysts in valuation and by performance analysts in portfolio characteristics analysis. The P/S ratio is calculated as price per share divided by annual net sales per share, where net sales is defined as total sales less returns and customer discounts. Annual sales from the company’s most recent fiscal year are usually used in the calculation. The P/CF ratio is most frequently calculated using the current price divided by the most recent four quarters’ cash flow. Although there are other, more accurate cash flow concepts, in practice data vendors often estimate cash flow by adding non-cash charges back to income. A typical approximation of cash flow per share is EPS plus per-share depreciation, amortization, and, in the case of natural resource companies, depletion.</p><p>Other company share-related characteristics include relative strength, typically defined as the ratio of a stock’s performance to the performance of an index, liquidity, which is a measure of the number of shares traded relative to the total number of shares outstanding, and volatility, which may be calculated as the annualized standard deviation of an asset’s continuously compounded daily returns. Clients and consultants would expect a portfolio containing high-volatility stocks to be adequately diversified and might wish to afford the manager a longer-than-usual evaluation period.</p><p>There are many other characteristics in addition to those mentioned here. Given the wide range of characteristics available, how should the performance analyst select the most meaningful measures?</p><p>The answer depends upon the intended use of the portfolio characteristics analysis. When designing standard reports, a mix of macroeconomic, company fundamental, and company share-related characteristics may be most useful to clients. When preparing custom reports, on the other hand, it is sensible to include characteristics that are likely to corroborate or disconfirm that the manager is adhering to the investment strategy. For example, if a manager states that companies’ spending on research and development (R &amp; D) is a critical factor in security selection, it is reassuring to see that average R &amp; D spending (for instance, as a percentage of revenues) is higher in the portfolio than in the benchmark. Managers’ explanations of their investment philosophy and strategy may indicate which characteristics are most promising. In addition, performance analysis fosters dialogue between clients and managers; in this context, the managers themselves may have helpful suggestions about pertinent characteristics based upon their security selection and portfolio construction processes.</p><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip0Content" role="tooltip" style="display: none;"><p><sup>3</sup> Global Industry Classification Standard Methodology. 2006., 5–6. Standard
+                        &amp; Poor’s.</p></div>
+<div class="nav-buttons"><a href="courses_1368_modules_items_99360_203_Data_and_Calculation_Issues.html">← Previous</a><a href="courses_1368_modules_items_99362_205_Manager_Monitoring_and_Style_Analysis.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

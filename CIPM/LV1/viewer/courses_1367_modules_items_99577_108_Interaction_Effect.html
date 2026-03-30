@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.08 | Interaction Effect</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Return Attribution and Benchmarks › Module 1: Return Attribution</nav>
+<h1 class="page-title screenreader-only">1.08 | Interaction Effect</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0017-R-s08-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.08 | Interaction Effect"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 1: Return Attribution</span>1.08 | Interaction Effect</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0017-R-s08-los-1"><li class="cfa-curriculum-los-item">explain the use of an interaction effect, including its advantages and disadvantages</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>A shortcoming of both Brinson models is the interaction or “other” term. Interaction is not part of the investment decision process because portfolio managers simply do not seek to add value through interaction decisions. It is a mathematical consequence of the other decisions; the interaction between allocation and selection effects.</p><p>For most investment decision processes, the allocation decision comes first and selection decisions follow after the cash has been allocated to the sector.</p><p>For genuine bottom-up stock pickers, sector allocation decisions are not made; therefore, the return attribution model should reflect this process and measure the contribution of each stock decision to the overall performance, ignoring allocation effects.</p><p>Interaction is not well understood because it is not intuitively part of the investment decision process and is thus often not attributed or interpreted correctly. In presentations of attribution data, it should not be ignored or not shown, randomly allocated to other factors, split proportionally, or simply split 50:50 between selection and allocation. These misuses of interaction would lead to potentially misleading presentations of return attribution effects.</p><p>Assuming allocation decisions are made first, the contribution from selection must be:</p><div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s08-E16"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><mi>R</mi><mo>&amp;#x2212;</mo><msub><mi>B</mi><mi>S</mi></msub><mo>=</mo><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x2211;</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub><mo>&amp;#x2212;</mo><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x2211;</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>B</mi><mi>i</mi></msub><mo>=</mo><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x2211;</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><mrow><mo>(</mo><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>&amp;#x2212;</mo><msub><mi>B</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle></mrow></mstyle></mrow></mstyle></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="50.607ex" height="7.17ex" viewBox="0 -1809.3 21789.2 3087" role="img" focusable="false" style="vertical-align: -2.968ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use xlink:href="#MJMAIN-2212" x="981" y="0"></use><g transform="translate(1982,0)"><use xlink:href="#MJMATHI-42" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-53" x="1074" y="-219"></use></g><use xlink:href="#MJMAIN-3D" x="3576" y="0"></use><g transform="translate(4632,0)"><use xlink:href="#MJSZ2-2211" x="0" y="0"></use><g transform="translate(147,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1124" y="0"></use></g><g transform="translate(112,1151)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="1124" y="0"></use></g><g transform="translate(1611,0)"><use xlink:href="#MJMATHI-77" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1013" y="-213"></use><g transform="translate(1060,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use></g><use xlink:href="#MJMAIN-2212" x="2386" y="0"></use><g transform="translate(3387,0)"><use xlink:href="#MJSZ2-2211" x="0" y="0"></use><g transform="translate(147,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1124" y="0"></use></g><g transform="translate(112,1151)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="1124" y="0"></use></g><g transform="translate(1611,0)"><use xlink:href="#MJMATHI-77" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1013" y="-213"></use><g transform="translate(1060,0)"><use xlink:href="#MJMATHI-42" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use></g><use xlink:href="#MJMAIN-3D" x="2442" y="0"></use><g transform="translate(3498,0)"><use xlink:href="#MJSZ2-2211" x="0" y="0"></use><g transform="translate(147,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1124" y="0"></use></g><g transform="translate(112,1151)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="1124" y="0"></use></g><g transform="translate(1611,0)"><use xlink:href="#MJMATHI-77" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1013" y="-213"></use><g transform="translate(1227,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use><use xlink:href="#MJMAIN-2212" x="1326" y="0"></use><g transform="translate(2326,0)"><use xlink:href="#MJMATHI-42" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use></g></g><use xlink:href="#MJMAIN-29" x="3820" y="0"></use></g></g></g></g></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><msub><mi>B</mi><mi>S</mi></msub><mo>=</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub><mo>−</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>B</mi><mi>i</mi></msub><mo>=</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><mrow><mo>(</mo><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>−</mo><msub><mi>B</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle></mrow></mstyle></mrow></mstyle></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-1"><math id="m1"><semantics><mrow><mi>R</mi><mo>−</mo><msub><mi>B</mi><mi>S</mi></msub><mo>=</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub><mo>−</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><msub><mi>B</mi><mi>i</mi></msub><mo>=</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow></munderover><mrow><msub><mi>w</mi><mi>i</mi></msub><mrow><mo>(</mo><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>−</mo><msub><mi>B</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow></mrow></mstyle></mrow></mstyle></mrow></mstyle></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">16</span></div><p>This equation is equivalent to Quadrant I – Quadrant II in Exhibit 8. Using this definition for selection, the sum of selection and allocation conveniently adds up to the total excess return as follows:</p><div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s08-E">Selection + Allocation = (<em>R</em> – <em>B<sub>S</sub></em>) + (<em>B<sub>S</sub></em> – <em>B</em>) = <em>R</em> – <em>B</em></div><p>The contribution to selection in the <em>i</em>th sector is now:</p><div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s08-E17"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-2-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><msub><mi>S</mi><mi>i</mi></msub><mo>=</mo><msub><mi>w</mi><mi>i</mi></msub><mrow><mo>(</mo><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>&amp;#x2212;</mo><msub><mi>B</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="17.951ex" height="2.725ex" viewBox="0 -852.5 7728.9 1173.4" role="img" focusable="false" style="vertical-align: -0.745ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-53" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="867" y="-213"></use><use xlink:href="#MJMAIN-3D" x="1235" y="0"></use><g transform="translate(2291,0)"><use xlink:href="#MJMATHI-77" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1013" y="-213"></use></g><g transform="translate(3519,0)"><use xlink:href="#MJMAIN-28" x="0" y="0"></use><g transform="translate(389,0)"><use xlink:href="#MJMATHI-52" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use><use xlink:href="#MJMAIN-2212" x="1326" y="0"></use><g transform="translate(2326,0)"><use xlink:href="#MJMATHI-42" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1074" y="-213"></use></g></g><use xlink:href="#MJMAIN-29" x="3820" y="0"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>i</mi></msub><mo>=</mo><msub><mi>w</mi><mi>i</mi></msub><mrow><mo>(</mo><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>−</mo><msub><mi>B</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-2"><math id="m2"><semantics><mrow><msub><mi>S</mi><mi>i</mi></msub><mo>=</mo><msub><mi>w</mi><mi>i</mi></msub><mrow><mo>(</mo><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>−</mo><msub><mi>B</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">17</span></div><p>The revised impact on individual sectors is graphically demonstrated in <a class="internal" role="button" href="#CIPM0017-R-s08-EXH13" aria-label="View Exhibit 14">Exhibit 14</a>. Essentially, the interaction effect is included in the stock selection effect, which is consistent with most portfolio manager’s decision processes.</p><figure id="CIPM0017-R-s08-EXH13" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 14<span style="display: block;">Interaction Effect in BF Model</span></figcaption><div class="cfa-curriculum-graphic"><img alt="A graph with w sub i values on x-axis, W sub i in the center and B values on y-axis from B, B sub i, and R sub i. The graph is divided into 5 parts. Two of the parts are Selection and Allocation which are shaded." src="https://learn.cfainstitute.org/courses/1367/files/224200/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" aria-describedby="CIPM0017-R-s08-EXH13-extended-desc" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1367/files/224200" data-api-returntype="File" data-width="600"><details id="CIPM0017-R-s08-EXH13-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;"><summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary><p class="dp-panel-outside-panel">First part, W sub i B. Second part, left parenthesis w sub i minus W sub i right parenthesis B. Third part, W sub i left parenthesis B sub i minus B right parenthesis. Fourth part, Allocation, left parenthesis w sub i minus W sub i right parenthesis left parenthesis B sub i minus B right parenthesis. Selection, w sub i left parenthesis R sub i minus B sub i right parenthesis. Allocation and selection parts are shaded.</p></details></div></figure><p>The revised total selection effect, including interaction using the portfolio data from Exhibit 3, is:</p><div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s08-E___1"><em>R</em> – <em>B<sub>S</sub></em> = 10.1% – 6.8% = 3.3%</div><p>The selection effects in each sector are:</p><div id="CIPM0017-R-s08-Ta" class="cfa-curriculum-table-wrap"><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true"><tbody><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Energy</td><td style="text-align: left; vertical-align: top; padding: 8px; ">50% × (18% – 10%) = 4.0% </td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Health Care</td><td style="text-align: left; vertical-align: top; padding: 8px; ">30% × (–3.0% + 2.0%) = –0.3%</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Financials</td><td style="text-align: left; vertical-align: top; padding: 8px; ">20% × (10.0% – 12.0%) = –0.4%</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Total</td><td style="text-align: left; vertical-align: top; padding: 8px; ">4.0% – 0.3% – 0.4% = 3.3%</td></tr></tbody></table></div></div></div><p>Actual portfolio weights are now used to calculate selection effects rather than calculating what would have been the contribution to selection in that sector at the benchmark weight. There is no change in the selection effect for the Energy sector because the weight in the portfolio is the same as the weight in the benchmark. The selection effect in Health Care is now −0.3%, the sum of the previous −0.2% selection effect plus −0.1% interaction. The selection effect in Financials is now −0.4%, the sum of the previous –0.6% selection effect plus 0.2% interaction. The revised results are summarized in the <a class="internal" role="button" href="#CIPM0017-R-s08-EXH14" aria-label="View Exhibit 15">Exhibit 15</a>.</p><div id="CIPM0017-R-s08-EXH14" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 15<span style="display: block;">BF Results of Stock Selection and Interaction Combined</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0017-R-s08-EXH14-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0017-R-s08-EXH14-title">Exhibit 15: BF Results of Stock Selection and Interaction Combined</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Portfolio Weight</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Benchmark Weight</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Portfolio Return</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Benchmark Return</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Allocation</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Selection</strong></th></tr></thead><tbody><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Energy</td><td style="text-align: center; vertical-align: top; padding: 8px; ">50%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">50%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">18%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.0%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">4.0%</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Health Care</td><td style="text-align: center; vertical-align: top; padding: 8px; ">30%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">20%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−3%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−2%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−1.02%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−0.3%</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Financials</td><td style="text-align: center; vertical-align: top; padding: 8px; ">20%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">30%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">12%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−0.38%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">−0.4%</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; "><strong>Total</strong></td><td style="text-align: center; vertical-align: top; padding: 8px; "><strong>100%</strong></td><td style="text-align: center; vertical-align: top; padding: 8px; "><strong>100%</strong></td><td style="text-align: center; vertical-align: top; padding: 8px; "><strong>10.1%</strong></td><td style="text-align: center; vertical-align: top; padding: 8px; "><strong>8.2%</strong></td><td style="text-align: center; vertical-align: top; padding: 8px; "><strong>−1.4%</strong></td><td style="text-align: center; vertical-align: top; padding: 8px; "><strong>3.3%</strong></td></tr></tbody></table></div></div></div><p>In this example, in which allocation decisions are made first, interaction is appropriately included with selection. Combining selection with interaction allows the analyst to appropriately measure the impact of both the asset allocation and security selection decisions in the investment process.</p><p>Quadrant III (of Exhibit 8) of the Brinson model is now not required, which is an accurate reflection of most investment decision processes; cash is allocated to sectors and then this cash is used to purchase individual securities. Only the allocation notional fund is required to calculate return attribution, one step away from the benchmark portfolio, one step toward the final outcome of the portfolio return. Reflecting its intermediate position between the benchmark and portfolio return, the allocation notional fund is often renamed the “semi-notional fund.” Rather than using the Brinson quadrants in Exhibit 8, it is preferable to think in terms of steps in the investment decision process as shown in <a class="internal" role="button" href="#CIPM0017-R-s08-EXH15" aria-label="View Exhibit 16">Exhibit 16</a>. Far more complex decision processes can be handled simply by identifying each individual step in the decision process and calculating a notional fund return corresponding to each step.</p><p>This analysis is a demonstration of an effective return attribution process. The analysis reflects the two-stage decision process of the portfolio manager: first sector allocation and then stock selection within sectors. We measure only the active decisions of the portfolio manager because they provide a complete understanding of the difference between the portfolio return and the benchmark return, and hence, provide a good explanation of the performance of the portfolio manager.</p><figure id="CIPM0017-R-s08-EXH15" class="cfa-curriculum-exhibit-figure"><figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 16<span style="display: block;">Steps in Investment Decision Process</span></figcaption><div class="cfa-curriculum-graphic"><img alt="Three steps of investment decision process. Step 1, benchmark return. B = summation i = 1 to n W sub i B sub i. Step 2, Semi-notional. B sub s = summation i = 1 to n w sub i B sub i. Step 3, portfolio return. R = summation i = 1 to n w sub i R sub i." src="https://learn.cfainstitute.org/courses/1367/files/224156/preview" class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" loading="lazy" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1367/files/224156" data-api-returntype="File" data-width="600"></div></figure><p>To summarize, the Brinson model attributes excess return to allocation and selection effects. There are two versions of the Brinson model: Brinson–Hood–Beebower and Brinson–Fachler. They differ only in the calculation of individual sector allocation effects. In both versions of the Brinson model, interaction may be calculated separately or included in the selection effect.</p>
+<div class="nav-buttons"><a href="courses_1367_modules_items_99575_107_Arithmetic_Equity_Return_Attribution_The_BrinsonFachler_Model.html">← Previous</a><a href="courses_1367_modules_items_99579_109_Geometric_Equity_Return_Attribution.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

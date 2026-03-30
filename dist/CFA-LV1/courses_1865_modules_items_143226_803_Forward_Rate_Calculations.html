@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.03 | Forward Rate Calculations</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2416-R-s03-R-1" title="8.03 | Forward Rate Calculations">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 8: Exchange Rate Calculations</span>8.03 | Forward Rate Calculations</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">explain the arbitrage relationship between spot and forward exchange rates and interest rates, calculate a forward rate using points or in percentage terms, and interpret a forward discount or premium</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>This lesson continues the previous discussion of the FX market by considering the interactions between spot and forward rates, interest rates, and maturities, which exist because of arbitrage relationships. The relationships among these four factors are maintained because of market efficiencies, and any one factor can be determined using the other three as inputs. In addition, this lesson covers the methods of calculating forward rates in point and percentage terms as well as forward discounts and premiums for these rate relationships.</p>
+<p>In professional FX markets, forward exchange rates typically are quoted in terms of points (also sometimes referred to as “pips”). The points on a forward rate quote are simply the difference between the forward exchange rate quote and the spot exchange rate quote, with the points scaled so that they can be related to the last decimal in the spot quote. When the forward rate is higher than the spot rate, the points are positive and the base currency is said to be trading at a <em>forward premium</em>. Conversely, if the forward rate is less than the spot rate, the points (forward rate minus spot rate) are negative and the base currency is said to be trading at a <em>forward discount</em>. Of course, if the base currency is trading at a forward premium, then the price currency is trading at a forward discount, and vice versa.</p>
+<p>This can best be explained by means of an example. Assume the spot euro–dollar exchange rate (USD/EUR) is 1.15885 and the one-year forward rate is 1.19532. Hence, the forward rate is trading at a premium to the spot rate (the forward rate is larger than the spot rate) and the one-year forward points are quoted as +364.7. This +364.7 comes from the following calculation:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-">1.19532 – 1.15885 = +0.03647.</div>
+<p>Recall that most non-yen exchange rates are quoted to four decimal places. In this case, we would scale up by four decimal places (multiply by 10,000) so that this +0.03647 would be represented as +364.7 points. Notice that the points are scaled to the size of the last digit in the spot exchange rate quote—usually the fourth decimal place. Notice as well that points typically are quoted to one (or more) decimal places, meaning that the forward rate will typically be quoted to five or more decimal places. The exception among the major currencies is the yen, which is typically quoted to two decimal places for spot rates. Here, forward points are scaled up by two decimal places—the last digit in the spot rate quote—by multiplying the difference between forward and spot rates by 100.</p>
+<p>Typically, quotes for forward rates are shown as the number of forward points at each maturity, the time between spot settlement and the settlement of the forward contract. These forward points are also called <em>swap points</em> because an FX swap consists of simultaneous spot and forward transactions. In our example, a trader would have faced a spot rate and forward points in the euro–dollar (USD/EUR) currency pair similar to those in <a aria-label="View Exhibit 1" class="internal" href="#CFA2416-R-s03-EXH-1-1" role="button">Exhibit 1</a>,</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2416-R-s03-EXH-1-1">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 1<span style="display: block;">Sample Spot and Forward Quotes</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Maturity</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Spot Rate or Forward Points</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Spot</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.15885</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">One week</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">+5.6</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">One month</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">+27.1</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Three months</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">+80.9</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Six months</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">+175.6</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Twelve months</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">+364.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Notice that the absolute number of points generally increases with maturity. This is because the number of points is proportional to the yield differential between the two countries (the Eurozone and the United States, in this case) scaled by the term to maturity. Given the interest rate differential, the longer the term to maturity, the greater the absolute number of forward points. Similarly, given the term to maturity, a wider interest rate differential implies a greater absolute number of forward points. (This relationship will be explained and demonstrated in more detail later in this lesson.)</p>
+<p>To convert any of these quoted forward points into a forward rate, one would divide the number of points by 10,000 (to scale down to the fourth decimal place, the last decimal place in the spot quote) and then add the result to the spot exchange rate quote. (As mentioned previously, exchange rates for the Japanese yen, such as the JPY/USD exchange rate, are quoted to two decimal places only, so forward points for the dollar–yen currency pair are divided by 100.) For example, using the data in <a aria-label="View Exhibit 1" class="internal" href="#CFA2416-R-s03-EXH-1-1" role="button">Exhibit 1</a> for USD/EUR, the three-month forward rate in this case would be as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___1">
+<math>
+<semantics>
+<mrow>
+<mn>1.15885</mn>
+<mo>+</mo>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mo>+</mo>
+<mn>80.9</mn>
+</mrow>
+<mrow>
+<mn>10</mn>
+<mo>,</mo>
+<mn>000</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>1.15885</mn>
+<mo>+</mo>
+<mn>0.00809</mn>
+<mo>=</mo>
+<mn>1.16694</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>Occasionally, one will see the forward rate or forward points represented as a percentage of the spot rate rather than as an absolute number of points. Continuing the previous example, the three-month forward rate for USD/EUR can be represented as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___2">
+<math>
+<semantics>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1.15885</mn>
+<mo>+</mo>
+<mn>0.00809</mn>
+</mrow>
+<mrow>
+<mn>1.15885</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>−</mo>
+<mn>1</mn>
+<mo>=</mo>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1.16694</mn>
+</mrow>
+<mrow>
+<mn>1.15885</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>−</mo>
+<mn>1</mn>
+<mo>=</mo>
+<mo>+</mo>
+<mn>0.698</mn>
+<mi>%</mi>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This shows that either the forward rate or the forward points can be used to calculate the percentage discount (or premium) in the forward market—in this case, +0.698 percent rounding to three decimal places. To convert a spot quote into a forward quote when the points are shown as a percentage, one simply multiplies the spot rate by one plus the percentage premium or discount:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___3">1.15885 × (1 + 0.698%) = 1.15885 × (1.0000 + 0.00698) ≈ 1.16694.</div>
+<p>Note that, rounded to the fifth decimal place, this is equal to our previous calculation. However, it is typically the case in professional FX markets that forward rates will be quoted in terms of pips rather than percentages.</p>
+<section id="CFA2416-R-s03-01-01">
+<h3 class="dp-heading">Arbitrage Relationships</h3>
+<p>We now turn to the interaction between spot rates, forward rates, and interest rates and how their relationship is derived. Forward exchange rates are based on an arbitrage relationship that equates the investment return on two alternative but equivalent investments. Consider the case of an investor with funds to invest. For simplicity, we will assume that one unit of the investor’s domestic currency will be invested for one period. One alternative is to invest for one period at the domestic risk-free rate (r<sub>d</sub>); at the end of the period, the amount of funds held is equal to (1 + r<sub>d</sub>). An alternative investment is to convert this one unit of domestic currency to foreign currency using the spot rate of S<sub>f/d</sub> (number of units of foreign currency per one unit of domestic currency). This can be invested for one period at the foreign risk-free rate; at the end of the period, the investor would have S<sub>f/d</sub>(1 + r<sub>f</sub>) units of foreign currency. These funds must then be converted back to the investor’s domestic currency. If the exchange rate to be used for this end-of-period conversion was pre-contracted at the start of the period (i.e., a forward rate was used), it would eliminate any FX risk from converting at a future, unknown spot rate. Given the assumed exchange rate convention (foreign/domestic), the investor would obtain (1/F<sub>f/d</sub>) units of the domestic currency for each unit of foreign currency sold forward. Note that this process of converting domestic funds in the spot FX market, investing at the foreign risk-free rate, and then converting back to the domestic currency with a forward rate is termed “swap financing.”</p>
+<p>Hence, we have two alternative investments—both are risk free because both are invested at risk-free interest rates and because any FX risk was eliminated (hedged) by using a forward rate. Because these two investments are equal in risk characteristics, they must have the same return. Bearing in mind that the currency quoting convention is the number of foreign currency units per single domestic unit (<em>f/d</em>), this relationship can be stated as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___4">
+<math>
+<semantics>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>f</mi>
+</msub>
+</mrow>
+</mfenced>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mn>1</mn>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This is an arbitrage relationship because it describes two alternative investments (one on either side of the equal sign) that should have equal returns. If they do not, a riskless arbitrage opportunity exists because an investor can sell short the investment with the lower return and invest the funds in the investment with the higher return; the difference between the two returns is pure profit. It is because of this arbitrage relationship that the all-in financing rate using swap financing is close to the domestic interest rate.</p>
+<p>This formula is perhaps the easiest and most intuitive way to remember the formula for the forward rate because this formula is based directly on the underlying intuition (the arbitrage relationship of two alternative but equivalent investments, one on either side of the equal sign). Also, the right-hand side of the equation, for the hedged foreign investment alternative, is arranged in proper time sequence: (1) convert domestic to foreign currency; then (2) invest the foreign currency at the foreign interest rate; and finally (3) convert the foreign currency back to the domestic currency. Recall that this equation is based on an <em>f</em>/<em>d</em> exchange rate quoting convention. If the exchange rate data were presented in <em>d/f</em> form, one could either invert these quotes back to <em>f/d</em> form and use the previous equation or use the following equivalent equation:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___5">(1 + r<sub>d</sub>) = (1/S<sub>d/f</sub>)(1 + r<sub>f</sub>)F<sub>d/f</sub>.</div>
+<p>If this latter equation were used, remember that forward and spot exchange rates are now being quoted on a <em>d</em>/<em>f</em> convention.</p>
+<p>This arbitrage equation can be rearranged as needs require. For example, to get the formula for the forward rate, the previous equation can be restated as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___6">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>f</mi>
+</msub>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>.</div>
+<p>Given the spot exchange rate and the domestic and foreign risk-free interest rates, the forward rate is the value that completes this equation and eliminates any arbitrage opportunity. For example, let’s assume that the spot exchange rate (S<sub>f/d</sub>) is 1.6535, the domestic 12-month risk-free rate is 3.50 percent, and the foreign 12-month risk-free rate is 5.00 percent. The 12-month forward rate (F<sub>f/d</sub>) must then be equal to:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___7">
+<math>
+<semantics>
+<mrow>
+<mn>1.6535</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1.0500</mn>
+</mrow>
+<mrow>
+<mn>1.0350</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>1.6775</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>Suppose instead that, with the spot exchange rate and interest rates unchanged, you were given a quote on the 12-month forward rate (F<sub>f/d</sub>) of 1.6900. Because this misquoted forward rate does not agree with the arbitrage equation, it would present a riskless arbitrage opportunity. This can be calculated by using the arbitrage equation to compute the return on the two alternative investment strategies. The return on the domestic-only investment approach is the domestic risk-free rate (3.50 percent). In contrast, the return on the hedged foreign investment when this misquoted forward rate is put into the arbitrage equation equals:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___8">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>f</mi>
+</msub>
+</mrow>
+</mfenced>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mn>1</mn>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>1.6535</mn>
+<mfenced>
+<mrow>
+<mn>1.05</mn>
+</mrow>
+</mfenced>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mn>1</mn>
+<mrow>
+<mn>1.6900</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>1.0273</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This results in a return of 2.73 percent. Hence, the investor could make riskless arbitrage profits by borrowing at the higher foreign risk-free rate, selling the foreign currency at the spot exchange rate, hedging the currency exposure (buying the foreign currency back) at the misquoted forward rate, investing the funds at the lower domestic risk-free rate, and thereby getting a profit of 77 basis points (3.50% – 2.73%) for each unit of domestic currency involved—all with no upfront commitment of the investor’s own capital. Any such opportunity in real-world financial markets would be quickly “arbed” away. In this example, the investor actually borrows at the higher of the two interest rates but makes a profit because the foreign currency is underpriced in the forward market.</p>
+<p>The underlying arbitrage equation can also be rearranged to show the forward rate as a percentage of the spot rate:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___9">
+<math>
+<semantics>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+</mrow>
+<mrow>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>f</mi>
+</msub>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This shows that, given an <em>f/d</em> quoting convention, the forward rate will be higher than (be at a premium to) the spot rate if foreign interest rates are higher than domestic interest rates. More generally, and regardless of the quoting convention, <em>the currency with the higher (lower) interest rate will always trade at a discount (premium) in the forward market</em>.</p>
+<p>One context in which forward rates are quoted as a percentage of spot rates occurs when forward rates are interpreted as expected future spot rates, as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___10">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mi>t</mi>
+</msub>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>t</mi>
+<mo>+</mo>
+<mn>1</mn>
+</mrow>
+</msub>
+</mrow>
+</semantics>
+</math>.</div>
+<p>Substituting this expression into the previous equation and doing some rearranging leads to the following:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___11">
+<math>
+<semantics>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>t</mi>
+<mo>+</mo>
+<mn>1</mn>
+</mrow>
+</msub>
+</mrow>
+<mrow>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>−</mo>
+<mn>1</mn>
+<mo>=</mo>
+<mi>%</mi>
+<mtext>Δ</mtext>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>t</mi>
+<mo>+</mo>
+<mn>1</mn>
+</mrow>
+</msub>
+<mo>=</mo>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>r</mi>
+<mi>f</mi>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>.</mo>
+</mrow>
+</semantics>
+</math>
+</div>
+<p>This shows that if forward rates are interpreted as expected future spot rates, the expected percentage change in the spot rate is proportional to the interest rate differential (r<sub>f</sub> – r<sub>d</sub>).</p>
+<p>It is intuitively appealing to see forward rates as expected future spot rates. However, this interpretation of forward rates should be used cautiously. The direction of the expected change in spot rates is somewhat counterintuitive. All else being equal, an increase in domestic interest rates (e.g., the central bank tightens monetary policy) would typically be expected to lead to an increase in the value of the domestic currency. In contrast, the previous equation indicates that, all else equal, a higher domestic interest rate implies slower expected appreciation (or greater expected depreciation) of the domestic currency (recall that this equation is based on an <em>f/d</em> quoting convention).</p>
+<p>More important, historical data show that forward rates are poor predictors of future spot rates. Although various econometric studies suggest that forward rates may be unbiased predictors of future spot rates (i.e., they do not systematically over- or under-estimate future spot rates), this is not particularly useful information because the margin of error for these forecasts is so large. As mentioned in the Introduction, the FX market is far too complex and dynamic to be captured by a single variable, such as the level of the yield differential between countries. Moreover, according to the formula for the forward rate, forward rates are based on domestic and foreign interest rates. This means that anything that affects the level and shape of the yield curve in either the domestic or foreign market will also affect the relationship between spot and forward exchange rates. In other words, FX markets do not operate in isolation but rather reflect almost all factors affecting other markets globally; anything that affects expectations or risk premia in these other markets will reverberate in forward exchange rates as well. Although the level of the yield differential is one factor that the market may look at in forming spot exchange rate expectations, it is only one of many factors. (Many traders look to the trend in the yield differential rather than the level of the differential.) Moreover, a lot of noise in FX markets makes almost any model—no matter how complex—a relatively poor predictor of spot rates at any given point in the future. In practice, FX traders and market strategists do <em>not</em> base either their currency expectations or trading strategies solely on forward rates.</p>
+<p>For the purposes of this lesson, <em>it is best to understand forward exchange rates simply as a product of the arbitrage equation outlined earlier and forward points as being related to the (time-scaled) interest rate differential between the two countries</em>. Reading any more than that into forward rates or interpreting them as the “market forecast” can be potentially misleading.</p>
+</section>
+<section id="CFA2416-R-s03-01-02">
+<h3 class="dp-heading">Forward Discounts and Premiums</h3>
+<p>We now continue our discussion of forward discounts and premiums based on spot and interest rates and add the impact of maturity. To understand the relationship between maturity and forward points, we need to generalize our arbitrage formula slightly. Suppose the investment horizon is a fraction, τ, of the period for which the interest rates are quoted. Then the interest earned in the domestic and foreign markets would be (r<sub>d</sub> τ) and (r<sub>f</sub> τ), respectively. Substituting this into our arbitrage relationship and solving for the difference between the forward and spot exchange rates gives the following:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___12">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>r</mi>
+<mi>f</mi>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+<mi>τ</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mi>τ</mi>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This equation shows that forward points (appropriately scaled) are proportional to the spot exchange rate and to the interest rate differential and approximately (but not exactly) proportional to the horizon of the forward contract.</p>
+<p>For example, suppose that we wanted to determine the 30-day forward exchange rate given a 30-day domestic risk-free interest rate of 2.00 percent per year, a 30-day foreign risk-free interest rate of 3.00 percent per year, and a spot exchange rate (S<sub>f/d</sub>) of 1.6555. The risk-free assets used in this arbitrage relationship are typically bank deposits quoted using the London Interbank Offered Rate (Libor) for the currencies involved. The day count convention for Libor deposits is actual/360. Incorporating the fractional period (τ) and inserting the data into the forward rate equation leads to the following 30-day forward rate:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___13">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>f</mi>
+</msub>
+<mi>τ</mi>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+<mi>τ</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>1.6555</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.0300</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>30</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.0200</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>30</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>1.6569</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This means that, for a 30-day term, forward rates are trading at a premium of 14 pips (1.6569 – 1.6555). This can also be calculated using the previous formula for swap points:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___14">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>r</mi>
+<mi>f</mi>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mi>d</mi>
+</msub>
+<mi>τ</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mi>τ</mi>
+<mo>=</mo>
+<mn>1.6555</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>0.0300</mn>
+<mo>−</mo>
+<mn>0.0200</mn>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.0200</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>30</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>30</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.0014</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>As should be clear from this expression, the absolute number of swap points will be closely related to the term of the forward contract (i.e., approximately proportional to τ = actual/360). For example, leaving the spot exchange rate and interest rates unchanged, and setting the term of the forward contract to 180 days, we obtain the following:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___15">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>=</mo>
+<mn>1.6555</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>0.0300</mn>
+<mo>−</mo>
+<mn>0.0200</mn>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.0200</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>180</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>180</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.0082</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This leads to the forward rate trading at a premium of 82 pips. The increase in the number of forward points is approximately proportional to the increase in the term of the contract (from 30 days to 180 days). Note that although the term of the 180-day forward contract is six times longer than that of a 30-day contract, the number of forward points is not exactly six times larger: 6 × 14 = 84.</p>
+<p>Similarly, the number of forward points is proportional to the spread between foreign and domestic interest rates (r<sub>f</sub> – r<sub>d</sub>). For example, with reference to the original 30-day forward contract, let’s set the foreign interest rate to 4.00 percent leaving the domestic interest rate and spot exchange rate unchanged. This doubles the interest rate differential (r<sub>f</sub> – r<sub>d</sub>) from 1.00 percent to 2.00 percent; it also doubles the forward points (rounding to four decimal places), as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___16">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mi>f</mi>
+<mo>/</mo>
+<mi>d</mi>
+</mrow>
+</msub>
+<mo>=</mo>
+<mn>1.6555</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>0.0400</mn>
+<mo>−</mo>
+<mn>0.0200</mn>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.0200</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>30</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>30</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.0028</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2416-R-s03-EXM-1-2">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 2<span style="display: block;">Forward Rate Calculations</span>
+</h4>
+<section>
+<p>A French company recently finalized a sale of goods to a UK-based client and expects to receive a payment of GBP50 million in 32 days. The corporate treasurer at the French company wants to hedge the FX risk of this transaction and receives the following exchange rate information from a dealer:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2416-R-s03-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">GBP/EUR spot rate</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">0.8752 </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">One-month forward points</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">–1.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2416-R-s03-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>According to the exchange rate information, the treasurer could hedge the FX risk by: </p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>buying euro (selling British pounds) at a forward rate of 0.87380.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. The French company would want to convert the British pound to its domestic currency, the euro (it wants to sell British pounds and buy euros). The forward rate would be equal to: 0.8752 + (–1.4/10,000) = 0.87506.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>buying euro (selling British pounds) at a forward rate of 0.87506.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. The French company would want to convert the British pound to its domestic currency, the euro (it wants to sell British pounds and buy euros). The forward rate would be equal to: 0.8752 + (–1.4/10,000) = 0.87506.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>selling euro (buying British pounds) at a forward rate of 0.87506.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. The French company would want to convert the British pound to its domestic currency, the euro (it wants to sell British pounds and buy euros). The forward rate would be equal to: 0.8752 + (–1.4/10,000) = 0.87506.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2416-R-s03-Q2">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>According to the exchange rate information, the <em>best</em> interpretation of the forward discount shown is that: </p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>the euro is expected to depreciate over the next 30 days.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. A forward discount indicates that interest rates in the base currency country (France, in this case, which uses the euro) are higher than those in the price currency country (the United Kingdom).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>one-month UK interest rates are higher than those in the Eurozone.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. A forward discount indicates that interest rates in the base currency country (France, in this case, which uses the euro) are higher than those in the price currency country (the United Kingdom).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>one-month Eurozone interest rates are higher than those in the United Kingdom.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. A forward discount indicates that interest rates in the base currency country (France, in this case, which uses the euro) are higher than those in the price currency country (the United Kingdom).</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2416-R-s03-Q3">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>According to the exchange rate information, if the 12-month forward rate is 0.87295 GBP/EUR, then the 12-month forward points are <em>closest</em> to: </p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>–22.5.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct. The number of forward points is equal to the scaled difference between the forward rate and the spot rate. In this case: 0.87295 – 0.87520 = –0.00225. This is then multiplied by 10,000 to convert to the number of forward points.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>–2.25.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct. The number of forward points is equal to the scaled difference between the forward rate and the spot rate. In this case: 0.87295 – 0.87520 = –0.00225. This is then multiplied by 10,000 to convert to the number of forward points.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>–0.00225.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct. The number of forward points is equal to the scaled difference between the forward rate and the spot rate. In this case: 0.87295 – 0.87520 = –0.00225. This is then multiplied by 10,000 to convert to the number of forward points.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2416-R-s03-Q4">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>If a second dealer quotes GBP/EUR at a 12-month forward discount of 0.30 percent on the same spot rate, the French company could: </p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>trade with either dealer because the 12-month forward quotes are equivalent.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. A 0.30 percent discount means that the second dealer will sell euros 12 months forward at 0.8752 × (1 – 0.0030) = 0.87257, a lower price per euro than the original dealer’s quote of 0.87295. Buying euros at the cheaper 12-month forward rate (0.87257) and selling the same amount of euros 12 months forward at the higher 12-month forward rate (0.87295) means a profit of (0.87295 – 0.87257 = GBP0.00038) per euro transacted, receivable when both forward contracts settle in 12 months.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>lock in a profit in 12 months by buying euros from the second dealer and selling it to the original dealer.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. A 0.30 percent discount means that the second dealer will sell euros 12 months forward at 0.8752 × (1 – 0.0030) = 0.87257, a lower price per euro than the original dealer’s quote of 0.87295. Buying euros at the cheaper 12-month forward rate (0.87257) and selling the same amount of euros 12 months forward at the higher 12-month forward rate (0.87295) means a profit of (0.87295 – 0.87257 = GBP0.00038) per euro transacted, receivable when both forward contracts settle in 12 months.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>lock in a profit in 12 months by buying euros from the original dealer and selling it to the second dealer.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. A 0.30 percent discount means that the second dealer will sell euros 12 months forward at 0.8752 × (1 – 0.0030) = 0.87257, a lower price per euro than the original dealer’s quote of 0.87295. Buying euros at the cheaper 12-month forward rate (0.87257) and selling the same amount of euros 12 months forward at the higher 12-month forward rate (0.87295) means a profit of (0.87295 – 0.87257 = GBP0.00038) per euro transacted, receivable when both forward contracts settle in 12 months.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2416-R-s03-Q5">
+<span class="cfa-curriculum-question-with-label">5. </span>
+<p>If the 270-day Libor rates (annualized) for the euro and British pound are 1.370 percent and 1.325 percent, respectively, and the spot GBP/EUR exchange rate is 0.8489, then the number of forward points for a 270-day forward rate (F<sub>GBP/EUR</sub>) is <em>closest</em> to: </p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>–22.8.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct, because the forward rate is calculated as:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___17">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+</msub>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>A</mi>
+<mi>c</mi>
+<mi>t</mi>
+<mi>u</mi>
+<mi>a</mi>
+<mi>l</mi>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</msub>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>A</mi>
+<mi>c</mi>
+<mi>t</mi>
+<mi>u</mi>
+<mi>a</mi>
+<mi>l</mi>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.8489</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01325</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01370</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.84862</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This shows that the forward points are at a discount of: 0.84862 – 0.84890 = –0.00028, or –2.8 points. This can also be seen using the swap points formula:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___18">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>=</mo>
+<mn>0.8489</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>0.01325</mn>
+<mo>−</mo>
+<mn>0.01370</mn>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01370</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mo>−</mo>
+<mn>0.00028</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>The calculation of –3.8 points omits the day count (270/360), and –22.8 points gets the scaling wrong.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>–3.8.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct, because the forward rate is calculated as:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___17">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+</msub>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>A</mi>
+<mi>c</mi>
+<mi>t</mi>
+<mi>u</mi>
+<mi>a</mi>
+<mi>l</mi>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</msub>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>A</mi>
+<mi>c</mi>
+<mi>t</mi>
+<mi>u</mi>
+<mi>a</mi>
+<mi>l</mi>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.8489</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01325</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01370</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.84862</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This shows that the forward points are at a discount of: 0.84862 – 0.84890 = –0.00028, or –2.8 points. This can also be seen using the swap points formula:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___18">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>=</mo>
+<mn>0.8489</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>0.01325</mn>
+<mo>−</mo>
+<mn>0.01370</mn>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01370</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mo>−</mo>
+<mn>0.00028</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>The calculation of –3.8 points omits the day count (270/360), and –22.8 points gets the scaling wrong.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>–2.8.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct, because the forward rate is calculated as:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___17">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>=</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+</msub>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>A</mi>
+<mi>c</mi>
+<mi>t</mi>
+<mi>u</mi>
+<mi>a</mi>
+<mi>l</mi>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<msub>
+<mi>r</mi>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</msub>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>A</mi>
+<mi>c</mi>
+<mi>t</mi>
+<mi>u</mi>
+<mi>a</mi>
+<mi>l</mi>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.8489</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01325</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01370</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mn>0.84862</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>This shows that the forward points are at a discount of: 0.84862 – 0.84890 = –0.00028, or –2.8 points. This can also be seen using the swap points formula:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2416-R-s03-E-1-___18">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>F</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>G</mi>
+<mi>B</mi>
+<mi>P</mi>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</msub>
+<mo>=</mo>
+<mn>0.8489</mn>
+<mfenced>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>0.01325</mn>
+<mo>−</mo>
+<mn>0.01370</mn>
+</mrow>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.01370</mn>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>270</mn>
+</mrow>
+<mrow>
+<mn>360</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>=</mo>
+<mo>−</mo>
+<mn>0.00028</mn>
+</mrow>
+</semantics>
+</math>.</div>
+<p>The calculation of –3.8 points omits the day count (270/360), and –22.8 points gets the scaling wrong.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</section>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1865_modules_items_143220_802_Cross-Rate_Calculations.html" >← 前へ</a>
+  <span class="title">8.03 | Forward Rate Calculations</span>
+  <a href="courses_1865_modules_items_143235_Real-World_Applications_Bloombergs_Currency_Rates_Matrix.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

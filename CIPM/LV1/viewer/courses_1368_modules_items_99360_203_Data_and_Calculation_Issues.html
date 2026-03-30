@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.03 | Data and Calculation Issues</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Risk Measurement and Attribution › Module 2: Equity Portfolio Characteristics in Performance Analysis</nav>
+<h1 class="page-title screenreader-only">2.03 | Data and Calculation Issues</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0008-R-s03-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.03 | Data and Calculation Issues"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 2: Equity Portfolio Characteristics in Performance Analysis</span>2.03 | Data and Calculation Issues</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcomes</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0008-R-s03-los-1CIPM0008-R-s03-los-2"><li class="cfa-curriculum-los-item">calculate the mean of a distribution that includes outliers and evaluate the various methods in doing so</li><li class="cfa-curriculum-los-item">calculate the weighted arithmetic mean and the weighted harmonic mean of a portfolio using security-level characteristic values</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>Portfolio characteristics—the market value-weighted characteristics of the individual non-cash securities held in the portfolio at a point in time—can be meaningfully presented only if reasonably complete and consistent security-level data are available.</p><p>Despite the tremendous growth in capital market data services, the performance analyst cannot be assured of complete coverage for all portfolios. Data may be missing for numerous securities, especially if the portfolio is invested in relatively illiquid issues such as micro-cap or emerging market stocks. In practice, the simplest solution for missing data points is to report the weighted average characteristic values of the securities for which data are available along with the percentage of the portfolio’s total market value captured by each characteristic. For instance, if a portfolio is valued at £12,548,960 but dividend yields are available only for portfolio holdings that add up to £8,068,981, then the best practice is to indicate that the average dividend yield is based upon 64.3 percent of the portfolio’s total market value.</p><p>Organizations that attempt to improve security-level coverage by subscribing to several market data services should be alert to potential methodological differences among their providers. For example, the earnings of companies that issue common stock are used in calculating certain characteristics such as price-to-earnings ratios and the growth in earnings per share. One market data service provider may report earnings as shown in the issuer’s income statement, while another may make adjustments to eliminate extraordinary, non-recurring, and/or non-cash items. The performance analyst should be aware of such differences; although they generally will not invalidate portfolio characteristics analyses, they may reduce their reliability.</p><p>Another issue that arises when calculating portfolio characteristics is the validity of calculated means if potential outliers are observed among the constituent stocks. For example, a portfolio containing 40 stocks is found to have an average five-year earnings per share growth rate of 34.5 percent. However, one of the holdings has a reported historical growth rate of 500 percent; the other 39 have historical growth rates ranging from 12.4 to 38.7. There are several possible reasons for the exceptionally high five-year EPS growth rate reported for the one stock. The company may have had a small positive starting value such as $0.01, or the growth rate as given by the characteristic provider may simply be erroneous. In a production environment, the performance analyst typically does not have the time to examine the company’s financial statements and independently validate the data. How should the apparent outlier be handled?</p><p>One approach, of course, is to include all the data points, reporting the mean of 34.5 percent. Another approach is to exclude data points that fall outside a tolerance range. For instance, in a normal distribution the range defined as ± 2.33 standard deviations around the mean excludes approximately the largest one percent and smallest one percent of observations. In the example shown the standard deviation is 75.9 percent, so including only the observations falling within 2.33 standard deviations of the mean excludes the 500-percent observation. A third approach is to calculate a trimmed mean that excludes a certain percentage of the largest and smallest data points. In this example, excluding the top and bottom data points in an ordered list results in a trimmed mean of 22.8 percent. A fourth approach is to calculate a winsorized mean, which involves a reassignment of the values of extreme observations. For example, for a 99 percent winsorized mean, the top 0.5 percent of values would be set equal to the value of the observation at the cut-off point for the top 0.5 percent group; similarly, the lowest 0.5 percent of values would assume the value of the observation at their cut-off point. For simplicity, in the case of the 40-stock portfolio described above, <a class="internal" role="button" href="#CIPM0008-R-s03-EXH2" aria-label="View Exhibit 2">Exhibit 2</a> shows the winsorized mean growth rate is 23.0 based on re-assigning the values of the largest observation and the smallest observation in the sample. This exhibit also illustrates the other methods discussed above.</p><div id="CIPM0008-R-s03-EXH2" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 2<span style="display: block;">Five-Year EPS Growth Percent</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0008-R-s03-EXH2-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0008-R-s03-EXH2-title">Exhibit 2: Five-Year EPS Growth Percent</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "><strong>Rank</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Arithmetic</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Tolerance Range</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Trimmed</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Winsorized</strong></th></tr></thead><tbody><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">1</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">500.0</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">—</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">—</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.7</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">2</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.7</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.7</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.7</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.7</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">3</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.1</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.1</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.1</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38.1</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">…</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">…</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">…</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">…</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">…</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">38</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">13.6</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">13.6</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">13.6</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">13.6</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">39</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.9</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.9</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.9</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.9</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">40</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.4</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.4</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">—</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.9</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Sum</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">1380.3</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">880.3</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">867.9</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">919.5</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; "><em>N</em></td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">40</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">39</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">38</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">40</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Mean</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">34.5</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">22.6</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">22.8</td><td style="text-align: center; vertical-align: bottom; padding: 8px; ">23.0</td></tr></tbody></table></div></div></div><p>Portfolio characteristics are usually calculated as the weighted mean of the observations where the weight applied to each observation is the fraction of the portfolio’s value invested in the holding associated with that observation. However, the weighted harmonic mean may be the most appropriate representation of an average rate or ratio. If the ratio of an individual holding is represented by <em>X<sub>i</sub></em>, the expression for the weighted harmonic mean of the ratio is</p><div class="cfa-curriculum-display-formula-container" id="CIPM0008-R-s03-E1"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><semantics><mrow><msub><mi>X</mi><mrow><mi>W</mi><mi>H</mi></mrow></msub><mo>=</mo><mstyle displaystyle=&quot;true&quot;><mfrac><mn>1</mn><mrow><mstyle displaystyle=&quot;true&quot;><munderover><mo>&amp;#x2211;</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mrow><mo>(</mo><mrow><mstyle displaystyle=&quot;true&quot;><mfrac><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><mrow><msub><mi>X</mi><mi>i</mi></msub></mrow></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow></mstyle></mrow></mfrac></mstyle></mrow></semantics></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="19.996ex" height="9.886ex" viewBox="0 -1437.2 8609.2 4256.4" role="img" focusable="false" style="vertical-align: -6.548ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJMATHI-58" x="0" y="0"></use><g transform="translate(828,-150)"><use transform="scale(0.707)" xlink:href="#MJMATHI-57" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-48" x="1048" y="0"></use></g><use xlink:href="#MJMAIN-3D" x="2575" y="0"></use><g transform="translate(3632,0)"><g transform="translate(120,0)"><rect stroke="none" width="4736" height="60" x="0" y="220"></rect><use xlink:href="#MJMAIN-31" x="2118" y="676"></use><g transform="translate(60,-1538)"><use xlink:href="#MJSZ2-2211" x="0" y="0"></use><g transform="translate(147,-1090)"><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-3D" x="345" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="1124" y="0"></use></g><use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="721" y="1627"></use><g transform="translate(1611,0)"><use xlink:href="#MJSZ3-28"></use><g transform="translate(736,0)"><g transform="translate(120,0)"><rect stroke="none" width="1292" height="60" x="0" y="220"></rect><g transform="translate(116,676)"><use xlink:href="#MJMATHI-77" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1013" y="-213"></use></g><g transform="translate(60,-686)"><use xlink:href="#MJMATHI-58" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1171" y="-213"></use></g></g></g><use xlink:href="#MJSZ3-29" x="2269" y="-1"></use></g></g></g></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mrow><mi>W</mi><mi>H</mi></mrow></msub><mo>=</mo><mstyle displaystyle="true"><mfrac><mn>1</mn><mrow><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mrow><mo>(</mo><mrow><mstyle displaystyle="true"><mfrac><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><mrow><msub><mi>X</mi><mi>i</mi></msub></mrow></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow></mstyle></mrow></mfrac></mstyle></mrow></semantics></math></span></span><script type="math/mml" id="MathJax-Element-1"><math id="m1"><semantics><mrow><msub><mi>X</mi><mrow><mi>W</mi><mi>H</mi></mrow></msub><mo>=</mo><mstyle displaystyle="true"><mfrac><mn>1</mn><mrow><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mrow><mo>(</mo><mrow><mstyle displaystyle="true"><mfrac><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><mrow><msub><mi>X</mi><mi>i</mi></msub></mrow></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow></mstyle></mrow></mfrac></mstyle></mrow></semantics></math></script><span class="cfa-curriculum-display-formula-number">1</span></div><p>where the <em>w<sub>i</sub></em> are portfolio value weights (summing to 1) and <em>X<sub>i</sub></em> &gt; 0 for <em>i</em> = 1, 2, …, <em>n</em>.</p><p>The superiority of weighted harmonic mean estimates over weighted arithmetic mean estimates in this context may be conveyed by an example. Consider a hypothetical index consisting of two stocks held in market value weights. One stock has a market capitalization of €700 million and earnings of €70 million, giving it a P/E ratio of 10. The other stock has a market capitalization of €600 million and earnings of €3 million, for a P/E ratio of 200. <a class="internal" role="button" href="#CIPM0008-R-s03-EXH3" aria-label="View Exhibit 3">Exhibit 3</a> displays the calculation of the hypothetical index’s weighted arithmetic mean P/E and its weighted harmonic mean P/E.</p><div id="CIPM0008-R-s03-EXH3" class="cfa-curriculum-table-wrap"><div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"></i>Exhibit 3<span style="display: block;"> P/E Ratio—Weighted Arithmetic and Harmonic Means</span></div><div class="cfa-curriculum-table-container"><div class="dp-table-scroll"><table class="table" data-active-table="true" aria-labelledby="CIPM0008-R-s03-EXH3-title"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0008-R-s03-EXH3-title">Exhibit 3:  P/E Ratio—Weighted Arithmetic and Harmonic Means</caption><thead><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; " colspan="2"><strong>Market Capitalization</strong></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th></tr><tr><th style="text-align: left; vertical-align: bottom; padding: 8px; "></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>€ Million</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>% of Total</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Earnings € Million</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>P/E</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Weighted P/E</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>E/P</strong></th><th style="text-align: center; vertical-align: bottom; padding: 8px; "><strong>Weighted E/P</strong></th></tr></thead><tbody><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Stock 1</td><td style="text-align: center; vertical-align: top; padding: 8px; ">700</td><td style="text-align: center; vertical-align: top; padding: 8px; ">53.85%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">70</td><td style="text-align: center; vertical-align: top; padding: 8px; ">10</td><td style="text-align: center; vertical-align: top; padding: 8px; ">5.38</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.10</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.0538</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; ">Stock 2</td><td style="text-align: center; vertical-align: top; padding: 8px; ">600</td><td style="text-align: center; vertical-align: top; padding: 8px; ">46.15%</td><td style="text-align: center; vertical-align: top; padding: 8px; ">3</td><td style="text-align: center; vertical-align: top; padding: 8px; ">200</td><td style="text-align: center; vertical-align: top; padding: 8px; ">92.31</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.005</td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.0023</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">1300</td><td style="text-align: center; vertical-align: top; padding: 8px; ">100.00%</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">97.69</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">0.0562</td></tr><tr><td style="text-align: left; vertical-align: top; padding: 8px; " colspan="3">Weighted Harmonic Mean</td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: left; vertical-align: top; padding: 8px; "></td><td style="text-align: center; vertical-align: top; padding: 8px; ">17.81</td></tr></tbody></table></div></div></div><p>In this example, the weighted harmonic mean of 17.81 is much lower than the weighted arithmetic mean of 97.69. (Note that the harmonic mean inherently gives less weight to higher P/E ratios and more weight to lower P/Es. In general, unless all the observations in a data set have the same value, the harmonic mean is less than the arithmetic mean.)</p><p>Finally, investment professionals have differences of opinion on the proper treatment of negative ratios. For example, stocks with negative earnings (losses) will have negative P/E ratios.<a class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0008-R-s03-FN1_Content" id="transformedTip0" data-transformed="true" role="button" aria-expanded="false"><sup>2</sup></a> Many consider negative P/Es meaningless and omit them when calculating portfolio averages, while others contend that averaging only the positive P/E ratios falsely overstates the portfolio-level ratio. Whether negative ratios are included in or excluded from the portfolio mean, it is important to treat the benchmark the same way.</p><p>Another consideration that a performance analyst must take into account when calculating weighted averages is how to handle short positions. It is inappropriate simply to exclude short positions from the calculation of portfolio-level characteristics, since they are integral to the execution of a long-short strategy. The remaining alternatives are to show net characteristic exposures or to present the components of the net exposure by separately displaying the characteristics of the long and the short portions of the portfolio. Although it may require additional work, the latter method is the more informative because portfolios whose net value is near zero can have distorted weighted average characteristics.</p><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip0Content" role="tooltip" style="display: none;"><p><sup>2</sup> Faced with the task of ranking stocks, equity analysts have several alternatives for handling negative P/E ratios that are not usually available to performance practitioners. In some cases, replacing trailing earnings with normalized earnings or with estimated prospective earnings may produce positive price-to-earnings ratios. In addition, using the earnings yield ratio (E/P) will result in the correct ordering of positive- and negative-P/E stocks by what may be deemed the cost of earnings. See John D. Stowe, Thomas R. Robinson, Jerald E. Pinto, and Dennis W. McLeavey, Analysis of Equity Investments: Valuation (CFA Institute, 2002), pp. 188–189. </p></div>
+<div class="nav-buttons"><a href="courses_1368_modules_items_99359_202_Uses_of_Portfolio_Characteristics.html">← Previous</a><a href="courses_1368_modules_items_99361_204_Types_of_Characteristics.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

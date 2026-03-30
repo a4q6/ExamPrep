@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.02 | Risk and Risk Measurement</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Risk Measurement and Attribution › Module 1: Risk Measurement and Risk Attribution</nav>
+<h1 class="page-title screenreader-only">1.02 | Risk and Risk Measurement</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0018-R-s02-R-1" class="dp-wrapper dp-flat-sections variation-2" title="1.02 | Risk and Risk Measurement"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 1: Risk Measurement and Risk Attribution</span>1.02 | Risk and Risk Measurement</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul id="CIPM0018-R-s02-los-1">
+<li class="cfa-curriculum-los-item">distinguish between non-financial and financial risk and explain types of each kind of risk</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary">
+<p>The concept of risk is applied in various settings with distinctive risk characteristics. Companies and investors face two broad categories of risk: non-financial and financial. Non-financial risks include such things as the death of key executives and the failure of computer systems. These risks are not usually the concern of performance analysts. Certain financial risks are. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip0Content" aria-describedby="CIPM-FinancialRisksContent" data-transformed="true" id="transformedTip0" role="button" aria-expanded="false">Financial risks</a> are those due to events in external financial markets. Financial risks are further delineated into three major types: market risk, credit risk, and liquidity risk.</p>
+<p>The focus in this learning module will be on market risk. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip1Content" aria-describedby="CIPM-MarketRiskContent" data-transformed="true" id="transformedTip1" role="button" aria-expanded="false">Market risk</a> is the risk that results from unexpected changes in share prices, interest rates, currency exchange rates, and commodity prices, as discussed below. The factors responsible for market risk are numerous. For equities, these factors include changes in the outlook for countries, changes in industries in which the company competes, and factors specific to the company. Interest rates can shift abruptly because of unexpected changes in central bank policy and/or the demand for loanable funds (the latter can change quickly as macroeconomic prospects change). Currencies fluctuate due to variability in floating exchange rates, as well as (in the case of fixed exchange rates) the chance that a government will devalue or revalue its currency. Commodity prices are often volatile due to supply shocks, changes in inflation, and other factors.</p>
+<p><a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip2Content" aria-describedby="CIPM-CreditRiskContent" data-transformed="true" id="transformedTip2" role="button" aria-expanded="false">Credit risk</a> refers to the risk of loss caused by the failure of a counterparty (<a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip3Content" aria-describedby="CIPM-CounterpartyRiskContent" data-transformed="true" id="transformedTip3" role="button" aria-expanded="false">counterparty risk</a>) or a debtor to make a payment (e.g., the default of a bond issuer). Note that credit risk can arise from either inability or unwillingness to make a payment. Furthermore, a loss may be incurred from an increase in credit risk that is not associated with actual default; the increase in risk could be due to deterioration in the counterparty’s financial position.</p>
+<p><a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip4Content" aria-describedby="CIPM-LiquidityRiskContent" data-transformed="true" id="transformedTip4" role="button" aria-expanded="false">Liquidity risk</a> results from the inability to trade an asset quickly without making price concessions.<a id="transformedTip5" class="dp-popover-trigger" href="#transformedTip5Content" aria-describedby="CIPM0018-R-s02-FN1_Content" data-transformed="true" role="button" aria-expanded="false"><sup>3</sup></a> Liquidity risk increases as market depth declines, and it is accentuated during market crises when there is insufficient trading. At the extreme, liquidity risk means that an asset cannot be traded at all. More frequently, liquidity risk results in higher trading costs. For assets that are less liquid and harder to resell, the dealer will require a higher profit. To increase the profit, the dealer will widen the spread made from trading the asset, referred to as the bid–ask spread. The bid–ask spread is the difference between the price the dealer will pay for the asset (referred to as “the bid”) and the price at which the dealer will sell the asset (referred to as “the ask”). From the investor’s perspective, a widening bid–ask spread results in a loss in value, because higher prices are paid when the asset is bought and lower prices are received when the asset is eventually sold.</p>
+<p>In addition to financial risks, companies and investors also encounter non-financial risks. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip6Content" aria-describedby="CIPM-NonFinancialRisksContent" data-transformed="true" id="transformedTip6" role="button" aria-expanded="false">Non-financial risks</a> include operational risk, model risk, and settlement risk. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip7Content" aria-describedby="CIPM-OperationalRiskContent" data-transformed="true" id="transformedTip7" role="button" aria-expanded="false">Operational risk</a> is the risk of loss from failure in a company’s systems or procedures or from external events, such as “acts of God” or terrorist action. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip8Content" aria-describedby="CIPM-ModelRiskContent" data-transformed="true" id="transformedTip8" role="button" aria-expanded="false">Model risk</a> results when a model is incorrect or misapplied. For example, many believe that mortgages and related securities were misvalued in the late 2000s, precipitating the 2008 financial crisis. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip9Content" aria-describedby="CIPM-SettlementRiskContent" data-transformed="true" id="transformedTip9" role="button" aria-expanded="false">Settlement risk</a> results from a breakdown in the settlement of a trade. More specifically, once an investor has fulfilled one side of a trade, there is a risk that the counterparty will not fulfill the other side of the trade. Settlement risk increases when the counterparty is in a different time zone and the final settlement of a trade does not occur until the next business day.</p>
+<p>Other non-financial risks include regulatory, legal/contract, tax, sovereign/political, and accounting risks. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip10Content" aria-describedby="CIPM-RegulatoryRiskContent" data-transformed="true" id="transformedTip10" role="button" aria-expanded="false">Regulatory risk</a> results from changes in regulations that adversely affect valuation. For example, new regulations governing trading could reduce the affected assets’ values. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip11Content" aria-describedby="CIPM-LegalcontractRiskContent" data-transformed="true" id="transformedTip11" role="button" aria-expanded="false">Legal/contract risk</a> arises from contract terms that are not clearly specified, a scenario that results in potential litigation. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip12Content" aria-describedby="CIPM-TaxRiskContent" data-transformed="true" id="transformedTip12" role="button" aria-expanded="false">Tax risk</a> results from unexpected changes in tax rates or rulings. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip13Content" aria-describedby="CIPM-SovereignpoliticalRiskContent" data-transformed="true" id="transformedTip13" role="button" aria-expanded="false">Sovereign/political risk</a> stems from government action. For example, a government may decide to suspend convertibility of its currency, so that investors cannot exit its market. <a class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#transformedTip14Content" aria-describedby="CIPM-AccountingRisksContent" data-transformed="true" id="transformedTip14" role="button" aria-expanded="false">Accounting risk</a> arises from uncertainty about how a transaction should be recorded and the potential for accounting rules to change.<a id="transformedTip15" class="dp-popover-trigger" href="#transformedTip15Content" aria-describedby="CIPM0018-R-s02-FN2_Content" data-transformed="true" role="button" aria-expanded="false"><sup>4</sup></a></p>
+<p>A summary of the types of financial and non-financial risks is provided in <a class="internal" role="button" href="#CIPM0018-R-s02-EXH1" aria-label="View Exhibit 1">Exhibit 1</a>.</p>
+<figure id="CIPM0018-R-s02-EXH1" class="cfa-curriculum-exhibit-figure">
+<figcaption class="cfa-curriculum-exhibit-figure-title"><i class="fas fa-image" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Exhibit 1<span style="display: block;">Types of Financial and Non-Financial Risks</span></figcaption>
+<div class="cfa-curriculum-graphic"><img class="cfa-curriculum-image" style="width: clamp(250px, 100%, 600px); max-width: 100%;" src="https://learn.cfainstitute.org/courses/1368/files/224029/preview" alt="Different types of financial and non-financial risks. Financial risks divided into market risk, credit risk and liquidity risk.  " aria-describedby="CIPM0018-R-s02-EXH1-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1368/files/224029" data-api-returntype="File" loading="lazy" data-width="600"><details id="CIPM0018-R-s02-EXH1-extended-desc" class="dp-panels-wrapper" style="font-size: 10pt; margin-top: 20px;">
+<summary class="dp-panel-outside-panel">Expand / Collapse Extended Description</summary>
+<p class="dp-panel-outside-panel">Financial risks are divided into market, credit and liquidity risk. Market risk is further divided into share prices, interest rates, currencies and commodities. Nonfinancial risks are divided into operational, model, settlement, regulatory, legal, tax, sovereign and accounting risk.</p>
+</details></div>
+</figure>
+<p>In the discussions to follow, we will further delineate market risks and examine methods of measuring market risks.</p>
+<figure id="CIPM0018-R-s02-Ba" class="dp-content-block cfa-curriculum-exercise-box">
+<figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Knowledge Check: Types of Risk</figcaption>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div id="CIPM0018-R-s02-Q1" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">1. </span>
+<p>A US investment fund purchases US Treasury bonds. Which of the following <em>best characterizes</em> the risk from this investment?</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-0"><label for="dp-qc-0-0">
+<p><span class="cfa-curriculum-option-label">A. </span>Credit risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-1"><label for="dp-qc-0-1">
+<p><span class="cfa-curriculum-option-label">B. </span>Market risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h3 class="cfa-curriculum-solution-title">Solution</h3>
+<p>B is correct. Because US Treasury bonds have minimal risk of default and are very liquid, their primary risk is from unexpected changes in interest rates. Unexpected changes in interest rates are a component of market risk.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-2"><label for="dp-qc-0-2">
+<p><span class="cfa-curriculum-option-label">C. </span>Liquidity risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div id="CIPM0018-R-s02-Q2" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">2. </span>
+<p>A performance analyst uses fictional (made-up) prices for an asset that trades infrequently. The reported performance for the fund misstates its true performance. Which of the following <em>best characterizes</em> the risk in this example?</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer"><input id="dp-qc-1-0" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-0"><label for="dp-qc-1-0">
+<p><span class="cfa-curriculum-option-label">A. </span>Model risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-1-1" class="dp-qc-field" type="radio" name="dp-qc-1" value="false" data-response="dpQcResponse1-1"><label for="dp-qc-1-1">
+<p><span class="cfa-curriculum-option-label">B. </span>Liquidity risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-1-2" class="dp-qc-field" type="radio" name="dp-qc-1" value="true" data-response="dpQcResponse1-2"><label for="dp-qc-1-2">
+<p><span class="cfa-curriculum-option-label">C. </span>Operational risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h3 class="cfa-curriculum-solution-title">Solution</h3>
+<p>C is correct. The use of fictional prices by the performance analyst is best characterized as operational risk. Operational risk is the risk of loss from failure in a company’s systems or procedures. In this example, no immediate loss resulted from the analyst’s actions, but the misreporting does create potential liability for the fund.</p>
+<p>There was no stated misapplication of a model, so the risk in this case is not model risk. Although the asset is illiquid, liquidity risk refers to the inability to trade an asset. So the analyst’s use of fictional prices is best characterized as operational risk.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div id="CIPM0018-R-s02-Q3" class="dp-qc-question cfa-curriculum-question-with-label"><legend><span class="cfa-curriculum-question-with-label">3. </span>
+<p>To improve market liquidity and confidence during crises, a government decides to limit the trading of over-the-counter contracts. Which of the following <em>best characterizes</em> the risk from this limitation?</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer"><input id="dp-qc-2-0" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-0"><label for="dp-qc-2-0">
+<p><span class="cfa-curriculum-option-label">A. </span>Financial risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse2-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-2-1" class="dp-qc-field" type="radio" name="dp-qc-2" value="true" data-response="dpQcResponse2-1"><label for="dp-qc-2-1">
+<p><span class="cfa-curriculum-option-label">B. </span>Regulatory risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse2-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h3 class="cfa-curriculum-solution-title">Solution</h3>
+<p>B is correct. The action by the government to limit the trading of over-the-counter contracts is best characterized as regulatory risk. Regulatory risk arises from changes in regulations that negatively affect asset valuation. In this case, the investors who currently hold over-the-counter contracts would likely see their value diminish.</p>
+<p>Although liquidity will diminish for the over-the-counter contracts and liquidity risk is a component of financial risk, the government action is best characterized as regulatory risk. Legal/contract risk results when contract terms are not clearly specified, so it is not applicable in this example.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input id="dp-qc-2-2" class="dp-qc-field" type="radio" name="dp-qc-2" value="false" data-response="dpQcResponse2-2"><label for="dp-qc-2-2">
+<p><span class="cfa-curriculum-option-label">C. </span>Legal/contract risk</p>
+</label><br>
+
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse2-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+</figure>
+<div class="dp-content-block cfa-curriculum-reflist">
+<h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"><span class="dp-icon-content" style="display: none;">&nbsp;</span></i>Reference List</h3>
+<div class="dp-panels-wrapper dp-accordion-default">
+
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel0"><a href="#dpPanel0" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3>
+<div class="dp-panel-content " tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region">
+<ul id="CIPM0018-R-s02-ref1">
+<li id="CIPM0018-R-s02-R1list">Chance, D., Grant, K. and Marsland, J. (2007). “Risk Management.” In <em>Managing Investment Portfolios: A Dynamic Process</em>. 3rd ed., ed. Maginn, J. L., Tuttle, D. L., Pinto, J. E. and McLeavey, D. W.Hoboken, NJ: John Wiley &amp; Sons.</li>
+<li id="CIPM0018-R-s02-R2list">Christopherson, J. A., Cariño, D. R. and Ferson, W. E. (2009). <em>Portfolio Performance Measurement and Benchmarking</em>. New York: McGraw-Hill.</li>
+<li id="CIPM0018-R-s02-R3list">Jorion, P. (2009). <em>Financial Risk Manager Handbook</em>. 5th ed.Hoboken, NJ: Wiley &amp; Sons.</li>
+</ul>
+</div>
+
+</div>
+</div>
+<div id="transformedTip5Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+<p><sup>3</sup> Note that the term <em>liquidity risk</em> is sometimes used to refer to the inability to readily obtain funding, also referred to as funding risk. As an example of funding risk, during the credit crisis of 2008, many financial institutions could not obtain the external financing needed for their daily operations and had to urgently sell assets at steep discounts.</p>
+</div>
+<div id="transformedTip15Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" role="tooltip" style="display: none;">
+<p><sup>4</sup> For a more detailed discussion of risks and their management, see Chance, Grant, and Marsland (2007); Christopherson, Cariño, and Ferson (2009); Jorion (2009).</p>
+</div>
+<div id="transformedTip0Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Risks related to events in external financial markets.</p>
+</div>
+<div id="transformedTip1Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Risk related to market movements, e.g., unexpected changes in share prices, interest rates, currency exchange rates, and commodity prices.</p>
+</div>
+<div id="transformedTip2Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The risk of loss caused by a counterparty or debtor’s failure to make a promised payment.</p>
+</div>
+<div id="transformedTip3Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The risk of loss caused by a counterparty’s failure to make a payment.</p>
+</div>
+<div id="transformedTip4Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The risk that results from the inability to trade an asset quickly without a significant concession in price.</p>
+</div>
+<div id="transformedTip6Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Includes operational risks, model risks, and settlement risks.</p>
+</div>
+<div id="transformedTip7Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The risk of loss from failure in a company’s systems or procedures or from external events such as acts of God, terrorist action, etc.</p>
+</div>
+<div id="transformedTip8Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>The risk that a model is incorrect or misapplied.</p>
+</div>
+<div id="transformedTip9Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Risk of a breakdown in the settlement of a trade.</p>
+</div>
+<div id="transformedTip10Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Risk of changes in regulations that adversely affect valuation.</p>
+</div>
+<div id="transformedTip11Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Risk that arises from contract terms that are not clearly specified.</p>
+</div>
+<div id="transformedTip12Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Risk of unexpected changes in tax rates or rulings.</p>
+</div>
+<div id="transformedTip13Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Risk related to potential government actions.</p>
+</div>
+<div id="transformedTip14Content" class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" role="tooltip" style="display: none;">
+<p>Risks arising from uncertainty about how a transaction should be recorded and the potential for accounting rules to change.</p>
+</div>
+<div class="nav-buttons"><a href="courses_1368_modules_items_99339_101_Introduction.html">← Previous</a><a href="courses_1368_modules_items_99341_103_Objectives_of_Risk_Measurement_and_Risk_Attribution.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

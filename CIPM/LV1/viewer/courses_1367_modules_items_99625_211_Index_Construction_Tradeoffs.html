@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.11 | Index Construction Tradeoffs</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* Nav buttons */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
+.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
+.nav-buttons a:hover { background: #f0f4f7; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Return Attribution and Benchmarks › Module 2: Introduction to Benchmarks</nav>
+<h1 class="page-title screenreader-only">2.11 | Index Construction Tradeoffs</h1>
+  
+  <div id="todo-date-mount-point"></div>
+  
+    <div id="CIPM0146-R-s11-R-1" class="dp-wrapper dp-flat-sections variation-2" title="2.11 | Index Construction Tradeoffs"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 2: Introduction to Benchmarks</span>2.11 | Index Construction Tradeoffs</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i class="icon-outcomes" style="background: inherit !important;" aria-hidden="true"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM0146-R-s11-los-1"><li class="cfa-curriculum-los-item">explain the tradeoffs in constructing asset class indexes;</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"><p>Previously, we said that indexes are widely used to represent the performance of asset classes and the “market” in general. They are also increasingly used as a basis for investment vehicles. To satisfy these usages, index construction requires many choices, with accompanying tradeoffs.<a class="dp-popover-trigger" href="#transformedTip0Content" aria-describedby="CIPM0146-R-s11-FN1_Content" id="transformedTip0" data-transformed="true" role="button" aria-expanded="false"><sup>21</sup></a> We examine these tradeoffs following the discussion in <a class="dp-popover-trigger" href="#transformedTip1Content" aria-describedby="CIPM0146-R-s11-R9_1_Content" id="transformedTip1" data-transformed="true" role="button" aria-expanded="false">Siegel (2003)</a>.</p><section id="CIPM0146-R-s11-01-01"><h3 class="dp-heading">Completeness vs. investability</h3><p>In principle, striving for complete coverage of a market would suggest including every possible security in the investment universe available to investors. Doing so, however, would include many small-capitalization securities that are too illiquid and could not be purchased in amounts relevant to institutional investors. Eliminating hard-to-trade securities improves the investability of an index. Index designers must decide how broad their indexes can be while maintaining adequate investability.</p><p>As an example, the Wilshire 5000 is the broadest US equity index, representing more than 5,000 stocks. Many of its stocks are illiquid, however, and would be costly or very difficult to trade. As a result, no fund has ever tried to replicate the full sample of its securities. When index funds were created to track the Wilshire 5000, about 2,000 of its securities were untradeable. Indeed, one test of the investability of an index is to what extent there are investment funds that fully replicate it.</p><p>Investability is not, however, the same as liquidity, as emerging markets sometimes illustrate. A security may have excellent liquidity in its home country but may be uninvestable for non-domestic investors if the country’s government imposes restrictions. An index representing investment opportunities to developed-world investors should exclude non-tradeable emerging securities, reflecting the free float of the market from a non-domestic investor’s perspective.</p><p>Completeness and investability are important when indexes are used as a basis for investment vehicles. In choosing an index, the fund provider should consider how the index has balanced the tradeoff between completeness and investability. A more complete index can provide broader, more diversified performance.<a class="dp-popover-trigger" href="#transformedTip2Content" aria-describedby="CIPM0146-R-s11-FN2_Content" id="transformedTip2" data-transformed="true" role="button" aria-expanded="false"><sup>22</sup></a> However, investability is an important concern for managers facing frequent and uncertain withdrawals. If investors suddenly withdraw funds, managers must quickly sell securities, possibly at low bid prices. Another consideration is that portfolios tracking more popular indexes tend to have lower trading costs, owing to their greater liquidity.</p></section><section id="CIPM0146-R-s11-01-02"><h3 class="dp-heading">Reconstitution and rebalancing frequency vs. turnover</h3><p>The processes of reconstitution and rebalancing are designed to keep an index close to its intended membership and weighting criteria. Reconstitution refers to the process of adding and dropping securities from an index, whereas rebalancing refers to a readjustment in the weights of existing securities.</p><p>In principle, more frequent reconstitution and rebalancing would be desirable in order to improve representativeness, were it not for the fact that such activities create turnover in the index. Turnover is costly, in terms of transaction costs, bid–offer spread, and taxes for investors who wish to track an index because they must trade more often. Therefore, there is a conflict between representativeness and low turnover. Index designers must decide how often to reconstitute and rebalance their indexes while maintaining tolerable turnover.</p><p>Turnover is a potential concern for managers who track particular size and style indexes because they must trade as companies migrate from one classification to another. As a result, these indexes are less frequently reconstituted by providers. In contrast, the turnover in broad market indexes typically occurs among smaller issues, resulting in less trading when the index is reconstituted. Reconstitution is also less frequent for all-inclusive indexes than for those with a fixed number of securities (e.g., the S&amp;P 500), where securities periodically enter and exit the index.</p><p>Rebalancing is of particular concern in international indexes, where float adjustments are more important. At one extreme, index creators could frequently adjust the float of index constituents to precise amounts. This adjustment would result in frequent rebalancing and high transaction costs for tracking portfolios. Instead, many index providers use bands to make float adjustments, where a range is used to capture the percentage of the issue’s market cap that is free floating (e.g., 60%–70%). As long as the issue’s estimated free float stays within the band, they do not adjust the issue’s weight in the index. A narrower band would result in more frequent rebalancing. Determining a country’s status—developed, emerging, or frontier, for example—is fraught with difficulties, because changing the status of a country from emerging to developed could significantly affect the country weights in both the developed and emerging markets indexes, with consequences for managers currently benchmarked against those indexes.</p></section><section id="CIPM0146-R-s11-01-03"><h3 class="dp-heading">Objective and transparent rules vs. judgment</h3><p>Security prices rise when securities are added to an index and fall when they are deleted from an index. Index reconstitution results in decreased returns for managers tracking the index because they have to buy added securities at higher prices and sell deleted securities at lower prices. These price changes will be more acute for more popular indexes.</p><p>Transparency and objectivity are desirable characteristics of indexes because they allow investors to readily predict the changes in index constituents that might occur. This information enables investors to anticipate changes and trade accordingly, instead of reacting to them. Less transparency and the greater use of judgment by the index provider make it harder for investors to determine the constituents of an index and anticipate changes in it, making the index less investable and creating additional costs for tracking portfolios.</p><p>All index providers, however, exercise some degree of judgment in applying their methodologies. Doing so allows providers to adapt to changing circumstances or special situations that might not have been anticipated by explicit rules. Some providers intentionally use committees to choose index constituents, for example, in order to obtain certain characteristics that might be difficult to describe in rules. Index providers must decide when to use judgment in their methodologies and how much to use.</p><p>In sum, there are many choices and steps in index construction. An index provider must define the universe of eligible securities, determine the index weighting, and determine the rules for index maintenance and return calculation. From an index user’s perspective, an index should be constructed using simple, transparent methods that are replicable. The index provider should publish clear, unambiguous construction rules, and the data should be available in a timely manner. Index users should have confidence in the index’s construction and in the reliability and consistency of its return methodology.</p><figure id="CIPM0146-R-s11-Ba" class="dp-content-block cfa-curriculum-exercise-box"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;" aria-hidden="true"></i>Knowledge Check: Trade-offs in constructing asset class indexes</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0146-R-s11-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>Larger, more comprehensive indexes tend to suffer from:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer dp-qc-correct"><input id="dp-qc-0-0" class="dp-qc-field" type="radio" name="dp-qc-0" value="true" data-response="dpQcResponse0-0"><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>investability issues.</p></label><br></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h4 class="cfa-curriculum-solution-title">Solution</h4><p>A is correct. Larger, more comprehensive or complete indexes are less investable because they include more hard-to-trade securities than smaller indexes. B is incorrect; larger indexes are less likely to suffer rebalancing leading to higher turnover than are smaller indexes. C is incorrect; larger indexes are more objective than smaller ones.</p></section></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-1" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-1"><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>higher turnover.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input id="dp-qc-0-2" class="dp-qc-field" type="radio" name="dp-qc-0" value="false" data-response="dpQcResponse0-2"><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>subjective choices of index providers.</p></label><br></dt><dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" role="button" href="javascript:void(0)" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure></section><section id="CIPM0146-R-s11-01-04"><h3 class="dp-heading">Weighting Schemes: Advantages and Disadvantages</h3><p>In the following discussion, we compare the advantages and disadvantages of weighting schemes for indexes. We discuss their attributes in general and discuss the applicability of indexes as benchmarks.</p><section id="CIPM0146-R-s11-01-04-01"><h4>Capitalization-Weighted Indexes</h4><p>Capitalization weighting is used in most market indexes for good reasons. First, weighting companies by market value is an objective way of measuring the relative importance of constituents. Valuing securities at market prices clearly measures the market’s assessment of their relative values. A security’s price is a consensus estimate of its value formed by a multitude of investors, rather than a single index creator’s estimate. Market prices and the number of tradeable securities are unambiguous measures of value at a point in time.</p><p>Second, a capitalization-weighted, float-adjusted index is the only index type that all investors could hold. If all investors held all the securities in cap-weighted indexes in proportion to their market value, then all shares would be held, with none left over. This property has been referred to as <em>macro consistency</em> (<a class="dp-popover-trigger" href="#transformedTip3Content" aria-describedby="CIPM0146-R-s11-R9_2_Content" id="transformedTip3" data-transformed="true" role="button" aria-expanded="false">Siegel 2003</a>). With other weighting methods, such as fundamental-weighted indexes, not all investors could hold the index. A cap-weighted index is thus the best representation of a typical investor’s opportunity set. As a result, a capitalization-weighted index is superior at succinctly representing the effect of changes in a market’s total value and investors’ total wealth.</p><p>This property is closely related to one of the central results of the original CAPM: Under the assumptions of the CAPM, a cap-weighted portfolio of all assets is efficient, and all investors in a CAPM world would hold a proportional investment in the market portfolio. A cap-weighted index reflects this concept.</p><p>Third, a capitalization-weighted index requires less rebalancing than other indexes. In value weighting, changes in prices do not create a need to add or remove shares; the index remains cap weighted after a price change. A capitalization-weighted index also self-corrects for stock splits because they are reflected in the number of shares outstanding and price per share. If an investor tracks a capitalization-weighted index and there are no changes in the index constituents, then the portfolio will automatically track the index and no rebalancing is necessary. Other weighting schemes require periodic trades to bring the weights back to those required by the scheme.</p><p>Capitalization weighting has disadvantages, however. First, because they are
+                        market value weighted, these indexes could be overly influenced by
+                        overpriced securities. As a security’s price increases through time, its
+                        representation in the index will grow. The capitalization-weighted index is
+                        thus potentially more susceptible to market bubbles and will not necessarily
+                        represent an efficient investment from a risk–return perspective. Second,
+                        the index may be overly concentrated because large issues will be weighted
+                        the most heavily. For example, at the end of 2024, the 10 largest
+                        constituents of the S&amp;P 500 represented approximately 37% of its
+                           value.<a class="dp-popover-trigger" href="#transformedTip4Content" aria-describedby="CIPM0146-R-s11-FN3_Content" id="transformedTip4" data-transformed="true" role="button" aria-expanded="false"><sup>23</sup></a> Some investors may prefer a more diversified portfolio. Similarly,
+                        active managers may desire weights that are different from those of the
+                        index, and institutional investors may be unable to track a
+                        capitalization-weighted index if they are subject to maximum holdings.
+                        Portfolio risk and return for these managers may, therefore, substantially
+                        deviate from the index, meaning that the index will not serve as a valid
+                        benchmark.</p></section><section id="CIPM0146-R-s11-01-04-02"><h4>Price-Weighted Indexes</h4><p>The main advantage of price-weighted indexes lies in the simplicity of their construction. Price-weighted indexes also have a long historical track record, which facilitates investment research. For example, the DJIA was first published in 1896.</p><p>Price-weighted indexes have several disadvantages. First, price-weighted indexes are overly influenced by the highest-priced securities, which have greater weights in the calculation of the indexes’ returns.<a class="dp-popover-trigger" href="#transformedTip5Content" aria-describedby="CIPM0146-R-s11-FN4_Content" id="transformedTip5" data-transformed="true" role="button" aria-expanded="false"><sup>24</sup></a> Because price-weighted indexes weight by price instead of total market value, they do not necessarily reflect the issuing companies’ economic importance. Second, stocks that appreciate will experience stock splits, and their weights in the index will decrease. Successful companies will become underrepresented, creating a downward bias in the index return. Lastly, price-weighted indexes assume an investor holds one unit of each security in the index, which does not describe how most investors form portfolios.</p></section><section id="CIPM0146-R-s11-01-04-03"><h4>Equal-Weighted Indexes</h4><p>The primary advantage of equal-weighted indexes is that they give smaller weights to large-cap securities (and larger weights to small-cap securities) than indexes formed by cap weighting. By reducing exposures to the largest-cap securities, the index is thereby less concentrated in those securities and more diversified. Proponents of this approach suggest that market prices do not always reflect true value and that equal weights reflect a more naive or informationless weighting of a portfolio, resulting in superior returns during particular historical periods. Second, these indexes may better represent “how the market did” because they provide the average of all index security returns.</p><p>Some argue, however, that this type of weighting results in a small-issuer bias, the primary disadvantage of equal-weighted indexes, because they include more small issuers than large ones. Second, to maintain equal weighting, strong-performing issues must be sold and weak performers must be bought, resulting in frequent rebalancing and high transaction costs for a portfolio tracking such an index. Third, the inclusion of small issuers means that investors tracking the index may be unable to find liquidity in some of these issues.</p></section><section id="CIPM0146-R-s11-01-04-04"><h4>Fundamental-Weighted Indexes</h4><p>The proponents of fundamental-weighted indexes argue that capitalization-weighted indexes overweight overvalued issues and underweight undervalued issues. Instead, weighting by valuation metrics, fundamental-weighted indexes attempt to avoid overweighting overvalued issues. Proponents also assert that these indexes will be more representative of an issuer’s importance in an economy because they weight by fundamentals, rather than by market prices subject to bubbles.</p><p>A disadvantage of fundamental-weighted indexes is that they reflect the index provider’s view of valuation, which may or may not be correct. The fact that there are different methods of constructing fundamental-weighted indexes in the industry demonstrates that they rely on subjective judgment. A second disadvantage is that they may be less diversified than capitalization-weighted indexes if the valuation screen is restrictive. Third, as mentioned previously, not all investors can hold a fundamental-weighted index because such indexes are weighted by valuation metrics, not by available liquidity (market capitalization). Fourth, the construction methodology used by these indexes is usually proprietary because they are created to market a fundamental-weighted fund. In this case, these indexes would not serve as valid benchmarks because their composition and weightings are not fully known.</p><p>Fifth, just because fundamental-weighted indexes have outperformed capitalization-weighted indexes during certain periods does not mean they will do so in the future and, more importantly, does not indicate that they are good indexes. As a reflection of “how the market did,” an index should be judged on whether it is a representative sample, not on its performance. It is active management that is intended to deliver superior performance, not indexes. Index performance should be an outcome of index construction, not an objective. Furthermore, the reason why fundamental-weighted indexes have outperformed historically is that they are usually tilted toward small-cap value stocks, a well-documented effect in academic literature. For investors preferring a large-cap or growth emphasis, fundamental-weighted indexes would not serve as ideal benchmarks.</p></section><section id="CIPM0146-R-s11-01-04-05"><h4>Optimization-Based Weighted Indexes</h4><p>The advantage of these weighting schemes is that they attempt to find the combination of securities that provides the lowest risk or the highest Sharpe ratio. By using quantitative information on expected returns, standard deviations, and correlations, these indexes are intended to provide better risk–return tradeoffs than indexes formed using naive or passive approaches as in the case of equal or capitalization weighting. An optimization-based weighted index uses modern portfolio theory and attempts to provide a portfolio that plots on the efficient frontier.</p><p>The disadvantage of these indexes is that when minimizing risk, they may be over concentrated in low-risk sectors, such as utility stocks. As a result, the indexes may be less diversified and have future performance that is less stable. As a solution to this problem, constraints on the weights are sometimes used in the optimization, but these require subjective inputs to the process.<a class="dp-popover-trigger" href="#transformedTip6Content" aria-describedby="CIPM0146-R-s11-FN5_Content" id="transformedTip6" data-transformed="true" role="button" aria-expanded="false"><sup>25</sup></a> Second, the optimization requires historical data that are not necessarily indicative of future performance. Some optimizations use adjustments to historical data, but this process introduces subjectivity. Despite their conceptual appeal, the use of optimization-based weighted indexes as benchmarks is not widespread.</p></section><section id="CIPM0146-R-s11-01-04-06"><h4>Choosing an Equity Index Weighting Scheme When an Index Is Used as a Benchmark</h4><p>A natural categorization among indexes divides those that are cap weighted
+                        from those that are not. The objectivity, practicality, and theoretical
+                        underpinning of market capitalization weighting have made it the dominant
+                        scheme for constructing indexes. In most cases, benchmarks should be
+                        capitalization weighted and then float adjusted, reflecting the fact that
+                        most portfolio managers will take smaller positions in less available, less
+                        liquid securities. Of the index types examined, capitalization-weighted,
+                        float-adjusted indexes are considered the best for use as benchmarks because
+                        they are the most easily mimicked with the least amount of tracking risk and
+                        cost. The major equity index families published by FTSE, MSCI, and S&amp;P
+                        as well as nearly all those published by S&amp;P Dow Jones and Wilshire are
+                        cap weighted and float adjusted. In some cases, a non-float-adjusted version
+                        of an index may be published alongside a float-adjusted version for reasons
+                        of historical continuity.<a class="dp-popover-trigger" href="#transformedTip7Content" aria-describedby="CIPM0146-R-s11-FN6_Content" id="transformedTip7" data-transformed="true" role="button" aria-expanded="false"><sup>26</sup></a></p><p>Non-cap-weighted indexes are often proposed to seek return (or risk-adjusted return) in excess of that provided by a cap-weighted index. The primacy of cap-weighted indexes as benchmarks is supported by the fact that a cap-weighted return must be calculated in order to determine by how much an alternate strategy might exceed it. As performance benchmarks, capitalization-weighted indexes are superior to the other index types because, simply put, they best tell us how a manager did relative to everyone else (i.e., the entire market). Price-weighted and equal-weighted indexes are best seen as particular market indicators that are generally not reasonable benchmarks. Fundamental-weighted indexes may or may not serve as viable investment strategies, but they do not serve the traditional representative role of an index, and their proprietary nature makes them difficult to use for manager evaluation.</p><p>In sum, capitalization-weighted indexes are the most likely type of index to serve as a valid benchmark for an investor. The next question is how they fare against the standards for benchmark validity discussed earlier. We next examine in more detail whether float-adjusted, capitalization-weighted indexes can serve as valid benchmarks.</p></section><section id="CIPM0146-R-s11-01-04-07"><h4>Market Indexes as Benchmarks</h4><p>From our previous discussion, we concluded that a capitalization-weighted, float-adjusted index would likely be the best index to use as a benchmark for most managers. Established indexes of that type are widely available, commonly accepted, and readily understood. In terms of the <a class="dp-popover-trigger" href="#transformedTip8Content" aria-describedby="CIPM0146-R-s11-R2_1_Content" id="transformedTip8" data-transformed="true" role="button" aria-expanded="false">Bailey and Tierney (1998)</a> tests of benchmark validity, these market indexes generally fulfill most criteria because they are easily measurable, unambiguous, specified in advance, and generally investable. Most managers would also be familiar with and have an opinion on index securities. Some sponsors may find market indexes acceptable as benchmarks if the manager selects from the same universe of securities as the benchmark and has no obvious style biases.</p><p>Capitalization-weighted, float-adjusted indexes may have several limitations for use as benchmarks, however. First, a value-weighted approach might be incompatible with a manager’s investment approach. For example, as noted, value weighting may lead to concentration in large issues. Second, some construction rules might be less transparent than desired. As an example, consider float adjustment. Although float adjustment is desirable, some index providers do not fully disclose their adjustment process, and there is also no standardization of the process among providers. Moreover, as an index is reconstituted, its composition changes over time, sometimes in non-predictable ways. As a result, an index’s style, sector, and risk exposures can change drastically over time. Even the performance of capitalization-weighted indexes typically is affected by index provider decisions over time.<a class="dp-popover-trigger" href="#transformedTip9Content" aria-describedby="CIPM0146-R-s11-FN7_Content" id="transformedTip9" data-transformed="true" role="button" aria-expanded="false"><sup>27</sup></a></p><p>In terms of the <a class="dp-popover-trigger" href="#transformedTip10Content" aria-describedby="CIPM0146-R-s11-R2_2_Content" id="transformedTip10" data-transformed="true" role="button" aria-expanded="false">Bailey and Tierney (1998)</a> benchmark validity criteria, benchmarks may not be appropriate if the manager’s style differs from the index’s style. In this case, managers should not and likely would not be willing to be held accountable to the index. This shortcoming of market indexes as benchmarks reflects the fact that market indexes are designed to be representative of a market segment, not a particular manager’s portfolio. The performance of a broad market index is usually influenced by many factors, few of which would be related to a manager’s style or skill.</p><p>In summary, market indexes are similar to Swiss Army knives; they serve many useful purposes but are sometimes not the best tool for the job.<a class="dp-popover-trigger" href="#transformedTip11Content" aria-describedby="CIPM0146-R-s11-FN8_Content" id="transformedTip11" data-transformed="true" role="button" aria-expanded="false"><sup>28</sup></a> In light of the possibility that market indexes do not capture a manager’s style, style indexes have been developed to evaluate managers, which we examine next.</p></section></section><div class="dp-content-block cfa-curriculum-reflist"><h3 class="dp-has-icon cfa-curriculum-reflist"><i class="dp-icon fas fa-clipboard-list" style="background: inherit !important;" aria-hidden="true"></i>Reference List</h3><div class="dp-panels-wrapper dp-accordion-default"><h3 class="dp-panel-heading cfa-curriculum-reflist-title dp-panels-built" id="dpPanel0"><a href="#dpPanel0" role="button" class="dp-panel-toggler , cfa-curriculum-reflist-title" aria-controls="dpPanel0Content" aria-expanded="false"><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> References</a></h3><div class="dp-panel-content " tabindex="0" id="dpPanel0Content" style="display: none;" aria-labelledby="dpPanel0" role="region"><ul id="CIPM0146-R-s11-ref1"><li id="CIPM0146-R-s11-R1list">Amenc, Noel, Goltz, Felix and Tang, Lin (2011). EDHEC-Risk European Index Survey 2011. EDHEC Risk Institute (October): <a href="http://professoral.edhec.com/servlet/com.univ.collaboratif.utils.LectureFichiergw?ID_FICHIER=1328885973962" target="_blank" class="external" rel="noreferrer noopener"><span>http://professoral.edhec.com/servlet/com.univ.collaboratif.utils.LectureFichiergw?ID_FICHIER=1328885973962</span><span class="external_link_icon" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; " role="presentation"><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" style="width:1em; height:1em; vertical-align:middle; fill:currentColor">
+    <path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a>.</li><li id="CIPM0146-R-s11-R2list">Bailey, Jeffery V. and Tierney, David E. (1998). <em>Controlling Misfit Risk in Multiple-Manager Investment Programs</em>. Charlottesville, VA: Research Foundation of CFA Institute.</li><li id="CIPM0146-R-s11-R3list">Calverley, J. P., Meder, A. M., Singer, B. D. and Staub, R. (2007). “Capital Market Expectations.” In <em>Managing Investment Portfolios: A Dynamic Process</em>. 3rd ed., ed. Maginn, John, Tuttle, Donald, McLeavey, Dennis and Pinto, JeraldHoboken, NJ: John Wiley &amp; Sons.</li><li id="CIPM0146-R-s11-R4list">Christopherson, Jon A., Cariño, David R. and Ferson, Wayne E. (2009). <em>Portfolio Performance Measurement and Benchmarking.</em> New York: McGraw−Hill.</li><li id="CIPM0146-R-s11-R5list">Enderle, Francis J., Pope, Brad and Siegel, Laurence B. (2003). “Broad-Capitalization Indexes of the U.S. Equity Market.” <em>Journal of Investing</em> 12 (1): 11–22.</li><li id="CIPM0146-R-s11-R6list">Gastineau, Gary L., Olma, Andrew L. and Zielinski, Robert G. (2007). “Equity Portfolio Management.” In <em>Managing Investment Portfolios: A Dynamic Process</em>. 3rd ed., ed. Maginn, John, Tuttle, Donald, McLeavey, Dennis and Pinto, JeraldHoboken, NJ: John Wiley &amp; Sons.</li><li id="CIPM0146-R-s11-R7list">Schoenfeld, Steven A. (2002). “<em>Perfection Impossible—Why Simply ‘Good’ Indexes Can Result in a More Perfect Solution.</em>” Journal of Indexes (2nd quarter).</li><li id="CIPM0146-R-s11-R8list">Schoenfeld, Steven A. (2003). <em>Active Index Investing—Maximizing Portfolio Performance and Minimizing Risk through Global Index Strategies</em>. Hoboken, NJ: John Wiley &amp; Sons.</li><li id="CIPM0146-R-s11-R9list">Siegel, L. (2003). <em>Benchmarks and Investment Management</em>. Charlottesville, VA: Research Foundation of CFA Institute.</li></ul></div></div></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip0Content" role="tooltip" style="display: none;"><p><sup>21</sup> Schoenfeld (2003), Enderle, Pope, and Siegel (2003), and Christopherson, Cariño, and Ferson (2009) provided evaluations of existing indexes in terms of many of the criteria discussed here.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip2Content" role="tooltip" style="display: none;"><p><sup>22</sup> A more complete index, however, might also have a greater number of securities that have not traded recently, resulting in stale prices, with reported volatility and correlations that are understated. See Calverley, Meder, Singer, and Staub (2007, Section 2.2).</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip4Content" role="tooltip" style="display: none;"><p><sup>23</sup> December 2024 factsheet available at
+                              www.spglobal.com/spdji/en/indices. </p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip5Content" role="tooltip" style="display: none;"><p><sup>24</sup> Some price-weighted indexes, such as the Nikkei 225 for Japanese equities, reduce the weighting of high-priced stocks to minimize this bias. See Gastineau, Olma, and Zielinski (2007) for an illustration and discussion.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip6Content" role="tooltip" style="display: none;"><p><sup>25</sup> Amenc, Goltz, and Tang (2011, pp. 35–44).</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip7Content" role="tooltip" style="display: none;"><p><sup>26</sup> For example, the Dow Jones Wilshire 5000 (once known as the Wilshire
+                              5000), representing US equities, is available in both float-adjusted
+                              and non-float-adjusted versions.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip9Content" role="tooltip" style="display: none;"><p><sup>27</sup> See Amenc, Goltz, and Tang (2011, Section 2) for an excellent literature review and analysis of market index issues, upon which we base some of our discussion in this lesson.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip11Content" role="tooltip" style="display: none;"><p><sup>28</sup> This analogy is provided by Schoenfeld (2002).</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="transformedTip1Content" role="tooltip" style="display: none;">Siegel, L. (2003). <em>Benchmarks and Investment Management</em>. Charlottesville, VA: Research Foundation of CFA Institute.</div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="transformedTip3Content" role="tooltip" style="display: none;">Siegel, L. (2003). <em>Benchmarks and Investment Management</em>. Charlottesville, VA: Research Foundation of CFA Institute.</div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="transformedTip8Content" role="tooltip" style="display: none;">Bailey, Jeffery V. and Tierney, David E. (1998). <em>Controlling Misfit Risk in Multiple-Manager Investment Programs</em>. Charlottesville, VA: Research Foundation of CFA Institute.</div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="transformedTip10Content" role="tooltip" style="display: none;">Bailey, Jeffery V. and Tierney, David E. (1998). <em>Controlling Misfit Risk in Multiple-Manager Investment Programs</em>. Charlottesville, VA: Research Foundation of CFA Institute.</div>
+<div class="nav-buttons"><a href="courses_1367_modules_items_99623_210_Asset_Class_Index_Construction.html">← Previous</a><a href="courses_1367_modules_items_99627_212_Equity_Style_Indexes.html">Next →</a></div>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

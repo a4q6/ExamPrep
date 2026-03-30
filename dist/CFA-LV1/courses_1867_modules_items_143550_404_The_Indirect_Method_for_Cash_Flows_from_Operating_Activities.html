@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.04 | The Indirect Method for Cash Flows from Operating Activities</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2420-R-s04-R-1" title="4.04 | The Indirect Method for Cash Flows from Operating Activities">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 4: Analyzing Statements of Cash Flows I</span>4.04 | The Indirect Method for Cash Flows from Operating Activities</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe the steps in the preparation of direct and indirect cash flow statements, including how cash flows can be computed using income statement and balance sheet data</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>The alternative approach to reporting cash from operating activities is the indirect method. In this lesson, we reconcile Acme’s net income to its operating cash flow using the indirect method.</p>
+<section id="CFA2420-R-s04-01-01">
+<h3 class="dp-heading">Operating Activities: Indirect Method</h3>
+<p>To perform this reconciliation, net income is adjusted for the following: (1) any non-operating activities, (2) any non-cash expenses, and (3) changes in operating working capital items.</p>
+<p>The only non-operating activity in Acme’s income statement, the sale of equipment, resulted in a gain of USD205. This amount is removed from the operating cash flow section; the cash effects of the sale are shown in the investing section.</p>
+<p>Acme’s only non-cash expense was a depreciation expense of USD1,052. Under the indirect method, this depreciation expense must be added back to net income because it was a non-cash deduction in the calculation of net income.</p>
+<p>Changes in working capital accounts include increases and decreases in the current operating asset and liability accounts. The changes in these accounts arise from applying accrual accounting—that is, recognizing revenues when they are earned and expenses when they are incurred instead of when the cash is received or paid. To make the working capital adjustments under the indirect method, any increase in a current operating asset account is subtracted from net income and a net decrease is added to net income. As described previously, the increase in accounts receivable, for example, resulted from Acme recording income statement revenue higher than the amount of cash received from customers. Therefore, to reconcile back to operating cash flow, that increase in accounts receivable must be deducted from net income. For current operating liabilities, a net increase is added to net income and a net decrease is subtracted from net income. As described previously, the increase in wages payable, for example, resulted from Acme recording income statement expenses higher than the amount of cash paid to employees.</p>
+<p>
+<a aria-label="View Exhibit 24" class="internal" href="#CFA2420-R-s04-EXH-1-24" role="button">Exhibit 24</a> presents a tabulation of the most common types of adjustments that are made to net income when using the indirect method to determine net cash flow from operating activities.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s04-EXH-1-24">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 24<span style="display: block;">Adjustments to Net Income Using the Indirect Method</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Additions</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2420-R-s04-L1">
+<li class="cfa-curriculum-list-item">
+<p>Non-cash items</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2420-R-s04-L2">
+<li class="cfa-curriculum-list-item">
+<p>Depreciation expense of tangible assets</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Amortization expense of intangible assets</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Depletion expense of natural resources</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Amortization of bond discount</p>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2420-R-s04-L3">
+<li class="cfa-curriculum-list-item">
+<p>Non-operating losses</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2420-R-s04-L4">
+<li class="cfa-curriculum-list-item">
+<p>Loss on sale or write-down of assets</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Loss on retirement of debt</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Loss on investments accounted for under the equity method</p>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2420-R-s04-L5">
+<li class="cfa-curriculum-list-item">
+<p>Increase in deferred income tax liability</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2420-R-s04-L6">
+<li class="cfa-curriculum-list-item">
+<p>Changes in working capital resulting from accruing higher amounts for expenses than the amounts of cash payments or lower amounts for revenues than the amounts of cash receipts</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2420-R-s04-L7">
+<li class="cfa-curriculum-list-item">
+<p>Decrease in current operating assets (e.g., accounts receivable, inventory, and prepaid expenses)</p>
+</li>
+<li class="cfa-curriculum-list-item">流動営業負債（例：買掛金(accounts payable)および未払費用(accrued expense liabilities)）の増加</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">控除項目</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">非現金項目（例：債券プレミアム(bond premium)の償却(amortization)）</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">非営業項目（non-operating items） 資産売却益(Gain on sale of assets) 債務償還益(Gain on retirement of debt) 持分法(equity method)による投資収益(Income on investments accounted for under the equity method)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">繰延法人税負債(deferred income tax liability)の減少</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">支払現金よりも低い費用を発生計上したり、受取現金よりも高い収益を計上したことによる運転資本(working capital)の変動 流動営業資産（例：売掛金(accounts receivable)、棚卸資産(inventory)、前払費用(prepaid expenses)）の増加 流動営業負債（例：買掛金(accounts payable)および未払費用(accrued expense liabilities)）の減少</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>したがって、Acme Corporation (Acme Corporation)について(Exhibits 9 and 10)を使用すると、売掛金(accounts receivable)の55米ドル増加と棚卸資産(inventory)の707米ドル増加は純利益(net income)から控除され、前払費用(prepaid expenses)の23米ドル減少は純利益に加算される。Acmeの流動負債に関しては、買掛金、給与未払(salary and wage payable)、所得税未払(income tax payable)、その他未払負債(other accrued liabilities)の増加(それぞれ263米ドル、10米ドル、5米ドル、22米ドル)は純利益に加算され、利息未払金(interest payable)の12米ドル減少は純利益から控除される。Exhibit 25は、損益計算書と比較貸借対照表の分析から得られた情報を使用して、間接法(indirect method)によるAcme Corporationのキャッシュフロー計算書(cash flow statement)を示している。投資および財務セクションは、直接法(direct method)で作成したキャッシュフロー計算書と同一であることに注意。</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2420-R-s04-EXH-1-25">
+<h4 class="cfa-curriculum-exhibit-table-title">Exhibit 25 Acme Corporation キャッシュフロー計算書（間接法）2018年12月31日終了年度</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">営業活動によるキャッシュフロー(Cash flow from operating activities):</th>
+<th style="text-align: center; vertical-align: top; padding: 8px; "> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">純利益(Net income)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,210米ドル(USD2,210)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">減価償却費(Depreciation expense)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,052</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">設備売却益(Gain on sale of equipment)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(205)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">売掛金の増加(Increase in accounts receivable)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(55)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">棚卸資産の増加(Increase in inventory)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(707)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">前払費用の減少(Decrease in prepaid expenses)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">23</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">買掛金の増加(Increase in accounts payable)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">263</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">給与未払の増加(Increase in salary and wage payable)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">利息未払の減少(Decrease in interest payable)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(12)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">所得税未払の増加(Increase in income tax payable)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">その他未払負債の増加(Increase in other accrued liabilities)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">22</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">営業活動による純キャッシュ(Net cash provided by operating activities)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,606</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">投資活動によるキャッシュフロー(Cash flow from investing activities):</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">設備売却による現金受取(Cash received from sale of equipment)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">762</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">設備購入による現金支出(Cash paid for purchase of equipment)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(1,300)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">投資活動による純キャッシュ支出(Net cash used for investing activities)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(538)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">財務活動によるキャッシュフロー(Cash flow from financing activities):</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">長期債務(retire long-term debt)償還による現金支出(Cash paid)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(500)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">普通株(common stock)償還による現金支出(Cash paid)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(600)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">配当(dividends)支払いによる現金支出(Cash paid)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(1,120)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">財務活動による純キャッシュ支出(Net cash used for financing activities)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(2,220)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">現金の純減少(Net decrease in cash)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(152)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">2017年12月31日時点の現金残高(Cash balance, 31 December 2017)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,163</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">2018年12月31日時点の現金残高(Cash balance, 31 December 2018)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,011米ドル(USD1,011)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1867_modules_items_143548_403_The_Direct_Method_for_Cash_Flows_from_Operating_Activities.html" >← 前へ</a>
+  <span class="title">4.04 | The Indirect Method for Cash Flows from Operating Activities</span>
+  <a href="courses_1867_modules_items_143553_405_Conversion_from_the_Indirect_to_Direct_Method.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

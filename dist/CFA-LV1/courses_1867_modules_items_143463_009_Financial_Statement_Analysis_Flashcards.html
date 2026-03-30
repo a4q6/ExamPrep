@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.09 | Financial Statement Analysis Flashcards</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="VolumeCFAFinancial_Statement_Analysis-flashcards" title="0.09 | Financial Statement Analysis Flashcards"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 0: Getting Started</span>0.09 | Financial Statement Analysis Flashcards</h2>
+</header>
+<h3 class="dp-has-icon"><i aria-hidden="true" class="dp-icon fas fa-book-reader"></i></h3>
+<p class="cfa-curriculum-flashcard-inst">Click on the card below to show the definition for that term. Click next or previous to scroll through the cards.</p>
+<div class="flashcard-container">
+<div class="flashcard" id="flashcard1">
+<div class="front">
+<p><strong>Accounting profit</strong></p>
+</div>
+<div class="back">
+<p>Income as reported on the income statement, in accordance with prevailing accounting standards, before the provisions for income tax expense. Also called <em>income before taxes</em> or <em>pretax income</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard2" style="display: none;">
+<div class="front">
+<p><strong>Activity ratios</strong></p>
+</div>
+<div class="back">
+<p>Ratios that measure how well a company is managing key current assets and working capital over time.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard3" style="display: none;">
+<div class="front">
+<p><strong>Antidilutive</strong></p>
+</div>
+<div class="back">
+<p>With reference to a transaction or a security, one that would increase earnings per share (EPS) or result in EPS higher than the company’s basic EPS—antidilutive securities are not included in the calculation of diluted EPS.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard4" style="display: none;">
+<div class="front">
+<p><strong>Asset utilization ratios</strong></p>
+</div>
+<div class="back">
+<p>売掛金(Receivables)の回収や在庫管理(Inventory Management)など、日々の業務効率を測る比率(Ratios)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard5" style="display: none;">
+<div class="front">
+<p><strong>Available-for-sale</strong></p>
+</div>
+<div class="back">
+<p>Under US GAAP, debt securities not classified as either held-to-maturity or held-for-trading securities. The investor is willing to sell but not actively planning to sell. In general, available-for-sale debt securities are reported at fair value on the balance sheet, with unrealized gains included as a component of other comprehensive income.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard6" style="display: none;">
+<div class="front">
+<p><strong>Balance sheet ratios</strong></p>
+</div>
+<div class="back">
+<p>Financial ratios involving balance sheet items only.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard7" style="display: none;">
+<div class="front">
+<p><strong>Basic EPS</strong></p>
+</div>
+<div class="back">
+<p>Net earnings available to common shareholders (i.e., net income minus preferred dividends) divided by the weighted average number of common shares outstanding.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard8" style="display: none;">
+<div class="front">
+<p><strong>Capital structure</strong></p>
+</div>
+<div class="back">
+<p>The mix of debt and equity that a company uses to finance its business; a company’s specific mix of long-term financing.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard9" style="display: none;">
+<div class="front">
+<p><strong>Carrying amount</strong></p>
+</div>
+<div class="back">
+<p>The amount at which an asset or liability is valued according to accounting principles.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard10" style="display: none;">
+<div class="front">
+<p><strong>Common shares</strong></p>
+</div>
+<div class="back">
+<p>A type of security that represents an ownership interest in a company. Also called <em>common stock</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard11" style="display: none;">
+<div class="front">
+<p><strong>Common stock</strong></p>
+</div>
+<div class="back">
+<p>A type of security that represents an ownership interest in a company. Also called <em>common shares.</em></p>
+</div>
+</div>
+<div class="flashcard" id="flashcard12" style="display: none;">
+<div class="front">
+<p><strong>Common-size analysis</strong></p>
+</div>
+<div class="back">
+<p>The restatement of financial statement items using a common denominator or reference item that allows one to identify trends and major differences; an example is an income statement in which all items are expressed as a percent of revenue.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard13" style="display: none;">
+<div class="front">
+<p><strong>Cross-sectional analysis</strong></p>
+</div>
+<div class="back">
+<p>Analysis over a group as of a given time.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard14" style="display: none;">
+<div class="front">
+<p><strong>Debt-to-assets ratio</strong></p>
+</div>
+<div class="back">
+<p>A solvency ratio calculated as total debt divided by total assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard15" style="display: none;">
+<div class="front">
+<p><strong>Debt-to-capital ratio</strong></p>
+</div>
+<div class="back">
+<p>A solvency ratio calculated as total debt divided by total debt plus total shareholders’ equity.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard16" style="display: none;">
+<div class="front">
+<p><strong>Debt-to-equity ratio</strong></p>
+</div>
+<div class="back">
+<p>A solvency ratio calculated as total debt divided by total shareholders’ equity.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard17" style="display: none;">
+<div class="front">
+<p><strong>Deductible temporary differences</strong></p>
+</div>
+<div class="back">
+<p>Temporary differences that result in a reduction of or deduction from taxable income in a future period when the balance sheet item is recovered or settled.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard18" style="display: none;">
+<div class="front">
+<p><strong>Defensive interval ratio</strong></p>
+</div>
+<div class="back">
+<p>A liquidity ratio that estimates the number of days that an entity could meet cash needs from liquid assets; calculated as (cash + short-term marketable investments + receivables) divided by daily cash expenditures.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard19" style="display: none;">
+<div class="front">
+<p><strong>Deferred tax assets</strong></p>
+</div>
+<div class="back">
+<p>A balance sheet asset that arises when an excess amount is paid for income taxes relative to accounting profit. The taxable income is higher than accounting profit and income tax payable exceeds tax expense. The company expects to recover the difference during the course of future operations when tax expense exceeds income tax payable.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard20" style="display: none;">
+<div class="front">
+<p>[1] 繰延税金負債(Deferred Tax Liabilities)</p>
+</div>
+<div class="back">
+<p>貸借対照表負債(Balance Sheet Liability)で、会計利益(Accounting Profit)に対して不足分を支払った所得税から生じるもの。課税所得(Taxable Income)が会計利益より低く、支払所得税(Income Tax Payable)が税費用(Tax Expense)を下回る場合に発生。企業は将来の営業活動でこの負債を解消することを期待。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard21" style="display: none;">
+<div class="front">
+<p>[3] 確定給付型年金プラン(Defined Benefit Pension Plans, DB Plans)</p>
+</div>
+<div class="back">
+<p>企業が退職後に従業員(Employee)に一定の年額(Defined Benefit)を支払うことを約束するプラン。企業がプラン資産(Plan Assets)の投資リスクを負う。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard22" style="display: none;">
+<div class="front">
+<p>[5] 確定拠出型年金プラン(Defined Contribution Pension Plans)</p>
+</div>
+<div class="back">
+<p>従業員(Employee)および通常は雇用者(Employer)が勤務期間中に拠出し、退職時に積立金(Accumulated Funds)を引き出すことを期待する個別口座(Individual Accounts)。従業員がプラン資産(Plan Assets)の投資リスクおよびインフレリスク(Inflation Risk)を負う。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard23" style="display: none;">
+<div class="front">
+<p>[7] デリバティブ(Derivative)</p>
+</div>
+<div class="back">
+<p>基礎資産(Underlying Asset)や要因(Factor)(例: 株価(Stock Price)、金利(Interest Rate)、為替(Exchange Rate))のパフォーマンスに価値が連動する金融商品(Financial Instrument)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard24" style="display: none;">
+<div class="front">
+<p>[9] 希薄化後EPS(Diluted EPS)</p>
+</div>
+<div class="back">
+<p>すべての希薄化証券(Dilutive Securities)が普通株(Common Shares)に転換された場合に算定される1株当たり利益(EPS)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard25" style="display: none;">
+<div class="front">
+<p>[11] デュポン分析(Dupont Analysis)</p>
+</div>
+<div class="back">
+<p>投資収益率(Return on Investment、例: 自己資本利益率(Return on Equity))を他の財務比率(Financial Ratios)の積として分解するアプローチ。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard26" style="display: none;">
+<div class="front">
+<p>[13] 権利行使日(Exercise Date)</p>
+</div>
+<div class="back">
+<p>オプション(Option)が権利行使される日。コール(Call)の場合は行使価格(Strike Price)を支払い、基礎資産(Underlying)を購入する日。プット(Put)の場合は行使価格を受け取り、基礎資産を売却する日。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard27" style="display: none;">
+<div class="front">
+<p>[15] ファイナンスリース(Finance Lease)</p>
+</div>
+<div class="back">
+<p>基礎資産(Underlying Asset)の売買に近い形態のリース(Lease)の一種。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard28" style="display: none;">
+<div class="front">
+<p>[17] 財務レバレッジ比率(Financial Leverage Ratio)</p>
+</div>
+<div class="back">
+<p>平均総資産(Average Total Assets)を平均総株主資本(Average Total Equity)で割った財務レバレッジ(Financial Leverage)の指標。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard29" style="display: none;">
+<div class="front">
+<p>[19] 固定費カバレッジ(Fixed Charge Coverage)</p>
+</div>
+<div class="back">
+<p>営業利益(EBIT)およびリース支払(Lease Payments)を、利息支払(Interest Payments)とリース支払で割って算出される支払能力比率(Solvency Ratio)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard30" style="display: none;">
+<div class="front">
+<p>[21] 固定費カバレッジ比率(Fixed Charge Coverage Ratio)</p>
+</div>
+<div class="back">
+<p>企業の利益(Earnings)が負債(Debt)支払、利息費用(Interest Expense)、リース費用(Lease Costs)などの固定費(Fixed Expenses)をどれだけカバーしているかを示す指標。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard31" style="display: none;">
+<div class="front">
+<p>[23] 自由キャッシュフロー(Free Cash Flow)</p>
+</div>
+<div class="back">
+<p>企業が事業を継続するために必要な投資をすべて行った後に、投資家(Investors)に分配可能な実際の現金(Actual Cash)、別名企業自由キャッシュフロー(Free Cash Flow to the Firm)。株主(Shareholders)や債権者(Bondholders)などに会社価値を損なうことなく分配できる社内資金(Internally Generated Funds)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard32" style="display: none;">
+<div class="front">
+<p>[25] のれん(Goodwill)</p>
+</div>
+<div class="back">
+<p>買収した企業の取得価格(Purchase Price)が取得した純資産(Net Identifiable Assets)の価値を上回る場合に発生する無形資産(Intangible Asset)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard33" style="display: none;">
+<div class="front">
+<p>[27] 付与日(Grant Date)</p>
+</div>
+<div class="back">
+<p>発行者(Issuer)が報酬条件(Compensation Terms)を通知し、従業員(Employee)が受領を承諾する日。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard34" style="display: none;">
+<div class="front">
+<p>[29] 売上総利益率(Gross Profit Margin)</p>
+</div>
+<div class="back">
+<p>売上総利益(Gross Profit)を収益(Revenue)で割った比率。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard35" style="display: none;">
+<div class="front">
+<p>[31] 満期保有(Held-to-Maturity)</p>
+</div>
+<div class="back">
+<p>企業が満期まで保有することを意図する債券(Debt Securities、固定利付(Fixed-Income))。原価(Original Cost)で表示され、割引・プレミアム(Discounts or Premiums)の償却(Amortisation)が反映される。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard36" style="display: none;">
+<div class="front">
+<p>[33] 転換後法(If-Converted Method)</p>
+</div>
+<div class="back">
+<p>転換証券(Convertible Securities)が1株当たり利益(EPS)に与える影響を会計処理する方法。転換証券が期首に転換されていた場合のEPSを算定し、純利益(Net Income)および発行済株式加重平均数(Weighted Average Number of Shares Outstanding)への転換効果を考慮。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard37" style="display: none;">
+<div class="front">
+<p>[35] 支払所得税(Income Tax Paid)</p>
+</div>
+<div class="back">
+<p>当期に実際に支払った所得税(Actual Amount Paid for Income Taxes)。引当金ではなく、実際の現金流出(Cash Outflow)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard38" style="display: none;">
+<div class="front">
+<p>[37] 支払所得税(Income Tax Payable)</p>
+</div>
+<div class="back">
+<p>課税所得(Taxable Income)に基づき、企業が支払うべき所得税。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard39" style="display: none;">
+<div class="front">
+<p>[39] 無形資産(Intangible Assets)</p>
+</div>
+<div class="back">
+<p>特許(Patents)や商標(Trademarks)など、物理的形態を持たない資産(Assets Without a Physical Form)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard40" style="display: none;">
+<div class="front">
+<p>[1] 利息カバレッジ(Interest Coverage)</p>
+</div>
+<div class="back">
+<p>EBIT(利息・税引前利益)を利息支払(Interest Payments)で割って算出される支払能力比率(Solvency Ratio)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard41" style="display: none;">
+<div class="front">
+<p>[3] 利息カバレッジ比率(Interest Coverage Ratio)</p>
+</div>
+<div class="back">
+<p>発行者(Issuer)が負債(Debt)を返済できる能力を示す指標。通常は営業利益(Operating Income)またはEBITを利息費用(Interest Expense)で割った比率。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard42" style="display: none;">
+<div class="front">
+<p>[5] 借手(Lessee)</p>
+</div>
+<div class="back">
+<p>リース(Lease)契約を不動産所有者(Property Owner)や貸主(Lessor)と結ぶテナント(Tenant)または物件使用者(Property User)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard43" style="display: none;">
+<div class="front">
+<p>[7] 貸手(Lessor)</p>
+</div>
+<div class="back">
+<p>テナント(Tenant)や物件使用者(Property User)に不動産を貸す不動産所有者(Property Owner)または管理者(Manager)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard44" style="display: none;">
+<div class="front">
+<p>[9] 流動性(Liquidity)</p>
+</div>
+<div class="back">
+<p>企業が現金フロー(Cash Flows)および現金化可能な資産(Assets Readily Convertible to Cash)を用いて短期債務(Short-Term Obligations)を履行できる程度。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard45" style="display: none;">
+<div class="front">
+<p>[11] 流動性比率(Liquidity Ratios)</p>
+</div>
+<div class="back">
+<p>債権者(Creditors)に対して、期日通りに短期債務(Short-Term Obligations)を履行する企業の能力を測る財務比率(Financial Ratios)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard46" style="display: none;">
+<div class="front">
+<p>[13] ネットキャッシュ(Net Cash)</p>
+</div>
+<div class="back">
+<p>発行者(Issuer)の総負債(Total Debt)から現金(Cash)および市場性証券(Marketable Securities)を差し引いた金額。残高がマイナスの場合、ネットキャッシュ(Net Cash)と呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard47" style="display: none;">
+<div class="front">
+<p>[15] ネット負債(Net Debt)</p>
+</div>
+<div class="back">
+<p>発行者(Issuer)の総負債(Total Debt)から現金(Cash)および市場性証券(Marketable Securities)を差し引いた金額。残高がプラスの場合、ネット負債(Net Debt)と呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard48" style="display: none;">
+<div class="front">
+<p>[17] 純利益率(Net Profit Margin)</p>
+</div>
+<div class="back">
+<p>収益性指標で、純利益(Net Income)を収益(Revenue)で割って算出。売上1ドルあたりどれだけの利益が残るかを示す。利益率(Profit Margin)または売上高利益率(Return on Sales)とも呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard49" style="display: none;">
+<div class="front">
+<p>[19] 正規化利益(Normalized Earnings)</p>
+</div>
+<div class="back">
+<p>企業における、異常または一時的要因(Unusual or Temporary Factors)が収益性(Profitability)に影響しない場合の中期サイクル(Mid-Cycle)の予想利益(Earnings)水準。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard50" style="display: none;">
+<div class="front">
+<p>[21] 営業効率比率(Operating Efficiency Ratios)</p>
+</div>
+<div class="back">
+<p>Ratios that measure how efficiently a company performs day-to-day tasks, such as the collection of receivables and management of inventory.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard51" style="display: none;">
+<div class="front">
+<p>[23] オペレーティングリース(Operating Leases)</p>
+</div>
+<div class="back">
+<p>基礎資産(Underlying Asset)の貸借に近い形態のリース(Lease)の一種。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard52" style="display: none;">
+<div class="front">
+<p>[25] 営業利益率(Operating Profit Margin)</p>
+</div>
+<div class="back">
+<p>営業利益(Operating Income、利息・税引前利益)を収益(Revenue)で割って算出する収益性比率(Profitability Ratio)。営業利益率(Operating Margin)とも呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard53" style="display: none;">
+<div class="front">
+<p>[27] 普通株式(Ordinary Shares)</p>
+</div>
+<div class="back">
+<p>他のすべての株式より下位に位置する株式(例: 優先株(Preferred Equity))。普通株(Common Stock)または普通株式(Common Shares)とも呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard54" style="display: none;">
+<div class="front">
+<p>[29] 期間費用(Period Costs)</p>
+</div>
+<div class="back">
+<p>収益と直接対応付けできない費用(Costs)、例えば経営陣の給与(Executives’ Salaries)などで、即時費用計上(Expensed Immediately)されるもの。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard55" style="display: none;">
+<div class="front">
+<p>[31] 永久差異(Permanent Differences)</p>
+</div>
+<div class="back">
+<p>税務上の収益(Revenue)・費用(Expenses)と財務報告(Financial Reporting)の差異(Differences)で、将来において逆転されないもの。これにより企業の実効税率(Effective Tax Rate)と法定税率(Statutory Tax Rate)に差が生じるが、繰延税金資産・負債(Deferred Tax Item)は発生しない。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard56" style="display: none;">
+<div class="front">
+<p>[33] 税引前利益率(Pretax Margin)</p>
+</div>
+<div class="back">
+<p>税引前利益(Earnings Before Taxes)を収益(Revenue)で割って算出する収益性比率(Profitability Ratio)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard57" style="display: none;">
+<div class="front">
+<p>[35] 利益率(Profit Margin)</p>
+</div>
+<div class="back">
+<p>収益性指標で、純利益(Net Income)を収益(Revenue)で割って算出。売上1ドルあたりの残存利益を示す。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard58" style="display: none;">
+<div class="front">
+<p>[37] 収益性比率(Profitability Ratios)</p>
+</div>
+<div class="back">
+<p>企業が保有資源(Assets)から利益を生み出す効率性を測る比率(Ratios)。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard59" style="display: none;">
+<div class="front">
+<p>[39] 総資産利益率(Return on Assets, ROA)</p>
+</div>
+<div class="back">
+<p>純利益(Net Income)を平均総資産(Average Total Assets)で割って算出する収益性比率(Profitability Ratio)。総資産1ドルあたりの純利益を示す。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard60" style="display: none;">
+<div class="front">
+<p>株主資本利益率（ROE: Return on equity）</p>
+</div>
+<div class="back">
+<p>純利益を平均株主資本で割って算出される収益性比率。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard61" style="display: none;">
+<div class="front">
+<p>投下資本利益率（ROIC: Return on invested capital）</p>
+</div>
+<div class="back">
+<p>株主および債権者によって投資された資本に対する企業の収益性を測る指標。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard62" style="display: none;">
+<div class="front">
+<p>売上高利益率（Return on sales）</p>
+</div>
+<div class="back">
+<p>収益性の指標で、純利益を売上高で割って算出される；売上1ドルあたり、すべての費用と経費を差し引いた後に残る利益を示す。純利益率（net profit margin）とも呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard63" style="display: none;">
+<div class="front">
+<p>シナリオ分析（Scenario analysis）</p>
+</div>
+<div class="back">
+<p>基本ケースと代替結果を組み合わせた評価プロセスの変形で、評価プロセスにおいてより有利または不利なシナリオを組み込むことを可能にする。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard64" style="display: none;">
+<div class="front">
+<p>感度分析（Sensitivity analysis）</p>
+</div>
+<div class="back">
+<p>投資リターンや評価に影響を与える1つ以上の主要変数の変化の影響を測定するために使用される分析の形態。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard65" style="display: none;">
+<div class="front">
+<p>勤続期間（Service period）</p>
+</div>
+<div class="back">
+<p>従業員株式報酬の付与日から権利確定日までの期間で、通常は年単位で測定される。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard66" style="display: none;">
+<div class="front">
+<p>シミュレーション（Simulation）</p>
+</div>
+<div class="back">
+<p>歴史的環境ではなく、ユーザーが指定した仮想環境で目標変数（例：ポートフォリオリターン）がどのように機能するかを探る技術。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard67" style="display: none;">
+<div class="front">
+<p>支払能力（Solvency）</p>
+</div>
+<div class="back">
+<p>企業価値が、企業資産を資金調達するために使用された債務の額面を上回っている状態を指す。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard68" style="display: none;">
+<div class="front">
+<p>支払能力比率（Solvency ratios）</p>
+</div>
+<div class="back">
+<p>企業が長期債務を履行できる能力を測る比率。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard69" style="display: none;">
+<div class="front">
+<p>課税ベース（Tax base）</p>
+</div>
+<div class="back">
+<p>資産または負債が税務上評価される金額。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard70" style="display: none;">
+<div class="front">
+<p>税金費用（Tax expense）</p>
+</div>
+<div class="back">
+<p>企業の支払うべき所得税（または税額控除の場合は回収可能な税金）および繰延税金資産・負債の変動の合計。基本的には、課税所得ではなく会計利益に基づいて決定された場合の支払うべき、または回収可能な所得税。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard71" style="display: none;">
+<div class="front">
+<p>課税所得（Taxable income）</p>
+</div>
+<div class="back">
+<p>企業の所得のうち、その管轄の税法の下で所得税の対象となる部分。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard72" style="display: none;">
+<div class="front">
+<p>課税一時差異（Taxable temporary differences）</p>
+</div>
+<div class="back">
+<p>貸借対照表項目が回収または決済されたときに将来の課税額が生じる一時的な差異。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard73" style="display: none;">
+<div class="front">
+<p>前受収益（Unearned revenue）</p>
+</div>
+<div class="back">
+<p>まだ提供されていない商品やサービスのために受け取ったお金の負債勘定；商品やサービスの提供前に受け取った支払い。繰延収益（deferred revenue）または繰延所得（deferred income）とも呼ばれる。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard74" style="display: none;">
+<div class="front">
+<p><strong>Vest</strong></p>
+</div>
+<div class="back">
+<p>無条件に権利を得ること。</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard75" style="display: none;">
+<div class="front">
+<p>権利確定日（Vesting date）</p>
+</div>
+<div class="back">
+<p>従業員が無条件に報酬を受け取る権利を得る日。</p>
+</div>
+</div>
+</div>
+<div class="controls">
+<div class="control-button" id="prevBtn">Previous Card</div>
+<div class="control-button" id="nextBtn">Next Card</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1867_modules_items_143461_008_Financial_Statement_Analysis_Glossary.html" >← 前へ</a>
+  <span class="title">0.09 | Financial Statement Analysis Flashcards</span>
+  <a href="courses_1867_modules_items_143465_010_Using_Your_Program_Dashboard.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>
