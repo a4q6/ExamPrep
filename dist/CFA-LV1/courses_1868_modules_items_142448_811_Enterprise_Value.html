@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.11 | Enterprise Value</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0166-R-s11" title="8.11 | Enterprise Value">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 8: Equity Valuation: Concepts and Basic Tools</span>8.11 | Enterprise Value</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe enterprise value multiples and their use in estimating equity value</li>
+<li class="cfa-curriculum-los-item">explain advantages and disadvantages of each category of valuation model</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>An alternative to estimating the value of equity is to estimate the
+                                value of the enterprise. Enterprise value is most frequently
+                                determined as market capitalization plus market value of preferred
+                                stock plus market value of debt minus cash and investments (cash
+                                equivalents and short-term investments). Enterprise value is often
+                                viewed as the cost of a takeover: In the event of a buyout, the
+                                acquiring company assumes the acquired company’s debt but
+                                also receives its cash. Enterprise value is most useful when
+                                comparing companies with significant differences in capital
+                                structure.</p>
+<p>Enterprise value (EV) multiples are widely used in Europe, with
+                                EV/EBITDA arguably the most common. EBITDA is a proxy for operating
+                                cash flow because it excludes depreciation and amortization. EBITDA
+                                may include other non-cash expenses, however, and non-cash revenues.
+                                EBITDA can be viewed as a source of funds to pay interest,
+                                dividends, and taxes. Because EBITDA is calculated prior to payment
+                                to any of the company’s financial stakeholders, using it to
+                                estimate enterprise value is logically appropriate.</p>
+<p>Using enterprise value instead of market capitalization to determine
+                                a multiple can be useful to analysts. Even where the P/E is
+                                problematic because of negative earnings, the EV/EBITDA multiple can
+                                generally be computed because EBITDA is usually positive. An
+                                alternative to using EBITDA in EV multiples is to use operating
+                                income.</p>
+<p>In practice, analysts may have difficulty accurately assessing
+                                enterprise value if they do not have access to market quotations for
+                                the company’s debt. When current market quotations are not
+                                available, bond values may be estimated from current quotations for
+                                bonds with similar maturity, sector, and credit characteristics.
+                                Substituting the book value of debt for the market value of debt
+                                provides only a rough estimate of the debt’s market value.
+                                This is because market interest rates change and investors’
+                                perception of the issuer’s credit risk may have changed since
+                                the debt was issued.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA0166-R-EXM16">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 16<span style="display: block;">Estimating the Market Value of Debt and Enterprise
+                                        Value</span>
+</h3>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Cameco Corporation is one of the world's largest uranium
+                                        producers; it accounts for 16 percent of world production
+                                        from its mines in Canada and the United States. Cameco
+                                        estimates it has about 458 million kilograms of proven and
+                                        probable reserves and holds premier land positions in the
+                                        world's most promising areas for new uranium
+                                        discoveries in Canada and Australia. Cameco is also a
+                                        leading provider of processing services required to produce
+                                        fuel for nuclear power plants. It generates 1,000 megawatts
+                                        of electricity through a partnership in North America's
+                                        largest nuclear generating station located in Ontario,
+                                        Canada.</p>
+<p>For simplicity of exposition in this example, we will present
+                                        share counts in thousands and all dollar amounts in
+                                        thousands of Canadian dollars. In 2017, Cameco had 395,793
+                                        shares outstanding. Its 2017 year-end share price was
+                                        $14.11. Therefore, Cameco’s 2017 year-end market
+                                        capitalization was $5,584,640.</p>
+<p>In its 2017 Annual Report (available at <a href="http://www.cameco.com" target="_blank">www.cameco.com</a>), Cameco reported total debt
+                                        and other liabilities of $2,919,100. The company presented
+                                        the following schedule for long-term debt payments:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-Tf">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px; "> </th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: left; vertical-align: top; padding: 8px; "> </th>
+<th style="text-align: right; vertical-align: bottom; padding: 8px; ">
+<strong>Payment</strong>
+</th>
+<th style="text-align: left; vertical-align: top; padding: 8px; "> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">2018</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$69,000</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">2019 and 2020</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">610,000</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">2021 and 2022</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">482,000</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Thereafter</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">744,000</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Total</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$1,905,000</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Cameco’s longest maturity debt matures in 2042. We
+                                        will assume that the amounts paid in 2019 and 2020, and in
+                                        2021 and 2022, will be paid equally during the two years.
+                                        The “thereafter” period includes two debenture
+                                        tranches, the first one maturing in 2024 for a total value
+                                        of $620,000 and the second tranche maturing in 2042 for the
+                                        remaining $124,000. A yield curve for zero-coupon Canadian
+                                        government securities was available from the Bank of Canada.
+                                        The yield-curve data and assumed risk premiums in <a aria-label="View Exhibit 9" class="internal" href="#CFA0166-R-EXH9" role="button">Exhibit 9</a>
+                                        were used to estimate the market value of Cameco’s
+                                        long-term debt:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-EXH9">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 9<span style="display: block;">Estimated Market Value</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Yield on Zero-Coupon Government Security
+                                                  (%)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Assumed Risk Premium (%)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Discount</strong>
+<br/><br/>
+<strong>Rate (%)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Book Value</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Market Value</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2018</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.89</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.50</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.39</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$69,000</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$68,054</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2019</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.11</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.00</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.11</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$305,000</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$292,525</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2020</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.39</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.50</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.89</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$305,000</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$280,014</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2021</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.65</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.00</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3.65</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$241,000</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$208,804</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2022</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.88</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.50</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4.38</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$241,000</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$194,505</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2023</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.10</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3.00</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5.10</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$0</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$0</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2024</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.30</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3.50</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5.80</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$620,000</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$417,823</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2025</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.50</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4.00</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6.50</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$0</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$0</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">…</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">…</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">…</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">…</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$…</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$...</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2042</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.92</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5.00</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7.92</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$124,000</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$18,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$1,905,000</td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px; ">$1,480,170</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Note from <a aria-label="View Exhibit 9" class="internal" href="#CFA0166-R-EXH9" role="button">Exhibit 9</a> that the book value of long-term debt is
+                                        $1,905,000 and its estimated market value is $1,480,170. The
+                                        book value of total debt and liabilities of $2,919,100 minus
+                                        the book value of long-term debt of $1,905,000 is
+                                        $1,014,100. If we assume that the market value of that
+                                        remaining debt is equal to its book value of $1,014,100 an
+                                        estimate of the market value of total debt and liabilities
+                                        is that amount plus the estimated market value of long-term
+                                        debt of $1,480,170 or $2,494,270.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<p>At the end of 2017, Cameco had cash and equivalents of
+                                        $591,600. Enterprise value can be estimated as the
+                                        $5,584,640 market value of stock plus the $2,494,270 market
+                                        value of debt minus the $591,600 cash and equivalents, or
+                                        $7,487,310. Cameco’s 2017 EBITDA was $606,000; an
+                                        estimate of EV/EBITDA is, therefore, $7,487,310 divided by
+                                        $606,000, or 12.4.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA0166-R-EXM17">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 17<span style="display: block;">EV/Operating Income</span>
+</h3>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>
+<a aria-label="View Exhibit 10" class="internal" href="#CFA0166-R-EXH10" role="button">Exhibit 10</a> presents data for twelve major mining
+                                        companies. Based only on the information in <a aria-label="View Exhibit 10" class="internal" href="#CFA0166-R-EXH10" role="button">Exhibit 10</a>, which two mining companies seem to be the
+                                            <em>most</em> undervalued?</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-EXH10">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 10<span style="display: block;">Data for Twelve Major Mining Companies</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Company</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>EV</strong>
+<br/><br/>
+<strong>(US$ millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Operating Income (OI)</strong>
+<br/><br/>
+<strong>(US$ millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>EV/OI</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">BHP Billiton</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">119,712.3</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">11,753</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10.19</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Rio Tinto</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">93,856.1</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,471</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">14.5</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Vale</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">82,051.2</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,366</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.89</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Glencore</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">80,772.0</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">–549</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">–147.13</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Southern Copper</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">37,817.0</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,564</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">24.18</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Freeport-McMoRan</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">33,452.0</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">–2,766</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">–12.09</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Anglo American</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,870.3</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,562</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12.83</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Norilsk Nickel</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">22,483.0</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,377</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6.66</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Coal India</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">21,652.1</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,382</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15.67</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Barrick Gold</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">21,549.8</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,424</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">8.89</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Newmont Mining</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">20,683.0</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">–65</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">–318.20</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Goldcorp</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12,986.7</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">369</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">35.19</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">Source: <a href="http://www.miningfeeds.com" target="_blank">www.miningfeeds.com</a>,
+                                                Morningstar.</span>
+</p>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s11-02-01">
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>Norilsk Nickel and Barrick Gold have the lowest EV/OI and
+                                            thus appear to be the <em>most</em> undervalued
+                                            or favorably priced on the basis of the EV/OI. Note the
+                                            negative ratio for Glencore, Freeport-McMoRan, and
+                                            Newmont Mining. Negative ratios are difficult to
+                                            interpret, so other means are used to evaluate companies
+                                            with negative ratios.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1868_modules_items_142445_810_Method_of_Comparables_and_Valuation_Based_on_Price_Multiples.html" >← 前へ</a>
+  <span class="title">8.11 | Enterprise Value</span>
+  <a href="courses_1868_modules_items_142451_812_Asset-Based_Valuation.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

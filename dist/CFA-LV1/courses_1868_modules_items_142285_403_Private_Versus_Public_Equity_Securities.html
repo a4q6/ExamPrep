@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.03 | Private Versus Public Equity Securities</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0164-R-s03" title="4.03 | Private Versus Public Equity Securities">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 4: Overview of Equity Securities</span>4.03 | Private Versus Public Equity Securities</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">compare and contrast public and private equity securities</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Our discussion so far has focused on equity securities that are issued and traded in public markets and on exchanges. Equity securities can also be issued and traded in private equity markets. <a aria-describedby="PrivateEquitySecuritiesContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PrivateEquitySecuritiesContent">Private equity securities</a> are issued primarily to institutional investors via non-public offerings, such as private placements. Because they are not listed on public exchanges, there is no active secondary market for these securities. As a result, private equity securities do not have “market determined” quoted prices, are highly illiquid, and require negotiations between investors in order to be traded. In addition, financial statements and other important information needed to determine the fair value of private equity securities may be difficult to obtain because the issuing companies are typically not required by regulatory authorities to publish this information.</p>
+<p>There are three primary types of private equity investments: venture capital, leveraged buyouts, and private investment in public equity (or PIPE). <a aria-describedby="VentureCapitalContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#VentureCapitalContent">Venture capital</a> investments provide “seed” or start-up capital, early-stage financing, or mezzanine financing to companies that are in the early stages of development and require additional capital for expansion. These funds are then used to finance the company’s product development and growth. Venture capitalists range from family and friends to wealthy individuals and private equity funds. Because the equity securities issued to venture capitalists are not publicly traded, they generally require a commitment of funds for a relatively long period of time; the opportunity to “exit” the investment is typically within 3 to 10 years from the initial start-up. The exit return earned by these private equity investors is based on the price that the securities can be sold for if and when the start-up company first goes public, either via an <a aria-describedby="InitialPublicOfferingContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#InitialPublicOfferingContent">initial public offering</a> (IPO) on the stock market or by being sold to other investors.</p>
+<p>A <a aria-describedby="LeveragedBuyoutLBOContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#LeveragedBuyoutLBOContent">leveraged buyout</a> (LBO) occurs when a group of investors (such as the company’s management or a private equity partnership) uses a large amount of debt to purchase all of the outstanding common shares of a publicly traded company. In cases where the group of investors acquiring the company is primarily comprised of the company’s existing management, the transaction is referred to as a <a aria-describedby="ManagementBuyoutContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ManagementBuyoutContent">management buyout</a> (MBO). After the shares are purchased, they cease to trade on an exchange and the investor group takes full control of the company. In other words, the company is taken “private” or has been privatized. Companies that are candidates for these types of transactions generally have large amounts of undervalued assets (which can be sold to reduce debt) and generate high levels of cash flows (which are used to make interest and principal payments on the debt). The ultimate objective of a buyout (LBO or MBO) is to restructure the acquired company and later take it “public” again by issuing new shares to the public in the primary market.</p>
+<p>The third type of private investment is a <a aria-describedby="PrivateInvestmentInPublicEquityContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PrivateInvestmentInPublicEquityContent">private investment in public equity</a>, or PIPE.<a aria-describedby="CFA0164-R-FN14Content" class="dp-popover-trigger" href="#CFA0164-R-FN14Content">
+<sup>14</sup>
+</a> This type of investment is generally sought by a public company that is in need of additional capital quickly and is willing to sell a sizeable ownership position to a private investor or investor group. For example, a company may require a large investment of new equity funds in a short period of time because it has significant expansion opportunities, is facing high levels of indebtedness, or is experiencing a rapid deterioration in its operations. Depending on how urgent the need is and the size of the capital requirement, the private investor may be able to purchase shares in the company at a significant discount to the publicly-quoted market price. <a aria-label="View Exhibit 11" class="internal" href="#CFA0164-R-EXH11" role="button">Exhibit 11</a> contains a recent PIPE transaction for the health care company TapImmune, which also included the proposed merger with Maker Therapeutics.</p>
+<div class="dp-content-block cfa-curriculum-exhibit-box" id="CFA0164-R-EXH11">
+<h3 class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>
+         Exhibit 11<span style="display: block;">Example of a PIPE Transaction<a aria-describedby="CFA0164-R-FN15Content" class="dp-popover-trigger" href="#CFA0164-R-FN15Content">
+<sup>15</sup>
+</a>
+</span>
+</h3>
+<p>JACKSONVILLE, Florida, June 8, 2018—TapImmune Inc. (NASDAQ: TPIV), a clinical-stage immuno-oncology company, today announced that it has entered into security purchase agreements with certain institutional and accredited investors in connection with a private placement of its equity securities. The private placement will be led by New Enterprise Associates (NEA) with participation from Aisling Capital and Perceptive Advisors, among other new and existing investors. The private placement is expected to be completed concurrently with the closing of the proposed merger between TapImmune Inc. and Marker Therapeutics, Inc., which was previously announced on May 15, 2018.</p>
+<p>Upon closing the private placement, TapImmune will issue 17,500,000 shares of its common stock at a price of $4.00 per share. The aggregate offering size, before deducting the placement agent fees and other offering expenses, is expected to be $70 million. Additionally, TapImmune will issue warrants to purchase 13,125,000 shares of TapImmune common stock at an exercise price of $5.00 per share that will be exercisable for a period of five years from the date of issuance. The closing of the transaction, which is subject to the closing of the merger with Marker, the approval by TapImmune’s stockholders as required by NASDAQ Stock Market Rules, and other customary closing conditions, is anticipated to occur by the end of the third quarter of 2018.</p>
+</div>
+<p>While the global private equity market is relatively small in comparison to the global public equity market, it has experienced considerable growth over the past three decades. According to a study of the private equity market sponsored by the <em>World Economic Forum</em> and spanning the period 1970–2007, approximately US$3.6 trillion in debt and equity were acquired in leveraged buyouts. Of this amount, approximately 75 percent or US$2.7 trillion worth of transactions occurred during 2001–2007.<a aria-describedby="CFA0164-R-FN16Content" class="dp-popover-trigger" href="#CFA0164-R-FN16Content">
+<sup>16</sup>
+</a> This pace continued with a further US$2.9 trillion in transactions occurring during 2008-2017.<a aria-describedby="CFA0164-R-FN17Content" class="dp-popover-trigger" href="#CFA0164-R-FN17Content">
+<sup>17</sup>
+</a> While the US and the UK markets were the focus of most private equity investments during the 1980s and 1990s, private equity investments outside of these markets have grown substantially in recent years. In addition, the number of companies operating under private equity ownership has also grown. For example, during the mid-1990s, fewer than 2,000 companies were under LBO ownership compared to more than 20,000 companies that were under LBO ownership globally at the beginning of 2017. The holding period for private equity investments has also increased during this time period from 3 to 5 years (1980s and 1990s) to approximately 10 years.<a aria-describedby="CFA0164-R-FN18Content" class="dp-popover-trigger" href="#CFA0164-R-FN18Content">
+<sup>18</sup>
+</a>
+</p>
+<p>The move to longer holding periods has given private equity investors the opportunity to more effectively and patiently address any underlying operational issues facing the company and to better manage it for long-term value creation. Because of the longer holding periods, more private equity firms are issuing convertible preference shares because they provide investors with greater total return potential through their dividend payments and the ability to convert their shares into common shares during an IPO.</p>
+<p>In operating a publicly traded company, management often feels pressured to focus on short-term results<a aria-describedby="CFA0164-R-FN19Content" class="dp-popover-trigger" href="#CFA0164-R-FN19Content">
+<sup>19</sup>
+</a> (e.g., meeting quarterly sales and earnings targets from analysts biased toward near-term price performance) instead of operating the company to obtain long-term sustainable revenue and earnings growth. By “going private,” management can adopt a more long-term focus and can eliminate certain costs that are necessary to operate a publicly traded company—such as the cost of meeting regulatory and stock exchange filing requirements, the cost of maintaining investor relations departments to communicate with shareholders and the media, and the cost of holding quarterly analyst conference calls.</p>
+<p>As described above, public equity markets are much larger than private equity networks and allow companies more opportunities to raise capital that is subsequently actively traded in secondary markets. By operating under public scrutiny, companies are incentivized to be more open in terms of corporate governance and executive compensation to ensure that they are acting for the benefit of shareholders. In fact, some studies have shown that private equity firms score lower in terms of corporate governance effectiveness, which may be attributed to the fact that shareholders, analysts, and other stakeholders are able to influence management when corporate governance and other policies are public.</p>
+<div class="dp-content-block cfa-curriculum-reflist">
+<h3 class="dp-has-icon cfa-curriculum-reflist">
+<i aria-hidden="true" class="dp-icon fas fa-clipboard-list" style="background: inherit !important;"> </i>Reference List</h3>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title">References</h3>
+<div class="dp-panel-content">
+<ul>
+<li id="CFA0164-R-R1list">Bailey, Elizabeth, Wirth, Meg and Zapol, David (2005). “Venture Capital and Global Health.” <em>Financing Global Health Ventures</em>, Discussion Paper (September 2005): <a href="http://www.commonscapital.com/downloads/Venture_Capital_and_Global_Health.pdf" target="_blank">http://www.­commonscapital.com/downloads/Venture_Capital_and_Global_Health.pdf</a>
+</li>
+<li id="CFA0164-R-R5list">Graham, John R., Harvey, Campbell R. and Rajgopal, Shiva (2005). “The Economic Implications of Corporate Financial Reporting.” <em>Journal of Accounting and Economics</em>, vol.  40, no. 1–3:3–73.</li>
+<li id="CFA0164-R-R7list">Strömberg, Per (2008). “The New Demography of Private Equity.” <em>The Global Economic Impact of Private Equity Report 2008</em>, World Economic Forum.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0164-R-FN14Content">
+<p>
+<sup>14</sup> The term PIPE is widely used in the United States and is also used internationally, including in emerging markets.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0164-R-FN15Content">
+<p>
+<sup>15</sup>
+<a href="https://tapimmune.com/2018/06/tapimmune-announces-pricing-of-70-million-private-placement/" target="_blank">https://tapimmune.com/2018/06/tapimmune-announces-pricing-of-70-million-private-placement/</a>
+</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0164-R-FN16Content">
+<p>
+<sup>16</sup>
+<a aria-describedby="CFA0164-R-R7Content" class="dp-popover-trigger" href="#CFA0164-R-R7Content">Strömberg (2008)</a>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0164-R-FN17Content">
+<p>
+<sup>17</sup>
+<a href="https://www.statista.com/statistics/270195/global-private-equity-deal-value/" target="_blank">https://www.statista.com/statistics/270195/global-private-equity-deal-value/</a>
+</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0164-R-FN18Content">
+<p>
+<sup>18</sup> See, for example, <a aria-describedby="CFA0164-R-R1Content" class="dp-popover-trigger" href="#CFA0164-R-R1Content">Bailey, Wirth, and Zapol (2005)</a>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0164-R-FN19Content">
+<p>
+<sup>19</sup> See, for example, <a aria-describedby="CFA0164-R-R5Content" class="dp-popover-trigger" href="#CFA0164-R-R5Content">Graham, Harvey, and Rajgopal (2005)</a>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0164-R-R7Content">Strömberg, Per (2008). “The New Demography of Private Equity.” <em>The Global Economic Impact of Private Equity Report 2008</em>, World Economic Forum.</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0164-R-R1Content">Bailey, Elizabeth, Wirth, Meg and Zapol, David (2005). “Venture Capital and Global Health.” <em>Financing Global Health Ventures</em>, Discussion Paper (September 2005): <a href="http://www.commonscapital.com/downloads/Venture_Capital_and_Global_Health.pdf" target="_blank">http://www.­commonscapital.com/downloads/Venture_Capital_and_Global_Health.pdf</a>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0164-R-R5Content">Graham, John R., Harvey, Campbell R. and Rajgopal, Shiva (2005). “The Economic Implications of Corporate Financial Reporting.” <em>Journal of Accounting and Economics</em>, vol.  40, no. 1–3:3–73.</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PrivateEquitySecuritiesContent">
+<p>Securities that are not listed on public exchanges and have no active secondary market. They are issued primarily to institutional investors via non-public offerings, such as private placements.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="VentureCapitalContent">
+<p>Private equity investment in a startup or early-stage company involving high risk and a high rate of failure.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="InitialPublicOfferingContent">
+<p>The first issuance of common shares to the public by a formerly private
+                     corporation.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="LeveragedBuyoutLBOContent">
+<p>A transaction in which a private acquiror uses equity and a high proportion of debt to acquire a public or private company in order to make changes to increase value over an investment period.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ManagementBuyoutContent">
+<p>A private sale to a strategic buyer that includes a company’s existing management. The management team commits their own equity capital along with other investors as an incentive to grow the firm’s cash flows and value.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PrivateInvestmentInPublicEquityContent">
+<p>An investment in the equity of a publicly traded firm that is made at a
+                     discount to the market value of the firm’s shares.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1868_modules_items_142283_402_Characteristics_of_Equity_Securities.html" >← 前へ</a>
+  <span class="title">4.03 | Private Versus Public Equity Securities</span>
+  <a href="courses_1868_modules_items_142286_404_Non-Domestic_Equity_Securities.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.07 | The Gordon Growth Model</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0166-R-s07" title="8.07 | The Gordon Growth Model">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 8: Equity Valuation: Concepts and Basic Tools</span>8.07 | The Gordon Growth Model</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">calculate and interpret the intrinsic value of an equity security based on the Gordon (constant) growth dividend discount model or a two-stage dividend discount model, as appropriate</li>
+<li class="cfa-curriculum-los-item">identify characteristics of companies for which the constant growth or a multistage dividend discount model is appropriate</li>
+<li class="cfa-curriculum-los-item">explain advantages and disadvantages of each category of valuation model</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>A rather obvious problem when one is trying to implement <a aria-describedby="CFA0166-R-E1_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA0166-R-E1_Content" title="Equation 1 Content">Equation 1</a> for common equity is that it requires the analyst to estimate an infinite series of expected dividends. To simplify this process, analysts frequently make assumptions about how dividends will grow or change over time. The Gordon (constant) growth model (Gordon, 1962) is a simple and well-recognized DDM. The model assumes dividends grow indefinitely at a constant rate.</p>
+<p>Because of its assumption of a constant growth rate, the Gordon growth model is particularly appropriate for valuing the equity of dividend-paying companies that are relatively insensitive to the business cycle and in a mature growth phase. Examples might include an electric utility serving a slowly growing area or a producer of a staple food product (e.g., bread). A history of increasing the dividend at a stable growth rate is another practical criterion if the analyst believes that pattern will hold in the future.</p>
+<p>With a constant growth assumption, <a aria-describedby="CFA0166-R-E1_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA0166-R-E1_Content" title="Equation 1 Content">Equation 1</a> can be written as <a aria-label="View Equation 8" class="internal" href="#CFA0166-R-E8" role="button">Equation 8</a>, where <em>g</em> is the constant growth rate:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E8"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<munderover>
+<mo>∑</mo>
+<mrow>
+<mi>t</mi>
+<mo>=</mo>
+<mn>1</mn>
+</mrow>
+<mi>∞</mi>
+</munderover>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>0</mn>
+</msub>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>g</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mi>t</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mi>t</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<msub>
+<mi>D</mi>
+<mn>0</mn>
+</msub>
+<mrow>
+<mo>[</mo>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>g</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>+</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>g</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mn>2</mn>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mn>2</mn>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>+</mo>
+<mn>...</mn>
+<mo>+</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>g</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mi>∞</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mi>∞</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+<mo>]</mo>
+</mrow>
+</mrow>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">8</span></div>
+<p>If required return <em>r</em> is assumed to be strictly greater than growth rate <em>g</em>, then the square-bracketed term in <a aria-label="View Equation 8" class="internal" href="#CFA0166-R-E8" role="button">Equation 8</a> is an infinite geometric series and sums to [(1 + <em>g</em>)/(<em>r</em> – <em>g</em>)]. Substituting into <a aria-label="View Equation 8" class="internal" href="#CFA0166-R-E8" role="button">Equation 8</a> produces the Gordon growth model as presented in <a aria-label="View Equation 9" class="internal" href="#CFA0166-R-E9" role="button">Equation 9</a>:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E9"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>0</mn>
+</msub>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>g</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">9</span></div>
+<p>For an illustration of the expression, suppose the current (most recent) annual dividend on a share is €5.00 and dividends are expected to grow at 4 percent per year. The required rate of return on equity is 8 percent. The Gordon growth model estimate of intrinsic value is, therefore, €5.00(1.04)/(0.08 – 0.04) = €5.20/0.04 = €130 per share. Note that the numerator is <em>D</em><sub>1</sub> not <em>D</em><sub>0</sub>. (Using the wrong numerator is a common error.)</p>
+<p>The Gordon growth model estimates intrinsic value as the present value of a growing perpetuity. If the growth rate, <em>g</em>, is assumed to be zero, <a aria-label="View Equation 8" class="internal" href="#CFA0166-R-E8" role="button">Equation 8</a> reduces to the expression for the present value of a perpetuity, given earlier as <a aria-describedby="CFA0166-R-E6_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA0166-R-E6_Content" title="Equation 6 Content">Equation 6</a>.</p>
+<p>In estimating a long-term growth rate, analysts use a variety of methods, including assessing the growth in dividends or earnings over time, using the industry median growth rate, and using the relationship shown in <a aria-label="View Equation 10" class="internal" href="#CFA0166-R-E10" role="button">Equation 10</a> to estimate the sustainable growth rate:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E10"><em>g</em> = <em>b</em> × ROE  <span class="cfa-curriculum-display-formula-number">10</span></div>
+<p>where</p>
+<ul class="cfa-curriculum-definition-list">
+<li><em>g</em> = dividend growth rate</li>
+<li><em>b</em> = earnings retention rate = (1 – Dividend payout ratio)</li>
+<li>ROE = return on equity</li>
+</ul>
+<p><a aria-label="View Example 7" class="internal" href="#CFA0166-R-EXM7" role="button">Example 7</a> illustrates the application of the Gordon growth model to the shares of a large industrial manufacturing company. The analyst believes it will continue to grow at a rate that it achieved in the previous three years and remain stable in the future. The example asks how much the dividend growth assumption adds to the intrinsic value estimate. The question is relevant to valuation because if the amount is high on a percentage basis, a large part of the value of the share depends on the realization of the growth estimate. One can answer the question by subtracting from the intrinsic value estimate determined by <a aria-label="View Equation 9" class="internal" href="#CFA0166-R-E9" role="button">Equation 9</a> the value determined by <a aria-describedby="CFA0166-R-E6_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA0166-R-E6_Content" title="Equation 6 Content">Equation 6</a>, which assumes no dividend growth.<a aria-describedby="CFA0166-R-FN3Content" class="dp-popover-trigger" href="#CFA0166-R-FN3Content"> <sup>3</sup> </a></p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA0166-R-EXM7">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 7<span style="display: block;">Applying the Gordon Growth Model</span></h3>
+<section>
+<p>Siemens AG operates in the capital goods and technology space. It is involved in the engineering, manufacturing, automation, power, and transportation sectors. It operates globally and is one of the largest companies in the sectors in which it operates. It is a substantial employer in both its original, domestic German market, as well as dozens of countries around the world. Selected financial information for Siemens appears in <a aria-label="View Exhibit 3" class="internal" href="#CFA0166-R-EXH3" role="button">Exhibit 3</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-EXH3">
+<h4 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 3<span style="display: block;">Selected Financial Information for Siemens AG</span></h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Year</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2017</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2016</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2015</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2014</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2013</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">EPS</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€7.45</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€6.74</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€8.85</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€6.37</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€5.08</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">DPS</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€3.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€3.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€3.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€3.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€3.0</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Payout ratio</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">50%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">40%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">52%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">59%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ROE</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15.6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15.9%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">22.3%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">18.2%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">14.6%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Share price</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">   (XETRA - Frankfurt)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">€119.2</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">€104.2</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">€79.94</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">€94.37</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">€89.06</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="cfa-curriculum-table-wrap-foot"> <em>Note</em>: DPS stands for “dividends per share.”</span></p>
+<p><span class="cfa-curriculum-table-wrap-foot"> <em>Source</em>: Morningstar, <a href="http://www.siemens.com" target="_blank">www.siemens.com</a>.</span></p>
+</div>
+<p>The analyst estimates the growth rate to be approximately 5.4 percent based on the dividend growth rate over the period 2013 to 2017 [3(1 + <em>g</em>)<sup>4</sup> = 3.7, so <em>g</em> = 5.4%]. To verify that the estimated growth rate of 5.4 percent is feasible in the future, the analyst also uses the average of Siemens’s retention rate and ROE for the previous five years (<em>g</em> ≈ 0.49 × 17.3% ≈ 8.5%) to estimate the sustainable growth rate.</p>
+<p>Using a number of approaches, including adding a risk premium to a long-term German government bond and using the CAPM, the analyst estimates a required return of 7.5 percent. The most recent dividend of €3.70 is used for <em>D<sub>0</sub></em>.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Use the Gordon growth model to estimate Siemens’s intrinsic value.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s07-01-01">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E___10"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mtext>€3</mtext>
+<mtext>.70</mtext>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.054</mn>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mn>0.075</mn>
+<mo>−</mo>
+<mn>0.054</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mtext>€185</mtext>
+<mtext>.70</mtext>
+</mrow>
+</semantics>
+</math></div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>How much does the dividend growth assumption add to the intrinsic value estimate?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s07-01-02">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E___11"><math>
+<semantics>
+<mrow>
+<mtext>€185</mtext>
+<mtext>.70</mtext>
+<mo>−</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mtext>€3</mtext>
+<mtext>.70</mtext>
+</mrow>
+<mrow>
+<mtext>0</mtext>
+<mtext>.075</mtext>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mtext>€136</mtext>
+<mtext>.37</mtext>
+</mrow>
+</semantics>
+</math></div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Based on the estimated intrinsic value, is a share of Siemens undervalued, overvalued, or fairly valued?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s07-01-03">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A share of Siemens appears to be undervalued. The analyst, before making a recommendation, might consider how realistic the estimated inputs are and check the sensitivity of the estimated value to changes in the inputs.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>What is the intrinsic value if the growth rate estimate is lowered to 4.4 percent?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s07-01-04">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E___12"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mtext>€3</mtext>
+<mtext>.70</mtext>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.044</mn>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mn>0.075</mn>
+<mo>−</mo>
+<mn>0.044</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mtext>€124</mtext>
+<mtext>.61</mtext>
+</mrow>
+</semantics>
+</math></div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">5. </span>
+<p>What is the intrinsic value if the growth rate estimate is lowered to 4.4 percent and the required rate of return estimate is increased to 8.5 percent?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s07-01-05">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E___13"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mtext>€3</mtext>
+<mtext>.70</mtext>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.044</mn>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mn>0.085</mn>
+<mo>−</mo>
+<mn>0.044</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mtext>€94</mtext>
+<mtext>.21</mtext>
+</mrow>
+</semantics>
+</math></div>
+<p>The Gordon growth model estimate of intrinsic value is extremely sensitive to the choice of required rate of return <em>r</em> and growth rate <em>g</em>. It is possible that the growth rate assumption and the required return assumption used initially were too high. Worldwide economic growth is typically in the low single digits, which may mean that a large company such as Siemens may struggle to grow dividends at 5.4 percent into perpetuity. <a aria-label="View Exhibit 4" class="internal" href="#CFA0166-R-EXH4" role="button">Exhibit 4</a> presents a further sensitivity analysis of Siemens’s intrinsic value to the required return and growth estimates.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-EXH4">
+<h6 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 4<span style="display: block;">Sensitivity Analysis of the Intrinsic-Value Estimate for Siemens AG</span></h6>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong> <em>g</em> = 2.5%</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong> <em>g</em> = 3.5%</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong> <em>g</em> = 4.5%</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong> <em>g</em> = 5.5%</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong> <em>g</em> = 6.5%</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"><em>r</em> = 6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€108.4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€153.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€257.8</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€780.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">—</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"><em>r</em> = 7%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€84.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€109.4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€154.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€260.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€788.1</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"><em>r</em> = 8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€69.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€85.1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€110.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€156.1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€262.7</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"><em>r</em> = 9%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€58.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€69.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€85.9</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€111.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€157.6</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"><em>r</em> = 10%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€50.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€58.9</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€70.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€86.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">€112.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Note that no value is shown when the growth rate exceeds the required rate of return. The Gordon growth model assumes that the growth rate cannot be greater than the required rate of return.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p>The assumptions of the Gordon model are as follows:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0166-R-L23">
+<li class="cfa-curriculum-list-item">
+<p>Dividends are the correct metric to use for valuation purposes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The dividend growth rate is forever: It is perpetual and never changes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The required rate of return is also constant over time.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The dividend growth rate is strictly less than the required rate of return.</p>
+</li>
+</ul>
+<p>An analyst might be dissatisfied with these assumptions for many reasons. The equities being examined might not currently pay a dividend. The Gordon assumptions might be too simplistic to reflect the characteristics of the companies being evaluated. Some alternatives to using the Gordon model are as follows:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0166-R-L24">
+<li class="cfa-curriculum-list-item">
+<p>Use a more robust DDM that allows for varying patterns of growth.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Use a cash flow measure other than dividends for valuation purposes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Use some other approach (such as a multiplier method) to valuation.</p>
+</li>
+</ul>
+<p>Applying a DDM is difficult if the company being analyzed is not currently paying a dividend. A company may not be paying a dividend if 1) the investment opportunities the company has are all so attractive that the retention and reinvestment of funds is preferable, from a return perspective, to the distribution of a dividend to shareholders or 2) the company is in such shaky financial condition that it cannot afford to pay a dividend. An analyst might still use a DDM to value such companies by assuming that dividends will begin at some future point in time. The analyst might further assume that constant growth occurs after that date and use the Gordon growth model for valuation. Extrapolating from no current dividend, however, generally yields highly uncertain forecasts. Analysts typically choose to use one or more of the alternatives instead of or as a supplement to the Gordon growth model.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA0166-R-EXM8">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 8<span style="display: block;">Gordon Growth Model in the Case of No Current Dividend</span></h3>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>A company does not currently pay a dividend but is expected to begin to do so in five years (at <em>t</em> = 5). The first dividend is expected to be $4.00 and to be received five years from today. That dividend is expected to grow at 6 percent into perpetuity. The required return is 10 percent. What is the estimated current intrinsic value?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s07-02-01">
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The analyst can value the share in two pieces:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA0166-R-L25">
+<li class="cfa-curriculum-list-item">
+<p>The analyst uses the Gordon growth model to estimate the value at <em>t</em> = 5; in the model, the year-ahead dividend is $4(1.06). Then the analyst finds the present value of this value as of <em>t</em> = 0.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The analyst finds the present value of the $4 dividend not “counted” in the estimate in Piece 1 (which values dividends from <em>t</em> = 6 onward). Note that the statement of the problem implies that <em>D</em><sub>0</sub>, <em>D</em><sub>1</sub>, <em>D</em><sub>2</sub>, <em>D</em><sub>3</sub>, and <em>D</em><sub>4</sub> are zero.</p>
+</li>
+</ol>
+<p>Piece 1: The value of this piece is $65.818:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E___14"><math>
+<semantics>
+<mtable columnalign="left">
+<mtr>
+<mtd>
+<msub>
+<mi>V</mi>
+<mi>n</mi>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mi>n</mi>
+</msub>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>g</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mrow>
+<mi>n</mi>
+<mo>+</mo>
+<mn>1</mn>
+</mrow>
+</msub>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mtd>
+</mtr>
+<mtr>
+<mtd>
+<msub>
+<mi>V</mi>
+<mn>5</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>$</mi>
+<mn>4</mn>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.06</mn>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mn>0.10</mn>
+<mo>−</mo>
+<mn>0.06</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>$</mi>
+<mn>4.24</mn>
+</mrow>
+<mrow>
+<mn>0.04</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mi>$</mi>
+<mn>106</mn>
+</mtd>
+</mtr>
+<mtr>
+<mtd>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>$</mi>
+<mn>106</mn>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.10</mn>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mn>5</mn>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mi>$</mi>
+<mn>65.818</mn>
+</mtd>
+</mtr>
+</mtable>
+</semantics>
+</math></div>
+<p>Piece 2: The value of this piece is $2.484:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E___15"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>$</mi>
+<mn>4</mn>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.10</mn>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mn>5</mn>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mi>$</mi>
+<mn>2.484</mn>
+</mrow>
+</semantics>
+</math></div>
+<p>The sum of the two pieces is $65.818 + $2.484 = $68.30.</p>
+<p>Alternatively, the analyst could value the share at <em>t</em> = 4, the point at which dividends are expected to be paid in the following year and from which point they are expected to grow at a constant rate.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E___16"><math>
+<semantics>
+<mtable columnalign="left">
+<mtr>
+<mtd>
+<msub>
+<mi>V</mi>
+<mn>4</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>$</mi>
+<mn>4.00</mn>
+</mrow>
+<mrow>
+<mn>0.10</mn>
+<mo>−</mo>
+<mn>0.06</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>$</mi>
+<mn>4.00</mn>
+</mrow>
+<mrow>
+<mn>0.04</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mi>$</mi>
+<mn>100</mn>
+</mtd>
+</mtr>
+<mtr>
+<mtd>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>$</mi>
+<mn>100</mn>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.10</mn>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mn>4</mn>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mi>$</mi>
+<mn>68.30</mn>
+</mtd>
+</mtr>
+</mtable>
+</semantics>
+</math></div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The next section addresses the application of the DDM with more flexible assumptions as to the dividend growth rate.</p>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0166-R-FN3Content">
+<p><sup>3</sup> A related concept, the present value of growth opportunities (PVGO), is discussed in more advanced readings.</p>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-disp-formula" id="CFA0166-R-E1_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Equation 1 Content</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E1"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<munderover>
+<mo>∑</mo>
+<mrow>
+<mi>t</mi>
+<mo>=</mo>
+<mn>1</mn>
+</mrow>
+<mi>∞</mi>
+</munderover>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mi>t</mi>
+</msub>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mi>t</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">1</span></div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-disp-formula" id="CFA0166-R-E1_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Equation 1 Content</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E1"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<munderover>
+<mo>∑</mo>
+<mrow>
+<mi>t</mi>
+<mo>=</mo>
+<mn>1</mn>
+</mrow>
+<mi>∞</mi>
+</munderover>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mi>t</mi>
+</msub>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mi>t</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">1</span></div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-disp-formula" id="CFA0166-R-E6_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Equation 6 Content</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E6"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>0</mn>
+</msub>
+</mrow>
+<mi>r</mi>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">6</span></div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-disp-formula" id="CFA0166-R-E6_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Equation 6 Content</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E6"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>0</mn>
+</msub>
+</mrow>
+<mi>r</mi>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">6</span></div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1868_modules_items_142434_806_Preferred_Stock_Valuation.html" >← 前へ</a>
+  <span class="title">8.07 | The Gordon Growth Model</span>
+  <a href="courses_1868_modules_items_142440_808_Multistage_Dividend_Discount_Models.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

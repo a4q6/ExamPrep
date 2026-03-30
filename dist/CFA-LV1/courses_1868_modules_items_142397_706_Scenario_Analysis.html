@@ -1,0 +1,2491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.06 | Scenario Analysis</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2429-R-s06-R-1" title="7.06 | Scenario Analysis">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 7: Company Analysis: Forecasting</span>7.06 | Scenario Analysis</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe the use of scenario analysis in forecasting</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Recall from earlier lessons that industry and business risks may result in future outcomes that differ from expectations. The final step in forecasting involves incorporating the possibility of different outcomes based on key risk factors as well as judging their likelihood of occurrence. Generic risk factors that affect all companies—but to varying degrees—include changes in the business cycle, competition, inflation and deflation, and technological developments. Rather than develop single point estimate forecasts, analysts make several forecast scenarios that vary based on different outcomes with respect to key risk factors. Investors compare these scenarios with other analysts’ (e.g., sell-side analysts) forecasts for a company, as well as forecasts implied by current valuations, to make investment decisions.</p>
+<p>We demonstrate the use of scenario analysis for technological developments that threaten to cannibalize demand for an existing product in the following historical case study. Technological developments can affect demand for a product, the quantity supplied of a product, or both. When changes in technology lead to lower manufacturing costs, the supply curve will shift to the right as suppliers produce more of the product at the same price. Conversely, if changes in technology result in the development of attractive substitute products, the demand curve will shift to the left.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2429-R-s06-EXM4">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 4<span style="display: block;">Quantifying the Tablet Market’s Potential to Cannibalize Demand for Personal Computers</span>
+</h3>
+<p>The worldwide tablet market experienced a major technological development with the introduction of the Apple iPad tablet in April 2010, which was expected to have (and indeed did have) important implications for the manufacturers of desktop and laptop computers. A tablet promised to offer the capabilities of a portable personal computer (PC) with a touchscreen interface instead of a keyboard. Another distinguishing feature of the then-new tablets was that—unlike the majority of PCs, which run on the Microsoft Windows platform—they would run on a non-Microsoft operating system: Apple’s iOS or Google’s Android. Given the tablet’s ability to perform many of the most common tasks of a PC—including emailing, browsing the web, sharing photos, playing music, watching movies, playing games, keeping a calendar, and managing contacts—an analyst at that time might reasonably have wondered to what extent sales of tablets might cannibalize demand for PCs and what the potential impact might be on Microsoft’s sales and earnings. <a aria-label="View Exhibit 13" class="internal" href="#CFA2429-R-s06-EXH13" role="button">Exhibit 13</a> presents one approach to answering these questions. It is set at the start of 2012, just over a year after the launch of the iPad. It is presented from the position of an analyst assessing the impact of the tablet on the PC market and Microsoft.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH13">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 13<span style="display: block;">Unit and Revenue Projections (in thousands, unless noted)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Pre-Cannibalization PC Projections</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2012E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2013E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2014E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3-Year CAGR</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Consumer PC shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">170,022</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">174,430</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">184,120</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">193,811</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Non-consumer PC shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">180,881</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">185,570</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">195,880</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">206,189</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total global PC shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">350,903</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">360,000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">380,000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">400,000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">% of which is consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">48%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">48%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">48%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">48%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">% of which is non-consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">52%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">52%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">52%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">52%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Consumer tablet shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">36,785</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">82,800</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">111,250</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">148,750</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">59.3%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Non-consumer tablet shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,686</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7,200</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,750</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">26,250</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">149.7%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total global tablet shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38,471</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">90,000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">125,000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">175,000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">65.7%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">% of which is consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">96%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">92%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">89%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">85%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">% of which is non-consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">11%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cannibalization factor, consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cannibalization factor, non-consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "># of consumer PCs cannibalized by tablets</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">11,036</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">24,840</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33,375</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">44,625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "># of non-consumer PCs cannibalized by tablets</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">169</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">720</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,375</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total PCs cannibalized by tablets</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">11,205</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">25,560</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">34,750</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">47,250</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">% of total PCs cannibalized by tablets</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.2%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7.1%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">9.1%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">11.8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td colspan="3" style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Post-Cannibalization PC Projections</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Consumer PC shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">158,987</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">149,590</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">150,745</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">149,186</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−2.1%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Non-consumer PC shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">180,712</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">184,850</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">194,505</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">203,564</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total global PC shipments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">339,699</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">334,440</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">345,250</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">352,750</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.3%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<em>Microsoft implied average selling price (USD)</em>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">85</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">85</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">85</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">85</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Non-consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">155</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">155</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">155</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">155</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<em>Revenue impact for Microsoft (USD millions)</em>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">938</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,111</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,837</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,793</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Non-consumer</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">26</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">112</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">213</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">407</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total revenue impact</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">964</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,223</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,050</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,200</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Note:</em> CAGR is compound annual growth rate. Non-consumer includes enterprise, education, and government purchasers.</span>
+</p>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Sources:</em> Based on data from Gartner, JPMorgan, Microsoft, and authors’ analysis.</span>
+</p>
+</div>
+<p>Worldwide market shipments of PCs in FY2011 totaled 350.9 million units, while worldwide shipments of tablets totaled 38.5 million units (source: Gartner Personal Computer Quarterly Statistics Worldwide Database). Shipments to consumers represented 96% of total tablet shipments during fiscal year 2011. We next estimate the magnitude of the potential substitution effect, or cannibalization factor, that tablets will have on the PC market. Because the cannibalization factor depends on many different variables—including user preferences, end-use application, and whether the purchaser already owns a PC—we use a range of potential estimates. Moreover, we also divide the worldwide PC market into consumer and non-consumer (enterprise, education, and government purchasers), because the degree of substitution is likely to differ between the two. For purposes of illustration, we assume a cannibalization factor of 30% for the consumer market and 10% for the non-consumer market in our base case scenario.</p>
+<p>In addition, the base case scenario assumes that non-consumer adoption of tablets increases to 15% of the market from 4% in 2011. Moreover, although the composition of the global PC market is roughly evenly divided between consumers and non-consumers (48% and 52% in fiscal year 2011, respectively), the non-consumer segment is significantly more profitable for Microsoft, because approximately 80% of the company’s Office products are sold to enterprise, education, and government institutions. The average selling price (ASP) estimates are derived by dividing Microsoft’s estimated average revenue by customer type for the prior three years by Microsoft’s estimated PC shipments for each type of customer. By multiplying the projected number of PCs cannibalized by tablets by the estimated ASP, we can derive an estimate of the revenue impact for Microsoft. For example, in FY2012, it is projected that 24.8 million consumer PCs will be cannibalized by sales of tablets. With a consumer ASP of USD85, this cannibalization implies a revenue loss for Microsoft of USD2.1 billion (24.8 million units × USD85 per unit = USD2.1 billion).</p>
+<p>Once the revenue impact has been projected, the next step is to estimate the impact of lower PC unit volumes on operating costs and margins. We begin by analyzing the cost structure of Microsoft and, more specifically, the breakdown between fixed and variable costs. Most software companies have a cost structure with a relatively high proportion of fixed costs and a low proportion of variable costs, because costs related to product development and marketing (mostly fixed) are sunk and unrecoverable, whereas the cost of producing an additional copy of the software (mostly variable) is relatively low. Because very few, if any, companies provide an explicit breakdown of fixed versus variable costs, an estimate almost always needs to be made. One method is to use the formula</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E">%∆ (Cost of revenue + Operating expenses)/%∆ revenue,</div>
+<p>where %∆ is “percentage change in,” used as a proxy for variable cost percentage. Another approach is to assign an estimate of the percentage of fixed and variable costs to the various components of operating expenses. The two approaches are illustrated in <a aria-label="View Exhibit 14" class="internal" href="#CFA2429-R-s06-EXH14" role="button">Exhibit 14</a> and <a aria-label="View Exhibit 15" class="internal" href="#CFA2429-R-s06-EXH15" role="button">Exhibit 15</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH14">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 14<span style="display: block;">Estimation of Variable Costs for Microsoft, Method 1 (USD millions)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Selected Operating Segments</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2009</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong> </strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2010</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong> </strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong> </strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011/FY2009 Percentage Change</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue:</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Windows and Windows Live</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15,563</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18,792</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18,778</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Microsoft business division</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">19,211</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">19,345</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">21,986</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total segment revenue</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">34,774</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38,137</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">40,764</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating expenses:</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Windows and Windows Live</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,191</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,539</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,810</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Microsoft business division</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,058</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7,703</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,159</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total operating expenses</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,249</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,242</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,969</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___1">%Variable cost estimate ≈ %∆ (Cost of revenue + Operating expenses)/%∆ revenue ≈ 5%/17% ≈ <strong>29%</strong>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___2">%Fixed cost ≈ 1 − %Variable cost ≈ 1 − 29% ≈ <strong>71%</strong>
+</div>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH15">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 15<span style="display: block;">Estimation of Variable Costs for Microsoft, Method 2 (USD millions)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Operating Expenses</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2009</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2010</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2009–FY2011 Average</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>% of Total Op. Expenses</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Estimated % of Fixed Costs</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Fixed Cost Contribution</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cost of revenue (excl. depreciation)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10,455</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10,595</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,577</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">11,542</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Depreciation expense</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,700</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,800</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,833</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total cost of revenue</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,155</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,395</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15,577</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,376</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">34%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">R&amp;D</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">9,010</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,714</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">9,043</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,922</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Sales and marketing</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,879</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,214</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,940</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,344</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">34%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">80%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">General and admin.</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,030</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,063</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,222</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,105</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total operating expenses</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38,074</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38,386</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42,782</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">39,747</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">60%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td colspan="7" style="text-align: left; vertical-align: top; padding: 8px; ">Estimated percentage of Microsoft’s total cost structure that is fixed:</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">70%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Note:</em> Fiscal year ends in June.</span>
+</p>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Sources:</em> Microsoft 2011 Form 10-K and authors’ analysis.</span>
+</p>
+</div>
+<p>As can be seen, Microsoft’s cost structure appears to consist of approximately 70% fixed costs and 30% variable costs. Note, however, that a growing company like Microsoft will typically re-invest in PP&amp;E to support future growth, so even those expenses that appear to be “fixed” will increase over time. To adjust for this expected growth in fixed costs, this example includes an assumption that the change in fixed costs will be half the rate of the change in sales. Variable costs are projected to change at the same rate as sales. As shown in <a aria-label="View Exhibit 16" class="internal" href="#CFA2429-R-s06-EXH16" role="button">Exhibit 16</a>, after incorporating these assumptions into the projections, an assumed 7.0% compound annual growth rate (CAGR) in revenue through FY2014 would translate into a 10.6% CAGR in operating income [(36,757/27,161)<sup>1/3</sup> − 1 = 0.106, or 10.6%]. In addition, these assumptions would result in an operating margin expansion of 410 bps over the same period (42.9% − 38.8% = 4.1 pps, or 410 bps), because of the significant amount of operating leverage that exists as a result of a relatively large fixed cost base. With the further assumptions of no change in other income, a constant effective tax rate, and no change in shares outstanding, the pre-cannibalization model, shown in <a aria-label="View Exhibit 16" class="internal" href="#CFA2429-R-s06-EXH16" role="button">Exhibit 16</a>, results in projected revenue of USD85.7 billion, operating income of USD36.8 billion, an operating margin of 42.9%, and EPS that increases at a CAGR of 10.3% to USD3.62 in FY2014.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH16">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 16<span style="display: block;">Microsoft Pre-Cannibalization EPS Projections (USD millions, except EPS)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong> </strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2012E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2013E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2014E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3-Year CAGR</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">69,943</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">74,839</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">80,078</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">85,683</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">YoY%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<em>Operating Expenses</em>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Fixed (70%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,947</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,996</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,080</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33,203</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Variable (30%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,835</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,733</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,694</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15,723</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total operating expenses</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42,782</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">44,729</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">46,774</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">48,926</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.6%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,161</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,110</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33,303</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">36,757</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10.6%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating margin</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38.83%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">40.23%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">41.59%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42.90%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other income (expense)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Pre-tax income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,071</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">31,020</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">34,213</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">37,667</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Provision for income taxes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,921</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,438</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,998</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,603</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Effective tax rate</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">23,150</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">25,582</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,215</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">31,064</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Weighted average shares outstanding, diluted</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Estimated EPS pre-cannibalization</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.69</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.98</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.28</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.62</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10.3%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>In the post-cannibalization scenario, as shown in <a aria-label="View Exhibit 17" class="internal" href="#CFA2429-R-s06-EXH17" role="button">Exhibit 17</a>, revenue is reduced each year to reflect the expected impact of cannibalization, which results in a decrease in the CAGR of revenue over the period to 5.2%, down from 7.0% in the pre-cannibalization scenario. Given the reduction in revenue growth and holding the cost structure constant at 70/30 fixed versus variable costs, operating income growth slows to a CAGR of 8.0%, down from 10.6% in the pre-cannibalization scenario. Operating margin at the end of the period is reduced by approximately 100 bps, from 42.9% to 41.9%, because the company is unable to leverage its fixed cost base to the same degree as a result of slower revenue growth. Overall, in the post-cannibalization scenario, Microsoft is expected to generate revenue of USD81.5 billion, operating income of USD34.2 billion, an operating margin of 41.9%, and EPS that increases at a CAGR of 7.7% to USD3.37 in FY2014. Thus, the cannibalization of PCs as a result of projected growth in the tablet market is expected to reduce the company’s annual revenues in FY2014 by USD4.2 billion, operating income by USD2.6 billion, operating margins by 96 bps, and EPS by USD0.25.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH17">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 17<span style="display: block;">Microsoft Post-Cannibalization EPS Projections, Base Case Scenario (USD millions, except EPS and unless noted)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong> </strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2012E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2013E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2014E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3-Year CAGR</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">69,943</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">72,616</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">77,028</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">81,483</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">YoY%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.1%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5.8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<em>Operating Expenses</em>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Fixed (70%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,947</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,520</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">31,447</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,356</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.6%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Variable (30%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,835</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,325</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,135</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,952</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total operating expenses</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42,782</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">43,845</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">45,581</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">47,308</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.4%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,161</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,771</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">31,446</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">34,175</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating margin</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38.83%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">39.62%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">40.82%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">41.94%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other income (expense)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Pre-tax income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,071</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,681</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,356</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">35,085</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Provision for income taxes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,921</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,203</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,672</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,151</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Effective tax rate</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">23,150</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">24,478</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">26,684</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,934</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Weighted average shares outstanding, diluted</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Estimated EPS post-cannibalization</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.69</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.85</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.11</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.37</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7.7%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Compared with pre-cannibalization:</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Estimated impact on operating margin</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−61 bps</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−77 bps</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−96 bps</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Estimated impact on EPS (USD)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.13</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.17</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.25</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−2.6%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2429-R-s06-Ba">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+         Knowledge Check</h3>
+<p>Answer the following questions using the data from the exhibits on Microsoft:</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Estimate post-cannibalization global PC shipments in FY2012 assuming a cannibalization factor of 40% for consumers and 15% for non-consumers. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The number of PCs cannibalized by tablets is equal to the product of the expected number of global tablet shipments, the percentage representation of each category, and the cannibalization factor for the category. Tablet shipments in FY2012 are projected to be 90 million units; (90 million tablets × 92% consumer representation × 40% consumer cannibalization factor = 33.12 million consumer PCs cannibalized by tablets) + (90 million tablets × 8% non-consumer representation × 15% cannibalization = 1.08 million non-consumer PCs cannibalized by tablets) = 34.2 million total PCs cannibalized by tablets. Post-cannibalization shipments are equal to pre-cannibalization shipments minus expected cannibalization, or 360 million − 34.2 million = 325.8 million.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Using the results derived in Question 1, estimate the post-cannibalization revenue in FY2012 for Microsoft. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The estimated impact on revenue is equal to the product of the number of PCs cannibalized and the ASP. Using the results obtained in Question 1 and the ASP data, the expected revenue impact can be calculated as (33.12 million consumer PCs cannibalized by tablets × USD85 ASP = USD2.815 billion) + (1.08 million non-consumer PCs cannibalized by tablets × USD155 ASP = USD167.4 million) = USD2.983 billion total impact on revenue for Microsoft. Post-cannibalization revenue is equal to pre-cannibalization revenue minus the estimated impact of cannibalization on revenue, or USD74.839 billion − USD2.983 billion = USD71.856 billion.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Using the estimate for post-cannibalization revenue derived in Question 2 and the cost structure provided, estimate post-cannibalization operating income and operating margin in FY2012 for Microsoft. Assume that fixed costs change at half the rate of the change in sales. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH18">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 18<span style="display: block;">Solution to Question 3 (USD millions)</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong> </strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2012E</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Notes</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">69,943</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">71,856</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Derived from Question 2</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">YoY%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.74%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Rate of change in sales used to estimate operating expenses</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<em>Operating Expenses</em>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Fixed (70%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,947</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,357</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Fixed costs change at half the rate of the change in sales, or 29,947 × (1 + 2.74%/2)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Variable (30%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,835</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,186</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Variable costs change at the same rate as the change in sales, or 12,835 × (1 + 2.74%)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total operating expenses</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42,782</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">43,543</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Although not shown, operating expenses include COGS</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,161</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,313</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue minus total operating expenses, or 71,856 − 43,543 = 28,313</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating margin</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38.8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">39.4%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income divided by revenue, or 28,313/71,856 = 39.4%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Post-cannibalization operating income and operating margin in FY2012 for Microsoft are USD28,314 million and 39.4%, respectively.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>Using the estimate for operating income derived in Question 3 and the data in the exhibits, calculate the expected post-cannibalization EPS in FY2012 for Microsoft. Assume that other income (expense), the effective tax rate, and the diluted weighted average shares outstanding provided for FY2011 remain constant in FY2012.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH19">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 19<span style="display: block;">Solution to Question 4 (USD millions, except EPS and unless noted)</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong> </strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2012E</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Notes</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">69,943</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">71,856</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">YoY%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.74%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<em>Operating Expenses</em>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Fixed (70%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,947</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,357</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Variable (30%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,835</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,186</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total operating expenses</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42,782</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">43,543</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,161</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,314</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating margin</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38.8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">39.4%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other income (expense)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Pre-tax income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,071</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,224</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income + Other income (expense), or 28,314 + 910 = 29,224</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Provision for income taxes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,921</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,123</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Pre-tax income × Effective tax rate, or 29,224 × 17.53% = 5,123</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Effective tax rate</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">23,150</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">24,101</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Pre-tax income − Provision for income taxes, or 29,224 − 5,123 = 24,101</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Weighted average shares outstanding, diluted</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Estimated EPS post-cannibalization (USD)</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2.69</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2.80</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net income/Wtd. avg. shs. out., or 24,101/8,593 = USD2.80</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Whenever one is estimating something that depends on many different variables that are difficult to measure, we recommend altering some of the assumptions to generate a range of estimates based on various scenarios. Thus, having developed a forecast under a base case cannibalization scenario, we can analyze the sensitivity of the results by altering the cannibalization assumptions. The base case scenario corresponds to the assumptions reflected in the boxed center of the table in <a aria-label="View Exhibit 20" class="internal" href="#CFA2429-R-s06-EXH20" role="button">Exhibit 20</a>. <a aria-label="View Exhibit 21" class="internal" href="#CFA2429-R-s06-EXH21" role="button">Exhibit 21</a> summarizes the results of both bull and bear case scenarios, showing the estimated FY2014 EPS under alternative estimated cannibalization factors.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH20">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 20<span style="display: block;">Estimated FY2014 EPS Sensitivity to Changes in Cannibalization Rates (USD)</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th rowspan="2" style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+<th rowspan="2" style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+<th colspan="5" style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Non</strong>-<strong>Consumer Cannibalization</strong>
+</th>
+</tr>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">0%</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">5%</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">10%</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">15%</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">20%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="7" style="text-align: left; vertical-align: middle; padding: 8px; ">
+<strong>Consumer Cannibalization</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.11</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.12</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.14</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.15</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.16</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.15</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.16</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.17</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.19</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.20</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">25%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.19</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.20</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.21</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.22</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.23</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.22</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.24</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.25</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.26</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.27</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">35%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.26</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.27</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.28</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.31</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">40%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.31</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.32</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.33</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.35</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">45%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.34</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.35</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.36</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.37</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−0.38</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s06-EXH21">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 21<span style="display: block;">Post-Cannibalization EPS Projections for Bull and Bear Case Scenarios (USD millions, except EPS and unless noted)</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="7" style="text-align: left; vertical-align: bottom; padding: 8px; ">Bull Case Scenario (Cannibalization Factor: 15% Consumer/5% Non-Consumer)</th>
+</tr>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; "> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2012E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2013E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2014E</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3-Year CAGR</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">69,943</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">73,728</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">78,553</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">83,583</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.1%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">YoY%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5.4%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.4%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<em>Operating Expenses</em>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Fixed (70%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,947</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,758</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">31,764</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,781</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.1%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Variable (30%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,835</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,529</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,414</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15,338</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.1%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total operating expenses</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42,782</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">44,287</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">46,178</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">48,119</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,161</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,441</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,374</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">35,464</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">9.3%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating margin</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38.83%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">39.93%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">41.21%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42.43%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other income (expense)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Pre-tax income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,071</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,351</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33,284</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">36,374</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Provision for income taxes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,921</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,321</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,835</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,377</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Effective tax rate</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">23,150</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">25,030</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,449</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,998</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Weighted average shares outstanding, diluted</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Estimated EPS post-cannibalization (USD)</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2.69</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2.91</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>3.19</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>3.49</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>9.0%</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Compared with pre-cannibalization:</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Estimated impact on operating margin</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>−30 bps</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>−38 bps</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>−47 bps</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Estimated impact on EPS (USD)</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>–0.07</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>–0.09</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>–0.13</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>−1.3%</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="7" style="text-align: left; vertical-align: bottom; padding: 8px; ">Bear Case Scenario (cannibalization factor: 40% consumer, 20% non-consumer)</th>
+</tr>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; "> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2011</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2012E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2013E</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>FY2014E</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; "></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3-Year CAGR</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">69,943</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">71,801</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">75,869</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">79,812</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">YoY%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.7%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5.7%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5.2%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<em>Operating Expenses</em>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Fixed (70%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,947</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,345</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">31,205</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32,016</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.3%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Variable (30%)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12,835</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,175</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13,922</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14,646</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total operating expenses</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">42,782</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">43,520</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">45,127</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">46,662</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.9%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27,161</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,280</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30,742</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33,151</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.9%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating margin</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">38.83%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">39.39%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">40.52%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">41.54%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Other income (expense)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">910</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Pre-tax income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,071</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29,190</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">31,652</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">34,061</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Provision for income taxes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4,921</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,117</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,549</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,971</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Effective tax rate</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.53%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Net income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">23,150</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">24,073</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">26,103</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28,090</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Weighted average shares outstanding, diluted</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8,593</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Estimated EPS post-cannibalization (USD)</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2.69</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2.80</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>3.04</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>3.27</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>6.7%</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Compared with pre-cannibalization:</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Estimated impact on operating margin</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>−84 bps</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>−107 bps</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>−136 bps</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Estimated impact on EPS (USD)</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>–0.18</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>–0.24</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>–0.35</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "></td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>−3.6%</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2429-R-s06-Bb">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+         Question Set</h3>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2429-R-s06-Q5">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>For which of the following companies is it <em>most</em> crucial for an analyst to conduct scenario analysis to estimate a decline in earnings from a recession?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>A bank</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct, because both lending volume and interest rates typically fall in recessions, which results in declining earnings for banks. Demand for both food-at-home and residential electricity is generally not as sensitive to changes in the business cycle.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>A chain of large grocery stores</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct, because both lending volume and interest rates typically fall in recessions, which results in declining earnings for banks. Demand for both food-at-home and residential electricity is generally not as sensitive to changes in the business cycle.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>A provider of residential electricity</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct, because both lending volume and interest rates typically fall in recessions, which results in declining earnings for banks. Demand for both food-at-home and residential electricity is generally not as sensitive to changes in the business cycle.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2429-R-s06-Q6">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>An analyst is preparing scenarios for a company’s gross margin. Selected financial data from the prior period include the following:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___3">Average selling price per product EUR6.50</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___4">Quantity sold (000s) 2,300</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___5">Total revenues (EUR 000s) 14,950</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___6">Cost of sales (EUR 000s) 7,475</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___7">Gross profit (EUR 000s) 7,475</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___8">Gross profit margin 50%</div>
+<p>If input prices increase by 20%, the analyst expects the company to increase selling prices by 10%, resulting in a 5% decrease in volume sold. The forecast decrease in gross profit margin is <em>closest</em> to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>4.5%</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___9">Average selling price = EUR6.50(1.10) = EUR7.15</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___10">Quantity sold in 000s = 2,300(0.95) = 2,185</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___11">Average input cost = (7,475/2,300)(1.20) = EUR3.90</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___12">Total revenues in 000s = 2,185(EUR7.15) = 15,622.75</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___13">Gross profit in 000s = 2,185(EUR7.15 − EUR3.90) = 7,101.25</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___14">Gross profit margin = 7,101.25/15,622.75 ≈ 45.5%, which is 4.5% less than 50%</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>7.4%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___9">Average selling price = EUR6.50(1.10) = EUR7.15</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___10">Quantity sold in 000s = 2,300(0.95) = 2,185</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___11">Average input cost = (7,475/2,300)(1.20) = EUR3.90</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___12">Total revenues in 000s = 2,185(EUR7.15) = 15,622.75</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___13">Gross profit in 000s = 2,185(EUR7.15 − EUR3.90) = 7,101.25</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___14">Gross profit margin = 7,101.25/15,622.75 ≈ 45.5%, which is 4.5% less than 50%</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>15.0%</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___9">Average selling price = EUR6.50(1.10) = EUR7.15</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___10">Quantity sold in 000s = 2,300(0.95) = 2,185</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___11">Average input cost = (7,475/2,300)(1.20) = EUR3.90</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___12">Total revenues in 000s = 2,185(EUR7.15) = 15,622.75</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___13">Gross profit in 000s = 2,185(EUR7.15 − EUR3.90) = 7,101.25</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s06-E___14">Gross profit margin = 7,101.25/15,622.75 ≈ 45.5%, which is 4.5% less than 50%</div>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2429-R-s06-Q7">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>The invention of a new technology that leads to lower product manufacturing costs in a highly competitive industry is <em>most likely</em> to result in:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>lower gross profit margins.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. In a highly competitive industry, savings in manufacturing costs are likely to be passed on to customers through competition in the form of lower prices.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>higher gross profit margins.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. In a highly competitive industry, savings in manufacturing costs are likely to be passed on to customers through competition in the form of lower prices.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>no impact on gross profit margins.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. In a highly competitive industry, savings in manufacturing costs are likely to be passed on to customers through competition in the form of lower prices.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1868_modules_items_142394_705_Forecasting_Capital_Investments_and_Capital_Structure.html" >← 前へ</a>
+  <span class="title">7.06 | Scenario Analysis</span>
+  <a href="courses_1868_modules_items_142402_Glossary_Company_Analysis_Forecasting.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2767 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.05 | Forecasting Capital Investments and Capital Structure</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2429-R-s05-R-1" title="7.05 | Forecasting Capital Investments and Capital Structure">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 7: Company Analysis: Forecasting</span>7.05 | Forecasting Capital Investments and Capital Structure</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">explain approaches to forecasting a company’s capital investments and capital structure</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Projections for long-term assets are based on cash flow statement and income statement projections, because net PP&amp;E and intangible assets on the balance sheet primarily increase due to capital expenditures and decrease due to depreciation and amortization expenses. Capital expenditures can be broken down into maintenance capital expenditures necessary to sustain the current business and growth capital expenditures needed to expand the business. Maintenance capital expenditure forecasts are often based on historical depreciation and amortization expenses, usually with a small adjustment upward to account for inflation in capital goods. For businesses with low fixed asset turnover, maintenance capital expenditure requirements can be quite high. Growth capital expenditure forecasts are more discretionary and are tied to management’s expansion plans and revenue growth. Depreciation and amortization forecasts are based on net PP&amp;E and intangibles on the balance sheet (which increase due to capital expenditures) and their useful lives as assumed by management’s accounting policies, which can be approximated by the ratio of gross fixed assets to depreciation and amortization expenses. Information may also be found in the notes to the financial statements.</p>
+<p>Analysts must also make projections about a company’s future capital structure. Leverage ratios—such as debt to capital, debt to equity, and debt to EBITDA—are often used as the forecast object to project future debt and equity levels. Analysts should consider historical company practice, management’s financial strategy, and the capital requirements implied by the capital expenditure assumptions when projecting the future capital structure. Management may provide guidance on target capital structure, debt covenant ratios (e.g., net debt to EBITDA), and capital expenditures, sometimes broken down into maintenance, growth, and acquisitions. <a aria-label="View Example 3" class="internal" href="#CFA2429-R-s05-EXM-1-3" role="button">Example 3</a> demonstrates the use of these forecast objects for YY Ltd., the same company in <a aria-describedby="CFA2429-R-s04-EXM-1-2_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA2429-R-s04-EXM-1-2_Content" title="Example 2 Content">Example 2</a>.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2429-R-s05-EXM-1-3">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 3<span style="display: block;">Balance Sheet Modeling</span>
+</h3>
+<p>
+<a aria-label="View Exhibit 10" class="internal" href="#CFA2429-R-s05-EXH-1-10" role="button">Exhibit 10</a> shows financial data for YY Ltd. related to its PP&amp;E and intangible assets. Based on the data in <a aria-label="View Exhibit 10" class="internal" href="#CFA2429-R-s05-EXH-1-10" role="button">Exhibit 10</a> and the data and analysis in <a aria-describedby="CFA2429-R-s04-EXM-1-2_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA2429-R-s04-EXM-1-2_Content" title="Example 2 Content">Example 2</a>, answer Questions 1 and 2.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s05-EXH-1-10">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 10<span style="display: block;">YY Ltd. Long-Term Asset Data (CNY millions)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">PP&amp;E, net</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,068</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,992</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,306</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Goodwill</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">282</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">248</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">253</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Intangible assets, net</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,779</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,424</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4,013</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Total fixed assets</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7,129</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">8,664</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,572</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Capital expenditures − PP&amp;E</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,785</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,405</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,026</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Capital expenditures − intangibles</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">333</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">142</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,310</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Depreciation expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">220</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">324</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">518</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Amortization expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">529</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">486</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">666</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Note:</em> PP&amp;E and intangibles asset account balances were also affected each year by changes in exchange rates and by disposals, which are not shown in the exhibit. Assume that such effects are zero in years 4–6.</span>
+</p>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate the following: </p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA2429-R-s05-L1">
+<li class="cfa-curriculum-list-item">
+<p>Capital expenditures (for both PP&amp;E and intangibles) as a percentage of revenue (for years 1–3)</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Depreciation expense as a percentage of beginning-of-year PP&amp;E, net (for years 2 and 3)</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Amortization expense as a percentage of beginning-of-year intangible assets, net (for years 2 and 3).</p>
+</li>
+</ol>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>Using the data, the following percentages were calculated.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s05-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Capital expenditures − PP&amp;E (% of revenue)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.7%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Capital expenditures − intangibles (% of revenue)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.1%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.3%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td colspan="2" style="text-align: left; vertical-align: bottom; padding: 8px; ">Depreciation (% of beginning PP&amp;E)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7%</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align: left; vertical-align: bottom; padding: 8px; ">Amortization (% of beginning intangibles)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">27%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Given the following assumptions and forecast revenue from <a aria-describedby="CFA2429-R-s04-EXM-1-2_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA2429-R-s04-EXM-1-2_Content" title="Example 2 Content">Example 2</a>, calculate expected total fixed assets for years 4–6. </p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2429-R-s05-L2">
+<li class="cfa-curriculum-list-item">
+<p>Capital expenditures for PP&amp;E as a percentage of revenue to remain at the year 3 level</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Capital expenditures for intangibles as a percentage of revenue to remain at the year 1 level</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Goodwill to remain at the year 3 level</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Depreciation and amortization expenses as a percentage of beginning-of-year PP&amp;E, net, and intangible assets, net, to remain at year 3 levels</p>
+</li>
+</ul>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>Using the data provided, expected total fixed assets for years 4–6 was calculated as CNY12,351 million; CNY15,179 million; and CNY18,662 million, respectively. PP&amp;E, net, for each year was calculated as the prior period balance plus capital expenditures minus depreciation expense. Intangible assets, net, for each year was calculated in a similar fashion. Goodwill was held constant at CNY253 million. </p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s05-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">PP&amp;E, net</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,068</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,992</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,306</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">9,410</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12,854</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16,583</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Goodwill</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">282</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">248</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">253</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">253</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">253</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">253</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Other intangible assets, net</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,779</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,424</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4,013</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,688</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,072</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,827</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Total fixed assets</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7,129</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">8,664</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,572</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12,351</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15,179</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18,662</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Capital expenditures − PP&amp;E</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,785</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,405</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,026</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,571</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4,142</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">4,680</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Capital expenditures − PP&amp;E (% of revenue)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.7%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Capital expenditures – intangibles</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">333</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">142</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,310</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">552</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">641</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">724</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Capital expenditures − intangibles (% of revenue)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.1%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.3%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">0.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Depreciation expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">220</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">324</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">518</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">467</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">697</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">952</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align: left; vertical-align: bottom; padding: 8px; ">        Depreciation <br/><br/>        (% of beginning PP&amp;E)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Amortization expense</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">529</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">486</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">666</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,877</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,257</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">969</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align: left; vertical-align: bottom; padding: 8px; ">        Amortization <br/><br/>        (% of beginning intangibles)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">27%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Based on <a aria-label="View Exhibit 11" class="internal" href="#CFA2429-R-s05-EXH-1-11" role="button">Exhibit 11</a>, which shows financial data for YY Ltd. related to its capital structure and profitability, answer Question 3.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s05-EXH-1-11">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 11<span style="display: block;">YY Ltd. Debt and Profitability Data (CNY millions)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Gross debt</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,931</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17,624</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17,597</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">       </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">       </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">EBITDA</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">9,304</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12,343</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">14,190</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">EBITDA margin</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5.3%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6.0%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5.8%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>YY Ltd. management has a year 6 gross debt to EBITDA ratio target of 2.0.</p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA2429-R-s05-L3">
+<li class="cfa-curriculum-list-item">
+<p>Assuming an EBITDA margin of 6.0%, revenue forecasts from <a aria-describedby="CFA2429-R-s04-EXM-1-2_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA2429-R-s04-EXM-1-2_Content" title="Example 2 Content">Example 2</a>, and gross debt to EBITDA ratios of 1.25, 1.50, and 2.0 for years 4, 5, and 6, respectively, calculate expected gross debt for years 4–6.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Given the results of part A, how much incremental borrowing does the forecast imply from year 3 to year 6?</p>
+</li>
+</ol>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>Gross debt of CNY21,579 million; CNY30,289 million; and CNY45,635 million are estimated for years 4–6, respectively, for YY Ltd. This forecast is made by first multiplying forecast revenue by the forecast EBITDA margin to calculate forecast EBITDA. Then, the expected gross debt to EBITDA ratio is multiplied by the forecast EBITDA to calculate forecast gross debt.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s05-T-1-c">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Gross debt</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,931</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17,624</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17,597</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">21,759</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">30,289</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">45,635</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">       </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">       </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">EBITDA</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">9,304</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12,343</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">14,190</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17,407</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">20,192</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">22,818</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">EBITDA margin</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5.3%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6.0%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5.8%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6.0%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6.0%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Gross debt to EBITDA</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.17</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.43</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.24</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.25</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1.50</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>
+<a aria-label="View Exhibit 12" class="internal" href="#CFA2429-R-s05-EXH-1-12" role="button">Exhibit 12</a> discusses forecast objects and approaches that Elaine Nguyen can use for Warehouse Club Inc.’s capital expenditures and gross debt to EBITDA.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s05-EXH-1-12">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 12<span style="display: block;">Forecast Approaches for Warehouse Club Inc.’s Capital Expenditures and Structure</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Forecast Object</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Forecast Approach</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Example of Object and Approach for Warehouse Club Inc.</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="4" style="text-align: left; vertical-align: top; padding: 8px; ">Capital expenditures as a percentage of net sales</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Historical results</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Warehouse has spent 2% of net sales on capital expenditures for the last 10 years, which Nguyen can use as the forecast going forward.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Historical base rates and convergence</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">More mature retailers (e.g., Walmart in the USA) have all but stopped opening new stores, which has reduced their capital requirements to maintenance and new initiatives like e-commerce. If Warehouse does not intend to go to new geographies or launch an e-commerce business, Nguyen might forecast capital expenditures trending down to maintenance level, along with a decline in new-store openings per year, as Warehouse matures.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Management guidance</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Warehouse management provides guidance on new-store openings, which Nguyen can use to forecast capital expenditures (along with a maintenance capital expenditure forecast and a forecast for growth capital expenditures per new store).</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Analyst’s discretionary forecast</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Nguyen might instead use a discretionary forecast for capital expenditures by projecting a maintenance CAPEX amount (not disclosed by management) and growth CAPEX associated with new-store openings.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Forecast Object</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Forecast Approach</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Example of Object and Approach for Warehouse Club Inc.</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="4" style="text-align: left; vertical-align: top; padding: 8px; ">Gross debt to EBITDA</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Historical results</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">For the last five years, Warehouse’s ratio of debt to trailing twelve months EBITDA has been 1.10, which Nguyen can project going forward. The product of this ratio and projected EBITDA (from earlier forecasts of sales and operating expenses) is Warehouse’s gross debt.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Historical base rates and convergence</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Warehouse’s more mature competitors and peers use a greater amount of debt in their capital structure, and return more capital to shareholders with buybacks and dividends. Nguyen might forecast the same for Warehouse over time, with an increasing ratio of debt to EBITDA and percentage of free cash flow returned to shareholders.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Management guidance</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Warehouse’s management may provide a target capital structure through a target debt to EBITDA ratio or credit rating, which Nguyen can use as the forecast.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Analyst’s discretionary forecast</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Nguyen might instead make a discretionary forecast linked to her free cash flow forecast, projecting a debt to EBITDA ratio and return of capital to shareholders. Depending on Fyleton Investments’ strategy, Nguyen might engage with Warehouse’s management to advocate for such a capital structure.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2429-R-s05-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+         Question Set</h3>
+<p>An analyst gathers the following information related to Iliso’s capital expenditures and capital structure (USD millions):</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s05-T-1-d">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong> </strong>
+</th>
+<th style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2X15</strong>
+</th>
+<th style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2X16</strong>
+</th>
+<th style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2X17</strong>
+</th>
+<th style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2X18</strong>
+</th>
+<th style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>2X19</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Iliso’s retail sales</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2,589</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3,424</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5,100</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6,052</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">7,336</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Operating income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">−1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">61</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">72</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">130</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Depreciation expense</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">25</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">43</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">65</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">91</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">123</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">PP&amp;E (net)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">198</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">294</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">435</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">590</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">768</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Short-term debt</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">56</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">255</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">198</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">66</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Long-term debt</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">43</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">157</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">168</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">144</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">144</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Equity</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">548</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">732</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">858</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,006</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,178</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Capital expenditures</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">79</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">140</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">208</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">247</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">301</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2429-R-s05-Q4">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following would the analyst <em>most likely</em> use in estimating Iliso’s maintenance capital expenditures?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Operating income</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Depreciation expense can serve as the basis for maintenance capital expenditures, as it is management’s estimate of the cost of fixed assets expensed on the income statement in a manner that tracks its use. </p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Depreciation expense</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Depreciation expense can serve as the basis for maintenance capital expenditures, as it is management’s estimate of the cost of fixed assets expensed on the income statement in a manner that tracks its use. </p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Earnings before interest, taxes, depreciation, and amortization (EBITDA)</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Depreciation expense can serve as the basis for maintenance capital expenditures, as it is management’s estimate of the cost of fixed assets expensed on the income statement in a manner that tracks its use. </p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2429-R-s05-Q5">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Which of the following approaches is <em>most</em> appropriate for forecasting Iliso’s capital expenditures?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Historical results</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Capital expenditures have been 4.1% of retail sales for the past four years (2X16–2X19). The historical results approach—using the bottom-up driver retail sales—is most appropriate. An analyst’s discretionary forecast is not required, because Iliso is not in a cyclical industry or undergoing a fundamental change. Iliso’s unique model and the breadth of the industry make the approach using historical base rates and convergence to the industry inappropriate.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Analyst’s discretionary forecast</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Capital expenditures have been 4.1% of retail sales for the past four years (2X16–2X19). The historical results approach—using the bottom-up driver retail sales—is most appropriate. An analyst’s discretionary forecast is not required, because Iliso is not in a cyclical industry or undergoing a fundamental change. Iliso’s unique model and the breadth of the industry make the approach using historical base rates and convergence to the industry inappropriate.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Historical base rates and convergence</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Capital expenditures have been 4.1% of retail sales for the past four years (2X16–2X19). The historical results approach—using the bottom-up driver retail sales—is most appropriate. An analyst’s discretionary forecast is not required, because Iliso is not in a cyclical industry or undergoing a fundamental change. Iliso’s unique model and the breadth of the industry make the approach using historical base rates and convergence to the industry inappropriate.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2429-R-s05-Q6">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>The analyst forecasts 2X20 total revenues of 8,411 million, operating income of 2% of total revenues, capital expenditures of 4% of total revenues, depreciation expense of 20% of opening PP&amp;E (net), and debt/EBITDA of 0.50. The analyst’s forecast for debt (in millions) is <em>closest</em> to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>84.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-">2X20 operating income = 0.02(8,411) = 168</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___1">2X20 depreciation expense = 0.20(768) = 154</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___2">EBITDA = 168 + 154 = 322</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___3">Debt = 0.50(322) = 161</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>161.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-">2X20 operating income = 0.02(8,411) = 168</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___1">2X20 depreciation expense = 0.20(768) = 154</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___2">EBITDA = 168 + 154 = 322</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___3">Debt = 0.50(322) = 161</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>195.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-">2X20 operating income = 0.02(8,411) = 168</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___1">2X20 depreciation expense = 0.20(768) = 154</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___2">EBITDA = 168 + 154 = 322</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2429-R-s05-E-1-___3">Debt = 0.50(322) = 161</div>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2429-R-s05-Q7">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>The analyst notes that Iliso’s common stock and paid-in capital accounts increased, in total, by 75 million from 2X18 to 2X19, but only 42 million was reported as stock issuance on the statement of cash flows. Retained earnings increased by the amount of net income. Which of the following <em>most likely</em> explains the difference of 33 million?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>A stock split</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Stock-based compensation is a non-cash expense in the income statement and is reported as an addition to net income in the indirect method of reporting cash flow from operations. The issuance also increases common stock and paid-in capital. A stock split typically simply increases the number of shares outstanding and decreases any stated par value per share. A stock dividend increases common stock and paid-in capital and reduces retained earnings by the same amount.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>A stock dividend</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Stock-based compensation is a non-cash expense in the income statement and is reported as an addition to net income in the indirect method of reporting cash flow from operations. The issuance also increases common stock and paid-in capital. A stock split typically simply increases the number of shares outstanding and decreases any stated par value per share. A stock dividend increases common stock and paid-in capital and reduces retained earnings by the same amount.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Stock-based compensation</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Stock-based compensation is a non-cash expense in the income statement and is reported as an addition to net income in the indirect method of reporting cash flow from operations. The issuance also increases common stock and paid-in capital. A stock split typically simply increases the number of shares outstanding and decreases any stated par value per share. A stock dividend increases common stock and paid-in capital and reduces retained earnings by the same amount.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-boxed-text" id="CFA2429-R-s04-EXM-1-2_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Example 2 Content</h4>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2429-R-s04-EXM-1-2">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 2<span style="display: block;">Working Capital Forecasts with Efficiency Ratios</span>
+</h4>
+<section>
+<p>
+<a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a> shows revenue, COGS, and year-end working capital account balances for YY Ltd., a fictional company, for years 1–3. Based on the data in the exhibit, answer Questions 1–3.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-EXH-1-8">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 8<span style="display: block;">YY Ltd. Financial Data (CNY millions)</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,598</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,949</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,161</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">29,481</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,585</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">41,671</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">46,287</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">59,528</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">72,199</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate days sales outstanding (DSO), inventory days on hand (DOH), and days payable outstanding (DPO) for years 1, 2, and 3, using year-end balances and assuming a 365-day fiscal year. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Recall that days sales outstanding is equal to accounts receivable/(revenues/365), inventory days on hand is equal to inventories/(COGS/365), and days payable outstanding is equal to accounts payable/(COGS/365). Using the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a>, the three ratios for years 1–3 are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days sales outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory days on hand</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">67</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days payable outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">111</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">123</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Your colleague Liang forecasts revenue growth of 18%, 16%, and 13% and gross margins of 17%, 17%, and 16% in years 4, 5, and 6, respectively, for YY Ltd. Using Liang’s forecasts, calculate expected revenue and COGS in years 4, 5, and 6. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Using Liang’s forecasts for annual revenue growth and gross margins and the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a>, expected revenue and COGS for years 4–6 are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-c">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year (CNY millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Growth rate</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">         </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">19%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">240,801</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">279,329</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">319,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Gross margin</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">14%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Liang forecasts that days sales outstanding, inventory days on hand, and days payable outstanding in years 4, 5, and 6 will remain the same as the year 3 amounts. Using Liang’s forecasts as well as forecast revenue and COGS, calculate expected accounts receivable, inventories, and accounts payable year-end balances for years 4, 5, and 6. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Each of the efficiency ratios can be rearranged to yield working capital balances, because we have values for two of the three variables in them: the efficiency ratios are assumed to remain constant from year 3 levels, and revenue and COGS have already been forecast.</p>
+<p>Days sales outstanding is equal to accounts receivable/(revenues/365); thus, accounts receivable is equal to days sales outstanding × (revenues/365). Similarly, inventories is equal to inventory days on hand × (COGS/365), and accounts payable is equal to days payable outstanding × (COGS/365).</p>
+<p>Using the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a> and the revenue and COGS forecasts, year-end working capital account balances are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-d">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year (CNY millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">240,801</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">279,329</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">319,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,598</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,949</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,161</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">11,990</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13,908</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15,716</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventories</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">29,481</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,585</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">41,671</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47,985</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">55,663</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">63,657</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">46,287</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">59,528</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">72,199</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">83,139</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">96,442</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">110,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days sales outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory days on hand</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">67</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days payable outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">111</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">123</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-boxed-text" id="CFA2429-R-s04-EXM-1-2_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Example 2 Content</h4>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2429-R-s04-EXM-1-2">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 2<span style="display: block;">Working Capital Forecasts with Efficiency Ratios</span>
+</h4>
+<section>
+<p>
+<a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a> shows revenue, COGS, and year-end working capital account balances for YY Ltd., a fictional company, for years 1–3. Based on the data in the exhibit, answer Questions 1–3.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-EXH-1-8">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 8<span style="display: block;">YY Ltd. Financial Data (CNY millions)</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,598</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,949</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,161</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">29,481</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,585</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">41,671</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">46,287</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">59,528</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">72,199</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate days sales outstanding (DSO), inventory days on hand (DOH), and days payable outstanding (DPO) for years 1, 2, and 3, using year-end balances and assuming a 365-day fiscal year. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Recall that days sales outstanding is equal to accounts receivable/(revenues/365), inventory days on hand is equal to inventories/(COGS/365), and days payable outstanding is equal to accounts payable/(COGS/365). Using the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a>, the three ratios for years 1–3 are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days sales outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory days on hand</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">67</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days payable outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">111</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">123</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Your colleague Liang forecasts revenue growth of 18%, 16%, and 13% and gross margins of 17%, 17%, and 16% in years 4, 5, and 6, respectively, for YY Ltd. Using Liang’s forecasts, calculate expected revenue and COGS in years 4, 5, and 6. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Using Liang’s forecasts for annual revenue growth and gross margins and the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a>, expected revenue and COGS for years 4–6 are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-c">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year (CNY millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Growth rate</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">         </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">19%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">240,801</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">279,329</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">319,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Gross margin</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">14%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Liang forecasts that days sales outstanding, inventory days on hand, and days payable outstanding in years 4, 5, and 6 will remain the same as the year 3 amounts. Using Liang’s forecasts as well as forecast revenue and COGS, calculate expected accounts receivable, inventories, and accounts payable year-end balances for years 4, 5, and 6. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Each of the efficiency ratios can be rearranged to yield working capital balances, because we have values for two of the three variables in them: the efficiency ratios are assumed to remain constant from year 3 levels, and revenue and COGS have already been forecast.</p>
+<p>Days sales outstanding is equal to accounts receivable/(revenues/365); thus, accounts receivable is equal to days sales outstanding × (revenues/365). Similarly, inventories is equal to inventory days on hand × (COGS/365), and accounts payable is equal to days payable outstanding × (COGS/365).</p>
+<p>Using the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a> and the revenue and COGS forecasts, year-end working capital account balances are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-d">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year (CNY millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">240,801</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">279,329</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">319,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,598</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,949</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,161</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">11,990</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13,908</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15,716</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventories</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">29,481</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,585</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">41,671</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47,985</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">55,663</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">63,657</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">46,287</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">59,528</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">72,199</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">83,139</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">96,442</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">110,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days sales outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory days on hand</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">67</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days payable outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">111</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">123</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-boxed-text" id="CFA2429-R-s04-EXM-1-2_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Example 2 Content</h4>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2429-R-s04-EXM-1-2">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 2<span style="display: block;">Working Capital Forecasts with Efficiency Ratios</span>
+</h4>
+<section>
+<p>
+<a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a> shows revenue, COGS, and year-end working capital account balances for YY Ltd., a fictional company, for years 1–3. Based on the data in the exhibit, answer Questions 1–3.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-EXH-1-8">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 8<span style="display: block;">YY Ltd. Financial Data (CNY millions)</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,598</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,949</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,161</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">29,481</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,585</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">41,671</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">46,287</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">59,528</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">72,199</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate days sales outstanding (DSO), inventory days on hand (DOH), and days payable outstanding (DPO) for years 1, 2, and 3, using year-end balances and assuming a 365-day fiscal year. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Recall that days sales outstanding is equal to accounts receivable/(revenues/365), inventory days on hand is equal to inventories/(COGS/365), and days payable outstanding is equal to accounts payable/(COGS/365). Using the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a>, the three ratios for years 1–3 are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days sales outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory days on hand</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">67</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days payable outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">111</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">123</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Your colleague Liang forecasts revenue growth of 18%, 16%, and 13% and gross margins of 17%, 17%, and 16% in years 4, 5, and 6, respectively, for YY Ltd. Using Liang’s forecasts, calculate expected revenue and COGS in years 4, 5, and 6. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Using Liang’s forecasts for annual revenue growth and gross margins and the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a>, expected revenue and COGS for years 4–6 are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-c">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year (CNY millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Growth rate</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">         </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">19%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">240,801</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">279,329</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">319,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Gross margin</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">14%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Liang forecasts that days sales outstanding, inventory days on hand, and days payable outstanding in years 4, 5, and 6 will remain the same as the year 3 amounts. Using Liang’s forecasts as well as forecast revenue and COGS, calculate expected accounts receivable, inventories, and accounts payable year-end balances for years 4, 5, and 6. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Each of the efficiency ratios can be rearranged to yield working capital balances, because we have values for two of the three variables in them: the efficiency ratios are assumed to remain constant from year 3 levels, and revenue and COGS have already been forecast.</p>
+<p>Days sales outstanding is equal to accounts receivable/(revenues/365); thus, accounts receivable is equal to days sales outstanding × (revenues/365). Similarly, inventories is equal to inventory days on hand × (COGS/365), and accounts payable is equal to days payable outstanding × (COGS/365).</p>
+<p>Using the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a> and the revenue and COGS forecasts, year-end working capital account balances are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-d">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year (CNY millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">240,801</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">279,329</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">319,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,598</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,949</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,161</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">11,990</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13,908</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15,716</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventories</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">29,481</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,585</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">41,671</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47,985</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">55,663</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">63,657</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">46,287</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">59,528</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">72,199</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">83,139</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">96,442</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">110,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days sales outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory days on hand</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">67</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days payable outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">111</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">123</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-boxed-text" id="CFA2429-R-s04-EXM-1-2_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Example 2 Content</h4>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2429-R-s04-EXM-1-2">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 2<span style="display: block;">Working Capital Forecasts with Efficiency Ratios</span>
+</h4>
+<section>
+<p>
+<a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a> shows revenue, COGS, and year-end working capital account balances for YY Ltd., a fictional company, for years 1–3. Based on the data in the exhibit, answer Questions 1–3.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-EXH-1-8">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 8<span style="display: block;">YY Ltd. Financial Data (CNY millions)</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,598</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,949</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,161</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">29,481</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,585</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">41,671</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">46,287</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">59,528</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">72,199</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate days sales outstanding (DSO), inventory days on hand (DOH), and days payable outstanding (DPO) for years 1, 2, and 3, using year-end balances and assuming a 365-day fiscal year. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Recall that days sales outstanding is equal to accounts receivable/(revenues/365), inventory days on hand is equal to inventories/(COGS/365), and days payable outstanding is equal to accounts payable/(COGS/365). Using the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a>, the three ratios for years 1–3 are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days sales outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory days on hand</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">67</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days payable outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">111</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">123</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Your colleague Liang forecasts revenue growth of 18%, 16%, and 13% and gross margins of 17%, 17%, and 16% in years 4, 5, and 6, respectively, for YY Ltd. Using Liang’s forecasts, calculate expected revenue and COGS in years 4, 5, and 6. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Using Liang’s forecasts for annual revenue growth and gross margins and the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a>, expected revenue and COGS for years 4–6 are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-c">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year (CNY millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Growth rate</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">         </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">19%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">18%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">240,801</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">279,329</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">319,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">        Gross margin</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">14%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">17%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">16%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Liang forecasts that days sales outstanding, inventory days on hand, and days payable outstanding in years 4, 5, and 6 will remain the same as the year 3 amounts. Using Liang’s forecasts as well as forecast revenue and COGS, calculate expected accounts receivable, inventories, and accounts payable year-end balances for years 4, 5, and 6. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Each of the efficiency ratios can be rearranged to yield working capital balances, because we have values for two of the three variables in them: the efficiency ratios are assumed to remain constant from year 3 levels, and revenue and COGS have already been forecast.</p>
+<p>Days sales outstanding is equal to accounts receivable/(revenues/365); thus, accounts receivable is equal to days sales outstanding × (revenues/365). Similarly, inventories is equal to inventory days on hand × (COGS/365), and accounts payable is equal to days payable outstanding × (COGS/365).</p>
+<p>Using the data in <a aria-label="View Exhibit 8" class="internal" href="#CFA2429-R-s04-EXH-1-8" role="button">Exhibit 8</a> and the revenue and COGS forecasts, year-end working capital account balances are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2429-R-s04-T-1-d">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Year (CNY millions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>1</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>2</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>3</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>4</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>5</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>6</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Revenue</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">174,915</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">205,839</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">245,866</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">290,122</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">336,541</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">380,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">COGS</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">152,723</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">177,285</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">209,114</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">240,801</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">279,329</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">319,445</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts receivable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">5,598</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">6,949</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">10,161</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">11,990</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">13,908</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15,716</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventories</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">29,481</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">32,585</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">41,671</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">47,985</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">55,663</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">63,657</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Accounts payable</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">46,287</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">59,528</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">72,199</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">83,139</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">96,442</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">110,292</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; "> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days sales outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Inventory days on hand</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">67</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">73</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Days payable outstanding</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">111</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">123</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1868_modules_items_142391_704_Forecasting_Operating_Expenses_and_Working_Capital.html" >← 前へ</a>
+  <span class="title">7.05 | Forecasting Capital Investments and Capital Structure</span>
+  <a href="courses_1868_modules_items_142397_706_Scenario_Analysis.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

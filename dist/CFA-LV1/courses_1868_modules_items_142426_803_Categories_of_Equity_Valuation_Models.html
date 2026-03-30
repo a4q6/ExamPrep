@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.03 | Categories of Equity Valuation Models</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0166-R-s03" title="8.03 | Categories of Equity Valuation Models">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 8: Equity Valuation: Concepts and Basic Tools</span>8.03 | Categories of Equity Valuation Models</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe major categories of equity valuation models</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Three major categories of equity valuation models are as follows:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0166-R-L7">
+<li class="cfa-curriculum-list-item">
+<p>
+<a aria-describedby="PresentValueModelsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PresentValueModelsContent">Present value
+                                            models</a> (synonym: <a aria-describedby="DiscountedCashFlowModelsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#DiscountedCashFlowModelsContent">discounted cash flow
+                                        models</a>). These models estimate the intrinsic value of
+                                        a security as the present value of the future benefits
+                                        expected to be received from the security. In present value
+                                        models, benefits are often defined in terms of cash expected
+                                        to be distributed to shareholders (<a aria-describedby="DividendDiscountModelDDMContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#DividendDiscountModelDDMContent">dividend discount models</a>) or
+                                        in terms of cash flows available to be distributed to
+                                        shareholders after meeting capital expenditure and working
+                                        capital needs (<a aria-describedby="FreeCashFlowToEquityModelsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#FreeCashFlowToEquityModelsContent">free-cash-flow-to-equity
+                                            models</a>). Many models fall within this category,
+                                        ranging from the relatively simple to the very complex. In
+                                        Section 4, we discuss in detail two of the simpler models,
+                                        the Gordon (constant) growth model and the two-stage
+                                        dividend discount models.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<a aria-describedby="MultiplierModelsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MultiplierModelsContent">Multiplier
+                                            models</a> (synonym: <a aria-describedby="MarketMultipleModelsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MarketMultipleModelsContent">market multiple models</a>).
+                                        These models are based chiefly on share price multiples or
+                                        enterprise value multiples. The former model estimates
+                                        intrinsic value of a common share from a price multiple for
+                                        some fundamental variable, such as revenues, earnings, cash
+                                        flows, or book value. Examples of the multiples include
+                                        price to earnings (P/E, share price divided by earnings per
+                                        share) and price to sales (P/S, share price divided by sales
+                                        per share). The fundamental variable may be stated on a
+                                        forward basis (e.g., forecasted EPS for the next year) or a
+                                        trailing basis (e.g., EPS for the past year), as long as the
+                                        usage is consistent across companies being examined. Price
+                                        multiples are also used to compare relative values. The use
+                                        of the ratio of share price to EPS—that is, the P/E
+                                        multiple—to judge relative value is an example of
+                                        this approach to equity valuation.</p>
+<p>
+<a aria-describedby="EnterpriseValueContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#EnterpriseValueContent">Enterprise
+                                            value</a> (EV) multiples have the form (Enterprise
+                                        value)/(Value of a fundamental variable). Two possible
+                                        choices for the denominator are earnings before interest,
+                                        taxes, depreciation, and amortization (EBITDA) and total
+                                        revenue. Enterprise value, the numerator, is a measure of a
+                                        company’s total market value from which cash and
+                                        short-term investments have been subtracted (because an
+                                        acquirer could use those assets to pay for acquiring the
+                                        company). An estimate of common share value can be
+                                        calculated indirectly from the EV multiple; the value of
+                                        liabilities and preferred shares can be subtracted from the
+                                        EV to arrive at the value of common equity.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<a aria-describedby="AssetBasedValuationModelsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#AssetBasedValuationModelsContent">Asset-based
+                                            valuation models</a>. These models estimate intrinsic
+                                        value of a common share from the estimated value of the
+                                        assets of a corporation minus the estimated value of its
+                                        liabilities and preferred shares. The estimated market value
+                                        of the assets is often determined by making adjustments to
+                                        the <a aria-describedby="BookValueContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#BookValueContent">book
+                                            value</a> (synonym: <a aria-describedby="CarryingValueContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#CarryingValueContent">carrying value</a>) of assets
+                                        and liabilities. The theory underlying the asset-based
+                                        approach is that the value of a business is equal to the sum
+                                        of the value of the business’s assets.</p>
+</li>
+</ul>
+<p>As already mentioned, many analysts use more than one type of model
+                                to estimate value. Analysts recognize that each model is a
+                                simplification of the real world and that there are uncertainties
+                                related to model appropriateness and the inputs to the models. The
+                                choice of model(s) will depend on the availability of information to
+                                input into the model(s) and the analyst’s confidence in the
+                                information and in the appropriateness of the model(s).</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA0166-R-EXM2">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 2<span style="display: block;">Categories of Equity Valuation Models</span>
+</h3>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>An analyst is estimating the intrinsic value of a new
+                                                company. The analyst has one year of financial
+                                                statements for the company and has calculated the
+                                                average values of a variety of price multiples for
+                                                the industry in which the company operates. The
+                                                analyst plans to use at least one model from each of
+                                                the three categories of valuation models. The
+                                                analyst is <em>least likely</em> to rely on
+                                                the estimate(s) from the:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>multiplier model(s).</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section id="CFA0166-R-s03-01-01">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. Because the company has only one year of
+                                            data available, the analyst is <em>least
+                                                likely</em> to be confident in the inputs for a
+                                            present value model. The values on the balance sheet,
+                                            even before adjustment, are likely to be close to market
+                                            values because the assets are all relatively new. The
+                                            multiplier models are based on average multiples from
+                                            the industry.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>present value model(s).</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA0166-R-s03-01-01">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. Because the company has only one year of
+                                            data available, the analyst is <em>least
+                                                likely</em> to be confident in the inputs for a
+                                            present value model. The values on the balance sheet,
+                                            even before adjustment, are likely to be close to market
+                                            values because the assets are all relatively new. The
+                                            multiplier models are based on average multiples from
+                                            the industry.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>asset-based valuation model(s).</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section id="CFA0166-R-s03-01-01">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. Because the company has only one year of
+                                            data available, the analyst is <em>least
+                                                likely</em> to be confident in the inputs for a
+                                            present value model. The values on the balance sheet,
+                                            even before adjustment, are likely to be close to market
+                                            values because the assets are all relatively new. The
+                                            multiplier models are based on average multiples from
+                                            the industry.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Based on a company’s EPS of €1.35, an
+                                                analyst estimates the intrinsic value of a security
+                                                to be €16.60. Which type of model is the
+                                                analyst <em>most likely</em> to be using to
+                                                estimate intrinsic value?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Multiplier model.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA0166-R-s03-01-02">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct. The analyst is using a multiplier model
+                                            based on the P/E multiple. The P/E multiple used was
+                                            16.60/1.35 = 12.3.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Present value model.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section id="CFA0166-R-s03-01-02">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct. The analyst is using a multiplier model
+                                            based on the P/E multiple. The P/E multiple used was
+                                            16.60/1.35 = 12.3.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Asset-based valuation model.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section id="CFA0166-R-s03-01-02">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct. The analyst is using a multiplier model
+                                            based on the P/E multiple. The P/E multiple used was
+                                            16.60/1.35 = 12.3.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+<p>As you begin the study of specific equity valuation models in the
+                                next section, you must bear in mind that any model of value is, by
+                                necessity, a simplification of the real world. Never forget this
+                                simple fact! You may encounter models much more complicated than the
+                                ones discussed here, but even those models will be simplifications
+                                of reality.</p>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PresentValueModelsContent">
+<p>Valuation models that estimate the intrinsic value of
+                                                a security as the present value of the future
+                                                benefits expected to be received from the security.
+                                                Also called <em>discounted cash flow
+                                                  models</em>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="DiscountedCashFlowModelsContent">
+<p>Valuation models that estimate the intrinsic value of
+                                                a security as the present value of the future
+                                                benefits expected to be received from the
+                                                security.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="DividendDiscountModelDDMContent">
+<p>The model of the value of stock that is the present value of all future dividends, discounted at the required return on equity.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="FreeCashFlowToEquityModelsContent">
+<p>Valuation models based on discounting expected future
+                                                free cash flow to equity.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MultiplierModelsContent">
+<p>Valuation models based on share price multiples or
+                                                enterprise value multiples.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MarketMultipleModelsContent">
+<p>Valuation models based on share price multiples or
+                                                enterprise value multiples.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="EnterpriseValueContent">
+<p>A measure of a company’s total market value
+                                                from which the value of cash and short-term
+                                                investments have been subtracted.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="AssetBasedValuationModelsContent">
+<p>Valuation based on estimates of the market value of a
+                                                company’s assets.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="BookValueContent">
+<p>Shareholders’ equity (total assets minus total liabilities) minus the value of preferred stock; common shareholders’ equity.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="CarryingValueContent">
+<p>Of a fixed-income instrument is the purchase price plus (minus) the amortized
+                     amount of the discount (premium) if the bond is purchased at a price below
+                     (above) par value.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1868_modules_items_142422_802_Estimated_Value_and_Market_Price.html" >← 前へ</a>
+  <span class="title">8.03 | Categories of Equity Valuation Models</span>
+  <a href="courses_1868_modules_items_142430_804_Background_for_the_Dividend_Discount_Model.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

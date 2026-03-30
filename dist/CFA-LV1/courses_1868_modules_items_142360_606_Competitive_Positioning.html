@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.06 | Competitive Positioning</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2428-R-s06-R-1" title="6.06 | Competitive Positioning"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 6: Industry and Competitive Analysis</span>6.06 | Competitive Positioning</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">evaluate the competitive strategy and position of a company</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>All companies have a competitive strategy, whether intentional or not. An intentional strategy results from company-wide planning, performance measurement, and feedback loops to sharpen the strategy. An unintentional strategy results from various teams within a firm pursuing their own incentives, doing whatever they did in prior years, or following industry or professional norms. An unintentional strategy is rarely the best and often exacerbates communication and coordination problems present at every company, although the approach might perform well in areas such as discovery-oriented research. <a aria-describedby="CFA2428-R-s06-R-1-1Content" class="dp-popover-trigger" href="#CFA2428-R-s06-R-1-1Content">Munos (2009)</a> found evidence of diseconomies of scale in pharmaceutical R&amp;D, with most new drugs discovered by small companies operating in a relatively “unmanaged” way.</p>
+<p>Ultimately, an effective competitive strategy is evidenced by a company’s track record of value added for its stakeholders, such as economic profits. Its effectiveness can be judged only in hindsight. To evaluate a competitive strategy on a forward-looking basis, an analyst should assess the strategy along three dimensions:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L1">
+<li class="cfa-curriculum-list-item">
+<p>Does the strategy create a defense against the five industry forces?</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Does the strategy benefit from, or is at least not at odds with, the expected external industry influences identified in the PESTLE analysis?</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Does the company have the resources and capabilities to execute the strategy?</p>
+</li>
+</ul>
+<p>Clearly, the analysis and the answers to these questions are company and industry specific. We can, however, identify three well-known competitive strategies that have worked in a variety of industries, as shown in <a aria-label="View Exhibit 6" class="internal" href="#CFA2428-R-s06-EXH-1-6" role="button">Exhibit 6</a>: cost leadership, differentiation, and focus. These three generic strategies are based on Michael Porter’s research on competition. While companies do tend to have specific variations, generic strategies explain a large percentage of strategies in practice—similar to how many companies’ business models are well described using conventional models. A poor situation is for a company to be “stuck in the middle”—not a cost leader, not differentiated, not focused.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2428-R-s06-EXH-1-6">
+<h3 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 6<span style="display: block;">Generic Competitive Strategies</span></h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cost Leadership</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Differentiation</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Focus</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Means of executing strategy</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L2">
+<li class="cfa-curriculum-list-item">
+<p>Economies of scale from fixed costs</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Favorable access to raw materials</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Culture of strict cost control</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Aggressive pricing to gain high volume</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Low-cost distribution</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Economies of scope</p>
+</li>
+</ul>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L3">
+<li class="cfa-curriculum-list-item">
+<p>Investments in advertising, brand, customer service, proprietary distribution channels</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Protection using trademarks, copyright, patents</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Superior quality, unique features</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Culture of strong customer experience</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Premium pricing</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Integration of services, software, and hardware</p>
+</li>
+</ul>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L4">
+<li class="cfa-curriculum-list-item">
+<p>Proximity to customers and strong understanding of their needs</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>May incorporate elements of strategy from both cost leadership and differentiation, but focused on particular group</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Which of the Five Forces it defends against (why it works)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L5">
+<li class="cfa-curriculum-list-item">
+<p>Threat of new entrants: Capital requirements and scale advantages deter entrants</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Bargaining power of customers: Customers can only bring prices down to the costs of the marginal producer, leaving margin for the cost leaders</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Industry rivalry: Rivals may not be able to compete on price with cost leaders</p>
+</li>
+</ul>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L6">
+<li class="cfa-curriculum-list-item">
+<p>Threat of new entrants and of substitutions: Customer loyalty to unique product can deter switching, protect market share</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Bargaining power of customers: Customers may be unable to unwilling to comparison shop or switch</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Bargaining power of suppliers: The company may have the ability to pass along price increases to customers and/or margin to absorb cost increases</p>
+</li>
+</ul>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L7">
+<li class="cfa-curriculum-list-item">
+<p>Threat of new entrants and of substitutes: Customer loyalty to unique product can deter switching, protect market share</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Bargaining power of customers: Customers may be unable or unwilling to comparison shop or switch</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Industry appropriateness</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L8">
+<li class="cfa-curriculum-list-item">
+<p>Capital intensive</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Price-conscious customers</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Customers do not value or notice product differences</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Minimal innovation in industry</p>
+</li>
+</ul>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L9">
+<li class="cfa-curriculum-list-item">
+<p>Price is not foremost concern for customers</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Customers value distinctiveness</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Innovation in industry, with products varying in features and forms</p>
+</li>
+</ul>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L10">
+<li class="cfa-curriculum-list-item">
+<p>Difficult (or uneconomical) to serve customer group, product, or geography for other players</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Risks to the strategy</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L11">
+<li class="cfa-curriculum-list-item">
+<p>Cost inflation, loss of discipline</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Technological change that results in loss of cost leadership or market share</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Desire for premiumization among customers</p>
+</li>
+</ul>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L12">
+<li class="cfa-curriculum-list-item">
+<p>Imitation by competitors</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Buyers become sophisticated, no longer demand level of service</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Pricing premium becomes too high for customers to bear</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>May preclude high market share, as customers value exclusivity</p>
+</li>
+</ul>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2428-R-s06-L13">
+<li class="cfa-curriculum-list-item">
+<p>Larger competitors outcompete on price</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The differences in demand between the narrow group and industry as a whole narrow</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Buyers become sophisticated, no longer demand level of service</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2428-R-s06-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Question Set</h3>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2428-R-s06-Q1"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Manitou Resorts is a 25-room boutique hotel located in a rural mountain area approximately three hours from a major urban center. It provides accommodations, high-end dining options, and an on-site health and wellness spa. Manitou’s primary customers are young professional couples in the middle-to-upper-income brackets. The CEO is contemplating several options for expansion, as the resort is frequently at full capacity. Which of the following initiatives would be consistent with Manitou’s current competitive strategy?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>The development of 10 stand-alone lakefront cottages to accommodate families of up to six people, providing access to family-related activities such as pools, water sports, and evening entertainment</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Manitou Resorts’ current competitive strategy is a focus strategy targeting a specific customer segment: young professionals in middle-to-upper-income brackets located in a nearby city and focused on wellness and relaxation. The other options represent an expansion into new customer segments (family vacations and corporate events), which could be inconsistent with its current customer base. A represents a cost leadership competitive strategy, while B represents a differentiation strategy.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>The addition of conference room facilities to accommodate corporate events that could be priced at a 10%–15% discount to a 150-room franchise hotel approximately 30 minutes from Manitou</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Manitou Resorts’ current competitive strategy is a focus strategy targeting a specific customer segment: young professionals in middle-to-upper-income brackets located in a nearby city and focused on wellness and relaxation. The other options represent an expansion into new customer segments (family vacations and corporate events), which could be inconsistent with its current customer base. A represents a cost leadership competitive strategy, while B represents a differentiation strategy.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Developing a management and reservation system to identify recommendations to referral partners such as golf courses, taxi/shuttle services, or other guest experiences to increase fee revenue</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Manitou Resorts’ current competitive strategy is a focus strategy targeting a specific customer segment: young professionals in middle-to-upper-income brackets located in a nearby city and focused on wellness and relaxation. The other options represent an expansion into new customer segments (family vacations and corporate events), which could be inconsistent with its current customer base. A represents a cost leadership competitive strategy, while B represents a differentiation strategy.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2428-R-s06-Q2"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Warehouse Club Inc. is considering launching a “private label” brand of non-perishable food products. Based on its current competitive strategy, which of the following is the <em>most appropriate</em> rationale to support?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Customers do not notice product differences.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Warehouse Club Inc.’s current competitive strategy is cost leadership. In a cost leadership strategy, industry appropriateness is determined by capital intensity, price-conscious customers, customers not valuing or noticing product differences, and minimal innovation in the industry. B represents an example of a differentiation strategy. C represents an example of a focus strategy.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Customers value new product features and forms.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Warehouse Club Inc.’s current competitive strategy is cost leadership. In a cost leadership strategy, industry appropriateness is determined by capital intensity, price-conscious customers, customers not valuing or noticing product differences, and minimal innovation in the industry. B represents an example of a differentiation strategy. C represents an example of a focus strategy.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Products can be segmented into regular and premium brands.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Warehouse Club Inc.’s current competitive strategy is cost leadership. In a cost leadership strategy, industry appropriateness is determined by capital intensity, price-conscious customers, customers not valuing or noticing product differences, and minimal innovation in the industry. B represents an example of a differentiation strategy. C represents an example of a focus strategy.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>To defend against the bargaining power of suppliers, customers may be unable or unwilling to comparison shop or switch in which of the following competitive strategies (select all that apply):</p>
+<p>___ Cost leadership</p>
+<p>___ Differentiation</p>
+<p>___ Focus</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>Both differentiation and focus. That “customers may be unable or unwilling to comparison shop or switch” is a common feature of both differentiation and focus strategies. In a cost leadership strategy, “customers can only bring prices down to the costs of the marginal producer, leaving margin for the cost leaders.”</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2428-R-s06-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>A risk to a differentiation competitive strategy is:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>limited market share due to exclusivity.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Since a differentiation strategy pursues a unique product or service offering, it creates a risk that the strategy may preclude high market share, as customers value exclusivity. B is a risk to a focus strategy where larger competitors outcompete on price. C is a risk to a cost leadership strategy where the technological change results in cost leadership or market share loss.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>larger competitors outcompete on price.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Since a differentiation strategy pursues a unique product or service offering, it creates a risk that the strategy may preclude high market share, as customers value exclusivity. B is a risk to a focus strategy where larger competitors outcompete on price. C is a risk to a cost leadership strategy where the technological change results in cost leadership or market share loss.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>technological change that results in loss of market share.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Since a differentiation strategy pursues a unique product or service offering, it creates a risk that the strategy may preclude high market share, as customers value exclusivity. B is a risk to a focus strategy where larger competitors outcompete on price. C is a risk to a cost leadership strategy where the technological change results in cost leadership or market share loss.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">5. </span>
+<p>A large online retailer in the USA has begun to offer a “price-matching” guarantee on its website to match any competitor’s online price for an identical product, including Iliso Marketplace. Recommend and justify whether Iliso should launch a similar guarantee to protect its market share.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>No, Iliso should not launch a similar guarantee. A price-matching guarantee is a strategy pursued by companies with a cost leadership approach by using aggressive pricing to gain volume. Iliso Marketplace Ltd. operates with a differentiation strategy that permits premium pricing if aligned with a strong customer experience. If Iliso maintained its customer experience offering and began to reduce its revenue to match cost leaders, the company would likely decrease its overall profitability.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-reflist">
+<h3 class="dp-has-icon cfa-curriculum-reflist"><i aria-hidden="true" class="dp-icon fas fa-clipboard-list" style="background: inherit !important;"> </i>Reference List</h3>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title">References</h3>
+<div class="dp-panel-content">
+<ul>
+<li id="CFA2428-R-s06-R-1-1list">Munos, B.Dec (2009). “Lessons from 60 years of pharmaceutical innovation.” <em>Nature Reviews. Drug Discovery</em> 8 (12): 959–68. <a href="https://doi.org/10.1038/nrd2961" target="_blank">https://doi.org/10.1038/nrd2961</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA2428-R-s06-R-1-1Content">Munos, B.Dec (2009). “Lessons from 60 years of pharmaceutical innovation.” <em>Nature Reviews. Drug Discovery</em> 8 (12): 959–68. <a href="https://doi.org/10.1038/nrd2961" target="_blank">https://doi.org/10.1038/nrd2961</a></div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1868_modules_items_142358_605_Industry_Structure_and_External_Influences.html" >← 前へ</a>
+  <span class="title">6.06 | Competitive Positioning</span>
+  <a href="courses_1868_modules_items_142366_Glossary_Industry_and_Competitive_Analysis.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

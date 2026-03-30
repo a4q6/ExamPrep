@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.09 | Multipler Models and Relationship Among Price Multiples, Present Value Models, and Fundamentals</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0166-R-s09" title="8.09 | Multipler Models and Relationship Among Price Multiples, Present Value Models, and Fundamentals">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 8: Equity Valuation: Concepts and Basic Tools</span>8.09 | Multipler Models and Relationship Among Price Multiples, Present Value Models, and Fundamentals</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">explain the rationale for using price multiples to value equity, how the price to earnings multiple relates to fundamentals, and the use of multiples based on comparables</li>
+<li class="cfa-curriculum-los-item">calculate and interpret the following multiples: price to earnings, price to an estimate of operating cash flow, price to sales, and price to book value</li>
+<li class="cfa-curriculum-los-item">explain advantages and disadvantages of each category of valuation model</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>The term <a aria-describedby="PriceMultipleContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PriceMultipleContent">price multiple</a> refers to a ratio that compares the share price with some sort of monetary flow or value to allow evaluation of the relative worth of a company’s stock. Some practitioners use price ratios as a screening mechanism. If the ratio falls below a specified value, the shares are identified as candidates for purchase, and if the ratio exceeds a specified value, the shares are identified as candidates for sale. Many practitioners use ratios when examining a group or sector of stocks and consider the shares for which the ratio is relatively low to be attractively valued securities.</p>
+<p>Price multiples that are used by security analysts include the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0166-R-L28">
+<li class="cfa-curriculum-list-item">
+<p>Price-to-earnings ratio (P/E). This measure is the ratio of the stock price to earnings per share. P/E is arguably the price multiple most frequently cited by the media and used by analysts and investors (<a aria-describedby="CFA0166-R-R2Content" class="dp-popover-trigger" href="#CFA0166-R-R2Content">Block 1999</a>). The seminal works of <a aria-describedby="CFA0166-R-R5Content" class="dp-popover-trigger" href="#CFA0166-R-R5Content">McWilliams (1966)</a>, <a aria-describedby="CFA0166-R-R6Content" class="dp-popover-trigger" href="#CFA0166-R-R6Content">Miller and Widmann (1966)</a>, <a aria-describedby="CFA0166-R-R7Content" class="dp-popover-trigger" href="#CFA0166-R-R7Content">Nicholson (1968)</a>, <a aria-describedby="CFA0166-R-R3Content" class="dp-popover-trigger" href="#CFA0166-R-R3Content">Dreman (1977)</a>, and <a aria-describedby="CFA0166-R-R1Content" class="dp-popover-trigger" href="#CFA0166-R-R1Content">Basu (1977)</a> presented evidence of a return advantage to low-P/E stocks.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Price-to-book ratio (P/B). The ratio of the stock price to book value per share. Considerable evidence suggests that P/B multiples are inversely related to future rates of return (<a aria-describedby="CFA0166-R-R4Content" class="dp-popover-trigger" href="#CFA0166-R-R4Content">Fama and French 1995</a>).</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Price-to-sales ratio (P/S). This measure is the ratio of stock price to sales per share. <a aria-describedby="CFA0166-R-R8Content" class="dp-popover-trigger" href="#CFA0166-R-R8Content">O’Shaughnessy (2005)</a> provided evidence that a low P/S multiple is the most useful multiple for predicting future returns.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Price-to-cash-flow ratio (P/CF). This measure is the ratio of stock price to some per-share measure of cash flow. The measures of cash flow include free cash flow (FCF) and operating cash flow (OCF).</p>
+</li>
+</ul>
+<p>A common criticism of all of these multiples is that they do not consider the future. This criticism is true if the multiple is calculated from trailing or current values of the divisor. Practitioners seek to counter this criticism by a variety of techniques, including forecasting fundamental values (the divisors) one or more years into the future. The resulting forward (leading or prospective) price multiples may differ markedly from the trailing price multiples. In the absence of an explicit forecast of fundamental values, the analyst is making an implicit forecast of the future when implementing such models. The choice of price multiple—trailing or forward—should be used consistently for companies being compared.</p>
+<p>Besides the traditional price multiples used in valuation, just presented, analysts need to know how to calculate and interpret other ratios. Such ratios include those used to analyze business performance and financial condition based on data reported in financial statements. In addition, many industries have specialized measures of business performance that analysts covering those industries should be familiar with. In analyzing cable television companies, for example, the ratio of total market value of the company to the total number of subscribers is commonly used. Another common measure is revenue per subscriber. In the oil industry, a commonly cited ratio is proved reserves per common share. Industry-specific or sector-specific ratios such as these can be used to understand the key business variables in an industry or sector as well as to highlight attractively valued securities.</p>
+<section id="CFA0166-R-s09-01">
+<h3 class="dp-heading">Relationships among Price Multiples, Present Value Models, and Fundamentals</h3>
+<p>Price multiples are frequently used independently of present value models. One price multiple valuation approach, the method of comparables, does not involve cash flow forecasts or discounting to present value. A price multiple is often related to fundamentals through a discounted cash flow model, however, such as the Gordon growth model. Understanding such connections can deepen the analyst’s appreciation of the factors that affect the value of a multiple and often can help explain reasons for differences in multiples that do not involve mispricing. The expressions that are developed can be interpreted as the <em>justified value</em> of a multiple—that is, the value justified by (based on) fundamentals or a set of cash flow predictions. These expressions are an alternative way of presenting intrinsic-value estimates.</p>
+<p>As an example, using the Gordon growth model identified previously in <a aria-describedby="CFA0166-R-E9_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA0166-R-E9_Content" title="Equation 9 Content">Equation 9</a> and assuming that price equals intrinsic value (<em>P</em><sub>0</sub> = <em>V</em><sub>0</sub>), we can restate <a aria-describedby="CFA0166-R-E9_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA0166-R-E9_Content" title="Equation 9 Content">Equation 9</a> as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E9.1"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>P</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">14</span></div>
+<p>To arrive at the model for the justified forward P/E given in <a aria-label="View Equation 15" class="internal" href="#CFA0166-R-E14" role="button">Equation 15</a>, we divide both sides of <a aria-label="View Equation 14" class="internal" href="#CFA0166-R-E9.1" role="button">Equation 14</a> by a forecast for next year’s earnings, <em>E</em><sub>1</sub>. In <a aria-label="View Equation 15" class="internal" href="#CFA0166-R-E14" role="button">Equation 15</a>, the dividend payout ratio, <em>p</em>, is the ratio of dividends to earnings:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E14"><math>
+<semantics>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>P</mi>
+<mn>0</mn>
+</msub>
+</mrow>
+<mrow>
+<msub>
+<mi>E</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mrow>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+<mo>/</mo>
+<mrow>
+<msub>
+<mi>E</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+</mrow>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mi>p</mi>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">15</span></div>
+<p><a aria-label="View Equation 15" class="internal" href="#CFA0166-R-E14" role="button">Equation 15</a> indicates that the P/E is inversely related to the required rate of return and positively related to the growth rate; that is, as the required rate of return increases, the P/E declines, and as the growth rate increases, the P/E increases. The P/E and the payout ratio appear to be positively related. This relationship may not be true, however, because a higher payout ratio may imply a slower growth rate as a result of the company retaining a lower proportion of earnings for reinvestment. This phenomenon is referred to as the dividend displacement of earnings.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA0166-R-EXM11">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 11<span style="display: block;">Value Estimate Based on Fundamentals</span></h4>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Petroleo Brasileiro SA, commonly known as Petrobras, was once labeled “the most expensive oil company” by Bloomberg.com. Data for Petrobras and the oil industry, including the trailing twelve-month (TTM) P/E and payout ratios, appear below.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-Ta">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Petrobras</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Industry</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">P/E ratio (TTM)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">39.61</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">13.0</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">Return on assets (TTM) (%)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">3. 0</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">3.2</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">EPS 3-year growth rate (%)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">NM</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">66.00</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">EPS (MRQ) vs. Qtr. 1 yr. ago (% change)</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">138.96</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">−12.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="cfa-curriculum-table-wrap-foot"> <em>Note</em>: NM stands for non-quantifiable. Petrobras EPS has decreased from a loss of BRL 1.14 per share to a profit of BRL 0.16 per share in the most recent period. MRQ stands for “most recent quarter.”</span></p>
+<p><span class="cfa-curriculum-table-wrap-foot"> <em>Source</em>: Reuters.</span></p>
+</div>
+<p>Explain how the information shown supports a higher P/E for Petrobras than for the industry.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s09-01-01-01">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The data support a higher P/E for Petrobras because its (MRQ) EPS growth rate exceed those of the industry. <a aria-label="View Equation 15" class="internal" href="#CFA0166-R-E14" role="button">Equation 15</a> implies a positive relationship between the payout ratio and the P/E multiple. Petrobras has had a negative EPS for the period 2014 to 2017, and has paid no dividend during that period. A higher payout ratio supports a higher P/E. Furthermore, to the extent that higher EPS growth implies a high growth rate in dividends, the high EPS growth rate supports a high P/E. The higher P/E ratio is due to an improvement in the underlying financial performance of the company and the expected higher growth potential of the stock compared to the median firms in the industry.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA0166-R-EXM12">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 12<span style="display: block;">Determining Justified Forward P/E</span></h4>
+<section>
+<p>Heinrich Gladisch, CFA, is estimating the justified forward P/E for Nestlé, one of the world’s leading nutrition and health companies. Gladisch notes that sales for 2017 were SFr89.78 billion (US$90.3 billion) and that net income was SFr7.18 billion (US$7.25 billion). He organizes the data for EPS, dividends per share, and the dividend payout ratio for the years 2013–2017 in the following table:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-Tb">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;"> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2013</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2014</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2015</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2016</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2017</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Earnings per share</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr3.24</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr4.54</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr2.90</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr2.76</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr2.32</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><em>   Year over year % change</em></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">44.6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–36.1%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–4.8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–15.9%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Dividend per share</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr2.15</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr2.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr2.25</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr2.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr2.35</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><em>   Year over year % change</em></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.3%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.3%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.2%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Dividend payout ratio</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">68.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">48.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">77.6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">83.3%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Gladisch calculates that ROE averaged 15.5 percent in the period 2013−2017 but was below that level at 11.7 percent in 2017. In that year, however, Nestlé’s reported net income included a large nonrecurring component. The company reported 2017 “underlying earnings,” which it defined as net income “from continuing operations before impairments, restructuring costs, results on disposals and significant one-off items,” to be SFr2.93, giving an adjusted 14.8% ROE. Predicting increasing improvement in Nestlé’s profit margins from growth in its product markets, Gladisch estimates a long-run ROE of 21.5 percent.</p>
+<p>Gladisch decides that the dividend payout ratios of the 2013–2016 period—averaging 67.7 percent—are more representative of Nestlé’s future payout ratio than is the high 2017 dividend payout ratio (when based on reported earnings). The dividend payout ratio in 2017 was higher because management apparently based the 2017 dividend on the components of net income that were expected to continue into the future. But basing a dividend on net income including non-recurring items creates the potential need to increase dividends in the future. Rounding up the 2013−2017 average, Gladisch settles on an estimate of 68 percent for the dividend payout ratio for use in calculating a justified forward P/E using <a aria-label="View Equation 15" class="internal" href="#CFA0166-R-E14" role="button">Equation 15</a>.</p>
+<p>Gladisch’s firm estimates that the required rate of return for Nestlé’s shares is 9 percent per year. Gladisch also finds the following data at the opposite ends of the spectrum of external research analyst forecasts:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-Tc">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2018E</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>2019E</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Most optimistic analyst forecast:</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">   EPS</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr3.99</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr4.33</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><em>      Year over year % change</em></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">71.9%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">   P/E (based on a target price of SFr105)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">26.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">24.2</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Least optimistic analyst forecast:</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"> </td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">   EPS</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr3.52</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">SFr3.59</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><em>      Year over year % change</em></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">51.7%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">   P/E (based on a target price of SFr68)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">19.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">18.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Based only on information and estimates developed by Gladisch and his firm, estimate Nestlé’s justified forward P/E.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s09-01-02-01">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>The estimate of the justified forward P/E is 32.38. The dividend growth rate can be estimated by using <a aria-describedby="CFA0166-R-E10_Content" class="dp-modal-trigger cfa-curriculum-cite-obj" href="#CFA0166-R-E10_Content" title="Equation 10 Content">Equation 10</a> as (1 – Dividend payout ratio) × ROE = (1 – 0.68) × 0.21.5 = 0.069, or 6.9 percent. Therefore,</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E___26"><math>
+<semantics>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>P</mi>
+<mn>0</mn>
+</msub>
+</mrow>
+<mrow>
+<msub>
+<mi>E</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mtext>Payout</mtext>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>0.68</mn>
+</mrow>
+<mrow>
+<mn>0.09</mn>
+<mo>−</mo>
+<mn>0.069</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>32.38</mn>
+</mrow>
+</semantics>
+</math></div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Compare and contrast the justified forward P/E estimate from Question 1 to the estimates from each end of the spectrum of external research analysts forecasts.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0166-R-s09-01-02-02">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>The estimated justified forward P/E of 32.38 is higher than the justified 2018 P/E estimates of 26.3 and 19.3 of the two analysts. Using a required rate of return of 9.5 percent rather than 9 percent results in a justified forward P/E estimate of 26.2 = 0.68/(0.095 – 0.069). Using an ROE of 16.5 percent (the average ROE of the 2013–2016 period) rather than 21.5 percent results in a justified forward P/E estimate of 18.4 = 0.68/[0.09 – (0.32)(0.165)] = 0.68/(0.09 – 0.053). The justified forward P/E is very sensitive to changes in the inputs.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p>Justified forward P/E estimates can be sensitive to small changes in assumptions. Therefore, analysts can benefit from carrying out a sensitivity analysis, as shown in <a aria-label="View Exhibit 6" class="internal" href="#CFA0166-R-EXH6" role="button">Exhibit 6</a>, which is based on <a aria-label="View Example 12" class="internal" href="#CFA0166-R-EXM12" role="button">Example 12</a>. <a aria-label="View Exhibit 6" class="internal" href="#CFA0166-R-EXH6" role="button">Exhibit 6</a> shows how the justified forward P/E varies with changes in the estimates for the dividend payout ratio (columns) and return on equity. The dividend growth rate (rows) changes because of changes in the retention rate (1 – Payout rate) and ROE. Recall <em>g</em> = ROE times retention rate.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0166-R-EXH6">
+<h4 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 6<span style="display: block;">Estimates for Nestlé’s Justified Forward P/E (Required Rate of Return = 9 Percent)</span></h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th rowspan="2" style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Constant Dividend Growth Rate (%)</strong></th>
+<th colspan="5" style="text-align: center; vertical-align: top; padding: 8px;"><strong>Dividend Payout Ratio</strong></th>
+</tr>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>55%</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>60%</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>65%</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>70%</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>75%</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">11.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">12.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">13.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">14.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15.0</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">12.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">13.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">14.4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">16.7</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">13.8</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">16.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">17.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">18.8</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">17.1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">18.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">21.4</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">18.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">21.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">23.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">25.0</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">22.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">24.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">26.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">28.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30.0</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">27.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">32.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">35.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">37.5</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">36.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">40.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">43.3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">46.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">50.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<div class="dp-content-block cfa-curriculum-reflist">
+<h3 class="dp-has-icon cfa-curriculum-reflist"><i aria-hidden="true" class="dp-icon fas fa-clipboard-list" style="background: inherit !important;"> </i>Reference List</h3>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title">References</h3>
+<div class="dp-panel-content">
+<ul>
+<li id="CFA0166-R-R1list">Basu, S. (1977). “Investment Performance of Common Stocks in Relation to Their Price-Earnings Ratios: A Test of the Efficient Market Hypothesis.” <em>Journal of Finance</em>, vol. 32, no. 3:663–682. <a href="http://dx.doi.org/10.2307/2326304" target="_blank">http://dx.doi.org/10.2307/2326304</a></li>
+<li id="CFA0166-R-R2list">Block, S. (1999). “A Study of Financial Analysts: Practice and Theory.” <em>Financial Analysts Journal</em>, vol. 55, no. 4:86–95. <a href="http://dx.doi.org/10.2469/faj.v55.n4.2288" target="_blank">http://dx.doi.org/10.2469/faj.v55.n4.2288</a></li>
+<li id="CFA0166-R-R3list">Dreman, D. (1977). <em>Psychology of the Stock Market</em>. New York: AMACOM.</li>
+<li id="CFA0166-R-R4list">Fama, E. and French, K. (1995). “Size and Book-to-Market Factors in Earnings and Returns.” <em>Journal of Finance</em>, vol. 50, no. 1:131–155. <a href="http://dx.doi.org/10.2307/2329241" target="_blank">http://dx.doi.org/10.2307/2329241</a></li>
+<li id="CFA0166-R-R5list">McWilliams, J. (1966). “Prices, Earnings and P-E Ratios.” <em>Financial Analysts Journal</em>, vol. 22, no. 3:137. <a href="http://dx.doi.org/10.2469/faj.v22.n3.137" target="_blank">http://dx.doi.org/10.2469/faj.v22.n3.137</a></li>
+<li id="CFA0166-R-R6list">Miller, P. and Widmann, E. (1966). “Price Performance Outlook for High &amp; Low P/E Stocks.” <em>1966 Stock &amp; Bond Issue, Commercial &amp; Financial Chronicle</em>: 26–28.</li>
+<li id="CFA0166-R-R7list">Nicholson, S. (1968). “Price Ratios in Relation to Investment Results.” <em>Financial Analysts Journal</em>, vol. 24, no. 1:105–109. <a href="http://dx.doi.org/10.2469/faj.v24.n1.105" target="_blank">http://dx.doi.org/10.2469/faj.v24.n1.105</a></li>
+<li id="CFA0166-R-R8list">O’Shaughnessy, J. (2005). <em>What Works on Wall Street</em>. New York: McGraw-Hill.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0166-R-R2Content">Block, S. (1999). “A Study of Financial Analysts: Practice and Theory.” <em>Financial Analysts Journal</em>, vol. 55, no. 4:86–95. <a href="http://dx.doi.org/10.2469/faj.v55.n4.2288" target="_blank">http://dx.doi.org/10.2469/faj.v55.n4.2288</a></div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0166-R-R5Content">McWilliams, J. (1966). “Prices, Earnings and P-E Ratios.” <em>Financial Analysts Journal</em>, vol. 22, no. 3:137. <a href="http://dx.doi.org/10.2469/faj.v22.n3.137" target="_blank">http://dx.doi.org/10.2469/faj.v22.n3.137</a></div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0166-R-R6Content">Miller, P. and Widmann, E. (1966). “Price Performance Outlook for High &amp; Low P/E Stocks.” <em>1966 Stock &amp; Bond Issue, Commercial &amp; Financial Chronicle</em>: 26–28.</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0166-R-R7Content">Nicholson, S. (1968). “Price Ratios in Relation to Investment Results.” <em>Financial Analysts Journal</em>, vol. 24, no. 1:105–109. <a href="http://dx.doi.org/10.2469/faj.v24.n1.105" target="_blank">http://dx.doi.org/10.2469/faj.v24.n1.105</a></div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0166-R-R3Content">Dreman, D. (1977). <em>Psychology of the Stock Market</em>. New York: AMACOM.</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0166-R-R1Content">Basu, S. (1977). “Investment Performance of Common Stocks in Relation to Their Price-Earnings Ratios: A Test of the Efficient Market Hypothesis.” <em>Journal of Finance</em>, vol. 32, no. 3:663–682. <a href="http://dx.doi.org/10.2307/2326304" target="_blank">http://dx.doi.org/10.2307/2326304</a></div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0166-R-R4Content">Fama, E. and French, K. (1995). “Size and Book-to-Market Factors in Earnings and Returns.” <em>Journal of Finance</em>, vol. 50, no. 1:131–155. <a href="http://dx.doi.org/10.2307/2329241" target="_blank">http://dx.doi.org/10.2307/2329241</a></div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0166-R-R8Content">O’Shaughnessy, J. (2005). <em>What Works on Wall Street</em>. New York: McGraw-Hill.</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PriceMultipleContent">
+<p>A ratio that compares the share price with some sort of monetary flow or value to allow evaluation of the relative worth of a company’s stock.</p>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-disp-formula" id="CFA0166-R-E9_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Equation 9 Content</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E9"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>0</mn>
+</msub>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>g</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">9</span></div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-disp-formula" id="CFA0166-R-E9_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Equation 9 Content</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E9"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>V</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>0</mn>
+</msub>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>g</mi>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>D</mi>
+<mn>1</mn>
+</msub>
+</mrow>
+<mrow>
+<mi>r</mi>
+<mo>−</mo>
+<mi>g</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">9</span></div>
+</div>
+<div class="dp-modal-content dp-modal-content cfa-curriculum-popup-disp-formula" id="CFA0166-R-E10_Content">
+<h4 class="dp-modal-title" style="margin-top: 0; border-bottom: 1px solid #A9A9A9;">Equation 10 Content</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA0166-R-E10"><em>g</em> = <em>b</em> × ROE  <span class="cfa-curriculum-display-formula-number">10</span></div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1868_modules_items_142440_808_Multistage_Dividend_Discount_Models.html" >← 前へ</a>
+  <span class="title">8.09 | Multipler Models and Relationship Among Price Multiples, Present Value Models, and Fundamentals</span>
+  <a href="courses_1868_modules_items_142445_810_Method_of_Comparables_and_Valuation_Based_on_Price_Multiples.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>
