@@ -1,16 +1,18 @@
 """
-translate_html.py — CFA L1 HTML lesson translator
+translate_html.py — HTML lesson translator (CFA / CIPM)
 
-Reads scraped HTML from CFA/LV1/raw_html/, translates text via ChatGPT,
-and writes bilingual HTML to CFA/LV1/translated_html/.
+Reads scraped HTML from an input directory, translates text via ChatGPT,
+and writes translated HTML to an output directory.
 
 Math formulas (.cfa-curriculum-display-formula-container) are kept as-is.
 
 Usage:
-    python3 scripts/translate_html.py                  # all lessons
-    python3 scripts/translate_html.py --sample 5       # first N lessons
-    python3 scripts/translate_html.py --file <name>    # single file
-    python3 scripts/translate_html.py --resume         # skip already translated
+    python3 scripts/translate_html.py                                         # CFA LV1 (default)
+    python3 scripts/translate_html.py --input-dir CIPM/LV1/original \\
+                                       --output-dir CIPM/LV1/translated_html  # CIPM LV1
+    python3 scripts/translate_html.py --sample 5                              # first N lessons
+    python3 scripts/translate_html.py --file <name>                           # single file
+    python3 scripts/translate_html.py --resume                                # skip already translated
 
 Prerequisite:
     Chrome running with --remote-debugging-port=9222 and ChatGPT logged in.
@@ -23,9 +25,13 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 sys.path.insert(0, str(Path(__file__).parent))
 from chatgpt_translator import ChatGPTTranslator
 
-RAW_DIR  = Path(__file__).parent.parent / "CFA" / "LV1" / "original"
-OUT_DIR  = Path(__file__).parent.parent / "CFA" / "LV1" / "translated_html"
-OUT_DIR.mkdir(parents=True, exist_ok=True)
+_REPO_ROOT = Path(__file__).parent.parent
+_DEFAULT_INPUT  = _REPO_ROOT / "CFA" / "LV1" / "original"
+_DEFAULT_OUTPUT = _REPO_ROOT / "CFA" / "LV1" / "translated_html"
+
+# Set at runtime by main(); module-level names kept for backwards compatibility
+RAW_DIR: Path = _DEFAULT_INPUT
+OUT_DIR: Path = _DEFAULT_OUTPUT
 
 # Tags whose text content should be translated
 TRANSLATE_TAGS = {"p", "h2", "h3", "h4", "li", "td", "th", "caption"}
@@ -283,16 +289,32 @@ def lesson_files() -> list:
 
 
 def main():
+    global RAW_DIR, OUT_DIR
+
     ap = argparse.ArgumentParser()
+    ap.add_argument("--input-dir",  type=Path, metavar="DIR",
+                    default=_DEFAULT_INPUT,
+                    help="Directory containing original HTML files "
+                         f"(default: {_DEFAULT_INPUT})")
+    ap.add_argument("--output-dir", type=Path, metavar="DIR",
+                    default=_DEFAULT_OUTPUT,
+                    help="Directory to write translated HTML files "
+                         f"(default: {_DEFAULT_OUTPUT})")
     ap.add_argument("--sample", type=int, metavar="N",
                     help="Translate first N lesson files only")
     ap.add_argument("--file",   type=str, metavar="NAME",
-                    help="Translate a single file (name within raw_html/)")
+                    help="Translate a single file (name within input-dir)")
     ap.add_argument("--resume", action="store_true", default=True,
                     help="Skip already-translated files (default: on)")
     ap.add_argument("--no-resume", dest="resume", action="store_false",
                     help="Re-translate already-translated files")
     args = ap.parse_args()
+
+    RAW_DIR = _REPO_ROOT / args.input_dir if not args.input_dir.is_absolute() \
+              else args.input_dir
+    OUT_DIR = _REPO_ROOT / args.output_dir if not args.output_dir.is_absolute() \
+              else args.output_dir
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     if args.file:
         files = [RAW_DIR / args.file]
