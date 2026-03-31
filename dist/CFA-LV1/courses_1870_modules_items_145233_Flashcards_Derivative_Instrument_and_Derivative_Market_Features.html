@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flashcards: Derivative Instrument and Derivative Market Features</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2374-flashcards" title="Flashcards: Derivative Instrument and Derivative Market Features"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 1: Derivative Instrument and Derivative Market Features</span>Flashcards: Derivative Instrument and Derivative Market Features</h2></header><h3 class="dp-has-icon"><i aria-hidden="true" class="dp-icon fas fa-book-reader"></i></h3><p class="cfa-curriculum-flashcard-inst">Click on the card below to show the definition for that term. Click next or previous to scroll through the cards.</p><div class="flashcard-container"><div class="flashcard" id="flashcard1"><div class="front"><p><b>Cash markets</b></p></div><div class="back"><p>Markets in which specific assets are exchanged at current prices. Cash markets are often referred to as <strong>spot markets</strong>.</p></div></div><div class="flashcard" id="flashcard2" style="display: none;"><div class="front"><p><b>Cash prices</b></p></div><div class="back"><p>The current prices prevailing in <strong>cash markets</strong>.</p></div></div><div class="flashcard" id="flashcard3" style="display: none;"><div class="front"><p><b>Central clearing mandate</b></p></div><div class="back"><p>A requirement instituted by global regulatory authorities following the 2008 global financial crisis that most <strong>over-the-counter (OTC)</strong> derivatives be <strong>cleared</strong> by a <strong>central counterparty (CCP)</strong>.</p></div></div><div class="flashcard" id="flashcard4" style="display: none;"><div class="front"><p><b>Central counterparty (CCP)</b></p></div><div class="back"><p>An economic entity that assumes the <strong>counterparty credit risk</strong> between derivative <strong>counterparties</strong>, one of which is typically a financial intermediary. CCPs provide <strong>clearing</strong> and <strong>settlement</strong> for most <strong>derivative contracts</strong>.</p></div></div><div class="flashcard" id="flashcard5" style="display: none;"><div class="front"><p><b>Clearing</b></p></div><div class="back"><p>An exchange’s process of verifying the execution of a transaction, exchange of payments, and recording of participants.</p></div></div><div class="flashcard" id="flashcard6" style="display: none;"><div class="front"><p><b>Contingent claim</b></p></div><div class="back"><p>A type of derivative in which one of the <em>counterparties</em> determines whether and when the trade will settle. An <em>option</em> is a common type of contingent claim.</p></div></div><div class="flashcard" id="flashcard7" style="display: none;"><div class="front"><p><b>Contract size</b></p></div><div class="back"><p>Amount(s) used for calculation to price and value the derivative. The contract size is often referred to as “notional amount or notional principal.”</p></div></div><div class="flashcard" id="flashcard8" style="display: none;"><div class="front"><p><b>Counterparty</b></p></div><div class="back"><p>Legal entities entering a <strong>derivative contract</strong>.</p></div></div><div class="flashcard" id="flashcard9" style="display: none;"><div class="front"><p><b>Counterparty credit risk</b></p></div><div class="back"><p>The likelihood that a <strong>counterparty</strong> is unable to meet its financial obligations under the contract.</p></div></div><div class="flashcard" id="flashcard10" style="display: none;"><div class="front"><p><b>Dealers</b></p></div><div class="back"><p>Financial intermediaries, such as commercial banks or investment banks, who transact as <strong>counterparties</strong> with derivative end users.</p></div></div><div class="flashcard" id="flashcard11" style="display: none;"><div class="front"><p><b>Derivative</b></p></div><div class="back"><p>A financial instrument that derives its value from the performance of an underlying asset or factor (e.g., stock price, interest rate, or exchange rate).</p></div></div><div class="flashcard" id="flashcard12" style="display: none;"><div class="front"><p><b>Derivative contract</b></p></div><div class="back"><p>A legal agreement between counterparties with a specific <strong>maturity</strong>, or length of time, until the closing of the transaction, or <strong>settlement</strong>.</p></div></div><div class="flashcard" id="flashcard13" style="display: none;"><div class="front"><p><b>Embedded derivative</b></p></div><div class="back"><p>A derivative within an underlying, such as a callable, putable, or convertible bond.</p></div></div><div class="flashcard" id="flashcard14" style="display: none;"><div class="front"><p><b>Exchange-traded derivative (ETD)</b></p></div><div class="back"><p>Futures, options, and other financial contracts available on exchanges.</p></div></div><div class="flashcard" id="flashcard15" style="display: none;"><div class="front"><p><b>Firm commitment</b></p></div><div class="back"><p>A pre-determined amount (price and quantity) is agreed to be exchanged at settlement. Examples of firm commitments include forward contracts, futures contracts, and swaps.</p></div></div><div class="flashcard" id="flashcard16" style="display: none;"><div class="front"><p><b>Forward contract</b></p></div><div class="back"><p>A <strong>derivative contract</strong> for the future exchange of an <strong>underlying</strong> at a fixed price set at contract signing.
+                  </p></div></div><div class="flashcard" id="flashcard17" style="display: none;"><div class="front"><p><b>Hard commodities</b></p></div><div class="back"><p>Traded natural resources, such as crude oil and metals, with markets often involving the physical delivery of the underlying upon settlement.</p></div></div><div class="flashcard" id="flashcard18" style="display: none;"><div class="front"><p><b>Hedge</b></p></div><div class="back"><p>The <strong>derivative contract</strong> used in <strong>hedging</strong> an exposure.</p></div></div><div class="flashcard" id="flashcard19" style="display: none;"><div class="front"><p><b>Hedging</b></p></div><div class="back"><p>The use of a derivative contract to offset or neutralize existing or
+                     anticipated exposure to an <strong>underlying</strong>.</p></div></div><div class="flashcard" id="flashcard20" style="display: none;"><div class="front"><p><b>Long</b></p></div><div class="back"><p>A trading position in a <strong>derivative contract</strong> that gains value as the price of the <strong>underlying</strong> moves higher.</p></div></div><div class="flashcard" id="flashcard21" style="display: none;"><div class="front"><p><b>Market makers</b></p></div><div class="back"><p><strong>Over-the-counter (OTC) dealers</strong> who typically enter into offsetting bilateral transactions with one another to transfer risk to other parties.</p></div></div><div class="flashcard" id="flashcard22" style="display: none;"><div class="front"><p><b>Market reference rate (MRR)</b></p></div><div class="back"><p>The interest rate underlying used in interest rate swaps. These rates typically match those of loans or other short-term obligations. Survey-based Libor rates used as reference rates in the past have been replaced by rates based on a daily average of observed market transaction rates. For example, the Secured Overnight Financing Rate (SOFR) is an overnight cash borrowing rate collateralized by US Treasuries. Other MRRs include the euro short-term rate (€STR) and the Sterling Overnight Index Average (SONIA).</p></div></div><div class="flashcard" id="flashcard23" style="display: none;"><div class="front"><p><b>Maturity</b></p></div><div class="back"><p>The date of a fixed-income instrument’s final payment to investors.</p></div></div><div class="flashcard" id="flashcard24" style="display: none;"><div class="front"><p><b>Novation process</b></p></div><div class="back"><p>A process that substitutes the initial <strong>swap execution facility (SEF)</strong> contract with identical trades facing the <strong>central counterparty (CCP)</strong>. The CCP serves as <strong>counterparty</strong> for both financial intermediaries, eliminating bilateral <strong>counterparty credit risk</strong> and providing <strong>clearing</strong> and <strong>settlement</strong> services.</p></div></div><div class="flashcard" id="flashcard25" style="display: none;"><div class="front"><p><b>Option</b></p></div><div class="back"><p>A primary example of a <strong>contingent claim</strong>. A <strong>derivative contract</strong> that provides the buyer the right, but not the obligation, to buy or sell an <strong>underlying</strong>.</p></div></div><div class="flashcard" id="flashcard26" style="display: none;"><div class="front"><p><b>Over-the-counter (OTC)</b></p></div><div class="back"><p>Refers to derivative markets in which <strong>derivative contracts</strong> are created and traded between derivatives end users and <strong>dealers</strong>, or financial intermediaries, such as commercial banks or investment banks.</p></div></div><div class="flashcard" id="flashcard27" style="display: none;"><div class="front"><p><b>Settlement</b></p></div><div class="back"><p>The closing date at which the counterparties of a derivative contract exchange payment for the underlying as required by the contract.</p></div></div><div class="flashcard" id="flashcard28" style="display: none;"><div class="front"><p><b>Short</b></p></div><div class="back"><p>A trading position in a <strong>derivative contract</strong> that gains value as the price of the <strong>underlying</strong> moves lower.</p></div></div><div class="flashcard" id="flashcard29" style="display: none;"><div class="front"><p><b>Soft commodities</b></p></div><div class="back"><p>Standardized agricultural products, such as cattle and corn, with markets often involving the physical delivery of the underlying upon settlement.</p></div></div><div class="flashcard" id="flashcard30" style="display: none;"><div class="front"><p><b>Spot markets</b></p></div><div class="back"><p>Markets in which specific assets are exchanged at current prices. Spot markets are often referred to as <strong>cash markets</strong>.</p></div></div><div class="flashcard" id="flashcard31" style="display: none;"><div class="front"><p><b>Spot prices</b></p></div><div class="back"><p>The current prices prevailing in <strong>spot markets</strong>.</p></div></div><div class="flashcard" id="flashcard32" style="display: none;"><div class="front"><p><b>Swap</b></p></div><div class="back"><p>A firm commitment involving a periodic exchange of cash flows.</p></div></div><div class="flashcard" id="flashcard33" style="display: none;"><div class="front"><p><b>Swap execution facility (SEF)</b></p></div><div class="back"><p>A swap trading platform accessed by multiple <strong>dealers</strong>.</p></div></div><div class="flashcard" id="flashcard34" style="display: none;"><div class="front"><p><b>Underlying</b></p></div><div class="back"><p>The asset referred to in a <strong>derivative contract</strong>.</p></div></div></div><div class="controls"><div class="control-button" id="prevBtn">Previous Card</div><div class="control-button" id="nextBtn">Next Card</div></div></div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1870_modules_items_145230_Glossary_Derivative_Instrument_and_Derivative_Market_Features.html" >← 前へ</a>
+  <span class="title">Flashcards: Derivative Instrument and Derivative Market Features</span>
+  <a href="courses_1870_modules_items_145235_Real_World_Applications_Bloombergs_Swaps_Markets.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

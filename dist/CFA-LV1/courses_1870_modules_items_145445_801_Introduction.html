@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1006-R-s01" title="8.01 | Introduction">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 8: Pricing and Valuation of Options</span>8.01 | Introduction</h2>
+</header>
+<p>Option contracts are contingent claims in which one of the counterparties determines whether and when a trade will settle. Unlike a forward commitment with a value of zero to both counterparties at inception, an option buyer pays a premium to the seller for the right to transact the underlying in the future at a pre-agreed price. The contingent nature of options affects their price as well as their value over time.</p>
+<p>In the first lesson, we explore three features unique to contingent claims related to an option’s value versus the spot price of the underlying: the exercise, or intrinsic, value; the relationship between an option’s spot price and its exercise price, referred to as “moneyness”; and the time value. We then turn to how the arbitrage and replication concepts introduced earlier for forward commitments differ when applied to contingent claims with an asymmetric payoff profile. Finally, we identify and describe factors that determine the value of an option. These lessons focus on European options, which can be exercised only at expiration.</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA1006-s01-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i>
+         Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1006-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>An option’s value comprises its exercise value and its time value. The exercise value is the option’s value if it were <em>immediately</em> exercisable, while the time value captures the <em>possibility</em> that the passage of time and the variability of the underlying price will increase the profitability of exercise at maturity.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Option moneyness expresses the relationship between the underlying price and the exercise price. A put or call option is “at the money” when the underlying price equals the exercise price. An option is more likely to be exercised if it is “in the money”—with an underlying price above (for a call) or below (for a put) the exercise price—and less likely to be exercised if it is “out of the money.”</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Due to their asymmetric payoff profile, options are characterized by no-arbitrage price bounds. The lower bound is a function of the present value of the exercise price and the underlying price, while the upper bound is the underlying price for a call and the exercise price for a put.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>As in the case of forward commitments, the replication of option contracts uses a combination of long (for a call) or short (for a put) positions in an underlying asset and borrowing or lending cash. The replicating transaction for an option is based on a proportion of the underlying, which is closely associated with the moneyness of the option.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The underlying price, the exercise price, the time to maturity, the risk-free rate, the volatility of the underlying price, and any income or cost associated with owning the underlying asset are key factors in determining the value of an option.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Changes in the volatility of the underlying price and the time to expiration will usually have the same directional effect on put and call option values. Changes to the exercise price, the risk-free rate, and any income or cost associated with owning the underlying asset have the opposite effect on call options versus put options.</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA1006-s01-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+         Learning Module Self-Assessment</h3>
+<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1006-s01-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following statements correctly describes the lower bound of a call option’s value? </p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>The underlying’s price minus the present value of the option’s exercise price</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The lower bound of a call price is the underlying’s price minus the present value of its exercise price or zero, whichever is greater. A is incorrect as the response omits the fact that the lower bound is zero if the underlying’s price is less than the present value of the exercise price. B is incorrect as it omits the present value term.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>The underlying’s price minus the option’s exercise price or zero, whichever is greater</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The lower bound of a call price is the underlying’s price minus the present value of its exercise price or zero, whichever is greater. A is incorrect as the response omits the fact that the lower bound is zero if the underlying’s price is less than the present value of the exercise price. B is incorrect as it omits the present value term.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>The underlying’s price minus the present value of the option’s exercise price or zero, whichever is greater</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The lower bound of a call price is the underlying’s price minus the present value of its exercise price or zero, whichever is greater. A is incorrect as the response omits the fact that the lower bound is zero if the underlying’s price is less than the present value of the exercise price. B is incorrect as it omits the present value term.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Match the following statements about replication strategies with their associated derivative instrument(s):</p>
+<div class="cfa-curriculum-table-wrap" id="CFA1006-s01-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">1. At time <em>t</em> = 0, lend at the risk-free rate and sell the underlying at <em>S<sub>0</sub>
+</em>.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">A. Neither a call option nor a put option replication strategy</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">2. The replication strategy is executed at inception and is settled at maturity with no adjustment over time.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">B. A put option replication strategy</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">3. At time <em>t</em> = <em>T</em>, sell the underlying at <em>S<sub>T</sub>
+</em> and repay the loan of <em>X</em>.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">C. A call option replication strategy if exercised</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<ol class="cfa-curriculum-list-decimal" id="CFA1006-s01-L2">
+<li class="cfa-curriculum-list-item">
+<p>B is correct. At time <em>t</em> = 0, a put option replication strategy involves lending at the risk-free rate and selling the underlying at <em>S<sub>0</sub>
+</em>.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A is correct. As both call and put options involve a non-linear payoff profile, their replication strategy requires adjustment over time as the likelihood of exercise changes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>C is correct. A call option replication strategy if exercised involves repaying the loan of <em>X</em> and selling the underlying at <em>S<sub>T</sub>
+</em> at time <em>t</em> = <em>T</em>.</p>
+</li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1006-s01-Q3">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>A European call option with three months remaining to maturity on an underlying stock with no additional cash flows has an exercise price (<em>X</em>) of GBP 50, a risk-free rate of 2%, and a current underlying price (<em>S<sub>t</sub>
+</em>) of GBP 57.50. If the current call option price is GBP 10, which response below most closely shows the correct exercise value and the time value of the option?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Exercise value = GBP 7.50; Time value = GBP 2.50</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. An option’s value comprises its exercise value plus its
+                  time value. The exercise value of a call option is Max (0,
+                  <em>S<sub>t</sub>
+</em> − PV(<em>X</em>)) and is calculated as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-">
+<math>
+<semantics>
+<mrow>
+<mtext>Call Option Exercise Value</mtext>
+<mo>=</mo>
+<mtext>Max</mtext>
+<mfenced>
+<mrow>
+<mn>0</mn>
+<mo>,</mo>
+<mtext> </mtext>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-___1">Max(0, GBP 57.50 − GBP
+                  50(1.02)<sup>−0.25</sup>)</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-7.75">= GBP 7.75</div>
+<p>The exercise value is positive, as the current underlying price
+                  exceeds the present value of the exercise price. The time value is the
+                  difference between the option price and the exercise value,
+                  representing the possibility that the option payoff at maturity will
+                  exceed the current exercise value due to a favorable price change:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-___2">
+<math>
+<semantics>
+<mrow>
+<mtext>Call Option Time Value</mtext>
+<mo>=</mo>
+<msub>
+<mi>c</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>M</mi>
+<mi>a</mi>
+<mi>x</mi>
+<mfenced>
+<mrow>
+<mn>0</mn>
+<mo>,</mo>
+<mtext> </mtext>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-7.75___1">= GBP 2.25 (= GBP 10 − GBP
+                  7.75)</div>
+<p>The time value is always positive and declines to zero at maturity
+                  (<em>t</em> = <em>T</em>). A is incorrect as the
+                  present value term is omitted from the exercise value calculation. C
+                  is incorrect as it implies the option has zero exercise value.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Exercise value = GBP 7.75; Time value = GBP 2.25</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. An option’s value comprises its exercise value plus its
+                  time value. The exercise value of a call option is Max (0,
+                  <em>S<sub>t</sub>
+</em> − PV(<em>X</em>)) and is calculated as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-">
+<math>
+<semantics>
+<mrow>
+<mtext>Call Option Exercise Value</mtext>
+<mo>=</mo>
+<mtext>Max</mtext>
+<mfenced>
+<mrow>
+<mn>0</mn>
+<mo>,</mo>
+<mtext> </mtext>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-___1">Max(0, GBP 57.50 − GBP
+                  50(1.02)<sup>−0.25</sup>)</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-7.75">= GBP 7.75</div>
+<p>The exercise value is positive, as the current underlying price
+                  exceeds the present value of the exercise price. The time value is the
+                  difference between the option price and the exercise value,
+                  representing the possibility that the option payoff at maturity will
+                  exceed the current exercise value due to a favorable price change:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-___2">
+<math>
+<semantics>
+<mrow>
+<mtext>Call Option Time Value</mtext>
+<mo>=</mo>
+<msub>
+<mi>c</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>M</mi>
+<mi>a</mi>
+<mi>x</mi>
+<mfenced>
+<mrow>
+<mn>0</mn>
+<mo>,</mo>
+<mtext> </mtext>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-7.75___1">= GBP 2.25 (= GBP 10 − GBP
+                  7.75)</div>
+<p>The time value is always positive and declines to zero at maturity
+                  (<em>t</em> = <em>T</em>). A is incorrect as the
+                  present value term is omitted from the exercise value calculation. C
+                  is incorrect as it implies the option has zero exercise value.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Exercise value = GBP 0; Time value = GBP 10</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. An option’s value comprises its exercise value plus its
+                  time value. The exercise value of a call option is Max (0,
+                  <em>S<sub>t</sub>
+</em> − PV(<em>X</em>)) and is calculated as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-">
+<math>
+<semantics>
+<mrow>
+<mtext>Call Option Exercise Value</mtext>
+<mo>=</mo>
+<mtext>Max</mtext>
+<mfenced>
+<mrow>
+<mn>0</mn>
+<mo>,</mo>
+<mtext> </mtext>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-___1">Max(0, GBP 57.50 − GBP
+                  50(1.02)<sup>−0.25</sup>)</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-7.75">= GBP 7.75</div>
+<p>The exercise value is positive, as the current underlying price
+                  exceeds the present value of the exercise price. The time value is the
+                  difference between the option price and the exercise value,
+                  representing the possibility that the option payoff at maturity will
+                  exceed the current exercise value due to a favorable price change:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-___2">
+<math>
+<semantics>
+<mrow>
+<mtext>Call Option Time Value</mtext>
+<mo>=</mo>
+<msub>
+<mi>c</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>M</mi>
+<mi>a</mi>
+<mi>x</mi>
+<mfenced>
+<mrow>
+<mn>0</mn>
+<mo>,</mo>
+<mtext> </mtext>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s01-E-1-7.75___1">= GBP 2.25 (= GBP 10 − GBP
+                  7.75)</div>
+<p>The time value is always positive and declines to zero at maturity
+                  (<em>t</em> = <em>T</em>). A is incorrect as the
+                  present value term is omitted from the exercise value calculation. C
+                  is incorrect as it implies the option has zero exercise value.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>Match the following underlying price and exercise price relationships with their associated put option:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA1006-s01-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">1. <em>S<sub>T</sub>
+</em> = 100, <em>X</em> = 100</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">      A. An at-the-money put option</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">2. <em>S<sub>T</sub>
+</em> = 110, <em>X</em> = 100</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">      B. An in-the-money put option</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">3. <em>S<sub>T</sub>
+</em> = 90, <em>X</em> = 100</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">      C. An out-of-the-money put option</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>Put options are in the money when <em>S<sub>T</sub>
+</em> &lt; <em>X</em>, at the money when <em>S<sub>T</sub>
+</em> = <em>X</em>, and out of the money when <em>S<sub>T</sub>
+</em> &gt; <em>X</em>. Therefore:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA1006-s01-L3">
+<li class="cfa-curriculum-list-item">
+<p>A is correct. Since <em>S<sub>T</sub>
+</em> = <em>X</em> = 100, this is an at-the-money put option.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>C is correct. Since <em>S<sub>T</sub>
+</em> &gt; <em>X</em>, this is an out-of-the-money put option.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>B is correct. Since <em>S<sub>T</sub>
+</em> &lt; <em>X</em>, this is an in-the-money put option.</p>
+</li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">5. </span>
+<p>Match the following changes in a factor affecting option value (holding other factors constant) with their corresponding option value change:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA1006-s01-T-1-c">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">1. A higher exercise price (<em>X</em>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">A. Decreases the value of both a call option and a put option</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">2. A higher underlying price (<em>S<sub>T</sub>
+</em>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">B. Decreases the value of a call option</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">3. A decline in the volatility of the underlying price</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">C. Decreases the value of a put option</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<ol class="cfa-curriculum-list-decimal" id="CFA1006-s01-L4">
+<li class="cfa-curriculum-list-item">
+<p>B is correct. A higher exercise price decreases the value of a call option; for a given underlying price at maturity (<em>S<sub>T</sub>
+</em>), the call option settlement value of Max (0, <em>S<sub>T</sub>
+</em> − <em>X</em>) will decrease for a higher <em>X</em>.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>C is correct. A higher underlying price (<em>S<sub>T</sub>
+</em>) will decrease the value of a put option. Since a put option is the right to sell an underlying, the put option settlement value of Max (0, <em>X</em> − <em>S<sub>T</sub>
+</em>) will fall as <em>S<sub>T</sub>
+</em> rises.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A is correct. A decline in the volatility of the underlying price will decrease the value of both a call option and a put option. Lower price variability of the underlying will reduce the probability of a higher positive exercise value for a call or a put option without affecting the downside case where the option expires unexercised.</p>
+</li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1006-s01-Q6">
+<span class="cfa-curriculum-question-with-label">6. </span>
+<p>Which of the following statements provides the correct description as to how a call option’s value changes if the income on the underlying declines unexpectedly, holding all else equal.</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>The call option value increases.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Income or other, non-cash benefits (such as convenience yield) accrue to the owner of an underlying asset but not to the owner of a derivative, whose value is based on the underlying. A call option on an underlying with income has lower value than an identical call option on the same underlying without income. Thus, a decline in income on an underlying asset increases the value of a call option.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>The call option value decreases.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Income or other, non-cash benefits (such as convenience yield) accrue to the owner of an underlying asset but not to the owner of a derivative, whose value is based on the underlying. A call option on an underlying with income has lower value than an identical call option on the same underlying without income. Thus, a decline in income on an underlying asset increases the value of a call option.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>The call option value does not change.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. Income or other, non-cash benefits (such as convenience yield) accrue to the owner of an underlying asset but not to the owner of a derivative, whose value is based on the underlying. A call option on an underlying with income has lower value than an identical call option on the same underlying without income. Thus, a decline in income on an underlying asset increases the value of a call option.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1870_modules_items_145441_Learning_Outcomes_Pricing_and_Valuation_of_Options.html" >← 前へ</a>
+  <span class="title">8.01 | Introduction</span>
+  <a href="courses_1870_modules_items_145448_802_Option_Value_relative_to_the_Underlying_Spot_Price.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

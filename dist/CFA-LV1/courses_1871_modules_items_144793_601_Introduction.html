@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2457-R-s01-R-1" title="6.01 | Introduction"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 6: Hedge Funds</span>6.01 | Introduction</h2>
+</header>
+<p>Hedge funds originally started as an equity investment vehicle in which offsetting short and long positions protected the overall portfolio against major stock market moves. Today, the name <em>hedge funds</em> is a misnomer. They are not restricted to equities or just hedging strategies. Hedge funds are private pooled investment vehicles that can invest in a wide variety of products, including equities, fixed income, derivatives, foreign exchange, private capital, and real assets. It is the investment <em>approach</em> rather than the underlying investments that distinguish hedge funds. Many hedge funds operate in all kinds of financial markets by using leverage, short selling, or using financial instruments that are not often used by other similar commingled funds, such as mutual funds. This may result in a very different risk and return profile than owning underlying assets themselves.</p>
+<p>The hedge fund industry is in a state of constant change as several hundred new funds are launched each year, with a similar number of funds exiting or being liquidated. While several jurisdictions around the world regulate hedge funds, often they are lightly regulated compared with other investment vehicles.</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA2457-R-s01-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2457-R-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>Hedge funds are private investment vehicles with pooled funds from institutions and high-net-worth (HNW) investors. Hedge funds typically have more flexible investment strategies than other options, such as mutual funds and ETFs.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Hedge funds are not an asset class but are a variety of investment vehicles driven by a set of disparate investment strategies. Most hedge funds utilize some form of leverage to enhance potential returns.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Hedge funds are typically classified by strategy. A variety of classifications are possible, which helps in the selection of appropriate investment strategies and appropriate performance benchmarks and in reviewing aggregate performance.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Most hedge funds are set up as limited partnerships, with the portfolio manager acting as a general partner (GP) and the institutional investors acting as limited partners (LPs). This is the direct form of hedge fund setup. For smaller and retail investors, indirect forms, such as funds of funds, help obtain a hedge fund exposure.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The legal and contractual relationship between the GPs and LPs is governed by the fund offering documents. In addition, a manager could draft a “side letter” applicable to some investors only, with different legal, regulatory, tax, operational, or reporting requirements.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Hedge funds use several strategies, such as market-neutral, relative value, and event-driven strategies, to obtain diversification benefits and to attempt to outperform equity markets on a risk-adjusted basis.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Hedge fund strategies are classified by a combination of the instruments in which they are invested, the trading philosophy followed, and the types of risks assumed.</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2457-R-s01-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
+<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2457-R-s01-Q1"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which statement about hedge funds is most accurate?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Hedge funds are investment products offered to the public and are traded daily on the OTC market.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. A hedge fund is a pooled investment vehicle that uses complex trading (using leverage, short selling, using derivatives, etc.) and risk management techniques to enhance performance for a private group of accredited investors.</p>
+<p>A is incorrect. Mutual funds, not hedge funds, are regulated investment products offered to the public and available for daily trading.</p>
+<p>B is incorrect. Exchange-traded funds (ETFs) are normally benchmarked to an index or industry/sector and typically track a specific industry or index. Hedge funds are benchmarked to either a hedge fund index or performance measured in absolute returns.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Hedge funds are benchmarked to an index or industry/sector, and managers use complex strategies to mimic the index or industry/sector.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. A hedge fund is a pooled investment vehicle that uses complex trading (using leverage, short selling, using derivatives, etc.) and risk management techniques to enhance performance for a private group of accredited investors.</p>
+<p>A is incorrect. Mutual funds, not hedge funds, are regulated investment products offered to the public and available for daily trading.</p>
+<p>B is incorrect. Exchange-traded funds (ETFs) are normally benchmarked to an index or industry/sector and typically track a specific industry or index. Hedge funds are benchmarked to either a hedge fund index or performance measured in absolute returns.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Hedge funds are private pooled funds, applying strategies with a goal of maximizing returns while reducing risk.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. A hedge fund is a pooled investment vehicle that uses complex trading (using leverage, short selling, using derivatives, etc.) and risk management techniques to enhance performance for a private group of accredited investors.</p>
+<p>A is incorrect. Mutual funds, not hedge funds, are regulated investment products offered to the public and available for daily trading.</p>
+<p>B is incorrect. Exchange-traded funds (ETFs) are normally benchmarked to an index or industry/sector and typically track a specific industry or index. Hedge funds are benchmarked to either a hedge fund index or performance measured in absolute returns.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2457-R-s01-Q2"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Which of the following statements about relative value strategies is <em>least accurate</em>?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Relative value strategies seek to profit from a price or return discrepancy between securities based on a short-term relationship.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct because it is the least accurate statement. Relative value strategies often involve investments in different asset classes. A and B are true.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Relative value funds are inherently structured to minimize net market risk and credit risks.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct because it is the least accurate statement. Relative value strategies often involve investments in different asset classes. A and B are true.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>The investments made under a relative value strategy are all within a single asset class or sector, using assets with a sufficient price differential to arbitrage their movements to equilibrium prices.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct because it is the least accurate statement. Relative value strategies often involve investments in different asset classes. A and B are true.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2457-R-s01-Q3"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of the following statements is <em>least accurate</em> about hedge funds?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Merger arbitrage strategies generally assume that an acquirer will be overpaying for the target.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct because it is the least accurate statement. Event-driven hedge funds thrive in a rising market environment with a high level of corporate activity in a strong economy. These are the times that accelerate merger and acquisition activity. A and C are accurate statements.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Event-driven hedge funds flourish in a stable market environment, where minor deviations in asset prices quickly converge to equilibrium.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct because it is the least accurate statement. Event-driven hedge funds thrive in a rising market environment with a high level of corporate activity in a strong economy. These are the times that accelerate merger and acquisition activity. A and C are accurate statements.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>An activist strategy expects to realize higher returns due to the manager being more effective in driving the corporate policies or strategic direction of the investment.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct because it is the least accurate statement. Event-driven hedge funds thrive in a rising market environment with a high level of corporate activity in a strong economy. These are the times that accelerate merger and acquisition activity. A and C are accurate statements.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2457-R-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>Which of the following is <em>not</em> a characteristic of hedge funds?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Hedge funds are mostly illiquid, with little trading possibilities.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Hedge funds invest in traditional asset classes but use a specific investment strategy. They are not a distinct asset class.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Hedge fund managers use leverage; however, the overall risk is lower.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Hedge funds invest in traditional asset classes but use a specific investment strategy. They are not a distinct asset class.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Hedge funds are a different asset class, with a distinct risk/reward profile.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Hedge funds invest in traditional asset classes but use a specific investment strategy. They are not a distinct asset class.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">D. </span>Managers demand higher remuneration and have more discretionary freedom in the choice of investments.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. Hedge funds invest in traditional asset classes but use a specific investment strategy. They are not a distinct asset class.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2457-R-s01-Q5"><span class="cfa-curriculum-question-with-label">5. </span>
+<p>In January, HedgeAway, a new hedge fund, started operations with an initial amount of USD100 million. The fund charges a management fee of 1.6% based on end-of-year value and a performance fee of 18% on gross returns payable on the excess over a hurdle rate of 8% after fees. The fund ended the year with assets under management (AUM) of USD120 million. What was the investors’ return during the year?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>16.28%</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-">Management fee = 1.6% of 120 million = 1.92 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___1">Growth during the year = 20 million, excess over the hurdle</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___2">= 20 million – (100 million × 0.08) – 1.92 million = 10.08 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___3">Performance fee = 10.08 million × 0.18 = 1.81 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___4">Total fees = 1.92 million + 1.81 million = 3.72 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___5">Return to the investors = 20 million – 3.72 million = 16.28 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___6">Investors’ return = 16.28%.</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>18.08%</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-">Management fee = 1.6% of 120 million = 1.92 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___1">Growth during the year = 20 million, excess over the hurdle</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___2">= 20 million – (100 million × 0.08) – 1.92 million = 10.08 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___3">Performance fee = 10.08 million × 0.18 = 1.81 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___4">Total fees = 1.92 million + 1.81 million = 3.72 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___5">Return to the investors = 20 million – 3.72 million = 16.28 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___6">Investors’ return = 16.28%.</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>18.19%</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-">Management fee = 1.6% of 120 million = 1.92 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___1">Growth during the year = 20 million, excess over the hurdle</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___2">= 20 million – (100 million × 0.08) – 1.92 million = 10.08 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___3">Performance fee = 10.08 million × 0.18 = 1.81 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___4">Total fees = 1.92 million + 1.81 million = 3.72 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___5">Return to the investors = 20 million – 3.72 million = 16.28 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2457-R-s01-E-1-___6">Investors’ return = 16.28%.</div>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1871_modules_items_144787_Learning_Outcomes_Hedge_Funds.html" >← 前へ</a>
+  <span class="title">6.01 | Introduction</span>
+  <a href="courses_1871_modules_items_144800_602_Hedge_Fund_Investment_Features.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

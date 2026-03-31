@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>19.02 | Time Tranching</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2448-R-s02-R-1" title="19.02 | Time Tranching">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 19: Mortgage-Backed Security (MBS) Instrument and Market Features</span>19.02 | Time Tranching</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">define prepayment risk and describe time tranching structures in securitizations and their purpose</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>ABS and MBS pass-through security cash flows are uncertain because scheduled and actual payments frequently differ. Borrower behavior, such as the early payment of interest and principal as well as payment delinquencies over the life of a loan, depends upon a number of factors, including the income of the borrower (household income or cash flows for a corporation), the terms and conditions of the loan (such as the original interest rate versus current rates and any prepayment penalties), and the sale of the underlying asset being financed. To correctly value these securities, investors make certain assumptions about the predicted contractual payments after factoring in prepayment risk. <a aria-describedby="PrepaymentRiskContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PrepaymentRiskContent">Prepayment risk</a> is the risk that the principal or a proportion of the principal is paid back at a different pace from the contractually agreed scheduled payment plan by the borrower. Prepayment risk has two components: contraction risk and extension risk, both of which reflect changes in the general level of interest rates.</p>
+<section id="CFA2448-R-s02-01-01">
+<h3 class="dp-heading">Prepayment Risk</h3>
+<p>When interest rates decline, actual prepayments for fixed-rate mortgages will be higher than forecasted because homeowners will refinance at lower interest rates. Mortgage refinancing is particularly common in the US given the absence of loan prepayment penalties, which are more prevalent in other countries. Thus, the maturity of an MBS will be shorter than what was anticipated at the time of purchase. <a aria-describedby="ContractionRiskContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ContractionRiskContent">Contraction risk</a> is the risk that the borrower repays the principal or a portion of the principal in a shorter period of time than the contractually agreed scheduled payment, reducing the amount of future payments the investor receives. For investors, this has two adverse consequences. First, investors must reinvest the proceeds at lower interest rates. Second, the prepayment option reduces the potential price appreciation for the bond.</p>
+<p>When interest rates increase, actual prepayments will be lower than forecasted because homeowners will become less likely to refinance their mortgages and may even delay new home purchases. Thus, the maturity of an MBS will be longer than what was anticipated at the time of purchase. <a aria-describedby="ExtensionRiskContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ExtensionRiskContent">Extension risk</a> is the risk that the borrower repays the principal or a proportion of the principal in a longer time period than the contractually agreed scheduled payment. For investors, this has adverse consequences: Higher interest rates reduce the value of the cash flows investors receive. Therefore, payments the investors receive will be discounted at a higher interest rate, and the extension stretches out the payments the investors receive.</p>
+<p>The structure of a securitization may also allow the redistribution of “prepayment risk” among bond classes. An approach for reducing this risk is to create bond classes that possess different expected maturities. This is referred to as <a aria-describedby="TimeTranchingContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#TimeTranchingContent">time tranching</a>. For instance, a securitization pool may contain sequential tranching, where the principal repayments flow first to one tranche until the principal is fully repaid for that tranche and then to the sequential tranche until the principal is repaid for that tranche.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2448-R-s02-EXM-1-1">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 1<span style="display: block;">Time Tranching with Waterfall for RLT MBS</span>
+</h4>
+<p>If the Residential Loan Trust (RLT) had issued the MBS with different expected maturities by bond class, rather than all the MBS being due in four years, the MBS investors also could select bonds based on their expected maturity. However, the investors could face prepayment or extension risk in this instance. The specific maturity dates are noted in <a aria-label="View Exhibit 1" class="internal" href="#CFA2448-R-s02-EXH-1-1" role="button">Exhibit 1</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2448-R-s02-EXH-1-1">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 1<span style="display: block;">Overview of Notes Issued by Residential Loan Trust – Brief Summary of Maturity Terms</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="2" style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Maturity of Mortgage-Backed Notes Issued by the Residential Loan Trust</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Issuer:</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Residential Loan Trust (RLT)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Status and Ranking of Payments</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Tranches</strong>
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="text-align: left; vertical-align: top; padding: 8px; ">Class A Notes rank senior to the Class B, C, &amp; D Notes.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Tranche A Notes</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Face value: EUR825 million<br/><br/>Interest rate: MRR + 0.50%<br/><br/>Maturity: One year</td>
+</tr>
+<tr>
+<td rowspan="2" style="text-align: left; vertical-align: top; padding: 8px; ">Class B Notes rank senior to Class C &amp; D Notes and rank junior to Class A Notes.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Tranche B Notes</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Face value: EUR100 million<br/><br/>Interest rate: MRR + 1.50%<br/><br/>Maturity: Two years</td>
+</tr>
+<tr>
+<td rowspan="2" style="text-align: left; vertical-align: top; padding: 8px; ">Class C Notes rank senior to the Class D Notes and rank junior to Class A &amp; B Notes.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Tranche C Notes</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Face value: EUR50 million<br/><br/>Interest rate: MRR + 2.50%<br/><br/>Maturity: Three years</td>
+</tr>
+<tr>
+<td rowspan="2" style="text-align: left; vertical-align: top; padding: 8px; ">Class D Notes will rank junior to Class A, B, &amp; C Notes.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Tranche D Notes</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Face value: EUR25 million<br/><br/>Interest rate: Variable<br/><br/>Maturity: Four years</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Principal Payment:</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">To be paid on [Maturity Date]</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Seniority:</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">The Notes are secured obligations of RLT.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Business Days:</strong>
+</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Frankfurt</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>For the investor purchasing EUR5 million across Tranche B and Tranche C notes, loan prepayments could impact principal repayment as noted below:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2448-R-s02-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="2" style="text-align: left; vertical-align: top; padding: 8px; "></th>
+<th colspan="2" style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>Timing of Principal Repaid</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" style="text-align: left; vertical-align: top; padding: 8px; ">Investor’s Initial RLT MBS Purchases</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">When principal is repaid if no prepayments in the RLT collateral pool</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">When principal is repaid if interest rates decline early in year two, thereby driving immediate prepayments in the RLT pool</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Class A Notes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">EUR0 million</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">One year, per MBS terms</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">One year, per MBS terms</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Class B Notes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">EUR3 million</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Two years, per MBS terms</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less than two years</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Class C Notes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">EUR2 million</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Three years, per MBS terms</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less than three years</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Class D Notes</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">EUR0 million</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Four years, per MBS terms</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Less than four years</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We would require additional information about the value of all prepayments and their exact timing to identify the exact principal repayment date.</p>
+<p>As seen in <a aria-label="View Exhibit 1" class="internal" href="#CFA2448-R-s02-EXH-1-1" role="button">Exhibit 1</a>, it is possible and quite common for a securitization to have structures with both credit tranching (subordinated structures) and time tranching (different expected maturities).</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2448-R-s02-EXM-1-2">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 2<span style="display: block;">Volkswagen Emissions Scandal</span>
+</h4>
+<p>Investors are exposed to certain types of idiosyncratic risks when buying asset-backed securities (ABS). For buyers of auto ABS, major automaker recalls are a known risk to bond investors. In 2015, the US Securities and Exchange Commission (SEC) accused Volkswagen (VW), one of the world’s largest carmakers, and its CEO Martin Winterkorn with defrauding American investors during an emissions scandal (the “Dieselgate” scandal). Volkswagen later admitted that it cheated on diesel emission tests, and this admission wiped billions of euros from the company’s market value and led to the resignation of Winterkorn. The emissions scandal that rocked Volkswagen also impacted ABS tied to car loans and leases. Sales of auto ABS were booming in the years just prior to the scandal as investors sought higher-yielding products given the low interest-rate environment.</p>
+<p>About USD5.6 billion worth of VW auto ABS were outstanding in 2015, with USD4.39 billion coming from bonds backed by loans and leases. Volkswagen, facing potential fines and litigation, found its ability to attract new business temporarily crimped, forcing down the values of the cars backing such loans. There were USD1.25 billion worth of bonds that were backed by car dealer inventories of VW cars, known as dealer floorplan ABS. For dealer floorplan ABS, the ABS trust benefits from VW financing assistance, including but not limited to VW’s pledge to repurchase unsold new vehicles and inventory. Car dealers, told to immediately halt sales of popular 2015 and 2016 models, including Volkswagen's Jetta and Beetle convertible, were saddled with unsalable product. Dealers had a number of cars that they could not sell, so inventory did not turn over as rapidly. The ABS most adversely affected by VW’s sales stoppage of certain 2015 and 2016 diesel models was the dealer floorplan securitization.</p>
+<p>Debt investors were demanding greater compensation from Volkswagen after the company said its emissions-cheating scandal would cost the firm more than EUR6.5 billion. Volkswagen, a frequent issuer in Europe’s asset-backed securities market, said that EUR2.6 billion of loans or leases for vehicles built with engines using cheating software were packaged into its securitizations.</p>
+<p>Late in 2015, Volkswagen was marketing a new auto ABS with a yield premium that was three times bigger than a similar deal earlier that year. The German carmaker was offering to pay about 60 bps to 65 bps more than benchmark rates for top-ranking notes of the securitization of auto leases. In comparison, Volkswagen paid a spread of 20 bps over the one-month euro interbank offered rate for similar debt in April 2015.</p>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2448-R-s02-B-1-a">
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+            Question Set</h4>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2448-R-s02-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Creating bond classes that possess different expected maturities is referred to as:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>subordination.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B. An approach for reducing “prepayment risk” or “extension risk” among bond classes is to create bond classes that possess different expected maturities. This is referred to as time tranching. A and C are incorrect because subordination, also commonly referred to as a “waterfall” structure, involves directing losses to the subordinated bond classes before the senior bond classes, not creating bond classes that possess different expected maturities.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>time tranching.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B. An approach for reducing “prepayment risk” or “extension risk” among bond classes is to create bond classes that possess different expected maturities. This is referred to as time tranching. A and C are incorrect because subordination, also commonly referred to as a “waterfall” structure, involves directing losses to the subordinated bond classes before the senior bond classes, not creating bond classes that possess different expected maturities.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>credit tranching.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B. An approach for reducing “prepayment risk” or “extension risk” among bond classes is to create bond classes that possess different expected maturities. This is referred to as time tranching. A and C are incorrect because subordination, also commonly referred to as a “waterfall” structure, involves directing losses to the subordinated bond classes before the senior bond classes, not creating bond classes that possess different expected maturities.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2448-R-s02-Q2">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Identify which of the following statements regarding securitized products is most accurate:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>With time tranching, the tranches of a CMO amortize over time and all tranches mature at the same time.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. In a true securitization, the specific pool of assets is removed from the balance sheet and transferred into a separate and independent legal entity that then issues securities backed by these pooled assets. A is incorrect because time tranching is an approach to reduce prepayment or extension risk by creating bond classes that possess different expected maturities. B is incorrect because covered bonds, not pass-through securities, are the simplest securitization structure; they involve the issuer retaining the underlying assets on its balance sheet.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Pass-through securities are the simplest securitized structure and involve issuers retaining the underlying assets.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. In a true securitization, the specific pool of assets is removed from the balance sheet and transferred into a separate and independent legal entity that then issues securities backed by these pooled assets. A is incorrect because time tranching is an approach to reduce prepayment or extension risk by creating bond classes that possess different expected maturities. B is incorrect because covered bonds, not pass-through securities, are the simplest securitization structure; they involve the issuer retaining the underlying assets on its balance sheet.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>In a true securitization, the underlying pool of assets is removed from the balance sheet and transferred into an independent legal entity that issues securities backed by these assets.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. In a true securitization, the specific pool of assets is removed from the balance sheet and transferred into a separate and independent legal entity that then issues securities backed by these pooled assets. A is incorrect because time tranching is an approach to reduce prepayment or extension risk by creating bond classes that possess different expected maturities. B is incorrect because covered bonds, not pass-through securities, are the simplest securitization structure; they involve the issuer retaining the underlying assets on its balance sheet.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2448-R-s02-Q3">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Issuing the collateralized bond classes with different expected maturities is <em>most likely</em> designed to mitigate:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>credit risk.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. Prepayment risk is the uncertainty that the cash flows will be different from the scheduled cash flows as set forth in the lease agreement because of the lessors’ ability to alter payments. The creation of bond classes with different expected maturities, referred to as time tranching, allows prepayment risk to be redistributed among bond classes. A is incorrect because credit risk pertains to the risk of default in the assets backing the collateralized bonds, not to the timing of payments, and B is incorrect because default risk again pertains to the risk of default in the assets backing the collateralized bonds.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>default risk.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. Prepayment risk is the uncertainty that the cash flows will be different from the scheduled cash flows as set forth in the lease agreement because of the lessors’ ability to alter payments. The creation of bond classes with different expected maturities, referred to as time tranching, allows prepayment risk to be redistributed among bond classes. A is incorrect because credit risk pertains to the risk of default in the assets backing the collateralized bonds, not to the timing of payments, and B is incorrect because default risk again pertains to the risk of default in the assets backing the collateralized bonds.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>prepayment risk.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. Prepayment risk is the uncertainty that the cash flows will be different from the scheduled cash flows as set forth in the lease agreement because of the lessors’ ability to alter payments. The creation of bond classes with different expected maturities, referred to as time tranching, allows prepayment risk to be redistributed among bond classes. A is incorrect because credit risk pertains to the risk of default in the assets backing the collateralized bonds, not to the timing of payments, and B is incorrect because default risk again pertains to the risk of default in the assets backing the collateralized bonds.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>
+<em>Determine the correct answers to complete the following sentences:</em>
+</p>
+<p>
+<span class="answer">_______</span> is the risk that the borrower might pay back the money borrowed more quickly than anticipated, reducing the amount of future payments the investor receives. <span class="answer">_______</span> is the risk that the borrower might pay back the money borrowed more slowly than anticipated, extending the time of repayment and the maturity of the bond.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>
+<em>Contraction risk</em> is the risk that the borrower might pay back the money borrowed more quickly than anticipated, reducing the amount of future payments the investor receives. <em>Extension risk</em> is the risk that the borrower might pay back the money borrowed more slowly than anticipated, extending the time of repayment and the maturity of the bond.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PrepaymentRiskContent">
+<p>The risk that the some or all of a mortgage-backed security’s principal is repaid at a different speed than expected, either in the form of contraction risk (or earlier repayment than expected) or extension risk (later repayment).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ContractionRiskContent">
+<p>The risk of earlier repayment of a mortgage-backed security than expected.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ExtensionRiskContent">
+<p>The risk of later repayment of a mortgage-backed security than expected.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="TimeTranchingContent">
+<p>Structure of a securitization that allows for the redistribution of “prepayment
+                     risk” among bond classes by creating bond classes of different expected
+                     maturities.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1869_modules_items_147008_1901_Introduction.html" >← 前へ</a>
+  <span class="title">19.02 | Time Tranching</span>
+  <a href="courses_1869_modules_items_147019_1903_Mortgage_Loans_and_Their_Characteristic_Features.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

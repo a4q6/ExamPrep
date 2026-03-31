@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.08 | Portfolio Construction Principles</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0184-R-s08" title="4.08 | Portfolio Construction Principles">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 4: Basics of Portfolio Planning and Construction</span>4.08 | Portfolio Construction Principles</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe the principles of portfolio construction and the role of asset allocation in relation to the IPS</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>The strategic asset allocation in itself does not yet represent an
+                                actual investment portfolio. It is the first step in implementing an
+                                investment strategy. For quantitatively oriented portfolio managers,
+                                the next step is often risk budgeting.</p>
+<p>As used in this reading, <a aria-describedby="RiskBudgetingContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskBudgetingContent">risk budgeting</a> is the process of
+                                deciding on the amount of risk to assume in a portfolio (the overall
+                                risk budget) and subdividing that risk over the sources of
+                                investment return (e.g., strategic asset allocation, tactical asset
+                                allocation, and security selection). Because the decision about the
+                                total amount of risk to be taken is made in constructing the IPS, at
+                                this stage we are concerned about the subdivision of that risk.</p>
+<p>Apart from the exposures to systematic risk factors specified in the
+                                strategic asset allocation, the returns of an investment strategy
+                                depend on two other sources: tactical asset allocation and security
+                                selection. <a aria-describedby="TacticalAssetAllocationContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#TacticalAssetAllocationContent">Tactical
+                                    asset allocation</a> is the decision to deliberately deviate
+                                from the policy exposures to systematic risk factors (i.e., the
+                                policy weights of asset classes) with the intent to add value based
+                                on forecasts of the near-term returns of those asset classes. For
+                                instance, an investor may decide to temporarily invest more of the
+                                portfolio in equities than the SAA prescribes if the investor
+                                anticipates that equities will deliver a higher return over the
+                                short term than other asset classes. <a aria-describedby="SecuritySelectionContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SecuritySelectionContent">Security selection</a> is an attempt to
+                                generate higher returns than the asset class benchmark by selecting
+                                securities with a higher expected return. For example, an investment
+                                manager may decide to add more IBM stock in her portfolio than the
+                                weight in her equity benchmark if she expects this stock to do
+                                better than the benchmark. To fund this purchase, she may sell
+                                another stock expected to do worse than either the benchmark or IBM.
+                                Obviously, deciding to deviate from policy weights or to select
+                                securities aiming to beat the benchmark creates additional
+                                uncertainty about returns. This risk is over and above the risk
+                                inherent in the policy portfolio. Hence, an investment policy should
+                                set risk limits and desired payoffs for each of these three
+                                activities.</p>
+<p>Risk budgeting implies that the portfolio manager has to choose, for
+                                every asset class, whether to deploy security selection as a return
+                                generator. This choice is generally referred to as the choice
+                                between active or passive management. Contrary to strategic asset
+                                allocation, where exposures to sources of systematic risk are
+                                selected and sized, security selection is not rewarded with a
+                                long-run payoff to risk. Security selection is a zero-sum game: All
+                                investors in an asset class are competing with each other to
+                                identify a typically limited number of assets that are misvalued. In
+                                total, the gross returns of all market participants average out to
+                                the market return (the reward for taking systematic risk). This
+                                implies that the average active investor will match the market
+                                return and that one investor’s gain versus the market return
+                                is the other investor’s loss versus the market return.
+                                Because active managers tend to trade more and have to pay people
+                                (including themselves) to generate investment ideas or information
+                                leading to such ideas, however, the average active manager will
+                                underperform the market, net of costs. This fact does not imply that
+                                there are no skillful investment managers who, with some
+                                consistency, beat their benchmarks. Neither does it imply that all
+                                passive managers will be able to match the benchmark. The higher the
+                                turnover of an index, the more trading costs a passive manager will
+                                incur, making the task of matching the return of an index more
+                                difficult.</p>
+<p>The likelihood of adding a significant amount of value from security
+                                selection depends on the skills of the manager and the informational
+                                efficiency of the market for the asset class his skill relates to.
+                                The more efficient an asset class or a subset of that asset class
+                                (such as a regional stock, bond, or real estate market or a size
+                                category within the stock market), the more skillful an asset
+                                manager has to be to add value. Broadly speaking, an efficient
+                                market is a market in which prices, on average, very quickly reflect
+                                newly available information. That requires a sizeable participation
+                                of investors trading risk against expected return, acting on
+                                rational expectations, using the same or similar pricing models, and
+                                having equal opportunities to access relevant information. Clearly,
+                                the market for US large-capitalization equities would be quite
+                                efficient. By contrast, some regional bond and equity markets do not
+                                have the technical and regulatory systems for information
+                                dissemination that are sufficient to serve all investors on a timely
+                                basis. Skilled managers should be able to exploit the resulting
+                                inefficiencies.</p>
+<p>Sometimes the choice between active and passive management is
+                                actually made implicitly when the asset class is included in the
+                                asset allocation. The markets for some assets—such as those
+                                for non-listed real estate and infrastructure assets—are so
+                                illiquid that it is very difficult to buy a diversified exposure. As
+                                a result, participating in that market is not possible without
+                                engaging in security selection.</p>
+<p>As the portfolio is constructed and its value changes with the
+                                returns of the asset classes and securities in which it is invested,
+                                the weights of the asset classes will gradually deviate from the
+                                policy weights in the strategic asset allocation. This process is
+                                referred to as drift. Periodically, or when a certain threshold
+                                deviation from the policy weight (the bandwidth) has been breached,
+                                the portfolio should be rebalanced back to the policy weights. The
+                                set of rules that guide the process of restoring the
+                                portfolio’s original exposures to systematic risk factors is
+                                known as the <a aria-describedby="RebalancingPolicyContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RebalancingPolicyContent">rebalancing policy</a>. Even absent a formal risk budget,
+                                formulating a rebalancing policy is an important element of risk
+                                management, as the following example illustrates.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA0184-R-EXM11">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 11<span style="display: block;">Strategic and Tactical Asset Allocation for a European
+                        Charity</span>
+</h3>
+<section>
+<p>A European charity has an asset allocation at the beginning
+                        of the year consisting of the asset classes and weights
+                        shown in <a aria-label="View Exhibit 11" class="internal" href="#CFA0184-R-EXH11" role="button">Exhibit 11</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0184-R-EXH11">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 11<span style="display: block;">Asset Allocation of a European Charity (beginning
+                                 of year)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Asset Class</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Policy Weight</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Corridor (+/–)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Upper Limit</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Lower Limit</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">European equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">International equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">European government bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Corporate bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash and money market
+                                       instruments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100.0%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>As <a aria-label="View Exhibit 11" class="internal" href="#CFA0184-R-EXH11" role="button">Exhibit 11</a> reveals, the charity has a policy that the
+                           asset class weights cannot deviate from the policy weights
+                           by more than 2% (the corridor). The resulting upper and
+                           lower limits for the asset class weights are shown in the
+                           rightmost columns of the table. There are two reasons for
+                           asset class actual weights to deviate from policy weights:
+                           by deliberate choice (tactical asset allocation or market
+                           timing) and as a result of divergence of the returns of the
+                           different asset classes (drift). In this example, the asset
+                           class weights start the year exactly in line with policy
+                           weights.</p>
+<p>After half a year, the investment portfolio is as shown in
+                           <a aria-label="View Exhibit 12" class="internal" href="#CFA0184-R-EXH12" role="button">Exhibit 12</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0184-R-EXH12">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 12<span style="display: block;">Asset Allocation for a European Charity (six
+                                 months later)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Asset Class</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Policy Weight</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Corridor (+/–)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Upper Limit</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Lower Limit</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Period Return</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Ending Weight</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">European equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32.4%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">International equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">European government bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.9%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Corporate bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">19.1%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash and money market
+                                       instruments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100.0%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100.0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Discuss the returns of the portfolio and comment on
+                                 the main asset weight changes.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0184-R-s08-01-01">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The investment portfolio generated a return calculated on
+                                            beginning (policy) weights of 6.55%, rounded to 6.6% (=
+                                            0.30 × 15% + 0.15 × 10% + 0.20 ×
+                                            0.5% + 0.20 × 1.5% + 0.15 × 1.0%), mainly
+                                            driven by a strong equity market. Bond returns were more
+                                            subdued, leading to considerable drift in asset class
+                                            weights. In particular, the European equity weight
+                                            breached the upper limit of its allowed actual
+                                            weight.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>The investment committee decides against reducing
+                                            European equities back to policy weight and adding to
+                                            the fixed income and cash investments toward policy
+                                            weights. Although this rebalancing would be prudent, the
+                                            committee decides to engage in tactical asset allocation
+                                            based on the view that this market will continue to be
+                                            strong over the course of the year. It decides to just
+                                            bring European equities back to within its bandwidth (a
+                                            32% portfolio weight) and add the proceeds to cash.
+                                                <a aria-label="View Exhibit 13" class="internal" href="#CFA0184-R-EXH13" role="button">Exhibit 13</a> shows the outcome after another half
+                                            year.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0184-R-EXH13">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 13<span style="display: block;">Asset Allocation for a European Charity (an
+                                                  additional six months later)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Asset Class</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Policy Weight</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Starting Weight</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Corridor (+/–)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Upper Limit</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Lower Limit</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Period Return</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Ending Weight</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">European equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–9.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">29.7%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">International equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–6.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14.9%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">European government bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.9%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Corporate bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">19.1%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash and money market
+                                                  instruments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14.6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">17.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">13.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100.0%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100.0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The prior decision not to rebalance to policy weights did
+                                            not have a positive result. Contrary to the investment
+                                            committee’s expectations, both European and
+                                            international equities performed poorly while bonds
+                                            recovered. The return of the portfolio was
+                                            −2.0%.</p>
+<p>How much of this return can be attributed to
+                                                  tactical asset allocation?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA0184-R-s08-01-02">
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Because tactical asset allocation is the deliberate
+                                            decision to deviate from policy weights, the return
+                                            contribution from tactical asset allocation equals the
+                                            difference between the actual return and the return that
+                                            would have been made if the asset class weights were
+                                            equal to the policy weights. <a aria-label="View Exhibit 14" class="internal" href="#CFA0184-R-EXH14" role="button">Exhibit 14</a> shows this
+                                            difference to be −0.30%.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0184-R-EXH14">
+<h6 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 14<span style="display: block;">Returns to Tactical Asset Allocation</span>
+</h6>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Asset Class</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Policy Weight</strong>
+<br/><br/>
+<strong>I</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Starting Weight</strong>
+<br/><br/>
+<strong>II</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Weights Difference</strong>
+<br/><br/>
+<strong>III (= II – I)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Period Return</strong>
+<br/><br/>
+<strong>IV</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>TAA Contribution</strong>
+<br/><br/>
+<strong>V(= III × IV)</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">European equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">30.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">32.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–9.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.18%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">International equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">0.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–6.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.03%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">European government bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">18.9%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–1.1%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.05%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Corporate bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">19.1%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.9%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.04%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Cash and money market
+                                                  instruments</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14.6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.4%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.01%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100.0%</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: left; vertical-align: top; padding: 8px; "> </td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–2.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">–0.30%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p>The process of executing an investment strategy continues with
+                                selecting the appropriate manager(s) for each asset class and
+                                allocating funds to them. The investment portfolio management
+                                process is then well into the execution stage. </p>
+<p>The investment managers’ performance will be monitored, as
+                                well as the results of the tactical and strategic asset allocation.
+                                When asset class weights move outside their corridors, money is
+                                transferred from the asset classes that have become too large
+                                compared with the SAA to those that fall short. Managers as well as
+                                the strategic asset allocation will be reviewed on the basis of the
+                                outcome of the monitoring process. In addition, capital market
+                                expectations may change, as may the circumstances and objectives of
+                                the client. These changes could result in an adjustment of the
+                                strategic asset allocation.</p>
+<section id="CFA0184-R-s08-02">
+<h3 class="dp-heading">New Developments in Portfolio Management</h3>
+<p>The portfolio planning and construction framework presented so
+                                    far relies on a somewhat rigid process. Nonetheless, there are
+                                    two newer, less structured developments that deserve specific
+                                    mention.</p>
+<p>The first development is the growth in the offering of exchange
+                                    traded funds, or ETFs, in combination with algorithm-based
+                                    financial advice (or robo-advice). ETFs are funds that track the
+                                    performance of an asset class index or sub-index, are easily
+                                    tradable, and are relatively cheap compared with actively
+                                    managed funds or managed accounts. The broad array of ETF
+                                    offerings, covering the main equity and fixed-income indices as
+                                    well as commodities, enable retail investors to obtain fast,
+                                    inexpensive, and liquid exposure to asset classes. Robo-advice
+                                    has further reduced the costs for retail investors to create a
+                                    well-diversified portfolio.</p>
+<p>The second development relates to criticism of asset class return
+                                    forecasts over relevant time horizons, as well as the perceived
+                                    instability of asset class correlations and volatilities. Some
+                                    market participants argue that poor investment portfolio results
+                                    reflect the sensitivity of modern portfolio theory-based
+                                    portfolio construction methodologies to small errors in return
+                                    forecasts or estimated correlations. In response, practitioners
+                                    developed an investment approach where asset classes were
+                                    weighted according to risk contribution. This approach is known
+                                    as <em>risk parity investing</em>. Proponents of risk
+                                    parity investing argue that traditionally constructed portfolios
+                                    have considerable risk from equities. That is, the typically
+                                    high (60% or more) weight of equities in institutional
+                                    portfolios understates the risk impact: equities tend to be much
+                                    more volatile than fixed income. Opponents of risk parity argue
+                                    that following the global financial crisis of 2007–2009,
+                                    favorable results of risk parity portfolios were caused by the
+                                    long period of decline in interest rates that benefited bond
+                                    market performance.</p>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskBudgetingContent">
+<p>The establishment of objectives for individuals, groups, or divisions of an organization that takes into account the allocation of an acceptable level of risk.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="TacticalAssetAllocationContent">
+<p>A proactive strategy that adjusts asset class allocations within a portfolio based on short-term market trends, economic conditions, or valuation changes to capitalize on temporary market inefficiencies or opportunities to improve returns or manage risk more effectively.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SecuritySelectionContent">
+<p>The process of selecting individual securities;
+                                                typically, security selection has the objective of
+                                                generating superior risk-adjusted returns relative
+                                                to a portfolio’s benchmark.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RebalancingPolicyContent">
+<p>The set of rules that guide the process of restoring
+                                                a portfolio’s asset class weights to those
+                                                specified in the strategic asset allocation.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146009_407_Strategic_Asset_Allocation.html" >← 前へ</a>
+  <span class="title">4.08 | Portfolio Construction Principles</span>
+  <a href="courses_1872_modules_items_146020_409_ESG_Considerations_in_Portfolio_Planning_and_Construction.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

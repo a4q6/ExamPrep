@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.06 | Return Generating Models</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0160-R-s06" title="2.06 | Return Generating Models">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 2: Portfolio Risk and Return: Part II</span>2.06 | Return Generating Models</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">explain return generating models (including the market model) and their uses</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>As previously mentioned, in order to form the market portfolio, you should combine all available risky assets. Knowledge of the correlations among those assets allows us to estimate portfolio risk. You also learned that a fully diversified portfolio will include all asset classes and essentially all assets in those asset classes. The work required for construction of the market portfolio is formidable. For example, for a portfolio of 1,000 assets, we will need 1,000 return estimates, 1,000 standard deviation estimates, and 499,500 (1,000 × 999 ÷ 2) correlations. Other related questions that arise with this analysis are whether we really need all 1,000 assets and what happens if there are errors in these estimates.</p>
+<p>An alternate method of constructing an optimal portfolio is simpler and easier to implement. An investor begins with a known portfolio, such as the S&amp;P 500, and then adds other assets one at a time on the basis of the asset’s standard deviation, expected return, and impact on the portfolio’s risk and return. This process continues until the addition of another asset does not have a significant impact on the performance of the portfolio. The process requires only estimates of systematic risk for each asset because investors will not be compensated for nonsystematic risk. Expected returns can be calculated by using return-generating models, as we will discuss in this section. In addition to using return-generating models, we will also decompose total variance into systematic variance and nonsystematic variance and establish a formal relationship between systematic risk and return. In the next section, we will expand on this discussion and introduce the CAPM as the preferred return-generating model.</p>
+<section id="CFA0160-R-s06-01">
+<h3 class="dp-heading">Return-Generating Models</h3>
+<p>A <a aria-describedby="ReturnGeneratingModelContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ReturnGeneratingModelContent">return-generating model</a> is a model that can provide an estimate of the expected return of a security given certain parameters. If systematic risk is the only relevant parameter for return, then the return-generating model will estimate the expected return for any asset given the level of systematic risk.</p>
+<p>As with any model, the quality of estimates of expected return will depend on the quality of input estimates and the accuracy of the model. Because it is difficult to decide which factors are appropriate for generating returns, the most general form of a return-generating model is a multi-factor model. A <a aria-describedby="MultiFactorModelContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MultiFactorModelContent">multi-factor model</a> allows more than one variable to be considered in estimating returns and can be built using different kinds of factors, such as macroeconomic, fundamental, and statistical factors.</p>
+<p>Macroeconomic factor models use economic factors that are correlated with security returns. These factors may include economic growth, the interest rate, the inflation rate, productivity, employment, and consumer confidence. Past relationships with returns are estimated to obtain parameter estimates, which are, in turn, used for computing expected returns. Fundamental factor models analyze and use relationships between security returns and the company’s underlying fundamentals, such as, for example, earnings, earnings growth, cash flow generation, investment in research, advertising, and number of patents. Finally, in a statistical factor model, historical and cross-sectional return data are analyzed to identify factors that explain variance or covariance in observed returns. These statistical factors, however, may or may not have an economic or fundamental connection to returns. For example, the conference to which the American football Super Bowl winner belongs, whether the American Football Conference or the National Football Conference, may be a factor in US stock returns, but no obvious economic connection seems to exist between the winner’s conference and US stock returns. Moreover, data mining may generate many spurious factors that are devoid of any economic meaning. Because of this limitation, analysts prefer the macroeconomic and fundamental factor models for specifying and estimating return-generating models.</p>
+<p>A general return-generating model is expressed in the following manner:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___42"><math>
+<semantics>
+<mrow>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>R</mi>
+<mi>i</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>−</mo>
+<msub>
+<mi>R</mi>
+<mi>f</mi>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<munderover>
+<mo>∑</mo>
+<mrow>
+<mi>j</mi>
+<mo>=</mo>
+<mn>1</mn>
+</mrow>
+<mi>k</mi>
+</munderover>
+<mrow>
+<msub>
+<mi>β</mi>
+<mrow>
+<mi>i</mi>
+<mi>j</mi>
+</mrow>
+</msub>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>F</mi>
+<mi>j</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+</mstyle>
+<mo>=</mo>
+<msub>
+<mi>β</mi>
+<mrow>
+<mi>i</mi>
+<mn>1</mn>
+</mrow>
+</msub>
+<mrow>
+<mo>[</mo>
+<mrow>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>R</mi>
+<mi>m</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>−</mo>
+<msub>
+<mi>R</mi>
+<mi>f</mi>
+</msub>
+</mrow>
+<mo>]</mo>
+</mrow>
+<mo>+</mo>
+<mstyle displaystyle="true">
+<munderover>
+<mo>∑</mo>
+<mrow>
+<mi>j</mi>
+<mo>=</mo>
+<mn>2</mn>
+</mrow>
+<mi>k</mi>
+</munderover>
+<mrow>
+<msub>
+<mi>β</mi>
+<mrow>
+<mi>i</mi>
+<mi>j</mi>
+</mrow>
+</msub>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>F</mi>
+<mi>j</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+</mstyle>
+</mrow>
+</semantics>
+</math></div>
+<p>The model has <em>k</em> factors, <em>E</em>(<em>F</em><sub>1</sub>), <em>E</em>(<em>F</em><sub>2</sub>), ... <em>E</em>(<em>F<sub>k</sub></em>). The coefficients, β<em><sub>ij</sub> </em>, are the factor weights (sometimes called factor loadings) associated with each factor. The left-hand side of the model has the expected excess return (i.e., the expected return over the risk-free rate). The right-hand side provides the risk factors that would generate the return or premium required to assume that risk. We have separated out one factor, <em>E</em>(<em>R<sub>m</sub></em>), which represents the market return. All models contain return on the market portfolio as a key factor.</p>
+<section id="CFA0160-R-s06-01-01">
+<h4>Three-Factor and Four-Factor Models</h4>
+<p>Eugene Fama and Kenneth French<a aria-describedby="CFA0160-R-FN1Content" class="dp-popover-trigger" href="#CFA0160-R-FN1Content"> <sup>1</sup> </a> suggested that a return-generating model for stock returns should include relative market capitalization of the company (“size”) relative book-to-market value of the company in addition to beta. Fama and French found that past returns could be explained better with their model than with other models available at that time, most notably, the capital asset pricing model. Mark <a aria-describedby="CFA0160-R-R1Content" class="dp-popover-trigger" href="#CFA0160-R-R1Content">Carhart (1997)</a> extended the Fama and French model by adding another factor: momentum, defined as relative past stock returns.</p>
+</section>
+<section id="CFA0160-R-s06-01-02">
+<h4>The Single-Index Model</h4>
+<p>The simplest form of a return-generating model is a single-factor linear model, in which only one factor is considered. The most common implementation is a single-index model, which uses the market factor in the following form: <em>E</em>(<em>R<sub>i</sub></em>) – <em>R<sub>f</sub> </em> = β<em><sub>i</sub> </em>[<em>E</em>(<em>R<sub>m</sub></em>) – <em>R<sub>f</sub></em>].</p>
+<p>Although the single-index model is simple, it fits nicely with the capital market line. Recall that the CML is linear, with an intercept of <em>R<sub>f</sub> </em> and a slope of [<em>E</em>(<em>R<sub>m</sub></em>) – <em>R<sub>f</sub></em>]/σ<em><sub>m</sub></em>. We can rewrite the CML by moving the intercept to the left-hand side of the equation, rearranging the terms, and generalizing the subscript from <em>p</em> to <em>i</em>, for any security:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___43"><math>
+<semantics>
+<mrow>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>R</mi>
+<mi>i</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>−</mo>
+<msub>
+<mi>R</mi>
+<mi>f</mi>
+</msub>
+<mo>=</mo>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>σ</mi>
+<mi>i</mi>
+</msub>
+</mrow>
+<mrow>
+<msub>
+<mi>σ</mi>
+<mi>m</mi>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mrow>
+<mo>[</mo>
+<mrow>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>R</mi>
+<mi>m</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>−</mo>
+<msub>
+<mi>R</mi>
+<mi>f</mi>
+</msub>
+</mrow>
+<mo>]</mo>
+</mrow>
+</mrow>
+</semantics>
+</math></div>
+<p>The factor loading or factor weight, σ<em><sub>i</sub> </em>/σ<em><sub>m</sub></em>, refers to the ratio of total security risk to total market risk. To obtain a better understanding of factor loading and to illustrate that the CML reduces to a single-index model, we decompose total risk into its components.</p>
+</section>
+</section>
+<section id="CFA0160-R-s06-02">
+<h3 class="dp-heading">Decomposition of Total Risk for a Single-Index Model</h3>
+<p>With the introduction of return-generating models, particularly the single-index model, we are able to decompose total variance into systematic and nonsystematic variances. Instead of using expected returns in the single index, let us use realized returns. The difference between expected returns and realized returns is attributable to non-market changes, as an error term, <em>e<sub>i</sub></em>, in the second equation below:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___44"><em>E</em>(<em>R<sub>i</sub></em>) – <em>R<sub>f</sub> </em> = β<em><sub>i</sub> </em>[<em>E</em>(<em>R<sub>m</sub></em>) – <em>R<sub>f</sub></em>]</div>
+<p>and</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___45"><em>R<sub>i</sub> </em> – <em>R<sub>f</sub> </em> = β<em><sub>i</sub> </em>(<em>R<sub>m</sub> </em> – <em>R<sub>f</sub></em>) + <em>e<sub>i</sub></em></div>
+<p>The variance of realized returns can be expressed in the equation below (note that <em>R<sub>f</sub> </em> is a constant). We can further drop the covariance term in this equation because, by definition, any non-market return is uncorrelated with the market. Thus, we are able to decompose total variance into systematic and nonsystematic variances in the second equation below:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___46"><math>
+<semantics>
+<mrow>
+<msubsup>
+<mi>σ</mi>
+<mi>i</mi>
+<mn>2</mn>
+</msubsup>
+<mo>=</mo>
+<msubsup>
+<mi>β</mi>
+<mi>i</mi>
+<mn>2</mn>
+</msubsup>
+<msubsup>
+<mi>σ</mi>
+<mi>m</mi>
+<mn>2</mn>
+</msubsup>
+<mo>+</mo>
+<msubsup>
+<mi>σ</mi>
+<mi>e</mi>
+<mn>2</mn>
+</msubsup>
+<mo>+</mo>
+<mn>2</mn>
+<mi>C</mi>
+<mi>o</mi>
+<mi>v</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>R</mi>
+<mi>m</mi>
+</msub>
+<mo>,</mo>
+<msub>
+<mi>e</mi>
+<mi>i</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+</mrow>
+</semantics>
+</math></div>
+<p>Total variance = Systematic variance + Nonsystematic variance, which can be written as</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___47"><math>
+<semantics>
+<mrow>
+<msubsup>
+<mi>σ</mi>
+<mi>i</mi>
+<mn>2</mn>
+</msubsup>
+<mo>=</mo>
+<msubsup>
+<mi>β</mi>
+<mi>i</mi>
+<mn>2</mn>
+</msubsup>
+<msubsup>
+<mi>σ</mi>
+<mi>m</mi>
+<mn>2</mn>
+</msubsup>
+<mo>+</mo>
+<msubsup>
+<mi>σ</mi>
+<mi>e</mi>
+<mn>2</mn>
+</msubsup>
+</mrow>
+</semantics>
+</math></div>
+<p>Total risk can be expressed as</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___48"><math>
+<semantics>
+<mrow>
+<msub>
+<mi>σ</mi>
+<mi>i</mi>
+</msub>
+<mo>=</mo>
+<msqrt>
+<mrow>
+<msubsup>
+<mi>β</mi>
+<mi>i</mi>
+<mn>2</mn>
+</msubsup>
+<msubsup>
+<mi>σ</mi>
+<mi>m</mi>
+<mn>2</mn>
+</msubsup>
+<mo>+</mo>
+<msubsup>
+<mi>σ</mi>
+<mi>e</mi>
+<mn>2</mn>
+</msubsup>
+</mrow>
+</msqrt>
+</mrow>
+</semantics>
+</math></div>
+<p>Because nonsystematic risk is zero for well-diversified portfolios, such as the market portfolio, the total risk of a market portfolio and other similar portfolios is only systematic risk, which is β<em><sub>i</sub> </em>σ<em><sub>m</sub></em>. We can now return to the CML discussed in the previous subsection and replace σ<em><sub>i</sub> </em> with β<em><sub>i</sub> </em>σ<em><sub>m</sub> </em> because the CML assumes that the market is a diversified portfolio. By making this substitution for the above equation, we get the following single-index model:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___49"><math>
+<semantics>
+<mrow>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>R</mi>
+<mi>i</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>−</mo>
+<msub>
+<mi>R</mi>
+<mi>f</mi>
+</msub>
+<mo>=</mo>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>σ</mi>
+<mi>i</mi>
+</msub>
+</mrow>
+<mrow>
+<msub>
+<mi>σ</mi>
+<mi>m</mi>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>×</mo>
+<mrow>
+<mo>[</mo>
+<mrow>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>R</mi>
+<mi>m</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>−</mo>
+<msub>
+<mi>R</mi>
+<mi>f</mi>
+</msub>
+</mrow>
+<mo>]</mo>
+</mrow>
+<mo>=</mo>
+<mrow>
+<mo>(</mo>
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<msub>
+<mi>β</mi>
+<mi>i</mi>
+</msub>
+<msub>
+<mi>σ</mi>
+<mi>m</mi>
+</msub>
+</mrow>
+<mrow>
+<msub>
+<mi>σ</mi>
+<mi>m</mi>
+</msub>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>×</mo>
+<mrow>
+<mo>[</mo>
+<mrow>
+<mi>E</mi>
+<mrow>
+<mo>(</mo>
+<mrow>
+<msub>
+<mi>R</mi>
+<mi>m</mi>
+</msub>
+</mrow>
+<mo>)</mo>
+</mrow>
+<mo>−</mo>
+<msub>
+<mi>R</mi>
+<mi>f</mi>
+</msub>
+</mrow>
+<mo>]</mo>
+</mrow>
+<mo>,</mo>
+</mrow>
+</semantics>
+</math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___50"><em>E</em>(<em>R<sub>i</sub></em>) – <em>R<sub>f</sub> </em> = β<em><sub>i</sub> </em>[<em>E</em>(<em>R<sub>m</sub></em>) – <em>R<sub>f</sub></em>]</div>
+<p>Thus, the CML, which holds only for well-diversified portfolios, is fully consistent with a single-index model.</p>
+<p>In summary, total variance may be decomposed into systematic and nonsystematic variances and the CML is the same as a single-index model for diversified portfolios.</p>
+</section>
+<section id="CFA0160-R-s06-03">
+<h3 class="dp-heading">Return-Generating Models: The Market Model</h3>
+<p>The most common implementation of a single-index model is the <a aria-describedby="MarketModelContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MarketModelContent">market model</a>, in which the market return is the single factor or single index. In principle, the market model and the single-index model are similar. The difference is that the market model is easier to work with and is normally used for estimating beta risk and computing abnormal returns. The market model is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___51"><em>R<sub>i</sub> </em> = α<em><sub>i</sub> </em> + β<em><sub>i</sub>R<sub>m</sub> </em> + <em>e<sub>i</sub> </em></div>
+<p>To be consistent with the previous section, α<em><sub>i</sub> </em> = <em>R<sub>f</sub> </em>(1 – β). The intercept, α<em><sub>i</sub></em>, and slope coefficient, β<em><sub>i</sub></em>, can be estimated by using historical security and market returns. These parameter estimates are then used to predict company-specific returns that a security may earn in a future period. Assume that a regression of Wal-Mart’s historical daily returns on S&amp;P 500 daily returns gives an α<em><sub>i</sub> </em> of 0.0001 and a β<em><sub>i</sub> </em> of 0.9. Thus, Wal-Mart’s expected daily return = 0.0001 + 0.90 × <em>R<sub>m</sub></em>. If, on a given day the market rises by 1 percent and Wal-Mart’s stock rises by 2 percent, then Wal-Mart’s company-specific return (<em>e<sub>i</sub></em>) for that day = <em>R<sub>i</sub> </em> − <em>E</em>(<em>R<sub>i</sub></em>) = <em>R<sub>i</sub> </em> – (α<em><sub>i</sub> </em> + β<em><sub>i</sub>R<sub>m</sub></em>) = 0.02 – (0.0001 + 0.90 × 0.01) = 0.0109, or 1.09%. In other words, Wal-Mart earned an abnormal return of 1.09 percent on that day.</p>
+</section>
+<div class="dp-content-block cfa-curriculum-reflist">
+<h3 class="dp-has-icon cfa-curriculum-reflist"><i aria-hidden="true" class="dp-icon fas fa-clipboard-list" style="background: inherit !important;"> </i>Reference List</h3>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title">References</h3>
+<div class="dp-panel-content">
+<ul>
+<li id="CFA0160-R-R1list">Carhart, Mark (1997). “On Persistence in Mutual Fund Performance.” <em>Journal of Finance</em>, vol. 52, no. 1:57–82. <a href="http://dx.doi.org/10.2307/2329556" target="_blank">http://dx.doi.org/10.2307/2329556</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0160-R-FN1Content">
+<p><sup>1</sup> Fama and French (1992).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0160-R-R1Content">Carhart, Mark (1997). “On Persistence in Mutual Fund Performance.” <em>Journal of Finance</em>, vol. 52, no. 1:57–82. <a href="http://dx.doi.org/10.2307/2329556" target="_blank">http://dx.doi.org/10.2307/2329556</a></div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ReturnGeneratingModelContent">
+<p>A model that can provide an estimate of the expected return of a security given certain parameters and estimates of the values of the independent variables in the model.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MultiFactorModelContent">
+<p>A model that explains a variable in terms of the values of a set of factors.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MarketModelContent">
+<p>A regression model with the return on a stock as the dependent variable and the returns on a market index as the independent variable.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_145838_205_Systematic_and_Nonsystematic_Risk.html" >← 前へ</a>
+  <span class="title">2.06 | Return Generating Models</span>
+  <a href="courses_1872_modules_items_145845_207_Calculation_and_Interpretation_of_Beta.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

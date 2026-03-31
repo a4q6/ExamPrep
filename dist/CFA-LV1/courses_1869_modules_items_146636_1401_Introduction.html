@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2444-R-s01-R-1" title="14.01 | Introduction">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 14: Credit Risk</span>14.01 | Introduction</h2>
+</header>
+<p>Credit analysis plays a critical role in fixed-income markets. Proper evaluation and pricing of credit risk facilitates the efficient allocation of capital. This is a dynamic process as credit risk components are continuously re-evaluated and fixed-income instruments repriced according to market conditions. This learning module covers the basic principles of credit analysis. First, we introduce the concepts of credit risk and expected loss and interpret what credit ratings mean. We compare bond issuer creditworthiness within a given industry as well as across industries, and we explore how financial markets price credit risk. This lesson focuses primarily on the analysis of credit risk, while subsequent lessons discuss credit analysis of sovereign and non-sovereign government issuers as well as corporate debt</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA2444-R-s01-Ba">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2444-R-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>Credit risk is the risk of economic loss resulting from borrower failure to make full and timely payments of interest and principal. The key components of credit risk are the probability of default and the loss given default, and their product is expected loss.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Chief sources of credit risk include adverse macroeconomic conditions, a financing mismatch between resources and obligations, and issuer-specific factors in corporate and sovereign debt markets.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Nearly every bond issue in developed debt markets carries credit ratings classifying creditworthiness. Credit ratings enable comparisons of the credit risk of debt issues and issuers within and across industries.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Bonds or issuers with an investment-grade (IG) credit rating pose the lowest risk of default and are rated Baa3 by Moody’s and BBB– or higher by S&amp;P and Fitch. In contrast, non-investment-grade or high-yield (HY) bonds or issuers are rated BB+ or lower by S&amp;P/Fitch and Ba1 or less by Moody’s and represent substantial to very high credit risk.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Pitfalls of relying solely on credit ratings in making investment decisions include that rating agency decisions may lag market pricing of credit risk, overlook key financial risks, and/or involve miscalculations or unforeseen changes not fully captured in a rating agency’s forward-looking analysis.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The premium, or yield spread, at which corporate bonds trade relative to default risk-free assets widens when credit risk rises and narrows if credit risk falls.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Credit spread changes affect holding period returns via two primary factors: a) the basis point spread change and b) the sensitivity of price to yield as reflected by end-of-period modified duration and convexity. Spread narrowing increases holding period returns.</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2444-R-s01-Bb">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
+<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2444-R-s01-Q1"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Credit risk is:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>activated upon a borrower’s default.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Lenders are impacted by credit risk in several ways, including failure to receive principal and interest payments in a timely manner, the inability to sell collateral at a market price sufficient to meet an issuer’s obligations in the case of secured debt, or the potential incurrence of legal or other costs to collect debt. A is incorrect because while a borrower default initiates a realized loss, expected loss exists prior to the occurrence of any actual loss. B is incorrect because it refers to the credit spread, which compensates investors for assuming credit risk.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>the spread an investor receives above the risk-free rate.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Lenders are impacted by credit risk in several ways, including failure to receive principal and interest payments in a timely manner, the inability to sell collateral at a market price sufficient to meet an issuer’s obligations in the case of secured debt, or the potential incurrence of legal or other costs to collect debt. A is incorrect because while a borrower default initiates a realized loss, expected loss exists prior to the occurrence of any actual loss. B is incorrect because it refers to the credit spread, which compensates investors for assuming credit risk.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>experienced in several ways by lenders.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Lenders are impacted by credit risk in several ways, including failure to receive principal and interest payments in a timely manner, the inability to sell collateral at a market price sufficient to meet an issuer’s obligations in the case of secured debt, or the potential incurrence of legal or other costs to collect debt. A is incorrect because while a borrower default initiates a realized loss, expected loss exists prior to the occurrence of any actual loss. B is incorrect because it refers to the credit spread, which compensates investors for assuming credit risk.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2444-R-s01-Q2"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>A EUR500,000 loan has the following characteristics:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2444-R-s01-L2">
+<li class="cfa-curriculum-list-item">
+<p>Probability of default 5%</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Recovery rate 90%</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Expected exposure EUR400,000</p>
+</li>
+</ul>
+<p>The expected loss for this loan is:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>EUR1,500</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. We solve for expected loss (EL) as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E">EL = POD × LGD = POD × EE × (1 – RR).</div>
+<p>Since probability of default (POD) is 5%, expected exposure (EE) is EUR400,000, and the recovery rate (RR) is 90%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___1">EL = EUR2,000 = 0.05 × (400,000) × (1 – 0.9).</div>
+<p>A is incorrect as it fails to reduce the expected exposure by the collateral, while C is incorrect as it simply multiplies EE and POD.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>EUR2,000</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. We solve for expected loss (EL) as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E">EL = POD × LGD = POD × EE × (1 – RR).</div>
+<p>Since probability of default (POD) is 5%, expected exposure (EE) is EUR400,000, and the recovery rate (RR) is 90%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___1">EL = EUR2,000 = 0.05 × (400,000) × (1 – 0.9).</div>
+<p>A is incorrect as it fails to reduce the expected exposure by the collateral, while C is incorrect as it simply multiplies EE and POD.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>EUR20,000</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. We solve for expected loss (EL) as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E">EL = POD × LGD = POD × EE × (1 – RR).</div>
+<p>Since probability of default (POD) is 5%, expected exposure (EE) is EUR400,000, and the recovery rate (RR) is 90%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___1">EL = EUR2,000 = 0.05 × (400,000) × (1 – 0.9).</div>
+<p>A is incorrect as it fails to reduce the expected exposure by the collateral, while C is incorrect as it simply multiplies EE and POD.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2444-R-s01-Q3"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Credit ratings are:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>developed on behalf of investors.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B: Credit ratings are a symbol-based measure of the potential default risk of a bond issue or issuer. A is incorrect because credit ratings are developed on behalf of the issuer. C is incorrect because credit ratings are not used to determine bond prices.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>a symbol-based measure of the potential default risk of a bond issue or issuer.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B: Credit ratings are a symbol-based measure of the potential default risk of a bond issue or issuer. A is incorrect because credit ratings are developed on behalf of the issuer. C is incorrect because credit ratings are not used to determine bond prices.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>measures of credit risk that are used to determine bond market pricing.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B: Credit ratings are a symbol-based measure of the potential default risk of a bond issue or issuer. A is incorrect because credit ratings are developed on behalf of the issuer. C is incorrect because credit ratings are not used to determine bond prices.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2444-R-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>Which of the following statements best describes risks that are difficult to capture in credit ratings?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Environmental risks are captured by ESG ratings rather than credit ratings.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. A is incorrect as environmental risks may affect credit ratings. B is incorrect since debt-financed acquisitions are difficult to anticipate.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Debt-financed acquisitions are usually captured in credit ratings.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. A is incorrect as environmental risks may affect credit ratings. B is incorrect since debt-financed acquisitions are difficult to anticipate.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Split ratings demonstrate that credit rating agencies may view complex risks very differently.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. A is incorrect as environmental risks may affect credit ratings. B is incorrect since debt-financed acquisitions are difficult to anticipate.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">5. </span>
+<p><em>Determine the correct answers to fill in the blanks:</em> Spreads are <span class="answer">__________</span> at or near the top of the credit cycle, when market participants perceive credit risk to be at its lowest; they are <span class="answer">__________</span> at or near the bottom of the credit cycle, when financial markets believe credit risk has reached its peak.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>Spreads are <strong>narrowest (or lowest)</strong> at or near the top of the credit cycle, when market participants perceive credit risk to be at its lowest; they are <strong>widest (or highest)</strong> at or near the bottom of the credit cycle, when financial markets believe credit risk has reached its peak.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2444-R-s01-Q6"><span class="cfa-curriculum-question-with-label">6. </span>
+<p>A portfolio manager assessing a downside case believes that HY bond spreads will rise 100 bps in a recession. If an observed HY bond has modified duration of 4.5 and reported convexity of 0.23, the expected change in the HY bond’s price under this scenario would be <em>closest to</em>:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>4.5%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Bond price changes based upon modified duration, convexity, and the spread change are calculated as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___2">%∆PV<sup>Full</sup> = −(AnnModDur × ∆Spread) + ½AnnConvexity × (∆Spread)<sup>2</sup>.</div>
+<p>With AnnModDur = 4.5 and reported convexity of 0.23, rescaling convexity to 23 and substituting values to solve for spread results in</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___3">∆PV<sup>Full</sup> = − (4.5 × 1.00%) + ½ (23) × (1.00%)<sup>2</sup></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___4">∆PV<sup>Full</sup> = −4.385%.</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>4.385%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Bond price changes based upon modified duration, convexity, and the spread change are calculated as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___2">%∆PV<sup>Full</sup> = −(AnnModDur × ∆Spread) + ½AnnConvexity × (∆Spread)<sup>2</sup>.</div>
+<p>With AnnModDur = 4.5 and reported convexity of 0.23, rescaling convexity to 23 and substituting values to solve for spread results in</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___3">∆PV<sup>Full</sup> = − (4.5 × 1.00%) + ½ (23) × (1.00%)<sup>2</sup></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___4">∆PV<sup>Full</sup> = −4.385%.</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>4.615%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Bond price changes based upon modified duration, convexity, and the spread change are calculated as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___2">%∆PV<sup>Full</sup> = −(AnnModDur × ∆Spread) + ½AnnConvexity × (∆Spread)<sup>2</sup>.</div>
+<p>With AnnModDur = 4.5 and reported convexity of 0.23, rescaling convexity to 23 and substituting values to solve for spread results in</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___3">∆PV<sup>Full</sup> = − (4.5 × 1.00%) + ½ (23) × (1.00%)<sup>2</sup></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2444-R-s01-E___4">∆PV<sup>Full</sup> = −4.385%.</div>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1869_modules_items_146627_Learning_Outcomes_Credit_Risk.html" >← 前へ</a>
+  <span class="title">14.01 | Introduction</span>
+  <a href="courses_1869_modules_items_146643_1402_Sources_of_Credit_Risk.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

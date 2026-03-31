@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.25 | Standard III(B): Recommended Procedures</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s25-R-1" title="3.25 | Standard III(B): Recommended Procedures">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.25 | Standard III(B): Recommended Procedures</h2>
+</header>
+<section id="CFA0008-R-s25-01-01">
+<h3 class="dp-heading">Develop Firm Policies</h3>
+<p>Although Standard III(B) refers to a member’s or candidate’s responsibility to deal fairly and objectively with clients, members and candidates should also encourage their firms to establish compliance procedures requiring all employees who disseminate investment recommendations or take investment actions to treat customers and clients fairly. At the very least, a member or candidate should recommend appropriate procedures to management if none are in place. And the member or candidate should make management aware of possible violations of fair-dealing practices within the firm when they come to the attention of the member or candidate.</p>
+<p>The extent of the formality and complexity of such compliance procedures depends on the nature and size of the organization and the type of securities involved. An investment adviser who is a sole proprietor and handles only discretionary accounts might not disseminate recommendations to the public, but that adviser should have formal written procedures to ensure that all clients receive fair investment action.</p>
+<p>Good business practice dictates that initial recommendations be made available to all customers who indicate an interest. Although a member or candidate need not communicate a recommendation to all customers, the selection process by which customers receive information should be based on suitability and known interest, not on any preferred or favored status. A common practice to assure fair dealing is to communicate recommendations simultaneously within the firm and to customers.</p>
+<p>Members and candidates should consider the following points when establishing fair-dealing compliance procedures:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s25-L1">
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Limit the number of people involved</em>: Members and candidates should make reasonable efforts to limit the number of people who are privy to the fact that a recommendation is going to be disseminated.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Shorten the time frame between decision and dissemination</em>: Members and candidates should make reasonable efforts to limit the amount of time that elapses between the decision to make an investment recommendation and the time the actual recommendation is disseminated. If a detailed institutional recommendation that might take two or three weeks to publish is in preparation, a short summary report including the conclusion might be published in advance. In an organization where both a research committee and an investment policy committee must approve a recommendation, the meetings should be held on the same day if possible. The process of reviewing reports and printing and mailing them, faxing them, or distributing them by e-mail necessarily involves the passage of time, sometimes long periods of time. In large firms with extensive review processes, the time factor is usually not within the control of the analyst who prepares the report. Thus, many firms and their analysts communicate to customers and firm personnel the new or changed recommendations by an update or “flash” report. The communication technique might be fax, e-mail, wire, or short written report.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Publish guidelines for pre-dissemination behavior</em>: Members and candidates should encourage firms to develop guidelines that prohibit personnel who have prior knowledge of an investment recommendation from discussing or taking any action on the pending recommendation.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Simultaneous dissemination</em>: Members and candidates should establish procedures for the timing of dissemination of investment recommendations so that all clients are treated fairly—that is, are informed at approximately the same time. For example, if a firm is going to announce a new recommendation, supervisory personnel should time the announcement to avoid placing any client or group of clients at an unfair advantage relative to other clients. A communication to all branch offices should be sent at the time of the general announcement. (When appropriate, the firm should accompany the announcement of a new recommendation with a statement that trading restrictions for the firm’s employees are now in effect. The trading restrictions should stay in effect until the recommendation is widely distributed to all relevant clients.) Once this distribution has occurred, the member or candidate may follow up separately with individual clients, but members and candidates should not give favored clients advance information when such advance notification may disadvantage other clients.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Maintain a list of clients and their holdings</em>: Members and candidates should maintain a list of all clients and the securities or other investments each client holds in order to facilitate notification of customers or clients of a change in an investment recommendation. If a particular security or other investment is to be sold, such a list can be used to ensure that all holders are treated fairly in the liquidation of that particular investment.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Develop and document trade allocation procedures</em>: When formulating procedures for allocating trades, members and candidates should develop a set of guiding principles that ensure</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s25-L2">
+<li class="cfa-curriculum-list-item">
+<p>fairness to advisory clients, both in priority of execution of orders and in the allocation of the price obtained in execution of block orders or trades,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>timeliness and efficiency in the execution of orders, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>accuracy of the member’s or candidate’s records as to trade orders and client account positions.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>With these principles in mind, members and candidates should develop or encourage their firm to develop written allocation procedures, with particular attention to procedures for block trades and new issues. Procedures to consider are as follows:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s25-L3">
+<li class="cfa-curriculum-list-item">
+<p>requiring orders and modifications or cancellations of orders to be documented and time stamped;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>processing and executing orders on a first-in, first-out basis with consideration of bundling orders for efficiency as appropriate for the asset class or the security;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>developing a policy to address such issues as calculating execution prices and “partial fills” when trades are grouped, or in a block, for efficiency;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>giving all client accounts participating in a block trade the same execution price and charging the same commission;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>when the full amount of the block order is not executed, allocating partially executed orders among the participating client accounts pro rata on the basis of order size while not going below an established minimum lot size for some securities (e.g., bonds); and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>when allocating trades for new issues, obtaining advance indications of interest, allocating securities by client (rather than portfolio manager), and providing a method for calculating allocations.</p>
+</li>
+</ul>
+</section>
+<section id="CFA0008-R-s25-01-02">
+<h3 class="dp-heading">Disclose Trade Allocation Procedures</h3>
+<p>Members and candidates should disclose to clients and prospective clients how they select accounts to participate in an order and how they determine the amount of securities each account will buy or sell. Trade allocation procedures must be fair and equitable, and disclosure of inequitable allocation methods does not relieve the member or candidate of this obligation.</p>
+</section>
+<section id="CFA0008-R-s25-01-03">
+<h3 class="dp-heading">Establish Systematic Account Review</h3>
+<p>Member and candidate supervisors should review each account on a regular basis to ensure that no client or customer is being given preferential treatment and that the investment actions taken for each account are suitable for each account’s objectives. Because investments should be based on individual needs and circumstances, an investment manager may have good reasons for placing a given security or other investment in one account while selling it from another account and should fully document the reasons behind both sides of the transaction. Members and candidates should encourage firms to establish review procedures, however, to detect whether trading in one account is being used to benefit a favored client.</p>
+</section>
+<section id="CFA0008-R-s25-01-04">
+<h3 class="dp-heading">Disclose Levels of Service</h3>
+<p>Members and candidates should disclose to all clients whether the organization offers different levels of service to clients for the same fee or different fees. Different levels of service should not be offered to clients selectively.</p>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147310_324_Standard_IIIB_Fair_Dealing.html" >← 前へ</a>
+  <span class="title">3.25 | Standard III(B): Recommended Procedures</span>
+  <a href="courses_1873_modules_items_147316_326_Standard_IIIB_Application_of_the_Standard.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

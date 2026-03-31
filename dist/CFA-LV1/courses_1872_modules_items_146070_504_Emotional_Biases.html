@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.04 | Emotional Biases</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2252-R-s04" title="5.04 | Emotional Biases">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 5: The Behavioral Biases of Individuals</span>5.04 | Emotional Biases</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">discuss commonly recognized behavioral biases and their implications for financial decision making</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>We will now review six emotional biases, their implications for investment decision making, and suggestions for managing the effects of these biases. Emotional biases are harder to correct than cognitive errors because they originate from impulse or intuition rather than conscious calculations. It is often possible only to recognize the bias and adapt to it. The six emotional biases discussed are loss aversion, overconfidence, self-control, status quo, endowment, and regret aversion.</p>
+<section id="CFA2252-R-s04-01">
+<h3 class="dp-heading">Loss-Aversion Bias</h3>
+<p><a aria-describedby="LossAversionBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#LossAversionBiasContent">Loss-aversion bias</a> refers to the tendency to strongly prefer avoiding losses to achieving gains. Rational FMPs should accept more risk to increase gains, not to mitigate losses. Paradoxically, in real life, FMPs instead tend to accept more risk to avoid losses than to achieve gains. Loss aversion leads FMPs to hold their losers to avoid recognizing losses and sell their winners to lock in profits.</p>
+<p>Kahneman and Tversky (1979) describe loss-averse investor behavior as the evaluation of gains and losses based on a reference point. A utility function that passes through this reference point appears in <a aria-label="View Exhibit 1" class="internal" href="#CFA2252-R-EXH1" role="button">Exhibit 1</a>. It is S-shaped and asymmetric, implying a greater impact of losses than of gains on utility for the same variation in absolute value. This utility function implies risk-seeking behavior in the domain of losses (below the horizontal axis) and risk avoidance in the domain of gains (above the horizontal axis). An important concept embedded in this utility representation is what has been termed the <a aria-describedby="DispositionEffectContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#DispositionEffectContent">disposition effect</a>: the holding of investments that have experienced losses too long, and the selling of investments that have experienced gains too quickly (i.e., holding on to losers and selling winners). The resulting portfolio may be riskier than the optimal portfolio based on the investor’s risk–return objectives.</p>
+<div class="cfa-curriculum-exhibit-figure" id="CFA2252-R-EXH1">
+<h4 class="cfa-curriculum-exhibit-figure-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 1<span style="display: block;">Value Function of Loss Aversion</span></h4>
+<div class="cfa-curriculum-graphic" style="text-align: center;"><img alt="This diagram shows a utility function that passes through a reference point for a loss-averse investor." aria-describedby="CFA2252-R-EXH1-extended-desc" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1872/files/462166" data-api-returntype="File" id="CFA2252-R-EXH1" loading="lazy" src="data:image/png;base64,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" style="width: clamp(250px, 100%, 800px); height: auto; display: block; margin-left: auto; margin-right: auto;"/>
+<details class="dp-panels-wrapper" id="CFA2252-R-EXH1-extended-desc" style="font-size: 10pt;">
+<summary>Expand / Collapse Extended Description</summary>
+<p>This diagram shows a utility function that passes through a reference point for a loss-averse investor. It is S-shaped and asymmetric, implying a greater impact of losses than of gains on utility for the same variation in absolute value. This utility function implies risk-seeking behavior in the domain of losses (below the horizontal axis) and risk avoidance in the domain of gains (above the horizontal axis).</p>
+</details>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM10">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 10<span style="display: block;">Effects of Loss-Aversion Bias</span></h4>
+<p>Loss-aversion bias, executed in practice as the disposition effect, is observed often by wealth management practitioners. The classic case of this bias is when an investor opens her monthly account statement and scans the individual investments for winners and losers. Seeing that some investments have lost money and others have gained, the investor is likely to respond by continuing to hold the losing investments. The idea of actually losing money is so painful that the first reaction is to hold the investment until it breaks even.</p>
+<p>The investor is acting based on emotions, not cognitive reasoning. In this case, if she did some research, the investor might learn that the company in question is experiencing difficulty and that holding the investment actually adds to the risk in the portfolio (hence the term risk-seeking in the domain of losses).</p>
+<p>Conversely, the winners are making money. Loss-averse FMPs tend to sell these investments and realize their gains to avoid seeing gains evaporate. In this case, if the investor did some research, she might learn that the company in question actually improves the portfolio’s risk–return profile. By selling the investment, not only is the potential for future losses eliminated but the potential for future gains is also eliminated. Combining the added risk of holding the losers with the elimination of potential gains from selling the winners may make investors’ portfolios less efficient than portfolios based on fundamental analysis.</p>
+</div>
+<section id="CFA2252-R-s04-01-02">
+<section id="CFA2252-R-s04-01-02-01">
+<h5>Consequences of Loss Aversion</h5>
+<p>As a result of loss-aversion bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L23">
+<li class="cfa-curriculum-list-item">
+<p>Hold investments in a loss position longer than justified by fundamental analysis, in the hope that they will return to breakeven.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Sell investments in a gain position earlier than justified by fundamental analysis, out of fear that the gains will erode.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s04-01-02-02">
+<h5>Detection of and Guidelines for Overcoming Loss Aversion</h5>
+<p>A disciplined approach to investment is a good way to alleviate the impact of the loss-aversion bias. It is impossible to make experiencing losses any less painful emotionally, but analyzing investments and realistically considering the probabilities of future losses and gains may help guide the FMP to a rational decision.</p>
+</section>
+</section>
+</section>
+<section id="CFA2252-R-s04-02">
+<h3 class="dp-heading">Overconfidence Bias</h3>
+<p><a aria-describedby="OverconfidenceBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#OverconfidenceBiasContent">Overconfidence bias</a> is a bias in which people demonstrate unwarranted faith in their own abilities. Overconfidence may be intensified when combined with <a aria-describedby="SelfAttributionBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SelfAttributionBiasContent">self-attribution bias</a>, in which people take too much credit for successes (<em>self-enhancing</em>) and assign responsibility to others for failures (<em>self-protecting</em>). Overconfidence has aspects of both cognitive and emotional errors but is classified as emotional because the bias primarily results from emotion.</p>
+<p>Overconfidence bias has two forms: <em>prediction overconfidence</em> and <em>certainty overconfidence</em>. Both types demonstrate faulty reasoning combined with “gut feel” and hope. Prediction overconfidence occurs when the confidence intervals that FMPs assign to their investment predictions are too narrow. For example, when estimating the future value of a stock, overconfident FMPs will incorporate far too little variation—using a narrower range of expected payoffs and a lower standard deviation of returns—than justified by historical results and fundamental analysis.</p>
+<p>Certainty overconfidence occurs when the probabilities that FMPs assign to outcomes are too high. This certainty is often an emotional response rather than a cognitive evaluation.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM11">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 11<span style="display: block;">Overconfidence Bias</span></h4>
+<p>An analyst estimates that the price of oil will increase by 40% over the next 12 months because prevailing prices are lower than many oil producers’ cost of production. Unprofitable producers reducing production will eventually put upward pressure on prices so long as oil demand remains stable or increases. Based on this forecast, the analyst recommends several high-yield bonds of oil producers to a portfolio manager.</p>
+<p>The portfolio manager asks the analyst for an estimate of downside risk: “How much could we lose if, say, the oil price falls another 10%?” The analyst replies, “That is unrealistic. The current oil price is as low as it can go, and yields on these bonds are as attractive as they will ever be. We must make the investment now. There is no credible downside case.”</p>
+<p>The analyst is exhibiting overconfidence bias by placing excessive certainty in his prediction and not considering the likelihood or impact of variance from that prediction.</p>
+</div>
+<section id="CFA2252-R-s04-02-02">
+<section id="CFA2252-R-s04-02-02-01">
+<h5>Consequences of Overconfidence Bias</h5>
+<p>As a result of overconfidence bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L24">
+<li class="cfa-curriculum-list-item">
+<p>Underestimate risks and overestimate expected returns.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Hold poorly diversified portfolios, which may result in significant downside risk.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s04-02-02-02">
+<h5>Detection of and Guidelines for Overcoming Overconfidence Bias</h5>
+<p>FMPs should review their trading records, identify <em>both</em> the winners and losers, and calculate portfolio performance over at least two years. Investors with an unfounded belief in their own ability to identify good investments may recall winners and their results but underestimate the number and results of their losers. This review will also identify the amount of trading. Overconfidence is also a cognitive error, and so more-complete information can often help FMPs understand the error of their ways.</p>
+<p>It is critical that investors be objective when making and evaluating investment decisions. As an old Wall Street adage states, “Don’t confuse brains with a bull market.” It is advisable to view the reasoning behind and the results of investments, both winners and losers, as objectively as possible. When did you make money? When did you lose money? Mentally separate your good money-making decisions from your bad ones. Then, review the beneficial decisions and try to discern what, exactly, you did correctly. Did you purchase an investment at a particularly advantageous time based on fundamentals, or did you luck out by timing a market upswing? Similarly, review the decisions that you categorized as poor. Did you invest aptly based on fundamentals and then make an error when it came time to sell, or was the market going through a correction?</p>
+<p>When reviewing unprofitable decisions, look for patterns or common mistakes that perhaps you were unaware you were making. Note any such tendencies that you discover, and try to remain mindful of them by brainstorming a rule or reminder such as: “I will do X in the future” or “I will not do Y in the future.”</p>
+</section>
+</section>
+</section>
+<section id="CFA2252-R-s04-03">
+<h3 class="dp-heading">Self-Control Bias</h3>
+<p><a aria-describedby="SelfControlBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SelfControlBiasContent">Self-control bias</a> is a bias in which people fail to act in pursuit of their long-term, overarching goals in favor of short-term satisfaction. For example, individuals pursuing the CFA charter may fail to study sufficiently because of short-term competing demands on their time. Rational behavior suggests that people would do whatever is necessary to achieve their long-term goals, but it often does not happen.</p>
+<p>When it comes to money, many people are willing and able to save for the future, but they often have difficulty sacrificing present consumption because of a lack of self-control. This apparent lack of self-control may also be a function of hyperbolic discounting, the human tendency to prefer small payoffs now compared with larger payoffs in the future. Sacrifices in the present require much greater payoffs in the future; otherwise, people will be unwilling to make current sacrifices.</p>
+<section id="CFA2252-R-s04-03-01">
+<section id="CFA2252-R-s04-03-01-01">
+<h5>Consequences of Self-Control Bias</h5>
+<p>As a result of self-control bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L25">
+<li class="cfa-curriculum-list-item">
+<p>Save insufficiently for the future, which may, in turn, result in accepting too much risk in portfolios in an attempt to generate higher returns.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Borrow excessively to finance present consumption.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s04-03-01-02">
+<h5>Detection of and Guidelines for Overcoming Self-Control Bias</h5>
+<p>FMPs should ensure that a proper investment plan is in place and should have a personal budget. Plans need to be in writing, so that they can be reviewed regularly. Similarly, FMPs should look to maintain a strategic asset allocation based on a thorough evaluation.</p>
+</section>
+</section>
+</section>
+<section id="CFA2252-R-s04-04">
+<h3 class="dp-heading">Status Quo Bias</h3>
+<p><a aria-describedby="StatusQuoBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#StatusQuoBiasContent">Status quo bias</a> is an emotional bias in which people choose to do nothing (i.e., maintain the “status quo”) instead of making a change, even when change is warranted. Status quo bias is often discussed in tandem with endowment and regret-aversion biases because an outcome of the biases, maintaining existing positions, is similar. The reasons for maintaining the existing positions differ, however. In the status quo bias, positions are maintained largely because of inertia rather than conscious choice. In endowment and regret-aversion biases, positions are maintained because of conscious, but possibly incorrect, choices.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM12">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 12<span style="display: block;">The Path of Least Resistance</span></h4>
+<p>Using data from three firms, Choi et al. (2001) studied the impact of automatically enrolling employees in a defined contribution pension plan and how default contribution rates and investment options affect participants’ behavior.</p>
+<p>Automatic enrollment increased employee participation in the defined contribution plan from 26%–43% after six months’ tenure and 57%–69% after three years’ tenure to &gt;85% for both tenures at all three firms.</p>
+<p>Although automatic enrollment increased participation, more than 65% of employees tended to contribute the employer-specified default amount—2% or 3%—and remained in the default investment option. Although this percentage declined slowly over time, even after two years of tenure, more than 40% of participants continued to use the default.</p>
+</div>
+<section id="CFA2252-R-s04-04-02">
+<section id="CFA2252-R-s04-04-02-01">
+<h5>Consequences of Status Quo Bias</h5>
+<p>As a result of status quo bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L26">
+<li class="cfa-curriculum-list-item">
+<p>Unknowingly maintain portfolios with risk characteristics that are inappropriate for their circumstances.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Fail to explore other opportunities.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s04-04-02-02">
+<h5>Detection of and Guidelines for Overcoming Status Quo Bias</h5>
+<p>Status quo bias may be exceptionally strong and difficult to overcome. Education is essential. FMPs should quantify the risk-reducing and return-enhancing advantages of diversification and proper asset allocation. For example, with a concentrated stock position, showing what can happen to overall wealth levels if the stock collapses may persuade an FMP to diversify.</p>
+</section>
+</section>
+</section>
+<section id="CFA2252-R-s04-05">
+<h3 class="dp-heading">Endowment Bias</h3>
+<p><a aria-describedby="EndowmentBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#EndowmentBiasContent">Endowment bias</a> is an emotional bias in which people value an asset more when they own it than when they do not. Endowment bias is inconsistent with standard economic theory, which asserts that the price a person is <em>willing to pay</em> for a good should equal the price at which that person would be <em>willing to sell</em> the same good. Psychologists have found, however, that people tend to state minimum selling prices for a good that exceed maximum purchase prices that they are willing to pay for the same good. Effectively, ownership “endows” the asset with added value.</p>
+<p>Endowment bias may be the result of several other behavioral biases, such as loss aversion, anchoring and adjustment, and overconfidence. Despite the name, purchased as well as inherited securities can be subject to endowment bias.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM13">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 13<span style="display: block;">Endowment Bias</span></h4>
+<p>Several of an investment analyst’s recommended stocks have done well for the past five years, prompting the portfolio manager to ask for a brief update on each, including valuations. For each stock, the analyst estimates that fair value is at least another 40% above the current price. The portfolio manager challenges the analyst by pointing out that the fair value estimates imply valuation multiples that are at least two standard deviations above the five-year average and are well above even the most bullish sell-side analyst’s target price. The analyst responds by saying that the market is overlooking these companies’ fundamentals. The portfolio manager then asks, “Would you buy these shares today?” The analyst answers, “Probably not.”</p>
+<p>The analyst is likely exhibiting endowment bias by overestimating the value of shares already owned in the portfolio. This bias is likely the result of having successfully invested in the shares.</p>
+</div>
+<section id="CFA2252-R-s04-05-02">
+<section id="CFA2252-R-s04-05-02-01">
+<h5>Consequences of Endowment Bias</h5>
+<p>Endowment bias may lead FMPs to do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L27">
+<li class="cfa-curriculum-list-item">
+<p>Fail to sell certain assets and replace them with other assets.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Continue to hold classes of assets with which they are familiar. FMPs may believe they understand the characteristics of the investments they already own and may be reluctant to purchase assets with which they have less experience. Familiarity adds to owners’ perceived value of a security.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>As a result, the FMP may maintain an inappropriate asset allocation. The portfolio may be inappropriate for investors’ levels of risk tolerance and financial goals.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s04-05-02-02">
+<h5>Detection of and Guidelines for Overcoming Endowment Bias</h5>
+<p>Many wealth management practitioners have encountered clients who are reluctant to sell securities bequeathed by previous generations. Often in these situations, investors cite feelings of disloyalty associated with the prospect of selling inherited securities, general uncertainty in determining the right choice, and concerns about tax issues. An FMP should ask, “If an equivalent sum to the value of the investments inherited had been received in cash, how would you invest the cash?” Often, the answer is into a very different investment portfolio than the one inherited. It may also be useful to explore the deceased’s intent in owning the investment and bequeathing it. “Was the primary intent to leave the specific investment portfolio because it was perceived to be a suitable investment based on fundamental analysis, or was it to leave financial resources to benefit the heirs?” Heirs who affirm the latter conclusion are receptive to considering alternative asset allocations.</p>
+<p>An effective way to address endowment bias for purchased securities, when an estimated “sell price” is far higher than any reasonable FMP’s estimate of a “buy price” is to ask, “Would you buy this security today at the current price?” A similar question is, “Why are you not buying more of this security today?” Answering these questions can turn the focus away from the past to the present, toward considering the upside from the current price.</p>
+</section>
+</section>
+</section>
+<section id="CFA2252-R-s04-06">
+<h3 class="dp-heading">Regret-Aversion Bias</h3>
+<p><a aria-describedby="RegretAversionBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RegretAversionBiasContent">Regret-aversion bias</a> is an emotional bias in which people tend to avoid making decisions out of fear that the decision will turn out poorly. Regret-aversion bias has two dimensions: actions that people take and actions that people <em>could have</em> taken. Regret is more intense when the unfavorable outcomes are the result of an action taken versus the result of an action not taken. Thus, no action becomes the default decision.</p>
+<section id="CFA2252-R-s04-06-01">
+<section id="CFA2252-R-s04-06-01-01">
+<h5>Consequences of Regret-Aversion Bias</h5>
+<p>As a result of regret-aversion bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L28">
+<li class="cfa-curriculum-list-item">
+<p>Be too conservative in their investment choices as a result of poor outcomes on risky investments in the past. FMPs may wish to avoid the regret of making another bad investment and decide that low-risk instruments are better. This behavior can lead to long-term underperformance and failure to reach investment goals.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Engage in herding behavior. FMPs may feel safer in popular investments in order to limit potential future regret. It seems safe to be with the crowd, and a reduction in potential emotional pain is perceived. Regret aversion may lead to preference for stocks of well-known companies even in the face of equal risk and return expectations. Choosing the stocks of less-familiar companies is perceived as riskier and involves more personal responsibility and greater potential for regret. As John Maynard <a aria-describedby="CFA2252-R-R7Content" class="dp-popover-trigger" href="#CFA2252-R-R7Content">Keynes (1936)</a> wrote, “Worldly wisdom teaches that it is better for reputation to fail conventionally than to succeed unconventionally.”</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s04-06-01-02">
+<h5>Detection of and Guidelines for Overcoming Regret-Aversion Bias</h5>
+<p>FMPs should quantify the risk-reducing and return-enhancing advantages of diversification and proper asset allocation. Regret aversion can cause some FMPs to invest too conservatively or too riskily depending on the current trends. With proper diversification, FMPs will accept the appropriate level of risk in their portfolios depending, of course, on return objectives. To prevent investments from being too conservative, FMPs must recognize that losses happen to everyone and keep in mind the long-term benefits of including risky assets in portfolios. Recognizing that bubbles happen and keeping in mind long-term objectives will prevent a client from making investments that are too risky.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM14">
+<h6 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 14</h6>
+<section>
+<p>Tiffany Jordan is a hedge fund manager with a history of outstanding performance. For the past 10 years, Jordan’s fund has used an equity market–neutral strategy (a long–short strategy that strives to eliminate market risk—i.e., beta should be zero), which has proved effective as a result of Jordan’s hard work. An equity market–neutral strategy normally generates large daily trading volume and shifts in individual security positions. Jordan’s reputation has grown over the years as her fund has consistently beaten its benchmark. Employee turnover on her team has been high; Jordan tends to be quick to blame and rarely gives credit to team members for success. During the past 12 months, her fund has been significantly underperforming its benchmark.</p>
+<p>One of Jordan’s junior analysts, Jeremy Tang, is concerned about the underperformance and notes the following:</p>
+<p>Observation 1: Certain positions are significantly underwater, have very high risk profiles, and have been held for much longer than normal.</p>
+<p>Observation 2: The fund’s trading volume has decreased by more than 40% during the past year.</p>
+<p>Observation 3: The portfolio is more concentrated in a few sectors than in the past.</p>
+<p>Worried that the portfolio may be in violation of the fund’s investment policy statement (IPS), Tang brings this concern to Jordan’s attention during a regular weekly team meeting. Jordan dismisses Tang’s analysis and tells the team not to worry because she knows what she is doing. Jordan indicates that because she believes the pricing misalignment will correct itself, the portfolio would be unable to take advantage of the reversion to the mean if she were to sell certain losing positions. She reassures the team that this strategy has performed well in the past and that the markets will revert, bringing the fund’s returns back to normal levels.</p>
+<p>Tang tactfully suggests that the team review the fund’s IPS together, and Jordan interrupts him and reminds the team that she has memorized the IPS by heart. Tang contemplates his next step. He is concerned that Jordan is displaying behavioral biases that are affecting the fund’s performance.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">1. </span>
+<p>By taking credit for successes but assigning blame for failures, Jordan is <em>most likely</em> demonstrating:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>loss-aversion bias.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. In self-attribution bias, people take credit for successes and assign responsibilities for failure. Jordan claims successful decisions for herself while attributing poor decisions to the team. Her self-esteem affects how she looks at success and failure. Self-attribution and illusion of knowledge biases contribute to overconfidence bias, which Jordan clearly demonstrates later when she tells the team that she knows what she is doing.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>self-attribution bias.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. In self-attribution bias, people take credit for successes and assign responsibilities for failure. Jordan claims successful decisions for herself while attributing poor decisions to the team. Her self-esteem affects how she looks at success and failure. Self-attribution and illusion of knowledge biases contribute to overconfidence bias, which Jordan clearly demonstrates later when she tells the team that she knows what she is doing.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>illusion of control bias.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. In self-attribution bias, people take credit for successes and assign responsibilities for failure. Jordan claims successful decisions for herself while attributing poor decisions to the team. Her self-esteem affects how she looks at success and failure. Self-attribution and illusion of knowledge biases contribute to overconfidence bias, which Jordan clearly demonstrates later when she tells the team that she knows what she is doing.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Which of Tang’s observations is <em>least likely</em> to be the consequence of Jordan demonstrating loss-aversion bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Observation 1</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Loss aversion by itself may cause a sector concentration; however, a market-neutral strategy tends to focus on individual stocks without regard to sector. The sector exposure would be mitigated with the balancing of the individual long and short positions.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Observation 2</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Loss aversion by itself may cause a sector concentration; however, a market-neutral strategy tends to focus on individual stocks without regard to sector. The sector exposure would be mitigated with the balancing of the individual long and short positions.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Observation 3</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Loss aversion by itself may cause a sector concentration; however, a market-neutral strategy tends to focus on individual stocks without regard to sector. The sector exposure would be mitigated with the balancing of the individual long and short positions.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of Jordan’s actions <em>least</em> supports that she may be affected by the illusion of control bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Her dismissal of Tang’s analysis</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Holding weekly team meetings, which indicates a willingness to listen to feedback from others, is not representative of the illusion of control bias. In the illusion of control bias, people believe they can control outcomes to a greater extent than is possible. Individuals exhibiting this bias display great certainty in their predictions of outcomes of chance events and ignore others’ viewpoints. Jordan is sure that the market will turn around even though it is out of her control. She chooses not to listen to Tang, who is questioning her viewpoint.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Her routine of holding weekly team meetings</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Holding weekly team meetings, which indicates a willingness to listen to feedback from others, is not representative of the illusion of control bias. In the illusion of control bias, people believe they can control outcomes to a greater extent than is possible. Individuals exhibiting this bias display great certainty in their predictions of outcomes of chance events and ignore others’ viewpoints. Jordan is sure that the market will turn around even though it is out of her control. She chooses not to listen to Tang, who is questioning her viewpoint.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Her comment on market turnaround and current holdings</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Holding weekly team meetings, which indicates a willingness to listen to feedback from others, is not representative of the illusion of control bias. In the illusion of control bias, people believe they can control outcomes to a greater extent than is possible. Individuals exhibiting this bias display great certainty in their predictions of outcomes of chance events and ignore others’ viewpoints. Jordan is sure that the market will turn around even though it is out of her control. She chooses not to listen to Tang, who is questioning her viewpoint.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">4. </span>
+<p>How does Jordan <em>most likely</em> demonstrate loss-aversion bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Telling the team not to worry</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Jordan’s behavior is a classic example of loss aversion: When a loss occurs, she holds on to these positions longer than warranted. By doing so, Jordan has accepted more risk in the portfolio. In loss-aversion bias, people exhibit a strong preference to avoid losses versus achieving gains. One of the consequences of loss aversion bias is that the financial management professional (in this case, Jordan) may hold losing investments in the hope that they will return to breakeven or better.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Reducing the portfolio turnover this year</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Jordan’s behavior is a classic example of loss aversion: When a loss occurs, she holds on to these positions longer than warranted. By doing so, Jordan has accepted more risk in the portfolio. In loss-aversion bias, people exhibit a strong preference to avoid losses versus achieving gains. One of the consequences of loss aversion bias is that the financial management professional (in this case, Jordan) may hold losing investments in the hope that they will return to breakeven or better.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Deciding to hold the losing positions until they turn around</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Jordan’s behavior is a classic example of loss aversion: When a loss occurs, she holds on to these positions longer than warranted. By doing so, Jordan has accepted more risk in the portfolio. In loss-aversion bias, people exhibit a strong preference to avoid losses versus achieving gains. One of the consequences of loss aversion bias is that the financial management professional (in this case, Jordan) may hold losing investments in the hope that they will return to breakeven or better.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">5. </span>
+<p>Which of the following emotional biases has Jordan <em>most likely</em> exhibited?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Endowment</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Jordan exhibits overconfidence in several ways. She ignores the analysis done by Tang. This may be because Jordan believes she is smarter and more informed than her team members, which is typical of an individual with an illusion of knowledge bias. The certainty she demonstrates that the market will revert is evidence of overconfidence. Her overconfidence is intensified by her self-attribution bias, which is demonstrated through her dealings with her team when she blames them for losses while taking credit for gains. Finally, her portfolio’s underperformance against the benchmark is a consequence of overconfidence bias.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Regret aversion</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Jordan exhibits overconfidence in several ways. She ignores the analysis done by Tang. This may be because Jordan believes she is smarter and more informed than her team members, which is typical of an individual with an illusion of knowledge bias. The certainty she demonstrates that the market will revert is evidence of overconfidence. Her overconfidence is intensified by her self-attribution bias, which is demonstrated through her dealings with her team when she blames them for losses while taking credit for gains. Finally, her portfolio’s underperformance against the benchmark is a consequence of overconfidence bias.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Overconfidence</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Jordan exhibits overconfidence in several ways. She ignores the analysis done by Tang. This may be because Jordan believes she is smarter and more informed than her team members, which is typical of an individual with an illusion of knowledge bias. The certainty she demonstrates that the market will revert is evidence of overconfidence. Her overconfidence is intensified by her self-attribution bias, which is demonstrated through her dealings with her team when she blames them for losses while taking credit for gains. Finally, her portfolio’s underperformance against the benchmark is a consequence of overconfidence bias.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">6. </span>
+<p>Which of the following biases did Jordan <em>not</em> demonstrate?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Self-attribution</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Nowhere in the scenario did it mention that Jordan classified certain information into a personalized category. Representativeness bias is a cognitive bias in which people tend to classify new information based on past experiences and classifications. Jordan is not relating her certainty about the future or her decision to hold losing positions back to anything she has done or experienced in the past.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Representativeness</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Nowhere in the scenario did it mention that Jordan classified certain information into a personalized category. Representativeness bias is a cognitive bias in which people tend to classify new information based on past experiences and classifications. Jordan is not relating her certainty about the future or her decision to hold losing positions back to anything she has done or experienced in the past.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Illusion of knowledge</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Nowhere in the scenario did it mention that Jordan classified certain information into a personalized category. Representativeness bias is a cognitive bias in which people tend to classify new information based on past experiences and classifications. Jordan is not relating her certainty about the future or her decision to hold losing positions back to anything she has done or experienced in the past.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">7. </span>
+<p>Which of Tang’s findings is <em>not</em> a typical consequence of self-control bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Failure to explore other portfolio opportunities</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>A is correct. Failing to explore other opportunities is a demonstration of status quo bias, not self-control. Self-control bias occurs when individuals deviate from their long-term goals—in this case, the IPS—because of a lack of self-discipline. Jordan is not adhering to the strategy that has succeeded in the past. The consequences of self-control bias include accepting too much risk in the portfolio (C) and asset allocation imbalance problems (B) as Jordan attempts to generate higher returns.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Asset allocation imbalance problems in the portfolio</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>A is correct. Failing to explore other opportunities is a demonstration of status quo bias, not self-control. Self-control bias occurs when individuals deviate from their long-term goals—in this case, the IPS—because of a lack of self-discipline. Jordan is not adhering to the strategy that has succeeded in the past. The consequences of self-control bias include accepting too much risk in the portfolio (C) and asset allocation imbalance problems (B) as Jordan attempts to generate higher returns.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>A higher risk profile in the portfolio resulting from pursuit of higher returns</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>A is correct. Failing to explore other opportunities is a demonstration of status quo bias, not self-control. Self-control bias occurs when individuals deviate from their long-term goals—in this case, the IPS—because of a lack of self-discipline. Jordan is not adhering to the strategy that has succeeded in the past. The consequences of self-control bias include accepting too much risk in the portfolio (C) and asset allocation imbalance problems (B) as Jordan attempts to generate higher returns.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</section>
+</div>
+</section>
+</section>
+</section>
+<div class="dp-content-block cfa-curriculum-reflist">
+<h3 class="dp-has-icon cfa-curriculum-reflist"><i aria-hidden="true" class="dp-icon fas fa-clipboard-list" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Reference List</h3>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title">References</h3>
+<div class="dp-panel-content">
+<ul>
+<li id="CFA2252-R-R7list">Keynes, John Maynard (1936). <em>The General Theory of Employment, Interest, and Money</em>. New York: Harcourt, Brace.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA2252-R-R7Content">Keynes, John Maynard (1936). <em>The General Theory of Employment, Interest, and Money</em>. New York: Harcourt, Brace.</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="LossAversionBiasContent">
+<p>A bias in which people tend to strongly prefer avoiding losses as opposed to achieving gains.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="DispositionEffectContent">
+<p>A type of cognitive bias that makes individuals unwilling to sell their possessions at a loss.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="OverconfidenceBiasContent">
+<p>A bias in which people demonstrate unwarranted faith in their own intuitive reasoning, judgments, and/or cognitive abilities.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SelfAttributionBiasContent">
+<p>A bias in which people take too much credit for successes (<em>self-enhancing</em>) and assign responsibility to others for failures (<em>self-protecting</em>).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SelfControlBiasContent">
+<p>A bias in which people fail to act in pursuit of their long-term, overarching goals because of a lack of self-discipline.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="StatusQuoBiasContent">
+<p>An emotional bias in which people do nothing (i.e., maintain the status quo) instead of making a change.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="EndowmentBiasContent">
+<p>An emotional bias in which people value an asset more when they hold rights to it than when they do not.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RegretAversionBiasContent">
+<p>An emotional bias in which people tend to avoid making decisions that will result in action out of fear that the decision will turn out poorly.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146066_503_Cognitive_Errors.html" >← 前へ</a>
+  <span class="title">5.04 | Emotional Biases</span>
+  <a href="courses_1872_modules_items_146076_505_Behavioral_Finance_and_Market_Behavior.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

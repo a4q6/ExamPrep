@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1001-R-s01" title="7.01 | Introduction"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 7: Pricing and Valuation of Interest Rates and Other Swaps</span>7.01 | Introduction</h2>
+</header>
+<p>Swap contracts were introduced earlier as a firm commitment to exchange a series of cash flows in the future, with interest rate swaps where fixed cash flows are exchanged for floating payments being the most common type. Subsequent lessons addressed the pricing and valuation of forward and futures contracts across the term structure, which form the building blocks for swap contracts.</p>
+<p>In this lesson, we will explore how swap contracts are related to these other forward commitment types. While financial intermediaries often use forward rate agreements or short-term interest rate futures contracts to manage interest rate exposure, issuers and investors usually prefer swap contracts, since they better match rate-sensitive assets and liabilities with periodic cash flows, such as fixed-coupon bonds, variable-rate loans, or known future commitments. It is important for these market participants not only to be able to match expected future cash flows using swaps but also to ensure that their change in value is consistent with existing or desired underlying exposures. The following lessons compare swap contracts with forward contracts and contrast the value and price of swaps.</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA1001-s01-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1001-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>A swap contract is an agreement between two counterparties to exchange a <em>series</em> of future cash flows, whereas a forward contract is a <em>single</em> exchange of value at a later date.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Interest rate swaps are similar to forwards in that both contracts are firm commitments with symmetric payoff profiles and no cash is exchanged at inception, but they differ in that the fixed swap rate is constant, whereas a series of forward contracts has different forward rates at each maturity.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A swap is priced by solving for the par swap rate, a fixed rate that sets the present value of all future expected floating cash flows equal to the present value of all future fixed cash flows.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The value of a swap at inception is zero (ignoring transaction and counterparty credit costs). On any settlement date, the value of a swap equals the current settlement value plus the present value of all remaining future swap settlements.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A swap contract’s value changes as time passes and interest rates change. For example, a rise in expected forward rates increases the present value of floating payments, causing a mark-to-market (MTM) gain for the fixed-rate payer (floating-rate receiver) and an MTM loss for the fixed-rate receiver (floating-rate payer).</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA1001-s01-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
+<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Identify which of the following characteristics matches which forward commitment contract.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA1001-s01-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1. Involves periodic settlements based on the difference between a fixed rate established for each period and market reference rate (MRR)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">A. Both an interest rate swap and a series of forward rate agreements</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2. Has a symmetric payoff profile and a value of zero to both counterparties at inception</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">B. A series of forward rate agreements (FRAs)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">3. Involves periodic settlements based on the difference between a constant fixed rate and the MRR</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">C. Interest rate swap</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<ol class="cfa-curriculum-list-decimal" id="CFA1001-s01-L2">
+<li class="cfa-curriculum-list-item">
+<p>B is correct. A series of FRAs involves periodic settlements based on the difference between a fixed rate established for each period and the MRR.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A is correct. Both an interest rate swap and a series of forward rate agreements have a symmetric payoff profile and a value of zero to both counterparties at inception.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>C is correct. An interest rate swap involves periodic settlements based on the difference between a constant fixed rate and the MRR.</p>
+</li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1001-s01-Q2"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Which of the following transactions would allow a fixed-income portfolio manager to gain from falling interest rates?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Buy a floating-rate bond</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. A fixed-income portfolio manager seeking to gain from falling interest rates may consider entering a <em>receive</em>-fixed, <em>pay</em>-floating interest rate swap rather than purchasing bonds. The fixed-rate payments become more valuable as interest rates decline A is incorrect as the floating-rate bond interest rate payments decline as interest rates decline, thus the bond does not increase in value. C is incorrect as the fixed interest rate payments become more costly as interest rates decline.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Enter into a receive-fixed, pay-floating interest rate swap</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. A fixed-income portfolio manager seeking to gain from falling interest rates may consider entering a <em>receive</em>-fixed, <em>pay</em>-floating interest rate swap rather than purchasing bonds. The fixed-rate payments become more valuable as interest rates decline A is incorrect as the floating-rate bond interest rate payments decline as interest rates decline, thus the bond does not increase in value. C is incorrect as the fixed interest rate payments become more costly as interest rates decline.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Enter into a pay-fixed, receive-floating interest rate swap</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. A fixed-income portfolio manager seeking to gain from falling interest rates may consider entering a <em>receive</em>-fixed, <em>pay</em>-floating interest rate swap rather than purchasing bonds. The fixed-rate payments become more valuable as interest rates decline A is incorrect as the floating-rate bond interest rate payments decline as interest rates decline, thus the bond does not increase in value. C is incorrect as the fixed interest rate payments become more costly as interest rates decline.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1001-s01-Q3"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of the following statements provides a correct description of a pay-fixed, receive-floating interest rate swap position?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Long a floating-rate note priced at the MRR and short a fixed-rate bond with a coupon equal to the fixed swap rate</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. An interest rate swap is economically equivalent to a long and short position in underlying debt securities. In the case of a pay-fixed, receive-floating swap, the cash flow received reflects the long position. In this case, the party receives floating payments, so this is like buying a floating-rate note. The pay-fixed portion of the swap is like selling a fixed-rate bond and paying fixed coupons to the bond buyer. B is incorrect as this response is economically equivalent to entering into a receive-fixed, pay-floating swap. C is incorrect because the response does not reflect the short position.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Long a fixed-rate bond with a coupon equal to the fixed swap rate and short a floating-rate note priced at the MRR</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. An interest rate swap is economically equivalent to a long and short position in underlying debt securities. In the case of a pay-fixed, receive-floating swap, the cash flow received reflects the long position. In this case, the party receives floating payments, so this is like buying a floating-rate note. The pay-fixed portion of the swap is like selling a fixed-rate bond and paying fixed coupons to the bond buyer. B is incorrect as this response is economically equivalent to entering into a receive-fixed, pay-floating swap. C is incorrect because the response does not reflect the short position.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Long a floating-rate note priced at the MRR</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. An interest rate swap is economically equivalent to a long and short position in underlying debt securities. In the case of a pay-fixed, receive-floating swap, the cash flow received reflects the long position. In this case, the party receives floating payments, so this is like buying a floating-rate note. The pay-fixed portion of the swap is like selling a fixed-rate bond and paying fixed coupons to the bond buyer. B is incorrect as this response is economically equivalent to entering into a receive-fixed, pay-floating swap. C is incorrect because the response does not reflect the short position.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1001-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>An investor enters into a 10-year, pay-fixed EUR100 million swap at a rate of 1.12% versus six-month EUR MRR. Assume six-month EUR MRR sets today at 0.25%. Which of the following is closest to the correct calculation of the periodic settlement value of the swap from the investor’s perspective in six months’ time?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>EUR870,000</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. From the investor’s (fixed-rate payer’s) perspective, the periodic settlement value of the swap is equal to</p>
+<p>Periodic settlement value = (MRR – <em>s<sub>N</sub></em>) × Notional amount × Period</p>
+<p>= –EUR435,000 = (0.25% – 1.12%) × EUR100 million × 0.5 years.</p>
+<p>Since EUR MRR has set below the fixed swap rate, the fixed-rate payer must make a net payment to the fixed-rate receiver at the end of the interest period. Both A and B responses omit the period of the swap (0.5 years) so are incorrect. A is also incorrect because the reversed sign on the answer would properly reflect the counterparty’s periodic settlement value, not the investor’s.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>–EUR870,000</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. From the investor’s (fixed-rate payer’s) perspective, the periodic settlement value of the swap is equal to</p>
+<p>Periodic settlement value = (MRR – <em>s<sub>N</sub></em>) × Notional amount × Period</p>
+<p>= –EUR435,000 = (0.25% – 1.12%) × EUR100 million × 0.5 years.</p>
+<p>Since EUR MRR has set below the fixed swap rate, the fixed-rate payer must make a net payment to the fixed-rate receiver at the end of the interest period. Both A and B responses omit the period of the swap (0.5 years) so are incorrect. A is also incorrect because the reversed sign on the answer would properly reflect the counterparty’s periodic settlement value, not the investor’s.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>–EUR435,000</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. From the investor’s (fixed-rate payer’s) perspective, the periodic settlement value of the swap is equal to</p>
+<p>Periodic settlement value = (MRR – <em>s<sub>N</sub></em>) × Notional amount × Period</p>
+<p>= –EUR435,000 = (0.25% – 1.12%) × EUR100 million × 0.5 years.</p>
+<p>Since EUR MRR has set below the fixed swap rate, the fixed-rate payer must make a net payment to the fixed-rate receiver at the end of the interest period. Both A and B responses omit the period of the swap (0.5 years) so are incorrect. A is also incorrect because the reversed sign on the answer would properly reflect the counterparty’s periodic settlement value, not the investor’s.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1870_modules_items_145413_Learning_Outcomes_Pricing_and_Valuation_of_Interest_Rates_and_Other_Swaps.html" >← 前へ</a>
+  <span class="title">7.01 | Introduction</span>
+  <a href="courses_1870_modules_items_145420_702_Swaps_vs_Forwards.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

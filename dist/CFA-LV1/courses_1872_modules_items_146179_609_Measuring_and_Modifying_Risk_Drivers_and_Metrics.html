@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.09 | Measuring and Modifying Risk: Drivers and Metrics</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1642-R-s09" title="6.09 | Measuring and Modifying Risk: Drivers and Metrics">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 6: Introduction to Risk Management</span>6.09 | Measuring and Modifying Risk: Drivers and Metrics</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe methods for measuring and modifying risk exposures and factors to consider in choosing among the methods</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>The core element of risk management is the measurement and modification of risk.
+                  One cannot modify risk without measuring it. The primary purpose of measuring risk
+                  is to determine whether the risk being taken, or being considered, is consistent
+                  with the pre-defined risk tolerance. To understand how risk is measured, it is
+                  important to understand the basic elements that drive risk.</p>
+<section id="CFA1642-s009-01-01">
+<h3 class="dp-heading">Drivers</h3>
+<p>This section illustrates the origins of risk. Risk is a part of life itself.
+                     None of us knows from one day to the next everything that will happen to us in
+                     the next 24 hours, let alone over a longer period. We may get a phone call that
+                     a relative is extremely sick, or we may be contacted by a head-hunter about an
+                     attractive job possibility. We may learn that we are going to be given an award
+                     from a prestigious organization, or we may find that our identity has been
+                     stolen. All of us can almost surely name something that happened the previous
+                     day that was not anticipated. Most of these happenings are minor and often
+                     quickly forgotten. Others are serious. Some are good. Some are bad. Some are
+                     unpredictable outcomes of known events, such as whether we get an offer
+                     following a job interview or whether a medical test reveals that we are healthy
+                     or ill. Some events are completely unanticipated, such as getting a phone call
+                     from an old friend we have not talked to in many years or having a flat tire on
+                     the drive home. Fortunately, the vast majority of risks in life are minor. The
+                     ones that are not minor, however, have the potential to be highly unpredictable
+                     and financially, and sometimes physically and emotionally, quite costly.</p>
+<p>In a conceptual sense, financial risks are no different from the other risks we
+                     face in life. All risks arise from the fact that the future is unknown.
+                     Financial risks largely emanate from economic risks, and economic risks emanate
+                     from the uncertainties of life.</p>
+<p>Financial markets generate prices that fluctuate as investors absorb
+                     information about the global and domestic state of the economy, the company’s
+                     industry, and the idiosyncratic characteristics of the company itself. Global
+                     and domestic macroeconomies are driven by the companies that operate within
+                     them, but much of the tone as well as the ground rules are set by governments
+                     and quasi-governmental agencies, such as central banks. Taxes, regulations,
+                     laws, and monetary and fiscal policy establish a legal and economic environment
+                     and a set of ground rules that greatly affect the degree and quality of
+                     economic activity that takes place. Attempts by governments and central banks
+                     of different countries to coordinate economic policies can lead to some degrees
+                     of success if harmonized, but if not, they can create an environment in which
+                     companies engage in practices designed to seek favorable treatment in some
+                     countries and avoid unfavorable treatment in others.<a aria-describedby="CFA1642-R-s09-FN1Content" class="dp-popover-trigger" href="#CFA1642-R-s09-FN1Content">
+<sup>19</sup>
+</a>
+</p>
+<p>All economies, in turn, are composed of industries. Government policies also
+                     affect industries, in some cases encouraging economic activity in some
+                     industries while discouraging it in others. Some industries are stable,
+                     weathering macroeconomic storms quite well, whereas others are highly
+                     cyclical.</p>
+<p>The uncertainties of global and domestic macroeconomic and central bank
+                     policies create risks for economies and industries that we often treat as
+                     systematic. Seemingly minor events, such as filling the position of central
+                     bank chairperson, are often viewed by investors as major events, signaling
+                     possibly a change in policy that can greatly affect the macroeconomy and
+                     possibly certain industries.</p>
+<p>Moving down to a more fundamental level, investors face the unsystematic or
+                     idiosyncratic risks of individual companies. Modern investment analysis
+                     prescribes that diversified portfolios bear no unsystematic risk. We are then
+                     led to believe that unsystematic risk does not matter in a well-diversified
+                     portfolio. But unsystematic risk does matter to the management of a company. It
+                     also matters to poorly diversified investors. And it certainly matters to the
+                     financial analysts who cover specific companies. And what would appear to be
+                     unsystematic risk can oftentimes actually be systematic. For example, poor
+                     credit risk management by a major bank can turn into a global financial crisis
+                     if that bank is “too big to fail.”</p>
+<p>In sum, the basic drivers of risk arise from global and domestic
+                     macroeconomies, industries, and individual companies. Risk management can
+                     control some of this risk, but it cannot control all of it. For example, the
+                     risk manager of a company may be able to reduce the likelihood that his company
+                     will default, but he cannot control movements in interest rates. For the latter
+                     risk, he must accept that interest rate volatility is a given and that he can
+                     only position the company to be able to ensure that its risk exposure is
+                     aligned with its objective and risk tolerance. In order to do so, he must first
+                     be able to measure the risk.</p>
+</section>
+<section id="CFA1642-s009-01-02">
+<h3 class="dp-heading">Metrics</h3>
+<p>The notion of metrics in the context of risk refers to the quantitative
+                     measures of risk exposure. The most basic metric associated with risk is
+                     probability. Probability is a measure of the relative frequency with which one
+                     would expect an outcome, series of outcomes, or range of outcomes to occur. One
+                     can speak about the probability of rolling a six in one roll of a die as 1/6,
+                     the chance of rain in the next 24 hours as 20%, or the odds of a central bank
+                     taking actions to increase interest rates of 50%. These are all probabilities,
+                     differing in concept by the fact that the die roll is associated with an
+                     objective probability measure, whereas the other two examples are subjective
+                     probabilities. It is important to note that probability, in and of itself, is
+                     not a sufficient metric of risk. A chance of financial loss of 25% does not
+                     tell us everything we need to know. There are other measures of risk that
+                     incorporate probability but give us more information.</p>
+<p>The standard deviation is a measure of the dispersion in a probability
+                     distribution. Although there is a formal mathematical definition of standard
+                     deviation, at this point we need only understand the conceptual definition.
+                     Standard deviation measures a range over which a certain percentage of the
+                     outcomes would be expected to occur. For example, in a normal distribution,
+                     about 68% of the time the outcomes will lie within plus or minus one standard
+                     deviation of the expected value. Two standard deviations in both directions
+                     would cover about 95% of the outcomes, whereas three would encompass 99% of the
+                     outcomes. Although standard deviation, or volatility, is widely used in the
+                     financial world, it does have significant limitations. In particular, standard
+                     deviation may not be an appropriate measure of risk for non-normal
+                     distributions. Standard deviation may not exist for return distributions with
+                     fat tails.</p>
+<p>Moreover, according to modern portfolio theory, the risk captured by an asset’s
+                     standard deviation overstates the risk of that asset’s returns in the context
+                     of a diversified portfolio. Investors can easily diversify their holdings,
+                     thereby eliminating a portion of the risk in their portfolios by diversifying
+                     away the security-specific risk. As a result, most financial valuation theories
+                     assert that the ability of investors to eliminate security-specific risk, or
+                     non-systematic risk, means that investors should not expect to earn a premium
+                     to compensate them for the assumption of this risk. As a consequence, the risk
+                     of a security may be better measured by its <a aria-describedby="BetaContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#BetaContent">beta</a>, a measure of the sensitivity of a
+                     security’s returns to the returns on the market portfolio. Beta measures
+                     relative risk, meaning how much market risk an asset contributes to a
+                     well-diversified portfolio.<a aria-describedby="CFA1642-R-s09-FN2Content" class="dp-popover-trigger" href="#CFA1642-R-s09-FN2Content">
+<sup>20</sup>
+</a>
+</p>
+<p>Beta describes risk well for a portfolio of equities, but other sources of risk
+                     may require other descriptive risk metrics. The risk associated with
+                     derivatives is one example of this. Although derivatives are widely used to
+                     manage risk, they do so by assuming other risks. Even if the derivative is
+                     being used to establish a hedge of an existing exposure to risk, it would still
+                     result in the assumption of additional risk because the assumed risk is being
+                     used to offset an existing risk. For example, if one purchases a call option
+                     denominated in euros to buy Russian rubles, one would be assuming the risk of
+                     the ruble/euro exchange rate. Because most derivatives exposures are highly
+                     leveraged, it is critical that the risk of derivatives be properly measured.
+                     There are several specialized measures of derivatives risk.</p>
+<p>The sensitivity of the derivative price to a small change in the value of the
+                     underlying asset is called the <a aria-describedby="DeltaContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#DeltaContent">delta</a>. It is perhaps the most important
+                     measure of derivatives risk. Yet delta is limited to capturing only small
+                     changes in the value of the underlying. Large changes are captured by the
+                     concept of <a aria-describedby="GammaContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#GammaContent">gamma</a>. Whereas delta is a first-order risk, gamma is considered
+                     a second-order risk because it reflects the risk of changes in delta.<a aria-describedby="CFA1642-R-s09-FN3Content" class="dp-popover-trigger" href="#CFA1642-R-s09-FN3Content">
+<sup>21</sup>
+</a> Some derivatives, such as options, are also sensitive to changes in the
+                     volatility of the underlying. This risk is captured by a concept called
+                        <a aria-describedby="VegaContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#VegaContent">vega</a>,
+                     which is a first-order measure of the change in the derivative price for a
+                     change in the volatility of the underlying. Derivatives are also sensitive to
+                     changes in interest rates, which are reflected in a measure called <a aria-describedby="RhoContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RhoContent">rho</a>. Most options
+                     have relatively low sensitivity to interest rates.<a aria-describedby="CFA1642-R-s09-FN4Content" class="dp-popover-trigger" href="#CFA1642-R-s09-FN4Content">
+<sup>22</sup>
+</a> These, and other mathematically derived derivatives metrics, are
+                     collectively referred to as “the Greeks.”</p>
+<p>Other asset classes may have their own special metrics to describe risk. One
+                     well-known example, <a aria-describedby="DurationContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#DurationContent">duration</a>, is a measure of the
+                     interest rate sensitivity of a fixed-income instrument. Analogous to delta, it
+                     is a first-order risk. The wide variety of financial instrument types and asset
+                     classes leads to a proliferation of terminology and risk measures, with most of
+                     them having no meaning outside their asset class. As financial organizations
+                     and asset risk modeling became more sophisticated and computer power increased,
+                     an approach was needed to measure and describe financial risk across the broad
+                     spectrum of asset classes. Spurred by the onset of global bank capital
+                     regulation, this led to the development of value at risk.</p>
+<p>
+<a aria-describedby="ValueAtRiskContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ValueAtRiskContent">Value at
+                        risk</a> or <a aria-describedby="VaRContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#VaRContent">VaR</a> is a measure of the size of the tail of the distribution of
+                     profits on a portfolio or for an organization. A VaR measure contains three
+                     elements: an amount stated in units of currency, a time period, and a
+                     probability. For example, assume a London bank determines that its VaR is £3
+                     million at 5% for one day. This statement means that the bank expects to lose a
+                     minimum of £3 million in one day 5% of the time. A critical, and often
+                     overlooked word, is <em>minimum</em>. In this example, the bank expects
+                     that its losses will be at least £3 million in one day with 5% probability. In
+                     a VaR measure, there is no ultimate maximum that one can state. VaR is thus a
+                     minimum extreme loss metric. With a probability of 5% and a measurement period
+                     of one day, we can interpret the bank’s VaR as expecting a minimum loss of £3
+                     million once every 20 business days. VaR can also be used to measure credit
+                     losses, although the construction of the measure is considerably more difficult
+                     given the extreme asymmetry of the risk.</p>
+<p>VaR is a simple but controversial measure. There are several ways to estimate
+                     VaR, each of which has its own advantages and disadvantages. The different
+                     measures can lead to highly diverse estimates. Moreover, VaR is subject to the
+                     same model risk as derivative pricing models. VaR is based on a particular
+                     assumption about the probability distribution of returns or profits. If that
+                     assumption is incorrect, the VaR estimate will be incorrect. VaR also requires
+                     certain inputs. If those inputs are incorrect, the VaR estimate will be
+                     incorrect. Many critics of VaR have argued that naive users of VaR can be
+                     lulled into a false sense of security. A presumably tolerable VaR can give the
+                     illusion that the risk is under control, when in fact, it is not. Yet, VaR is
+                     accepted as a risk measure by most banking regulators and is approved for
+                     disclosure purposes in typical accounting standards. As with any risk measure,
+                     one should supplement it with other measures.</p>
+<p>As emphasized earlier, VaR does not tell the maximum loss. The maximum loss is
+                     the entire equity of an organization or the entire value of a portfolio, but
+                     the statistics used to estimate VaR can be used to gauge average extreme
+                     losses. Conditional VaR or <a aria-describedby="CVaRContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#CVaRContent">CVaR</a> is a common tail loss measure,
+                     defined as the weighted average of all loss outcomes in the statistical
+                     distribution that exceed the VaR loss. Another tail risk metric in the credit
+                     risk space that is analogous to CVaR is expected loss given default, which
+                     answers the question for a debt security, “If the underlying company or asset
+                     defaults, how much do we lose on average?”</p>
+<p>VaR focuses on the left tail of the distribution and purports to tell us the
+                     expected frequency of extreme negative returns, but it can understate the
+                     actual risk. For example, the normal distribution gives us a well-defined
+                     measure of extreme negative returns, which are balanced by extreme positive
+                     returns. Yet, actual historical return distributions have shown that there are
+                     more extreme negative returns than would be expected under the normal
+                     distribution. We previously described this concern in the form of tail risk. In
+                     response to this concern, statisticians have developed a branch of study that
+                     focuses primarily on extreme outcomes, which is called <a aria-describedby="ExtremeValueTheoryContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ExtremeValueTheoryContent">extreme value
+                        theory</a>, and leads to measures of the statistical characteristics
+                     of outcomes that occur in the tails of the distribution. There are mathematical
+                     rules that define the statistical properties of such large outcomes, and these
+                     rules have been widely used for years in the insurance business. In the past 20
+                     years or so, risk managers have taken to using them to help gauge the
+                     likelihood of outcomes that exceed those that would normally be expected.</p>
+<p>Two measures in particular that are often used to complement VaR are <a aria-describedby="ScenarioAnalysisContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ScenarioAnalysisContent">scenario
+                        analysis</a> and <a aria-describedby="StressTestingContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#StressTestingContent">stress testing</a>. These are common
+                     sense approaches that ask “If this happens, then how are we affected?” Scenario
+                     analysis can be thought of as a package of stress tests, usually with some
+                     common underlying theme. A scenario defines a set of conditions or market
+                     movements that could occur and would put some pressure on a portfolio. An
+                     example might be a sharp increase in interest rates coupled with a significant
+                     decline in the value of a currency. The portfolio is then evaluated to
+                     determine its expected loss under these scenarios. A different means of posing
+                     a scenario analysis is stress testing, which is done by proposing specific
+                     asset price moves generally involving extremely large and high pressure
+                     scenarios that would occur only rarely but would have the potential for
+                     destabilizing the entire organization. The US Federal Reserve and other central
+                     banks have begun requiring major banks to stress test their portfolios.
+                     Although scenario analysis and stress testing can provide some information,
+                     they are, as noted previously for other measures, subject to model risk.</p>
+<p>Of course, the measures just mentioned focus primarily on market risk. Credit
+                     risk, which is covered in more detail in readings on fixed-income analysis, has
+                     long relied heavily on the credit ratings provided by private companies, such
+                     as Moody’s Analytics, Standard &amp; Poor’s, and Fitch Ratings. In effect, a
+                     large part of credit analysis for many lenders has been outsourced since the
+                     early part of the 20th century. Most lenders, however, do not rely exclusively
+                     on these rating companies. They do their own analysis, which focuses on the
+                     creditor’s liquidity, profitability, and leverage. Liquidity measures, such as
+                     the current ratio, may indicate how well a borrower can cover short-term
+                     obligations. Solvency ratios, such as cash flow coverage or interest coverage,
+                     may reveal whether a borrower generates enough cash or earnings to make its
+                     promised interest payments. Profitability measures, such as return on assets,
+                     estimate whether a company is sufficiently profitable so that it can easily
+                     accommodate debt. Leverage measures, such as the ratio of debt to total assets,
+                     reflect whether a company has sufficient equity capital in relation to its debt
+                     to absorb losses and negative cash flows without defaulting. Credit analysis
+                     also examines the strength and cyclicality of the macroeconomy and the
+                     company’s industry. Other widely used measures of credit risk include credit
+                     VaR, probability of default, expected loss given default, and the probability
+                     of a credit rating change.</p>
+<p>One of the problems of credit risk measurement is that credit events, such as a
+                     ratings downgrade or a default, are relatively rare for a particular
+                     organization. Certainly, in the aggregate there are many credit losses, but
+                     very few companies that default have a history of defaulting. Without a history
+                     to go by, estimating the likelihood of an event that has never actually
+                     occurred is extremely difficult. Imagine the challenge of assigning a default
+                     probability to Lehman Brothers in 2007. It had been in operation since 1850 and
+                     had never defaulted. Yet in 2008, Lehman Brothers, one of the most successful
+                     financial companies of all time, filed for bankruptcy. Because of the
+                     infrequency of default, risk managers normally attempt to assess default
+                     probability by aggregating companies with similar characteristics.<a aria-describedby="CFA1642-R-s09-FN5Content" class="dp-popover-trigger" href="#CFA1642-R-s09-FN5Content">
+<sup>23</sup>
+</a>
+</p>
+<p>Another useful source of information for risk managers about these rare events
+                     is the <em>ex ante</em> risk cost that is implied by the market pricing
+                     of derivatives. A <a aria-describedby="CreditDefaultSwapCDSContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#CreditDefaultSwapCDSContent">credit default swap (CDS)</a>
+                     on an issuing company has an observable price that acts as a signal to a
+                     bondholder of the risk cost of a default. Put options, exotic options,
+                     insurance contracts, and other financial instruments may contain valuable
+                     signals of the cost of rare adverse events, or at least the price of hedging
+                     them.</p>
+<p>Operational risk is one of the most difficult risks to measure. Consider the
+                     operational risk event reported in 2014 in which hackers broke into Home
+                     Depot’s credit card data base. Assessing the likelihood of such an event and
+                     estimating the potential losses would be almost impossible. The threat of
+                     litigation alone for years afterward is difficult to quantify. As with credit
+                     risk, significant operational risk events are rare but usually quite costly if
+                     they do occur. Hence, attempts to quantify the risk usually involve a third
+                     party aggregating operational risk events across numerous companies and
+                     publishing the statistics.</p>
+<p>As mentioned, there are numerous other risks that would likewise be difficult
+                     to measure. For example, there is always the possibility of changes in
+                     accounting rules, laws, tax rates, and regulatory requirements that can result
+                     in significant costs as companies adapt their policies and actions from one
+                     regulatory environment to a new one. How would one measure such risks?
+                     Moreover, the time period spanned by these risks is extremely long, and in
+                     fact, theoretically infinite. Changes in these rules and laws are often
+                     motivated by politics. How does one quantify such risks when there are no real
+                     numeric measures? Analysis invariably reverts to subjective evaluation of the
+                     likelihood of such threats and their potential losses.</p>
+<p>As we have described, many risks are measurable, at least on an <em>ex
+                        post</em> basis. Market-related risks are blessed with large quantities
+                     of data, so they are relatively measurable. Credit, operational, and other
+                     risks are somewhat rare events. Although it is probably a good thing that such
+                     events are indeed rare, their infrequency makes measurement more difficult.
+                     Nonetheless, virtually any risk manager will attempt to obtain at least a
+                     subjective sense of the expected frequency, likelihood, and cost of these
+                     events. With either objective or subjective measurements in mind, risk managers
+                     can then proceed to modify these risks accordingly.</p>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA1642-R-s09-FN1Content">
+<p>
+<sup>19</sup> This practice is sometimes called regulatory arbitrage. The policies of
+                           certain countries can be more conducive to establishing operations.
+                           Examples are the flow of money into countries whose banking laws are less
+                           restrictive and more conducive to secrecy and incorporation in or moving
+                           a company to a country with lighter regulations or more favorable tax
+                           treatment.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA1642-R-s09-FN2Content">
+<p>
+<sup>20</sup> Earlier, we discussed the fact that unsystematic risk matters to some
+                           parties. Here we seem to be saying that it should not matter to anyone.
+                           Capital market models almost always assume that investors can diversify
+                           quite easily and, as a result, they should not expect to earn a premium
+                           for bearing diversifiable risk. This assumption does not mean that
+                           everyone’s wealth is well-diversified. Investors who do not diversify
+                           probably cannot expect to earn a return for bearing diversifiable risk,
+                           but it does not mean that these investors should not care about measuring
+                           the risk they choose to assume by not diversifying.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA1642-R-s09-FN3Content">
+<p>
+<sup>21</sup> The notion of a first-order risk versus a second-order risk can be seen
+                           by considering the following. Suppose A affects B and B, in turn, affects
+                           C. A does not affect C directly but does so only indirectly. A is a
+                           first-order risk for B and a second-order risk for C. </p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA1642-R-s09-FN4Content">
+<p>
+<sup>22</sup> Options on interest rates, however, have a high sensitivity to interest
+                           rates, but only because interest rates are the underlying, and thus, the
+                           source of market risk.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA1642-R-s09-FN5Content">
+<p>
+<sup>23</sup> In some sense, aggregating companies with similar characteristics is what
+                           credit ratings do. Companies rated BAA/Baa+ can be quite diverse but all
+                           are considered similar with respect to their ability to pay their
+                           debts.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="BetaContent">
+<p>A measure of the sensitivity of a given investment or portfolio to movements in
+                     the overall market.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="DeltaContent">
+<p>The sensitivity of the derivative price to a small change in the value of the underlying asset.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="GammaContent">
+<p>A numerical measure of how sensitive an option’s delta (the sensitivity of the derivative’s price) is to a change in the value of the underlying.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="VegaContent">
+<p>A measure of the sensitivity of an option’s price to changes in the underlying’s volatility.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RhoContent">
+<p>The change in a given derivative instrument for a given small change in the risk-free interest rate, holding everything else constant. Rho measures the sensitivity of the option to the risk-free interest rate.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="DurationContent">
+<p>The first-order, linear change in a bond’s price for a given yield change in yield, which is a negative or inverse relationship.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ValueAtRiskContent">
+<p>A money measure of the minimum value of losses expected during a specified time
+                     period at a given level of probability.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="VaRContent">
+<p>See <em>value at risk</em>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="CVaRContent">
+<p>Conditional VaR, a tail loss measure. The weighted average of all loss outcomes in the statistical distribution that exceed the VaR loss.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ExtremeValueTheoryContent">
+<p>A branch of statistics that focuses primarily on extreme outcomes.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ScenarioAnalysisContent">
+<p>A variation of the valuation process combining a base case with alternative outcomes, allowing the incorporation of more favorable or adverse scenarios in the valuation process.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="StressTestingContent">
+<p>A specific type of scenario analysis that estimates losses in rare and extremely unfavorable combinations of events or scenarios.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="CreditDefaultSwapCDSContent">
+<p>A type of credit derivative in which one party, the credit protection buyer who is seeking credit protection against a third party, makes a series of regularly scheduled payments to the other party, the credit protection seller. The seller makes no payments until a credit event occurs.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146171_608_Interactions_Between_Risks.html" >← 前へ</a>
+  <span class="title">6.09 | Measuring and Modifying Risk: Drivers and Metrics</span>
+  <a href="courses_1872_modules_items_146185_610_Risk_Modification_Prevention_Avoidance_and_Acceptance.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

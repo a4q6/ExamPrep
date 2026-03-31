@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.02 | Risk Management Process</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1642-R-s02" title="6.02 | Risk Management Process">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 6: Introduction to Risk Management</span>6.02 | Risk Management Process</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">define risk management</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>
+<a aria-describedby="RiskContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskContent">Risk</a>, broadly
+                  speaking, is exposure to uncertainty. Risk is also the concept used to describe
+                  all of the uncertain environmental variables that lead to variation in and
+                  unpredictability of outcomes. More colloquially, risk is about the chance of a
+                  loss or adverse outcome as a result of an action, inaction, or external event.</p>
+<p>This last view may make it sound as if risk is something to be avoided. But that
+                  is not at all the case. Risk is a key ingredient in the recipe for business or
+                  investment success; return without risk is generally a false hope and usually a
+                  prescription for falling short of one’s goals. Risks taken must be carefully
+                  chosen, understood, and well-managed to have a chance at adding value through
+                  decisions. Risk and return are the interconnected forces of the financial
+                  universe. Many decision makers focus on return, which is not something that is
+                  easily controlled, as opposed to risk, or exposure to risk, which may actually be
+                  managed or controlled.</p>
+<p>
+<a aria-describedby="RiskExposureContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskExposureContent">Risk
+                     exposure</a> is the extent to which the underlying environmental or
+                  market risks result in actual risk borne by a business or investor who has assets
+                  or liabilities that are sensitive to those risks. It is the state of being exposed
+                  or vulnerable to a risk. Risk exposure results from the decisions of an
+                  organization or investor to take on risk-sensitive assets and liabilities.</p>
+<p>Suppose there is an important announcement in Japan that will result in the yen
+                  either appreciating or depreciating by 1%. The range of possible outcomes in real
+                  situations is clearly not as simple as the up-or-down 1% case used here, but we
+                  will use a simplified example to make an important point. The risk is the
+                  uncertain outcome of this event, and the currency risk to a non-Japanese business
+                  is the uncertain return or variation in return in domestic currency terms that
+                  results from the event. The risk can be described as the range of resulting
+                  outcomes and is often thought of in terms of a probability distribution of future
+                  returns. Suppose that the underlying amount is ¥1,000,000. The risk exposure of a
+                  business may be zero or it could be sizable, depending on whether the business has
+                  assets or liabilities tied to this risk—in this case, exposure to that currency.
+                  One million yen would, in this example, result in ¥10,000 of risk exposure (1% of
+                  ¥1,000,000). Risk management would include, among other things, quantifying and
+                  understanding this risk exposure, deciding how and why to have the exposure and
+                  how much risk the participant can bear, and possibly mitigating this risk by
+                  tailoring the exposure in several ways. The risk management process would inform
+                  the decision of whether to operate or invest in this risky currency.</p>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="CFA1642-s002-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i>
+</h3>
+<p>The word “risk” can be confusing because it is used by different people at
+                     different times to mean so many different things. Even when used properly, the
+                     term has three related but different meanings, which this example illustrates
+                     well. Risk can mean, in turn, the underlying uncertainty, the extent of the
+                     risky action taken, or the resulting range of risky outcomes to the
+                     organization. In this example, the first meaning is the uncertain +1% or –1%
+                     movement of the currency. The second meaning is the ¥1,000,000 worth of risky
+                     currency, the position taken by the business. The third meaning is the +¥10,000
+                     or –¥10,000 risky outcome that might accrue to the business for having engaged
+                     in this risky activity. A common way of more precisely distinguishing among
+                     these three “risks” in usage is: <em>risk driver</em> for the
+                     underlying risk, <em>risk position</em> to describe or quantify the
+                     risky action taken, and <em>risk exposure</em> for the potential
+                     valuation change that may result. In the oversimplified example above, the risk
+                     exposure is simply the risk position multiplied by the risk driver. In practice
+                     the term “risk” is used interchangeably for all three meanings.</p>
+</div>
+<div class="cfa-curriculum-blockquote">
+<p>
+<a aria-describedby="RiskManagementContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskManagementContent">
+<em>Risk management</em>
+</a>
+<em> is the process by which an organization or individual defines the level
+                        of risk to be taken, measures the level of risk being taken, and adjusts the
+                        latter toward the former, with the goal of maximizing the company’s or
+                        portfolio’s value or the individual’s overall satisfaction, or
+                        utility.</em>
+</p>
+</div>
+<p>Said differently, risk management comprises all the decisions and actions needed
+                  to <em>best</em> achieve organizational or personal objectives while
+                  bearing a tolerable level of risk. Risk management is <em>not</em> about
+                  minimizing risk; it is about actively understanding and embracing those risks that
+                  best balance the achievement of goals with an acceptable chance of failure,
+                  quantifying the exposure, and continually monitoring and modifying it. A company
+                  that shied away from all risk would find that it could not operate. In trying to
+                  create wealth, all organizations will find themselves “in the risk business.” Risk
+                  management is not about avoiding risks any more than a practical diet is about
+                  avoiding calories. Risk management is not even about predicting risks. “The
+                  Doctrine of No Surprises” is a key mantra among many risk managers, but it does
+                  not mean they are expected to predict what will happen. Instead, it means that if
+                  an unpredictable event, either positive or negative, happens in an uncertain
+                  world, the <em>impact</em> of that event on the organization or portfolio
+                  would not be a surprise and would have been quantified and considered in
+                  advance.</p>
+<p>For example, a risk manager of a bank would not have been expected to know that a
+                  real estate crisis was going to occur and cause significant defaults on the bank’s
+                  real estate securities. But a good risk manager would help the bank’s management
+                  decide how much exposure it should have in these securities by quantifying the
+                  potential financial impact of such a crisis destroying, say, 60% of the bank’s
+                  capital. A good risk management process would include a deep discussion at the
+                  governance level about the balance between the likely returns and the unlikely—but
+                  sizable—losses and whether such losses are tolerable. Management would ensure that
+                  the risk analysis and discussion actively affects their investment decisions, that
+                  the potential loss is continuously quantified and communicated, and that it will
+                  take actions to mitigate or transfer any portion of the risk exposure that cannot
+                  be tolerated.<a aria-describedby="CFA1642-R-s02-FN1Content" class="dp-popover-trigger" href="#CFA1642-R-s02-FN1Content">
+<sup>1</sup>
+</a> The only surprise here should be the market shock itself; the risk
+                  manager should have prepared the organization through stress-testing and scenario
+                  analysis, continuously reporting in advance on the potential impact of this
+                  sizable risk exposure.</p>
+<p>A poor risk management process would have ignored the possibility, though small,
+                  of such a significant market event and not quantified the potential loss from
+                  exposure to a real estate crisis. As such, the bank’s management would have had no
+                  idea that more than half of the bank’s capital could be at risk, not addressed
+                  this risk in any governance/risk appetite discussion, ignored these risks in its
+                  investment decisions, and not taken any action to mitigate this risk. In a good
+                  risk management process, most of the work is done before an adverse event happens;
+                  in a poor risk management process, perhaps just as much work gets done, but it all
+                  comes after the event, which is after the damage has been done.</p>
+<p>Good risk management does not prevent losses, but provides a full top-to-bottom
+                  framework that rigorously informs the decision-making process—before, during, and
+                  after a risk event. Because risks and exposures are dynamic, risk management is a
+                  continuous process that is always being reevaluated and revised. If this process
+                  is done well, it provides management and staff with the knowledge to navigate as
+                  efficiently as possible toward the goals set by the governing body. In turn, this
+                  effort increases <em>ex ante</em> the value of the business or investment
+                  decisions undertaken. Good risk management may allow managers to more quickly or
+                  effectively act in the face of a crisis. But <em>ex post</em>, even the
+                  best risk management may not stop a portfolio from losing money in a market crash
+                  nor prevent a business from reduced profits in an economic downturn.</p>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA1642-R-s02-FN1Content">
+<p>
+<sup>1</sup> For example, hedges may be used to limit loss of capital to 20%.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskContent">
+<p>Exposure to uncertainty. The chance of a loss or adverse outcome as a result of
+                     an action, inaction, or external event.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskExposureContent">
+<p>The state of being exposed or vulnerable to a risk. The extent to which an organization is sensitive to underlying risks.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskManagementContent">
+<p>The process of identifying the level of risk an organization wants, measuring the level of risk the organization currently has, taking actions that bring the actual level of risk to the desired level of risk, and monitoring the new actual level of risk so that it continues to be aligned with the desired level of risk.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146123_601_Introduction.html" >← 前へ</a>
+  <span class="title">6.02 | Risk Management Process</span>
+  <a href="courses_1872_modules_items_146140_603_Risk_Management_Framework.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.02 | Natural Resources Investment Features</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2467-R-s02-R-1" title="5.02 | Natural Resources Investment Features">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 5: Natural Resources</span>5.02 | Natural Resources Investment Features</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">explain features of raw land, timberland, and farmland and their investment characteristics</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Natural resources comprise different production inputs that are basic to the economy and everyday life: plants and animals (i.e., soft commodities); energy and minerals (hard commodities); and metals and industrial goods used to manufacture goods and produce services. A notable proportion of natural resource investments are directly through farmland, raw land with exploration and mining rights, and timberland. Direct ownership spans a broad spectrum: from farmers producing grain to institutional investors building solar farms.</p>
+<p>Many large institutional investors create exposure to natural resources outright by purchasing land with rights to farm agricultural commodities; to extract oil and gas; to build facilities for alternative energy generation, such as solar and wind farms; or to mine commodities, such as iron, coal, and other industrial metals. By investing in these assets, institutional investors often seek to fulfil their environmental, social, and governance (ESG) objectives, such as sustainability, water conservation, and other environmental goals.</p>
+<section id="CFA2467-R-s02-01-01">
+<h3 class="dp-heading">Land Investments vs. Real Estate</h3>
+<p>Farmland, timberland, and raw land are similar to real estate investments in that they are unique, illiquid assets with distinct geographic location and features, where the latter two characteristics have an influence on the value of the resource itself. They involve forms of ownership capital (claims to residual cash flows). In the case of developed real estate and farmland, there may also be steady cash flow streams (leases).</p>
+<p>Less developed land includes farmland, timberland, and raw land, as well as associated mineral or drilling rights. Sources of return include expected price appreciation over time and cash flows, such as farm lease payments (for an owner), farm operating income (owner-operator), farm timberland income, and mineral and drilling royalties. Estimates suggest nearly half of private investable timberland globally is in the United States. The next biggest timberland regions are Central and Eastern Europe, Latin America, Australia, and New Zealand.</p>
+<p>There are several differences between real estate investments and raw land, farmland, and timberland investments. The first difference is that unlike real estate, there is limited or no focus on the physical improvements to the land. It is not the value of buildings, construction, and development that matters but, rather, the quality of the soil, climate features (farmland, timberland), or geology (mineral rights). In contrast, it is the actual, potential, and planned improvements that determine the value of the property in real estate investments. The location of land is also important; the closer it is to transportation and markets, the higher the price. While the proximity to transportation is also a factor for real estate, transportation expenses can be a significant component of the price of the products paid by the end-user of timberland and farmland.</p>
+<p>To make investments in raw land, timberland, or farmland, investors need specialized knowledge and understanding of the specifics of the natural resource. Investors investing directly in timberland need forest investment expertise to manage a forest over its life cycle. Many large institutional investors that do not have this expertise rely on <a aria-describedby="TimberlandInvestmentManagementOrganizationsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#TimberlandInvestmentManagementOrganizationsContent">timberland investment management organizations</a> (TIMOs), entities that support institutional investors by managing their investments in timberland by analyzing and acquiring suitable timberland holdings.</p>
+<p>Both commercial and residential real estate offer a wide variety of financing alternatives; however, there are fewer alternatives for farmland, timberland, and raw land. Often these investments are financed through bank loans or direct, private debt investment. Finally, these are illiquid assets that have a limited number of potential buyers and sellers due to the specialized knowledge and capital needed for these transactions. These features are outlined in <a aria-label="View Exhibit 1" class="internal" href="#CFA2467-R-s02-EXH-1-1" role="button">Exhibit 1</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2467-R-s02-EXH-1-1">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 1<span style="display: block;">Raw Land, Farmland and Timberland</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px; "></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Raw land</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Farmland</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Timberland</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Return drivers</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Price of land</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Harvest quantities<br/><br/>Commodity prices<br/><br/>Price of land</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Biological growth<br/><br/>Harvest quantities<br/><br/>Lumber prices<br/><br/>Price of land</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Source of direct revenue</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Price appreciation<br/><br/>Lease revenue</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Sale of crops and other agricultural products<br/><br/>Price appreciation<br/><br/>Lease revenue</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Sale of trees, wood, and other timber products<br/><br/>Price appreciation<br/><br/>Lease revenue</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Value</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Physical location</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Physical location<br/><br/>Growth cycle<br/><br/>Soil quality</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Physical location<br/><br/>Quality of timber<br/><br/>Phase in timber production</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Main risks</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Best alternative use</td>
+<td colspan="2" style="text-align: left; vertical-align: top; padding: 8px; ">Weather factors and climate change<br/><br/>Biological factors, diseases</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Owners</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Mostly institutional, some individual</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Mostly individuals, some institutional</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Mostly institutional, some individual</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Ownership structure</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Direct ownership, partnership</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Direct ownership, partnership, REIT</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Direct ownership, partnership, REIT, TIMO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="CFA2467-R-s02-01-02">
+<h3 class="dp-heading">Features and Forms of Farmland and Timberland Investment</h3>
+<p>Sustained interest in farmland and timberland investments stems from their common nature (everyone eats and requires shelter), the recurring income from crops, inflation protection from holding land, and their degree of insulation from financial market volatility. US farmland, for example, enjoyed positive returns both during periods when US GDP declined significantly (1973–1975 and 2007–2009) and when the United States experienced higher-than-normal inflation (1915–1920, 1940–1951, and 1967–1981).</p>
+<p>Timberland has been part of institutional and ultra-high-net-worth portfolios for decades, typically trading in large units of land (several thousands of acres or hectares). One of the main challenges of these investments is their long market cycle, particularly in new-growth forest and crops that are picked, such as fruit. In contrast, farmland can be found in much smaller sizes—perhaps tens of or a few hundred acres or hectares. Many farms are still family owned, as is 98% of US farmland. Globally, farmland remains a main source of family wealth.</p>
+<p>Investments in farmland and timberland—owned directly, owned indirectly, or leased—generate returns from selling crops and timber. Farmland consists mainly of row crops that are planted and harvested (more than one round of planting and harvesting can occur in a year depending on the crop and the climate) and permanent crops that grow on trees or vines. Farmland may also be used as pastureland for livestock. Farm products must be harvested when ripe, with little flexibility in production. By contrast, timberland serves as both a factory and a warehouse. Timber (trees) can be grown (i.e., timberland’s factory characteristic) and easily stored by simply not harvesting the trees (i.e., timberland’s warehouse characteristic). This characteristic offers the flexibility of harvesting when timber prices are up and delaying harvests when prices are down.</p>
+<p>As part of the returns generated by selling the output from the land, both farmland and timberland generate returns from price changes in their output. The market prices for agricultural products and timber may fluctuate considerably over time, and these prices combined with harvest quantities dictate the revenue generated by the sale of the land’s output. Finally, the value of the land may change over time for both farmland and timberland, and these land price changes also contribute to the return on farmland and timberland investments. The return drivers are summarized in the first row of <a aria-label="View Exhibit 1" class="internal" href="#CFA2467-R-s02-EXH-1-1" role="button">Exhibit 1</a>.</p>
+<p>For centuries, direct farmland and timberland ownership has been the initial dominant form, with a focus on long-term tax-exempt investors, such as pension funds, foundations, and endowments. That is why the primary investment vehicles of smaller investors for timber and farmland are investment funds, whether offered on the public markets, such as real estate investment trusts in the United States, or administered privately through limited partnerships. Direct timberland investors use TIMOs to select, manage, and sell assets in accordance with investor objectives. TIMOs are often used in conjunction with indirect investment alternatives, such as limited partnerships, limited liability corporations (LLC), and private REITs.</p>
+<p>Larger investors can consider direct investments for assets with appeal. For example, Middle Eastern sovereign wealth funds have made investments in farmland in Africa and Southeast Asia. Increasingly, farmland funds and limited partnerships and publicly traded farmland REITs have been launched.</p>
+<p>These indirect investment vehicles usually involve separately managed accounts that distinguish between owner and owner-operator models; in the former case, owners rent land used for row crops (i.e., grains, etc.), while in the latter, they retain some operating control in the case of permanent crop properties (orchards, vineyards, etc.). Cash flows are typically fixed in the former case and variable in the latter, with investors taking on some operating risk.</p>
+<p>Owning physical farmland opens the door to a wider variety of foodstuffs: spices, nuts, fruits, and vegetables—a much broader array than the corn, soy, and wheat offered by futures investment. However, there is limited price transparency or information to guide investment decisions without the assistance of sector specialists. The illiquidity of direct farmland and timberland investments is also limiting.</p>
+<p>In terms of risk, farmland is highly sensitive to unexpected weather changes and climate developments that can easily destroy crops and eradicate revenue. The impact of weather spans the entire growing season, making agricultural volumes and prices difficult to predict. That is why agricultural commodity futures contracts can be combined with farmland holdings to generate an overall hedged return. A farm has an inherent long position in its crop and, therefore, will sell futures for delivery at the time of the harvest. The following discussion provides a more detailed case study of climate risks associated with timberland investing.</p>
+<p>There is an indirect benefit from farmland and timberland investments: These natural resources consume carbon as part of the plant life cycle and their value comes not just from the harvest but also from the carbon offset to human activity. Water rights are also part of the direct and implied value of these properties; conservation easements may create value by supporting traditions and nature conservation. Demand for arable land may rise as interest in investments that adhere to ESG considerations grows.</p>
+<div class="dp-content-block cfa-curriculum-case-study-box" id="CFA2467-R-s02-B-1-a">
+<h4 class="dp-has-icon cfa-curriculum-case-study-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-cogs" style="background: inherit !important;"> </i>
+            Case Study<span style="display: block;">Investing Responsibly in Timberland Assets: A Climate-Conscious Case Study</span>
+</h4>
+<p>Campbell Global (CG) is a global investment manager focused on forest and natural resources investments. Based in Portland, Oregon, with offices in 14 US states and New Zealand, the firm has nearly four decades of experience in sustainable value creation. CG is committed to managing its forests in a manner that promotes the best long-term interests of its clients, while also striving to address economic and ESG considerations. In addition to their economic value, forests serve as vast carbon sinks, with trees removing atmospheric CO<sub>2</sub> and providing carbon storage. In one year, a single Douglas fir tree, a common commercial timber species in the US Pacific Northwest, stores the CO<sub>2</sub> equivalent of driving 400 miles in a standard automobile. Globally, the Earth’s forests are estimated to absorb as much as 30% of human-induced CO<sub>2</sub> emissions.</p>
+<p>Sustainably harvested wood products and materials also store atmospheric CO<sub>2</sub> long after removal from a forest, with one cubic meter of wood capturing nearly a metric ton of CO<sub>2</sub>. In addition to carbon sequestration, forests provide benefits of clean water and wildlife habitat, recreational opportunities, and a source of living-wage jobs in rural communities. These attributes agree with the UN’s Sustainable Development Goals and contribute to advancing the UN’s mission for a sustainable future globally. With these effects, there is increasing awareness that well-managed forests are a critical component of any global climate change strategy.</p>
+<p>CG uses scenario analyses to identify climate-related risks beginning at a broad country-level scale, narrowing down to a specific property, and then testing the impact of various risks to a site’s present and future suitability. Factors analyzed to gauge climate risks include precipitation patterns, temperature fluctuations, severity of weather events, presence of pests or disease, and annual average growth rates for commercial tree species. While many climate-related risks in forestry are mitigated through active management, during this iterative process, CG analyzes the potential positive and negative impacts associated with these risks to assess potential changes in net asset value. The following table illustrates climate risks evaluated, their impact on the forest, and the ability to mitigate the risks.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2467-R-s02-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Climate Risk</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Implication</strong>
+</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>CG Mitigants</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Change in temperature</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Increased fire danger</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Property-specific fire plans; re-evaluate target regions/countries for investment</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Change in precipitation patterns</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Changes in tree species range; increased drought and related fire risk</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Vegetation suitability modeling and genetic tree improvement; re-evaluate target regions/countries for investment</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Frequency of extreme weather events</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Loss of standing timber from wind events</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Re-evaluate target regions; property-specific response plans; geographically diverse portfolio construction</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Presence of pests or disease</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Early onset and increased frequency of individual tree mortality</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Immediate treatment, which may include removal of affected trees to prevent further spread of pests or disease in the forest</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Change in growth</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Increased or decreased growth rates</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Effects will vary by region, may influence planting stock decisions; re-evaluate forest growth model assumptions</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Climate change opportunities and challenges highlighted in the CG investment process include the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2467-R-s02-L1">
+<li class="cfa-curriculum-list-item">
+<p>Identifying afforestation (establishment of new forest) opportunities that mitigate climate change by sequestering CO<sub>2</sub> emissions from the atmosphere in trees and soil, while offering many important co-benefits for communities, biodiversity, and soil and water quality.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Protecting existing carbon stocks by minimizing impacts to carbon stored on the forest floor through tailored forest management practices.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Enhancing forest carbon sequestration by replanting areas as soon as possible so the new forest will quickly begin removing CO<sub>2</sub> from the atmosphere.</p>
+</li>
+</ul>
+<p>The ability to quantify, evaluate, and report the year-over-year changes in the carbon footprint of a forest can influence the impacts an organization has on the environment, leading to increased transparency and more-informed business decisions. Incorporating climate change factors in its investment process not only mitigates climate-related risks; it also promotes and enhances the natural solutions forests provide. Understanding and measuring the comprehensive carbon stores of forests may lead to business decisions improving carbon sequestration, critical for addressing climate change.</p>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2467-R-s02-B-1-b">
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+            Question Set</h4>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Identify the three primary return drivers of investing in timberland.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The three primary return drivers of investing in timberland are (1) the biological growth of the timber to be harvested in the future, (2) the price of lumber, and (3) changes in the price of the land.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2467-R-s02-Q2">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Which of the following statements provides the most accurate description of timberland investment management organizations?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>TIMOs are entities that use their forest investment expertise to analyze and acquire suitable timberland holdings on behalf of institutional investors.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is the correct response. Timberland requires asset-specific expertise, and TIMOs use their expertise to analyze and acquire timberland holdings either directly or indirectly for institutional investors. B is incorrect because TIMOs are not investment funds. C is incorrect because TIMOs can be used by institutional investors in conjunction with indirect investing in timberland.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>TIMOs are investment funds that raise money from individual investors to buy timberland.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is the correct response. Timberland requires asset-specific expertise, and TIMOs use their expertise to analyze and acquire timberland holdings either directly or indirectly for institutional investors. B is incorrect because TIMOs are not investment funds. C is incorrect because TIMOs can be used by institutional investors in conjunction with indirect investing in timberland.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>TIMOs are entities that only facilitate direct ownership of timberland by institutional investors.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is the correct response. Timberland requires asset-specific expertise, and TIMOs use their expertise to analyze and acquire timberland holdings either directly or indirectly for institutional investors. B is incorrect because TIMOs are not investment funds. C is incorrect because TIMOs can be used by institutional investors in conjunction with indirect investing in timberland.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Describe one important similarity and one important difference between investing in timberland versus investing in real estate.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Similarities between timberland and real estate include the fact that both asset classes involve investing in unique assets with distinct geography and the fact that both asset classes have a high degree of illiquidity.</p>
+<p>An important difference between the two asset classes is the degree to which value reflects physical improvements to the land. Specifically, real estate investing values actual and potential improvements while timberland investing does not.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>Describe a significant difference in the income component of farmland investing versus timberland investing. </p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Timberland provides flexibility in the timing of harvesting trees. Unlike timberland, farm products must be harvested when ripe, with little flexibility in production.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="TimberlandInvestmentManagementOrganizationsContent">
+<p>Entities that support institutional investors by managing their investments in timberland by analyzing and acquiring suitable timberland holdings.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1871_modules_items_144723_501_Introduction.html" >← 前へ</a>
+  <span class="title">5.02 | Natural Resources Investment Features</span>
+  <a href="courses_1871_modules_items_144744_503_Commodity_Investment_Forms.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

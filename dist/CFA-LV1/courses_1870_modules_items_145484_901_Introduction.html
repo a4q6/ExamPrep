@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1008-R-s01" title="9.01 | Introduction"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 9: Option Replication Using Put–Call Parity</span>9.01 | Introduction</h2>
+</header>
+<p>Previous lessons examined the payoff and profit profiles of call options and put options, the upper and lower bounds of an option’s value, and the factors impacting option values. In doing so, we contrasted the asymmetry of one-sided option payoffs with the linear or symmetric payoff of forwards and underlying assets.</p>
+<p>We now extend this analysis further to show that there are ways to <em>combine</em> options to have an equivalent payoff to that of the underlying and a risk-free asset as well as a forward commitment. In the first lesson, we demonstrate that the value of a European call may be used to derive the value of a European put option with the same underlying details, and vice versa, under a no-arbitrage condition referred to as put–call parity. In the second lesson, we show how this may be extended to forward commitments and how the put–call parity relationship may be applied to option and other investment strategies. We will focus on European options on underlying assets with no income or benefit.</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA1008-s01-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1008-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>Put–call parity establishes a relationship that allows the price of a call option to be derived from the price of a put option with the same underlying details and vice versa.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Put–call parity holds for European options with the same exercise price and expiration date, representing a no-arbitrage relationship between put option, call option, underlying asset, and risk-free asset prices.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>If put–call parity does not hold, then riskless arbitrage profit opportunities may be available to investors.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Put–call forward parity extends the put–call parity relationship to forward contracts given the equivalence of an underlying asset position and a long forward contract plus a risk-free bond.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Under put–call forward parity, we may demonstrate that a purchased put option and a sold call option are equivalent to a long risk-free bond and short forward position, and a sold put and purchased call are equivalent to a long forward and short risk-free bond.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Put–call parity may be applied beyond option-based strategies in finance—for example, to demonstrate that equity holders have a position equivalent to a purchased call option on the value of the firm with unlimited upside, while debtholders have a sold put option position on firm value with limited upside.</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA1008-s01-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
+<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1008-s01-Q1"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following statements correctly describes the equivalent to a long position in an underlying according to put–call parity?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Long a put option on the underlying, short a call option on the underlying, and long a risk-free bond</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Put–call parity demonstrates that a long underlying position is equivalent to a sold put option, a purchased call option, and a long risk-free bond. This is shown in the following equation:</p>
+<p>Put–call parity: <em>S</em> <sub>0</sub> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup> implies <em>S</em> <sub>0</sub> = –<em>p</em> <sub>0</sub> + <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em>.</sup></p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Short a put option on the underlying, long a call option on the underlying, and long a risk-free bond</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Put–call parity demonstrates that a long underlying position is equivalent to a sold put option, a purchased call option, and a long risk-free bond. This is shown in the following equation:</p>
+<p>Put–call parity: <em>S</em> <sub>0</sub> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup> implies <em>S</em> <sub>0</sub> = –<em>p</em> <sub>0</sub> + <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em>.</sup></p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Short a put option on the underlying, long a call option on the underlying, and short a risk-free bond</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Put–call parity demonstrates that a long underlying position is equivalent to a sold put option, a purchased call option, and a long risk-free bond. This is shown in the following equation:</p>
+<p>Put–call parity: <em>S</em> <sub>0</sub> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup> implies <em>S</em> <sub>0</sub> = –<em>p</em> <sub>0</sub> + <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em>.</sup></p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Identify which of the following positions has the same no-arbitrage value as which portfolio under put–call parity:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA1008-s01-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1. Long call option (<em>c</em> <sub>0</sub>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">A. Long underlying, short risk-free bond, and short call option</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2. Short risk-free bond (–<em>X</em>(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">B. Long underlying, long put option, and short risk-free bond</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">3. Short put option (–<em>p</em> <sub>0</sub>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">C. Short underlying, long call option, and short put option</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>Recall that the put–call parity relationship may be expressed as</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1008-s01-E-1-___1"><em>S</em> <sub>0</sub> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em>.</div>
+<p>1. B is correct. A long call option position is the no-arbitrage equivalent of a long underlying position, a long put option, and a short risk-free bond position.</p>
+<p>2. C is correct. A short risk-free bond position is equivalent to a short underlying position, a long call option, and a short put option.</p>
+<p>3. A is correct. A short put option is equivalent to a long underlying position, a short risk-free bond, and a short call option.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1008-s01-Q3"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of the following statements correctly describes a synthetic protective put position according to put–call forward parity?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>A long forward contract on the underlying, a long put option on the underlying, and long a risk-free bond</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The formula for put–call forward parity is as follows:</p>
+<p><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–<em>T</em> </sup> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup>.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>A short forward contract on the underlying, a long put option on the underlying, and short a risk-free bond</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The formula for put–call forward parity is as follows:</p>
+<p><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–<em>T</em> </sup> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup>.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>A short forward contract on the underlying, a short put option on the underlying, and short a risk-free bond</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The formula for put–call forward parity is as follows:</p>
+<p><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–<em>T</em> </sup> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup>.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1008-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>Which of the following statements best describes a shareholder’s claim in terms of an option payoff?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Shareholder payoff resembles the payoff of a put option on firm value.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. When considering shareholder claims in option terms, the shareholder payoff resembles a call option on firm value.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Shareholder payoff resembles the payoff of a covered call option on firm value.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. When considering shareholder claims in option terms, the shareholder payoff resembles a call option on firm value.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Shareholder payoff resembles the payoff of a call option on firm value.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. When considering shareholder claims in option terms, the shareholder payoff resembles a call option on firm value.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1870_modules_items_145481_Learning_Outcomes_Option_Replication_Using_PutCall_Parity.html" >← 前へ</a>
+  <span class="title">9.01 | Introduction</span>
+  <a href="courses_1870_modules_items_145486_902_PutCall_Parity.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

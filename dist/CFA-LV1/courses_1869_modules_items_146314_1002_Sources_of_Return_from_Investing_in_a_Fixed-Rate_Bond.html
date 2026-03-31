@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.02 | Sources of Return from Investing in a Fixed-Rate Bond</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2440-R-s02-R-1" title="10.02 | Sources of Return from Investing in a Fixed-Rate Bond"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 10: Interest Rate Risk and Return</span>10.02 | Sources of Return from Investing in a Fixed-Rate Bond</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">calculate and interpret the sources of return from investing in a fixed-rate bond;</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Fixed-rate bond investors have three sources of return: (1) receipt of promised coupon and principal payments on the scheduled dates, (2) reinvestment of coupon payments, and (3) potential capital gains or losses on the sale of the bond prior to maturity. We now focus on how interest rate changes affect the reinvestment of coupon payments and a bond’s market price if sold <em>prior to</em> maturity.</p>
+<p>We start with two investors buying BRWA’s new 10-year, 6.2% (annual) coupon eurobond, but each investor has a different time horizon for holding it. Initially, interest rates are unchanged. Then, we demonstrate the impact of higher interest rates on investors’ total return. Finally, we show the effect of lower interest rates.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2440-R-s02-EXM-1-1">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 1</h3>
+<p>The first investor, Viswan Family Office (VFO), is a “buy-and-hold” investor, purchasing BRWA’s new 10-year, 6.2% (annual) coupon eurobond priced at par (settlement: 15 October 2025; maturity: 15 October 2035) and holds it to maturity. If the coupon payments are reinvested at 6.2%, the yield-to-maturity, the future value of the coupons on the bond’s maturity date, is found using Microsoft Excel’s FV function:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-">= -<em>FV</em>(<em>Rate</em>, <em>Nper</em>, <em>Pmt</em>, <em>Pv</em>, <em>Type</em>),</div>
+<p>where <em>Type</em> indicates payment at the end (0) or beginning (1) of the period. For this bond,</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___1">= -<em>FV</em>(0.062, 10, 6.2, 0, 0) = 82.493 per 100 of par value.</div>
+<p>While 62 (= 6.2 × 10) in total coupons is received, the excess amount, 20.493 (= 82.493 – 62), is the “interest-on-interest” gain from reinvesting and compounding. The investor’s rate of return, expressed as a compound annual growth rate, is 6.20%.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___2"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___3"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>82.493</mn> <mo>+</mo> <mn>100</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mrow> <mn>10</mn> </mrow> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___4"><em>r</em> = 0.0620 = 6.20%.</div>
+</div>
+<p><a aria-label="View Example 1" class="internal" href="#CFA2440-R-s02-EXM-1-1" role="button">Example 1</a> demonstrates that yield-to-maturity at the time of purchase equals the investor’s rate of return under three assumptions: (1) the investor holds the bond to maturity, (2) there is no default by the issuer, and (3) the coupon interest payments are reinvested at that same rate of interest.</p>
+<p><a aria-label="View Example 2" class="internal" href="#CFA2440-R-s02-EXM-1-2" role="button">Example 2</a> considers the second investor, Baywhite Financial (Baywhite), which also buys the 10-year, 6.2% annual coupon payment bond and pays the same price. However, Baywhite has a four-year investment horizon, so coupon interest is reinvested for four years, and the bond is sold immediately after receiving the fourth coupon payment.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2440-R-s02-EXM-1-2">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 2</h3>
+<p>Baywhite buys BRWA’s 10-year, 6.2% eurobond but sells after four years. If the coupon payments are reinvested at 6.2% for four years, the future value of the reinvested coupons is 27.20321 per 100 of par value.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___5">= −<em>FV</em>(0.062, 4, 6.2, 0, 0) = 27.203.</div>
+<p>Interest-on-interest gain from reinvesting and compounding is 2.403 (= 27.203 – 24.800). When the bond is sold, it has six years remaining to maturity. Assuming yield-to-maturity remains 6.2%, the sale price is still 100% of par.</p>
+<p>Baywhite’s annualized rate of return is 6.20%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___6"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___7"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>27.203</mn> <mo>+</mo> <mn>100</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>4</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___8"><em>r</em> = 0.0620 = 6.20%.</div>
+</div>
+<p><a aria-describedby="HorizonYieldContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#HorizonYieldContent">Horizon yield</a> is an investor’s IRR based on the total return (reinvested coupon payments plus sale price or redemption amount) and the purchase price of the bond. The horizon yield on a bond investment is the annualized holding-period rate of return.</p>
+<p>In <a aria-label="View Example 2" class="internal" href="#CFA2440-R-s02-EXM-1-2" role="button">Example 2</a>, Baywhite’s horizon yield is 6.2%, which matches the original yield-to-maturity even though Baywhite did not hold the bond until maturity. This example shows that the realized horizon yield matches the original yield-to-maturity if (1) coupon payments are reinvested at the same interest rate as the original yield-to-maturity and (2) the bond is sold at a price on the constant-yield price trajectory, implying there is no capital gain or loss when the bond is sold. Importantly, capital gains (losses) arise if a bond is sold at a price above (below) its constant-yield price trajectory, as shown in a prior lesson.</p>
+<p>A point on the trajectory represents the <a aria-describedby="CarryingValueContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#CarryingValueContent">carrying value</a> of the bond at that time. The carrying value is the purchase price plus (minus) the amortized amount of the discount (premium) if the bond is purchased at a price below (above) par value. The constant-yield price trajectory for the investors in <a aria-label="View Example 1" class="internal" href="#CFA2440-R-s02-EXM-1-1" role="button">Example 1</a> and <a aria-label="View Example 2" class="internal" href="#CFA2440-R-s02-EXM-1-2" role="button">Example 2</a> is a flat curve at a price of 100 as the bonds were purchased and sold at par.</p>
+<p>We now demonstrate the impact of <em>higher</em> interest rates on VFO and Baywhite by increasing interest rates by 100 basis points (bps) immediately after investment. The yield on the bond increases from 6.20% to 7.20%, and coupon reinvestment rates go up by 100 bps as well.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2440-R-s02-EXM-1-3">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 3</h3>
+<p>VFO, the buy-and-hold investor, purchases BRWA’s new 10-year, 6.2% (annual) coupon eurobond at par, and then interest rates immediately increase to 7.20%. The future value of the reinvested coupons at 7.20% for 10 years is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___9">= −<em>FV</em>(0.072, 10, 6.2, 0, 0) = 86.475.</div>
+<p>And VFO’s realized rate of return (horizon yield) is 6.43%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___10"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___11"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>86.475</mn> <mo>+</mo> <mn>100</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mrow> <mn>10</mn> </mrow> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___12"><em>r</em> = 0.0643 = 6.43%.</div>
+</div>
+<p>VFO benefits from the higher coupon reinvestment rate. The realized horizon yield is 6.43%, 23 bps higher than the outcome in <a aria-label="View Example 1" class="internal" href="#CFA2440-R-s02-EXM-1-1" role="button">Example 1</a>, when interest rates were constant. Importantly, VFO does not incur a capital gain or loss because it holds the bond until maturity.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2440-R-s02-EXM-1-4">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 4</h3>
+<p>Baywhite buys the same BRWA eurobond at par, interest rates immediately rise to 7.2%, and it sells the bonds four years later. The future value of the reinvested coupons at 7.2% is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___13">= -<em>FV</em>(0.072, 4, 6.2, 0, 0) = 27.609.</div>
+<p>We must also calculate the sale price of the bond because the change in interest rates affects the bond’s price and, unlike VFO, Baywhite is selling it before maturity. We calculate the sale price after four years as</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___14">= –<em>PV</em>(0.072, 6, 6.2, 100, 0) = 95.263,</div>
+<p>resulting in a realized four-year horizon yield of 5.28%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___15"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___16"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>27.609</mn> <mo>+</mo> <mn>95.263</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>4</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___17"><em>r</em> = 0.0528 = 5.28%.</div>
+</div>
+<p>While Baywhite also benefits from the higher coupon reinvestment rate, it is more than offset by the capital loss from the sale of the bonds at the higher yield (lower price). Thus, Baywhite’s rate of return is lower than in <a aria-label="View Example 2" class="internal" href="#CFA2440-R-s02-EXM-1-2" role="button">Example 2</a>, where the interest rate remained at 6.2%.</p>
+<p>We now examine the rates of return for these two investors if interest rates <em>decline</em> by 100 bps; the yield on the BRWA bonds fall from 6.20% to 5.20% immediately after they are purchased.</p>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2440-R-s02-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Knowledge Check</h3>
+<section>
+<p>Immediately after VFO, the buy-and-hold investor, purchases BRWA’s 10-year eurobonds at par, interest rates fall to 5.20%.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate the future value of reinvested coupons.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The future value of reinvesting the coupon payments at 5.20% for 10 years is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___18">= −<em>FV</em>(0.052, 10, 6.2, 0, 0) = 78.715.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Calculate VFO’s horizon yield (realized rate of return).</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>VFO’s horizon yield is 5.98%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___19"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___20"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>78.715</mn> <mo>+</mo> <mn>100</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mrow> <mn>10</mn> </mrow> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___21"><em>r</em> = 0.0598 = 5.98%.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Contrast VFO’s investment outcome in this scenario to <a aria-label="View Example 1" class="internal" href="#CFA2440-R-s02-EXM-1-1" role="button">Example 1</a> and <a aria-label="View Example 3" class="internal" href="#CFA2440-R-s02-EXM-1-3" role="button">Example 3</a>.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>VFO suffers from the lower coupon reinvestment rate. The realized horizon yield of 5.98% is 22 bps lower than the result in <a aria-label="View Example 1" class="internal" href="#CFA2440-R-s02-EXM-1-1" role="button">Example 1</a>, when interest rates were unchanged, and 45 bps lower than the result in <a aria-label="View Example 3" class="internal" href="#CFA2440-R-s02-EXM-1-3" role="button">Example 3</a>. There is no capital gain or loss, because the bonds are held until maturity. VFO’s experience indicates that interest rate risk for a buy-and-hold investor arises entirely from reinvestment risk.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<p>Baywhite buys BRWA’s 10-year Eurobonds at par, and interest rates fall immediately to 5.20%. Baywhite sells the bonds after four years.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>Calculate the future value of the reinvested coupons.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The future of the reinvested coupons is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___22">= –<em>FV</em>(0.052, 4, 6.2, 0, 0) = 26.802.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">5. </span>
+<p>Calculate Baywhite’s horizon yield (realized rate of return).</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The sale price of the bond after four years is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___23">= –<em>PV</em>(0.052, 6, 6.2, 100, 0) = 105.043,</div>
+<p>resulting in a realized four-year horizon yield of 7.16%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___24"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___25"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>26.802</mn> <mo>+</mo> <mn>105.043</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>4</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___26"><em>r</em> = 0.0716 = 7.16%</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">6. </span>
+<p>Contrast Baywhite’s investment outcome in this scenario to <a aria-label="View Example 2" class="internal" href="#CFA2440-R-s02-EXM-1-2" role="button">Example 2</a> and <a aria-label="View Example 4" class="internal" href="#CFA2440-R-s02-EXM-1-4" role="button">Example 4</a>.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The reduction in the future value of the coupons is more than offset by Baywhite’s capital gain from the sale. Consequently, Baywhite’s horizon yield is higher than in both <a aria-label="View Example 2" class="internal" href="#CFA2440-R-s02-EXM-1-2" role="button">Example 2</a> and <a aria-label="View Example 4" class="internal" href="#CFA2440-R-s02-EXM-1-4" role="button">Example 4</a>.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p>As just demonstrated, interest income is the return associated with the <em>passage of time</em>, so it includes the receipt of coupon interest, the reinvestment of those coupons, and the amortization of the discount (or premium) from purchase at a price below (or above) par value to realign the return with the market discount rate. A capital gain or loss is the investor’s return associated with the <em>change in the value</em> of the security, which for a fixed-rate bond arises from a change in the yield-to-maturity (i.e., the implied market discount rate).</p>
+<p>This series of examples illustrates an important point about fixed-rate bonds: an investor’s <em>investment horizon</em> is at the heart of understanding interest rate risk and return. There are two offsetting types of interest rate risk that affect the bond investor: reinvestment risk and price risk. The future value of reinvested coupon payments <em>increases</em> when interest rates rise and <em>decreases</em> when rates fall. The sale price on a bond that matures after the horizon date <em>decreases</em> when interest rates rise and <em>increases</em> when rates fall.</p>
+<p>Reinvestment risk matters more when the investor has a long-term investment horizon. A buy-and-hold investor only has reinvestment risk. Price risk matters more when the investor has a short-term investment horizon. An investor who sells before the first coupon is received has only price risk. Thus, two investors holding the same bond can have different exposures to interest rate risk if they have different investment horizons.</p>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2440-R-s02-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Question Set</h3>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p><em>Fill in the blanks using the two words below:</em></p>
+<p>Reinvestment risk</p>
+<p>Price risk</p>
+<p>An investor who has a long-term investment horizon is more concerned about <span class="answer">_____________</span>, while the investor with a short-term investment horizon is more concerned about <span class="answer">____________</span>.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>An investor who has a long-term investment horizon is more concerned about <em><span style="text-decoration: underline;">reinvestment risk</span></em>, while the investor with a short-term investment horizon is more concerned about <span style="text-decoration: underline;"><em>price risk</em></span>.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>What is the carrying value of a bond?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The carrying value of a bond is the total value of the price at which the bond was purchased plus (minus) the adjustment for amortization of the discount (premium) if the bond is purchased at a price below (above) par value.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
+<p><em>Match the following</em></p>
+<div class="cfa-curriculum-table-wrap" id="CFA2440-R-s02-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;"><strong>Future value of coupons</strong></th>
+<th style="text-align: center; vertical-align: top; padding: 8px;"><strong>Interest rates</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">A. Increase</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">Decrease</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">B. Decrease</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">Increase</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The answer to A is increase. The future value of coupons has a direct relationship with interest rates. Rising interest rates mean coupons are reinvested at a higher rate, increasing their future value.</p>
+<p>The answer to B is decrease. The future value of coupons has a direct relationship with interest rates. Falling interest rates mean coupons are reinvested at a lower rate, decreasing their future value.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2440-R-s02-Q10"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>An investor purchases a five-year, 5.6% (annual) coupon priced at par (settlement: 15 December 2031; maturity: 15 December 2036) and sells it after two years. Immediately after the purchase of the bond, interest rates rise to 5.9%. The investor’s total return at the end of two years is <em>closest</em> to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>5.23%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The investor’s total return is composed of the (1) coupons, (2) reinvestment of coupons, and (3) gain/loss on sale prior to maturity.</p>
+<p>The future value of the coupons assuming reinvestment at 5.90% is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___27">= –<em>FV</em>(0.059, 2, 5.6, 0, 0) = 11.5304.</div>
+<p>The sale price of the bond after two years, when three years remain to maturity, is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___28">= –<em>PV</em>(0.059, 3, 5.6, 100, 0) = 99.1966.</div>
+<p>The realized rate of return is 5.23%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___29"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___30"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>11.530</mn> <mo>+</mo> <mn>99.197</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>2</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___31"><em>r</em> = 0.0523 = 5.23%.</div>
+<p>B is incorrect because it is the rate of return if interest rates remain at 5.60%.</p>
+<p>C is incorrect because it is the average of the two rates (i.e., the coupon rate, 5.6%, and the new, higher interest rate, 5.9%).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>5.60%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The investor’s total return is composed of the (1) coupons, (2) reinvestment of coupons, and (3) gain/loss on sale prior to maturity.</p>
+<p>The future value of the coupons assuming reinvestment at 5.90% is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___27">= –<em>FV</em>(0.059, 2, 5.6, 0, 0) = 11.5304.</div>
+<p>The sale price of the bond after two years, when three years remain to maturity, is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___28">= –<em>PV</em>(0.059, 3, 5.6, 100, 0) = 99.1966.</div>
+<p>The realized rate of return is 5.23%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___29"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___30"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>11.530</mn> <mo>+</mo> <mn>99.197</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>2</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___31"><em>r</em> = 0.0523 = 5.23%.</div>
+<p>B is incorrect because it is the rate of return if interest rates remain at 5.60%.</p>
+<p>C is incorrect because it is the average of the two rates (i.e., the coupon rate, 5.6%, and the new, higher interest rate, 5.9%).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>5.75%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The investor’s total return is composed of the (1) coupons, (2) reinvestment of coupons, and (3) gain/loss on sale prior to maturity.</p>
+<p>The future value of the coupons assuming reinvestment at 5.90% is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___27">= –<em>FV</em>(0.059, 2, 5.6, 0, 0) = 11.5304.</div>
+<p>The sale price of the bond after two years, when three years remain to maturity, is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___28">= –<em>PV</em>(0.059, 3, 5.6, 100, 0) = 99.1966.</div>
+<p>The realized rate of return is 5.23%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___29"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___30"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>11.530</mn> <mo>+</mo> <mn>99.197</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>2</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___31"><em>r</em> = 0.0523 = 5.23%.</div>
+<p>B is incorrect because it is the rate of return if interest rates remain at 5.60%.</p>
+<p>C is incorrect because it is the average of the two rates (i.e., the coupon rate, 5.6%, and the new, higher interest rate, 5.9%).</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2440-R-s02-Q11"><span class="cfa-curriculum-question-with-label">5. </span>
+<p>An investor purchases a seven-year, 6.7% (annual) coupon eurobond priced at par (settlement: 15 December 2031; maturity: 15 December 2038) and sells it after four years. Immediately after the purchase of the bond, interest rates fall to 6.3%. The investor’s annualized rate of return at the end of four years is <em>closest</em> to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>6.50%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The future value of the coupon and its reinvestment at 6.30% is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___32">= –<em>FV</em>(0.063, 4, 6.7, 0, 0) = 29.441.</div>
+<p>The sale price of the bond after four years is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___33">= –<em>PV</em>(0.063, 3, 6.7, 100, 0) = 101.063.</div>
+<p>The investor’s rate of return is 6.89%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___34"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___35"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>29.441</mn> <mo>+</mo> <mn>101.063</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>4</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___36"><em>r</em>= 0.0689 = 6.89%.</div>
+<p>A is incorrect because this is the average of the annual coupon rate and the prevailing interest rate.</p>
+<p>B is incorrect because this calculation does not account for the appreciation in the bond price after interest rates fall.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>6.66%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The future value of the coupon and its reinvestment at 6.30% is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___32">= –<em>FV</em>(0.063, 4, 6.7, 0, 0) = 29.441.</div>
+<p>The sale price of the bond after four years is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___33">= –<em>PV</em>(0.063, 3, 6.7, 100, 0) = 101.063.</div>
+<p>The investor’s rate of return is 6.89%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___34"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___35"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>29.441</mn> <mo>+</mo> <mn>101.063</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>4</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___36"><em>r</em>= 0.0689 = 6.89%.</div>
+<p>A is incorrect because this is the average of the annual coupon rate and the prevailing interest rate.</p>
+<p>B is incorrect because this calculation does not account for the appreciation in the bond price after interest rates fall.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>6.89%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The future value of the coupon and its reinvestment at 6.30% is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___32">= –<em>FV</em>(0.063, 4, 6.7, 0, 0) = 29.441.</div>
+<p>The sale price of the bond after four years is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___33">= –<em>PV</em>(0.063, 3, 6.7, 100, 0) = 101.063.</div>
+<p>The investor’s rate of return is 6.89%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___34"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <mi>P</mi> <mi>V</mi> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mi>T</mi> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___35"><math> <semantics> <mrow> <mi>r</mi> <mo>=</mo> <msup> <mrow> <mfenced> <mrow> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>29.441</mn> <mo>+</mo> <mn>101.063</mn> </mrow> <mrow> <mn>100</mn> </mrow> </mfrac> </mstyle> </mrow> </mfenced> </mrow> <mrow> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mn>4</mn> </mfrac> </mstyle> </mrow> </msup> <mo>−</mo> <mn>1.</mn> </mrow> </semantics> </math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2440-R-s02-E-1-___36"><em>r</em>= 0.0689 = 6.89%.</div>
+<p>A is incorrect because this is the average of the annual coupon rate and the prevailing interest rate.</p>
+<p>B is incorrect because this calculation does not account for the appreciation in the bond price after interest rates fall.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="HorizonYieldContent">
+<p>An investor’s total rate of return on a fixed income instrument over their holding period, including reinvested coupon payments. It is an internal rate of return expressed as an annualized rate.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="CarryingValueContent">
+<p>Of a fixed-income instrument is the purchase price plus (minus) the amortized amount of the discount (premium) if the bond is purchased at a price below (above) par value.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1869_modules_items_146307_1001_Introduction.html" >← 前へ</a>
+  <span class="title">10.02 | Sources of Return from Investing in a Fixed-Rate Bond</span>
+  <a href="courses_1869_modules_items_146321_1003_Investment_Horizon_and_Interest_Rate_Risk.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

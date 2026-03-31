@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.03 | Standard I(A): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s03-R-1" title="3.03 | Standard I(A): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.03 | Standard I(A): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s03-01-01">
+<h3 class="dp-heading">Example 1 (Notification of Known Violations):</h3>
+<p>Michael Allen works for a brokerage firm and is responsible for an underwriting of securities. A company official gives Allen information indicating that the financial statements Allen filed with the regulator overstate the issuer’s earnings. Allen seeks the advice of the brokerage firm’s general counsel, who states that it would be difficult for the regulator to prove that Allen has been involved in any wrongdoing.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Although it is recommended that members and candidates seek the advice of legal counsel, the reliance on such advice does not absolve a member or candidate from the requirement to comply with the law or regulation. Allen should report this situation to his supervisor, seek an independent legal opinion, and determine whether the regulator should be notified of the error.</p>
+</div>
+</section>
+<section id="CFA0008-R-s03-01-02">
+<h3 class="dp-heading">Example 2 (Dissociating from a Violation):</h3>
+<p>Lawrence Brown’s employer, an investment banking firm, is the principal underwriter for an issue of convertible debentures by the Courtney Company. Brown discovers that the Courtney Company has concealed severe third-quarter losses in its foreign operations. The preliminary prospectus has already been distributed.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Knowing that the preliminary prospectus is misleading, Brown should report his findings to the appropriate supervisory persons in his firm. If the matter is not remedied and Brown’s employer does not dissociate from the underwriting, Brown should sever all his connections with the underwriting. Brown should also seek legal advice to determine whether additional reporting or other action should be taken.</p>
+</div>
+</section>
+<section id="CFA0008-R-s03-01-03">
+<h3 class="dp-heading">Example 3 (Dissociating from a Violation):</h3>
+<p>Kamisha Washington’s firm advertises its past performance record by showing the 10-year return of a composite of its client accounts. Washington discovers, however, that the composite omits the performance of accounts that have left the firm during the 10-year period, whereas the description of the composite indicates the inclusion of all firm accounts. This omission has led to an inflated performance figure. Washington is asked to use promotional material that includes the erroneous performance number when soliciting business for the firm.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Misrepresenting performance is a violation of the Code and Standards. Although she did not calculate the performance herself, Washington would be assisting in violating Standard I(A) if she were to use the inflated performance number when soliciting clients. She must dissociate herself from the activity. If discussing the misleading number with the person responsible is not an option for correcting the problem, she can bring the situation to the attention of her supervisor or the compliance department at her firm. If her firm is unwilling to recalculate performance, she must refrain from using the misleading promotional material and should notify the firm of her reasons. If the firm insists that she use the material, she should consider whether her obligation to dissociate from the activity requires her to seek other employment.</p>
+</div>
+</section>
+<section id="CFA0008-R-s03-01-04">
+<h3 class="dp-heading">Example 4 (Following the Highest Requirements):</h3>
+<p>James Collins is an investment analyst for a major Wall Street brokerage firm. He works in a developing country with a rapidly modernizing economy and a growing capital market. Local securities laws are minimal—in form and content—and include no punitive prohibitions against insider trading.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Collins must abide by the requirements of the Code and Standards, which might be more strict than the rules of the developing country. He should be aware of the risks that a small market and the absence of a fairly regulated flow of information to the market represent to his ability to obtain information and make timely judgments. He should include this factor in formulating his advice to clients. In handling material nonpublic information that accidentally comes into his possession, he must follow Standard II(A) Material Nonpublic Information.</p>
+</div>
+</section>
+<section id="CFA0008-R-s03-01-05">
+<h3 class="dp-heading">Example 5 (Following the Highest Requirements):</h3>
+<p>Laura Jameson works for a multinational investment adviser based in the United States. Jameson lives and works as a registered investment adviser in the tiny, but wealthy, island nation of Karramba. Karramba’s securities laws state that no investment adviser registered and working in that country can participate in initial public offerings (IPOs) for the adviser’s personal account. Jameson, believing that, as a US citizen working for a US-based company, she should comply only with US law, has ignored this Karrambian law. In addition, Jameson believes that as a charterholder, as long as she adheres to the Code and Standards requirement that she disclose her participation in any IPO to her employer and clients when such ownership creates a conflict of interest, she is meeting the highest ethical requirements.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Jameson is in violation of Standard I(A). As a registered investment adviser in Karramba, Jameson is prevented by Karrambian securities law from participating in IPOs regardless of the law of her home country. In addition, because the law of the country where she is working is stricter than the Code and Standards, she must follow the stricter requirements of the local law rather than the requirements of the Code and Standards.</p>
+</div>
+</section>
+<section id="CFA0008-R-s03-01-06">
+<h3 class="dp-heading">Example 6 (Laws and Regulations Based on Religious Tenets):</h3>
+<p>Amanda Janney is employed as a fixed-income portfolio manager for a large international firm. She is on a team within her firm that is responsible for creating and managing a fixed-income hedge fund to be sold throughout the firm’s distribution centers to high-net-worth clients. Her firm receives expressions of interest from potential clients from the Middle East who are seeking investments that comply with Islamic law. The marketing and promotional materials for the fixed-income hedge fund do not specify whether or not the fund is a suitable investment for an investor seeking compliance with Islamic law. Because the fund is being distributed globally, Janney is concerned about the reputation of the fund and the firm and believes disclosure of whether or not the fund complies with Islamic law could help minimize potential mistakes with placing this investment.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: As the financial market continues to become globalized, members and candidates will need to be aware of the differences between cultural and religious laws and requirements as well as the different governmental laws and regulations. Janney and the firm could be proactive in their efforts to acknowledge areas where the new fund may not be suitable for clients.</p>
+</div>
+</section>
+<section id="CFA0008-R-s03-01-07">
+<h3 class="dp-heading">Example 7 (Reporting Potential Unethical Actions):</h3>
+<p>Krista Blume is a junior portfolio manager for high-net-worth portfolios at a large global investment manager. She observes a number of new portfolios and relationships coming from a country in Europe where the firm did not have previous business and is told that a broker in that country is responsible for this new business. At a meeting on allocation of research resources to third-party research firms, Blume notes that this broker has been added to the list and is allocated payments for research. However, she knows the portfolios do not invest in securities in the broker’s country, and she has not seen any research come from this broker. Blume asks her supervisor about the name being on the list and is told that someone in marketing is receiving the research and that the name being on the list is OK. She believes that what may be going on is that the broker is being paid for new business through the inappropriate research payments, and she wishes to dissociate from the misconduct.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Blume should follow the firm’s policies and procedures for reporting potential unethical activity, which may include discussions with her supervisor or someone in a designated compliance department. She should communicate her concerns appropriately while advocating for disclosure between the new broker relationship and the research payments.</p>
+</div>
+</section>
+<section id="CFA0008-R-s03-01-08">
+<h3 class="dp-heading">Example 8 (Failure to Maintain Knowledge of the Law):</h3>
+<p>Colleen White is excited to use new technology to communicate with clients and potential clients. She recently began posting investment information, including performance reports and investment opinions and recommendations, to her Facebook page. In addition, she sends out brief announcements, opinions, and thoughts via her X account (for example, “Prospects for future growth of XYZ company look good! #makingmoney4U”). Prior to White’s use of these social media platforms, the local regulator had issued new requirements and guidance governing online electronic communication. White’s communications appear to conflict with the recent regulatory announcements. </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: White is in violation of Standard I(A) because her communications do not comply with the existing guidance and regulation governing use of social media. White must be aware of the evolving legal requirements pertaining to new and dynamic areas of the financial services industry that are applicable to her. She should seek guidance from appropriate, knowledgeable, and reliable sources, such as her firm’s compliance department, external service providers, or outside counsel, unless she diligently follows legal and regulatory trends affecting her professional responsibilities.</p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147231_302_Standard_IA_Recommended_Procedures.html" >← 前へ</a>
+  <span class="title">3.03 | Standard I(A): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147238_304_Standard_IB_Independence_and_Objectivity.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

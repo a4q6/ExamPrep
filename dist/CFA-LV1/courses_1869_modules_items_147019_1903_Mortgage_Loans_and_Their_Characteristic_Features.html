@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>19.03 | Mortgage Loans and Their Characteristic Features</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2448-R-s03-R-1" title="19.03 | Mortgage Loans and Their Characteristic Features">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 19: Mortgage-Backed Security (MBS) Instrument and Market Features</span>19.03 | Mortgage Loans and Their Characteristic Features</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe fundamental features of residential mortgage loans that are securitized</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>This lesson describes fundamental features of mortgage loans, the building block of the largest ABS market, the <a aria-describedby="MortgageBackedSecuritiesMBSContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MortgageBackedSecuritiesMBSContent">mortgage-backed securities (MBS)</a> market. <strong>MBS</strong> are bonds created from the securitization of mortgages. A <a aria-describedby="MortgageLoanContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MortgageLoanContent">mortgage loan</a> is secured by the collateral of a specified real estate property that obliges the borrower to make a predetermined series of payments to the lender. The mortgage lender has a <a aria-describedby="FirstLienContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#FirstLienContent">first lien</a> and security interest in the property, which gives the lender the right to seize the collateral if the borrower does not pay as agreed. Upon a <a aria-describedby="DefaultContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#DefaultContent">default</a> on the mortgage loan, the lender can potentially foreclose on the property. The <a aria-describedby="ForeclosureContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ForeclosureContent">foreclosure</a> would allow the lender to take possession of the property and ultimately sell the property to recover funds toward satisfying the outstanding debt obligation.</p>
+<p>Typically, the amount of the loan advanced to buy the property is less than the property’s purchase price: The difference is the down payment. The ratio of the amount of the mortgage to the property’s value is called the <a aria-describedby="LoanToValueRatioLTVContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#LoanToValueRatioLTVContent">loan-to-value ratio (LTV)</a>. The lower the LTV, the higher the borrower’s equity. From the lender’s perspective, the higher the borrower’s equity, the less likely the borrower is to default. Moreover, the lower the LTV, the more protection the lender has if the borrower does default and the lender repossesses and sells the property. When the loan is first taken out, the borrower’s equity in the property is equal to the down payment. Over time, the LTV changes: As the borrower makes mortgage payments, including principal repayments, the outstanding balance on the loan is reduced and as the market value of the property changes, the borrower’s equity also changes. LTV serves as a key measure both in residential and commercial mortgages.</p>
+<p>The capacity to sustain debt payments is another consideration. For residential lending, the metric is the <a aria-describedby="DebtToIncomeRatioDTIContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#DebtToIncomeRatioDTIContent">debt-to-income ratio (DTI)</a>, which compares an individual’s monthly debt payments to their monthly pre-tax, gross income. Lenders, including mortgage lenders, use the DTI to measure an individual’s ability to manage monthly payments and repay debts. A low DTI shows a balance between income and debt and suggests that the borrower could sustain additional debt. A high DTI ratio signals that the borrower may carry too much debt for the amount of income earned each month. Typically, lenders want to see low DTI ratios before extending loans to a potential borrower.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2448-R-s03-EXM-1-3">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 3<span style="display: block;">LTV and DTI Calculation</span>
+</h3>
+<p>A borrower wishes to secure a mortgage loan to purchase a house. Information regarding the house, the desired loan, and the buyer’s finances is shown below:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2448-R-s03-L1">
+<li class="cfa-curriculum-list-item">
+<p>House Price: EUR800,000</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Desired Loan Amount: EUR600,000</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Annual interest rate: 4.50%</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Loan term: 20 years/240 months</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Borrower’s annual pre-tax gross income EUR141,000</p>
+</li>
+</ul>
+<p>The associated loan-to-value ratio (LTV) can be calculated using the desired loan value and the anticipated house price, as shown here:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2448-R-s03-E-1-">
+<math>
+<semantics>
+<mrow>
+<mi>L</mi>
+<mi>T</mi>
+<mi>V</mi>
+<mo>=</mo>
+<mo> </mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>L</mi>
+<mi>o</mi>
+<mi>a</mi>
+<mi>n</mi>
+<mo> </mo>
+<mi>A</mi>
+<mi>m</mi>
+<mi>o</mi>
+<mi>u</mi>
+<mi>n</mi>
+<mi>t</mi>
+</mrow>
+<mrow>
+<mi>H</mi>
+<mi>o</mi>
+<mi>u</mi>
+<mi>s</mi>
+<mi>e</mi>
+<mo> </mo>
+<mi>P</mi>
+<mi>r</mi>
+<mi>i</mi>
+<mi>c</mi>
+<mi>e</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2448-R-s03-E-1-___1">
+<math>
+<semantics>
+<mrow>
+<mi>L</mi>
+<mi>T</mi>
+<mi>V</mi>
+<mo>=</mo>
+<mo> </mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+<mo> </mo>
+<mn>600</mn>
+<mo>,</mo>
+<mn>000</mn>
+</mrow>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+<mo> </mo>
+<mn>800</mn>
+<mo>,</mo>
+<mn>000</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>75</mn>
+<mi>%</mi>
+</mrow>
+</semantics>
+</math>.</div>
+<p>To calculate the debt-to-income ratio (DTI), we use the monthly debt payment and the borrower’s monthly pre-tax gross income:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2448-R-s03-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Month</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Total Monthly Payment</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Monthly Interest Payment</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Monthly Principal Payment</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Remaining Principal</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">1</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,250.00</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,545.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">598,454.10</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">2</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,244.20</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,551.69</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">596,902.41</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">3</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,238.38</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,557.51</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">595,344.90</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">4</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,232.54</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,563.35</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">593,781.55</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">5</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">2,226.68</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">1,569.22</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">592,212.33</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">236</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">70.38</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,725.52</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">15,042.30</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">237</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">56.41</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,739.49</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">11,302.81</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">238</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">42.39</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,753.51</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">7,549.30</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">239</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">28.31</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,767.59</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,781.71</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: middle; padding: 8px; ">240</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,795.90</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">14.18</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">3,781.71</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px; ">(0.00)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We calculate the monthly debt payment, with the first five and final five monthly payments of the 20-year mortgage. Putting the borrower’s monthly pre-tax gross income and the monthly mortgage payment into the DTI formula provides the following DTI ratio:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2448-R-s03-E-1-___2">
+<math>
+<semantics>
+<mrow>
+<mi>D</mi>
+<mi>T</mi>
+<mi>I</mi>
+<mo>=</mo>
+<mo> </mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>M</mi>
+<mi>o</mi>
+<mi>n</mi>
+<mi>t</mi>
+<mi>h</mi>
+<mi>l</mi>
+<mi>y</mi>
+<mo> </mo>
+<mi>D</mi>
+<mi>e</mi>
+<mi>b</mi>
+<mi>t</mi>
+<mo> </mo>
+<mi>P</mi>
+<mi>a</mi>
+<mi>y</mi>
+<mi>m</mi>
+<mi>e</mi>
+<mi>n</mi>
+<mi>t</mi>
+</mrow>
+<mrow>
+<mi>M</mi>
+<mi>o</mi>
+<mi>n</mi>
+<mi>t</mi>
+<mi>h</mi>
+<mi>l</mi>
+<mi>y</mi>
+<mo> </mo>
+<mi>p</mi>
+<mi>r</mi>
+<mi>e</mi>
+<mo>−</mo>
+<mi>t</mi>
+<mi>a</mi>
+<mi>x</mi>
+<mo> </mo>
+<mi>g</mi>
+<mi>r</mi>
+<mi>o</mi>
+<mi>s</mi>
+<mi>s</mi>
+<mo> </mo>
+<mi>i</mi>
+<mi>n</mi>
+<mi>c</mi>
+<mi>o</mi>
+<mi>m</mi>
+<mi>e</mi>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2448-R-s03-E-1-___3">
+<math>
+<semantics>
+<mrow>
+<mi>D</mi>
+<mi>T</mi>
+<mi>I</mi>
+<mo>=</mo>
+<mo> </mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+<mo> </mo>
+<mn>3</mn>
+<mo>,</mo>
+<mn>795.90</mn>
+</mrow>
+<mrow>
+<mfenced>
+<mrow>
+<mi>E</mi>
+<mi>U</mi>
+<mi>R</mi>
+<mo> </mo>
+<mn>141</mn>
+<mo>,</mo>
+<mn>000</mn>
+<mo>/</mo>
+<mn>12</mn>
+</mrow>
+</mfenced>
+</mrow>
+</mfrac>
+</mstyle>
+<mo> </mo>
+<mo>=</mo>
+<mo> </mo>
+<mn>32.31</mn>
+<mi>%</mi>
+</mrow>
+</semantics>
+</math>.</div>
+</div>
+<p>In the United States, market participants typically identify two types of mortgages based on the credit quality of the borrower: prime loans and subprime loans. <a aria-describedby="PrimeLoansContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PrimeLoansContent">Prime loans</a> have borrowers of high credit quality with strong employment and credit histories, a low DTI, substantial equity in the underlying property, and a first lien on the mortgaged property serving as the collateral for the loan. <a aria-describedby="SubprimeLoansContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SubprimeLoansContent">Subprime loans</a> have borrowers with lower credit quality, high DTI, and/or are loans with higher LTV, and include loans that are secured by second liens otherwise subordinated to other loans.</p>
+<section id="CFA2448-R-s03-01-01">
+<h3 class="dp-heading">Agency and Non-Agency RMBS</h3>
+<p>The mortgages in MBS can either be residential mortgages or commercial mortgages. The bonds created from the securitization of mortgages backed by residential properties are residential mortgage-backed securities (RMBS).</p>
+<p>In the United States, Canada, Japan, and South Korea, there is a distinction between RMBS that are guaranteed by the government or a quasi-government entity and RMBS that are not. In the United States, securities backed by residential mortgages are divided into three sectors:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA2448-R-s03-L2">
+<li class="cfa-curriculum-list-item">
+<p>Guaranteed by a federal agency;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Guaranteed by government-sponsored enterprises (GSEs); and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Issued by private entities and thus not guaranteed by a federal agency or a GSE.</p>
+</li>
+</ol>
+<p>The first two sectors are referred to as <a aria-describedby="AgencyRMBSContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#AgencyRMBSContent">agency RMBS</a>, and the third sector is referred to as <a aria-describedby="NonAgencyRMBSContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#NonAgencyRMBSContent">non-agency RMBS</a>. Agency RMBS include securities issued by government agencies. These RMBS carry the full faith and credit of the government, essentially a guarantee with respect to timely payment of interest and repayment of principal. Agency RMBS also include RMBS issued by GSEs. RMBS issued by GSEs do not carry the full faith and credit of the government, but rather the GSEs’ guarantee of the timely payment of interest and principal for the securities. The GSE’s charge a fee for this guarantee.</p>
+<p>Due to changing regulatory guidance and increased scrutiny, non-agency-RMBS all but disappeared after the global financial crisis. They were issued by banks, financial institutions, and other private businesses and were not beneficiaries of government guarantees. These private pass-throughs or private label MBS gained credit enhancement through pool insurance, letters of credit, guarantees, or subordination. Non-agency RMBS securitized mortgages were collateralized by non-conforming mortgages, or by subprime, highly risky mortgages. Some residential home improvement loans, such as solar ABS discussed in an earlier lesson, that are subordinated to primary mortgage liens are now securitized in increasing volume.</p>
+</section>
+<section id="CFA2448-R-s03-01-02">
+<h3 class="dp-heading">Mortgage Contingency Features</h3>
+<p>Mortgages contain certain features that give the borrower and the lender certain rights throughout the contract. The most important right a borrower has is the option to prepay a mortgage by making any payment on the principal that exceeds the scheduled principal repayment. The <a aria-describedby="PrepaymentOptionContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PrepaymentOptionContent">prepayment option</a> or an <a aria-describedby="EarlyRepaymentOptionContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#EarlyRepaymentOptionContent">early repayment option</a> may entitle the borrower to prepay all or part of the outstanding mortgage principal prior to maturity. This creates a risk from the lender’s or investor’s viewpoint: the cash flow amounts and timing cannot be known with certainty. This prepayment risk affects all mortgages that allow prepayment, not only the level-payment, fixed-rate, fully amortizing mortgages.</p>
+<p>Lenders reduce this risk by stipulating a monetary penalty for prepayment that compensates the lender for the difference between the contract rate and the prevailing mortgage rate if the borrower prepays when interest rates decline. It is an effective mechanism that provides some certainty for the lender and reduces the incentive to prepay a mortgage. Prepayment penalty mortgages are quite common in Europe, while in the United States few mortgages have prepayment penalties.</p>
+<p>When the borrower fails to make the contractual loan payments as stipulated in the note and loan documents, it may trigger a default on the mortgage loan that would allow the lender to potentially foreclose on the property and sell it. But the proceeds received from the sale of the property may be insufficient to recoup the losses. In a <a aria-describedby="RecourseLoanContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RecourseLoanContent">recourse loan</a>, the lender has a claim against the borrower for the shortfall (deficiency) between the amount of the outstanding mortgage balance and the proceeds received from the sale of the property. In a <a aria-describedby="NonRecourseLoanContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#NonRecourseLoanContent">non-recourse loan</a>, the lender does not have such a claim against the borrower and thus can look only to the property to recover the outstanding mortgage balance. In the United States, recourse is typically determined by the state, and residential mortgages are non-recourse loans in many states. In contrast, residential mortgages in most European countries are recourse loans.</p>
+<p>The recourse/non-recourse feature of a mortgage has implications for projecting the likelihood of defaults by borrowers, particularly for mortgages where the LTV exceeds 100%—sometimes referred to as “underwater mortgages.”</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2448-R-s03-EXM-1-4">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 4<span style="display: block;">Underwater Mortgages during the 2008–09 Global Financial Crisis</span>
+</h4>
+<p>A mortgage is said to be in negative equity, or “underwater,” when a home is valued for less than the amount their owners owe the banks holding their mortgage loans. Being underwater is typically a precursor to foreclosure.</p>
+<p>The most extreme example of widespread underwater mortgages occurred during the Global Financial Crisis of 2008–09 (GFC). At the end of 2009, almost 10.7 million, or 23% of, US residential properties were underwater. An additional 2.3 million mortgages were approaching negative equity, meaning they had less than 5% equity.</p>
+<p>This phenomenon existed primarily because of loose credit underwriting standards and inflated home prices from 2004–06, followed by declining home prices and high leverage on non-recourse mortgage loans provided by banks and other debt capital providers.</p>
+<p>The distribution of negative equity was heavily concentrated in five states: Nevada (65%), followed by Arizona (48%), Florida (45%), Michigan (37%), and California (35%). Among the top five states, the average negative equity share was 40%, compared to 14% for the remaining states.</p>
+<p>The rise in negative equity is closely tied to increases in pre-foreclosure activity. At one end of the spectrum, borrowers with equity tend to have very low default rates. At the other end, investors tend to more commonly default on their mortgages once in negative equity, as their default rate is typically 2% to 3% higher than owner-occupied homes with similar degrees of negative equity. For the highest level of negative equity, investors and owners behave very similarly and default at similar rates. Strategic default on the part of the owner occupier becomes more likely at such high levels of negative equity, especially when the mortgage loan is non-recourse.</p>
+</div>
+<p>If the mortgage is non-recourse, the borrower may have an incentive to strategically default on an underwater mortgage and allow the lender to foreclose on the property, even if the borrower has resources available to continue to make mortgage payments. Although there are negative consequences to a “strategic default,” such as lower credit scores and a reduced ability to borrow in the future, some borrowers may make use of this approach. Where mortgages are recourse loans, a strategic default is less likely because the lender can recover the shortfall from the borrower’s other assets and/or income.</p>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2448-R-s03-B-1-a">
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+            Question Set</h4>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>
+<em>Determine the correct answers to complete the following sentences:</em>
+</p>
+<p>
+<span class="answer">___________</span> are bonds created from the securitization of mortgages. A <span class="answer">____________</span> is secured by the collateral of some specified real estate property that obliges the borrower to make a predetermined series of payments to the lender.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>
+<em>MBS</em> are bonds created from the securitization of mortgages. A <em>mortgage loan</em> is secured by the collateral of some specified real estate property that obliges the borrower to make a predetermined series of payments to the lender.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>A borrower procures a JPY33,165,000 loan for a JPY36,850,000 house in Tokyo. Calculate the LTV for this transaction and explain why the lender uses this measure.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The LTV (loan-to-value ratio) is the ratio of the amount of the mortgage to the property’s value.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2448-R-s03-E-1-___4">
+<math>
+<semantics>
+<mrow>
+<mo> </mo>
+<mi>L</mi>
+<mi>T</mi>
+<mi>V</mi>
+<mo> </mo>
+<mo>=</mo>
+<mo> </mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mtext>Amount of the mortgage</mtext>
+</mrow>
+<mrow>
+<mtext>Property's value</mtext>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2448-R-s03-E-1-___5">
+<math>
+<semantics>
+<mrow>
+<mi>L</mi>
+<mi>T</mi>
+<mi>V</mi>
+<mo> </mo>
+<mo>=</mo>
+<mo> </mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>33</mn>
+<mo>,</mo>
+<mn>165</mn>
+<mo>,</mo>
+<mn>000</mn>
+</mrow>
+<mrow>
+<mn>36</mn>
+<mo>,</mo>
+<mn>850</mn>
+<mo>,</mo>
+<mn>000</mn>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2448-R-s03-E-1-___6">
+<math>
+<semantics>
+<mrow>
+<mi>L</mi>
+<mi>T</mi>
+<mi>V</mi>
+<mo> </mo>
+<mo>=</mo>
+<mo> </mo>
+<mn>90.0</mn>
+<mi>%</mi>
+</mrow>
+</semantics>
+</math>.</div>
+<p>The lender uses the LTV ratio to assess the likelihood that a borrower will default. The lower the LTV, the higher a borrower’s equity. The higher the borrower’s equity, the less likely a default.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Identify the mortgage feature below that corresponds to its description. (Matching)</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2448-R-s03-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">1. Maturity</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">A. The contract or note rate</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">2. Mortgage Interest Rate</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">B. The right of a borrower to pay more than the scheduled principal required</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">3. Amortization</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">C. The rights of a lender when the borrower fails to make required loan payments</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">4. Right to Prepay</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">D. The typical term</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">5. Rights in a Foreclosure</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">E. The set schedule for repayment of the mortgage</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<ol class="cfa-curriculum-list-decimal" id="CFA2448-R-s03-L3">
+<li class="cfa-curriculum-list-item">
+<p>D is correct. Maturity is the typical term or number of years to maturity of a mortgage.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A is correct. The interest rate on a mortgage is called the mortgage rate, contract rate, or note rate, and it varies among countries.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>E is correct. Amortization pertains to the pace at which the balance of a loan is gradually reduced over time according to a set schedule.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>B is correct. A prepayment option (or early repayment option) may entitle the borrower to prepay all or part of a mortgage’s outstanding principal prior to maturity.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>C is correct. When a borrower fails to make the contractual loan payments, the lender’s rights in a foreclosure allow foreclosure and sale of the property.</p>
+</li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2448-R-s03-Q4">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>A real estate investor has obtained a recourse mortgage loan on a shopping center from a bank. The loan has an outstanding balance of USD7,000,000, while the property is valued at only USD5,000,000. In the event of a default on the loan, the bank has a claim on:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>the property.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. In a recourse loan, the lender has a claim against the borrower for the shortfall (deficiency) between the amount of the outstanding mortgage balance and the proceeds received from the sale of the property. A is incorrect because in a non-recourse loan, the lender has a claim against only the property for any shortfall between the amount of the outstanding mortgage balance and the proceeds received from the sale of the property. B is incorrect because mortgage lending entails a first lien and security interest in the property, which is the lender’s collateral.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>the borrower’s personal assets.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. In a recourse loan, the lender has a claim against the borrower for the shortfall (deficiency) between the amount of the outstanding mortgage balance and the proceeds received from the sale of the property. A is incorrect because in a non-recourse loan, the lender has a claim against only the property for any shortfall between the amount of the outstanding mortgage balance and the proceeds received from the sale of the property. B is incorrect because mortgage lending entails a first lien and security interest in the property, which is the lender’s collateral.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>both the property and the borrower’s personal assets.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is C. In a recourse loan, the lender has a claim against the borrower for the shortfall (deficiency) between the amount of the outstanding mortgage balance and the proceeds received from the sale of the property. A is incorrect because in a non-recourse loan, the lender has a claim against only the property for any shortfall between the amount of the outstanding mortgage balance and the proceeds received from the sale of the property. B is incorrect because mortgage lending entails a first lien and security interest in the property, which is the lender’s collateral.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MortgageBackedSecuritiesMBSContent">
+<p>Debt obligations that represent claims to the cash flows from pools of mortgage loans, most commonly on residential property.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MortgageLoanContent">
+<p>Agreement to finance real estate by the collateral of a specified property that
+                     obliges the borrower to make a predetermined series of payments to the
+                     lender.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="FirstLienContent">
+<p>Also known as a priority lien, this investor protection grants a lender the right to take possession of property from a borrower which fails to repay debt.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="DefaultContent">
+<p>When a borrower on a mortgage loan fails to meet the obligations of the
+                     loan.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ForeclosureContent">
+<p>Allows a lender to take possession of the property and ultimately sell the
+                     property to recover funds toward satisfying the outstanding debt
+                     obligation.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="LoanToValueRatioLTVContent">
+<p>Ratio of the amount of the mortgage to the property’s value. The lower the LTV,
+                     the higher the borrower’s equity. From the lender’s perspective, the higher the
+                     borrower’s equity, the less likely the borrower is to default.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="DebtToIncomeRatioDTIContent">
+<p>Residential lending metric that compares an individual’s monthly debt payments
+                     to their monthly pre-tax, gross income.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PrimeLoansContent">
+<p>Lending made to borrowers of high credit quality with strong employment and
+                     credit histories, a low DTI, substantial equity in the underlying property, and
+                     a first lien on the mortgaged property serving as the collateral for the
+                     loan.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SubprimeLoansContent">
+<p>Lending to borrowers with lower credit quality, high DTI, and/or are loans with
+                     higher LTV, and include loans that are secured by second liens otherwise
+                     subordinated to other loans.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="AgencyRMBSContent">
+<p>Securities created by the pooling of residential mortgage-backed securities in
+                     the United States by either the Federal National Mortgage Association (Fannie
+                     Mae) or the Federal Home Loan Mortgage Corporation (Freddie Mac). These RMBS
+                     carry the full faith and credit of the government, essentially a guarantee with
+                     respect to timely payment of interest and repayment of principal.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="NonAgencyRMBSContent">
+<p>MBS backed by residential mortgages that are issued by private entities and not guaranteed by a federal agency or a GSE.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PrepaymentOptionContent">
+<p>May entitle the borrower to prepay all or part of the outstanding mortgage
+                     principal prior to maturity. This creates a risk from the lender’s or
+                     investor’s viewpoint because the cash flow amounts and timing cannot be known
+                     with certainty.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="EarlyRepaymentOptionContent">
+<p>May entitle the borrower to prepay all or part of the outstanding mortgage
+                     principal prior to maturity. This creates a risk from the lender’s or
+                     investor’s viewpoint because the cash flow amounts and timing cannot be known
+                     with certainty.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RecourseLoanContent">
+<p>Loan in which the lender has a claim against the borrower for the shortfall
+                     (deficiency) between the amount of the outstanding mortgage balance and the
+                     proceeds received from the sale of the property.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="NonRecourseLoanContent">
+<p>Loan in which the lender does not have a claim against the borrower and thus
+                     can look only to the property to recover the outstanding mortgage balance.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1869_modules_items_147015_1902_Time_Tranching.html" >← 前へ</a>
+  <span class="title">19.03 | Mortgage Loans and Their Characteristic Features</span>
+  <a href="courses_1869_modules_items_147023_1904_Residential_Mortgage-Backed_Securities_RMBS.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2466-R-s01-R-1" title="4.01 | Introduction">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 4: Real Estate and Infrastructure</span>4.01 | Introduction</h2>
+</header>
+<p>Broadly defined, real estate comprises land and buildings. Real estate investments involve developed land, including commercial and industrial real estate and residential real estate. Real estate has some unique features, including heterogeneity (no two properties are identical), long lives, and fixed geographical or physical location.</p>
+<p>Raw land and less developed land used in agriculture and forestry are categorized as <em>natural resource</em> investments, while <em>infrastructure</em> involves land, buildings, and other fixed assets developed by public entities or public–private partnerships for economic use. Investments in real estate and infrastructure are included in many portfolios because they tend to exhibit low correlations with traditional asset classes and provide risk and return combinations across a broad spectrum. Here, as in other alternative assets, investors need specialized knowledge in selecting, acquiring, managing, and divesting these assets.</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA2466-R-s01-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i>
+         Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2466-R-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>Real estate includes two major sectors: residential and commercial. Residential real estate is the largest sector, totaling 75% of the global market. Commercial real estate includes office buildings, shopping centers, and warehouses.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Real estate investing has some unique features, including heterogeneity (no two properties are identical), fragmentation, price discovery challenges, and costly and time-consuming transactions.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Real estate investments can be direct or indirect, in the public market (e.g., REITs) or private transactions, and in equity.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The return on real estate investments comes from income or asset appreciation or a combination of both. More than half of the returns commercial real estate investors earn are derived from income, and throughout an economic market cycle, real estate income is a more consistent source of return than capital appreciation.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Investing in real estate can generate either lower-risk, bond-like cash flows from leases or higher-risk, equity-like speculative returns from realizing value from development projects or price appreciation.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Real estate offers diversification benefits to portfolios. However, during certain market conditions, equity REIT correlations with market benchmarks increase, particularly during steep market downturns.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Infrastructure consists of assets that are capital intensive and long lived and that are intended to provide essential services for public use.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Infrastructure investments can take many forms, both direct and indirect. They can be broadly categorized as either economic (e.g., transportation, utility, and energy assets) or social (e.g., educational assets). They can also be categorized based on the underlying asset’s stage of development as greenfield, secondary stage, or brownfield. The greenfield investment life cycle common among public–private partnerships is called the build-operate-transfer (BOT) life cycle.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Most infrastructure assets are financed, owned, and operated by governments, and infrastructure is increasingly being financed privately through public–private partnerships by local, regional, and national governments. Investments in construction and development of new infrastructure are made with expectations to generate cash from either income or capital appreciation.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Of the three stages of infrastructure investments, greenfield investments offer the highest expected return and have the highest expected risk, and secondary stage investments offer the lowest expected return and have the lowest expected risk.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Infrastructure investors primarily expect the assets to generate stable long-term cash flows that also adjust for economic growth and inflation and secondarily expect capital appreciation, depending on the type and timing of their investment.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Infrastructure investments provide an income stream, increase portfolio diversification by adding an asset class with typically low correlation with other public investments, provide some protection for changes in GDP growth, and offer some protection against inflation.</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2466-R-s01-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+         Learning Module Self-Assessment</h3>
+<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2466-R-s01-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>The two categories of real property are: </p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>residential and commercial.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. The two categories of real property are residential and commercial.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>privately held and publicly traded.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. The two categories of real property are residential and commercial.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>individual market and institutional market.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. The two categories of real property are residential and commercial.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2466-R-s01-Q2">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>The preferred investment vehicles for public investors to own income-producing real estate are:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>real estate funds.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Real estate investment trusts (REITs) are the preferred investment vehicles for owning income-producing real estate for both private and public investors.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>mortgage-backed securities.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Real estate investment trusts (REITs) are the preferred investment vehicles for owning income-producing real estate for both private and public investors.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>real estate investment trusts.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Real estate investment trusts (REITs) are the preferred investment vehicles for owning income-producing real estate for both private and public investors.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2466-R-s01-Q3">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of the following entails the least risk?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Value-add real estate</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Of these three, investment-grade commercial mortgage-backed securities (CMBS) entail the least risk, and value-add real estate investments entail the most.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Investment-grade commercial mortgage-backed securities</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Of these three, investment-grade commercial mortgage-backed securities (CMBS) entail the least risk, and value-add real estate investments entail the most.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Residential real estate with long-term leases and many lessors</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Of these three, investment-grade commercial mortgage-backed securities (CMBS) entail the least risk, and value-add real estate investments entail the most.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2466-R-s01-Q4">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>Which of the following entails the most risk?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Mezzanine debt</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Of these three, mezzanine debt entails the most risk, and core-plus strategies entail the least.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Core-plus real estate strategies</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Of these three, mezzanine debt entails the most risk, and core-plus strategies entail the least.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Redevelopment of an existing property</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Of these three, mezzanine debt entails the most risk, and core-plus strategies entail the least.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2466-R-s01-Q5">
+<span class="cfa-curriculum-question-with-label">5. </span>
+<p>The first stage of development of an infrastructure asset is typically called:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>bluesky.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. The first stage of development of an infrastructure asset is typically called greenfield. Greenfield investing involves developing new assets and new infrastructure with the intention either to lease or sell the assets to the government after construction or to hold and operate the assets. Greenfield investors typically invest alongside strategic investors or developers that specialize in developing the underlying assets. The subsequent stages of development of infrastructure assets are typically called secondary stage and brownfield.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>greenfield.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. The first stage of development of an infrastructure asset is typically called greenfield. Greenfield investing involves developing new assets and new infrastructure with the intention either to lease or sell the assets to the government after construction or to hold and operate the assets. Greenfield investors typically invest alongside strategic investors or developers that specialize in developing the underlying assets. The subsequent stages of development of infrastructure assets are typically called secondary stage and brownfield.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>early stage.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. The first stage of development of an infrastructure asset is typically called greenfield. Greenfield investing involves developing new assets and new infrastructure with the intention either to lease or sell the assets to the government after construction or to hold and operate the assets. Greenfield investors typically invest alongside strategic investors or developers that specialize in developing the underlying assets. The subsequent stages of development of infrastructure assets are typically called secondary stage and brownfield.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2466-R-s01-Q6">
+<span class="cfa-curriculum-question-with-label">6. </span>
+<p>Direct infrastructure investment involves assets that are:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>illiquid.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Like real estate, direct investment in existing infrastructure involves acquiring unique, illiquid assets with distinct location, features, and uses. Investors concerned about liquidity and diversification may invest indirectly using publicly traded infrastructure securities.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>securitized.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Like real estate, direct investment in existing infrastructure involves acquiring unique, illiquid assets with distinct location, features, and uses. Investors concerned about liquidity and diversification may invest indirectly using publicly traded infrastructure securities.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>exchange traded.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Like real estate, direct investment in existing infrastructure involves acquiring unique, illiquid assets with distinct location, features, and uses. Investors concerned about liquidity and diversification may invest indirectly using publicly traded infrastructure securities.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2466-R-s01-Q7">
+<span class="cfa-curriculum-question-with-label">7. </span>
+<p>Which of the following types of infrastructure investments has the highest expected return?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Greenfield</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Greenfield investments offer the highest expected return of the three. They also entail the highest expected risk. Secondary stage offers the lowest expected return and the lowest expected risk.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Brownfield</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Greenfield investments offer the highest expected return of the three. They also entail the highest expected risk. Secondary stage offers the lowest expected return and the lowest expected risk.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Secondary stage</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Greenfield investments offer the highest expected return of the three. They also entail the highest expected risk. Secondary stage offers the lowest expected return and the lowest expected risk.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2466-R-s01-Q8">
+<span class="cfa-curriculum-question-with-label">8. </span>
+<p>Which of the following tends to make the largest allocations to the infrastructure asset class?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Pension funds</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Sovereign wealth funds tend to make the largest allocations to the infrastructure asset class—around 5%–6% of total AUM, according to Preqin.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Sovereign wealth funds</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Sovereign wealth funds tend to make the largest allocations to the infrastructure asset class—around 5%–6% of total AUM, according to Preqin.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Life insurance companies</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Sovereign wealth funds tend to make the largest allocations to the infrastructure asset class—around 5%–6% of total AUM, according to Preqin.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1871_modules_items_144649_Learning_Outcomes_Real_Estate_and_Infrastructure.html" >← 前へ</a>
+  <span class="title">4.01 | Introduction</span>
+  <a href="courses_1871_modules_items_144658_402_Real_Estate_Features.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

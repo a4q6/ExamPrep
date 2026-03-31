@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1943-R-s01-R-1" title="7.01 | Introduction">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 7: Introduction to Digital Assets</span>7.01 | Introduction</h2>
+</header>
+<p>As introduced in Alternatives Learning Module 1, digital assets are a relatively new investment class that covers assets that can be created, stored, and transmitted electronically and have associated ownership or use rights. This class includes a wide variety of digital assets, including cryptocurrencies, tokens, and digital collectables. Based on the innovative distributed ledger technology (DLT), or blockchain technology, digital assets utilize advanced encryption techniques that assure the authenticity of digital assets. While cryptocurrencies have their own blockchains, crypto-tokens are built on an existing blockchain.</p>
+<p>As with other types of alternative investments, digital assets have characteristics distinct from traditional investments. Since the advent of Bitcoin in 2009, when it was a niche concept in the technology world, digital assets have gradually become more mainstream alternative investments for investors worldwide. We will give an overview of the common forms of digital asset investments and discuss the key concepts and pitfalls in this space.</p>
+<p>Despite their special features and technological characteristics, digital assets offer investors diversification while providing higher expected returns than traditional investments provide. However, their risks are also higher. We will discuss the sources of risks in digital assets to provide a better understanding of this evolving asset class.</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA1943-R-s01-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1943-R-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>Blockchain and distributed ledger technology might offer a new way to store, record, and track digital assets on a secure, distributed basis. Additionally, DLT could bring efficiencies to post-trade and compliance processes through automation, smart contracts, and identity verification.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>DLT can take the form of either permissionless or permissioned networks.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A consensus protocol is a set of rules that govern how blocks are cryptographically chained together in a blockchain network for the verification of the complete and immutable history of transaction records. Two broad types of consensus protocols are “proof of work” (PoW) and “proof of stake” (PoS).</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Digital assets are frequently seen as an alternative asset class. As digital assets become more developed, institutional investors may continue to seek some exposure to these assets for their higher returns and possible diversification benefits.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Digital assets differ from traditional financial assets in terms of their inherent value, transaction validation approach, uses as a legal medium of exchange, and legal and regulatory protection.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The most common digital assets are cryptocurrencies, including Bitcoin and altcoins (including stablecoins and meme coins). There are also digitalized tokens that include non-fungible tokens, security tokens, utility tokens, and governance tokens.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Many cryptocurrencies are designed with self-imposed limits on the total supply through complex computer algorithms. Such limits could help maintain a value from a technical perspective, yet there is no economic consensus on how they should be valued. Cryptocurrency exchanges are classified into centralized exchanges and decentralized exchanges. Both centralized and decentralized exchanges face problems with fraud and manipulation because they are not subject to rigorous oversight and are generally not regulated as financial exchanges.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Investment in digital assets can take the form of direct ownership of cryptocurrencies and other digital assets on the blockchains or indirect investment in exchange-traded products, hedge funds, trusts, futures, and thematic stocks.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Asset-backed tokens are digital claims on physical assets, financial assets, or financial instruments and are collateralized by these underlying assets.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The push for financial decentralized applications based on open-source codes and smart contracts has grown into a movement known as decentralized finance, or DeFi. DeFi seeks to design, combine, and develop decentralized financial applications as building blocks for sophisticated financial products and services.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The price of Bitcoin and other digital assets are driven by expectations on future asset appreciation rather than any underlying cash flow. The market demand for the limited supply of cryptocurrencies is a significant driver of prices.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The performance of the first widely traded digital asset, Bitcoin, has been characterized by high return, high volatility, and low correlations with traditional asset classes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Due to the historically low correlations with other asset classes, digital assets offer potential diversification benefits to a well-diversified portfolio. But the correlations are observed to have risen, especially during periods of high market uncertainty.</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA1943-R-s01-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
+<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1943-R-s01-Q1"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>The consensus protocol on a distributed ledger technology network refers to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>the standardized approach that governs how digital assets generated from a blockchain network should be valued.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. When transactions enter a node of the distributed ledger, they are bundled into “blocks” and cryptographically “chained” together to facilitate verification of the prior history. How blocks are chained together is determined by the consensus protocol, a set of rules governing how blocks can join the chain and become the immutable “truth.” The consensus protocols are designed to resist attempts at malicious manipulation up to a certain level of security.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>programs embedded in electronic transaction records that are coded to self-execute according to predetermined conditions.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. When transactions enter a node of the distributed ledger, they are bundled into “blocks” and cryptographically “chained” together to facilitate verification of the prior history. How blocks are chained together is determined by the consensus protocol, a set of rules governing how blocks can join the chain and become the immutable “truth.” The consensus protocols are designed to resist attempts at malicious manipulation up to a certain level of security.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>the set of rules governing how blocks are cryptographically linked to the chain to become immutable on the distributed ledger network.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. When transactions enter a node of the distributed ledger, they are bundled into “blocks” and cryptographically “chained” together to facilitate verification of the prior history. How blocks are chained together is determined by the consensus protocol, a set of rules governing how blocks can join the chain and become the immutable “truth.” The consensus protocols are designed to resist attempts at malicious manipulation up to a certain level of security.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1943-R-s01-Q2"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Cryptocurrencies are a common form of digital asset that:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>can be mined only through “proof of work” on blockchain networks.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Cryptocurrencies are used to transfer or store value, which allows near-real-time transactions between parties without the need for an intermediary. As electronic mediums of exchange, cryptocurrencies lack physical form and exist only as electronic records on distributed ledgers. Depending on the particular consensus protocols used, cryptocurrencies can be generated either by “proof of work” or “proof of stake” by miners or validators on networks.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>exist both in physical forms and electronic records with rights to use, buy, or sell by owners.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Cryptocurrencies are used to transfer or store value, which allows near-real-time transactions between parties without the need for an intermediary. As electronic mediums of exchange, cryptocurrencies lack physical form and exist only as electronic records on distributed ledgers. Depending on the particular consensus protocols used, cryptocurrencies can be generated either by “proof of work” or “proof of stake” by miners or validators on networks.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>can be used to transfer or store value, which allows time-efficient transactions between parties without the need for an intermediary.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is C. Cryptocurrencies are used to transfer or store value, which allows near-real-time transactions between parties without the need for an intermediary. As electronic mediums of exchange, cryptocurrencies lack physical form and exist only as electronic records on distributed ledgers. Depending on the particular consensus protocols used, cryptocurrencies can be generated either by “proof of work” or “proof of stake” by miners or validators on networks.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1943-R-s01-Q3"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Digital assets differ from traditional financial securities in that:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>digital assets are subject to a broader legal protection framework.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Most digital assets do not have a fundamental value based on underlying assets or on the potential cash flow or earnings they are expected to generate. To date, the legal and regulatory frameworks for digital assets are still evolving, and there is generally less legal protection compared to traditional financial securities. Digital asset transactions are recorded on a distributed ledger, and no centralized intermediary is required in the process.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>digital assets are not valued based on their expected future cash flow.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Most digital assets do not have a fundamental value based on underlying assets or on the potential cash flow or earnings they are expected to generate. To date, the legal and regulatory frameworks for digital assets are still evolving, and there is generally less legal protection compared to traditional financial securities. Digital asset transactions are recorded on a distributed ledger, and no centralized intermediary is required in the process.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>transaction records of digital assets require a centralized intermediary.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Most digital assets do not have a fundamental value based on underlying assets or on the potential cash flow or earnings they are expected to generate. To date, the legal and regulatory frameworks for digital assets are still evolving, and there is generally less legal protection compared to traditional financial securities. Digital asset transactions are recorded on a distributed ledger, and no centralized intermediary is required in the process.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1943-R-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>A special type of cryptocurrency that is backed by and pegged to a fiat currency is called:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>altcoin.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. A stablecoin is designed to maintain a stable value by pegging its value to another asset and is collateralized by a basket of assets, typically a fiat currency, precious metals, or other cryptocurrencies.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>stablecoin.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. A stablecoin is designed to maintain a stable value by pegging its value to another asset and is collateralized by a basket of assets, typically a fiat currency, precious metals, or other cryptocurrencies.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>meme coin.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. A stablecoin is designed to maintain a stable value by pegging its value to another asset and is collateralized by a basket of assets, typically a fiat currency, precious metals, or other cryptocurrencies.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1943-R-s01-Q5"><span class="cfa-curriculum-question-with-label">5. </span>
+<p>An indirect investment in digital assets can be made through:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>entering into cryptocurrency futures.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Investors interested in an indirect investment in digital assets can trade cryptocurrency futures on established exchanges, such as the Chicago Mercantile Exchange. However, the purchase of Bitcoins and buying new tokens through an initial coin offering are direct forms of investment.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>purchasing Bitcoins on cryptocurrency wallets.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Investors interested in an indirect investment in digital assets can trade cryptocurrency futures on established exchanges, such as the Chicago Mercantile Exchange. However, the purchase of Bitcoins and buying new tokens through an initial coin offering are direct forms of investment.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>participating in the initial coin offering of a new digital token.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. Investors interested in an indirect investment in digital assets can trade cryptocurrency futures on established exchanges, such as the Chicago Mercantile Exchange. However, the purchase of Bitcoins and buying new tokens through an initial coin offering are direct forms of investment.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1943-R-s01-Q6"><span class="cfa-curriculum-question-with-label">6. </span>
+<p>A cryptocurrency ETF seeks to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>gain exposure to cryptocurrencies through cash and cryptocurrency derivatives.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. A cryptocurrency ETF seeks to replicate digital asset investment returns by cash and cryptocurrency derivatives.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>replicate digital asset investment returns by investing directly in cryptocurrencies.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. A cryptocurrency ETF seeks to replicate digital asset investment returns by cash and cryptocurrency derivatives.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>gain exposure to the cryptocurrency theme by investing in public equities related to the digital asset sector.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is A. A cryptocurrency ETF seeks to replicate digital asset investment returns by cash and cryptocurrency derivatives.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1943-R-s01-Q7"><span class="cfa-curriculum-question-with-label">7. </span>
+<p>Bitcoin as an alternative investment has historically exhibited:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>low return, low risk, and high correlations with traditional assets.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Despite no future cash flow generation, Bitcoin as an alternative investment has been characterized by high return, high volatility, and low correlations with traditional asset classes.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>high return, high risk, and low correlations with traditional assets.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Despite no future cash flow generation, Bitcoin as an alternative investment has been characterized by high return, high volatility, and low correlations with traditional asset classes.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>high return, high risk, and high correlations with traditional assets.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Despite no future cash flow generation, Bitcoin as an alternative investment has been characterized by high return, high volatility, and low correlations with traditional asset classes.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1943-R-s01-Q8"><span class="cfa-curriculum-question-with-label">8. </span>
+<p>Early investors in cryptocurrencies have enjoyed significant price appreciation but many later-stage investors suffered huge losses most likely because:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>blockchain technology favors early-stage investors.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Because cryptocurrencies are a relatively new innovation, their market is subject to rapid price swings, changes, and uncertainty. Their prices have been extremely volatile over the years, and price drawdowns were often much more substantial than for traditional asset classes. As a result, later-stage investors may suffer huge losses depending on their points of entry and exit.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>there are substantial price fluctuations in cryptocurrencies.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Because cryptocurrencies are a relatively new innovation, their market is subject to rapid price swings, changes, and uncertainty. Their prices have been extremely volatile over the years, and price drawdowns were often much more substantial than for traditional asset classes. As a result, later-stage investors may suffer huge losses depending on their points of entry and exit.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>cryptocurrencies have increased their appeal to institutional investors.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>The correct answer is B. Because cryptocurrencies are a relatively new innovation, their market is subject to rapid price swings, changes, and uncertainty. Their prices have been extremely volatile over the years, and price drawdowns were often much more substantial than for traditional asset classes. As a result, later-stage investors may suffer huge losses depending on their points of entry and exit.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1871_modules_items_144849_Learning_Outcomes_Introduction_to_Digital_Assets.html" >← 前へ</a>
+  <span class="title">7.01 | Introduction</span>
+  <a href="courses_1871_modules_items_144859_702_Distributed_Ledger_Technology.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

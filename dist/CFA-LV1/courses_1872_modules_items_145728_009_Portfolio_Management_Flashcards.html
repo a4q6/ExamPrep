@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.09 | Portfolio Management Flashcards</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="VolumeCFAPortfolio_Management-flashcards" title="0.09 | Portfolio Management Flashcards"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 0: Getting Started</span>0.09 | Portfolio Management Flashcards</h2>
+</header>
+<h3 class="dp-has-icon"><i aria-hidden="true" class="dp-icon fas fa-book-reader"><span class="dp-icon-content" style="display: none;"> </span></i></h3>
+<p class="cfa-curriculum-flashcard-inst">Click on the card below to show the definition for that term. Click next or previous to scroll through the cards.</p>
+<div class="flashcard-container">
+<div class="flashcard" id="flashcard1">
+<div class="front">
+<p><strong>Anchoring and adjustment bias</strong></p>
+</div>
+<div class="back">
+<p>An information-processing bias in which the use of a psychological heuristic influences the way people estimate probabilities.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard2" style="display: none;">
+<div class="front">
+<p><strong>Anomalies</strong></p>
+</div>
+<div class="back">
+<p>Apparent deviations from market efficiency.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard3" style="display: none;">
+<div class="front">
+<p><strong>Asset allocation</strong></p>
+</div>
+<div class="back">
+<p>The process of determining how investment funds should be distributed among asset classes.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard4" style="display: none;">
+<div class="front">
+<p><strong>Asset class</strong></p>
+</div>
+<div class="back">
+<p>A group of assets that have similar characteristics, attributes, and risk–return relationships.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard5" style="display: none;">
+<div class="front">
+<p><strong>Availability bias</strong></p>
+</div>
+<div class="back">
+<p>An information-processing bias in which people take a heuristic approach to estimating the probability of an outcome based on how easily the outcome comes to mind.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard6" style="display: none;">
+<div class="front">
+<p><strong>Base-rate neglect</strong></p>
+</div>
+<div class="back">
+<p>A type of representativeness bias in which the base rate or probability of the categorization is not adequately considered.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard7" style="display: none;">
+<div class="front">
+<p><strong>Best-in-class</strong></p>
+</div>
+<div class="back">
+<p>An ESG implementation approach that seeks to identify the most favorable companies and sectors based on ESG considerations. Also called <em>positive screening</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard8" style="display: none;">
+<div class="front">
+<p><strong>Beta</strong></p>
+</div>
+<div class="back">
+<p>A measure of the sensitivity of a given investment or portfolio to movements in the overall market.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard9" style="display: none;">
+<div class="front">
+<p><strong>Bottom-up analysis</strong></p>
+</div>
+<div class="back">
+<p>An investment selection approach that focuses on company-specific circumstances rather than emphasizing economic cycles or industry analysis.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard10" style="display: none;">
+<div class="front">
+<p><strong>Buy-side firm</strong></p>
+</div>
+<div class="back">
+<p>An investment management company or other investor that uses the services of brokers or dealers (i.e., the client of the sell side firms).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard11" style="display: none;">
+<div class="front">
+<p><strong>Capital allocation line (CAL)</strong></p>
+</div>
+<div class="back">
+<p>A graph line that describes the combinations of expected return and standard deviation of return available to an investor from combining the optimal portfolio of risky assets with the risk-free asset.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard12" style="display: none;">
+<div class="front">
+<p><strong>Capital asset pricing model (CAPM)</strong></p>
+</div>
+<div class="back">
+<p>An equation describing the expected return on any asset (or portfolio) as a linear function of its beta relative to the market portfolio.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard13" style="display: none;">
+<div class="front">
+<p><strong>Capital market expectations (CME)</strong></p>
+</div>
+<div class="back">
+<p>Expectations concerning the risk and return prospects of asset classes.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard14" style="display: none;">
+<div class="front">
+<p><strong>Capital market line (CML)</strong></p>
+</div>
+<div class="back">
+<p>The line with an intercept point equal to the risk-free rate that is tangent to the efficient frontier of risky assets; represents the efficient frontier when a risk-free asset is available for investment.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard15" style="display: none;">
+<div class="front">
+<p><strong>Closed-end fund</strong></p>
+</div>
+<div class="back">
+<p>A mutual fund in which no new investment money is accepted. New investors invest by buying existing shares, and investors in the fund liquidate by selling their shares to other investors.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard16" style="display: none;">
+<div class="front">
+<p><strong>Cognitive cost</strong></p>
+</div>
+<div class="back">
+<p>The effort involved in processing new information and updating beliefs.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard17" style="display: none;">
+<div class="front">
+<p><strong>Cognitive dissonance</strong></p>
+</div>
+<div class="back">
+<p>The mental discomfort that occurs when new information conflicts with previously held beliefs or cognitions.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard18" style="display: none;">
+<div class="front">
+<p><strong>Cognitive errors</strong></p>
+</div>
+<div class="back">
+<p>Behavioral biases resulting from faulty reasoning; cognitive errors stem from basic statistical, information-processing, or memory errors.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard19" style="display: none;">
+<div class="front">
+<p><strong>Confirmation bias</strong></p>
+</div>
+<div class="back">
+<p>A type of cognitive bias that makes individuals view information that confirms beliefs they already hold as more salient.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard20" style="display: none;">
+<div class="front">
+<p><strong>Conservatism bias</strong></p>
+</div>
+<div class="back">
+<p>A belief perseverance bias in which people maintain their prior views or forecasts by inadequately incorporating new information.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard21" style="display: none;">
+<div class="front">
+<p><strong>Correlation</strong></p>
+</div>
+<div class="back">
+<p>A measure of the linear relationship between two random variables.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard22" style="display: none;">
+<div class="front">
+<p><strong>Correlation coefficient</strong></p>
+</div>
+<div class="back">
+<p>A number between −1 and +1 that measures the consistency or tendency for two investments to act in a similar way. It is used to determine the effect on portfolio risk when two assets are combined.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard23" style="display: none;">
+<div class="front">
+<p><strong>Covariance</strong></p>
+</div>
+<div class="back">
+<p>A measure of the co-movement (linear association) between two random variables.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard24" style="display: none;">
+<div class="front">
+<p><strong>Credit default swap (CDS)</strong></p>
+</div>
+<div class="back">
+<p>A type of credit derivative in which one party, the credit protection buyer who is seeking credit protection against a third party, makes a series of regularly scheduled payments to the other party, the credit protection seller. The seller makes no payments until a credit event occurs.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard25" style="display: none;">
+<div class="front">
+<p><strong>Credit risk</strong></p>
+</div>
+<div class="back">
+<p>The expected economic loss under a potential borrower default over the life of the contract.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard26" style="display: none;">
+<div class="front">
+<p><strong>CVaR</strong></p>
+</div>
+<div class="back">
+<p>Conditional VaR, a tail loss measure. The weighted average of all loss outcomes in the statistical distribution that exceed the VaR loss.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard27" style="display: none;">
+<div class="front">
+<p><strong>Defined benefit pension plans (DB plans)</strong></p>
+</div>
+<div class="back">
+<p>Plans in which the company promises to pay a certain annual amount (defined benefit) to the employee after retirement. The company bears the investment risk of the plan assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard28" style="display: none;">
+<div class="front">
+<p><strong>Defined contribution pension plans</strong></p>
+</div>
+<div class="back">
+<p>Individual accounts to which an employee and typically the employer makes contributions during their working years and expect to draw on the accumulated funds at retirement. The employee bears the investment and inflation risk of the plan assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard29" style="display: none;">
+<div class="front">
+<p><strong>Delta</strong></p>
+</div>
+<div class="back">
+<p>The sensitivity of the derivative price to a small change in the value of the underlying asset.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard30" style="display: none;">
+<div class="front">
+<p><strong>Disposition effect</strong></p>
+</div>
+<div class="back">
+<p>A type of cognitive bias that makes individuals unwilling to sell their possessions at a loss.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard31" style="display: none;">
+<div class="front">
+<p><strong>Diversification ratio</strong></p>
+</div>
+<div class="back">
+<p>The ratio of the standard deviation of an equally weighted portfolio to the standard deviation of a randomly selected security.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard32" style="display: none;">
+<div class="front">
+<p><strong>Duration</strong></p>
+</div>
+<div class="back">
+<p>The first-order, linear change in a bond’s price for a given yield change in yield, which is a negative or inverse relationship.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard33" style="display: none;">
+<div class="front">
+<p><strong>Efficient market</strong></p>
+</div>
+<div class="back">
+<p>A market in which asset prices reflect new information quickly and rationally. See also, <em>informationally efficient market</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard34" style="display: none;">
+<div class="front">
+<p><strong>Emotional biases</strong></p>
+</div>
+<div class="back">
+<p>Behavioral biases resulting from reasoning influenced by feelings; emotional biases stem from impulse or intuition.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard35" style="display: none;">
+<div class="front">
+<p><strong>Endowment bias</strong></p>
+</div>
+<div class="back">
+<p>An emotional bias in which people value an asset more when they hold rights to it than when they do not.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard36" style="display: none;">
+<div class="front">
+<p><strong>Enterprise risk management</strong></p>
+</div>
+<div class="back">
+<p>An overall assessment of a company’s risk position. A centralized approach to risk management sometimes called firmwide risk management.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard37" style="display: none;">
+<div class="front">
+<p><strong>Extreme value theory</strong></p>
+</div>
+<div class="back">
+<p>A branch of statistics that focuses primarily on extreme outcomes.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard38" style="display: none;">
+<div class="front">
+<p><strong>Financial risk</strong></p>
+</div>
+<div class="back">
+<p>The risk arising from a company’s capital structure and, specifically, from the level of debt and debt-like obligations.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard39" style="display: none;">
+<div class="front">
+<p><strong>Framing bias</strong></p>
+</div>
+<div class="back">
+<p>An information-processing bias in which a person answers a question differently based on the way in which it is asked (framed).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard40" style="display: none;">
+<div class="front">
+<p><strong>Fungible</strong></p>
+</div>
+<div class="back">
+<p>Freely exchangeable, interchangeable, or substitutable with other things of the same type. Money and commodities are the most common examples.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard41" style="display: none;">
+<div class="front">
+<p><strong>Gamma</strong></p>
+</div>
+<div class="back">
+<p>A numerical measure of how sensitive an option’s delta (the sensitivity of the derivative’s price) is to a change in the value of the underlying.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard42" style="display: none;">
+<div class="front">
+<p><strong>Global minimum-variance portfolio</strong></p>
+</div>
+<div class="back">
+<p>The portfolio on the minimum-variance frontier with the smallest variance of return.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard43" style="display: none;">
+<div class="front">
+<p><strong>Halo effect</strong></p>
+</div>
+<div class="back">
+<p>An emotional bias that extends a favorable evaluation of some characteristics to other characteristics.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard44" style="display: none;">
+<div class="front">
+<p><strong>Hedge funds</strong></p>
+</div>
+<div class="back">
+<p>Private investment vehicles that may invest in public equities or publicly traded fixed-income assets, private capital, and/or real assets, but they are distinguished by their investment <em>approach</em> rather than by the investments themselves.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard45" style="display: none;">
+<div class="front">
+<p><strong>Hindsight bias</strong></p>
+</div>
+<div class="back">
+<p>A type of cognitive bias that makes individuals misremember the past in ways that make them appear to have made better and more well-informed choices.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard46" style="display: none;">
+<div class="front">
+<p><strong>Home bias</strong></p>
+</div>
+<div class="back">
+<p>A preference for securities listed on the exchanges of one’s home country.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard47" style="display: none;">
+<div class="front">
+<p><strong>Homogeneity of expectations</strong></p>
+</div>
+<div class="back">
+<p>The assumption that all investors have the same economic expectations and thus have the same expectations of prices, cash flows, and other investment characteristics.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard48" style="display: none;">
+<div class="front">
+<p><strong>Human capital</strong></p>
+</div>
+<div class="back">
+<p>The present value of an individual’s future expected labor income.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard49" style="display: none;">
+<div class="front">
+<p><strong>Illusion of control bias</strong></p>
+</div>
+<div class="back">
+<p>A bias in which people tend to believe that they can control or influence outcomes when, in fact, they cannot.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard50" style="display: none;">
+<div class="front">
+<p><strong>Indifference curve</strong></p>
+</div>
+<div class="back">
+<p>A curve representing all the combinations of two goods or attributes such that the consumer is entirely indifferent among them.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard51" style="display: none;">
+<div class="front">
+<p><strong>Informationally efficient market</strong></p>
+</div>
+<div class="back">
+<p>A market in which asset prices reflect new information quickly and rationally.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard52" style="display: none;">
+<div class="front">
+<p><strong>Investment policy statement</strong></p>
+</div>
+<div class="back">
+<p>(IPS) A written planning document that describes a client’s investment objectives and risk tolerance over a relevant time horizon, along with constraints that apply to the client’s portfolio.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard53" style="display: none;">
+<div class="front">
+<p><strong>Kurtosis</strong></p>
+</div>
+<div class="back">
+<p>The statistical measure that indicates the combined weight of the tails of a distribution relative to the rest of the distribution.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard54" style="display: none;">
+<div class="front">
+<p><strong>Liability-driven investing</strong></p>
+</div>
+<div class="back">
+<p>An investment industry term that generally encompasses asset allocation that is focused on funding an investor’s liabilities in institutional contexts.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard55" style="display: none;">
+<div class="front">
+<p><strong>Liquidity</strong></p>
+</div>
+<div class="back">
+<p>The extent to which a company is able to meet its short-term obligations using cash flows and those assets that can be readily transformed into cash.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard56" style="display: none;">
+<div class="front">
+<p><strong>Liquidity risk</strong></p>
+</div>
+<div class="back">
+<p>The risk that an investment may not be readily sold at its true value.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard57" style="display: none;">
+<div class="front">
+<p><strong>Load fund</strong></p>
+</div>
+<div class="back">
+<p>A mutual fund in which, in addition to the annual fee, a percentage fee is charged to invest in the fund and/or for redemptions from the fund.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard58" style="display: none;">
+<div class="front">
+<p><strong>Loss-aversion bias</strong></p>
+</div>
+<div class="back">
+<p>A bias in which people tend to strongly prefer avoiding losses as opposed to achieving gains.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard59" style="display: none;">
+<div class="front">
+<p><strong>M<sup>2</sup></strong></p>
+</div>
+<div class="back">
+<p>A measure of what a portfolio would have returned if it had taken on the same total risk as the market index.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard60" style="display: none;">
+<div class="front">
+<p><strong>M<sup>2</sup> alpha</strong></p>
+</div>
+<div class="back">
+<p>Difference between the risk-adjusted performance of the portfolio and the performance of the benchmark.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard61" style="display: none;">
+<div class="front">
+<p><strong>Market model</strong></p>
+</div>
+<div class="back">
+<p>A regression model with the return on a stock as the dependent variable and the returns on a market index as the independent variable.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard62" style="display: none;">
+<div class="front">
+<p><strong>Market risk</strong></p>
+</div>
+<div class="back">
+<p>Risk related to market movements, e.g., unexpected changes in share prices, interest rates, currency exchange rates, and commodity prices.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard63" style="display: none;">
+<div class="front">
+<p><strong>Markowitz efficient frontier</strong></p>
+</div>
+<div class="back">
+<p>The graph of the set of portfolios offering the maximum expected return for their level of risk (standard deviation of return).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard64" style="display: none;">
+<div class="front">
+<p><strong>Mental accounting bias</strong></p>
+</div>
+<div class="back">
+<p>An information-processing bias in which people treat one sum of money differently from another equal-sized sum based on which mental account the money is assigned to.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard65" style="display: none;">
+<div class="front">
+<p><strong>Minimum-variance portfolio</strong></p>
+</div>
+<div class="back">
+<p>The portfolio with the minimum variance for each given level of expected return.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard66" style="display: none;">
+<div class="front">
+<p><strong>Modern portfolio theory (MPT)</strong></p>
+</div>
+<div class="back">
+<p>The analysis of rational portfolio choices based on the efficient use of risk.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard67" style="display: none;">
+<div class="front">
+<p><strong>Multi-factor model</strong></p>
+</div>
+<div class="back">
+<p>A model that explains a variable in terms of the values of a set of factors.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard68" style="display: none;">
+<div class="front">
+<p><strong>Mutual fund</strong></p>
+</div>
+<div class="back">
+<p>A comingled investment pool in which investors in the fund each have a pro-rata claim on the income and value of the fund.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard69" style="display: none;">
+<div class="front">
+<p><strong>No-load fund</strong></p>
+</div>
+<div class="back">
+<p>A mutual fund in which there is no fee for investing in the fund or for redeeming fund shares, although there is an annual fee based on a percentage of the fund’s net asset value.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard70" style="display: none;">
+<div class="front">
+<p><strong>Non-financial risks</strong></p>
+</div>
+<div class="back">
+<p>Risks that arise from sources other than changes in the external financial markets, such as changes in accounting rules, legal environment, or tax rates.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard71" style="display: none;">
+<div class="front">
+<p><strong>Nonsystematic risk</strong></p>
+</div>
+<div class="back">
+<p>Unique risk that is local or limited to a particular asset or industry that need not affect assets outside of that asset class.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard72" style="display: none;">
+<div class="front">
+<p><strong>Normal distribution</strong></p>
+</div>
+<div class="back">
+<p>A continuous, symmetric probability distribution that is completely described by its mean and its variance.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard73" style="display: none;">
+<div class="front">
+<p><strong>Open-end fund</strong></p>
+</div>
+<div class="back">
+<p>A mutual fund that accepts new investment money and issues additional shares at a value equal to the net asset value of the fund at the time of investment.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard74" style="display: none;">
+<div class="front">
+<p><strong>Operational risk</strong></p>
+</div>
+<div class="back">
+<p>The risk that arises from inadequate or failed people, systems, and internal policies, procedures, and processes, as well as from external events that are beyond the control of the organization but that affect its operations.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard75" style="display: none;">
+<div class="front">
+<p><strong>Overconfidence bias</strong></p>
+</div>
+<div class="back">
+<p>A bias in which people demonstrate unwarranted faith in their own intuitive reasoning, judgments, and/or cognitive abilities.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard76" style="display: none;">
+<div class="front">
+<p><strong>Performance evaluation</strong></p>
+</div>
+<div class="back">
+<p>The measurement and assessment of the outcomes of investment management decisions.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard77" style="display: none;">
+<div class="front">
+<p><strong>Portfolio planning</strong></p>
+</div>
+<div class="back">
+<p>The process of creating a plan for building a portfolio that is expected to satisfy a client’s investment objectives.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard78" style="display: none;">
+<div class="front">
+<p><strong>Private equity fund</strong></p>
+</div>
+<div class="back">
+<p>A hedge fund that seeks to buy, optimize, and ultimately sell portfolio companies to generate profits. See <em>venture capital fund</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard79" style="display: none;">
+<div class="front">
+<p><strong>Rebalancing policy</strong></p>
+</div>
+<div class="back">
+<p>The set of rules that guide the process of restoring a portfolio’s asset class weights to those specified in the strategic asset allocation.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard80" style="display: none;">
+<div class="front">
+<p><strong>Regret</strong></p>
+</div>
+<div class="back">
+<p>The feeling that an opportunity has been missed; typically, an expression of <em>hindsight bias</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard81" style="display: none;">
+<div class="front">
+<p><strong>Regret-aversion bias</strong></p>
+</div>
+<div class="back">
+<p>An emotional bias in which people tend to avoid making decisions that will result in action out of fear that the decision will turn out poorly.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard82" style="display: none;">
+<div class="front">
+<p><strong>Representativeness bias</strong></p>
+</div>
+<div class="back">
+<p>A belief perseverance bias in which people tend to classify new information based on past experiences and classifications.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard83" style="display: none;">
+<div class="front">
+<p><strong>Return-generating model</strong></p>
+</div>
+<div class="back">
+<p>A model that can provide an estimate of the expected return of a security given certain parameters and estimates of the values of the independent variables in the model.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard84" style="display: none;">
+<div class="front">
+<p><strong>Rho</strong></p>
+</div>
+<div class="back">
+<p>The change in a given derivative instrument for a given small change in the risk-free interest rate, holding everything else constant. Rho measures the sensitivity of the option to the risk-free interest rate.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard85" style="display: none;">
+<div class="front">
+<p><strong>Risk</strong></p>
+</div>
+<div class="back">
+<p>Exposure to uncertainty. The chance of a loss or adverse outcome as a result of an action, inaction, or external event.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard86" style="display: none;">
+<div class="front">
+<p><strong>Risk averse</strong></p>
+</div>
+<div class="back">
+<p>The assumption that an investor will choose the least risky alternative.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard87" style="display: none;">
+<div class="front">
+<p><strong>Risk aversion</strong></p>
+</div>
+<div class="back">
+<p>The dislike for risk such that compensation is required in terms of higher expected returns for assuming higher risk.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard88" style="display: none;">
+<div class="front">
+<p><strong>Risk budgeting</strong></p>
+</div>
+<div class="back">
+<p>The establishment of objectives for individuals, groups, or divisions of an organization that takes into account the allocation of an acceptable level of risk.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard89" style="display: none;">
+<div class="front">
+<p><strong>Risk exposure</strong></p>
+</div>
+<div class="back">
+<p>The state of being exposed or vulnerable to a risk. The extent to which an organization is sensitive to underlying risks.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard90" style="display: none;">
+<div class="front">
+<p><strong>Risk governance</strong></p>
+</div>
+<div class="back">
+<p>The top-down process and guidance that directs risk management activities to align with and support the overall enterprise.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard91" style="display: none;">
+<div class="front">
+<p><strong>Risk management</strong></p>
+</div>
+<div class="back">
+<p>The process of identifying the level of risk an organization wants, measuring the level of risk the organization currently has, taking actions that bring the actual level of risk to the desired level of risk, and monitoring the new actual level of risk so that it continues to be aligned with the desired level of risk.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard92" style="display: none;">
+<div class="front">
+<p><strong>Risk management framework</strong></p>
+</div>
+<div class="back">
+<p>The infrastructure, process, and analytics needed to support effective risk management in an organization.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard93" style="display: none;">
+<div class="front">
+<p><strong>Risk premium</strong></p>
+</div>
+<div class="back">
+<p>An extra return expected by investors for bearing some specified risk.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard94" style="display: none;">
+<div class="front">
+<p><strong>Risk shifting</strong></p>
+</div>
+<div class="back">
+<p>Actions to change the distribution of risk outcomes.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard95" style="display: none;">
+<div class="front">
+<p><strong>Risk tolerance</strong></p>
+</div>
+<div class="back">
+<p>The level of risk an investor is willing and able to bear.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard96" style="display: none;">
+<div class="front">
+<p><strong>Risk transfer</strong></p>
+</div>
+<div class="back">
+<p>Strategies implemented to mitigate the impact of specific risks by transferring them to an insurance company.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard97" style="display: none;">
+<div class="front">
+<p><strong>Sample-size neglect</strong></p>
+</div>
+<div class="back">
+<p>A type of representativeness bias in which financial market participants incorrectly assume that small sample sizes are representative of populations (or “real” data).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard98" style="display: none;">
+<div class="front">
+<p><strong>Scenario analysis</strong></p>
+</div>
+<div class="back">
+<p>A variation of the valuation process combining a base case with alternative outcomes, allowing the incorporation of more favorable or adverse scenarios in the valuation process.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard99" style="display: none;">
+<div class="front">
+<p><strong>Security characteristic line</strong></p>
+</div>
+<div class="back">
+<p>A plot of the excess return of a security on the excess return of the market.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard100" style="display: none;">
+<div class="front">
+<p><strong>Security market line</strong></p>
+</div>
+<div class="back">
+<p>The graphical representation of the CAPM formula, showing the relationship between expected return and beta.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard101" style="display: none;">
+<div class="front">
+<p><strong>Security selection</strong></p>
+</div>
+<div class="back">
+<p>The process of selecting individual securities; typically, security selection has the objective of generating superior risk-adjusted returns relative to a portfolio’s benchmark.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard102" style="display: none;">
+<div class="front">
+<p><strong>Self-attribution bias</strong></p>
+</div>
+<div class="back">
+<p>A bias in which people take too much credit for successes (<em>self-enhancing</em>) and assign responsibility to others for failures (<em>self-protecting</em>).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard103" style="display: none;">
+<div class="front">
+<p><strong>Self-control bias</strong></p>
+</div>
+<div class="back">
+<p>A bias in which people fail to act in pursuit of their long-term, overarching goals because of a lack of self-discipline.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard104" style="display: none;">
+<div class="front">
+<p><strong>Self-investment limits</strong></p>
+</div>
+<div class="back">
+<p>With respect to investment limitations applying to pension plans, restrictions on the percentage of assets that can be invested in securities issued by the pension plan sponsor.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard105" style="display: none;">
+<div class="front">
+<p><strong>Sell-side firm</strong></p>
+</div>
+<div class="back">
+<p>A broker/dealer that sells securities and provides independent investment research and recommendations to their clients (i.e., buy-side firms).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard106" style="display: none;">
+<div class="front">
+<p><strong>Separately managed account (SMA)</strong></p>
+</div>
+<div class="back">
+<p>An investment portfolio managed exclusively for the benefit of an individual or institution.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard107" style="display: none;">
+<div class="front">
+<p><strong>Shareholder engagement</strong></p>
+</div>
+<div class="back">
+<p>Shareholder engagement reflects active ownership by investors in which the investor seeks to influence a corporation’s decisions on ESG matters, either through dialogue with corporate officers or votes at a shareholder assembly (in the case of equity).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard108" style="display: none;">
+<div class="front">
+<p><strong>Sharpe ratio</strong></p>
+</div>
+<div class="back">
+<p>The ratio of mean excess return to standard deviation (excess return).</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard109" style="display: none;">
+<div class="front">
+<p><strong>Short selling</strong></p>
+</div>
+<div class="back">
+<p>A transaction in which borrowed securities are sold with the intention to repurchase them at a lower price at a later date and return them to the lender.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard110" style="display: none;">
+<div class="front">
+<p><strong>Skewness</strong></p>
+</div>
+<div class="back">
+<p>A quantitative measure of skew (lack of symmetry); a synonym of skew. It is computed as the average cubed deviation from the mean standardized by dividing by the standard deviation cubed.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard111" style="display: none;">
+<div class="front">
+<p><strong>Smart beta</strong></p>
+</div>
+<div class="back">
+<p>Involves the use of simple, transparent, rules-based strategies as a basis for investment decisions.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard112" style="display: none;">
+<div class="front">
+<p><strong>Solvency risk</strong></p>
+</div>
+<div class="back">
+<p>The risk that an organization does not survive or succeed because it runs out of cash, even though it might otherwise be solvent.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard113" style="display: none;">
+<div class="front">
+<p><strong>Status quo bias</strong></p>
+</div>
+<div class="back">
+<p>An emotional bias in which people do nothing (i.e., maintain the status quo) instead of making a change.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard114" style="display: none;">
+<div class="front">
+<p><strong>Strategic asset allocation</strong></p>
+</div>
+<div class="back">
+<p>A long-term strategy that establishes target allocations for various asset classes and aims to optimize the balance between risk and reward by diversifying investments.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard115" style="display: none;">
+<div class="front">
+<p><strong>Stress testing</strong></p>
+</div>
+<div class="back">
+<p>A specific type of scenario analysis that estimates losses in rare and extremely unfavorable combinations of events or scenarios.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard116" style="display: none;">
+<div class="front">
+<p><strong>Systematic risk</strong></p>
+</div>
+<div class="back">
+<p>Risk that affects the entire market or economy; it cannot be avoided and is inherent in the overall market. Systematic risk is also known as <em>non-diversifiable</em> or <em>market risk</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard117" style="display: none;">
+<div class="front">
+<p><strong>Tactical asset allocation</strong></p>
+</div>
+<div class="back">
+<p>A proactive strategy that adjusts asset class allocations within a portfolio based on short-term market trends, economic conditions, or valuation changes to capitalize on temporary market inefficiencies or opportunities to improve returns or manage risk more effectively.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard118" style="display: none;">
+<div class="front">
+<p><strong>Top-down analysis</strong></p>
+</div>
+<div class="back">
+<p>An investment selection approach that begins with consideration of macroeconomic conditions and then evaluates markets and industries based upon such conditions.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard119" style="display: none;">
+<div class="front">
+<p><strong>Tracking error</strong></p>
+</div>
+<div class="back">
+<p>The standard deviation of the differences between a portfolio’s returns and its benchmark’s returns; a synonym of active risk.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard120" style="display: none;">
+<div class="front">
+<p><strong>Tracking risk</strong></p>
+</div>
+<div class="back">
+<p>The standard deviation of the differences between a portfolio’s returns and its benchmarks returns. Also called <em>tracking error</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard121" style="display: none;">
+<div class="front">
+<p><strong>Treynor ratio</strong></p>
+</div>
+<div class="back">
+<p>A measure of risk-adjusted performance that relates a portfolio’s returns in excess of the risk-free rate to a portfolio’s beta.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard122" style="display: none;">
+<div class="front">
+<p><strong>Two-fund separation theorem</strong></p>
+</div>
+<div class="back">
+<p>The theory that all investors regardless of taste, risk preferences, and initial wealth will hold a combination of two portfolios or funds: a risk-free asset and an optimal portfolio of risky assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard123" style="display: none;">
+<div class="front">
+<p><strong>Value at risk</strong></p>
+</div>
+<div class="back">
+<p>A money measure of the minimum value of losses expected during a specified time period at a given level of probability.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard124" style="display: none;">
+<div class="front">
+<p><strong>VaR</strong></p>
+</div>
+<div class="back">
+<p>See <em>value at risk</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard125" style="display: none;">
+<div class="front">
+<p><strong>Vega</strong></p>
+</div>
+<div class="back">
+<p>A measure of the sensitivity of an option’s price to changes in the underlying’s volatility.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard126" style="display: none;">
+<div class="front">
+<p><strong>Venture capital fund</strong></p>
+</div>
+<div class="back">
+<p>A hedge fund that seeks to buy, optimize, and ultimately sell portfolio companies to generate profits. See <em>private equity fund</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard127" style="display: none;">
+<div class="front">
+<p><strong>Volatility</strong></p>
+</div>
+<div class="back">
+<p>The standard deviation of the continuously compounded returns on the underlying asset.</p>
+</div>
+</div>
+</div>
+<div class="controls">
+<div class="control-button" id="prevBtn">Previous Card</div>
+<div class="control-button" id="nextBtn">Next Card</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_145725_008_Portfolio_Management_Glossary.html" >← 前へ</a>
+  <span class="title">0.09 | Portfolio Management Flashcards</span>
+  <a href="courses_1872_modules_items_145730_010_Using_Your_Program_Dashboard.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

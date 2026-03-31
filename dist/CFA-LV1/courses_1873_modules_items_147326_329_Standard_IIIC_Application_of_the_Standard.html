@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.29 | Standard III(C): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s29-R-1" title="3.29 | Standard III(C): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.29 | Standard III(C): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s29-01-01">
+<h3 class="dp-heading">Example 1 (Investment Suitability—Risk Profile):</h3>
+<p>Caleb Smith, an investment adviser, has two clients: Larry Robertson, 60 years old, and Gabriel Lanai, 40 years old. Both clients earn roughly the same salary, but Robertson has a much higher risk tolerance because he has a large asset base. Robertson is willing to invest part of his assets very aggressively; Lanai wants only to achieve a steady rate of return with low volatility to pay for his children’s education. Smith recommends investing 20% of both portfolios in zero-yield, small-cap, high-technology equity issues.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: In Robertson’s case, the investment may be appropriate because of his financial circumstances and aggressive investment position, but this investment is not suitable for Lanai. Smith is violating Standard III(C) by applying Robertson’s investment strategy to Lanai because the two clients’ financial circumstances and objectives differ.</p>
+</div>
+</section>
+<section id="CFA0008-R-s29-01-02">
+<h3 class="dp-heading">Example 2 (Investment Suitability—Entire Portfolio):</h3>
+<p>Jessica McDowell, an investment adviser, suggests to Brian Crosby, a risk-averse client, that covered call options be used in his equity portfolio. The purpose would be to enhance Crosby’s income and partially offset any untimely depreciation in the portfolio’s value should the stock market or other circumstances affect his holdings unfavorably. McDowell educates Crosby about all possible outcomes, including the risk of incurring an added tax liability if a stock rises in price and is called away and, conversely, the risk of his holdings losing protection on the downside if prices drop sharply.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: When determining suitability of an investment, the primary focus should be the characteristics of the client’s entire portfolio, not the characteristics of single securities on an issue-by-issue basis. The basic characteristics of the entire portfolio will largely determine whether investment recommendations are taking client factors into account. Therefore, the most important aspects of a particular investment are those that will affect the characteristics of the total portfolio. In this case, McDowell properly considers the investment in the context of the entire portfolio and thoroughly explains the investment to the client.</p>
+</div>
+</section>
+<section id="CFA0008-R-s29-01-03">
+<h3 class="dp-heading">Example 3 (IPS Updating):</h3>
+<p>In a regular meeting with client Seth Jones, the portfolio managers at Blue Chip Investment Advisors are careful to allow some time to review his current needs and circumstances. In doing so, they learn that some significant changes have recently taken place in his life. A wealthy uncle left Jones an inheritance that increased his net worth fourfold, to US$1 million.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: The inheritance has significantly increased Jones’s ability (and possibly his willingness) to assume risk and has diminished the average yield required to meet his current income needs. Jones’s financial circumstances have definitely changed, so Blue Chip managers must update Jones’s investment policy statement to reflect how his investment objectives have changed. Accordingly, the Blue Chip portfolio managers should consider a somewhat higher equity ratio for his portfolio than was called for by the previous circumstances, and the managers’ specific common stock recommendations might be heavily tilted toward low-yield, growth-oriented issues.</p>
+</div>
+</section>
+<section id="CFA0008-R-s29-01-04">
+<h3 class="dp-heading">Example 4 (Following an Investment Mandate):</h3>
+<p>Louis Perkowski manages a high-income mutual fund. He purchases zero-dividend stock in a financial services company because he believes the stock is undervalued and is in a potential growth industry, which makes it an attractive investment.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: A zero-dividend stock does not seem to fit the mandate of the fund that Perkowski is managing. Unless Perkowski’s investment fits within the mandate or is within the realm of allowable investments the fund has made clear in its disclosures, Perkowski has violated Standard III(C).</p>
+</div>
+</section>
+<section id="CFA0008-R-s29-01-05">
+<h3 class="dp-heading">Example 5 (IPS Requirements and Limitations):</h3>
+<p>Max Gubler, chief investment officer of a property/casualty insurance subsidiary of a large financial conglomerate, wants to improve the diversification of the subsidiary’s investment portfolio and increase its returns. The subsidiary’s investment policy statement provides for highly liquid investments, such as large-cap equities and government, supranational, and corporate bonds with a minimum credit rating of AA and maturity of no more than five years. In a recent presentation, a venture capital group offered very attractive prospective returns on some of its private equity funds that provide seed capital to ventures. An exit strategy was already contemplated, but investors would have to observe a minimum three-year lockup period and a subsequent laddered exit option for a maximum of one-third of their shares per year. Gubler does not want to miss this opportunity. After extensive analysis, with the intent to optimize the return on the equity assets within the subsidiary’s current portfolio, he invests 4% in this seed fund, leaving the portfolio’s total equity exposure still well below its upper limit.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Gubler is violating Standard III(A) Loyalty, Prudence, and Care as well as Standard III(C). His new investment locks up part of the subsidiary’s assets for at least three years and up to as many as five years and possibly beyond. The IPS requires investments in highly liquid investments and describes accepted asset classes; private equity investments with a lockup period certainly do not qualify. Even without a lockup period, an asset class with only an occasional, and thus implicitly illiquid, market may not be suitable for the portfolio. Although an IPS typically describes objectives and constraints in great detail, the manager must also make every effort to understand the client’s business and circumstances. Doing so should enable the manager to recognize, understand, and discuss with the client other factors that may be or may become material in the investment management process.</p>
+</div>
+</section>
+<section id="CFA0008-R-s29-01-06">
+<h3 class="dp-heading">Example 6 (Submanager and IPS Reviews):</h3>
+<p>Paul Ostrowski’s investment management business has grown significantly over the past couple of years, and some clients want to diversify internationally. Ostrowski decides to find a submanager to handle the expected international investments. Because this will be his first subadviser, Ostrowski uses the CFA Institute model “request for proposal” to design a questionnaire for his search. By his deadline, he receives seven completed questionnaires from a variety of domestic and international firms trying to gain his business. Ostrowski reviews all the applications in detail and decides to select the firm that charges the lowest fees because doing so will have the least impact on his firm’s bottom line.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: When selecting an external manager or subadviser, Ostrowski needs to ensure that the new manager’s services are appropriate for his clients. This due diligence includes comparing the risk profile of the clients with the investment strategy of the manager. In basing the decision on the fee structure alone, Ostrowski may be violating Standard III(C).</p>
+<p>When clients ask to diversify into international products, it is an appropriate time to review and update the clients’ IPSs. Ostrowski’s review may determine that the risk of international investments modifies the risk profiles of the clients or does not represent an appropriate investment.</p>
+<p>See also Standard V(A) Diligence and Reasonable Basis for further discussion of the review process needed in selecting appropriate submanagers.</p>
+</div>
+</section>
+<section id="CFA0008-R-s29-01-07">
+<h3 class="dp-heading">Example 7 (Investment Suitability—Risk Profile):</h3>
+<p>Samantha Snead, a portfolio manager for Thomas Investment Counsel, Inc., specializes in managing public retirement funds and defined benefit pension plan accounts, all of which have long-term investment objectives. A year ago, Snead’s employer, in an attempt to motivate and retain key investment professionals, introduced a bonus compensation system that rewards portfolio managers on the basis of quarterly performance relative to their peers and to certain benchmark indexes. In an attempt to improve the short-term performance of her accounts, Snead changes her investment strategy and purchases several high-beta stocks for client portfolios. These purchases are seemingly contrary to the clients’ investment policy statements. Following their purchase, an officer of Griffin Corporation, one of Snead’s pension fund clients, asks why Griffin Corporation’s portfolio seems to be dominated by high-beta stocks of companies that often appear among the most actively traded issues. No change in objective or strategy has been recommended by Snead during the year.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Snead violated Standard III(C) by investing the clients’ assets in high-beta stocks. These high-risk investments are contrary to the long-term risk profile established in the clients’ IPSs. Snead has changed the investment strategy of the clients in an attempt to reap short-term rewards offered by her firm’s new compensation arrangement, not in response to changes in clients’ investment policy statements.</p>
+<p>See also Standard VI(A) Disclosure of Conflicts.</p>
+</div>
+</section>
+<section id="CFA0008-R-s29-01-08">
+<h3 class="dp-heading">Example 8 (Investment Suitability):</h3>
+<p>Andre Shrub owns and operates Conduit, an investment advisory firm. Prior to opening Conduit, Shrub was an account manager with Elite Investment, a hedge fund managed by his good friend Adam Reed. To attract clients to a new Conduit fund, Shrub offers lower-than-normal management fees. He can do so because the fund consists of two top-performing funds managed by Reed. Given his personal friendship with Reed and the prior performance record of these two funds, Shrub believes this new fund is a winning combination for all parties. Clients quickly invest with Conduit to gain access to the Elite funds. No one is turned away because Conduit is seeking to expand its assets under management.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Shrub has violated Standard III(C) because the risk profile of the new fund may not be suitable for every client. As an investment adviser, Shrub needs to establish an investment policy statement for each client and recommend only investments that match each client’s risk and return profile in the IPS. Shrub is required to act as more than a simple sales agent for Elite. </p>
+<p>Although Shrub cannot disobey the direct request of a client to purchase a specific security, he should fully discuss the risks of a planned purchase and provide reasons why it might not be suitable for a client. This requirement may lead members and candidates to decline new customers if those customers’ requested investment decisions are significantly out of line with their stated requirements.</p>
+<p>See also Standard V(A) Diligence and Reasonable Basis.</p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147323_328_Standard_IIIC_Recommended_Procedures.html" >← 前へ</a>
+  <span class="title">3.29 | Standard III(C): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147329_330_Standard_IIID_Performance_Presentation.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

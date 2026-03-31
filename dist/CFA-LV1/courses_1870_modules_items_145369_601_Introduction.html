@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0929-R-s01" title="6.01 | Introduction">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 6: Pricing and Valuation of Futures Contracts</span>6.01 | Introduction</h2>
+</header>
+<p>Many of the pricing and valuation principles associated with forward commitments are common to both forward and futures contracts. For example, previous lessons demonstrated that forward commitments have a price that prevents market participants from earning riskless profit through arbitrage. It was also shown that long and short forward commitments may be replicated using a combination of long or short cash positions and borrowing or lending at the risk-free rate. Finally, both forward and futures pricing and valuation incorporate the cost of carry, or the benefits and costs of owning an underlying asset over the life of a derivative contract.</p>
+<p>We now turn our attention to futures contracts. We discuss what distinguishes them from other forward commitments and how they are used by issuers and investors. We expand upon the daily settlement of futures contract gains and losses introduced earlier and explain the differences between forwards and futures. We also address and distinguish the interest rate futures market and its role in interest rate derivative contracts.</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA0929-s01-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0929-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>Futures are standardized, exchange-traded derivatives (ETDs) with zero initial value and a futures price <em>f</em><sub>0</sub>(<em>T</em>) established at inception. The futures price, <em>f</em><sub>0</sub>(<em>T</em>), equals the spot price compounded at the risk-free rate as in the case of a forward contract.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The primary difference between forward and futures valuation is the daily settlement of futures gains and losses via a margin account. Daily settlement resets the futures contract value to zero at the current futures price <em>f<sub>t</sub></em>(<em>T</em>). This process continues until contract maturity and the futures price converge to the spot price, <em>S<sub>T</sub> </em>.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The cumulative realized mark-to-market (MTM) gain or loss on a futures contract is approximately the same as for a comparable forward contract.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Daily settlement and margin requirements give rise to different cash flow patterns between futures and forwards, resulting in a pricing difference between the two contract types. The difference depends on both interest rate volatility and the correlation between interest rates and futures prices.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The futures price for short-term interest rate futures is given by (100 – yield), where yield is expressed in percentage terms. There is a price difference between interest rate futures and forward rate agreements (FRAs) due to convexity bias.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The emergence of derivatives central clearing has introduced futures-like margining requirements for over-the-counter (OTC) derivatives, such as forwards. This arrangement has reduced the difference in the cash flow impact of ETDs and OTC derivatives and the price difference in futures versus forwards.</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Learning Module Self-Assessment</h3>
+<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA0929-s01-Q1"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following responses is closest to the one-year futures price of a stock with a spot price (<em>S</em><sub>0</sub>) of €125 and an annual dividend of €2.50 paid at maturity if the risk-free rate is 1%?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>€123.75</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The no arbitrage futures price for an underlying asset with known benefits, such as a dividend, may be determined using the following equation:</p>
+<p><em>f</em><sub>0</sub>(<em>T</em>) = [<em>S</em><sub>0</sub> − PV<sub>0</sub>(<em>I</em>)] (1 + <em>r</em>)<em> <sup>T</sup> </em>.</p>
+<p>First, solve for the present value of the dividend PV<sub>0</sub>(<em>I</em>) as follows:</p>
+<p>€2.48 = (€2.50 / 1.01).</p>
+<p>Substitute PV<sub>0</sub>(<em>I</em>) into the original equation to solve for <em>f</em><sub>0</sub>(<em>T</em>):</p>
+<p><em>f</em><sub>0</sub>(<em>T</em>) = €123.75 = (€125 − €2.48)(1.01).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>€122.50</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The no arbitrage futures price for an underlying asset with known benefits, such as a dividend, may be determined using the following equation:</p>
+<p><em>f</em><sub>0</sub>(<em>T</em>) = [<em>S</em><sub>0</sub> − PV<sub>0</sub>(<em>I</em>)] (1 + <em>r</em>)<em><sup>T</sup></em>.</p>
+<p>First, solve for the present value of the dividend PV<sub>0</sub>(<em>I</em>) as follows:</p>
+<p>€2.48 = (€2.50 / 1.01).</p>
+<p>Substitute PV<sub>0</sub>(<em>I</em>) into the original equation to solve for <em>f</em><sub>0</sub>(<em>T</em>):</p>
+<p><em>f</em><sub>0</sub>(<em>T</em>) = €123.75 = (€125 − €2.48)(1.01).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>€126.25</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>A is correct. The no arbitrage futures price for an underlying asset with known benefits, such as a dividend, may be determined using the following equation:</p>
+<p><em>f</em><sub>0</sub>(<em>T</em>) = [<em>S</em><sub>0</sub> − PV<sub>0</sub>(<em>I</em>)] (1 + <em>r</em>)<em><sup>T</sup></em>.</p>
+<p>First, solve for the present value of the dividend PV<sub>0</sub>(<em>I</em>) as follows:</p>
+<p>€2.48 = (€2.50 / 1.01).</p>
+<p>Substitute PV<sub>0</sub>(<em>I</em>) into the original equation to solve for <em>f</em><sub>0</sub>(<em>T</em>):</p>
+<p><em>f</em><sub>0</sub>(<em>T</em>) = €123.75 = (€125 − €2.48)(1.01).</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA0929-s01-Q2"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Which of the following statements regarding the gains or losses of a long forward contract position compared to a long futures contract position is most correct? Assume that the underlying is identical on both contracts and that both contracts have the same time until maturity.</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>The daily realized gain or loss of the forward contract position and the futures contract position are equivalent.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The two contracts are similar in all respects except for the frequency with which contracts are marked to market. As a result, the cumulative gain or loss is approximately the same when the contracts mature. A is incorrect because the futures contract’s daily mark-to-market (MTM) feature creates daily realized gains or losses while the forward contract’s gains or losses are realized only at contract maturity. B is incorrect because the response refers to realized gains or losses, and the contracts have not yet matured. Thus, the forward contract has generated no realized gains or losses yet.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Before the contracts mature, the cumulative realized gains or losses of the forward contract position and the futures contract position are equivalent.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The two contracts are similar in all respects except for the frequency with which contracts are marked to market. As a result, the cumulative gain or loss is approximately the same when the contracts mature. A is incorrect because the futures contract’s daily mark-to-market (MTM) feature creates daily realized gains or losses while the forward contract’s gains or losses are realized only at contract maturity. B is incorrect because the response refers to realized gains or losses, and the contracts have not yet matured. Thus, the forward contract has generated no realized gains or losses yet.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>At contract maturity, the cumulative realized gains or losses of the forward contract position and the futures contract position are approximately equivalent.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. The two contracts are similar in all respects except for the frequency with which contracts are marked to market. As a result, the cumulative gain or loss is approximately the same when the contracts mature. A is incorrect because the futures contract’s daily mark-to-market (MTM) feature creates daily realized gains or losses while the forward contract’s gains or losses are realized only at contract maturity. B is incorrect because the response refers to realized gains or losses, and the contracts have not yet matured. Thus, the forward contract has generated no realized gains or losses yet.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Identify which of the following situations leads to which relationship between forward and futures prices for forward commitment contracts with otherwise identical terms.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0929-s01-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1. Futures prices are <em>positively</em> correlated with interest rates, and interest rates change over the contract period.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">A. Forward prices are above futures prices: <em>F</em><sub>0</sub>(<em>T</em>) &gt; <em>f</em><sub>0</sub>(<em>T</em>).</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2. Futures prices are <em>negatively</em> correlated with interest rates, and interest rates change over the contract period.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">B. Forward and futures prices are the same: <em>F</em><sub>0</sub>(<em>T</em>) = <em>f</em><sub>0</sub>(<em>T</em>).</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">3. Interest rates are constant over the forward commitment contract period.</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">C. Futures prices are above forward prices: <em>f</em><sub>0</sub>(<em>T</em>) &gt; <em>F</em><sub>0</sub>(<em>T</em>).</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>1. C is correct. If futures prices are positively correlated with interest rates, then higher prices lead to futures profits reinvested at rising rates, and lower prices lead to losses that may be financed at lower rates.</p>
+<p>2. A is correct. If futures prices are negatively correlated with interest rates, then higher prices lead to futures profits reinvested at lower rates, and lower prices lead to losses that must be financed at higher rates.</p>
+<p>3. B is correct. If interest rates are constant over the forward commitment contract period, then forward and futures prices are the same.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA0929-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>Which of the following statements most correctly describes a development that has helped reduce the difference in the cash flow impact between forward and futures contracts?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Futures exchanges have moved away from daily mark-to-market recognition of gains and losses on futures contracts.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Under a central clearing framework for OTC derivatives, financial intermediaries that serve as counterparties are required to post daily margin or eligible collateral to the central counterparty (CCP) in a process very similar to futures margining. Dealers, therefore, often impose similar requirements on derivatives end users. A is incorrect because no such change has occurred in exchange-traded futures markets. C is incorrect because volatility changes over time are hard to categorize as higher or lower.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>OTC derivatives have become increasingly subject to central clearing requirements.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Under a central clearing framework for OTC derivatives, financial intermediaries that serve as counterparties are required to post daily margin or eligible collateral to the central counterparty (CCP) in a process very similar to futures margining. Dealers, therefore, often impose similar requirements on derivatives end users. A is incorrect because no such change has occurred in exchange-traded futures markets. C is incorrect because volatility changes over time are hard to categorize as higher or lower.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Lower volatility in markets has reduced the magnitude of gains and losses in both types of contracts.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. Under a central clearing framework for OTC derivatives, financial intermediaries that serve as counterparties are required to post daily margin or eligible collateral to the central counterparty (CCP) in a process very similar to futures margining. Dealers, therefore, often impose similar requirements on derivatives end users. A is incorrect because no such change has occurred in exchange-traded futures markets. C is incorrect because volatility changes over time are hard to categorize as higher or lower.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1870_modules_items_145366_Learning_Outcomes_Pricing_and_Valuation_of_Futures_Contracts.html" >← 前へ</a>
+  <span class="title">6.01 | Introduction</span>
+  <a href="courses_1870_modules_items_145372_602_Pricing_of_Futures_Contracts_at_Inception.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

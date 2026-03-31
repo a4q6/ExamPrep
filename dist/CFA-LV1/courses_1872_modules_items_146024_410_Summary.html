@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.10 | Summary</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0184-R-s10" title="4.10 | Summary">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 4: Basics of Portfolio Planning and Construction</span>4.10 | Summary</h2>
+</header>
+<p>In this reading, we have discussed construction of a client’s
+                                investment policy statement, including discussion of risk and return
+                                objectives and the various constraints that will apply to the
+                                portfolio. We have also discussed the portfolio construction
+                                process, with emphasis on the strategic asset allocation decisions
+                                that must be made.</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0184-R-L49">
+<li class="cfa-curriculum-list-item">
+<p>The IPS is the starting point of the portfolio management
+                                        process. Without a full understanding of the client’s
+                                        situation and requirements, it is unlikely that successful
+                                        results will be achieved.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The IPS can take a variety of forms. A typical format will
+                                        include the client’s investment objectives and also
+                                        list the constraints that apply to the client’s
+                                        portfolio.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The client’s objectives are specified in terms of risk
+                                        tolerance and return requirements.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The constraints section covers factors that need to be
+                                        considered when constructing a portfolio for the client that
+                                        meets the objectives. The typical constraint categories are
+                                        liquidity requirements, time horizon, regulatory
+                                        requirements, tax status, and unique needs.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Clients may have personal objections to certain products or
+                                        practices, which could lead to the exclusion of certain
+                                        companies, countries, or types of securities from the
+                                        investable universe as well as the client’s
+                                        benchmark. Such considerations are often referred to as ESG
+                                        (environmental, social, governance).</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>ESG considerations can be integrated into an investment
+                                        policy by negative screening, positive screening, ESG
+                                        integration, thematic investing, engagement/active
+                                        ownership, and impact investing.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk objectives are specifications for portfolio risk that
+                                        reflect the risk tolerance of the client. Quantitative risk
+                                        objectives can be absolute, relative, or a combination of
+                                        the two.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The client’s overall risk tolerance is a function of
+                                        both the client’s ability to accept risk and the
+                                        client’s “risk attitude,” which can be
+                                        considered the client’s willingness to take risk.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The client’s return objectives can be stated on an
+                                        absolute or a relative basis. As an example of an absolute
+                                        objective, the client may want to achieve a particular
+                                        percentage rate of return. Alternatively, the return
+                                        objective can be stated on a relative basis—for
+                                        example, relative to a benchmark return.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The liquidity section of the IPS should state what the
+                                        client’s requirements are to draw cash from the
+                                        portfolio.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The time horizon section of the IPS should state the time
+                                        horizon over which the investor is investing. This horizon
+                                        may be the period during which the portfolio is accumulating
+                                        before any assets need to be withdrawn.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Tax status varies among investors, and a client’s tax
+                                        status should be stated in the IPS.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The IPS should state any legal or regulatory restrictions
+                                        that constrain the investment of the portfolio.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The unique circumstances section of the IPS should cover any
+                                        other aspect of a client’s circumstances that is
+                                        likely to have a material impact on portfolio composition.
+                                        Certain ESG implementation approaches may be discussed in
+                                        this section.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Asset classes are the building blocks of an asset allocation.
+                                        An asset class is a category of assets that have similar
+                                        characteristics, attributes, and risk–return
+                                        relationships. Traditionally, investors have distinguished
+                                        cash, equities, bonds, and real estate as the major asset
+                                        classes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A strategic asset allocation results from combining the
+                                        constraints and objectives articulated in the IPS and
+                                        capital market expectations regarding the asset classes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>As time goes on, a client’s asset allocation will
+                                        drift from the target allocation, and the amount of
+                                        allowable drift as well as a rebalancing policy should be
+                                        formalized.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>In addition to taking systematic risk, an investment
+                                        committee may choose to take tactical asset allocation risk
+                                        or security selection risk. The amount of return
+                                        attributable to these decisions can be measured.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>ESG considerations may be integrated into the portfolio
+                                        planning and construction process. ESG implementation
+                                        approaches require a set of instructions for investment
+                                        managers with regard to the selection of securities, the
+                                        exercise of shareholder rights, and the selection of
+                                        investment strategies.</p>
+</li>
+</ul>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146020_409_ESG_Considerations_in_Portfolio_Planning_and_Construction.html" >← 前へ</a>
+  <span class="title">4.10 | Summary</span>
+  <a href="courses_1872_modules_items_146032_Glossary_Basics_of_Portfolio_Planning_and_Construction.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

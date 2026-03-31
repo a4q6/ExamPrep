@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.16 | Standard II: Integrity of Capital Markets </title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s16-R-1" title="3.16 | Standard II: Integrity of Capital Markets ">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.16 | Standard II: Integrity of Capital Markets </h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">demonstrate the application of the Code of Ethics and Standards of Professional Conduct to situations involving issues of professional integrity</li>
+<li class="cfa-curriculum-los-item">recommend practices and procedures designed to prevent violations of the Code of Ethics and Standards of Professional Conduct</li>
+<li class="cfa-curriculum-los-item">identify conduct that conforms to the Code and Standards and conduct that violates the Code and Standards</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<section id="CFA0008-R-s16-01-01">
+<h3 class="dp-heading">Standard II(A) Material Nonpublic Information</h3>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="">
+<h4 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i>
+</h4>
+<p>Members and Candidates who possess material nonpublic information that could affect the value of an investment must not act or cause others to act on the information. </p>
+</div>
+</section>
+<section id="CFA0008-R-s16-01-02">
+<h3 class="dp-heading">Guidance</h3>
+<p>
+<strong>Highlights:</strong>
+</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s16-L1">
+<li class="cfa-curriculum-list-item">
+<p>
+<em>What Is “Material” Information?</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>What Constitutes “Nonpublic” Information?</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Mosaic Theory</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Social Media</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Using Industry Experts</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Investment Research Reports</em>
+</p>
+</li>
+</ul>
+<p>Trading or inducing others to trade on material nonpublic information erodes confidence in capital markets, institutions, and investment professionals by supporting the idea that those with inside information and special access can take unfair advantage of the general investing public. Although trading on inside information may lead to short-term profits, in the long run, individuals and the profession as a whole suffer from such trading. These actions have caused and will continue to cause investors to avoid capital markets because the markets are perceived to be “rigged” in favor of the knowledgeable insider. When the investing public avoids capital markets, the markets and capital allocation become less efficient and less supportive of strong and vibrant economies. Standard II(A) promotes and maintains a high level of confidence in market integrity, which is one of the foundations of the investment profession.</p>
+<p>The prohibition on using this information goes beyond the direct buying and selling of individual securities or bonds. Members and candidates must not use material nonpublic information to influence their investment actions related to derivatives (e.g., swaps or option contracts), mutual funds, or other alternative investments. <em>Any</em> trading based on material nonpublic information constitutes a violation of Standard II(A). The expansion of financial products and the increasing interconnectivity of financial markets globally have resulted in new potential opportunities for trading on material nonpublic information.</p>
+<section id="CFA0008-R-s16-01-02-01">
+<h4>What Is “Material” Information?</h4>
+<p>Information is “material” if its disclosure would probably have an impact on the price of a security or if reasonable investors would want to know the information before making an investment decision. In other words, information is material if it would significantly alter the total mix of information currently available about a security in such a way that the price of the security would be affected.</p>
+<p>The specificity of the information, the extent of its difference from public information, its nature, and its reliability are key factors in determining whether a particular piece of information fits the definition of material. For example, material information may include, but is not limited to, information on the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s16-L2">
+<li class="cfa-curriculum-list-item">
+<p>earnings;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>mergers, acquisitions, tender offers, or joint ventures;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>changes in assets or asset quality;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>innovative products, processes, or discoveries (e.g., new product trials or research efforts);</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>new licenses, patents, registered trademarks, or regulatory approval/rejection of a product;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>developments regarding customers or suppliers (e.g., the acquisition or loss of a contract);</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>changes in management;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>change in auditor notification or the fact that the issuer may no longer rely on an auditor’s report or qualified opinion;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>events regarding the issuer’s securities (e.g., defaults on senior securities, calls of securities for redemption, repurchase plans, stock splits, changes in dividends, changes to the rights of security holders, and public or private sales of additional securities);</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>bankruptcies;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>significant legal disputes;</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>government reports of economic trends (employment, housing starts, currency information, etc.);</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>orders for large trades before they are executed; and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>new or changing equity or debt ratings issued by a third party (e.g., sell-side recommendations and credit ratings).</p>
+</li>
+</ul>
+<p>In addition to the substance and specificity of the information, the source or relative reliability of the information also determines materiality. The less reliable a source, the less likely the information provided would be considered material. For example, factual information from a corporate insider regarding a significant new contract for a company is likely to be material, whereas an assumption based on speculation by a competitor about the same contract is likely to be less reliable and, therefore, not material. Additionally, information about trials of a new drug, product, or service under development from qualified personnel involved in the trials is likely to be material, whereas educated conjecture by subject experts not connected to the trials is unlikely to be material.</p>
+<p>Also, the more ambiguous the effect of the information on price, the less material that information is considered. If it is unclear whether and to what extent the information will affect the price of a security, the information may not be considered material. The passage of time may also render information that was once important immaterial.</p>
+</section>
+<section id="CFA0008-R-s16-01-02-02">
+<h4>What Constitutes “Nonpublic” Information?</h4>
+<p>Information is “nonpublic” until it has been disseminated or is available to the marketplace in general (as opposed to a select group of investors). “Disseminated” can be defined as “made known.” For example, a company report of profits that is posted on the internet and distributed widely through a press release or accompanied by a filing has been effectively disseminated to the marketplace. Members and candidates must have a reasonable expectation that people have received the information before it can be considered public. It is not necessary, however, to wait for the slowest method of delivery. Once the information is disseminated to the market, it is public information that is no longer covered by this standard.</p>
+<p>Members and candidates must be particularly aware of information that is selectively disclosed by corporations to a small group of investors, analysts, or other market participants. Information that is made available to analysts remains nonpublic until it is made available to investors in general. Corporations that disclose information on a limited basis create the potential for insider-trading violations.</p>
+<p>Issues of selective disclosure often arise when a corporate insider provides material information to analysts in a briefing or conference call before that information is released to the public. Analysts must be aware that a disclosure made to a room full of analysts does not necessarily make the disclosed information “public.” Analysts should also be alert to the possibility that they are selectively receiving material nonpublic information when a company provides them with guidance or interpretation of such publicly available information as financial statements or regulatory filings.</p>
+<p>A member or candidate may use insider information provided legitimately by the source company for the specific purpose of conducting due diligence according to the business agreement between the parties for such activities as mergers, loan underwriting, credit ratings, and offering engagements. In such instances, the investment professional would not be considered in violation of Standard II(A) by using the material information. However, the use of insider information provided by the source company for other purposes, especially to trade or entice others to trade the securities of the firm, conflicts with this standard.</p>
+</section>
+<section id="CFA0008-R-s16-01-02-03">
+<h4>Mosaic Theory</h4>
+<p>A financial analyst gathers and interprets large quantities of information from many sources. The analyst may use significant conclusions derived from the analysis of public and nonmaterial nonpublic information as the basis for investment recommendations and decisions even if those conclusions would have been material inside information had they been communicated directly to the analyst by a company. Under the “mosaic theory,” financial analysts are free to act on this collection, or mosaic, of information without risking violation.</p>
+<p>The practice of financial analysis depends on the free flow of information. For the fair and efficient operation of the capital markets, analysts and investors must have the greatest amount of information possible to facilitate making well-informed investment decisions about how and where to invest capital. Accurate, timely, and intelligible communication is essential if analysts and investors are to obtain the data needed to make informed decisions about how and where to invest capital. These disclosures must go beyond the information mandated by the reporting requirements of the securities laws and should include specific business information about items used to guide a company’s future growth, such as new products, capital projects, and the competitive environment. Analysts seek and use such information to compare and contrast investment alternatives.</p>
+<p>Much of the information used by analysts comes directly from companies. Analysts often receive such information through contacts with corporate insiders, especially investor-relations staff and financial officers. Information may be disseminated in the form of press releases, through oral presentations by company executives in analysts’ meetings or conference calls, or during analysts’ visits to company premises. In seeking to develop the most accurate and complete picture of a company, analysts should also reach beyond contacts with companies themselves and collect information from other sources, such as customers, contractors, suppliers, and the companies’ competitors. </p>
+<p>Analysts are in the business of formulating opinions and insights that are not obvious to the general investing public about the attractiveness of particular securities. In the course of their work, analysts actively seek out corporate information not generally known to the market for the express purpose of analyzing that information, forming an opinion on its significance, and informing their clients, who can be expected to trade on the basis of the recommendation. Analysts’ initiatives to discover and analyze information and communicate their findings to their clients significantly enhance market efficiency, thus benefiting all investors (see <em>Dirks v. Securities and Exchange Commission</em>). Accordingly, violations of Standard II(A) will <em>not</em> result when a perceptive analyst reaches a conclusion about a corporate action or event through an analysis of public information and items of nonmaterial nonpublic information.</p>
+<p>Investment professionals should note, however, that although analysts are free to use mosaic information in their research reports, they should save and document all their research [see Standard V(C) Record Retention]. Evidence of the analyst’s knowledge of public and nonmaterial nonpublic information about a corporation strengthens the assertion that the analyst reached his or her conclusions solely through appropriate methods rather than through the use of material nonpublic information.</p>
+</section>
+<section id="CFA0008-R-s16-01-02-04">
+<h4>Social Media</h4>
+<p>The continuing advancement in technology allows members, candidates, and the industry at large to exchange information at rates not previously available. It is important for investment professionals to understand the implications of using information from the internet and social media platforms because all such information may not actually be considered public.</p>
+<p>Some social media platforms require membership in specific groups in order to access the published content. Members and candidates participating in groups with membership limitations should verify that material information obtained from these sources can also be accessed from a source that would be considered available to the public (e.g., company filings, webpages, and press releases). </p>
+<p>Members and candidates may use social media platforms to communicate with clients or investors without conflicting with this standard. As long as the information reaches all clients or is open to the investing public, the use of these platforms would be comparable with other traditional forms of communications, such as e-mails and press releases. Members and candidates, as required by Standard I(A), should also complete all appropriate regulatory filings related to information distributed through social media platforms. </p>
+</section>
+<section id="CFA0008-R-s16-01-02-05">
+<h4>Using Industry Experts </h4>
+<p>The increased demand for insights for understanding the complexities of some industries has led to an expansion of engagement with outside experts. As the level of engagement increased, new businesses formed to connect analysts and investors with individuals who have specialized knowledge of their industry (e.g., technology or pharmaceuticals). These networks offer investors the opportunity to reach beyond their usual business circles to speak with experts regarding economic conditions, industry trends, and technical issues relating to specific products and services.</p>
+<p>Members and candidates may provide compensation to individuals for their insights without violating this standard. However, members and candidates are ultimately responsible for ensuring that they are not requesting or acting on confidential information received from external experts, which is in violation of security regulations and laws or duties to others. As the recent string of insider-trading cases displayed, some experts are willing to provide confidential and protected information for the right incentive. </p>
+<p>Firms connecting experts with members or candidates often require both parties to sign agreements concerning the disclosure of material nonpublic information. Even with the protections from such compliance practices, if an expert provides material nonpublic information, members and candidates would be prohibited from taking investment actions on the associated firm until the information became publicly known to the market.</p>
+</section>
+<section id="CFA0008-R-s16-01-02-06">
+<h4>Investment Research Reports</h4>
+<p>When a particularly well-known or respected analyst issues a report or makes changes to his or her recommendation, that information alone may have an effect on the market and thus may be considered material. Theoretically, under Standard II(A), such a report would have to be made public at the time it was distributed to clients. The analyst is not a company insider, however, and does not have access to inside information. Presumably, the analyst created the report from information available to the public (mosaic theory) and by using his or her expertise to interpret the information. The analyst’s hard work, paid for by the client, generated the conclusions. </p>
+<p>Simply because the public in general would find the conclusions material does not require that the analyst make his or her work public. Investors who are not clients of the analyst can either do the work themselves or become clients of the analyst to gain access to the analyst’s expertise.</p>
+</section>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147275_315_Standard_IE_Application_of_the_Standard.html" >← 前へ</a>
+  <span class="title">3.16 | Standard II: Integrity of Capital Markets </span>
+  <a href="courses_1873_modules_items_147282_317_Standard_IIA_Recommended_Procedures.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

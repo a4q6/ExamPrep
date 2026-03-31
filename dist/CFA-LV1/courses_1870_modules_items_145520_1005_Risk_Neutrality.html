@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.05 | Risk Neutrality</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1012-R-s05" title="10.05 | Risk Neutrality">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 10: Valuing a Derivative Using a One-Period Binomial Model</span>10.05 | Risk Neutrality</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe the concept of risk neutrality in derivatives pricing</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>As shown in the prior lesson, an option’s value is not affected by actual
+                  (real-world) probabilities of underlying price increases or decreases. This
+                  realization contributed to the growing use of options as it became easier to agree
+                  on a given option’s value. As we will see in this lesson, only the expected
+                  volatility—that is, gross returns <em>R<sup>u</sup>
+</em> and <em>R<sup>d</sup>
+</em> introduced earlier—and not the expected return are required to price an
+                  option.</p>
+<p>We may generalize the relationship between an option’s value and that of the hedge
+                  portfolios from Equation 5 of the prior lesson using the example of a call option
+                     <em>c</em>
+<sub>0</sub> as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-6">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>c</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>π</mi>
+<msubsup>
+<mi>c</mi>
+<mn>1</mn>
+<mi>u</mi>
+</msubsup>
+<mo>+</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mi>π</mi>
+</mrow>
+</mfenced>
+<msubsup>
+<mi>c</mi>
+<mn>1</mn>
+<mi>d</mi>
+</msubsup>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mi>T</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>.</mo>
+</mrow>
+</semantics>
+</math>
+<span class="cfa-curriculum-display-formula-number">9</span>
+</div>
+<p>The value of the call option today, <em>c</em>
+<sub>0</sub>, is computed as the expected value of the option at expiration,
+                     <em>c</em>
+<sub>1</sub>
+<em>
+<sup>u</sup>
+</em> and <em>c</em>
+<sub>1</sub>
+<em>
+<sup>d</sup>
+</em>, discounted at the risk-free rate, <em>r</em>. This shows the
+                  derivative’s value as similar to any other asset in that it equals the present
+                  value of expected future cash flows. In this case, these cash flows are weighted
+                  by assumed probabilities that are consistent with risk-neutral returns on the
+                  underlying.</p>
+<p>The <a aria-describedby="RiskNeutralProbabilityContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskNeutralProbabilityContent">risk-neutral probability</a> (π) is the computed probability used in
+                  binomial option pricing by which the discounted weighted sum of expected values of
+                  the underlying, <em>S</em>
+<sub>1</sub>
+<em>
+<sup>u</sup>
+</em> = <em>R<sup>u</sup>S</em>
+<sub>0</sub> and <em>S</em>
+<sub>1</sub>
+<em>
+<sup>d</sup>
+</em> = <em>R<sup>d</sup>S</em>
+<sub>0</sub>, equal the current option price. Specifically, this probability is
+                  computed using the risk-free rate and assumed up gross return and down gross
+                  return of the underlying as in Equation 7.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-7">
+<math>
+<semantics>
+<mrow>
+<mi>π</mi>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mi>R</mi>
+<mi>u</mi>
+</msup>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>.</mo>
+</mrow>
+</semantics>
+</math>
+<span class="cfa-curriculum-display-formula-number">10</span>
+</div>
+<p>More specifically, π, is the risk-neutral probability of an increase in the
+                  underlying price to <em>S</em>
+<sub>1</sub>
+<em>
+<sup>u</sup> = R<sup>u</sup>S</em>
+<sub>0,</sub> and (1 − π) is that of a decrease, <em>S</em>
+<sub>1</sub>
+<em>
+<sup>d</sup> = R<sup>d</sup>S</em>
+<sub>0</sub>.</p>
+<p>Substituting the details from our earlier example, where
+                     <em>R<sup>u</sup>S</em>
+<sub>0</sub>
+<em>=</em> €110, <em>R<sup>d</sup>S</em>
+<sub>0</sub>
+<em>=</em> €60, <em>S</em>
+<sub>0</sub>
+<em>=</em> €80, and <em>X =</em> €100, <em>R<sup>u</sup>
+                     =</em> 1.375 and <em>R<sup>d</sup> =</em> 0.75 and assuming an
+                  annual risk-free rate of 5%:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-">
+<math>
+<semantics>
+<mrow>
+<mi>π</mi>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mi>R</mi>
+<mi>u</mi>
+</msup>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.05</mn>
+<mo>−</mo>
+<mn>0.75</mn>
+</mrow>
+<mrow>
+<mn>1.375</mn>
+<mo>−</mo>
+<mn>0.75</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>0.48.</mn>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___1">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>c</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>π</mi>
+<msubsup>
+<mi>c</mi>
+<mn>1</mn>
+<mi>u</mi>
+</msubsup>
+<mo>+</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mi>π</mi>
+</mrow>
+</mfenced>
+<msubsup>
+<mi>c</mi>
+<mn>1</mn>
+<mi>d</mi>
+</msubsup>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mi>T</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___2">=[0.48 × Max(0, €110 − €100) + 0.52 ×
+                     Max(0, €60 − €100)]/1.05</div>
+<p>= €4.80/1.05 = €4.57, which matches our
+                  earlier result from the prior lesson.</p>
+<p>In Equation 7, the risk-neutral probabilities are determined solely by the up and
+                  down gross returns, <em>R<sup>u</sup>
+</em> and <em>R<sup>d</sup>
+</em>, representing underlying asset volatility and the risk-free rate used to
+                  calculate the present value of future cash flows. This no-arbitrage derivative
+                  value established separately from investor views on risk is referred to as
+                     <a aria-describedby="RiskNeutralPricingContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskNeutralPricingContent">risk-neutral pricing</a>.</p>
+<p>The use of risk-neutral pricing goes well beyond the simple one-period binomial
+                  tree and may be applied to any model that uses future underlying asset price
+                  movements, as we will see later in the curriculum.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA1012-s05-EXM-1-2">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 2<span style="display: block;">Hightest Capital (revisited)</span>
+</h3>
+<p>Revisiting Example 1 and the European call option sold by Hightest Capital,
+                        we can now explore the option price using risk-neutral pricing. Answer the
+                        following questions:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA1012-s05-L1">
+<li class="cfa-curriculum-list-item">
+<p>What is the risk-neutral probability of an up move and a down move in
+                              the one-period binomial model described in Example 1?</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Demonstrate how this risk-neutral probability can be used to arrive at
+                              the no-arbitrage price of the call option.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>What would be the value of a European <em>put</em> option on
+                              the same stock with the same exercise price and expiration date?</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Confirm that the call option price computed in question 2 and the put
+                              option price computed in question 3 both satisfy the put–call parity
+                              relationship.</p>
+</li>
+</ol>
+<section id="CFA1012-s05-01-01-01">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h1">Solution to 1:</h3>
+<p>The risk-neutral probability of an up move, denoted π, is:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___3">
+<math>
+<semantics>
+<mrow>
+<mi>π</mi>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mi>R</mi>
+<mi>u</mi>
+</msup>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.05</mn>
+<mo>−</mo>
+<mn>0.8</mn>
+</mrow>
+<mrow>
+<mn>1.2</mn>
+<mo>−</mo>
+<mn>0.8</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>0.625.</mn>
+</mrow>
+</semantics>
+</math>
+</div>
+<p>The risk-neutral probability of a down move is therefore:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___4">1 – π = 1 – 0.625 =
+                           0.375.</div>
+</section>
+<section id="CFA1012-s05-01-01-02">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Solution to 2:</h4>
+<p>The call option price today is given by the (risk-neutral) expected value
+                           of the option payoff at maturity, discounted at the risk-free rate,
+                              <em>r</em>. In Equation 6:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___5">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>c</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>π</mi>
+<msubsup>
+<mi>c</mi>
+<mn>1</mn>
+<mi>u</mi>
+</msubsup>
+<mo>+</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mi>π</mi>
+</mrow>
+</mfenced>
+<msubsup>
+<mi>c</mi>
+<mn>1</mn>
+<mi>d</mi>
+</msubsup>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mi>T</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___6">=[0.625 × Max(0, $60 − $55) +
+                              0.375 × Max (0, $40 − $55)]/1.05</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___7">
+<math>
+<semantics>
+<mrow>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mi>$</mi>
+<mn>3.125</mn>
+</mrow>
+<mrow>
+<mn>1.05</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mi>$</mi>
+<mn>2.98</mn>
+</mrow>
+</semantics>
+</math>
+</div>
+<p>which matches the value in Example 1.</p>
+</section>
+<section id="CFA1012-s05-01-01-03">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Solution to 3:</h4>
+<p>Since Equation 6 is valid for any European option, the put option value
+                           with an exercise price of $55 is:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___8">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>p</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>π</mi>
+<msubsup>
+<mi>p</mi>
+<mn>1</mn>
+<mi>u</mi>
+</msubsup>
+<mo>+</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mi>π</mi>
+</mrow>
+</mfenced>
+<msubsup>
+<mi>p</mi>
+<mn>1</mn>
+<mi>d</mi>
+</msubsup>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mi>T</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___9">=[0.625 × Max(0, $55 − $60) + 0.375
+                           × Max (0, $55 − $40)]/1.05</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___10">= $5.625/1.05 =
+                           $5.36.</div>
+<p>Note that we have used the same risk-neutral probability π as in
+                           Questions 1 and 2, since these values are a function of the binomial
+                           model for the underlying asset for a given asset volatility and risk-free
+                           rate, not the specific option being priced.</p>
+</section>
+<section id="CFA1012-s05-01-01-04">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Solution to 4:</h4>
+<p>European call and put options with the same exercise price and maturity
+                           date must satisfy put–call parity as defined by:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___11">
+<em>S</em>
+<sub>0</sub> + <em>p</em>
+<sub>0</sub> = <em>c</em>
+<sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>−</sup>
+<em>
+<sup>T</sup>
+</em> = $50 + $5.36 = $2.98 + $55 × 1.05<sup>−1</sup> =
+                              $55.36,</div>
+<p>which confirms the relationship.</p>
+</section>
+</div>
+<p> </p>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA1012-s05-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+         Question Set</h3>
+<section id="CFA1012-s05-01-02">
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-h1">Hedging and Risk Neutrality</h4>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1012-s05-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following factors influences the value of an option price
+                              when using a binomial model?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>The risk-free rate of return</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is A, the risk-free rate of return. The value of an
+                              option is determined by its risk-neutral expectation discounted at the
+                              risk-free rate. In a one-period binomial model, the risk-neutral
+                              probabilities are determined only by the risk-free rate over the life
+                              of the option and the underlying asset’s volatility (as measured by
+                              the up and down gross returns, <em>R<sup>u</sup>
+</em> and <em>R<sup>d</sup>
+</em>). Because of the ability to construct a perfect hedge of the
+                              option using the underlying asset, an option’s price is independent of
+                              investors’ risk aversion and the probability of the underlying price
+                              moving up (or down).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>The level of investors’ risk aversion</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is A, the risk-free rate of return. The value of an
+                              option is determined by its risk-neutral expectation discounted at the
+                              risk-free rate. In a one-period binomial model, the risk-neutral
+                              probabilities are determined only by the risk-free rate over the life
+                              of the option and the underlying asset’s volatility (as measured by
+                              the up and down gross returns, <em>R<sup>u</sup>
+</em> and <em>R<sup>d</sup>
+</em>). Because of the ability to construct a perfect hedge of the
+                              option using the underlying asset, an option’s price is independent of
+                              investors’ risk aversion and the probability of the underlying price
+                              moving up (or down).</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>The probability of an upward price move</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is A, the risk-free rate of return. The value of an
+                              option is determined by its risk-neutral expectation discounted at the
+                              risk-free rate. In a one-period binomial model, the risk-neutral
+                              probabilities are determined only by the risk-free rate over the life
+                              of the option and the underlying asset’s volatility (as measured by
+                              the up and down gross returns, <em>R<sup>u</sup>
+</em> and <em>R<sup>d</sup>
+</em>). Because of the ability to construct a perfect hedge of the
+                              option using the underlying asset, an option’s price is independent of
+                              investors’ risk aversion and the probability of the underlying price
+                              moving up (or down).</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>If the underlying asset price in a one-period binomial model can
+                              increase by 15% or decrease by 10% over the period and the prevailing
+                              risk-free rate over the period is 4%, what is the risk-neutral
+                              probability of an asset pricing decrease?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>If the underlying asset price in a one-period binomial model can
+                              increase by 15%, then the up gross return is <em>R<sup>u</sup>
+                                 =</em> 1.15. Similarly, if the price can decrease by 10%, then
+                              the down gross return is <em>R<sup>d</sup> =</em> 0.9.</p>
+<p>The risk-neutral probability of an upward price move is:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___12">
+<math>
+<semantics>
+<mrow>
+<mi>π</mi>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mi>R</mi>
+<mi>u</mi>
+</msup>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mn>0.04</mn>
+<mo>−</mo>
+<mn>0.9</mn>
+</mrow>
+<mrow>
+<mn>1.15</mn>
+<mo>−</mo>
+<mn>0.9</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>0.56.</mn>
+</mrow>
+</semantics>
+</math>
+</div>
+<p>The risk-neutral probability of a downward price move is 1 – 0.56 =
+                              0.44.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1012-s05-Q3">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of the following <em>best</em> describes the
+                              risk-neutral pricing interpretation of the one-period binomial option
+                              pricing formula?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>The real-world expected payoff discounted at the risk-free rate</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B, the risk-neutral expected payoff discounted
+                              at the risk-free rate. The risk-neutral pricing interpretation of the
+                              option pricing formula states that the value of an option today is its
+                              risk-neutral expected value at maturity, discounted at the risk-free
+                              rate.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>The risk-neutral expected payoff discounted at the risk-free
+                                 rate</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B, the risk-neutral expected payoff discounted
+                              at the risk-free rate. The risk-neutral pricing interpretation of the
+                              option pricing formula states that the value of an option today is its
+                              risk-neutral expected value at maturity, discounted at the risk-free
+                              rate.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>The risk-neutral expected payoff discounted at a risk-adjusted
+                                 rate</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B, the risk-neutral expected payoff discounted
+                              at the risk-free rate. The risk-neutral pricing interpretation of the
+                              option pricing formula states that the value of an option today is its
+                              risk-neutral expected value at maturity, discounted at the risk-free
+                              rate.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>Determine the correct answers to fill in the blanks: If a call option
+                              is trading at a higher price than that implied from the binomial
+                              model, investors can earn a return in excess of the risk-free rate by
+                                 <span class="answer">________</span> at
+                              the risk-free rate, <span class="answer">__________</span> the call, and <span class="answer">_________</span> the underlying.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>If a call option is trading at a higher price than that implied from
+                              the binomial model, investors can earn a return in excess of the
+                              risk-free rate by <em>borrowing</em> at the risk-free rate,
+                                 <em>selling</em> the call, and <em>buying</em> the
+                              underlying.</p>
+<p>A synthetic risk-free asset can be created by this strategy that earns
+                              a return higher than the risk-free rate. Selling the over-priced call
+                              will provide a higher cash inflow than is required to generate the
+                              risk-free rate of return.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1012-s05-Q5">
+<span class="cfa-curriculum-question-with-label">5. </span>
+<p>A stock’s price is currently ¥8,000. At the end of one month when its
+                              options expire, the stock price is either up by 5% or down by 15%. If
+                              the risk-free rate is –0.20% for the period, what is the value of a
+                              put option with a strike price of ¥7,950?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>¥333.67</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B, ¥299.60. Using risk-neutral pricing, we can
+                              determine the risk-neutral probability as:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___13">
+<math>
+<semantics>
+<mrow>
+<mi>π</mi>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mi>R</mi>
+<mi>u</mi>
+</msup>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mn>0.002</mn>
+<mo>−</mo>
+<mn>0.85</mn>
+</mrow>
+<mrow>
+<mn>1.05</mn>
+<mo>−</mo>
+<mn>0.85</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>0.74.</mn>
+</mrow>
+</semantics>
+</math>
+</div>
+<p>The risk-neutral probability of a down move is therefore 1 – π = 1 –
+                              0.74 = 0.26. The value of a put option with an exercise price of
+                              ¥7,950 is:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___14">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>p</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>π</mi>
+<msubsup>
+<mi>p</mi>
+<mn>1</mn>
+<mi>u</mi>
+</msubsup>
+<mo>+</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mi>π</mi>
+</mrow>
+</mfenced>
+<msubsup>
+<mi>p</mi>
+<mn>1</mn>
+<mi>d</mi>
+</msubsup>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mi>T</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___15">=[0.74 × Max(0, ¥7,950 − ¥8,400)
+                              + 0.26 × Max(0, ¥7,950 − ¥6,800)]/(1 − 0.002)</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___16">=[0.26 × ¥1,150]/0.998 =
+                              ¥299.60.</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>¥299.60</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B, ¥299.60. Using risk-neutral pricing, we can
+                              determine the risk-neutral probability as:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___13">
+<math>
+<semantics>
+<mrow>
+<mi>π</mi>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mi>R</mi>
+<mi>u</mi>
+</msup>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mn>0.002</mn>
+<mo>−</mo>
+<mn>0.85</mn>
+</mrow>
+<mrow>
+<mn>1.05</mn>
+<mo>−</mo>
+<mn>0.85</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>0.74.</mn>
+</mrow>
+</semantics>
+</math>
+</div>
+<p>The risk-neutral probability of a down move is therefore 1 – π = 1 –
+                              0.74 = 0.26. The value of a put option with an exercise price of
+                              ¥7,950 is:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___14">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>p</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>π</mi>
+<msubsup>
+<mi>p</mi>
+<mn>1</mn>
+<mi>u</mi>
+</msubsup>
+<mo>+</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mi>π</mi>
+</mrow>
+</mfenced>
+<msubsup>
+<mi>p</mi>
+<mn>1</mn>
+<mi>d</mi>
+</msubsup>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mi>T</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___15">=[0.74 × Max(0, ¥7,950 − ¥8,400)
+                              + 0.26 × Max(0, ¥7,950 − ¥6,800)]/(1 − 0.002)</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___16">=[0.26 × ¥1,150]/0.998 =
+                              ¥299.60.</div>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>¥236.93</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The correct answer is B, ¥299.60. Using risk-neutral pricing, we can
+                              determine the risk-neutral probability as:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___13">
+<math>
+<semantics>
+<mrow>
+<mi>π</mi>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+<mrow>
+<msup>
+<mi>R</mi>
+<mi>u</mi>
+</msup>
+<mo>−</mo>
+<msup>
+<mi>R</mi>
+<mi>d</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mn>0.002</mn>
+<mo>−</mo>
+<mn>0.85</mn>
+</mrow>
+<mrow>
+<mn>1.05</mn>
+<mo>−</mo>
+<mn>0.85</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>0.74.</mn>
+</mrow>
+</semantics>
+</math>
+</div>
+<p>The risk-neutral probability of a down move is therefore 1 – π = 1 –
+                              0.74 = 0.26. The value of a put option with an exercise price of
+                              ¥7,950 is:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___14">
+<math>
+<semantics>
+<mrow>
+<msub>
+<mi>p</mi>
+<mn>0</mn>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>π</mi>
+<msubsup>
+<mi>p</mi>
+<mn>1</mn>
+<mi>u</mi>
+</msubsup>
+<mo>+</mo>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>−</mo>
+<mi>π</mi>
+</mrow>
+</mfenced>
+<msubsup>
+<mi>p</mi>
+<mn>1</mn>
+<mi>d</mi>
+</msubsup>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mi>T</mi>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</semantics>
+</math>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___15">=[0.74 × Max(0, ¥7,950 − ¥8,400)
+                              + 0.26 × Max(0, ¥7,950 − ¥6,800)]/(1 − 0.002)</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___16">=[0.26 × ¥1,150]/0.998 =
+                              ¥299.60.</div>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</section>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskNeutralProbabilityContent">
+<p>The computed probability used in binomial option pricing by which the discounted weighted sum of expected values of the underlying equal the current option price. Specifically, this probability is computed using the risk-free rate and assumed up gross return and down gross return of the underlying.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskNeutralPricingContent">
+<p>A no-arbitrage derivative value established separately from investor views on risk that uses underlying asset volatility and the risk-free rate to calculate the present value of future cash flows.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1870_modules_items_145518_1004_Pricing_a_European_Call_Option.html" >← 前へ</a>
+  <span class="title">10.05 | Risk Neutrality</span>
+  <a href="courses_1870_modules_items_145526_Glossary_Valuing_a_Derivative_Using_a_One-Period_Binomial_Model.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

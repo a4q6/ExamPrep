@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2456-R-s01-R-1" title="2.01 | Introduction">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 2: Alternative Investment Performance and Returns</span>2.01 | Introduction</h2>
+</header>
+<p>Investment performance measurement on common asset classes, such as public equity and debt, is relatively straightforward. In alternative investments, there are unique features that make this asset class somewhat complicated when it comes to measurement of investment risk and return. In this learning module, we first discuss these unique characteristics and the challenges they pose to performance appraisal. Then we explain the various features in the complex fee arrangement in alternative investments and the nuances when it comes to calculating investor returns.</p>
+<div class="dp-content-block cfa-curriculum-overview-box" id="CFA2456-R-s01-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i>
+         Learning Module Overview</h3>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2456-R-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>Alternative investments differ from traditional asset classes in that they involve longer time horizons, unique patterns of cash flows, the use of leverage, illiquid positions, more complex fee structures, different tax and accounting treatment, and so on. In addition, returns are usually less normally distributed for alternative investments than for traditional investments.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The investment life cycle is usually longer and involves three phases: capital commitment, capital deployment, and capital distribution.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Internal rate of return (IRR) is often the preferred measure for alternative investment returns. The multiple of invested capital (MOIC) is often used as a shortcut measure, but it ignores the timing of cash flows.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Customized and complex compensation arrangements seek to align manager and investor incentives. Special provisions also exist for the lockup and redemption of capital from investors.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>In addition to a base management fee, alternative investments often charge additional performance fees based on a percentage of periodic fund returns. When calculating fees and investors’ net returns, different features have to be considered, such as founder share class, either/or fee structure, hurdle rate, and high-water mark and clawback clauses.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>It is difficult to generalize performance appraisal for these investments because returns may vary depending on how and when a particular investor invested in a particular vehicle.</p>
+</li>
+</ul>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2456-R-s01-B-1-b">
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+         Learning Module Self-Assessment</h3>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2456-R-s01-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>In which part of the investment life cycle of a private equity investment should investors generally expect a positive cash flow?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Capital commitment</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. In the initial capital commitment phase, fees and expenses are immediately incurred prior to capital deployment, and assets may generate little or no income during this first phase. In the capital deployment phase, cash outflows typically exceed inflows as funds are deployed. Only in the capital distribution phase can excess income be generated from the invested properties and substantial capital gains be realized upon the sale of assets.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Capital deployment</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. In the initial capital commitment phase, fees and expenses are immediately incurred prior to capital deployment, and assets may generate little or no income during this first phase. In the capital deployment phase, cash outflows typically exceed inflows as funds are deployed. Only in the capital distribution phase can excess income be generated from the invested properties and substantial capital gains be realized upon the sale of assets.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Capital distribution</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. In the initial capital commitment phase, fees and expenses are immediately incurred prior to capital deployment, and assets may generate little or no income during this first phase. In the capital deployment phase, cash outflows typically exceed inflows as funds are deployed. Only in the capital distribution phase can excess income be generated from the invested properties and substantial capital gains be realized upon the sale of assets.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2456-R-s01-Q2">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Why is IRR preferred for performance measurement for alternative investments?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>IRR is commonly used for other asset classes.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. IRR is seldom used to measure investment performance of other asset classes with publicly quoted market prices. Although IRR is complicated to calculate and involves assumptions on opportunity costs and reinvestment rates, it is the best metric to evaluate long-lived alternative investments because it takes into account the unique timing of cash flows in the investment life cycle of alternative investments.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>IRR is easy and intuitive to calculate.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. IRR is seldom used to measure investment performance of other asset classes with publicly quoted market prices. Although IRR is complicated to calculate and involves assumptions on opportunity costs and reinvestment rates, it is the best metric to evaluate long-lived alternative investments because it takes into account the unique timing of cash flows in the investment life cycle of alternative investments.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>IRR takes into account the timing of cash flows in long-lived alternative investments.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>C is correct. IRR is seldom used to measure investment performance of other asset classes with publicly quoted market prices. Although IRR is complicated to calculate and involves assumptions on opportunity costs and reinvestment rates, it is the best metric to evaluate long-lived alternative investments because it takes into account the unique timing of cash flows in the investment life cycle of alternative investments.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2456-R-s01-Q3">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of the following statements regarding hedge fund fee structure is correct?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>The periodic returns of all investors in the same fund must be identical.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. A hedge fund usually charges both a flat management fee and an additional performance fee based on a percentage of periodic fund returns. Periodic performance results may vary based on which investor has invested and when the investor invested into the fund. Besides, a particular investor may face significantly lower incentive fees if she invests more capital in a fund at an earlier phase or is willing to accept greater restrictions on redemptions.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Hedge funds usually charge a performance fee based on a percentage of periodic return above a certain threshold.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. A hedge fund usually charges both a flat management fee and an additional performance fee based on a percentage of periodic fund returns. Periodic performance results may vary based on which investor has invested and when the investor invested into the fund. Besides, a particular investor may face significantly lower incentive fees if she invests more capital in a fund at an earlier phase or is willing to accept greater restrictions on redemptions.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>The management and performance fee rates are always the same for all investors in the same fund.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. A hedge fund usually charges both a flat management fee and an additional performance fee based on a percentage of periodic fund returns. Periodic performance results may vary based on which investor has invested and when the investor invested into the fund. Besides, a particular investor may face significantly lower incentive fees if she invests more capital in a fund at an earlier phase or is willing to accept greater restrictions on redemptions.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2456-R-s01-Q4">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>A $100 million hedge fund charges all its investors a 2% management fee and a 20% performance fee if the periodic return, net of management fee, exceeds a 5% hard hurdle rate. All fees are deducted based on the end-of-year value. If the fund makes a gross return (before fees) of 8% for the year, what is the investor’s return, net of fees, <em>closest</em> to (ignoring any high-water mark provisions)?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>4.67%</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. If the hedge fund makes 8% gross return for the year, its net asset value has grown to $108 million before any fees are deducted.</p>
+<p>Management fee = $108 × 2% = $2.16 million.</p>
+<p>Performance fee = [($108 – $2.16) – ($100 × $1.05%)] × 20% = $0.168 million.</p>
+<p>Net asset value after fee deduction = $108 – $2.16 – $0.168 = $105.672 million.</p>
+<p>Net investor return = ($105.672 – $100)/$100 <span class="cfa-curriculum-display-inline-formula">
+<math id="m1">
+<mrow>
+<mo>≈</mo>
+<mo> </mo>
+</mrow>
+</math>
+</span>5.67%.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>5.67%</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. If the hedge fund makes 8% gross return for the year, its net asset value has grown to $108 million before any fees are deducted.</p>
+<p>Management fee = $108 × 2% = $2.16 million.</p>
+<p>Performance fee = [($108 – $2.16) – ($100 × $1.05%)] × 20% = $0.168 million.</p>
+<p>Net asset value after fee deduction = $108 – $2.16 – $0.168 = $105.672 million.</p>
+<p>Net investor return = ($105.672 – $100)/$100 <span class="cfa-curriculum-display-inline-formula">
+<math id="m1">
+<mrow>
+<mo>≈</mo>
+<mo> </mo>
+</mrow>
+</math>
+</span>5.67%.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>5.84%</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. If the hedge fund makes 8% gross return for the year, its net asset value has grown to $108 million before any fees are deducted.</p>
+<p>Management fee = $108 × 2% = $2.16 million.</p>
+<p>Performance fee = [($108 – $2.16) – ($100 × $1.05%)] × 20% = $0.168 million.</p>
+<p>Net asset value after fee deduction = $108 – $2.16 – $0.168 = $105.672 million.</p>
+<p>Net investor return = ($105.672 – $100)/$100 <span class="cfa-curriculum-display-inline-formula">
+<math id="m1">
+<mrow>
+<mo>≈</mo>
+<mo> </mo>
+</mrow>
+</math>
+</span>5.67%.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2456-R-s01-Q5">
+<span class="cfa-curriculum-question-with-label">5. </span>
+<p>A €100 million private equity fund has a preferred return of 5% per annum, 20% carried interest with full catch-up, and standard clawback clauses. The fund realizes a gross gain of 50% in two years before it distributes all its capital back to its LPs. Ignoring management fees, the total carried interest to the GP for the two years is <em>closest</em> to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>€8 million.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. After two years, the net asset value of the fund has grown to €100 million × 150% = €150 million shortly before distribution. The preferred return to the LPs for the two years totaled €100 million × 5% × 2 = €10 million. (Note that annual preferred return is typically not compounded.) Next, the GP is allowed full catch-up until the GP’s carried interest has caught up to the 20% of the total profit accounted for so far, or €2.5 million (€10 million/0.8 × 0.2). The remaining profit of 50 – 10 – 2.5 = €37.5 million is then split 80/20 between the LPs and GP; that is, the GP will get another €7.5 million (€37.5 million × 20%). Therefore, the total carried interest to the GP is 2.5 + 7.5 = €10 million, which is exactly 20% of the €50 million gain.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>€10 million.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. After two years, the net asset value of the fund has grown to €100 million × 150% = €150 million shortly before distribution. The preferred return to the LPs for the two years totaled €100 million × 5% × 2 = €10 million. (Note that annual preferred return is typically not compounded.) Next, the GP is allowed full catch-up until the GP’s carried interest has caught up to the 20% of the total profit accounted for so far, or €2.5 million (€10 million/0.8 × 0.2). The remaining profit of 50 – 10 – 2.5 = €37.5 million is then split 80/20 between the LPs and GP; that is, the GP will get another €7.5 million (€37.5 million × 20%). Therefore, the total carried interest to the GP is 2.5 + 7.5 = €10 million, which is exactly 20% of the €50 million gain.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>€16 million.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h3 class="cfa-curriculum-solution">Solution</h3>
+<p>B is correct. After two years, the net asset value of the fund has grown to €100 million × 150% = €150 million shortly before distribution. The preferred return to the LPs for the two years totaled €100 million × 5% × 2 = €10 million. (Note that annual preferred return is typically not compounded.) Next, the GP is allowed full catch-up until the GP’s carried interest has caught up to the 20% of the total profit accounted for so far, or €2.5 million (€10 million/0.8 × 0.2). The remaining profit of 50 – 10 – 2.5 = €37.5 million is then split 80/20 between the LPs and GP; that is, the GP will get another €7.5 million (€37.5 million × 20%). Therefore, the total carried interest to the GP is 2.5 + 7.5 = €10 million, which is exactly 20% of the €50 million gain.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1871_modules_items_144546_Learning_Outcomes_Alternative_Investment_Performance_and_Returns.html" >← 前へ</a>
+  <span class="title">2.01 | Introduction</span>
+  <a href="courses_1871_modules_items_144555_202_Alternative_Investment_Performance.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

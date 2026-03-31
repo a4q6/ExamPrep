@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.20 | Standard II(B): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s20-R-1" title="3.20 | Standard II(B): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.20 | Standard II(B): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s20-01-01">
+<h3 class="dp-heading">Example 1 (Independent Analysis and Company Promotion):</h3>
+<p>The principal owner of Financial Information Services (FIS) entered into an agreement with two microcap companies to promote the companies’ stock in exchange for stock and cash compensation. The principal owner caused FIS to disseminate e-mails, design and maintain several websites, and distribute an online investment newsletter—all of which recommended investment in the two companies. The systematic publication of purportedly independent analyses and recommendations containing inaccurate and highly promotional and speculative statements increased public investment in the companies and led to dramatically higher stock prices.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: The principal owner of FIS violated Standard II(B) by using inaccurate reporting and misleading information under the guise of independent analysis to artificially increase the stock price of the companies. Furthermore, the principal owner violated Standard V(A) Diligence and Reasonable Basis by not having a reasonable and adequate basis for recommending the two companies and violated Standard VI(A) Disclosure of Conflicts by not disclosing to investors the compensation agreements (which constituted a conflict of interest).</p>
+</div>
+</section>
+<section id="CFA0008-R-s20-01-02">
+<h3 class="dp-heading">Example 2 (Personal Trading Practices and Price):</h3>
+<p>John Gray is a private investor in Belgium who bought a large position several years ago in Fame Pharmaceuticals, a German small-cap security with limited average trading volume. He has now decided to significantly reduce his holdings owing to the poor price performance. Gray is worried that the low trading volume for the stock may cause the price to decline further as he attempts to sell his large position.</p>
+<p>Gray devises a plan to divide his holdings into multiple accounts in different brokerage firms and private banks in the names of family members, friends, and even a private religious institution. He then creates a rumor campaign on various blogs and social media outlets promoting the company. </p>
+<p>Gray begins to buy and sell the stock using the accounts in hopes of raising the trading volume and the price. He conducts the trades through multiple brokers, selling slightly larger positions than he bought on a tactical schedule, and over time, he is able to reduce his holding as desired without negatively affecting the sale price.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: John violated Standard II(B) by fraudulently creating the appearance that there was a greater investor interest in the stock through the online rumors. Additionally, through his trading strategy, he created the appearance that there was greater liquidity in the stock than actually existed. He was able to manipulate the price through both misinformation and trading practices.</p>
+</div>
+</section>
+<section id="CFA0008-R-s20-01-03">
+<h3 class="dp-heading">Example 3 (Creating Artificial Price Volatility):</h3>
+<p>Matthew Murphy is an analyst at Divisadero Securities &amp; Co., which has a significant number of hedge funds among its most important brokerage clients. Some of the hedge funds hold short positions on Wirewolf Semiconductor. Two trading days before the publication of a quarter-end report, Murphy alerts his sales force that he is about to issue a research report on Wirewolf that will include the following opinions:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s20-L1">
+<li class="cfa-curriculum-list-item">
+<p>quarterly revenues are likely to fall short of management’s guidance,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>earnings will be as much as 5 cents per share (or more than 10%) below consensus, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Wirewolf’s highly respected chief financial officer may be about to join another company.</p>
+</li>
+</ul>
+<p>Knowing that Wirewolf has already entered its declared quarter-end “quiet period” before reporting earnings (and thus would be reluctant to respond to rumors), Murphy times the release of his research report specifically to sensationalize the negative aspects of the message in order to create significant downward pressure on Wirewolf’s stock—to the distinct advantage of Divisadero’s hedge fund clients. The report’s conclusions are based on speculation, not on fact. The next day, the research report is broadcast to all of Divisadero’s clients and to the usual newswire services.</p>
+<p>Before Wirewolf’s investor-relations department can assess the damage on the final trading day of the quarter and refute Murphy’s report, its stock opens trading sharply lower, allowing Divisadero’s clients to cover their short positions at substantial gains.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Murphy violated Standard II(B) by aiming to create artificial price volatility designed to have a material impact on the price of an issuer’s stock. Moreover, by lacking an adequate basis for the recommendation, Murphy also violated Standard V(A) Diligence and Reasonable Basis.</p>
+</div>
+</section>
+<section id="CFA0008-R-s20-01-04">
+<h3 class="dp-heading">Example 4 (Personal Trading and Volume):</h3>
+<p>Rajesh Sekar manages two funds—an equity fund and a balanced fund—whose equity components are supposed to be managed in accordance with the same model. According to that model, the funds’ holdings in stock of Digital Design Inc. (DD) are excessive. Reduction of the DD holdings would not be easy, however, because the stock has low liquidity in the stock market. Sekar decides to start trading larger portions of DD stock back and forth between his two funds to slowly increase the price; he believes market participants will see growing volume and increasing price and become interested in the stock. If other investors are willing to buy the DD stock because of such interest, then Sekar will be able to get rid of at least some of his overweight position without inducing price decreases. In this way, the whole transaction will be for the benefit of fund participants, even if additional brokers’ commissions are incurred.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Sekar’s plan would be beneficial for his funds’ participants but is based on artificial distortion of both trading volume and the price of the DD stock and thus constitutes a violation of Standard II(B).</p>
+</div>
+</section>
+<section id="CFA0008-R-s20-01-05">
+<h3 class="dp-heading">Example 5 (“Pump-Priming” Strategy):</h3>
+<p>ACME Futures Exchange is launching a new bond futures contract. To convince investors, traders, arbitrageurs, hedgers, and so on, to use its contract, the exchange attempts to demonstrate that it has the best liquidity. To do so, it enters into agreements with members in which they commit to a substantial minimum trading volume on the new contract over a specific period in exchange for substantial reductions of their regular commissions.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: The formal liquidity of a market is determined by the obligations set on market makers, but the actual liquidity of a market is better estimated by the actual trading volume and bid–ask spreads. Attempts to mislead participants about the actual liquidity of the market constitute a violation of Standard II(B). In this example, investors have been intentionally misled to believe they chose the most liquid instrument for some specific purpose, but they could eventually see the actual liquidity of the contract significantly reduced after the term of the agreement expires. If the ACME Futures Exchange fully discloses its agreement with members to boost transactions over some initial launch period, it will not violate Standard II(B). ACME’s intent is not to harm investors but, on the contrary, to give them a better service. For that purpose, it may engage in a liquidity-pumping strategy, but the strategy must be disclosed.</p>
+</div>
+</section>
+<section id="CFA0008-R-s20-01-06">
+<h3 class="dp-heading">Example 6 (Creating Artificial Price Volatility):</h3>
+<p>Emily Gordon, an analyst of household products companies, is employed by a research boutique, Picador &amp; Co. Based on information that she has gathered during a trip through Latin America, she believes that Hygene, Inc., a major marketer of personal care products, has generated better-than-expected sales from its new product initiatives in South America. After modestly boosting her projections for revenue and for gross profit margin in her worksheet models for Hygene, Gordon estimates that her earnings projection of US$2.00 per diluted share for the current year may be as much as 5% too low. She contacts the chief financial officer (CFO) of Hygene to try to gain confirmation of her findings from her trip and to get some feedback regarding her revised models. The CFO declines to comment and reiterates management’s most recent guidance of US$1.95–US$2.05 for the year.</p>
+<p>Gordon decides to try to force a comment from the company by telling Picador &amp; Co. clients who follow a momentum investment style that consensus earnings projections for Hygene are much too low; she explains that she is considering raising her published estimate by an ambitious US$0.15 to US$2.15 per share. She believes that when word of an unrealistically high earnings projection filters back to Hygene’s investor-relations department, the company will feel compelled to update its earnings guidance. Meanwhile, Gordon hopes that she is at least correct with respect to the earnings direction and that she will help clients who act on her insights to profit from a quick gain by trading on her advice.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: By exaggerating her earnings projections in order to try to fuel a quick gain in Hygene’s stock price, Gordon is in violation of Standard II(B). Furthermore, by virtue of previewing her intentions of revising upward her earnings projections to only a select group of clients, she is in violation of Standard III(B) Fair Dealing. However, it would have been acceptable for Gordon to write a report that</p>
+</div>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s20-L2">
+<li class="cfa-curriculum-list-item">
+<p>framed her earnings projection in a range of possible outcomes,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>outlined clearly the assumptions used in her Hygene models that took into consideration the findings from her trip through Latin America, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>was distributed to all Picador &amp; Co. clients in an equitable manner.</p>
+</li>
+</ul>
+</section>
+<section id="CFA0008-R-s20-01-07">
+<h3 class="dp-heading">Example 7 (Pump and Dump Strategy):</h3>
+<p>In an effort to pump up the price of his holdings in Moosehead &amp; Belfast Railroad Company, Steve Weinberg logs on to several investor chat rooms on the internet to start rumors that the company is about to expand its rail network in anticipation of receiving a large contract for shipping lumber.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Weinberg has violated Standard II(B) by disseminating false information about Moosehead &amp; Belfast with the intent to mislead market participants.</p>
+</div>
+</section>
+<section id="CFA0008-R-s20-01-08">
+<h3 class="dp-heading">Example 8 (Manipulating Model Inputs):</h3>
+<p>Bill Mandeville supervises a structured financing team for Superior Investment Bank. His responsibilities include packaging new structured investment products and managing Superior’s relationship with relevant rating agencies. To achieve the best rating possible, Mandeville uses mostly positive scenarios as model inputs—scenarios that reflect minimal downside risk in the assets underlying the structured products. The resulting output statistics in the rating request and underwriting prospectus support the idea that the new structured products have minimal potential downside risk. Additionally, Mandeville’s compensation from Superior is partially based on both the level of the rating assigned and the successful sale of new structured investment products but does not have a link to the long-term performance of the instruments.</p>
+<p>Mandeville is extremely successful and leads Superior as the top originator of structured investment products for the next two years. In the third year, the economy experiences difficulties and the values of the assets underlying structured products significantly decline. The subsequent defaults lead to major turmoil in the capital markets, the demise of Superior Investment Bank, and the loss of Mandeville’s employment.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Mandeville manipulates the inputs of a model to minimize associated risk to achieve higher ratings. His understanding of structured products allows him to skillfully decide which inputs to include in support of the desired rating and price. This information manipulation for short-term gain, which is in violation of Standard II(B), ultimately causes significant damage to many parties and the capital markets as a whole. Mandeville should have realized that promoting a rating and price with inaccurate information could cause not only a loss of price confidence in the particular structured product but also a loss of investor trust in the system. Such loss of confidence affects the ability of the capital markets to operate efficiently.</p>
+</div>
+</section>
+<section id="CFA0008-R-s20-01-09">
+<h3 class="dp-heading">Example 9 (Information Manipulation):</h3>
+<p>Allen King is a performance analyst for Torrey Investment Funds. King believes that the portfolio manager for the firm’s small- and microcap equity fund dislikes him because the manager never offers him tickets to the local baseball team’s games but does offer tickets to other employees. To incite a potential regulatory review of the manager, King creates user profiles on several online forums under the portfolio manager’s name and starts rumors about potential mergers for several of the smaller companies in the portfolio. As the prices of these companies’ stocks increase, the portfolio manager sells the position, which leads to an investigation by the regulator as King desired.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: King has violated Standard II(B) even though he did not personally profit from the market’s reaction to the rumor. In posting the false information, King misleads others into believing the companies were likely to be acquired. Although his intent was to create trouble for the portfolio manager, his actions clearly manipulated the factual information that was available to the market.</p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147290_319_Standard_IIB_Market_Manipulation.html" >← 前へ</a>
+  <span class="title">3.20 | Standard II(B): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147298_321_Standard_III_Duties_to_Clients.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

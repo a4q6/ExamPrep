@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.04 | Risk Aversion and Portfolio Selection</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0159-R-s09" title="1.04 | Risk Aversion and Portfolio Selection">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 1: Portfolio Risk and Return: Part I</span>1.04 | Risk Aversion and Portfolio Selection</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">explain risk aversion and its implications for portfolio selection</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>As we have seen, stocks, bonds, and T-bills provide different levels of returns
+                  and have different levels of risk. Although investment in equities may be
+                  appropriate for one investor, another investor may not be inclined to accept the
+                  risk that accompanies a share of stock and may prefer to hold more cash. In the
+                  last section, we considered investment characteristics of assets in understanding
+                  their risk and return. In this section, we consider the characteristics of
+                  investors, both individual and institutional, in an attempt to pair the right kind
+                  of investors with the right kind of investments.</p>
+<p>First, we discuss risk aversion and utility theory. Later we discuss their
+                  implications for portfolio selection.</p>
+<section id="CFA0159-s09-01-01">
+<h3 class="dp-heading">The Concept of Risk Aversion</h3>
+<p>The concept of <a aria-describedby="RiskAversionContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskAversionContent">risk aversion</a> is related to the
+                     behavior of individuals under uncertainty. Assume that an individual is offered
+                     two alternatives: one where he will get £50 for sure and the other is a gamble
+                     with a 50 percent chance that he gets £100 and 50 percent chance that he gets
+                     nothing. The expected value in both cases is £50, one with certainty and the
+                     other with uncertainty. What will an investor choose? There are three
+                     possibilities: an investor chooses the gamble, the investor chooses £50 with
+                     certainty, or the investor is indifferent. Let us consider each in turn.
+                     However, please understand that this is only a representative example, and a
+                     single choice does not determine the risk aversion of an investor.</p>
+<section id="CFA0159-s09-01-01-01">
+<h4>Risk Seeking</h4>
+<p>If an investor chooses the gamble, then the investor is said to be risk
+                        loving or risk seeking. The gamble has an uncertain outcome, but with the
+                        same expected value as the guaranteed outcome. Thus, an investor choosing
+                        the gamble means that the investor gets extra “utility” from the uncertainty
+                        associated with the gamble. How much is that extra utility worth? Would the
+                        investor be willing to accept a smaller expected value because he gets extra
+                        utility from risk? Indeed, risk seekers will accept less return because of
+                        the risk that accompanies the gamble. For example, a risk seeker may choose
+                        a gamble with an expected value of £45 in preference to a guaranteed outcome
+                        of £50.</p>
+<p>There is a little bit of gambling instinct in many of us. People buy lottery
+                        tickets although the expected value is less than the money they pay to buy
+                        it. Or people gamble at casinos with the full knowledge that the expected
+                        return is negative, a characteristic of risk seekers. These or any other
+                        isolated actions, however, cannot be taken at face value except for
+                        compulsive gamblers.</p>
+</section>
+<section id="CFA0159-s09-01-01-02">
+<h4>Risk Neutral</h4>
+<p>If an investor is indifferent about the gamble or the guaranteed outcome,
+                        then the investor may be risk neutral. Risk neutrality means that the
+                        investor cares only about return and not about risk, so higher return
+                        investments are more desirable even if they come with higher risk. Many
+                        investors may exhibit characteristics of risk neutrality when the investment
+                        at stake is an insignificant part of their wealth. For example, a
+                        billionaire may be indifferent about choosing the gamble or a £50 guaranteed
+                        outcome.</p>
+</section>
+<section id="CFA0159-s09-01-01-03">
+<h4>Risk Averse</h4>
+<p>If an investor chooses the guaranteed outcome, he/she is said to be
+                           <a aria-describedby="RiskAverseContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskAverseContent">risk
+                           averse</a> because the investor does not want to take the chance
+                        of not getting anything at all. Depending on the level of aversion to risk,
+                        an investor may be willing to accept a guaranteed outcome of £45 instead of
+                        a gamble with an expected value of £50.</p>
+<p>In general, investors are likely to shy away from risky investments for a
+                        lower, but guaranteed return. That is why they want to minimize their risk
+                        for the same amount of return, and maximize their return for the same amount
+                        of risk. The risk–return trade-off discussed earlier is an indicator of risk
+                        aversion. A risk-neutral investor would maximize return irrespective of risk
+                        and a risk-seeking investor would maximize both risk and return.</p>
+<p>Data presented in the last section illustrate the historically positive
+                        relationship between risk and return, which demonstrates that market prices
+                        were based on transactions and investments by risk-averse investors and
+                        reflect risk aversion. Therefore, for all practical purposes and for our
+                        future discussion, we will assume that the representative investor is a
+                        risk-averse investor. This assumption is the standard approach taken in the
+                        investment industry globally.</p>
+</section>
+<section id="CFA0159-s09-01-01-04">
+<h4>Risk Tolerance</h4>
+<p>
+<a aria-describedby="RiskToleranceContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskToleranceContent">Risk
+                           tolerance</a> refers to the amount of risk an investor can
+                        tolerate to achieve an investment goal. The higher the risk tolerance, the
+                        greater is the willingness to take risk. Thus, risk tolerance is negatively
+                        related to risk aversion.</p>
+</section>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskAversionContent">
+<p>The dislike for risk such that compensation is required in terms of higher expected returns for assuming higher risk.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskAverseContent">
+<p>The assumption that an investor will choose the least risky alternative.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskToleranceContent">
+<p>The level of risk an investor is willing and able to bear.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_145742_103_Other_Investment_Characteristics.html" >← 前へ</a>
+  <span class="title">1.04 | Risk Aversion and Portfolio Selection</span>
+  <a href="courses_1872_modules_items_145747_105_Utility_Theory_and_Indifference_Curves.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

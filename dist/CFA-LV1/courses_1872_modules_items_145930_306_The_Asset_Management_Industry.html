@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.06 | The Asset Management Industry</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0158-R-s06" title="3.06 | The Asset Management Industry">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Portfolio Management: An Overview</span>3.06 | The Asset Management Industry</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe aspects of the asset management industry</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>The portfolio management process and investor types are broad
+                                components of the asset management industry, which is an integral
+                                component of the global financial services sector. At the end of
+                                2017, the industry managed more than US$79 trillion of assets owned
+                                by a broad range of institutional and individual investors (<a aria-label="View Exhibit 18" class="internal" href="#CFA0158-R-EXH18" role="button">Exhibit 18</a>).<a aria-describedby="CFA0158-R-FN12Content" class="dp-popover-trigger" href="#CFA0158-R-FN12Content">
+<sup>12</sup>
+</a> Although nearly 80%
+                                of the world’s professionally managed assets are in North
+                                America and Europe, the fastest-growing markets are in Asia and
+                                Latin America.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0158-R-EXH18">
+<h3 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 18<span style="display: block;">Global Assets under Management (AUM) by Region (year-end
+                                        2017)</span>
+</h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; "> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Market Size</strong>
+<br/><br/>
+<strong>(US$ trillions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Market Share (%)</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">North America</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">37.4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">47%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Europe</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">22.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">28</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Japan and Australia</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">6.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">8</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Chinese mainland</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">5</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Asia (excluding Japan, Australia, and
+                                                  Chinese mainland)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">4</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Latin America</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.8</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Middle East and Africa</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1.4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Total Global AUM</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">79.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Notes</em>: Total Global AUM in this exhibit
+                                        represents assets professionally managed in exchange for a
+                                        fee. The total of US$79.2 trillion includes certain offshore
+                                        assets that are not represented in the specific regional
+                                        categories above. </span>
+</p>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Source</em>: Boston Consulting
+                                        Group.</span>
+</p>
+</div>
+<p>The asset management industry is highly competitive. The universe of
+                                firms in the industry is broad, ranging from
+                                “pure-play” independent asset managers to diversified
+                                commercial banks, insurance companies, and brokerages that offer
+                                asset management services in addition to their core business
+                                activities. Given the increasingly global nature of the industry,
+                                many asset managers have investment research and distribution
+                                offices around the world. An asset manager is commonly referred to
+                                as a <a aria-describedby="BuySideFirmContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#BuySideFirmContent">buy-side
+                                    firm</a> given that it uses (buys) the services of sell-side
+                                firms. A <a aria-describedby="SellSideFirmContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SellSideFirmContent">sell-side
+                                    firm</a> is a broker/dealer that sells securities and
+                                provides independent investment research and recommendations to
+                                their clients (i.e., buy-side firms). </p>
+<p>Asset managers offer a broad range of strategies. Specialist asset
+                                managers may focus on a specific asset class (e.g., emerging market
+                                equities) or style (e.g., quantitative investing), while
+                                “full service” managers typically offer a wide variety
+                                of asset classes and styles. Another type of asset manager firm is a
+                                “multi-boutique,” in which a holding company owns
+                                several asset management firms that typically have specialized
+                                investment strategies. The multi-boutique structure allows
+                                individual asset management firms to retain their own unique
+                                investment cultures—and often equity ownership
+                                stakes—while also benefiting from the centralized, shared
+                                services of the holding company (e.g., technology, sales and
+                                marketing, operations, and legal services).</p>
+<section id="CFA0158-R-s06-01">
+<h3 class="dp-heading">Active versus Passive Management</h3>
+<p>Asset managers may offer either active or passive management. As
+                                    of year-end 2017, active management considerably exceeded
+                                    passive management in terms of global assets under management
+                                    and industry revenue (<a aria-label="View Exhibit 19" class="internal" href="#CFA0158-R-EXH19" role="button">Exhibit 19</a>), although passive
+                                    management has demonstrated significant growth.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0158-R-EXH19">
+<h4 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 19<span style="display: block;">Global Asset Management Industry Assets and Revenue
+                                            (as of year-end 2017)</span>
+</h4>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>Category</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Assets</strong>
+<br/><br/>
+<strong>(US$ trillions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Revenue</strong>
+<br/><br/>
+<strong>(US$ billions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Market Share by Assets</strong>
+<br/><br/>
+<strong>(%)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Market Share by Revenue</strong>
+<br/><br/>
+<strong>(%)</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Actively Managed</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>64</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>258</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>80%</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>94%</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">   Alternatives</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">12</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">117</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">43</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">   Active
+                                                  Specialties</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">15</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">55</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">19</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">20</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">   Multi Asset
+                                                  Class</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">11</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">27</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">10</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">   Core</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">26</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">59</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">33</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">21</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Passively Managed</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>16</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>17</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>20%</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>6%</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Total</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>80</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>275</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>100%</strong>
+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">
+<strong>100%</strong>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Note</em>: Some columns may not sum precisely
+                                            because of rounding.</span>
+</p>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Source</em>: Boston Consulting
+                                            Group.</span>
+</p>
+</div>
+<p>Through fundamental research, quantitative research, or a
+                                    combination of both, active asset managers generally attempt to
+                                    outperform either predetermined performance benchmarks, such as
+                                    the S&amp;P 500, or, for multi-asset class portfolios, a
+                                    combination of benchmarks. In contrast to active managers,
+                                    passive managers attempt to replicate the returns of a market
+                                    index. Despite the rise of passive management in asset share,
+                                    its share of industry revenue remains small given the low
+                                    management fees relative to active management. As <a aria-label="View Exhibit 19" class="internal" href="#CFA0158-R-EXH19" role="button">Exhibit 19</a>
+                                    illustrates, passive management represents a fifth of global
+                                    assets under management but only 6% of industry revenue.</p>
+<p>Asset managers are increasingly offering other strategies beyond
+                                    traditional market-cap-weighted exposures. Some of these other
+                                    strategies, commonly known as <a aria-describedby="SmartBetaContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SmartBetaContent">smart beta</a>, are based on such
+                                    factors as size, value, momentum, or dividend characteristics.
+                                    Smart beta involves the use of simple, transparent, rules-based
+                                    strategies as a basis for investment decisions. Typically, smart
+                                    beta strategies feature somewhat higher management fees and
+                                    higher portfolio turnover relative to passive market-cap
+                                    weighted strategies.</p>
+</section>
+<section id="CFA0158-R-s06-02">
+<h3 class="dp-heading">Traditional versus Alternative Asset Managers</h3>
+<p>Asset managers are typically categorized as either
+                                    “traditional” or “alternative.”
+                                    Traditional managers generally focus on long-only equity,
+                                    fixed-income, and multi-asset investment strategies, generating
+                                    most of their revenues from asset-based management fees.
+                                    Alternative asset managers, however, focus on hedge fund,
+                                    private equity, and venture capital strategies, among others,
+                                    while generating revenue from both management and performance
+                                    fees (or “carried interest”). As <a aria-label="View Exhibit 19" class="internal" href="#CFA0158-R-EXH19" role="button">Exhibit 19</a>
+                                    demonstrates, alternative asset managers have a relatively low
+                                    proportion of total global assets under management but generate
+                                    a disproportionately high total of industry revenue.</p>
+<p>Increasingly, the line between traditional and alternative
+                                    managers has blurred. Many traditional managers have introduced
+                                    higher-margin alternative products to clients. Concurrently,
+                                    alternative managers seeking to reduce the revenue volatility
+                                    associated with performance fees have increasingly offered
+                                    retail versions of their institutional alternative strategies
+                                    (typically referred to as “liquid alternatives”)
+                                    as well as long-only investment strategies. These liquid
+                                    alternatives are often offered through highly regulated pooled
+                                    investment products (e.g., mutual funds) and typically feature
+                                    less leverage, no performance fees, and more liquid holdings
+                                    than typical alternative products.</p>
+</section>
+<section id="CFA0158-R-s06-03">
+<h3 class="dp-heading">Ownership Structure</h3>
+<p>The ownership structure of an asset manager can play an important
+                                    role in retaining and incentivizing key personnel. Portfolio
+                                    managers who have personal capital invested in their firms or
+                                    investment strategies are often viewed favorably by potential
+                                    investors because of perceived alignment of management and
+                                    client interests.</p>
+<p>The majority of asset management firms are privately owned,
+                                    typically by individuals who either established their firms or
+                                    play key roles in their firms’ management. Privately
+                                    owned firms are typically structured as limited liability
+                                    companies or limited partnerships. </p>
+<p>While less common than privately owned managers, publicly traded
+                                    asset managers have substantial assets under management. A
+                                    prevalent ownership form in the industry is represented by asset
+                                    management divisions of large, diversified financial services
+                                    companies that offer asset management alongside insurance and
+                                    banking services.</p>
+</section>
+<section id="CFA0158-R-s06-04">
+<h3 class="dp-heading">Asset Management Industry Trends</h3>
+<p>The asset management industry is evolving and continues to be
+                                    shaped by socio-economic trends, shifting investor demands,
+                                    advances in technology, and the expansion of global capital
+                                    markets. Three key trends that we discuss in this section
+                                    include the growth of passive investing, “big
+                                    data” in the investment process, and the emergence of
+                                    robo-advisers in the wealth management industry.</p>
+<section id="CFA0158-R-s06-04-01">
+<h4>Growth of Passive Investing</h4>
+<p>As we saw in <a aria-label="View Exhibit 19" class="internal" href="#CFA0158-R-EXH19" role="button">Exhibit 19</a>, passively managed assets comprised
+                                        nearly a fifth of global assets under management at the end
+                                        of 2017. Management of passive assets is concentrated among
+                                        a reasonably small group of asset managers and tends to be
+                                        concentrated in equity strategies. As shown in <a aria-label="View Exhibit 20" class="internal" href="#CFA0158-R-EXH20" role="button">Exhibit 20</a>, the top three managers account for 70% of
+                                        industry’s assets. One key catalyst supporting the
+                                        growth of passive investing is low cost for
+                                        investors—management fees for index (or other
+                                        passive) funds are often a fraction of those for active
+                                        strategies. Another catalyst is the challenge that many
+                                        active asset managers face in generating ex ante alpha,
+                                        especially in somewhat more-efficiently priced markets, such
+                                        as large-cap US equities.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0158-R-EXH20">
+<h5 class="cfa-curriculum-exhibit-table-title">
+<i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 20<span style="display: block;">Top Five ETP Managers Globally (as of 30 July
+                                                2017)</span>
+</h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>ETP Provider</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Assets (US$ billions)</strong>
+</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px; ">
+<strong>Market Share (%)</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">iShares</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">1,583</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">37</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Vanguard</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">803</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">19</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">State Street Global Advisors</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">596</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">14</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">PowerShares</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">132</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">3</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">Nomura</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">100</td>
+<td style="text-align: center; vertical-align: top; padding: 8px; ">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+<span class="cfa-curriculum-table-wrap-foot">
+<em>Source</em>: ETFGI.</span>
+</p>
+</div>
+</section>
+<section id="CFA0158-R-s06-04-02">
+<h4>Use of “Big Data” in the Investment
+                                        Process</h4>
+<p>The prevalence of new data is extraordinary: In 2013, IBM
+                                        estimated that 90% of the world’s entire universe of
+                                        data was created in the previous two years. The digitization
+                                        of data and an exponential increase in computing power and
+                                        data storage capacity have expanded additional information
+                                        sources for asset managers. Massive amounts of data
+                                        containing information of potential value to investors are
+                                        created and captured daily. These data include both
+                                        structured data—such as order book data and security
+                                        returns—and data lacking recognizable structure,
+                                        which is generated by a vast number of activities on the
+                                        internet and elsewhere (e.g., compiled search information).
+                                        The term “big data” is used to refer to these
+                                        massively large datasets and their analysis.</p>
+<p>Asset managers are using advanced statistical and
+                                        machine-learning techniques to help process and analyze
+                                        these new sources of data. Such techniques are used in both
+                                        fundamentally driven and quantitatively driven investment
+                                        processes. For example, computers are used to
+                                        “read” earnings and economic data releases
+                                        much faster than humans can and react with short-term
+                                        trading strategies.</p>
+<p>Third-party research vendors are supplying a vast range of
+                                        relevant new data for asset managers, such as data used for
+                                        time-series and predictive models. Among the most popular
+                                        new sources of data are social media data and imagery and
+                                        sensor data.</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0158-R-L11">
+<li class="cfa-curriculum-list-item">
+<p>
+<strong>Social media data</strong>. Real-time media and
+                                                content outlets, such as Twitter and Facebook,
+                                                provide meaningful market and company-specific
+                                                announcements for investors and asset managers. In
+                                                addition, the aggregation and analysis of social
+                                                media users can aid key market sentiment indicators
+                                                (e.g., short-term directional market movements) and
+                                                indicate potential specific user trends related to
+                                                products and services.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<strong>Imagery and sensor data</strong>. Satellite
+                                                imagery and geolocation devices provide vast
+                                                real-time data to investment professionals. As the
+                                                cost of launching and maintaining satellites has
+                                                decreased, more satellites have been launched to
+                                                track sensors and imagery that are relevant to
+                                                economic considerations (e.g., weather conditions,
+                                                cargo ship traffic patterns) and company-specific
+                                                considerations (e.g., retailer parking
+                                                capacity/usage, tracking of retail customers).</p>
+</li>
+</ul>
+<p>The challenge for asset managers is to discover data with
+                                        predictive potential and to do so faster than fellow market
+                                        participants. Many market participants are participating in
+                                        an “information arms race” that has required
+                                        substantial investments in specialized human capital (e.g.,
+                                        programmers, data scientists), technology, and information
+                                        technology infrastructure to effectively convert various
+                                        forms of structured and unstructured data into
+                                        alpha-generating portfolio and security-level decisions.</p>
+</section>
+<section id="CFA0158-R-s06-04-03">
+<h4>Robo-Advisers: An Expanding Wealth Management
+                                        Channel</h4>
+<p>Robo-advisers represent technology solutions that use
+                                        automation and investment algorithms to provide several
+                                        wealth management services—notably, investment
+                                        planning, asset allocation, tax loss harvesting, and
+                                        investment strategy selection. Investment and advice
+                                        services provided by robo-advisers typically reflect an
+                                        investor’s general investment goals and risk
+                                        tolerance preferences (often obtained from an investor
+                                        questionnaire). Robo-adviser platforms range from
+                                        exclusively digital investment advice platforms to hybrid
+                                        offerings that offer both digital investment advice and the
+                                        services of a human financial adviser.</p>
+<p>At the end of 2017, robo-advisers managed an estimated US$180
+                                        billion in assets,<a aria-describedby="CFA0158-R-FN13Content" class="dp-popover-trigger" href="#CFA0158-R-FN13Content">
+<sup>13</sup>
+</a>
+                                        and market participants expect that number to grow
+                                        considerably over time. This expected rapid growth in
+                                        robo-advisory assets is based on several industry
+                                        trends:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0158-R-L12">
+<li class="cfa-curriculum-list-item">
+<p>
+<strong>Growing demand from “mass
+                                                  affluent” and younger investors</strong>:
+                                                Traditional investment advice has often underserved
+                                                younger and “mass affluent” investors
+                                                with lower relative levels of investable assets.
+                                                Given the efficiencies of robo-advisers and the
+                                                scalability of technology, customized but
+                                                standardized investment advice now can be offered to
+                                                a wide range and size of investors.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<strong>Lower fees</strong>: The cost of digital
+                                                investment advice provided by robo-advisers is often
+                                                a fraction of traditional investment advice channels
+                                                because of scalability. For example, in the United
+                                                States, a typical financial adviser may charge a 1%
+                                                annual advisory fee<a aria-describedby="CFA0158-R-FN14Content" class="dp-popover-trigger" href="#CFA0158-R-FN14Content">
+<sup>14</sup>
+</a>
+                                                based on a client’s assets, while
+                                                robo-adviser fees typically average 0.20%
+                                                  annually.<a aria-describedby="CFA0158-R-FN15Content" class="dp-popover-trigger" href="#CFA0158-R-FN15Content">
+<sup>15</sup>
+</a>
+                                                Additionally, robo-advisers often rely on lower fee
+                                                underlying portfolio investment options, such as
+                                                index funds or ETFs, when constructing portfolios
+                                                for clients.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<strong>New entrants</strong>: Reflecting low barriers to
+                                                entry, large wealth management firms have introduced
+                                                robo-adviser solutions to service certain customer
+                                                segments and appeal to a new generation of
+                                                investors. In addition to these large wealth
+                                                managers, other less-traditional entrants, such as
+                                                insurance companies and asset managers, are
+                                                developing solutions to cross-sell into their
+                                                existing clients. Many market observers expect that
+                                                non-financial firms (large technology leaders) will
+                                                also become key players in the robo-adviser industry
+                                                as they look to monetize their access to user
+                                                data.</p>
+</li>
+</ul>
+</section>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0158-R-FN12Content">
+<p>
+<sup>12</sup>
+<a href="http://image-src.bcg.com/Images/BCG-Seizing-the-Analytics-Advantage-June-2018-R-3_tcm9-194512.pdf" target="_blank">http://image-src.bcg.com/Images/BCG-Seizing-the-Analytics-Advantage-June-2018-R-3_tcm9-194512.pdf</a>
+                                        (accessed on 6 September 2018).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0158-R-FN13Content">
+<p>
+<sup>13</sup> S&amp;P Global Market Intelligence.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0158-R-FN14Content">
+<p>
+<sup>14</sup>
+<a href="http://www.riainabox.com/blog/2016-ria-industry-study-average-investment-advisory-fee-is-0-99-percent" target="_blank">http://www.riainabox.com/blog/2016-ria-industry-study-average-investment-advisory-fee-is-0-99-percent</a>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0158-R-FN15Content">
+<p>
+<sup>15</sup> Deloitte, “Robo-Advisors
+                                                  Capitalizing on a Growing Opportunity”
+                                                  (<a href="https://www2.deloitte.com/content/dam/Deloitte/us/Documents/strategy/us-cons-robo-advisors.pdf" target="_blank">https://www2.deloitte.com/content/dam/Deloitte/us/Documents/strategy/us-cons-robo-advisors.pdf</a>).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="BuySideFirmContent">
+<p>An investment management company or other investor
+                                                that uses the services of brokers or dealers (i.e.,
+                                                the client of the sell side firms).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SellSideFirmContent">
+<p>A broker/dealer that sells securities and provides
+                                                independent investment research and recommendations
+                                                to their clients (i.e., buy-side firms).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SmartBetaContent">
+<p>Involves the use of simple, transparent, rules-based strategies as a basis for investment decisions.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_145926_305_Types_of_Investors.html" >← 前へ</a>
+  <span class="title">3.06 | The Asset Management Industry</span>
+  <a href="courses_1872_modules_items_145934_307_Pooled_Interest_-_Mutual_Funds.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

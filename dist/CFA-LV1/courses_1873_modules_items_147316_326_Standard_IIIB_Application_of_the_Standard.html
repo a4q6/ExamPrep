@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.26 | Standard III(B): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s26-R-1" title="3.26 | Standard III(B): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.26 | Standard III(B): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s26-01-01">
+<h3 class="dp-heading">Example 1 (Selective Disclosure):</h3>
+<p>Bradley Ames, a well-known and respected analyst, follows the computer industry. In the course of his research, he finds that a small, relatively unknown company whose shares are traded over the counter has just signed significant contracts with some of the companies he follows. After a considerable amount of investigation, Ames decides to write a research report on the small company and recommend purchase of its shares. While the report is being reviewed by the company for factual accuracy, Ames schedules a luncheon with several of his best clients to discuss the company. At the luncheon, he mentions the purchase recommendation scheduled to be sent early the following week to all the firm’s clients.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Ames has violated Standard III(B) by disseminating the purchase recommendation to the clients with whom he has lunch a week before the recommendation is sent to all clients.</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-02">
+<h3 class="dp-heading">Example 2 (Fair Dealing between Funds):</h3>
+<p>Spencer Rivers, president of XYZ Corporation, moves his company’s growth-oriented pension fund to a particular bank primarily because of the excellent investment performance achieved by the bank’s commingled fund for the prior five-year period. Later, Rivers compares the results of his pension fund with those of the bank’s commingled fund. He is startled to learn that, even though the two accounts have the same investment objectives and similar portfolios, his company’s pension fund has significantly underperformed the bank’s commingled fund. Questioning this result at his next meeting with the pension fund’s manager, Rivers is told that, as a matter of policy, when a new security is placed on the recommended list, Morgan Jackson, the pension fund manager, first purchases the security for the commingled account and then purchases it on a pro rata basis for all other pension fund accounts. Similarly, when a sale is recommended, the security is sold first from the commingled account and then sold on a pro rata basis from all other accounts. Rivers also learns that if the bank cannot get enough shares (especially of hot issues) to be meaningful to all the accounts, its policy is to place the new issues only in the commingled account.</p>
+<p>Seeing that Rivers is neither satisfied nor pleased by the explanation, Jackson quickly adds that nondiscretionary pension accounts and personal trust accounts have a lower priority on purchase and sale recommendations than discretionary pension fund accounts. Furthermore, Jackson states, the company’s pension fund had the opportunity to invest up to 5% in the commingled fund.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: The bank’s policy does not treat all customers fairly, and Jackson has violated her duty to her clients by giving priority to the growth-oriented commingled fund over all other funds and to discretionary accounts over nondiscretionary accounts. Jackson must execute orders on a systematic basis that is fair to all clients. In addition, trade allocation procedures should be disclosed to all clients when they become clients. Of course, in this case, disclosure of the bank’s policy would not change the fact that the policy is unfair.</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-03">
+<h3 class="dp-heading">Example 3 (Fair Dealing and IPO Distribution):</h3>
+<p>Dominic Morris works for a small regional securities firm. His work consists of corporate finance activities and investing for institutional clients. Arena, Ltd., is planning to go public. The partners have secured rights to buy an arena football league franchise and are planning to use the funds from the issue to complete the purchase. Because arena football is the current rage, Morris believes he has a hot issue on his hands. He has quietly negotiated some options for himself for helping convince Arena to do the financing through his securities firm. When he seeks expressions of interest, the institutional buyers oversubscribe the issue. Morris, assuming that the institutions have the financial clout to drive the stock up, then fills all orders (including his own) and decreases the institutional blocks.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Morris has violated Standard III(B) by not treating all customers fairly. He should not have taken any shares himself and should have prorated the shares offered among all clients. In addition, he should have disclosed to his firm and to his clients that he received options as part of the deal [see Standard VI(A) Disclosure of Conflicts].</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-04">
+<h3 class="dp-heading">Example 4 (Fair Dealing and Transaction Allocation):</h3>
+<p>Eleanor Preston, the chief investment officer of Porter Williams Investments (PWI), a medium-size money management firm, has been trying to retain a client, Colby Company. Management at Colby, which accounts for almost half of PWI’s revenues, recently told Preston that if the performance of its account did not improve, it would find a new money manager. Shortly after this threat, Preston purchases mortgage-backed securities (MBSs) for several accounts, including Colby’s. Preston is busy with a number of transactions that day, so she fails to allocate the trades immediately or write up the trade tickets. A few days later, when Preston is allocating trades, she notes that some of the MBSs have significantly increased in price and some have dropped. Preston decides to allocate the profitable trades to Colby and spread the losing trades among several other PWI accounts.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Preston has violated Standard III(B) by failing to deal fairly with her clients in taking these investment actions. Preston should have allocated the trades prior to executing the orders, or she should have had a systematic approach to allocating the trades, such as pro rata, as soon as practical after they were executed. Among other things, Preston must disclose to the client that the adviser may act as broker for, receive commissions from, and have a potential conflict of interest regarding both parties in agency cross-transactions. After the disclosure, she should obtain from the client consent authorizing such transactions in advance.</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-05">
+<h3 class="dp-heading">Example 5 (Selective Disclosure):</h3>
+<p>Saunders Industrial Waste Management (SIWM) publicly indicates to analysts that it is comfortable with the somewhat disappointing earnings-per-share projection of US$1.16 for the quarter. Bernard Roberts, an analyst at Coffey Investments, is confident that SIWM management has understated the forecasted earnings so that the real announcement will cause an “upside surprise” and boost the price of SIWM stock. The “whisper number” (rumored) estimate based on extensive research and discussed among knowledgeable analysts is higher than US$1.16. Roberts repeats the US$1.16 figure in his research report to all Coffey clients but informally tells his large clients that he expects the earnings per share to be higher, making SIWM a good buy.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: By not sharing his opinion regarding the potential for a significant upside earnings surprise with all clients, Roberts is not treating all clients fairly and has violated Standard III(B).</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-06">
+<h3 class="dp-heading">Example 6 (Additional Services for Select Clients):</h3>
+<p>Jenpin Weng uses e-mail to issue a new recommendation to all his clients. He then calls his three largest institutional clients to discuss the recommendation in detail.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Weng has not violated Standard III(B) because he widely disseminated the recommendation and provided the information to all his clients prior to discussing it with a select few. Weng’s largest clients received additional personal service because they presumably pay higher fees or because they have a large amount of assets under Weng’s management. If Weng had discussed the report with a select group of clients prior to distributing it to all his clients, he would have violated Standard III(B).</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-07">
+<h3 class="dp-heading">Example 7 (Minimum Lot Allocations):</h3>
+<p>Lynn Hampton is a well-respected private wealth manager in her community with a diversified client base. She determines that a new 10-year bond being offered by Healthy Pharmaceuticals is appropriate for five of her clients. Three clients request to purchase US$10,000 each, and the other two request US$50,000 each. The minimum lot size is established at US$5,000, and the issue is oversubscribed at the time of placement. Her firm’s policy is that odd-lot allocations, especially those below the minimum, should be avoided because they may affect the liquidity of the security at the time of sale.</p>
+<p>Hampton is informed she will receive only US$55,000 of the offering for all accounts. Hampton distributes the bond investments as follows: The three accounts that requested US$10,000 are allocated US$5,000 each, and the two accounts that requested US$50,000 are allocated US$20,000 each.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Hampton has not violated Standard III(B), even though the distribution is not on a completely pro rata basis because of the required minimum lot size. With the total allocation being significantly below the amount requested, Hampton ensured that each client received at least the minimum lot size of the issue. This approach allowed the clients to efficiently sell the bond later if necessary.</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-08">
+<h3 class="dp-heading">Example 8 (Excessive Trading):</h3>
+<p>Ling Chan manages the accounts for many pension plans, including the plan of his father’s employer. Chan developed similar but not identical investment policies for each client, so the investment portfolios are rarely the same. To minimize the cost to his father’s pension plan, he intentionally trades more frequently in the accounts of other clients to ensure the required brokerage is incurred to continue receiving free research for use by all the pensions.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Chan is violating Standard III(B) because his trading actions are disadvantaging his clients to enhance a relationship with a preferred client. All clients are benefiting from the research being provided and should incur their fair portion of the costs. This does not mean that additional trading should occur if a client has not paid an equal portion of the commission; trading should occur only as required by the strategy.</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-09">
+<h3 class="dp-heading">Example 9 (Limited Social Media Disclosures):</h3>
+<p>Mary Burdette was recently hired by Fundamental Investment Management (FIM) as a junior auto industry analyst. Burdette is expected to expand the social media presence of the firm because she is active with various networks, including Facebook, LinkedIn, and X. Although Burdette’s supervisor, Joe Graf, has never used social media, he encourages Burdette to explore opportunities to increase FIM’s online presence and ability to share content, communicate, and broadcast information to clients. In response to Graf’s encouragement, Burdette is working on a proposal detailing the advantages of getting FIM onto X in addition to launching a company Facebook page.</p>
+<p>As part of her auto industry research for FIM, Burdette is completing a report on the financial impact of Sun Drive Auto Ltd.’s new solar technology for compact automobiles. This research report will be her first for FIM, and she believes Sun Drive’s technology could revolutionize the auto industry. In her excitement, Burdette sends a quick post to FIM X followers summarizing her “buy” recommendation for Sun Drive Auto stock. </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Burdette has violated Standard III(B) by sending an investment recommendation to a select group of contacts prior to distributing it to all clients. Burdette must make sure she has received the appropriate training about FIM’s policies and procedures, including the appropriate business use of personal social media networks, before engaging in such activities. </p>
+<p>See Standard IV(C) for guidance related to the duties of the supervisor.</p>
+</div>
+</section>
+<section id="CFA0008-R-s26-01-10">
+<h3 class="dp-heading">Example 10 (Fair Dealing between Clients):</h3>
+<p>Paul Rove, performance analyst for Alpha-Beta Investment Management, is describing to the firm’s chief investment officer (CIO) two new reports he would like to develop to assist the firm in meeting its obligations to treat clients fairly. Because many of the firm’s clients have similar investment objectives and portfolios, Rove suggests a report detailing securities owned across several clients and the percentage of the portfolio the security represents. The second report would compare the monthly performance of portfolios with similar strategies. The outliers within each report would be submitted to the CIO for review.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: As a performance analyst, Rove likely has little direct contact with clients and thus has limited opportunity to treat clients differently. The recommended reports comply with Standard III(B) while helping the firm conduct after-the-fact reviews of how effectively the firm’s advisers are dealing with their clients’ portfolios. Reports that monitor the fair treatment of clients are an important oversight tool to ensure that clients are treated fairly.</p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147313_325_Standard_IIIB_Recommended_Procedures.html" >← 前へ</a>
+  <span class="title">3.26 | Standard III(B): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147320_327_Standard_IIIC_Suitability.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

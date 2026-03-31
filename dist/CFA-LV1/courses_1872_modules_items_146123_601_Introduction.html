@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.01 | Introduction</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1642-R-s01" title="6.01 | Introduction">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 6: Introduction to Risk Management</span>6.01 | Introduction</h2>
+</header>
+<p>Risk—and risk management—is an inescapable part of economic activity. People generally manage their affairs to be as happy and secure as their environment and resources will allow. But regardless of how carefully these affairs are managed, there is risk because the outcome, whether good or bad, is seldom predictable with complete certainty. There is risk inherent in nearly everything we do, but this reading will focus on economic and financial risk, particularly as it relates to investment management.</p>
+<p>All businesses and investors manage risk, whether consciously or not, in the choices they make. At its core, business and investing are about allocating resources and capital to chosen risks. In their decision process, within an environment of uncertainty, these organizations may take steps to avoid some risks, pursue the risks that provide the highest rewards, and measure and mitigate their exposure to these risks as necessary. Risk management processes and tools make difficult business and financial problems easier to address in an uncertain world. Risk is not just a matter of fate; it is something that organizations can actively manage with their decisions, within a risk management framework. Risk is an integral part of the business or investment process. Even in the earliest models of modern portfolio theory, such as mean–variance portfolio optimization and the capital asset pricing model, investment return is linked directly to risk but requires that risk be managed optimally. Proper identification and measurement of risk, and keeping risks aligned with the goals of the enterprise, are key factors in managing businesses and investments. Good risk management results in a higher chance of a preferred outcome—more value for the company or portfolio or more utility for the individual.</p>
+<p>Portfolio managers need to be familiar with risk management not only to improve the portfolio’s risk–return outcome, but also because of two other ways in which they use risk management at an enterprise level. First, they help to manage their own companies that have their own enterprise risk issues. Second, many portfolio assets are claims on companies that have risks. Portfolio managers need to evaluate the companies’ risks and how those companies are addressing them.</p>
+<p>This reading takes a broad approach that addresses both the risk management of enterprises in general and portfolio risk management. The principles underlying portfolio risk management are generally applicable to the risk management of financial and non-financial institutions as well.</p>
+<p>The concept of risk management is also relevant to individuals. Although many large organizations formally practice risk management, most individuals practice it more informally and some practice it haphazardly, oftentimes responding to risk events after they occur. Although many individuals do take reasonable precautions against unwanted risks, these precautions are often against obvious risks. The more subtle risks are often ignored. Unfortunately, many individuals do not view risk management as a formal, systematic process that would help them achieve not only their financial goals but also the ultimate goal, or maximum utility as economists like to call it, but they should.</p>
+<p>Although the primary focus of this reading is on institutions, we will also cover risk management as it applies to individuals. We will show that many common themes underlie risk management—themes that are applicable to both organizations and individuals.</p>
+<p>Although often viewed as defensive, risk management is a valuable offensive weapon in the manager’s arsenal. In the quest for preferred outcomes, such as higher profit, returns, or share price, management does not usually get to choose the outcomes but does choose the risks it takes in pursuit of those outcomes. The choice of which risks to undertake through the allocation of its scarce resources is the key tool available to management. An organization with a comprehensive risk management culture in place, in which risk is integral to every key strategy and decision, should perform better in the long-term, in good times and bad, as a result of better decision making.</p>
+<p>The fact that all businesses and investors engage in risky activities (i.e., activities with uncertain outcomes) raises a number of important questions. The questions that this reading will address include the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1642-s001-L1">
+<li class="cfa-curriculum-list-item">
+<p>What is risk management, and why is it important?</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>What risks does an organization (or individual) face in pursuing its objectives?</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>How are an organization’s goals affected by risk, and how does it make risk management decisions to produce better results?</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>How does risk governance guide the risk management process and risk budgeting to integrate an organization’s goals with its activities?</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>How does an organization measure and evaluate the risks it faces, and what tools does it have to address these risks?</p>
+</li>
+</ul>
+<p>The answers to these questions collectively help to define the process of risk management. This reading is organized along the lines of these questions. Sections 2 and 3 describe the risk management process, and Sections 4–6 discuss risk governance and risk tolerance. Sections 7 and 8 cover the identification of various risks, and Sections 9–11 addresses the measurement and management of risks. </p>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146118_Learning_Outcomes_Introduction_to_Risk_Management.html" >← 前へ</a>
+  <span class="title">6.01 | Introduction</span>
+  <a href="courses_1872_modules_items_146131_602_Risk_Management_Process.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

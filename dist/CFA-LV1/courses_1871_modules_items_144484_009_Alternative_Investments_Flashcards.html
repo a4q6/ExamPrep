@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.09 | Alternative Investments Flashcards</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="VolumeCFAAlternative_Investments-flashcards" title="0.09 | Alternative Investments Flashcards"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 0: Getting Started</span>0.09 | Alternative Investments Flashcards</h2>
+</header>
+<h3 class="dp-has-icon"><i aria-hidden="true" class="dp-icon fas fa-book-reader"></i></h3>
+<p class="cfa-curriculum-flashcard-inst">Click on the card below to show the definition for that term. Click next or previous to scroll through the cards.</p>
+<div class="flashcard-container">
+<div class="flashcard" id="flashcard1">
+<div class="front">
+<p><strong>Accredited investors</strong></p>
+</div>
+<div class="back">
+<p>Investors that meet certain minimum regulatory net worth or other requirements in order to invest in certain types of alternative assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard2" style="display: none;">
+<div class="front">
+<p><strong>Activist</strong></p>
+</div>
+<div class="back">
+<p>Short for “activist shareholder.” Managers secure sufficient equity holdings to allow them to seek a position in a company’s board and influence corporate policies or direction.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard3" style="display: none;">
+<div class="front">
+<p><strong>Altcoin</strong></p>
+</div>
+<div class="back">
+<p>A cryptocurrency other than Bitcoin.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard4" style="display: none;">
+<div class="front">
+<p><strong>Asset-backed token</strong></p>
+</div>
+<div class="back">
+<p>A token that represents the ownership of a physical asset that does not exist on the blockchain and whose value is based on the underlying asset.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard5" style="display: none;">
+<div class="front">
+<p><strong>Backfill Bias</strong></p>
+</div>
+<div class="back">
+<p>A problem whereby certain surviving hedge funds may be added to databases and various hedge fund indexes only after they are initially successful and start to report their returns. Also see <em>survivorship bias</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard6" style="display: none;">
+<div class="front">
+<p><strong>Backwardation</strong></p>
+</div>
+<div class="back">
+<p>A downward-sloping, or inverted, forward curve in a futures market.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard7" style="display: none;">
+<div class="front">
+<p><strong>Bitcoin</strong></p>
+</div>
+<div class="back">
+<p>A cryptocurrency using blockchain technology that was created in 2009.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard8" style="display: none;">
+<div class="front">
+<p><strong>Blockchain</strong></p>
+</div>
+<div class="back">
+<p>A type of digital ledger in which information is recorded sequentially and then linked together and secured using cryptographic methods.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard9" style="display: none;">
+<div class="front">
+<p><strong>Brownfield investments</strong></p>
+</div>
+<div class="back">
+<p>The third stage of development of an infrastructure asset. Brownfield investments involve expanding existing facilities and may involve privatization of public assets or a sale leaseback of completed greenfield projects. They are characterized by a shorter investment period with immediate cash flows and an operating history.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard10" style="display: none;">
+<div class="front">
+<p><strong>Carried interest</strong></p>
+</div>
+<div class="back">
+<p>A performance fee (also referred to as an incentive fee, or carry) that is applied based on excess returns above a hurdle rate.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard11" style="display: none;">
+<div class="front">
+<p><strong>Catch-up clause</strong></p>
+</div>
+<div class="back">
+<p>A clause in an agreement that favors the GP. For a GP who earns a 20% performance fee, a catch-up clause allows the GP to receive 100% of the distributions above the hurdle rate <em>until</em> she receives 20% of the profits generated, and then every excess dollar is split 80/20 between the LPs and GP.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard12" style="display: none;">
+<div class="front">
+<p><strong>Central bank digital currencies (CBDCs)</strong></p>
+</div>
+<div class="back">
+<p>A tokenized version of the currency issued by the central bank, such as a digital bank note or coin, and a digital liability of the central bank.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard13" style="display: none;">
+<div class="front">
+<p><strong>Clawback</strong></p>
+</div>
+<div class="back">
+<p>A requirement that the general partner return any funds distributed as incentive fees until the limited partners have received their initial investment and a percentage of the total profit.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard14" style="display: none;">
+<div class="front">
+<p><strong>Co-investing</strong></p>
+</div>
+<div class="back">
+<p>In co-investing, the investor invests in assets <em>indirectly</em> through the fund but also possesses rights (known as co-investment rights) to invest <em>directly</em> in the same assets. Through co-investing, an investor is able to make an investment <em>alongside</em> a fund when the fund identifies deals.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard15" style="display: none;">
+<div class="front">
+<p><strong>Committed capital</strong></p>
+</div>
+<div class="back">
+<p>The amount that the limited partners have agreed to provide to the private equity fund.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard16" style="display: none;">
+<div class="front">
+<p><strong>Commodities</strong></p>
+</div>
+<div class="back">
+<p>A product or service from a firm that is indistinguishable from products or services of competing firms, usually conforming to a common standard or grade imposed by convention or regulation.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard17" style="display: none;">
+<div class="front">
+<p><strong>Concession agreement</strong></p>
+</div>
+<div class="back">
+<p>A contractual arrangement under which an entity (also known as a grantor) establishes terms and conditions with a developer or operator (referred to as a concessionaire) to plan, build, operate, finance, and maintain an infrastructure asset for a specific period.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard18" style="display: none;">
+<div class="front">
+<p><strong>Consensus protocol</strong></p>
+</div>
+<div class="back">
+<p>A set of rules governing how blocks can join the blockchain that is designed to resist attempts at malicious manipulation up to a certain level of security; it can be either a proof of work or a proof of stake.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard19" style="display: none;">
+<div class="front">
+<p><strong>Contango</strong></p>
+</div>
+<div class="back">
+<p>Refers to spot price below forward price in a futures market.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard20" style="display: none;">
+<div class="front">
+<p><strong>Core real estate strategies</strong></p>
+</div>
+<div class="back">
+<p>Strategies with exposure to well-leased, high-quality commercial and residential real estate in the best markets, generally offered by open-end funds. Investors expect core real estate to deliver stable returns, primarily from income from the property.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard21" style="display: none;">
+<div class="front">
+<p><strong>Core-plus real estate strategies</strong></p>
+</div>
+<div class="back">
+<p>Value-add investments that require modest redevelopment or upgrades to lease any vacant space together with possible alternative use of the underlying properties. Compared to core real estate strategies, these may be appealing for investors seeking higher returns and willing to accept additional risks from development, redevelopment, repositioning, and leasing.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard22" style="display: none;">
+<div class="front">
+<p><strong>Cryptocurrency</strong></p>
+</div>
+<div class="back">
+<p>An electronic medium of exchange that lacks physical form.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard23" style="display: none;">
+<div class="front">
+<p><strong>Cryptocurrency wallet</strong></p>
+</div>
+<div class="back">
+<p>A storage unit for public and/or private keys for cryptocurrency transactions. These wallets may be a physical device, program, or service.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard24" style="display: none;">
+<div class="front">
+<p><strong>Cryptography</strong></p>
+</div>
+<div class="back">
+<p>An algorithmic process to encrypt data, making the data unusable if received by unauthorized parties.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard25" style="display: none;">
+<div class="front">
+<p><strong>Digital assets</strong></p>
+</div>
+<div class="back">
+<p>The umbrella term covering assets that can be created, stored, and transmitted electronically and have associated ownership or use rights. Digital assets include a variety of assets, such as cryptocurrencies, tokens (security and utility), and digital collectables.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard26" style="display: none;">
+<div class="front">
+<p><strong>Direct investing</strong></p>
+</div>
+<div class="back">
+<p>Occurs when an investor makes a direct investment in an asset without the use of an intermediary.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard27" style="display: none;">
+<div class="front">
+<p><strong>Direct lending</strong></p>
+</div>
+<div class="back">
+<p>Providing capital directly from private debt investors.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard28" style="display: none;">
+<div class="front">
+<p><strong>Direct listing</strong></p>
+</div>
+<div class="back">
+<p>Where the equity of a security is floated on the public markets directly, without underwriters, reducing the complexity and cost of the transaction.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard29" style="display: none;">
+<div class="front">
+<p><strong>Distressed debt</strong></p>
+</div>
+<div class="back">
+<p>Debt of mature companies in financial difficulty, in bankruptcy, or likely to default on debt.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard30" style="display: none;">
+<div class="front">
+<p><strong>Distressed/restructuring</strong></p>
+</div>
+<div class="back">
+<p>These strategies focus on securities of companies either in or perceived to be near bankruptcy. In one approach, hedge funds simply purchase fixed-income securities trading at a significant discount to par but that are still senior enough to be backed by sufficient corporate assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard31" style="display: none;">
+<div class="front">
+<p><strong>Distributed ledger</strong></p>
+</div>
+<div class="back">
+<p>A type of database that can be shared among entities in a network.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard32" style="display: none;">
+<div class="front">
+<p><strong>Distributed ledger technology (DLT)</strong></p>
+</div>
+<div class="back">
+<p>Technology based on a distributed ledger.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard33" style="display: none;">
+<div class="front">
+<p><strong>Economic infrastructure investments</strong></p>
+</div>
+<div class="back">
+<p>A category of infrastructure investments that support economic activity through transportation assets, information and communication technology assets, and utility and energy assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard34" style="display: none;">
+<div class="front">
+<p><strong>Either/or fee</strong></p>
+</div>
+<div class="back">
+<p>A custom fee arrangement whereby major investors are offered a structure where managers agree to charge <em>either</em> a lower management fee <em>or</em> a higher incentive fee, whichever is greater.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard35" style="display: none;">
+<div class="front">
+<p><strong>Ether</strong></p>
+</div>
+<div class="back">
+<p>A programmable cryptocurrency created on the Ethereum blockchain in 2015 that allows for the execution of smart contracts.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard36" style="display: none;">
+<div class="front">
+<p><strong>Fair value</strong></p>
+</div>
+<div class="back">
+<p>A market-based measure of an investment based on observable or derived assumptions to determine a price that market participants would use to exchange an asset or liability in an orderly transaction at a specific time.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard37" style="display: none;">
+<div class="front">
+<p><strong>Founders class shares</strong></p>
+</div>
+<div class="back">
+<p>A way to entice early participation in startup funds whereby managers offer incentives that entitle investors to a lower fee structure and/or other favorable terms.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard38" style="display: none;">
+<div class="front">
+<p><strong>Fund investing</strong></p>
+</div>
+<div class="back">
+<p>In fund investing, the investor invests in assets indirectly by contributing capital to a fund as part of a group of investors. Fund investing is available for all major alternative investment types.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard39" style="display: none;">
+<div class="front">
+<p><strong>Fund of funds</strong></p>
+</div>
+<div class="back">
+<p>Funds that hold a portfolio of hedge funds; also called <em>funds of hedge funds</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard40" style="display: none;">
+<div class="front">
+<p><strong>Fundamental growth</strong></p>
+</div>
+<div class="back">
+<p>These strategies use fundamental analysis to identify companies expected to exhibit high growth and capital appreciation.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard41" style="display: none;">
+<div class="front">
+<p><strong>Fundamental long/short</strong></p>
+</div>
+<div class="back">
+<p>In this strategy, the hedge fund takes a long position in companies that are trading at inexpensive levels compared to their potential intrinsic value and shorts those that trade in the other direction, with the intention of reversing this trade to obtain alpha.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard42" style="display: none;">
+<div class="front">
+<p><strong>Fundamental value</strong></p>
+</div>
+<div class="back">
+<p>These strategies use fundamental analysis to identify undervalued and unloved companies for which there is a possibility that a corporate turnaround, with future revenue and cash flow growth, will result in higher valuations.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard43" style="display: none;">
+<div class="front">
+<p><strong>Gate</strong></p>
+</div>
+<div class="back">
+<p>A provision that when implemented limits or restricts redemptions for a period of time.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard44" style="display: none;">
+<div class="front">
+<p><strong>Governance tokens</strong></p>
+</div>
+<div class="back">
+<p>In permissionless networks, governance tokens serve as votes to determine how the particular network is run.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard45" style="display: none;">
+<div class="front">
+<p><strong>Greenfield investments</strong></p>
+</div>
+<div class="back">
+<p>New, “to-be-built” infrastructure projects and assets created to provide a specific essential service or to supply a public good.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard46" style="display: none;">
+<div class="front">
+<p><strong>Hard hurdle rate</strong></p>
+</div>
+<div class="back">
+<p>Hurdle ratewhere the manager earns fees on annual returns in excess of the hurdle rate</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard47" style="display: none;">
+<div class="front">
+<p><strong>Hedge funds</strong></p>
+</div>
+<div class="back">
+<p>Private investment vehicles that may invest in public equities or publicly traded fixed-income assets, private capital, and/or real assets, but they are distinguished by their investment <em>approach</em> rather than by the investments themselves.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard48" style="display: none;">
+<div class="front">
+<p><strong>High-water mark</strong></p>
+</div>
+<div class="back">
+<p>The highest value, net of fees, that a fund has reached in history. It reflects the highest cumulative return used to calculate an incentive fee.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard49" style="display: none;">
+<div class="front">
+<p><strong>Hurdle rate</strong></p>
+</div>
+<div class="back">
+<p>Also called “preferred return.” The minimum rate of return on investment that a fund must reach before a GP receives carried interest.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard50" style="display: none;">
+<div class="front">
+<p><strong>Infrastructure</strong></p>
+</div>
+<div class="back">
+<p>A type of real asset that is intended for public use and provides essential services. These assets are typically long-lived fixed assets, such as bridges and toll roads.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard51" style="display: none;">
+<div class="front">
+<p><strong>Initial coin offering (ICO)</strong></p>
+</div>
+<div class="back">
+<p>An unregulated process whereby companies raise capital by selling crypto-tokens to investors in exchange for fiat money or another agreed-upon cryptocurrency.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard52" style="display: none;">
+<div class="front">
+<p><strong>J-curve effect</strong></p>
+</div>
+<div class="back">
+<p>Net income over a multiyear private investment holding period characterized by negative returns in an initial phase, followed by cash flow and income growth toward the end of the holding period.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard53" style="display: none;">
+<div class="front">
+<p><strong>Leveraged buyout (LBO)</strong></p>
+</div>
+<div class="back">
+<p>A transaction in which a private acquiror uses equity and a high proportion of debt to acquire a public or private company in order to make changes to increase value over an investment period.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard54" style="display: none;">
+<div class="front">
+<p><strong>Leveraged loan</strong></p>
+</div>
+<div class="back">
+<p>Where private debt investor firms borrow money to make a direct loan to a borrower.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard55" style="display: none;">
+<div class="front">
+<p><strong>Limited partnership agreement (LPA)</strong></p>
+</div>
+<div class="back">
+<p>A legal document that outlines the rules of the partnership and establishes the framework that ultimately guides the fund’s operations throughout its life.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard56" style="display: none;">
+<div class="front">
+<p><strong>Lockup period</strong></p>
+</div>
+<div class="back">
+<p>The minimum holding period before investors are allowed to make withdrawals or redeem shares from a fund. Its purpose is to allow the hedge fund manager the required time to implement and potentially realize a strategy’s expected results.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard57" style="display: none;">
+<div class="front">
+<p><strong>Management buy-in</strong></p>
+</div>
+<div class="back">
+<p>A type of leveraged buyout where the current management team is replaced with the acquiring team involved in managing the company.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard58" style="display: none;">
+<div class="front">
+<p><strong>Management buyout</strong></p>
+</div>
+<div class="back">
+<p>A private sale to a strategic buyer that includes a company’s existing management. The management team commits their own equity capital along with other investors as an incentive to grow the firm’s cash flows and value.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard59" style="display: none;">
+<div class="front">
+<p><strong>Margin financing</strong></p>
+</div>
+<div class="back">
+<p>A financing arrangement whereby the prime broker lends shares, bonds, or derivatives and the hedge fund (or investment manager) deposits cash or other collateral into a margin account at the prime broker based on certain fractions of the investment positions.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard60" style="display: none;">
+<div class="front">
+<p><strong>Market neutral</strong></p>
+</div>
+<div class="back">
+<p>These strategies use quantitative, fundamental, and technical analysis to identify under- and overvalued equity securities. The hedge fund takes long positions in undervalued securities and short positions in overvalued securities, while seeking to maintain a market-neutral net position.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard61" style="display: none;">
+<div class="front">
+<p><strong>Master limited partnership (MLP)</strong></p>
+</div>
+<div class="back">
+<p>Has similar features to limited partnerships but is usually a more liquid investment that is often publicly traded.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard62" style="display: none;">
+<div class="front">
+<p><strong>Meme coin</strong></p>
+</div>
+<div class="back">
+<p>A type of altcoin that is often inspired by a joke.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard63" style="display: none;">
+<div class="front">
+<p><strong>Merger arbitrage</strong></p>
+</div>
+<div class="back">
+<p>Special situations investments related to business combinations in which investors seek to capitalize on price discrepancies of securities issued by the target company.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard64" style="display: none;">
+<div class="front">
+<p><strong>Mezzanine debt</strong></p>
+</div>
+<div class="back">
+<p>Refers to private credit subordinated to senior secured debt but senior to equity in the borrower’s capital structure.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard65" style="display: none;">
+<div class="front">
+<p><strong>Mezzanine-stage financing</strong></p>
+</div>
+<div class="back">
+<p>Mezzanine venture capital that prepares a company to go public as it continues to expand capacity and enhance its growth trajectory. It represents the bridge financing needed to fund a private firm until it can execute an IPO or be sold.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard66" style="display: none;">
+<div class="front">
+<p><strong>Miner</strong></p>
+</div>
+<div class="back">
+<p>A validator of transactions on the blockchain that locks blocks of transactions into the blockchain and receives compensation for this process in the form of a digital asset.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard67" style="display: none;">
+<div class="front">
+<p><strong>Multiple of invested capital (MOIC)</strong></p>
+</div>
+<div class="back">
+<p>Also referred to as the multiple of money or total value to paid-in, this private market performance measure incorporates both the cumulative distributions received and the net asset value of a fund as a proportion of invested capital.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard68" style="display: none;">
+<div class="front">
+<p><strong>Natural resources</strong></p>
+</div>
+<div class="back">
+<p>These include commodities (hard and soft), agricultural land (farmland), and timberland.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard69" style="display: none;">
+<div class="front">
+<p><strong>Non-fungible token (NFT)</strong></p>
+</div>
+<div class="back">
+<p>A unique cryptographic token on the blockchain that cannot be replicated and is used to represent ownership of physical assets, such as artwork, real estate, or other assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard70" style="display: none;">
+<div class="front">
+<p><strong>Notice period</strong></p>
+</div>
+<div class="back">
+<p>The length of time (typically 30–90 days) in advance that investors may be required to notify a fund of their intent to redeem some or all of their investment. This allows a fund manager to liquidate a position in an orderly fashion without magnifying losses.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard71" style="display: none;">
+<div class="front">
+<p><strong>Opportunistic real estate strategies</strong></p>
+</div>
+<div class="back">
+<p>Include major redevelopment, repurposing of assets, taking on large vacancies, or speculating on significant improvement in market conditions. These may be appealing for investors seeking higher returns and willing to accept additional risks from development, redevelopment, repositioning, and leasing.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard72" style="display: none;">
+<div class="front">
+<p><strong>Performance fee</strong></p>
+</div>
+<div class="back">
+<p>Fee paid to the general partner from the limited partner(s) based on realized net profits.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard73" style="display: none;">
+<div class="front">
+<p><strong>Permissioned networks</strong></p>
+</div>
+<div class="back">
+<p>Networks that are fully open only to select participants on a DLT network.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard74" style="display: none;">
+<div class="front">
+<p><strong>Permissionless networks</strong></p>
+</div>
+<div class="back">
+<p>Networks that are fully open to any user on a DLT network.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard75" style="display: none;">
+<div class="front">
+<p><strong>PIPE (private investment in public equity)</strong></p>
+</div>
+<div class="back">
+<p>A private offering to select investors with fewer disclosures and lower transaction costs that allows the issuer to raise capital more quickly and cost effectively.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard76" style="display: none;">
+<div class="front">
+<p><strong>Portfolio companies</strong></p>
+</div>
+<div class="back">
+<p>The individual companies owned by a private equity firm.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard77" style="display: none;">
+<div class="front">
+<p><strong>Prime broker</strong></p>
+</div>
+<div class="back">
+<p>A broker that provides services that commonly include custody, administration, lending, short borrowing, and trading.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard78" style="display: none;">
+<div class="front">
+<p><strong>Private capital</strong></p>
+</div>
+<div class="back">
+<p>Funding provided to companies that is not sourced from the public markets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard79" style="display: none;">
+<div class="front">
+<p><strong>Private debt</strong></p>
+</div>
+<div class="back">
+<p>Capital extended to companies through a loan or other form of debt.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard80" style="display: none;">
+<div class="front">
+<p><strong>Private equity</strong></p>
+</div>
+<div class="back">
+<p>Equity investment capital raised from sources other than public markets and traditional institutions.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard81" style="display: none;">
+<div class="front">
+<p><strong>Public–private partnership</strong></p>
+</div>
+<div class="back">
+<p>A long-term contractual relationship between the public and private sectors for the purpose of having the private sector deliver a project or service traditionally provided by the public sector. Infrastructure is increasingly being financed privately through public–private partnerships by local, regional, and national governments.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard82" style="display: none;">
+<div class="front">
+<p><strong>Public–private partnership (PPP)</strong></p>
+</div>
+<div class="back">
+<p>An agreement between the public sector and the private sector to finance, build, and operate public infrastructure, such as hospitals and toll roads.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard83" style="display: none;">
+<div class="front">
+<p><strong>Real assets</strong></p>
+</div>
+<div class="back">
+<p>Generally, these are tangible physical assets, such as real estate, infrastructure, and natural resources, but they also include such intangibles as patents, intellectual property, and goodwill. Real assets generate current or expected future cash flows and/or are considered a store of value.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard84" style="display: none;">
+<div class="front">
+<p><strong>Real estate</strong></p>
+</div>
+<div class="back">
+<p>Includes borrowed or ownership capital in buildings or land. Developed land includes commercial and industrial real estate, residential real estate, and infrastructure.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard85" style="display: none;">
+<div class="front">
+<p><strong>Recapitalization</strong></p>
+</div>
+<div class="back">
+<p>Recapitalization via private equity describes the steps a firm takes to increase or introduce leverage to its portfolio company and pay itself a dividend out of the new capital structure.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard86" style="display: none;">
+<div class="front">
+<p><strong>Redemption fee</strong></p>
+</div>
+<div class="back">
+<p>A fee charged to discourage redemptions and to offset the transaction costs for remaining investors in the fund.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard87" style="display: none;">
+<div class="front">
+<p><strong>Secondary sale</strong></p>
+</div>
+<div class="back">
+<p>Sale of a private company stake to another private equity firm or group of financial buyers.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard88" style="display: none;">
+<div class="front">
+<p><strong>Secondary-stage investments</strong></p>
+</div>
+<div class="back">
+<p>The second stage of development of an infrastructure asset. Secondary-stage investments involve existing infrastructure facilities or fully operational assets that do not require further investment or development over the investment horizon. These assets generate immediate cash flow and returns expected over the investment period.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard89" style="display: none;">
+<div class="front">
+<p><strong>Security tokens</strong></p>
+</div>
+<div class="back">
+<p>Digitizes the ownership rights associated with publicly traded securities.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard90" style="display: none;">
+<div class="front">
+<p><strong>Separately managed account (SMA)</strong></p>
+</div>
+<div class="back">
+<p>An investment portfolio managed exclusively for the benefit of an individual or institution.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard91" style="display: none;">
+<div class="front">
+<p><strong>Short biased</strong></p>
+</div>
+<div class="back">
+<p>These strategies use quantitative, technical, and fundamental analysis to short overvalued equity securities with limited or no long-side exposures.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard92" style="display: none;">
+<div class="front">
+<p><strong>Side letter</strong></p>
+</div>
+<div class="back">
+<p>A side agreement created between the GP and specific LPs. These agreements exist <em>outside</em> the LPA. These agreements provide additional terms and conditions related to the investment agreement.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard93" style="display: none;">
+<div class="front">
+<p><strong>Smart contracts</strong></p>
+</div>
+<div class="back">
+<p>Computer programs that are designed to self-execute on the basis of pre-specified terms and conditions agreed to by parties to a contract.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard94" style="display: none;">
+<div class="front">
+<p><strong>Social infrastructure investments</strong></p>
+</div>
+<div class="back">
+<p>A category of infrastructure investments that are directed toward human activities and include such assets as educational, health care, social housing, and correctional facilities, with the focus on providing, operating, and maintaining the asset infrastructure.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard95" style="display: none;">
+<div class="front">
+<p><strong>Soft hurdle rate</strong></p>
+</div>
+<div class="back">
+<p>Hurdle rate where the fee is calculated on the entire return when the hurdle is exceeded. With a soft hurdle, GPs are able to catch up performance fees once the hurdle threshold is exceeded.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard96" style="display: none;">
+<div class="front">
+<p><strong>Special purpose acquisition company</strong></p>
+</div>
+<div class="back">
+<p>A “blank check” company that exists solely for the purpose of acquiring an unspecified private company within a predetermined period or return capital to investors.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard97" style="display: none;">
+<div class="front">
+<p><strong>Special situations</strong></p>
+</div>
+<div class="back">
+<p>An area of private capital investment which targets return by investing in stressed, distressed, or event-driven opportunities.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard98" style="display: none;">
+<div class="front">
+<p><strong>Stablecoin</strong></p>
+</div>
+<div class="back">
+<p>A cryptocurrency that aims to maintain a stable value relative to a specified asset or to a pool or basket of assets.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard99" style="display: none;">
+<div class="front">
+<p><strong>Stockholder overhang</strong></p>
+</div>
+<div class="back">
+<p>The downward pressure on the share price of stock as large blocks of shares are being sold on the open market.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard100" style="display: none;">
+<div class="front">
+<p><strong>Survivorship bias</strong></p>
+</div>
+<div class="back">
+<p>Relates to the inclusion of only current investment funds in a database. As such, the returns of funds that are no longer available in the marketplace (have been liquidated) are excluded from the database. Also see <em>backfill bias</em>.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard101" style="display: none;">
+<div class="front">
+<p><strong>Timberland investment management organizations</strong></p>
+</div>
+<div class="back">
+<p>Entities that support institutional investors by managing their investments in timberland by analyzing and acquiring suitable timberland holdings.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard102" style="display: none;">
+<div class="front">
+<p><strong>Tokenization</strong></p>
+</div>
+<div class="back">
+<p>The process of representing ownership rights to physical assets on a blockchain or distributed ledger.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard103" style="display: none;">
+<div class="front">
+<p><strong>Trade sale</strong></p>
+</div>
+<div class="back">
+<p>A portion or division of a private company sold via either direct sale or auction to a strategic buyer interested in increasing the scale and scope of an existing business.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard104" style="display: none;">
+<div class="front">
+<p><strong>Unitranche debt</strong></p>
+</div>
+<div class="back">
+<p>A hybrid or blended loan structure combining different tranches of secured and unsecured debt into a single loan with a single, blended interest rate.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard105" style="display: none;">
+<div class="front">
+<p><strong>Utility tokens</strong></p>
+</div>
+<div class="back">
+<p>Tokens that provide services within a network, such as paying for services and network fees.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard106" style="display: none;">
+<div class="front">
+<p><strong>Value-add real estate strategies</strong></p>
+</div>
+<div class="back">
+<p>Strategies that involve larger-scale redevelopment and repositioning of existing assets and that may allow the investor to earn a higher return compared with core-plus real estate strategies.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard107" style="display: none;">
+<div class="front">
+<p><strong>Venture capital</strong></p>
+</div>
+<div class="back">
+<p>Private equity investment in a startup or early-stage company involving high risk and a high rate of failure.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard108" style="display: none;">
+<div class="front">
+<p><strong>Venture debt</strong></p>
+</div>
+<div class="back">
+<p>Private debt funding that provides venture capital backing to start-up or early-stage companies that may be generating little or negative cash flow.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard109" style="display: none;">
+<div class="front">
+<p><strong>Vintage year</strong></p>
+</div>
+<div class="back">
+<p>The year in which a private capital fund makes its first investment.</p>
+</div>
+</div>
+<div class="flashcard" id="flashcard110" style="display: none;">
+<div class="front">
+<p><strong>Write-off/liquidation</strong></p>
+</div>
+<div class="back">
+<p>Refers to a transaction that has not gone well, and the investment is likely to lose value. The private equity firm revises the value of its investment downward or liquidates the portfolio company.</p>
+</div>
+</div>
+</div>
+<div class="controls">
+<div class="control-button" id="prevBtn">Previous Card</div>
+<div class="control-button" id="nextBtn">Next Card</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1871_modules_items_144479_008_Alternative_Investments_Glossary.html" >← 前へ</a>
+  <span class="title">0.09 | Alternative Investments Flashcards</span>
+  <a href="courses_1871_modules_items_144487_010_Using_Your_Program_Dashboard.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

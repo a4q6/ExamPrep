@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.09 | Standard I(C): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s09-R-1" title="3.09 | Standard I(C): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.09 | Standard I(C): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s09-01-01">
+<h3 class="dp-heading">Example 1 (Disclosure of Issuer-Paid Research):</h3>
+<p>Anthony McGuire is an issuer-paid analyst hired by publicly traded companies to electronically promote their stocks. McGuire creates a website that promotes his research efforts as a seemingly independent analyst. McGuire posts a profile and a strong buy recommendation for each company on the website indicating that the stock is expected to increase in value. He does not disclose the contractual relationships with the companies he covers on his website, in the research reports he issues, or in the statements he makes about the companies in internet chat rooms.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: McGuire has violated Standard I(C) because the website is misleading to potential investors. Even if the recommendations are valid and supported with thorough research, his omissions regarding the true relationship between himself and the companies he covers constitute a misrepresentation. McGuire has also violated Standard VI(A) Disclosure of Conflicts by not disclosing the existence of an arrangement with the companies through which he receives compensation in exchange for his services.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-02">
+<h3 class="dp-heading">Example 2 (Correction of Unintentional Errors):</h3>
+<p>Hijan Yao is responsible for the creation and distribution of the marketing materials for his firm, which claims compliance with the GIPS standards. Yao creates and distributes a presentation of performance by the firm’s Asian equity composite that states the composite has ¥350 billion in assets. In fact, the composite has only ¥35 billion in assets, and the higher figure on the presentation is a result of a typographical error. Nevertheless, the erroneous material is distributed to a number of clients before Yao catches the mistake.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Once the error is discovered, Yao must take steps to cease distribution of the incorrect material and correct the error by informing those who have received the erroneous information. Because Yao did not knowingly make the misrepresentation, however, he did not violate Standard I(C). Because his firm claims compliance with the GIPS standards, it must also comply with the GIPS Guidance Statement on Error Correction in relation to the error.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-03">
+<h3 class="dp-heading">Example 3 (Noncorrection of Known Errors):</h3>
+<p>Syed Muhammad is the president of an investment management firm. The promotional material for the firm, created by the firm’s marketing department, incorrectly claims that Muhammad has an advanced degree in finance from a prestigious business school in addition to the CFA designation. Although Muhammad attended the school for a short period of time, he did not receive a degree. Over the years, Muhammad and others in the firm have distributed this material to numerous prospective clients and consultants.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Even though Muhammad may not have been directly responsible for the misrepresentation of his credentials in the firm’s promotional material, he used this material numerous times over an extended period and should have known of the misrepresentation. Thus, Muhammad has violated Standard I(C).</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-04">
+<h3 class="dp-heading">Example 4 (Plagiarism):</h3>
+<p>Cindy Grant, a research analyst for a Canadian brokerage firm, has specialized in the Canadian mining industry for the past 10 years. She recently read an extensive research report on Jefferson Mining, Ltd., by Jeremy Barton, another analyst. Barton provided extensive statistics on the mineral reserves, production capacity, selling rates, and marketing factors affecting Jefferson’s operations. He also noted that initial drilling results on a new ore body, which had not been made public, might show the existence of mineral zones that could increase the life of Jefferson’s main mines, but Barton cited no specific data as to the initial drilling results. Grant called an officer of Jefferson, who gave her the initial drilling results over the telephone. The data indicated that the expected life of the main mines would be tripled. Grant added these statistics to Barton’s report and circulated it within her firm as her own report.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Grant plagiarized Barton’s report by reproducing large parts of it in her own report without acknowledgment.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-05">
+<h3 class="dp-heading">Example 5 (Misrepresentation of Information):</h3>
+<p>When Ricki Marks sells mortgage-backed derivatives called “interest-only strips” (IOs) to public pension plan clients, she describes them as “guaranteed by the US government.” Purchasers of the IOs are entitled only to the interest stream generated by the mortgages, however, not the notional principal itself. One particular municipality’s investment policies and local law require that securities purchased by its public pension plans be guaranteed by the US government. Although the underlying mortgages are guaranteed, neither the investor’s investment nor the interest stream on the IOs is guaranteed. When interest rates decline, causing an increase in prepayment of mortgages, interest payments to the IOs’ investors decline, and these investors lose a portion of their investment.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Marks violated Standard I(C) by misrepresenting the terms and character of the investment.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-06">
+<h3 class="dp-heading">Example 6 (Potential Information Misrepresentation):</h3>
+<p>Khalouck Abdrabbo manages the investments of several high-net-worth individuals in the United States who are approaching retirement. Abdrabbo advises these individuals that a portion of their investments be moved from equity to bank-sponsored certificates of deposit and money market accounts so that the principal will be “guaranteed” up to a certain amount. The interest is not guaranteed.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Although there is risk that the institution offering the certificates of deposits and money market accounts could go bankrupt, in the United States, these accounts are insured by the US government through the Federal Deposit Insurance Corporation. Therefore, using the term “guaranteed” in this context is not inappropriate as long as the amount is within the government-insured limit. Abdrabbo should explain these facts to the clients.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-07">
+<h3 class="dp-heading">Example 7 (Plagiarism):</h3>
+<p>Steve Swanson is a senior analyst in the investment research department of Ballard and Company. Apex Corporation has asked Ballard to assist in acquiring the majority ownership of stock in the Campbell Company, a financial consulting firm, and to prepare a report recommending that stockholders of Campbell agree to the acquisition. Another investment firm, Davis and Company, had already prepared a report for Apex analyzing both Apex and Campbell and recommending an exchange ratio. Apex has given the Davis report to Ballard officers, who have passed it on to Swanson. Swanson reviews the Davis report and other available material on Apex and Campbell. From his analysis, he concludes that the common stocks of Campbell and Apex represent good value at their current prices; he believes, however, that the Davis report does not consider all the factors a Campbell stockholder would need to know to make a decision. Swanson reports his conclusions to the partner in charge, who tells him to “use the Davis report, change a few words, sign your name, and get it out.”</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: If Swanson does as requested, he will violate Standard I(C). He could refer to those portions of the Davis report that he agrees with if he identifies Davis as the source; he could then add his own analysis and conclusions to the report before signing and distributing it.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-08">
+<h3 class="dp-heading">Example 8 (Plagiarism):</h3>
+<p>Claude Browning, a quantitative analyst for Double Alpha, Inc., returns from a seminar in great excitement. At that seminar, Jack Jorrely, a well-known quantitative analyst at a national brokerage firm, discussed one of his new models in great detail, and Browning is intrigued by the new concepts. He proceeds to test the model, making some minor mechanical changes but retaining the concepts, until he produces some very positive results. Browning quickly announces to his supervisors at Double Alpha that he has discovered a new model and that clients and prospective clients should be informed of this positive finding as ongoing proof of Double Alpha’s continuing innovation and ability to add value.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Although Browning tested Jorrely’s model on his own and even slightly modified it, he must still acknowledge the original source of the idea. Browning can certainly take credit for the final, practical results; he can also support his conclusions with his own test. The credit for the innovative thinking, however, must be awarded to Jorrely.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-09">
+<h3 class="dp-heading">Example 9 (Plagiarism):</h3>
+<p>Fernando Zubia would like to include in his firm’s marketing materials some “plain-language” descriptions of various concepts, such as the price-to-earnings (P/E) multiple and why standard deviation is used as a measure of risk. The descriptions come from other sources, but Zubia wishes to use them without reference to the original authors. Would this use of material be a violation of Standard I(C)?</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Copying verbatim any material without acknowledgement, including plain-language descriptions of the P/E multiple and standard deviation, violates Standard I(C). Even though these concepts are general, best practice would be for Zubia to describe them in his own words or cite the sources from which the descriptions are quoted. Members and candidates would be violating Standard I(C) if they either were responsible for creating marketing materials without attribution or knowingly use plagiarized materials.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-10">
+<h3 class="dp-heading">Example 10 (Plagiarism):</h3>
+<p>Through a mainstream media outlet, Erika Schneider learns about a study that she would like to cite in her research. Should she cite both the mainstream intermediary source as well as the author of the study itself when using that information?</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: In all instances, a member or candidate must cite the actual source of the information. Best practice for Schneider would be to obtain the information directly from the author and review it before citing it in a report. In that case, Schneider would not need to report how she found out about the information. For example, suppose Schneider read in the <em>Financial Times</em> about a study issued by CFA Institute; best practice for Schneider would be to obtain a copy of the study from CFA Institute, review it, and then cite it in her report. If she does not use any interpretation of the report from the <em>Financial Times</em> and the newspaper does not add value to the report itself, the newspaper is merely a conduit of the original information and does not need to be cited. If she does not obtain the report and review the information, Schneider runs the risk of relying on second-hand information that may misstate facts. If, for example, the <em>Financial Times</em> erroneously reported some information from the original CFA Institute study and Schneider copied that erroneous information without acknowledging CFA Institute, she could be the object of complaints. Best practice would be either to obtain the complete study from its original author and cite only that author or to use the information provided by the intermediary and cite both sources.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-11">
+<h3 class="dp-heading">Example 11 (Misrepresentation of Information):</h3>
+<p>Paul Ostrowski runs a two-person investment management firm. Ostrowski’s firm subscribes to a service from a large investment research firm that provides research reports that can be repackaged by smaller firms for those firms’ clients. Ostrowski’s firm distributes these reports to clients as its own work.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Ostrowski can rely on third-party research that has a reasonable and adequate basis, but he cannot imply that he is the author of such research. If he does, Ostrowski is misrepresenting the extent of his work in a way that misleads the firm’s clients or prospective clients.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-12">
+<h3 class="dp-heading">Example 12 (Misrepresentation of Information):</h3>
+<p>Tom Stafford is part of a team within Appleton Investment Management responsible for managing a pool of assets for Open Air Bank, which distributes structured securities to offshore clients. He becomes aware that Open Air is promoting the structured securities as a much less risky investment than the investment management policy followed by him and the team to manage the original pool of assets. Also, Open Air has procured an independent rating for the pool that significantly overstates the quality of the investments. Stafford communicates his concerns to his supervisor, who responds that Open Air owns the product and is responsible for all marketing and distribution. Stafford’s supervisor goes on to say that the product is outside of the US regulatory regime that Appleton follows and that all risks of the product are disclosed at the bottom of page 184 of the prospectus.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: As a member of the investment team, Stafford is qualified to recognize the degree of accuracy of the materials that characterize the portfolio, and he is correct to be worried about Appleton’s responsibility for a misrepresentation of the risks. Thus, he should continue to pursue the issue of Open Air’s inaccurate promotion of the portfolio according to the firm’s policies and procedures.</p>
+<p>The Code and Standards stress protecting the reputation of the firm and the sustainability and integrity of the capital markets. Misrepresenting the quality and risks associated with the investment pool may lead to negative consequences for others well beyond the direct investors.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-13">
+<h3 class="dp-heading">Example 13 (Avoiding a Misrepresentation):</h3>
+<p>Trina Smith is a fixed-income portfolio manager at a pension fund. She has observed that the market for highly structured mortgages is the focus of salespeople she meets and that these products represent a significant number of trading opportunities. In discussions about this topic with her team, Smith learns that calculating yields on changing cash flows within the deal structure requires very specialized vendor software. After more research, they find out that each deal is unique and that deals can have more than a dozen layers and changing cash flow priorities. Smith comes to the conclusion that, because of the complexity of these securities, the team cannot effectively distinguish between potentially good and bad investment options. To avoid misrepresenting their understanding, the team decides that the highly structured mortgage segment of the securitized market should not become part of the core of the fund’s portfolio; they will allow some of the less complex securities to be part of the core.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Smith is in compliance with Standard I(C) by not investing in securities that she and her team cannot effectively understand. Because she is not able to describe the risk and return profile of the securities to the pension fund beneficiaries and trustees, she appropriately limits the fund’s exposure to this sector.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-14">
+<h3 class="dp-heading">Example 14 (Misrepresenting Composite Construction):</h3>
+<p>Robert Palmer is head of performance for a fund manager. When asked to provide performance numbers to fund rating agencies, he avoids mentioning that the fund manager is quite liberal in composite construction. The reason accounts are included/excluded is not fully explained. The performance values reported to the rating agencies for the composites, although accurate for the accounts shown each period, may not present a true representation of the fund manager’s ability.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: “Cherry picking” accounts to include in either published reports or information provided to rating agencies conflicts with Standard I(C). Moving accounts into or out of a composite to influence the overall performance results materially misrepresents the reported values over time. Palmer should work with his firm to strengthen its reporting practices concerning composite construction to avoid misrepresenting the firm’s track record or the quality of the information being provided.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-15">
+<h3 class="dp-heading">Example 15 (Presenting Out-of-Date Information):</h3>
+<p>David Finch is a sales director at a commercial bank, where he directs the bank’s client advisers in the sale of third-party mutual funds. Each quarter, he holds a division-wide training session where he provides fact sheets on investment funds the bank is allowed to offer to clients. These fact sheets, which can be redistributed to potential clients, are created by the fund firms and contain information about the funds, including investment strategy and target distribution rates.</p>
+<p>Finch knows that some of the fact sheets are out of date; for example, one long-only fund approved the use of significant leverage last quarter as a method to enhance returns. He continues to provide the sheets to the sales team without updates because the bank has no control over the marketing material released by the mutual fund firms.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Finch is violating Standard I(C) by providing information that misrepresents aspects of the funds. By not providing the sales team and, ultimately, the clients with the updated information, he is misrepresenting the potential risks associated with the funds with outdated fact sheets. Finch can instruct the sales team to clarify the deficiencies in the fact sheets with clients and ensure they have the most recent fund prospectus document before accepting orders for investing in any fund.</p>
+</div>
+</section>
+<section id="CFA0008-R-s09-01-16">
+<h3 class="dp-heading">Example 16 (Overemphasis of Firm Results):</h3>
+<p>Bob Anderson is chief compliance officer for Optima Asset Management Company, a firm currently offering eight funds to clients. Seven of the eight had 10-year returns below the median for their respective sectors. Anderson approves a recent advertisement, which includes this statement: “Optima Asset Management is achieving excellent returns for its investors. The Optima Emerging Markets Equity fund, for example, has 10-year returns that exceed the sector median by more than 10%.” </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: From the information provided it is difficult to determine whether a violation has occurred as long as the sector outperformance is correct. Anderson may be attempting to mislead potential clients by citing the performance of the sole fund that achieved such results. Past performance is often used to demonstrate a firm’s skill and abilities in comparison to funds in the same sectors.</p>
+<p>However, if all the funds outperformed their respective benchmarks, then Anderson’s assertion that the company “is achieving excellent returns” may be factual. Funds may exhibit positive returns for investors, exceed benchmarks, and yet have returns below the median in their sectors. </p>
+<p>Members and candidates need to ensure that their marketing efforts do not include statements that misrepresent their skills and abilities to remain compliant with Standard I(C). Unless the returns of a single fund reflect the performance of a firm as a whole, the use of a singular fund for performance comparisons should be avoided.</p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147250_308_Standard_IC_Recommended_Procedures.html" >← 前へ</a>
+  <span class="title">3.09 | Standard I(C): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147257_310_Standard_ID_Misconduct.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

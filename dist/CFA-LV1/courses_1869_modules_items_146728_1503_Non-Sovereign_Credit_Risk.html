@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15.03 | Non-Sovereign Credit Risk</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2445-R-s03-R-1" title="15.03 | Non-Sovereign Credit Risk">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 15: Credit Analysis for Government Issuers</span>15.03 | Non-Sovereign Credit Risk</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">explain special considerations when evaluating the credit of sovereign and non-sovereign government debt issuers and issues</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<section id="CFA2445-R-s03-01-01">
+<h3 class="dp-heading">Non-Sovereign Government Debt</h3>
+<p>While sovereign issuers comprise the largest issuers of government debt, a number of non-sovereign government issuers, such as government agencies or regional governments, issue debt to finance their activities as well. In the case of government agencies, investors typically face very similar credit risk to the sovereign given either implicit government backing in the form of a sovereign law creating the entity and granting it powers to raise debt, or explicit backing in the form of a guarantee. In the case of sub-sovereign issuers with their own taxation and income-generating powers, such as regional government issuers, they benefit from the economic and political governance as well as monetary and fiscal policies of the sovereign as they fall under its jurisdiction; still, they have a number of features that may cause their creditworthiness to vary significantly from that of the sovereign issuer.</p>
+<p>The main types of non-sovereign government issuers include agencies, public banks, supranationals, and regional governments.</p>
+</section>
+<section id="CFA2445-R-s03-01-02">
+<h3 class="dp-heading">Agencies</h3>
+<p>Agencies are quasi-government entities whose primary activities are to fulfill a government-sponsored mission to provide public services, often based upon a specific sovereign law or statute. In many cases, either the law or statute creating the entity authorizes it to finance its activities using debt. As quasi-government entities, investors usually assume a high likelihood of sovereign government support, and rating agencies typically grant the same rating to these entities as the sovereign entity.</p>
+<p>An example of a perpetual bond issued by a government entity is as follows:</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2445-R-s03-EXM-1-9">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 9<span style="display: block;">Airport Authority Hong Kong SAR (AAHK) Perpetual Bonds</span>
+</h4>
+<p>AAHK is a statutory body owned by the Hong Kong SAR government responsible for operating and developing Hong Kong International Airport (HKIA), one of the world’s busiest cargo airports and a major passenger hub connecting to over 200 global destinations. In late 2020, following a sharp decline in passenger volume during the COVID-19 pandemic, AAHK announced a two-part, USD1.5 billion perpetual bond issuance to fund construction of a third runway and for general corporate purposes. The issuance was evenly split between bonds with a 2.10% fixed coupon, which AAHK has the right to buy back after 5.5 years, and those with a 2.40% fixed coupon, which AAHK can repurchase after 7.5 years. The bonds were rated AA, one notch down from the long-term issuer rating of AAHK, which was AA+ due to the buyback option. The long-term issuer rating of AAHK was based on equalization with the Hong Kong SAR government sovereign rating of AA+. The assumption supporting this rating is the implicit support for AAHK expected from the Hong Kong SAR government in case of any financial distress of AAHK.</p>
+</div>
+</section>
+<section id="CFA2445-R-s03-01-03">
+<h3 class="dp-heading">Government Sector Banks and Development Financing Institutions</h3>
+<p>Sovereign governments often sponsor the establishment of specialized financial intermediaries to operate in a specific market or to promote specific sovereign political, economic, social, or other growth and policy objectives. Similar to agencies, these institutions are usually created or supported by the sovereign government and enjoy a similar rating, as in the following example:</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2445-R-s03-EXM-1-10">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 10<span style="display: block;">Kreditanstalt für Wiederaufbau (KfW)</span>
+</h4>
+<p>Established in 1948 in the Federal Republic of Germany, KfW is the largest national development bank (80% owned by the German federal government and 20% by the federal states). It benefits from explicit and direct statutory guarantee and institutional liability by the Federal Republic of Germany. It is regulated by the “Law concerning KfW,” exempt from corporate taxes, and supervised by the German Federal Ministry of Finance and the German Federal Financial Supervisory Authority, better known as “BaFin.” KfW bonds receive a zero risk weighting under bank capital rules. Its bonds are rated AAA and “Prime” ESG rating. During 2020 its ESG commitment was to originate at least 33% new business in environment and climate protection initiatives and 48% of new domestic business volume from small and medium-sized enterprises. To fund this business, KfW has been the most active issuer of Green Bonds in the international capital markets. It issued its first Green Bond in 2013, and it raised 20% of its new debt through Green Bonds (EUR16.2 billion in 2021), with total Green Bond issuance totaling EUR47.1 billion by 2021. The proceeds of Green Bond issuance are deployed in projects mitigating climate change in the categories of renewable energies and energy efficiency.</p>
+</div>
+</section>
+<section id="CFA2445-R-s03-01-04">
+<h3 class="dp-heading">Supranational Issuers</h3>
+<p>So-called supranational entities are organizations that are established and owned by sovereign governments that join as members to pursue a common objective. For example, the World Bank and its affiliates, such as the International Bank for Reconstruction and Development (IBRD), issue debt to assist developing countries with projects aimed at combating poverty and pursuing sustainable economic growth. Examples of supranational entities with a regional focus include the Asian Development Bank (ADB) and the Development Bank of Latin America (Corporacion Andina de Fomento, or CAF) in Latin America. Another example of a supranational entity is provided in <a aria-label="View Example 11" class="internal" href="#CFA2445-R-s03-EXM-1-11" role="button">Example 11</a>.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2445-R-s03-EXM-1-11">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+            Example 11<span style="display: block;">Indonesia Infrastructure Finance (IIF)</span>
+</h4>
+<p>The Indonesia Infrastructure Finance (IIF) was established by the Government of the Republic of Indonesia (30% shareholding) along with World Bank (20% shareholding), ADB (20% shareholding), and other multilateral institutions, like KfW (15% shareholding) and Sumitomo Mitsui Banking Corporation (15% shareholding). IIF was established in January 2010 to help accelerate and improve private participation in infrastructure development in Indonesia. IIF provides fund-based products, such as long-term loans, and non-fund-based products, such as guarantees and other services relating to infrastructure projects. IIF applies international social and environmental protection standards to ensure sustainability of infrastructure development in Indonesia. IIF’s credit rating is BBB, equivalent to the sovereign rating of the Government of Indonesia, based on its strategic importance as well as the implicit support and share ownership of global development institutions.</p>
+</div>
+</section>
+<section id="CFA2445-R-s03-01-05">
+<h3 class="dp-heading">Regional Government Issuers</h3>
+<p>These include provincial, state, and local governments, referred to as municipal bonds in the US and most often as local authority bonds elsewhere, within a specific sovereign jurisdiction. Local government finance varies widely across countries. In some cases, such as the Netherlands, the federal government has established a public financial institution that offers financing to municipalities while establishing a structure that grants them the same credit rating as the federal government. Other countries use a tax revenue sharing system across sovereign and local governments to ensure that local authorities are able to meet their obligations. In contrast, in the United States, municipal issuers, such as state and local governments, are rated individually and typically issue either general obligation or revenue bonds.</p>
+<section id="CFA2445-R-s03-01-05-01">
+<h4>General Obligation Bonds</h4>
+<p>
+<a aria-describedby="GeneralObligationGOBondsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#GeneralObligationGOBondsContent">General obligation (GO) bonds</a> are unsecured bonds that are backed by the general revenues of the issuing non-sovereign government. These bonds are supported by the taxing authority of the issuer. Revenue bonds are issued for specific project financing—for example, financing for a new sewer system, a toll road, bridge, hospital, or sports arena.</p>
+<p>The credit analysis of GO bonds has some similarities to sovereign debt analysis (e.g., the ability to levy and collect taxes and fees to service debt) but also some differences. The attractiveness of the local business climate, presence of major industries and employers to establish a diversified, stable corporate tax base, implicit national government support in some cases, as well as the prudent management of state or local government budgets all play an important role in establishing the relative creditworthiness of the issuer. That said, non-sovereign governments have limited jurisdictional powers and no control over sovereign economic and monetary institutions, as is the case for sovereign issuers. Non-sovereign issuers may face greater exposure to technological change, such as declining industries, and demographic changes, as in the case of the largest US municipal bankruptcy filing presented in <a aria-label="View Example 12" class="internal" href="#CFA2445-R-s03-EXM-1-12" role="button">Example 12</a>.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2445-R-s03-EXM-1-12">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+               Example 12<span style="display: block;">City of Detroit Bankruptcy Filing</span>
+</h5>
+<p>The City of Detroit became the largest US municipal bankruptcy filing in 2013 following a decades-long decline in automotive industry employment and a shift in manufacturing jobs to lower-wage Southern states. The result was a demographic shift—causing the city’s population to decline from 2 million to 700,000—and increased racial tensions that accelerated a population shift out of the city to the suburbs. The resulting declines in the property and income tax base left Detroit with a shortfall in meeting payments on its estimated USD18 billion in debt outstanding. The city was unable to reach an agreement with lenders, unions, and pensioners, forcing it to file for Chapter 9 bankruptcy protection. After a 17-month negotiation period with its creditors, Detroit emerged from bankruptcy after selling and pledging assets and offering concessions, with pensioners retaining approximately 85% of their benefits and general obligation unlimited tax bondholders recovering 74 cents on the dollar for their investments.</p>
+</div>
+</section>
+<section id="CFA2445-R-s03-01-05-02">
+<h4>Revenue Bonds</h4>
+<p>
+<a aria-describedby="RevenueBondsContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RevenueBondsContent">Revenue bonds</a>, which are issued to finance a specific project, have a higher degree of risk than GO bonds because their cash flows are dependent upon a single source of revenue. The analysis of these bonds is a combination of an analysis of the project and the finances around the particular project. The project analysis focuses on the need and projected utilization of the project, as well as on the economic base supporting the project. This analysis has similarities to that of a corporate bond in that it is focused on operating results, cash flow, liquidity, capital structure, and the issuer’s ability to service and repay its debt based upon cash flow projections. Similar to corporate debt, a key credit measure for revenue-backed non-sovereign government bonds is the <a aria-describedby="DebtServiceCoverageRatioContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#DebtServiceCoverageRatioContent">debt service coverage ratio</a>, a measure of revenue available to cover principal and interest payments after operating expenses. The higher the coverage ratio, the stronger the creditworthiness. Minimum coverage ratio covenants are a common feature of revenue bonds. Coverage and other financial ratios are covered in greater detail in the next learning module on corporate credit risk.</p>
+<p>In analyzing these bonds, the inherent riskiness of the cash flows becomes increasingly important. Hence, not only are the underlying capacity and ability to raise revenue through taxes and fees material, which is important for the sovereign bond evaluation, but also an understanding of other repayment sources. This becomes particularly material for various non-sovereign government infrastructure bonds, which may be issued either by supranational entities or other quasi-governmental issuers, such as airport authorities or public utility companies (for which the national government may be a secondary implicit source of repayment in the event of a revenue shortfall). An example of a non-sovereign government infrastructure project is described below.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2445-R-s03-EXM-1-13">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+               Example 13<span style="display: block;">Lima Metro Line 2 Finance Limited</span>
+</h5>
+<p>Lima Metro Line 2 Finance Limited (Lima Metro 2) is one of the largest infrastructure debt offerings in Latin America and the largest RPI-CAO-backed offering to date. RPI-CAOs (Retribución por Inversión – Certificado de Avance de Obras) are a milestone payment, government-sponsored mechanism characteristic of the Peruvian infrastructure financing program.</p>
+<p>The RPI-CAO regime is a payment mechanism under which the concessionaire, Metro de Lima Línea 2 S.A., obtains the right to receive systematic payments as compensation for construction costs incurred for a project. RPI-CAOs are obtained after construction milestones are achieved and progress reports are submitted to, and approved by, the Ministry of Transport and Communications of Peru. These USD-denominated compensation rights are guaranteed by the Ministry and payable to the concessionaire following a specified installment schedule. RPI-CAOs are not direct sovereign obligations, but investors have recourse to the Peruvian government if the Ministry fails to make interest and principal payments.</p>
+<p>The bonds were issued to finance the construction of two routes of the subway system in the city of Lima, Peru, along with the related electromechanical equipment. The project involved the construction of 35 subway stations and approximately 35 kilometers of tunnels and courtyards. In April 2014, the Ministry entered into a concession agreement with Metro de Lima Línea 2 S.A. (a consortium comprised of ACS Iridium, Vialia [FCC], Salini Impregilo, AnsaldoBreda, Ansaldo STS, and COSAPI, and the project equity sponsors) for the construction and operation of two underground railway lines.</p>
+<p>In June 2015, Lima Metro 2 issued USD1,150MM in 144A/Reg S senior secured notes at 5.875%. The 19.1-year notes had an average life at issuance of 12.8 years and are rated Baa1 (Moody’s); BBB (S&amp;P); and BBB (Fitch). The notes drew significant interest from asset managers and local Peruvian investors, with these investor bases comprising the majority of the final order book.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2445-R-s03-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="2" style="text-align: left; vertical-align: bottom; padding: 8px; ">
+<strong>5.875% Lima Metro Line 2 Finance Limited</strong>
+<br/><br/>
+<strong>Brief Summary of Terms</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Issuer:</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Lima Metro Line 2 Finance Limited</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Issuance Date:</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">June 2015</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Maturity Date:</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">July 2034</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Issuance Amount</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">USD1,150MM</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Use of Proceeds</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Finance construction of a metro line project in the city of Lima</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Credit Ratings</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Baa1 (Moody’s); BBB (S&amp;P); BBB (Fitch)</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Country</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Peru</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Project Type</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">Transportation, Rail</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Project Sponsor</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">A consortium comprised of ACS Iridium, Vialia (FCC), Salini Impregilo, AnsaldoBreda, Ansaldo STS, and COSAPI</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">
+<strong>Source of Payment</strong>
+</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px; ">RPI-CAO payment regime</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2445-R-s03-B-1-a">
+<h5 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
+               Question Set</h5>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2445-R-s03-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following statements best describes the relationship between local government and sovereign creditworthiness?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Local governments have limited jurisdictional powers and no control over economic and monetary institutions.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Local governments have limited jurisdiction and no control over national fiscal and monetary policy. B is incorrect, as some, not all, sovereign governments use tax revenue sharing. C is incorrect. Since local governments are subject to the economic and monetary policy of the sovereign, their rating is typically equal or below that of the sovereign government.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>All sovereign governments use a tax revenue sharing system across sovereign and local governments to ensure that local authorities are able to meet their obligations.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Local governments have limited jurisdiction and no control over national fiscal and monetary policy. B is incorrect, as some, not all, sovereign governments use tax revenue sharing. C is incorrect. Since local governments are subject to the economic and monetary policy of the sovereign, their rating is typically equal or below that of the sovereign government.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Local governments with the power to attract and retain major industries and employers are often more creditworthy than their sovereign government.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Local governments have limited jurisdiction and no control over national fiscal and monetary policy. B is incorrect, as some, not all, sovereign governments use tax revenue sharing. C is incorrect. Since local governments are subject to the economic and monetary policy of the sovereign, their rating is typically equal or below that of the sovereign government.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2445-R-s03-Q2">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Ile-de-France, the regional government of Paris, issued a green bond, the proceeds of which are to be used for investments including ecofriendly construction and renovation of buildings, public transport to support sustainable mobility, and renewable energy projects. The bond is backed by the tax and other revenue of Ile-de-France. This bond is an example of:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>a general obligation (GO) bond.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Though the proceeds of the bond are used for specific green infrastructure development, interest and principal payments are backed by the tax and other revenue of the local government rather than any specific project revenue.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>a revenue bond.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Though the proceeds of the bond are used for specific green infrastructure development, interest and principal payments are backed by the tax and other revenue of the local government rather than any specific project revenue.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>an agency bond.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Though the proceeds of the bond are used for specific green infrastructure development, interest and principal payments are backed by the tax and other revenue of the local government rather than any specific project revenue.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2445-R-s03-Q3">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Danainfra Nasional Berhad, a special purpose vehicle of the Government of Malaysia, issued retail bonds for the purpose of financing mass rapid transport infrastructure in Kuala Lumpur. Interest and principal payments are supported by the cash flows of the mass rapid transport system and a credit guarantee of the Government of Malaysia. This bond is an example of:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>a general obligation (GO) bond.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>B is correct. The funding is for the development of a specific mass rapid project for Kuala Lumpur, and the repayment is supported by the revenue of the mass rapid transport line. While the bonds also have a sovereign guarantee to provide credit enhancement, the primary source of repayment is mass transit revenue.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>a revenue bond.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>B is correct. The funding is for the development of a specific mass rapid project for Kuala Lumpur, and the repayment is supported by the revenue of the mass rapid transport line. While the bonds also have a sovereign guarantee to provide credit enhancement, the primary source of repayment is mass transit revenue.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>an agency bond.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>B is correct. The funding is for the development of a specific mass rapid project for Kuala Lumpur, and the repayment is supported by the revenue of the mass rapid transport line. While the bonds also have a sovereign guarantee to provide credit enhancement, the primary source of repayment is mass transit revenue.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2445-R-s03-Q4">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>A key credit measure for revenue-backed non-sovereign government bonds is:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>the debt service coverage ratio.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. A key credit measure for revenue-backed non-sovereign government bonds is the debt service coverage ratio, which measures how much revenue is available to cover debt payments (principal and interest) after operating expenses. This is because the repayment ability for the bond is directly linked to the revenue of the specific underlying project, rather than the general tax revenue of the state. Many revenue bonds have a minimum ratio covenant; the higher the debt service coverage ratio, the stronger the creditworthiness.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>level of unemployment in the local area.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. A key credit measure for revenue-backed non-sovereign government bonds is the debt service coverage ratio, which measures how much revenue is available to cover debt payments (principal and interest) after operating expenses. This is because the repayment ability for the bond is directly linked to the revenue of the specific underlying project, rather than the general tax revenue of the state. Many revenue bonds have a minimum ratio covenant; the higher the debt service coverage ratio, the stronger the creditworthiness.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>the tax base (depth, breadth, diversification, stability).</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. A key credit measure for revenue-backed non-sovereign government bonds is the debt service coverage ratio, which measures how much revenue is available to cover debt payments (principal and interest) after operating expenses. This is because the repayment ability for the bond is directly linked to the revenue of the specific underlying project, rather than the general tax revenue of the state. Many revenue bonds have a minimum ratio covenant; the higher the debt service coverage ratio, the stronger the creditworthiness.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+</section>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="GeneralObligationGOBondsContent">
+<p>Unsecured bonds issued by a non-sovereign government which are backed by the taxing authority of the issuer.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RevenueBondsContent">
+<p>非主権政府が発行する債券で、将来のキャッシュフローを主要な返済源とすることが見込まれる政府支援プロジェクトに関連するもの。</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="DebtServiceCoverageRatioContent">
+<p>信用パフォーマンスの主要指標で、営業純収益（net operating income）と債務返済額（debt service）の比率として表される。</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1869_modules_items_146721_1502_Sovereign_Credit_Analysis.html" >← 前へ</a>
+  <span class="title">15.03 | Non-Sovereign Credit Risk</span>
+  <a href="courses_1869_modules_items_146741_Glossary_Credit_Analysis_for_Government_Issuers.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

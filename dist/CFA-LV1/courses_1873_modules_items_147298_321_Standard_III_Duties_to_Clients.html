@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.21 | Standard III: Duties to Clients </title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s21-R-1" title="3.21 | Standard III: Duties to Clients ">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.21 | Standard III: Duties to Clients </h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">demonstrate the application of the Code of Ethics and Standards of Professional Conduct to situations involving issues of professional integrity</li>
+<li class="cfa-curriculum-los-item">recommend practices and procedures designed to prevent violations of the Code of Ethics and Standards of Professional Conduct</li>
+<li class="cfa-curriculum-los-item">identify conduct that conforms to the Code and Standards and conduct that violates the Code and Standards</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<section id="CFA0008-R-s21-01-01">
+<h3 class="dp-heading">Standard III(A) Loyalty, Prudence, and Care</h3>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="">
+<h4 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i>
+</h4>
+<p>Members and Candidates have a duty of loyalty to their clients and must act with reasonable care and exercise prudent judgment. Members and Candidates must act for the benefit of their clients and place their clients’ interests before their employer’s or their own interests. </p>
+</div>
+</section>
+<section id="CFA0008-R-s21-01-02">
+<h3 class="dp-heading">Guidance</h3>
+<p>
+<strong>Highlights:</strong>
+</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s21-L1">
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Understanding the Application of Loyalty, Prudence, and Care</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Identifying the Actual Investment Client</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Developing the Client’s Portfolio</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Soft Commission Policies</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Proxy Voting Policies</em>
+</p>
+</li>
+</ul>
+<p>Standard III(A) clarifies that client interests are paramount. A member’s or candidate’s responsibility to a client includes a duty of loyalty and a duty to exercise reasonable care. Investment actions must be carried out for the sole benefit of the client and in a manner the member or candidate believes, given the known facts and circumstances, to be in the best interest of the client. Members and candidates must exercise the same level of prudence, judgment, and care that they would apply in the management and disposition of their own interests in similar circumstances.</p>
+<p>Prudence requires caution and discretion. The exercise of prudence by investment professionals requires that they act with the care, skill, and diligence that a reasonable person acting in a like capacity and familiar with such matters would use. In the context of managing a client’s portfolio, prudence requires following the investment parameters set forth by the client and balancing risk and return. Acting with care requires members and candidates to act in a prudent and judicious manner in avoiding harm to clients.</p>
+<p>Standard III(A) sets minimum expectations for members and candidates when fulfilling their responsibilities to their clients. Regulatory and legal requirements for such duties can vary across the investment industry depending on a variety of factors, including job function of the investment professional, the existence of an adviser/client relationship, and the nature of the recommendations being offered. From the perspective of the end user of financial services, these different standards can be arcane and confusing, leaving investors unsure of what level of service to expect from investment professionals they employ. The single standard of conduct described in Standard III(A) benefits investors by establishing a benchmark for the duties of loyalty, prudence, and care and clarifies that all CFA Institute members and candidates, regardless of job title, local laws, or cultural differences, are required to comply with these fundamental responsibilities. Investors hiring members or candidates who must adhere to the duty of loyalty, prudence, and care set forth in this standard can be confident that these responsibilities are a requirement regardless of any legally imposed fiduciary duties.</p>
+<p>Standard III(A), however, is not a substitute for a member’s or candidate’s legal or regulatory obligations. As stated in Standard I(A), members and candidates must abide by the most strict requirements imposed on them by regulators or the Code and Standards, including any legally imposed fiduciary duty. Members and candidates must also be aware of whether they have “custody” or effective control of client assets. If so, a heightened level of responsibility arises. Members and candidates are considered to have custody if they have any direct or indirect access to client funds. Members and candidates must manage any pool of assets in their control in accordance with the terms of the governing documents (such as trust documents and investment management agreements), which are the primary determinant of the manager’s powers and duties. Whenever their actions are contrary to provisions of those instruments or applicable law, members and candidates are at risk of violating Standard III(A).</p>
+<section id="CFA0008-R-s21-01-02-01">
+<h4>Understanding the Application of Loyalty, Prudence, and Care </h4>
+<p>Standard III(A) establishes a minimum benchmark for the duties of loyalty, prudence, and care that are required of all members and candidates regardless of whether a legal fiduciary duty applies. Although fiduciary duty often encompasses the principles of loyalty, prudence, and care, Standard III(A) does not render all members and candidates fiduciaries. The responsibilities of members and candidates for fulfilling their obligations under this standard depend greatly on the nature of their professional responsibilities and the relationships they have with clients. The conduct of members and candidates may or may not rise to the level of being a fiduciary, depending on the type of client, whether the member or candidate is giving investment advice, and the many facts and circumstances surrounding a particular transaction or client relationship. </p>
+<p>Fiduciary duties are often imposed by law or regulation when an individual or institution is charged with the duty of acting for the benefit of another party, such as managing investment assets. The duty required in fiduciary relationships exceeds what is acceptable in many other business relationships because a fiduciary is in an enhanced position of trust. Although members and candidates must comply with any legally imposed fiduciary duty, the Code and Standards neither impose such a legal responsibility nor require all members or candidates to act as fiduciaries. However, Standard III(A) requires members and candidates to work in the client’s best interest no matter what the job function. </p>
+<p>A member or candidate who does not provide advisory services to a client but who acts only as a trade execution professional must prudently work in the client’s interest when completing requested trades. Acting in the client’s best interest requires these professionals to use their skills and diligence to execute trades in the most favorable terms that can be achieved. Members and candidates operating in such positions must use care to operate within the parameters set by the client’s trading instructions.</p>
+<p>Members and candidates may also operate in a blended environment where they execute client trades and offer advice on a limited set of investment options. The extent of the advisory arrangement and limitations should be outlined in the agreement with the client at the outset of the relationship. For instance, members and candidates should inform clients that the advice provided will be limited to the propriety products of the firm and not include other products available on the market. Clients who want access to a wider range of investment products would have the information necessary to decide not to engage with members or candidates working under these restrictions.</p>
+<p>Members and candidates operating in this blended context would comply with their obligations by recommending the allowable products that are consistent with the client’s objectives and risk tolerance. They would exercise care through diligently aligning the client’s needs with the attributes of the products being recommended. Members and candidates should place the client’s interests first by disregarding any firm or personal interest in motivating a recommended transaction.</p>
+<p>There is a large variety of professional relationships that members and candidates have with their clients. Standard III(A) requires them to fulfill the obligations outlined explicitly or implicitly in the client agreements to the best of their abilities and with loyalty, prudence, and care. Whether a member or candidate is structuring a new securitization transaction, completing a credit rating analysis, or leading a public company, he or she must work with prudence and care in delivering the agreed-on services. </p>
+</section>
+<section id="CFA0008-R-s21-01-02-02">
+<h4>Identifying the Actual Investment Client</h4>
+<p>The first step for members and candidates in fulfilling their duty of loyalty to clients is to determine the identity of the “client” to whom the duty of loyalty is owed. In the context of an investment manager managing the personal assets of an individual, the client is easily identified. When the manager is responsible for the portfolios of pension plans or trusts, however, the client is not the person or entity who hires the manager but, rather, the beneficiaries of the plan or trust. The duty of loyalty is owed to the ultimate beneficiaries.</p>
+<p>In some situations, an actual client or group of beneficiaries may not exist. Members and candidates managing a fund to an index or an expected mandate owe the duty of loyalty, prudence, and care to invest in a manner consistent with the stated mandate. The decisions of a fund’s manager, although benefiting all fund investors, do not have to be based on an individual investor’s requirements and risk profile. Client loyalty and care for those investing in the fund are the responsibility of members and candidates who have an advisory relationship with those individuals.</p>
+<p>Situations involving potential conflicts of interest with respect to responsibilities to clients may be extremely complex because they may involve a number of competing interests. The duty of loyalty, prudence, and care applies to a large number of persons in varying capacities, but the exact duties may differ in many respects in accord with the relationship with each client or each type of account in which the assets are managed. Members and candidates must not only put their obligations to clients first in all dealings but also endeavor to avoid all real or potential conflicts of interest.</p>
+<p>Members and candidates with positions whose responsibilities do not include direct investment management also have “clients” that must be considered. Just as there are various types of advisory relationships, members and candidates must look at their roles and responsibilities when making a determination of who their clients are. Sometimes the client is easily identifiable; such is the case in the relationship between a company executive and the firm’s public shareholders. At other times, the client may be the investing public as a whole, in which case the goals of independence and objectivity of research surpass the goal of loyalty to a single organization.</p>
+</section>
+<section id="CFA0008-R-s21-01-02-03">
+<h4>Developing the Client’s Portfolio</h4>
+<p>The duty of loyalty, prudence, and care owed to the individual client is especially important because the professional investment manager typically possesses greater knowledge in the investment arena than the client does. This disparity places the individual client in a vulnerable position; the client must trust the manager. The manager in these situations should ensure that the client’s objectives and expectations for the performance of the account are realistic and suitable to the client’s circumstances and that the risks involved are appropriate. In most circumstances, recommended investment strategies should relate to the long-term objectives and circumstances of the client. </p>
+<p>Particular care must be taken to detect whether the goals of the investment manager or the firm in conducting business, selling products, and executing security transactions potentially conflict with the best interests and objectives of the client. When members and candidates cannot avoid potential conflicts between their firm and clients’ interests, they must provide clear and factual disclosures of the circumstances to the clients.</p>
+<p>Members and candidates must follow any guidelines set by their clients for the management of their assets. Some clients, such as charitable organizations and pension plans, have strict investment policies that limit investment options to certain types or classes of investment or prohibit investment in certain securities. Other organizations have aggressive policies that do not prohibit investments by type but, instead, set criteria on the basis of the portfolio’s total risk and return.</p>
+<p>Investment decisions must be judged in the context of the total portfolio rather than by individual investment within the portfolio. The member’s or candidate’s duty is satisfied with respect to a particular investment if the individual has thoroughly considered the investment’s place in the overall portfolio, the risk of loss and opportunity for gains, tax implications, and the diversification, liquidity, cash flow, and overall return requirements of the assets or the portion of the assets for which the manager is responsible.</p>
+</section>
+<section id="CFA0008-R-s21-01-02-04">
+<h4>Soft Commission Policies</h4>
+<p>An investment manager often has discretion over the selection of brokers executing transactions. Conflicts may arise when an investment manager uses client brokerage to purchase research services, a practice commonly called “soft dollars” or “soft commissions.” A member or candidate who pays a higher brokerage commission than he or she would normally pay to allow for the purchase of goods or services, without corresponding benefit to the client, violates the duty of loyalty to the client.</p>
+<p>From time to time, a client will direct a manager to use the client’s brokerage to purchase goods or services for the client, a practice that is commonly called “directed brokerage.” Because brokerage commission is an asset of the client and is used to benefit that client, not the manager, such a practice does not violate any duty of loyalty. However, a member or candidate is obligated to seek “best price” and “best execution” and be assured by the client that the goods or services purchased from the brokerage will benefit the account beneficiaries. “Best execution” refers to a trading process that seeks to maximize the value of the client’s portfolio within the client’s stated investment objectives and constraints. In addition, the member or candidate should disclose to the client that the client may not be getting best execution from the directed brokerage.</p>
+</section>
+<section id="CFA0008-R-s21-01-02-05">
+<h4>Proxy Voting Policies</h4>
+<p>The duty of loyalty, prudence, and care may apply in a number of situations facing the investment professional besides those related directly to investing assets.</p>
+<p>Part of a member’s or candidate’s duty of loyalty includes voting proxies in an informed and responsible manner. Proxies have economic value to a client, and members and candidates must ensure that they properly safeguard and maximize this value. An investment manager who fails to vote, casts a vote without considering the impact of the question, or votes blindly with management on nonroutine governance issues (e.g., a change in company capitalization) may violate this standard. Voting of proxies is an integral part of the management of investments.</p>
+<p>A cost–benefit analysis may show that voting all proxies may not benefit the client, so voting proxies may not be necessary in all instances. Members and candidates should disclose to clients their proxy voting policies.</p>
+</section>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147294_320_Standard_IIB_Application_of_the_Standard.html" >← 前へ</a>
+  <span class="title">3.21 | Standard III: Duties to Clients </span>
+  <a href="courses_1873_modules_items_147301_322_Standard_IIIA_Recommended_Procedures.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

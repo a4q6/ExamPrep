@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.07 | Standard I(C) Misrepresentation</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s07-R-1" title="3.07 | Standard I(C) Misrepresentation">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.07 | Standard I(C) Misrepresentation</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">demonstrate the application of the Code of Ethics and Standards of Professional Conduct to situations involving issues of professional integrity</li>
+<li class="cfa-curriculum-los-item">recommend practices and procedures designed to prevent violations of the Code of Ethics and Standards of Professional Conduct</li>
+<li class="cfa-curriculum-los-item">identify conduct that conforms to the Code and Standards and conduct that violates the Code and Standards</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="">
+<h3 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i>
+</h3>
+<p>Members and Candidates must not knowingly make any misrepresentations relating to investment analysis, recommendations, actions, or other professional activities. </p>
+</div>
+<section id="CFA0008-R-s07-01-01">
+<h3 class="dp-heading">Guidance</h3>
+<p>
+<strong>Highlights:</strong>
+</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s07-L1">
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Impact on Investment Practice</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Performance Reporting</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Social Media</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Omissions</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Plagiarism</em>
+</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>
+<em>Work Completed for Employer</em>
+</p>
+</li>
+</ul>
+<p>Trust is the foundation of the investment profession. Investors must be able to rely on the statements and information provided to them by those with whom the investors have trusted their financial well-being. Investment professionals who make false or misleading statements not only harm investors but also reduce the level of investor confidence in the investment profession and threaten the integrity of capital markets as a whole.</p>
+<p>A misrepresentation is any untrue statement or omission of a fact or any statement that is otherwise false or misleading. A member or candidate must not knowingly omit or misrepresent information or give a false impression of a firm, organization, or security in the member’s or candidate’s oral representations, advertising (whether in the press or through brochures), electronic communications, or written materials (whether publicly disseminated or not). In this context, “knowingly” means that the member or candidate either knows or should have known that the misrepresentation was being made or that omitted information could alter the investment decision-making process.</p>
+<p>Written materials include, but are not limited to, research reports, underwriting documents, company financial reports, market letters, newspaper columns, and books. Electronic communications include, but are not limited to, internet communications, webpages, mobile applications, and e-mails. Members and candidates who use webpages should regularly monitor materials posted on these sites to ensure that they contain current information. Members and candidates should also ensure that all reasonable precautions have been taken to protect the site’s integrity and security and that the site does not misrepresent any information and does provide full disclosure.</p>
+<p>Standard I(C) prohibits members and candidates from guaranteeing clients any specific return on volatile investments. Most investments contain some element of risk that makes their return inherently unpredictable. For such investments, guaranteeing either a particular rate of return or preservation of investment capital (e.g., “I can guarantee that you will earn 8% on equities this year” or “I can guarantee that you will not lose money on this investment”) is misleading to investors. Standard I(C) does not prohibit members and candidates from providing clients with information on investment products that have guarantees built into the structure of the products themselves or for which an institution has agreed to cover any losses.</p>
+<section id="CFA0008-R-s07-01-01-01">
+<h4>Impact on Investment Practice</h4>
+<p>Members and candidates must not misrepresent any aspect of their practice, including (but not limited to) their qualifications or credentials, the qualifications or services provided by their firm, their performance record and the record of their firm, and the characteristics of an investment. Any misrepresentation made by a member or candidate relating to the member’s or candidate’s professional activities is a breach of this standard.</p>
+<p>Members and candidates should exercise care and diligence when incorporating third-party information. Misrepresentations resulting from the use of the credit ratings, research, testimonials, or marketing materials of outside parties become the responsibility of the investment professional when it affects that professional’s business practices.</p>
+<p>Investing through outside managers continues to expand as an acceptable method of investing in areas outside a firm’s core competencies. Members and candidates must disclose their intended use of external managers and must not represent those managers’ investment practices as their own. Although the level of involvement of outside managers may change over time, appropriate disclosures by members and candidates are important in avoiding misrepresentations, especially if the primary activity is to invest directly with a single external manager. Standard V(B) Communication with Clients and Prospective Clients discusses in further detail communicating the firm’s investment practices.</p>
+</section>
+<section id="CFA0008-R-s07-01-01-02">
+<h4>Performance Reporting</h4>
+<p>The performance benchmark selection process is another area where misrepresentations may occur. Members and candidates may misrepresent the success of their performance record through presenting benchmarks that are not comparable to their strategies. Further, clients can be misled if the benchmark’s results are not reported on a basis comparable to that of the fund’s or client’s results. Best practice is selecting the most appropriate available benchmark from a universe of available options. The transparent presentation of appropriate performance benchmarks is an important aspect in providing clients with information that is useful in making investment decisions. </p>
+<p>However, Standard I(C) does not require that a benchmark always be provided in order to comply. Some investment strategies may not lend themselves to displaying an appropriate benchmark because of the complexity or diversity of the investments included. Furthermore, some investment strategies may use reference indexes that do not reflect the opportunity set of the invested assets—for example, a hedge fund comparing its performance with a “cash plus” basis. When such a benchmark is used, members and candidates should make reasonable efforts to ensure that they disclose the reasons behind the use of this reference index to avoid misrepresentations of their performance. Members and candidates should discuss with clients on a continuous basis the appropriate benchmark to be used for performance evaluations and related fee calculations.</p>
+<p>Reporting misrepresentations may also occur when valuations for illiquid or non-traded securities are available from more than one source. When different options are available, members and candidates may be tempted to switch providers to obtain higher security valuations. The process of shopping for values may misrepresent a security’s worth, lead to misinformed decisions to sell or hold an investment, and result in overcharging clients advisory fees. </p>
+<p>Members and candidates should take reasonable steps to provide accurate and reliable security pricing information to clients on a consistent basis. Changing pricing providers should not be based solely on the justification that the new provider reports a higher current value of a security. Consistency in the reported information will improve the perception of the valuation process for illiquid securities. Clients will likely have additional confidence that they were able to make an informed decision about continuing to hold these securities in their portfolios.</p>
+</section>
+<section id="CFA0008-R-s07-01-01-03">
+<h4>Social Media</h4>
+<p>The advancement of online discussion forums and communication platforms, commonly referred to as “social media,” is placing additional responsibilities on members and candidates. When communicating through social media channels, members and candidates should provide only the same information they are allowed to distribute to clients and potential clients through other, traditional forms of communication. The online or interactive aspects of social media do not remove the need to be open and honest about the information being distributed.</p>
+<p>Along with understanding and following existing and newly developing rules and regulations regarding the allowed use of social media, members and candidates should also ensure that all communications in this format adhere to the requirements of the Code and Standards. The perceived anonymity granted through these platforms may entice individuals to misrepresent their qualifications or abilities or those of their employer. Actions undertaken through social media that knowingly misrepresent investment recommendations or professional activities are considered a violation of Standard I(C). </p>
+</section>
+<section id="CFA0008-R-s07-01-01-04">
+<h4>Omissions</h4>
+<p>The omission of a fact or outcome can be misleading, especially given the growing use of models and technical analysis processes. Many members and candidates rely on such models and processes to scan for new investment opportunities, to develop investment vehicles, and to produce investment recommendations and ratings. When inputs are knowingly omitted, the resulting outcomes may provide misleading information to those who rely on it for making investment decisions. Additionally, the outcomes from models shall not be presented as fact because they represent the expected results based on the inputs and analysis process incorporated. </p>
+<p>Omissions in the performance measurement and attribution process can also misrepresent a manager’s performance and skill. Members and candidates should encourage their firms to develop strict policies for composite development to prevent cherry picking—situations in which selected accounts are presented as representative of the firm’s abilities. The omission of any accounts appropriate for the defined composite may misrepresent to clients the success of the manager’s implementation of its strategy.</p>
+</section>
+<section id="CFA0008-R-s07-01-01-05">
+<h4>Plagiarism</h4>
+<p>Standard I(C) also prohibits plagiarism in the preparation of material for distribution to employers, associates, clients, prospects, or the general public. Plagiarism is defined as copying or using in substantially the same form materials prepared by others without acknowledging the source of the material or identifying the author and publisher of such material. Members and candidates must not copy (or represent as their own) original ideas or material without permission and must acknowledge and identify the source of ideas or material that is not their own.</p>
+<p>The investment profession uses a myriad of financial, economic, and statistical data in the investment decision-making process. Through various publications and presentations, the investment professional is constantly exposed to the work of others and to the temptation to use that work without proper acknowledgment.</p>
+<p>Misrepresentation through plagiarism in investment management can take various forms. The simplest and most flagrant example is to take a research report or study done by another firm or person, change the names, and release the material as one’s own original analysis. This action is a clear violation of Standard I(C). Other practices include (1) using excerpts from articles or reports prepared by others either verbatim or with only slight changes in wording without acknowledgment, (2) citing specific quotations as attributable to “leading analysts” and “investment experts” without naming the specific references, (3) presenting statistical estimates of forecasts prepared by others and identifying the sources but without including the qualifying statements or caveats that may have been used, (4) using charts and graphs without stating their sources, and (5) copying proprietary computerized spreadsheets or algorithms without seeking the cooperation or authorization of their creators.</p>
+<p>In the case of distributing third-party, outsourced research, members and candidates may use and distribute such reports as long as they do not represent themselves as the report’s authors. Indeed, the member or candidate may add value for the client by sifting through research and repackaging it for clients. In such cases, clients should be fully informed that they are paying for the ability of the member or candidate to find the best research from a wide variety of sources. Members and candidates must not misrepresent their abilities, the extent of their expertise, or the extent of their work in a way that would mislead their clients or prospective clients. Members and candidates should disclose whether the research being presented to clients comes from another source—from either within or outside the member’s or candidate’s firm. This allows clients to understand who has the expertise behind the report or whether the work is being done by the analyst, other members of the firm, or an outside party.</p>
+<p>Standard I(C) also applies to plagiarism in oral communications, such as through group meetings; visits with associates, clients, and customers; use of audio/video media (which is rapidly increasing); and telecommunications, including electronic data transfer and the outright copying of electronic media.</p>
+<p>One of the most egregious practices in violation of this standard is the preparation of research reports based on multiple sources of information without acknowledging the sources. Examples of information from such sources include ideas, statistical compilations, and forecasts combined to give the appearance of original work. Although there is no monopoly on ideas, members and candidates must give credit where it is clearly due. Analysts should not use undocumented forecasts, earnings projections, asset values, and so on. Sources must be revealed to bring the responsibility directly back to the author of the report or the firm involved.</p>
+</section>
+<section id="CFA0008-R-s07-01-01-06">
+<h4>Work Completed for Employer</h4>
+<p>The preceding paragraphs address actions that would constitute a violation of Standard I(C). In some situations, however, members or candidates may use research conducted or models developed by others within the same firm without committing a violation. The most common example relates to the situation in which one (or more) of the original analysts is no longer with the firm. Research and models developed while employed by a firm are the property of the firm. The firm retains the right to continue using the work completed after a member or candidate has left the organization. The firm may issue future reports without providing attribution to the prior analysts. A member or candidate cannot, however, reissue a previously released report solely under his or her name.</p>
+</section>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147244_306_Standard_IB_Application_of_the_Standard.html" >← 前へ</a>
+  <span class="title">3.07 | Standard I(C) Misrepresentation</span>
+  <a href="courses_1873_modules_items_147250_308_Standard_IC_Recommended_Procedures.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

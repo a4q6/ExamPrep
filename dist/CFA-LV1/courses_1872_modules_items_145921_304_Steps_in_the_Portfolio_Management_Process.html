@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.04 | Steps in the Portfolio Management Process</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0158-R-s04" title="3.04 | Steps in the Portfolio Management Process"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 3: Portfolio Management: An Overview</span>3.04 | Steps in the Portfolio Management Process</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe the steps in the portfolio management process</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>In the previous section we discussed a portfolio approach to investing. When establishing and managing a client’s investment portfolio, certain critical steps are followed in the process. We describe these steps in this section.</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0158-R-L5">
+<li class="cfa-curriculum-list-item">
+<p>The Planning Step</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0158-R-L6">
+<li class="cfa-curriculum-list-item">
+<p>Understanding the client’s needs</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Preparation of an investment policy statement (IPS)</p>
+</li>
+</ul>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The Execution Step</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0158-R-L7">
+<li class="cfa-curriculum-list-item">
+<p>Asset allocation</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Security analysis</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Portfolio construction</p>
+</li>
+</ul>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The Feedback Step</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0158-R-L8">
+<li class="cfa-curriculum-list-item">
+<p>Portfolio monitoring and rebalancing</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Performance measurement and reporting</p>
+</li>
+</ul>
+</li>
+</ul>
+<section id="CFA0158-R-s04-01">
+<h3 class="dp-heading">Step One: The Planning Step</h3>
+<p>The first step in the investment process is to understand the client’s needs (objectives and constraints) and develop an <a aria-describedby="InvestmentPolicyStatementContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#InvestmentPolicyStatementContent">investment policy statement</a> (IPS). A portfolio manager is unlikely to achieve appropriate results for a client without a prior understanding of the client’s needs. The IPS is a written planning document that describes the client’s investment objectives and the constraints that apply to the client’s portfolio. The IPS may state a benchmark—such as a particular rate of return or the performance of a particular market index—that can be used in the feedback stage to assess the performance of the investments and whether objectives have been met. The IPS should be reviewed and updated regularly (for example, either every three years or when a major change in a client’s objectives, constraints, or circumstances occurs).</p>
+</section>
+<section id="CFA0158-R-s04-02">
+<h3 class="dp-heading">Step Two: The Execution Step</h3>
+<p>The next step is for the portfolio manager to construct a suitable portfolio based on the IPS of the client. The portfolio execution step consists of first deciding on a target asset allocation, which determines the weighting of asset classes to be included in the portfolio. This step is followed by the analysis, selection, and purchase of individual investment securities.</p>
+<section id="CFA0158-R-s04-02-01">
+<h4>Asset Allocation</h4>
+<p>The next step in the process is to assess the risk and return characteristics of the available investments. The analyst forms economic and capital market expectations that can be used to form a proposed allocation of asset classes suitable for the client. Decisions that need to be made in the <a aria-describedby="AssetAllocationContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#AssetAllocationContent">asset allocation</a> of the portfolio include the distribution between equities, fixed-income securities, and cash; sub-asset classes, such as corporate and government bonds; and geographical weightings within asset classes. Alternative assets—such as real estate, commodities, hedge funds, and private equity—may also be included.</p>
+<p>Economists and market strategists may set the top down view on economic conditions and broad market trends. The returns on various asset classes are likely to be affected by economic conditions; for example, equities may do well when economic growth has been unexpectedly strong whereas bonds may do poorly if inflation increases. The economists and strategists will attempt to forecast these conditions.</p>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="CFA0158-R-Bb">
+<h5 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i></h5>
+<p><strong>Top down</strong>—A <a aria-describedby="TopDownAnalysisContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#TopDownAnalysisContent">top-down analysis</a> begins with consideration of macroeconomic conditions. Based on the current and forecasted economic environment, analysts evaluate markets and industries with the purpose of investing in those that are expected to perform well. Finally, specific companies within these industries are considered for investment.</p>
+<p> </p>
+<p><strong>Bottom up</strong>—Rather than emphasizing economic cycles or industry analysis, a <a aria-describedby="BottomUpAnalysisContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#BottomUpAnalysisContent">bottom-up analysis</a> focuses on company-specific circumstances, such as management quality and business prospects. It is less concerned with broad economic trends than is the case for top-down analysis, but instead focuses on company specifics.</p>
+</div>
+</section>
+<section id="CFA0158-R-s04-02-02">
+<h4>Security Analysis</h4>
+<p>The top-down view can be combined with the bottom-up insights of security analysts who are responsible for identifying attractive investments in particular market sectors. They will use their detailed knowledge of the companies and industries they cover to assess the expected level and risk of the cash flows that each security will produce. This knowledge allows the analysts to assign a valuation to the security and identify preferred investments.</p>
+</section>
+<section id="CFA0158-R-s04-02-03">
+<h4>Portfolio Construction</h4>
+<p>The portfolio manager will then construct the portfolio, taking account of the target asset allocation, security analysis, and the client’s requirements as set out in the IPS. A key objective will be to achieve the benefits of diversification (i.e., to avoid putting all the eggs in one basket). Decisions need to be taken on asset class weightings, sector weightings within an asset class, and the selection and weighting of individual securities or assets. The relative importance of these decisions on portfolio performance depends at least in part on the investment strategy selected; for example, consider an investor that actively adjusts asset sector weights in relation to forecasts of sector performance and one who does not. Although all decisions have an effect on portfolio performance, the asset allocation decision is commonly viewed as having the greatest impact.</p>
+<p><a aria-label="View Exhibit 10" class="internal" href="#CFA0158-R-EXH10" role="button">Exhibit 10</a> shows the broad portfolio weights of the endowment funds of Yale University and the University of Virginia as of June 2017. As you can see, the portfolios have a heavy emphasis on such alternative assets as hedge funds, private equity, and real estate—Yale University particularly so.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0158-R-EXH10">
+<h5 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 10<span style="display: block;">Endowment Portfolio Weights, June 2017</span></h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Asset Class</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Yale University Endowment</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>University of Virginia Endowment</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Public equity</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">19.1%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">26.7%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Fixed income</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">9.1</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Private equity</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">14.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15.7</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Real assets (e.g., real estate)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">18.7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">12.1</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Absolute return (e.g., hedge funds)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">25.1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">19.6</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Cash</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.3</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Other</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">17.2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">14.5</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Portfolio value</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">US$27.2bn</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">US$8.6bn</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="cfa-curriculum-table-wrap-foot"> <em>Sources</em>: “2017 Yale Endowment Annual Report” (p. 2): <a href="http://www.yale.edu/investments/Yale_Endowment_17.pdf" target="_blank">www.yale.edu/investments/Yale_Endowment_17.pdf</a>; “University of Virginia Investment Management Company Annual Report 2017” (p. 26): <a href="http://uvm-web.eservices.virginia.edu/public/reports/FinancialStatements_2017.pdf" target="_blank">http://uvm-web.eservices.virginia.edu/public/reports/FinancialStatements_2017.pdf</a>.</span></p>
+</div>
+<p>Risk management is an important part of the portfolio construction process. The client’s risk tolerance will be set out in the IPS, and the portfolio manager must make sure the portfolio is consistent with it. As noted above, the manager will take a diversified portfolio perspective: What is important is not the risk of any single investment, but rather how all the investments perform as a portfolio.</p>
+<p>The endowments shown above are relatively risk tolerant investors. Contrast the asset allocation of the endowment funds with the portfolio mix of the insurance companies shown in <a aria-label="View Exhibit 11" class="internal" href="#CFA0158-R-EXH11" role="button">Exhibit 11</a>. You will notice that the majority of the insurance assets are invested in fixed-income investments, typically of high quality. Note that the Yale University portfolio has less than 5 percent invested in fixed income, with the remainder invested in such growth assets as equity, real estate, and hedge funds. This allocation is in sharp contrast to the Massachusetts Mutual Life Insurance Company (MassMutual) portfolio, which is 80 percent invested in bonds, mortgages, loans, and cash—reflecting the differing risk tolerance and constraints (life insurers face regulatory constraints on their investments).</p>
+<div class="cfa-curriculum-table-wrap" id="CFA0158-R-EXH11">
+<h5 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 11<span style="display: block;">MassMutual Portfolio, December 2017<a aria-describedby="CFA0158-R-FN9Content" class="dp-popover-trigger" href="#CFA0158-R-FN9Content"> <span style="font-size: 10pt;"><sup>9</sup></span> </a> </span></h5>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Asset Classes</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Portfolio %</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Bonds</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">56%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Preferred and common shares</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">9</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Mortgages</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">14</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Real estate</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Policy loans</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Partnerships</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Other assets</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Cash</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="cfa-curriculum-table-wrap-foot"> <em>Source</em>: “MassMutual Financial Group 2017 Annual Report” (p. 8): <a href="http://www.massmutual.com/mmfg/docs/annual_report/index.html" target="_blank">www.massmutual.com/mmfg/docs/annual_report/index.html</a>.</span></p>
+</div>
+<p>The portfolio construction phase also involves trading. Once the portfolio manager has decided which securities to buy and in what amounts, the securities must be purchased. In many investment firms, the portfolio manager will pass the trades to a buy-side trader—a colleague who specializes in securities trading—who will contact a stockbroker or dealer to have the trades executed.</p>
+</section>
+</section>
+<section id="CFA0158-R-s04-03">
+<h3 class="dp-heading">Step Three: The Feedback Step</h3>
+<p>Finally, the feedback step assists the portfolio manager in rebalancing the portfolio due to a change in, for example, market conditions or the circumstances of the client.</p>
+<section id="CFA0158-R-s04-03-01">
+<h4>Portfolio Monitoring and Rebalancing</h4>
+<p>Once the portfolio has been constructed, it needs to be monitored and reviewed and the composition revised as the security analysis changes because of changes in security prices and changes in fundamental factors. When security and asset weightings have drifted from the intended levels as a result of market movements, some rebalancing may be required. The portfolio may also need to be revised if it becomes apparent that the client’s needs or circumstances have changed.</p>
+</section>
+<section id="CFA0158-R-s04-03-02">
+<h4>Performance Evaluation and Reporting</h4>
+<p>Finally, the performance of the portfolio must be evaluated, which will include assessing whether the client’s objectives have been met. For example, the investor will wish to know whether the return requirement has been achieved and how the portfolio has performed relative to any benchmark that has been set. Analysis of performance may suggest that the client’s objectives need to be reviewed and perhaps changes made to the IPS. As we will discuss in the next section, there are numerous investment products that clients can use to meet their investment needs. Many of these products are diversified portfolios that an investor can purchase.</p>
+</section>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0158-R-FN9Content">
+<p><sup>9</sup> Asset class definitions: Bonds—Debt instruments of corporations and governments as well as various types of mortgage- and asset-backed securities; Preferred and Common Shares—Investments in preferred and common equities; Mortgages—Mortgage loans secured by various types of commercial property as well as residential mortgage whole loan pools; Real Estate—Investments in real estate; Policy Loans—Loans by policyholders that are secured by insurance and annuity contracts; Partnerships—Investments in partnerships and limited liability companies; Cash—Cash, short-term investments, receivables for securities, and derivatives. Cash equivalents have short maturities (less than one year) or are highly liquid and able to be readily sold.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="InvestmentPolicyStatementContent">
+<p>(IPS) A written planning document that describes a client’s investment objectives and risk tolerance over a relevant time horizon, along with constraints that apply to the client’s portfolio.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="AssetAllocationContent">
+<p>The process of determining how investment funds should be distributed among asset classes.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="TopDownAnalysisContent">
+<p>An investment selection approach that begins with consideration of macroeconomic conditions and then evaluates markets and industries based upon such conditions.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="BottomUpAnalysisContent">
+<p>An investment selection approach that focuses on company-specific circumstances rather than emphasizing economic cycles or industry analysis.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_145915_303_Portfolio_Perspective_Risk-Return_Trade-off_Downside_Protection_Modern_Portf.html" >← 前へ</a>
+  <span class="title">3.04 | Steps in the Portfolio Management Process</span>
+  <a href="courses_1872_modules_items_145926_305_Types_of_Investors.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

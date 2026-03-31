@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.03 | Money Duration and Price Value of a Basis Point</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2441-R-s03-R-1" title="11.03 | Money Duration and Price Value of a Basis Point">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 11: Yield-Based Bond Duration Measures and Properties</span>11.03 | Money Duration and Price Value of a Basis Point</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">define, calculate, and interpret modified duration, money duration, and the price value of a basis point (PVBP)</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Modified duration is used to measure the <em>percentage price change</em> of a bond given a change in its yield-to-maturity. A related statistic is <a aria-describedby="MoneyDurationContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MoneyDurationContent">money duration</a>. The money duration of a bond is a measure of the price change in <em>currency units</em>. The money duration can be stated per 100 of par value or in terms of the actual position size. In the United States, money duration is commonly called “dollar duration.”</p>
+<p>Money duration (<em>MoneyDur</em>) is the product of the annualized modified duration and the full price (<em>PV<sup>Full</sup></em>) of the bond, in either percent of par or the currency value of the position.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E6"><em>MoneyDur</em> = <em>AnnModDur</em> × <em>PV<sup>Full</sup> </em>.<span class="cfa-curriculum-display-formula-number">6</span></div>
+<p>The estimated change in the bond price in currency units is very similar to Equation 4. The difference is that for a given change in the annual yield-to-maturity (Δ<em>Yield</em>), modified duration estimates the percentage price change while money duration estimates the change in currency units.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E7">Δ<em>PV<sup>Full</sup> </em> ≈ −<em>MoneyDur</em> × Δ<em>Yield</em> <span class="cfa-curriculum-display-formula-number">7</span></div>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="CFA2441-R-s03-Ba">
+<h3 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i></h3>
+<p>BRWA’s five-year, 3.2% semiannual coupon bond, maturing 15 October 2030, is priced to yield 3.2%. Assume it is purchased by an institutional investor for settlement on 11 December 2025, so 57 days into the first coupon period (<em>t</em>/<em>T</em> = 57/180).</p>
+<p>The full price of the bond is 100.504 per 100 of par value, and the annualized modified duration is 4.43092. Suppose the investor has a position in the bond for a par value of USD100,000,000. Consequently,</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2441-R-s03-L1">
+<li class="cfa-curriculum-list-item">
+<p>the market value of the investment is USD100,503,921, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>the money duration of the investment is USD445,324,719 (= 4.43092 × USD100,503,921).</p>
+</li>
+</ul>
+<p>Therefore, if the yield-to-maturity rises by 100 bps—from 3.20% to 4.20%—the expected loss is approximately USD4,453,247 (= –USD445,324,719 × 0.0100).</p>
+</div>
+<p>A similar measure is the <a aria-describedby="PriceValueOfABasisPointPVBPContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PriceValueOfABasisPointPVBPContent">price value of a basis point (PVBP)</a>, an estimate of the change in the full price of a bond given a 1 bp change in its yield-to-maturity. The PVBP can be calculated using a formula like that for approximating modified duration. Equation 8 is the formula for the PVBP. <em>PV</em><sub>–</sub> and <em>PV</em><sub>+</sub> are the full prices calculated by decreasing and increasing the yield-to-maturity by 1 bp.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E8"><math>
+<semantics>
+<mrow>
+<mtext>PVBP</mtext>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>P</mi>
+<msub>
+<mi>V</mi>
+<mo>−</mo>
+</msub>
+</mrow>
+</mfenced>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>P</mi>
+<msub>
+<mi>V</mi>
+<mo>+</mo>
+</msub>
+</mrow>
+</mfenced>
+</mrow>
+<mn>2</mn>
+</mfrac>
+</mstyle>
+<mo>.</mo>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">8</span></div>
+<p>The PVBP is also called the “PV01,” standing for the “price value of an 01” or “present value of an 01,” where “01” means 1 bp. In the United States, it is commonly called the “DV01” for the “dollar value” of 1 bp. The PVBP is particularly useful for bonds for which future cash flows are uncertain, such as callable bonds. A related statistic called a “basis point value” (BPV) is simply the money duration times 0.0001 (1 bp).</p>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="CFA2441-R-s03-Bb">
+<h3 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i></h3>
+<p>For a numerical example of the PVBP calculation, again consider BRWA’s five-year, 3.2% semiannual coupon bond, maturing 15 October 2030 and priced to yield 3.2%, purchased by the institutional investor for settlement on 11 December 2025, so 57 days into the first coupon period (<em>t</em>/<em>T</em> = 57/180).</p>
+<p>To determine the PVBP of this bond, calculate the new prices by increasing and decreasing the yield-to-maturity. First, increase the yield by 1 bp (0.01%), from 3.20% to 3.21%, to solve for a <em>PV</em><sub>+</sub> of 100.459400.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E"><math>
+<semantics>
+<mrow>
+<mi>P</mi>
+<msub>
+<mi>V</mi>
+<mo>+</mo>
+</msub>
+<mo>=</mo>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1.60</mn>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1.01605</mn>
+</mrow>
+</mfenced>
+</mrow>
+<mn>1</mn>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>+</mo>
+<mn>...</mn>
+<mo>+</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>101.60</mn>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1.01605</mn>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>10</mn>
+</mrow>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>×</mo>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1.01605</mn>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>57</mn>
+<mo>/</mo>
+<mn>180</mn>
+</mrow>
+</msup>
+<mo>=</mo>
+<mn>100.459400.</mn>
+</mrow>
+</semantics>
+</math></div>
+<p>Then, decrease the yield-to-maturity by 1 bp, from 3.20% to 3.19%, to solve for a <em>PV</em><sub>–</sub> of 100.548465.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E___1"><math>
+<semantics>
+<mrow>
+<mi>P</mi>
+<msub>
+<mi>V</mi>
+<mo>−</mo>
+</msub>
+<mo>=</mo>
+<mfenced close="]" open="[">
+<mrow>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>1.60</mn>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1.01595</mn>
+</mrow>
+</mfenced>
+</mrow>
+<mn>1</mn>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>+</mo>
+<mn>...</mn>
+<mo>+</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>101.60</mn>
+</mrow>
+<mrow>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1.01595</mn>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>10</mn>
+</mrow>
+</msup>
+</mrow>
+</mfrac>
+</mstyle>
+</mrow>
+</mfenced>
+<mo>×</mo>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1.01595</mn>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>57</mn>
+<mo>/</mo>
+<mn>180</mn>
+</mrow>
+</msup>
+<mo>=</mo>
+<mn>100.548465.</mn>
+</mrow>
+</semantics>
+</math></div>
+<p>The PVBP is obtained by substituting these results into Equation 8.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E___2"><math>
+<semantics>
+<mrow>
+<mtext>PVBP</mtext>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mn>100.548465</mn>
+<mo>−</mo>
+<mn>100.459400</mn>
+</mrow>
+<mn>2</mn>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>0.044532.</mn>
+</mrow>
+</semantics>
+</math></div>
+</div>
+<p>Exhibit 3 provides a summary of the various yield duration statistics. To recap, they measure the instantaneous change in a bond’s price for a given change in its own yield-to-maturity, assuming all other variables (especially, time-to-maturity) are unchanged and the underlying cash flows are certain.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-EXH3">
+<h3 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 3<span style="display: block;">Summary of Yield-Based Duration Statistics</span></h3>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Measure</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Calculation</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Use</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Macaulay duration</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Average time to receipt of promised cash flows, weighted by shares of the full price corresponding to each promised future cash flow</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Holding period that would balance reinvestment and price risks for an investor</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Modified duration</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">First derivative of price with respect to yield; Macaulay duration divided by 1 + yield per period</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Estimate the percentage price change for a bond given a change in its yield-to-maturity</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Money duration</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Modified duration multiplied by full price of bond or bond position</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Estimate price change in bond investment for a given yield change</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Price value of a basis point</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Difference in price of a 1 bp yield decrease and a 1 bp yield increase, divided by 2</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Estimate of the change in the bond price given a 1 bp change in the yield-to-maturity</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="CFA2441-R-s03-01-01">
+<h3 class="dp-heading">Yield Duration of Zero-Coupon and Perpetual Bonds</h3>
+<p>Because zero-coupon bonds have a single payment, the face value at maturity, the present weighted-average time to receipt of cash flows is the same as the time-to-maturity because that single cash flow has a present value weight of 1.0. Therefore, the Macaulay duration of a zero-coupon bond is its time-to-maturity, and modified duration is its time-to-maturity divided by 1 plus its yield.</p>
+<p>A perpetuity or perpetual bond is a bond that does not mature, so there is no face or maturity value received at time <em>T</em>. The investor receives a fixed coupon payment forever unless the bond is called. Non-callable perpetuities are rare, but they have an interesting Macaulay duration:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E9"><em>MacDur</em> = (1 + <em>r</em>)/<em>r</em>.<span class="cfa-curriculum-display-formula-number">9</span></div>
+</section>
+<section id="CFA2441-R-s03-01-02">
+<h3 class="dp-heading">Duration of Floating-Rate Notes and Loans</h3>
+<p>As described in an earlier lesson, interest on floating-rate instruments varies depending on the level of a market reference rate (MRR) plus a quoted margin. At predetermined dates, payment amounts are reset to reflect changes in the MRR. Therefore, interest rate risk arises only <em>between</em> reset dates, because at the next reset date, coupon payments will adjust to the new MRR. Therefore, the Macaulay duration for a floating-rate note or bond is simply the fraction of a period remaining until the next reset date:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E10"><math>
+<semantics>
+<mrow>
+<mi>M</mi>
+<mi>a</mi>
+<mi>c</mi>
+<mi>D</mi>
+<mi>u</mi>
+<msub>
+<mi>r</mi>
+<mrow>
+<mi>F</mi>
+<mi>l</mi>
+<mi>o</mi>
+<mi>a</mi>
+<mi>t</mi>
+<mi>i</mi>
+<mi>n</mi>
+<mi>g</mi>
+</mrow>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mi>T</mi>
+</mfrac>
+</mstyle>
+<mo>.</mo>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">10</span></div>
+<p>If there are 180 days in the coupon period and 57 days have passed since the last coupon, the Macaulay duration is</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E___3"><math>
+<semantics>
+<mrow>
+<mi>M</mi>
+<mi>a</mi>
+<mi>c</mi>
+<mi>D</mi>
+<mi>u</mi>
+<msub>
+<mi>r</mi>
+<mrow>
+<mi>F</mi>
+<mi>l</mi>
+<mi>o</mi>
+<mi>a</mi>
+<mi>t</mi>
+<mi>i</mi>
+<mi>n</mi>
+<mi>g</mi>
+</mrow>
+</msub>
+<mo>=</mo>
+<mstyle displaystyle="true">
+<mfrac>
+<mrow>
+<mfenced>
+<mrow>
+<mn>180</mn>
+<mo>−</mo>
+<mn>57</mn>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mn>180</mn>
+</mrow>
+</mfrac>
+</mstyle>
+<mo>=</mo>
+<mn>0.683333.</mn>
+</mrow>
+</semantics>
+</math></div>
+<p>Floating-rate instruments typically have very low duration because coupon periods are typically less than six months in length. As a result, they are commonly used by investors to reduce duration in fixed-income portfolios.</p>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2441-R-s03-Bc">
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Knowledge Check</h4>
+<section>
+<p>An analyst is comparing the interest rate risk of the BRWA 3.2% bond maturing 15 October 2030 to a floating-rate note (FRN) that also matures 15 October 2030 and has its coupon reset semiannually.</p>
+<p>At the last reset, 15 October 2027, the coupon rate of the FRN was 3.2%. The BRWA bond was priced to yield 3.2% at that same date.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Why would you expect the FRN to have a lower duration than the BRWA fixed-rate bond?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A floating-rate instrument has a Macaulay duration that reflects the time to the next coupon reset date, while a fixed-rate instrument has a Macaulay duration that primarily reflects time-to-maturity but also its coupon rate, yield, and fraction of the coupon period that has passed. The maximum Macaulay duration the FRN would have is six months, while the BRWA bond has a Macaulay duration slightly lower than its maturity (five years).</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Complete the following table:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Ta">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th colspan="2" style="text-align: center; vertical-align: bottom; padding: 8px;">Macaulay duration</th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">BRWA</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">FRN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Oct-2027</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Nov-2027</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Dec-2027</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Jan-2028</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Feb-2028</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Mar-2028</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Apr-2028</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Tb">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th colspan="2" style="text-align: center; vertical-align: bottom; padding: 8px;">Macaulay duration</th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">BRWA</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">FRN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Oct-2027</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.8843</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.0000</td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Nov-2027</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.8002</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.8306</td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Dec-2027</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.7169</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.6667</td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Jan-2028</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.6336</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.4973</td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Feb-2028</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.5502</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.3279</td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Mar-2028</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.4669</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.1694</td>
+</tr>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15-Apr-2028</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.4221</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.0000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>For example, for 15 December 2027, the number of days since the next coupon is 61 days. The number of days in the coupon period is 183, calculated using Microsoft Excel or Google Sheets as</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s03-E___4">= COUPDAYS(DATE(2027,12,15),DATE(2028,4,15),2,1).</div>
+<p>Therefore, the Macaulay duration is (183 – 61)÷183 = 0.6667.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2441-R-s03-Bd">
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Question Set</h4>
+<section>
+<p>Deepak Chowdhury is evaluating a USD30 million investment in par value terms in the BRWA, Australian, and Romanian bonds. Assume all bonds are denominated in the same currency and that all three bonds were issued on 15 October 2025.</p>
+<p>Chowdhury is evaluating the bonds on 15 January 2026, 92 days into the first coupon period. Chowdhury has compiled the following data.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Tc">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Characteristic</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>BRWA</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Australian</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Romanian</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Coupon</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">3.200%</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">0.000%</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">4.625%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Coupon frequency</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">2</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">1</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">1</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Yield-to-maturity</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">3.200%</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">1.000%</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">4.250%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Maturity</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15 October 2030</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15 October 2026</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">15 October 2055</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Full price</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">100.815</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">99.262</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">107.429</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Ann. Macaulay duration</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">4.405</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">0.744</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">16.939</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Ann. modified duration</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">4.335</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">0.737</td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">16.248</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>As part of his analysis, Chowdhury is evaluating the potential change in the prices of the bond investments for 1 bp and 100 bp changes in yields.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Complete the following table:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Td">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;"></th>
+<th colspan="3" style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Effect on a USD30 million investment</strong></th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>BRWA</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Australian</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Romanian</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Price value per basis point</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Market value of investment (USD)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Money duration (percent of par)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Expected loss from a 100 bp YTM increase (USD)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Te">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;"></th>
+<th colspan="3" style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Effect on a USD30 million investment</strong></th>
+</tr>
+<tr>
+<th style="text-align: left; vertical-align: top; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>BRWA</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Australia</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Romania</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Price value per basis point</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.044</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.007</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.175</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Market value of investment (USD)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30,244,381</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">29,778,597</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">32,228,627</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Money duration (percent of par)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">437.054</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">73.163</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1745.518</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Expected loss from a 100 bp YTM increase (USD)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–1,311,163</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–219,490</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–5,236,553</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The calculations are shown in tabular form. Please refer to the candidate learning ecosystem online for a spreadsheet in the <a class="instructure_file_link instructure_scribd_file inline_disabled" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1802/files/382202" data-api-returntype="File" data-canvas-previewable="true" href="https://learn.cfainstitute.org/courses/1802/files/382202?wrap=1" id="382205" target="_blank" title="Interactive Spreadsheet Download">downloadable Microsoft Excel workbook</a>. Note that while solutions are rounded to three decimal places, other quantities are unrounded but shown only to three decimal places for presentation purposes.</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Tf">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="4" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>BRWA Bond: Full price, assuming 1 bp YTM increase</strong></th>
+<th colspan="3" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>BRWA Bond: Full price, assuming 1 bp YTM decrease</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>YTM (periodic)</strong></td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px;">0.01605</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>YTM (periodic)</strong></td>
+<td style="text-align: right; vertical-align: bottom; padding: 8px;">0.01595</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Period</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>PV+</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Period</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>PV-</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.588</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.588</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.563</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.563</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.538</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.538</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.514</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.514</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.490</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.490</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.466</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.467</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.443</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.444</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.420</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.421</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">9</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.398</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">9</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.399</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">9.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">101.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">87.353</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">9.489</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">101.600</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">87.435</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.771</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.858</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Tg">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="5" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>BRWA Bond</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PV+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.771</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Full price</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.815</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PV-</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.858</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Par</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30,000,000</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PVBP</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.044</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Market value</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30,244,381</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">AnnModDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.335</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MoneyDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">437.054</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Full price</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.815</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MV</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30,244,381</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MoneyDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">437.054</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ChgYield</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.01</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Exp. Loss</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">(1,311,163)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Th">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="2" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Australian Bond: Full price, assuming 1 bp YTM increase</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th colspan="2" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Australian Bond: Full price, assuming 1 bp YTM decrease</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right; vertical-align: top; padding: 8px;"><strong>YTM (periodic)</strong></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">0.0101</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: right; vertical-align: top; padding: 8px;"><strong>YTM (periodic)</strong></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">0.0099</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Period</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>PV+</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Period</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>PV-</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.255</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.269</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.255</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.269</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Ti">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="5" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Australian Bond</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PV+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.255</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Full price</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.262</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PV-</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.269</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Par</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30,000,000</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PVBP</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.007</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Market value</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">29,778,597</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">AnnModDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.737</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MoneyDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">73.163</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Full price</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">99.262</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MV</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">29,778,597</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MoneyDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">73.163</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ChgYield</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.01</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Exp. Loss</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">(219,490)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Tj">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="4" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Romanian Bond: Full price, assuming 1 bp YTM increase</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th colspan="4" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Romanian Bond: Full price, assuming 1 bp YTM decrease</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>YTM (periodic)</strong></td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">0.0426</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>YTM (periodic)</strong></td>
+<td style="text-align: right; vertical-align: top; padding: 8px;">0.0424</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Period</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>PV+</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Period</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>PV-</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.484</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.484</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.300</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.302</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.125</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.127</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.956</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.959</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.794</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.798</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">…</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">…</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">…</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">…</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">…</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">…</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">…</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">…</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">29</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">28.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.394</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">29</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">28.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.402</td>
+</tr>
+<tr>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">29.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">104.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30.251</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">29.744</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">104.625</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30.424</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">107.254</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">107.604</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+<div class="cfa-curriculum-table-wrap" id="CFA2441-R-s03-Tk">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th colspan="5" style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Romanian Bond</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PV+</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">107.254</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Full price</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">107.429</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PV-</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">107.604</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Par</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30,000,000</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">PVBP</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.175</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MV</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">32,228,627</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">AnnModDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">16.248</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MoneyDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1745.518</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Full price</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">107.429</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MV</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">32,228,627</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">MoneyDur</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1745.518</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ChgYield</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.01</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Exp. Loss</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">(5,236,553)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>If the client believes that interest rates will rise in the future, with all else held constant, which bond investment would <em>most likely</em> perform best?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The Australian bond would perform best. Since it has the lowest duration and PVBP, the expected loss on the investment from an increase in its yield is lower than the BRWA and Romanian bonds. The expected loss from a 100 bp increase in yield on the BRWA bond, for example, is almost six times that for the Australian bond (USD219,490 versus USD1.3 million).</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MoneyDurationContent">
+<p>A measure of the price change of a fixed-income instrument in currency units from a change in yield-to-maturity. The money duration can be stated per 100 of par value or in terms of the actual position size. In the United States, money duration is commonly called “dollar duration.”</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PriceValueOfABasisPointPVBPContent">
+<p>An estimate of the change in the full price of a bond given a 1 bp change in its yield-to-maturity. The PVBP is also called the “PV01,” standing for the “price value of an 01” or “present value of an 01,” where “01” means 1 bp. In the United States, it is commonly called the “DV01” for the “dollar value” of 1 bp.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1869_modules_items_146393_1102_Modified_Duration.html" >← 前へ</a>
+  <span class="title">11.03 | Money Duration and Price Value of a Basis Point</span>
+  <a href="courses_1869_modules_items_146407_1104_Properties_of_Duration.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.06 | Risk Budgeting</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1642-R-s06" title="6.06 | Risk Budgeting">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 6: Introduction to Risk Management</span>6.06 | Risk Budgeting</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe risk budgeting and its role in risk governance</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>
+<a aria-describedby="RiskBudgetingContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskBudgetingContent">Risk
+                     budgeting</a> picks up where risk tolerance leaves off. Whereas risk
+                  tolerance focuses on the appetite for risk and what is and is not acceptable, risk
+                  budgeting has a more specific focus on how that risk is taken. Risk budgeting
+                  quantifies and allocates the tolerable risk by specific metrics; it extends and
+                  guides implementation of the risk tolerance decision.</p>
+<p>Risk budgeting applies to both business management and portfolio management. Its
+                  foundation is the perspective that business or portfolio management involves
+                  assembling a number of risk activities or securities, which can be collated into
+                  an assemblage of various risk characteristics. For example, a traditional view of
+                  a portfolio might be that it is allocated 20% to hedge funds, 30% to private
+                  equity, and the remaining 50% is split between stocks and bonds. An alternative
+                  risk view of the same portfolio might be 70% driven by global equity returns, 20%
+                  by domestic equity returns, with the remaining 10% driven by interest rates. The
+                  equity component might be allocated 65% to value and 35% to growth. The portfolio
+                  might also have 45% illiquid securities and the remainder liquid. Other
+                  allocations can be stated in terms of exposures to inflation, long-term interest
+                  rates, currencies, and so on. These multiple dimensions for viewing the allocation
+                  of a portfolio are not mutually exclusive: they co-exist. If one is evaluating the
+                  risk exposure of a portfolio and trying to keep it in line with a stated risk
+                  tolerance, one would be far more concerned with the risk characteristics of the
+                  investment assets and portfolio rather than their common classifications of
+                  stocks, hedge funds, real estate, private equity, and so on. These terms tell us a
+                  little about risk but not enough. Equity is traditionally riskier than hedge
+                  funds, but some equities are of quite low risk and some hedge funds are of quite
+                  high risk. The risk view may be more meaningful and useful in understanding the
+                  portfolio risk than the traditional asset allocation view.</p>
+<p>Risk budgeting is any means of allocating a portfolio based on some risk
+                  characteristics of the investments. In the purest sense, the term “budget” implies
+                  that there is a total risk limit for the organization. Although this approach is
+                  not formally required,<a aria-describedby="CFA1642-R-s06-FN1Content" class="dp-popover-trigger" href="#CFA1642-R-s06-FN1Content">
+<sup>10</sup>
+</a> it would certainly be good practice to have a risk budget that is consistent
+                  with the organization’s risk tolerance. A risk budget provides a means of
+                  implementing the risk tolerance at a strategic level, or in other words, a means
+                  of bridging from the high-level governance risk decision to the many management
+                  decisions, large and small, that result in the actual risk exposures.</p>
+<p>A risk budget can be complex and multi-dimensional, or it can be a simple,
+                  one-dimensional risk measure. Even the simplest measure can provide significant
+                  benefits in developing an effective risk culture. Four well-known single-dimension
+                  measures that are often used are standard deviation, beta, value at risk (VaR),
+                  and scenario loss, but there are many others. It is common for some hedge funds to
+                  budget risk using standard deviation, managing to a fixed-risk fund target, and
+                  evaluating individual investments based on their returns and risks as they affect
+                  the <em>ex ante</em> standard deviation.</p>
+<p>More complex forms of risk budgeting use multiple dimensions of risk. One popular
+                  approach evaluates risks by their underlying risk classes, such as equity, fixed
+                  income, commodity risk, and so on, and then allocates investments by their risk
+                  class. Also common are risk factor approaches to risk budgeting, in which exposure
+                  to various factors is used to attempt to capture associated risk premiums. An
+                  example would be to budget an allocation to give greater emphasis to value stocks
+                  based on the belief that they may provide a higher risk-adjusted return than
+                  growth stocks. This tactic might be layered over a strategic budget with a certain
+                  “beta” as the overall equity risk, supplemented with value and additional factor
+                  tilts specified up to some level.</p>
+<p>Risk budgeting, although a desirable element of risk governance, cuts across the
+                  entire risk management framework, providing a focal point for each of the facets
+                  of risk management described in Sections 2 and 3. And although it is true that in
+                  practice many organizations operate without a risk budget, it is generally because
+                  there has been no specific declaration of their risk tolerance. If a board has a
+                  clear understanding of its risk appetite, both the board and management will want
+                  some means of implementing a strategic allocation that is consistent with it.
+                  Thus, the risk budget becomes a critical overarching construct for the
+                  organization’s risk framework.</p>
+<p>Some individuals may, often through the assistance of a financial planner, engage
+                  in some form of risk budgeting, but many do not execute it well or carry it far
+                  enough. A classic example of this failure is the tendency of many individuals to
+                  invest their financial portfolios in their employers. The risk budget for their
+                  total wealth—financial and human capital—is extremely concentrated in one firm
+                  and/or one industry. Not surprisingly, such risk budgets typically occur not
+                  through formal planning because most formal plans would recognize the problem, but
+                  through inaction or inattention.</p>
+<p>One major benefit of even the most basic risk budgeting is that it forces risk
+                  trade-offs and supports a culture in which risk is considered as a part of all key
+                  decisions. Suppose that all the activities a business wants to pursue are in
+                  excess of the risk budget. The budgeting of risk should result in an approach,
+                  whether explicit or not, of choosing to invest where the return per unit of risk
+                  is the highest. Better still, it should also result in a market-benchmarked choice
+                  of risk intensity, between possibly doing less of each risky investment or doing
+                  more, but with a risk-mitigating hedge. This benefit is extremely important. By
+                  choosing between a market hedge or less of a risky investment, one ends up
+                  evaluating the investment directly against the market risk–return benchmark. Thus,
+                  one is not only comparing risk–return relationships among one’s investment
+                  choices, but also comparing active versus passive strategies; that is, evaluating
+                  investment choices as a whole against the “market return” on a risk-equivalent
+                  basis. In other words, one ends up attempting to add active value in each of one’s
+                  decisions while still staying within the confines of the organization’s risk
+                  tolerance. The result is even more powerful than merely ensuring that the business
+                  is compensated well for the risks they decide to accept. Just having a risk budget
+                  in place, forces decision makers to try to add value to the enterprise in every
+                  risky decision they make. The risk-budgeting framework makes this consideration
+                  innate to the decision process.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA1642-s006-EXM-1-2">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
+         Example 2<span style="display: block;">Risk Governance</span>
+</h3>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1642-s006-Q1">
+<span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following approaches is <em>most</em> consistent
+                              with an enterprise view of risk governance?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Separate strategic planning processes for each part of the
+                                 enterprise</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. The enterprise view is characterized by a focus on the
+                              organization as a whole—its goals, value, and risk tolerance. It is
+                              not about strategies or risks at the individual business line
+                              level.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Considering an organization’s risk tolerance when developing its
+                                 asset allocation</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. The enterprise view is characterized by a focus on the
+                              organization as a whole—its goals, value, and risk tolerance. It is
+                              not about strategies or risks at the individual business line
+                              level.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Trying to achieve the highest possible risk-adjusted return on a
+                                 company’s pension fund’s assets</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. The enterprise view is characterized by a focus on the
+                              organization as a whole—its goals, value, and risk tolerance. It is
+                              not about strategies or risks at the individual business line
+                              level.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1642-s006-Q2">
+<span class="cfa-curriculum-question-with-label">2. </span>
+<p>Which of the following statements about risk tolerance is
+                                 <em>most</em> accurate?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Risk tolerance is best discussed after a crisis, when awareness of
+                                 risk is heightened.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Risk tolerance identifies the extent to which the
+                              organization is willing to experience losses or opportunity costs and
+                              fail in meeting its objectives. It is best discussed before a crisis
+                              and is primarily a risk governance or oversight issue at the board
+                              level, not a management or tactical one.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>The risk tolerance discussion is about the actions management will
+                                 take to minimize losses.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Risk tolerance identifies the extent to which the
+                              organization is willing to experience losses or opportunity costs and
+                              fail in meeting its objectives. It is best discussed before a crisis
+                              and is primarily a risk governance or oversight issue at the board
+                              level, not a management or tactical one.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>The organization’s risk tolerance describes the extent to which the
+                                 organization is willing to experience losses.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Risk tolerance identifies the extent to which the
+                              organization is willing to experience losses or opportunity costs and
+                              fail in meeting its objectives. It is best discussed before a crisis
+                              and is primarily a risk governance or oversight issue at the board
+                              level, not a management or tactical one.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1642-s006-Q3">
+<span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of the following is <em>not</em> consistent with a
+                              risk-budgeting approach to portfolio management?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Limiting the beta of the portfolio to 0.75</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Risk budgeting is any means of allocating a portfolio by
+                              some risk characteristics of the investments. This approach could be a
+                              strict limit on beta or some other risk measure or an approach that
+                              uses risk classes or factors to allocate investments. Risk budgeting
+                              does not require nor prohibit hedging, although hedging is available
+                              as an implementation tool to support risk budgeting and overall risk
+                              governance.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Allocating investments by their amount of underlying risk sources
+                                 or factors</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Risk budgeting is any means of allocating a portfolio by
+                              some risk characteristics of the investments. This approach could be a
+                              strict limit on beta or some other risk measure or an approach that
+                              uses risk classes or factors to allocate investments. Risk budgeting
+                              does not require nor prohibit hedging, although hedging is available
+                              as an implementation tool to support risk budgeting and overall risk
+                              governance.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Limiting the amount of money available to be spent on hedging
+                                 strategies by each portfolio manager</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Risk budgeting is any means of allocating a portfolio by
+                              some risk characteristics of the investments. This approach could be a
+                              strict limit on beta or some other risk measure or an approach that
+                              uses risk classes or factors to allocate investments. Risk budgeting
+                              does not require nor prohibit hedging, although hedging is available
+                              as an implementation tool to support risk budgeting and overall risk
+                              governance.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1642-s006-Q4">
+<span class="cfa-curriculum-question-with-label">4. </span>
+<p>Who would be the <em>least</em> appropriate for controlling
+                              the risk management function in a large organization?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">A. </span>Chief risk officer</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. A chief risk officer or a risk management committee is
+                              an individual or group that specializes in risk management. A chief
+                              financial officer may have considerable knowledge of risk management,
+                              may supervise a CRO, and would likely have some involvement in a risk
+                              management committee, but a CFO has broader responsibilities and
+                              cannot provide the specialization and attention to risk management
+                              that is necessary in a large organization.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">B. </span>Chief financial officer</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-check"> </i>
+</span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. A chief risk officer or a risk management committee is
+                              an individual or group that specializes in risk management. A chief
+                              financial officer may have considerable knowledge of risk management,
+                              may supervise a CRO, and would likely have some involvement in a risk
+                              management committee, but a CFO has broader responsibilities and
+                              cannot provide the specialization and attention to risk management
+                              that is necessary in a large organization.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p>
+<span class="cfa-curriculum-option-label">C. </span>Risk management committee</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none">
+<span class="dp-qc-answer-type">
+<i class="fas fa-fw fa-times"> </i>
+</span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>B is correct. A chief risk officer or a risk management committee is
+                              an individual or group that specializes in risk management. A chief
+                              financial officer may have considerable knowledge of risk management,
+                              may supervise a CRO, and would likely have some involvement in a risk
+                              management committee, but a CFO has broader responsibilities and
+                              cannot provide the specialization and attention to risk management
+                              that is necessary in a large organization.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA1642-R-s06-FN1Content">
+<p>
+<sup>10</sup> One could do risk budgeting even if there were no other risk governance
+                        guidance.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskBudgetingContent">
+<p>The establishment of objectives for individuals, groups, or divisions of an organization that takes into account the allocation of an acceptable level of risk.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146152_605_Risk_Tolerance.html" >← 前へ</a>
+  <span class="title">6.06 | Risk Budgeting</span>
+  <a href="courses_1872_modules_items_146163_607_Identification_of_Risk_-_Financial_Vs_Non-Financial_Risk.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

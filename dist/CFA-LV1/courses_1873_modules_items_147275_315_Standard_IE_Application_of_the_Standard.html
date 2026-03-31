@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.15 | Standard I(E): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s15-R-1" title="3.15 | Standard I(E): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.15 | Standard I(E): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s15-01-01">
+<h3 class="dp-heading">Example 1 (Maintaining Competence):</h3>
+<p>Michelle Lee runs a geopolitical consulting firm where she analyzes international political, social, and economic issues and developments to produce research reports for her clients, many of which are investment management firms. Lee has been closely monitoring news regarding a new multinational trade deal that has the potential to significantly boost commercial activity among countries in a certain region of the world. As soon as the trade deal was officially ratified and announced, she quickly downloaded a copy of the agreement and read it to understand its terms and impact. She also consulted with experts in the field to obtain their opinions on the impacts of the trade deal and confirm her understanding of its terms and implications. </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Lee satisfied the requirement of Standard I(E). Lee was able to write a knowledgeable and informative research report for her clients by keeping abreast of developments in her field through news reports, consulting with experts, and studying the trade deal itself to ensure that her knowledge was up to date.</p>
+</div>
+</section>
+<section id="CFA0008-R-s15-01-02">
+<h3 class="dp-heading">Example 2 (Improving Competence):</h3>
+<p>Chris Choe is the director of research at a large sell-side firm. Several of Choe’s clients have asked her to incorporate environmental, social, and governance (ESG) ratings into the research reports the firm produces. Until now, the firm’s research reports have been based only on traditional quantitative metrics. Choe hires an experienced ESG analyst for her team, and she requires all research analysts, including herself, to attend ESG-focused seminars and obtain an ESG investment specialist certificate. In due time, Choe and her team begin to incorporate ESG considerations into their research reports. </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Choe extended her competence in her field by educating herself on new considerations relevant to her industry and by hiring someone with ESG expertise to fill a knowledge and skills gap before she and her team incorporated ESG considerations into the firm’s research reports. As such, Choe satisfied the requirement of Standard I(E). </p>
+</div>
+</section>
+<section id="CFA0008-R-s15-01-03">
+<h3 class="dp-heading">Example 3 (Change in Role):</h3>
+<p>Gerhardt Glusker is a regulatory attorney for a hedge fund who sought to transition to a sales role after impressing senior management with his strong business acumen. There is a licensing requirement involving an examination that an individual must first pass before being qualified to serve in a sales function. Among other things, the examination covers technical rules and regulations designed to ensure fairness when dealing with clients and prospects. Glusker was not familiar with these rules and regulations because he was never asked to provide guidance on them as a regulatory attorney. Glusker did not learn the materials or study for the examination and instead relied on his industry knowledge to receive a passing score. </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Glusker failed to satisfy the requirement of Standard I(E). He did receive a passing score on a licensing examination, but passing the examination, by itself, is not adequate to demonstrate competency. Glusker’s failure to learn the applicable rules and regulations relating to fairness when dealing with clients and prospects means that he does not possess the required knowledge to serve in his new role, despite passing the licensing examination.</p>
+</div>
+</section>
+<section id="CFA0008-R-s15-01-04">
+<h3 class="dp-heading">Example 4 (Supervisory Responsibility):</h3>
+<p>Linda Evans is one member of a five-person team of analysts at a boutique research firm providing independent research to buy-side firms. Evans primarily covers the energy and transportation sectors. Evans’s boss leaves the firm to return to academia. Firm management promotes Evans to director of research and hires two junior analysts to replace her. Evans now has supervisory responsibility for four analysts and is responsible for all research produced by the firm. Prior to her promotion date, Evans spends a great deal of time and effort getting up to speed on the research projects of the firm that she was not involved in. Although she has never directly managed others in the past, Evans does not spend any time becoming familiar with effectively managing employees, leading teams, or compliance requirements relating to subordinates. </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Evans’s new position demands competence in other skills, abilities, and knowledge beyond those needed for her previous position. Evans must ensure she extends her competence to cover all responsibilities of her new role. She also must now obtain the skills and knowledge needed for fulfilling her supervisory responsibility of the other analysts. This could include attending conferences or taking professional development courses on management, earning compliance credentials, and internal training on supervisory responsibility. </p>
+</div>
+</section>
+<section id="CFA0008-R-s15-01-05">
+<h3 class="dp-heading">Example 5 (Choosing Investments): </h3>
+<p>Kwame Mifune is a financial planner for over 150 retail investors. Based on the investment objectives, financial circumstances, and risk tolerance of 40 of his clients, he suggests they purchase life insurance products from Vouchsafe Insurance Company. Mifune researched Vouchsafe and recommended it because it has a high credit rating, strong financials, and a decade-long history of providing affordable, safe insurance products. Within 18 months, as the result of previously unknown financial impropriety and fraud by the company’s chief financial officer, Vouchsafe goes bankrupt and the insurance contracts for thousands of policyholders become worthless. Mifune’s clients claim that he was incompetent in recommending the Vouchsafe policies.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Assuming that Mifune’s research of Vouchsafe was thorough and appropriate, his failure to uncover the fraudulent practices of the company he recommended, which had misled the investment industry as whole, does not, by itself, indicate that Mifune is an incompetent financial planner. </p>
+</div>
+</section>
+<section id="CFA0008-R-s15-01-06">
+<h3 class="dp-heading">Example 6 (Understanding New Investment Products):</h3>
+<p>Alex Halsey is a portfolio manager for a number of high-net-worth individuals. Several of his clients are impressed by the significant gains in a short time frame that they believe can be achieved by investing in cryptocurrency. They urge Halsey to include cryptocurrency products as part of their portfolios. Although Halsey is generally aware of cryptocurrency and has read several articles about the cryptocurrency investment trend in reputable newspapers, Halsey is unfamiliar with the nature of the asset or the difference between the many cryptocurrency products. Not wanting to seem out of touch with current developments in the market, lose clients, or miss out on a hot market trend by delaying an investment decision until he completes research into the asset, Halsey purchases a cryptocurrency product that has been heavily promoted through social media and online advertising for several of his clients. </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Given his limited knowledge, Halsey is not competent to invest in cryptocurrency for his clients. By hastily investing in cryptocurrency products without understanding the nature of the investment or the suitability of the investment for his clients, Halsey has violated Standard I(E). </p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147271_314_Standard_IE_Recommended_Procedures.html" >← 前へ</a>
+  <span class="title">3.15 | Standard I(E): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147278_316_Standard_II_Integrity_of_Capital_Markets.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

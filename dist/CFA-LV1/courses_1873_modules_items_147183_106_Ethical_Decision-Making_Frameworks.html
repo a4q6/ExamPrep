@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.06 | Ethical Decision-Making Frameworks</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1701-R-s06" title="1.06 | Ethical Decision-Making Frameworks">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 1: Ethics and Trust in the Investment Profession</span>1.06 | Ethical Decision-Making Frameworks</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe a framework for ethical decision making</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Laws, regulations, professional standards, and codes of ethics can guide ethical behavior, but individual judgment is a critical ingredient in making principled choices and engaging in appropriate conduct. One strategy to increase trust in the investment industry is to increase the ability and motivation of market participants to act ethically and help them minimize the likelihood of unethical actions. By integrating ethics into the decision-making activities of employees, firms can enhance the ability and the motivation of employees to act ethically, thereby reducing the likelihood of unethical actions. The ability to relate an ethical decision-making framework to a firm’s or profession’s code of ethics allows investment professionals to bring the principles of the code of ethics to life. An investment professional’s natural desire to “do the right thing” can be reinforced by building a culture of integrity and accountability in the workplace. Development, maintenance, and demonstration of a strong culture of integrity within the firm by senior management may be the single most important factor in promoting ethical behavior among the firm’s employees.</p>
+<p>Adopting a code that clearly lays out the ethical principles that guide the thought processes and conduct the firm expects from its employees is a critical first step. But a code of ethics, although necessary, is insufficient. Simply nurturing an inclination to do right is no match for the multitude of daily decisions that investment professionals make. We need to exercise ethical decision-making skills to develop the muscle memory necessary for fundamentally ethical people to make good decisions despite the reality of conflicts and our natural instinct for self-preservation. Just as coaching and practice transform our natural ability to run across a field into the technique and endurance required to run a race, teaching, reinforcing, and practicing ethical decision-making skills prepare us to confront the hard issues effectively. It is good for business, individuals, firms, the industry, and the markets, as well as society as a whole, to engage in the investment management profession in a highly ethical manner. A strong ethical culture, built on a defined set of principles, that helps honest, ethical people engage in ethical behavior will foster the trust of investors, lead to robust global financial markets, and ultimately benefit society. That is why ethics matter.</p>
+<section id="CFA1701-R-s06-01">
+<h3 class="dp-heading">The Framework for Ethical Decision-Making</h3>
+<p>When faced with decisions that can affect multiple stakeholders, investment professionals must have a well-developed set of principles; otherwise, their thought processes can lead to, at best, indecision and, at worst, fraudulent conduct and destruction of the public trust. Establishing an ethical framework to guide your internal thought process regarding how to act is a crucial step to engaging in ethical conduct. Investment professionals are generally comfortable analyzing and making decisions from an economic (profit/loss) perspective. Given the importance of ethical behavior in carrying out professional responsibilities, it is also important to analyze decisions and their potential consequences from an ethical perspective. Using a framework for ethical decision making will help investment professionals to effectively examine their choices in the context of conflicting interests common to their professional obligations (e.g., researching and gathering information, developing investment recommendations, and managing money for others). Such a framework will allow investment professionals to analyze and choose options in a way that allows them to meet high standards of ethical behavior. An ethical decision-making framework provides investment professionals with a tool to help them adhere to a code of ethics. By applying the framework and analyzing the particular circumstances of each available alternative, investment professionals are able to determine the best course of action to fulfill their responsibilities in an ethical manner.</p>
+<p>An ethical decision-making framework will help a decision maker see the situation from multiple perspectives and pay attention to aspects of the situation that may be less evident with a short-term, self-focused perspective. The goal of getting a broader picture of a situation is to be able to create a plan of action that is less likely to harm stakeholders and more likely to benefit them. If a decision maker does not know or understand the effects of his or her actions on stakeholders, the likelihood of making a decision and taking action that harms stakeholders is more likely to occur, even if unintentionally. Finally, an ethical decision-making framework helps decision makers explain and justify their actions to a broader audience of stakeholders.</p>
+<p>Ethical decision-making frameworks are designed to facilitate the decision-making process for all decisions. They help people look at and evaluate a decision from multiple perspectives, enabling them to identify important issues they might not otherwise consider. Using an ethical decision-making framework consistently will help you develop sound judgment and decision-making skills and avoid making decisions that have unanticipated ethical consequences. Ethical decision-making frameworks come in many forms with varying degrees of detail. A general ethical decision-making framework is shown in <a aria-label="View Exhibit 2" class="internal" href="#CFA1701-R-EXH2" role="button">Exhibit 2</a>.</p>
+<div class="dp-content-block cfa-curriculum-exhibit-box" id="CFA1701-R-EXH2">
+<h4 class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Exhibit 2<span style="display: block;">Ethical Decision-Making Framework</span></h4>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L19">
+<li class="cfa-curriculum-list-item">
+<p>Identify: Relevant facts, stakeholders and duties owed, ethical principles, conflicts of interest</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Consider: Situational influences, additional guidance, alternative actions</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Decide and act</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Reflect: Was the outcome as anticipated? Why or why not?</p>
+</li>
+</ul>
+</div>
+<p>The ethical decision-making process includes multiple phases, each of which has multiple components. The process is often iterative, and you, the decision maker, may move between phases in an order different from what is presented. For simplicity, we will discuss the phases sequentially. In the initial phase, you will want to identify the important facts that you have available to you, as well as information that you may not have but would like to have to give yourself a more complete understanding of the situation. It is helpful to distinguish between facts and personal opinion, judgements, and biases. You will also want to identify the stakeholders—clients, family, colleagues, your employer, market participants, and so forth—and the duties you have to each of them. You will then want to identify relevant ethical principles and/or legal requirements that might apply to the situation. You should also identify any potential conflicts of interest inherent in the situation or conflicts in the duties you hold to others. For example, your duty to your client may conflict with your duty to your employer.</p>
+<p>In the second phase of ethical decision making, you will take time to consider the situational influences as well as personal behavioral biases that could affect your thinking and thus decision making. These situational influences and biases could include a desire to please your boss, to be seen as successful by your peers and family, to gain acceptance, to earn a large bonus, and so on. During this phase, you may seek additional guidance from trusted sources—perhaps a family member, colleague, or mentor who can help you think through the situation and help you identify and evaluate alternative actions. You may turn to your compliance department for assistance or you may even consult outside legal counsel. Seeking additional guidance is a critical step in viewing the situation from different perspectives. You should seek guidance from someone, possibly external to the firm, who is not affected by the same situational influences and behavioral biases as you are and can, therefore, provide a fresh perspective. You should also seek guidance from your firm’s policies and procedures and the CFA Institute Code and Standards. A helpful technique might be to imagine how an ethical peer or role model might act in the situation.</p>
+<p>The next phase of the framework is to make a decision and act. After you have acted on your decision, you should take the time to reflect on and assess your decision and its outcome. Was the outcome what you anticipated? Why or why not? Had you properly identified all the important facts, stakeholders, duties to stakeholders, conflicts of interest, and relevant ethical principles? Had you considered the situational influences? Did you identify personal behavioral biases that might affect your thinking? Had you sought sufficient guidance? Had you considered and properly evaluated a variety of alternative actions? You may want to reflect on the decision multiple times as the immediate and longer-term consequences of your decision and actions become apparent.</p>
+<p>The process is often iterative. After identifying the relevant facts and considering situational influences, you may, for example, decide that you cannot make a decision without more information. You may seek additional guidance on how to obtain the information you need. You may also begin considering alternative actions regarding how to proceed based on expectations of what the additional information will reveal, or you may wait until you have more information, reflect on what you have done and learned so far, and start the process over again. Sometimes cases can be complicated and multiple iterations may reveal that no totally acceptable solution can be created. Applying an ethical decision-making framework can help you evaluate the situation so you can make the best possible decision. The next section shows applications of the framework shown in <a aria-label="View Exhibit 2" class="internal" href="#CFA1701-R-EXH2" role="button">Exhibit 2</a>.</p>
+</section>
+<section id="CFA1701-R-s06-02">
+<h3 class="dp-heading">Applying the Framework</h3>
+<p>To illustrate how the framework could be applied in your career, consider the scenario in <a aria-label="View Example 5" class="internal" href="#CFA1701-R-EXM5" role="button">Example 5</a>.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA1701-R-EXM5">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 5<span style="display: block;">Applying an Ethical Decision-Making Framework I</span></h4>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>You have been hired as a junior analyst with a major investment bank. When you join the bank, you receive a copy of the firm’s policies as well as training on the policies. Your supervisor is the senior technology analyst for the investment bank. As part of your duties, you gather information, draft documents, conduct analysis, and perform other support functions for the senior analyst.</p>
+<p>Your employer is one of several investment banks working on the initial public offering (IPO) of a well-known technology company. The IPO is expected to generate significant revenues for the investment banks participating in the offering. The IPO has been highly anticipated and is in the news every day.</p>
+<p>You are thrilled when your supervisor asks you to work on several research projects related to analyzing and valuing the upcoming IPO for investors. You eagerly compile information and draft a one-page outline. You stop to consider what other information you could add to improve the report before proceeding. You realize that you have two excellent contacts in the technology industry who could review your work and provide some additional and potentially valuable perspectives. You draft an email to your contacts reading:</p>
+<div class="cfa-curriculum-blockquote">
+<p>I am working on an analysis and valuation of Big Tech Company for investors. My employer is one of the banks participating in the IPO, and I want to make sure I have considered everything. I was hoping you could give me feedback on the prospects and risks facing Big Tech. Please treat all the attached material as confidential.</p>
+</div>
+<p>Before hitting the send button, you stop and think about the ethical decision-making framework you have studied. You decide to apply the framework and jot down some notes as you work through the process: On the first page, you work through the identification phase and make a list of the relevant facts, stakeholders to whom you owe a duty, potential conflicts of interest, and ethical principles. This list is shown is <a aria-label="View Exhibit 3" class="internal" href="#CFA1701-R-EXH3" role="button">Exhibit 3</a>.</p>
+<div class="dp-content-block cfa-curriculum-exhibit-box" id="CFA1701-R-EXH3">
+<h5 class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Exhibit 3<span style="display: block;">Identification Phase</span></h5>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L20">
+<li class="cfa-curriculum-list-item">
+<p>Relevant facts:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L21">
+<li class="cfa-curriculum-list-item">
+<p><em>Working on the deal/IPO of the decade</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Employer is one of several investment banks working on IPO</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>The IPO is highly anticipated</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>A successful IPO could lead to additional investment banking deals and revenues for the firm</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Supervisor is relying on me</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Employer has documented policies and procedures</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Industry is regulated, with many rules and regulations in place</em></p>
+</li>
+</ul>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Stakeholders and duties owed. I have a duty to the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L22">
+<li class="cfa-curriculum-list-item">
+<p><em>Supervisor</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Employer</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Employer’s corporate client, the technology company</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Employer’s asset management and other investing clients</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Employer’s partners in the IPO</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Investors and market participants interested in the IPO</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>All capital market participants</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Profession</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Society as a whole</em></p>
+</li>
+</ul>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Conflicts or potential conflicts of interest include the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L23">
+<li class="cfa-curriculum-list-item">
+<p><em>Gathering additional research from external sources versus maintaining confidentiality</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Duty to supervisor versus desire to impress</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Duty to corporate client versus duty to other clients of the firm</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>The firm’s corporate client benefits from a high IPO price whereas the firm’s asset management clients would benefit from a low IPO price</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Making the IPO look attractive to the market (sell-side marketing) versus objective analysis of the investment potential of this deal (buy-side analysis)</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>My bonus, compensation, and career prospects are tied to my supervisor’s and the IPO’s success; duty to employer, employer’s investing clients, profession</em></p>
+</li>
+</ul>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Ethical principles that are relevant to this situation include the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L24">
+<li class="cfa-curriculum-list-item">
+<p><em>Duty of loyalty to employer</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Client interests come first</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Maintain confidences and confidentiality of information</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Objectivity of analysis</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Fairness to market participants</em></p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>On the next page, you write notes relating to the second phase of the framework, considering the various situational factors and the guidance available to you before considering alternative actions. These notes are shown in <a aria-label="View Exhibit 4" class="internal" href="#CFA1701-R-EXH4" role="button">Exhibit 4</a>.</p>
+<div class="dp-content-block cfa-curriculum-exhibit-box" id="CFA1701-R-EXH4">
+<h5 class="dp-has-icon cfa-curriculum-exhibit-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Exhibit 4<span style="display: block;">Consideration Phase</span></h5>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L25">
+<li class="cfa-curriculum-list-item">
+<p>Situational influences:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L26">
+<li class="cfa-curriculum-list-item">
+<p><em>The firm’s written policies</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>The bank will earn big fees from the IPO</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>I want to impress my boss—and potential future bosses</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>My bonus, compensation, and career prospects will be influenced by my contribution to the success of this deal and other deals</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>I am one of very few people working on this deal; it is a real honor, and others would be impressed that I am working on this deal</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>My employer is filled with successful and wealthy people who are go-getters; I want to be successful and wealthy like them</em></p>
+</li>
+</ul>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Additional guidance. I could seek guidance from the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L27">
+<li class="cfa-curriculum-list-item">
+<p><em>The firm’s code of ethics</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>The firm’s written policies</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>A peer in my firm</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>My supervisor, the senior analyst</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>The compliance department</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>A mentor either at the firm or perhaps from university or industry</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>The CFA Institute Code and Standards</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Outside legal counsel</em></p>
+</li>
+</ul>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Alternative actions. I could consider the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1701-R-L28">
+<li class="cfa-curriculum-list-item">
+<p><em>Asking contacts what they have heard</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Submitting the report as a draft and suggesting that contacts in the industry might be able to provide more perspective</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Sending a survey to various technology industry veterans soliciting their viewpoints on developments</em></p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>After completing these steps, you decide to check the firm’s policies. Under a section entitled “Research Analyst Role in Securities Offerings,” the manual states, “You may not distribute any written (which include email, fax, electronic, and other means) material related to companies and/or their offerings . . . during the course of any offering and the related quiet period.”</p>
+<p>You read further and note a section entitled “Wall Crossing Policy and Procedures” that states that “employees with confidential information may not communicate the information to anyone who does not have a valid need to know” without first obtaining clearance from the legal and compliance department.</p>
+<p>You decide that your contacts do not have a “valid need to know” and that it is unlikely the firm’s legal and compliance professionals would approve sharing the information. You then decide to mention your contacts to the senior research analyst. He suggests that they may have some useful perspective and that you might talk to them to hear their perspective and cautions you not to disclose any information about any of the firm’s clients, pending deals, or research. You return to your desk, delete the email, and following the senior research analyst’s advice, call your contacts on the telephone to discuss the technology sector, its prospects, and its challenges. During the calls, you take care not to reveal any details about Big Tech Company or its offering.</p>
+<p>Whatever action you take, you should take time afterward to reflect on the decision and the outcome. Was the outcome as anticipated? Why or why not?</p>
+</div>
+</div>
+</div>
+<p>The initial facts presented in the example are based on the real-life experience of a young junior analyst working on a highly anticipated IPO. The junior analyst may or may not have used an ethical decision-making framework to evaluate his situation. Without seeking additional guidance, the junior analyst sent an email similar to the one in the example with an attachment that included confidential, proprietary information, including the senior analyst’s analysis and forecasts. Months later, long after the IPO offering, the junior analyst’s email was discovered by his employer. When questioned, he admitted that he had received training regarding the firm’s policies and that he did not discuss or seek approval from anyone before sending the email. Two days later, the firm terminated the junior analyst’s employment and reported to regulatory authorities that he had been terminated for distributing written materials, by email, during a securities offering in violation of firm policies that prohibit the dissemination of any written materials during the course of a securities offering and related periods. The junior analyst’s supervisor also lost his job for failing to properly supervise the analyst. Multiple regulators investigated the matter, and the firm was fined millions of dollars for failing to supervise its employees properly. The information regarding the junior analyst’s termination was posted and remains available on the regulator’s website for all to see. Future employers conducting routine background checks will know that the analyst was terminated for violating firm policies relating to a securities offering.</p>
+<p>The example presented is similar to situations faced by many analysts. Using an ethical decision-making framework will help you evaluate situations from multiple perspectives, avoid poor decision making, and avoid the consequences that can result from taking an ill-conceived course of action. Using an ethical decision-making framework is no guarantee of a positive outcome but may help you avoid making unethical decisions.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA1701-R-EXM6">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 6<span style="display: block;">Applying an Ethical Decision-Making Framework II</span></h4>
+<section>
+<p>A financial adviser has been saving a portion of his salary to purchase a new vehicle. He is on track to have enough saved within the next three months. His employer has offered a special bonus for this quarter, which will go to the team that attracts the most new investors into the firm’s investment funds. In addition to the potential bonus, the firm pays a 5% commission to employees who sell shares in the firm’s investment funds. Several of the funds are highly rated, including one designed to provide steady income to investors.</p>
+<p>The financial adviser has added only a few new investors to the firm’s funds, but his teammates have been very successful in their efforts. The end of the quarter is one week away, and his team is competing closely with another team for the bonus. One of his teammates informs the financial adviser that he really needs the bonus so his elderly mother can receive medical treatment.</p>
+<p>Later that day, the financial adviser meets with an elderly client on a limited income who is seeking more income from his investment portfolio. The client is 89 years old and in poor health. According to the client’s will, the client’s investment portfolio will go to his favorite charity upon his death.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following situational influences is likely to have the <em>most</em> effect on the financial adviser’s efforts to get new clients to invest in the funds? His relationship with his:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>client.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-01">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. The financial adviser’s relationship with his teammates is likely to have the most effect on the financial adviser’s efforts. The teammates share in earning the bonus from the employer. In addition, the team works with each other on a regular basis where there is a likelihood that social influences of working together play a role in decision making and effort.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>employer.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-01">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. The financial adviser’s relationship with his teammates is likely to have the most effect on the financial adviser’s efforts. The teammates share in earning the bonus from the employer. In addition, the team works with each other on a regular basis where there is a likelihood that social influences of working together play a role in decision making and effort.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>teammates.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA1701-R-s06-02-02-01">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. The financial adviser’s relationship with his teammates is likely to have the most effect on the financial adviser’s efforts. The teammates share in earning the bonus from the employer. In addition, the team works with each other on a regular basis where there is a likelihood that social influences of working together play a role in decision making and effort.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Which of the following statements is <em>most</em> accurate? An ethical decision-making framework:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>is only beneficial when a firm lacks a code of ethics.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-02">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. An ethical decision-making framework is a tool for analyzing the potential alternative actions and consequences of a decision.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>is used to improve compliance with laws and regulations.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-02">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. An ethical decision-making framework is a tool for analyzing the potential alternative actions and consequences of a decision.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>is a tool for analyzing the potential alternative actions and consequences of a decision.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA1701-R-s06-02-02-02">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. An ethical decision-making framework is a tool for analyzing the potential alternative actions and consequences of a decision.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Which of the following is <em>most</em> accurate? Ethical decision-making frameworks:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>raise awareness of different perspectives.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA1701-R-s06-02-02-03">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Ethical decision-making frameworks raise awareness of different perspectives. The framework should consider short-term consequences, but they are not the focus of the framework. Similarly, the framework may allocate more weight to those who directly benefit from decisions, but this is not the primary goal of an ethical decision-making framework.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>focus attention on short-term consequences.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-03">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Ethical decision-making frameworks raise awareness of different perspectives. The framework should consider short-term consequences, but they are not the focus of the framework. Similarly, the framework may allocate more weight to those who directly benefit from decisions, but this is not the primary goal of an ethical decision-making framework.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>allocate more weight to those who will directly benefit from the decision.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-03">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Ethical decision-making frameworks raise awareness of different perspectives. The framework should consider short-term consequences, but they are not the focus of the framework. Similarly, the framework may allocate more weight to those who directly benefit from decisions, but this is not the primary goal of an ethical decision-making framework.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">4. </span>
+<p>Which of the following is <em>most</em> accurate? Ethical decision-making frameworks:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>are not needed if behavior is legal.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-04">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Ethical decision-making frameworks can help avoid unanticipated ethical consequences. As it relates to A, ethics standards are often higher than legal standards so an ethical decision-making framework would be needed. Although B is accurate, identifying who gains most from the decision is a small component of the framework.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>identify who gains the most from a decision.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-04">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Ethical decision-making frameworks can help avoid unanticipated ethical consequences. As it relates to A, ethics standards are often higher than legal standards so an ethical decision-making framework would be needed. Although B is accurate, identifying who gains most from the decision is a small component of the framework.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>can help reduce unanticipated ethical lapses and unexpected consequences.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA1701-R-s06-02-02-04">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>C is correct. Ethical decision-making frameworks can help avoid unanticipated ethical consequences. As it relates to A, ethics standards are often higher than legal standards so an ethical decision-making framework would be needed. Although B is accurate, identifying who gains most from the decision is a small component of the framework.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">5. </span>
+<p>Using an ethical decision-making framework, which of the following duties would <em>most likely</em> take precedence in the scenario described? The financial adviser’s duty to his:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>client.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA1701-R-s06-02-02-05">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Using an ethical decision-making framework, the financial adviser’s relationship with his client would most likely take precedence in this scenario. The adviser should put his client’s interests first. The exception to client interests taking precedence occurs when market integrity effects take precedence.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>employer.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-05">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Using an ethical decision-making framework, the financial adviser’s relationship with his client would most likely take precedence in this scenario. The adviser should put his client’s interests first. The exception to client interests taking precedence occurs when market integrity effects take precedence.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>colleagues.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-05">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>A is correct. Using an ethical decision-making framework, the financial adviser’s relationship with his client would most likely take precedence in this scenario. The adviser should put his client’s interests first. The exception to client interests taking precedence occurs when market integrity effects take precedence.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">6. </span>
+<p>Using an ethical decision-making framework, the financial adviser would <em>most likely</em>:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>recommend that the elderly client invest at least some of his assets in the highly rated fund.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-06">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>B is correct. Using an ethical decision-making framework, the financial adviser would identify the relevant facts, stakeholders, duties owed, and potential conflicts. In this scenario, the financial adviser owes a duty to his client as well as his employer. His client’s interests take precedence over all other interests. The bonus and his colleague’s desire to help his mother are situational influences. To navigate this situation, the financial adviser should seek additional information; he should research the risk and return parameters and fee structures of other investments that can provide steady income before making a recommendation to his client.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>research other investments that can provide steady income before making a recommendation to his elderly client.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA1701-R-s06-02-02-06">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>B is correct. Using an ethical decision-making framework, the financial adviser would identify the relevant facts, stakeholders, duties owed, and potential conflicts. In this scenario, the financial adviser owes a duty to his client as well as his employer. His client’s interests take precedence over all other interests. The bonus and his colleague’s desire to help his mother are situational influences. To navigate this situation, the financial adviser should seek additional information; he should research the risk and return parameters and fee structures of other investments that can provide steady income before making a recommendation to his client.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>disclose the commission he would earn before recommending that the elderly client invest at least some of his assets in the highly rated fund.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA1701-R-s06-02-02-06">
+<h5 class="cfa-curriculum-solution">Solution</h5>
+<p>B is correct. Using an ethical decision-making framework, the financial adviser would identify the relevant facts, stakeholders, duties owed, and potential conflicts. In this scenario, the financial adviser owes a duty to his client as well as his employer. His client’s interests take precedence over all other interests. The bonus and his colleague’s desire to help his mother are situational influences. To navigate this situation, the financial adviser should seek additional information; he should research the risk and return parameters and fee structures of other investments that can provide steady income before making a recommendation to his client.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</section>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147180_105_Ethical_vs_Legal_Standards.html" >← 前へ</a>
+  <span class="title">1.06 | Ethical Decision-Making Frameworks</span>
+  <a href="courses_1873_modules_items_147186_107_Conclusion.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.48 | Standard V(B) Communication with Clients and Prospective Clients</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s48-R-1" title="3.48 | Standard V(B) Communication with Clients and Prospective Clients">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">モジュール3：基準 I–VII に関するガイダンス 3.48｜基準 V(B)：顧客および見込み顧客とのコミュニケーション（Communication with Clients and Prospective Clients）</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">倫理規範（Code of Ethics）および職業行動基準（Standards of Professional Conduct）を、職業的誠実性に関する問題を含む状況に適用することを示す</li>
+<li class="cfa-curriculum-los-item">倫理規範および職業行動基準の違反を防止するための実務および手続きを推奨する</li>
+<li class="cfa-curriculum-los-item">規範および基準に適合する行為と違反する行為を識別する</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="">
+<h3 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i>
+</h3>
+<p>会員および受験者は次を行わなければならない：</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA0008-R-s48-L1">
+<li class="cfa-curriculum-list-item">提供するサービスの性質および当該サービスに関連して顧客が負担する費用に関する情報を、顧客および見込み顧客に開示すること。</li>
+<li class="cfa-curriculum-list-item">投資分析、証券選択、ポートフォリオ構築に用いる投資プロセスの基本的な形式および一般原則を開示し、これらのプロセスに重大な影響を与える可能性のある変更があれば速やかに開示すること。</li>
+<li class="cfa-curriculum-list-item">投資プロセスに関連する重要な制約およびリスクを開示すること。</li>
+<li class="cfa-curriculum-list-item">投資分析、推奨、または行動において重要な要因を合理的判断に基づいて特定し、それらを顧客および見込み顧客へのコミュニケーションに含めること。</li>
+<li class="cfa-curriculum-list-item">投資分析および推奨の提示において、事実（fact）と意見（opinion）を区別すること。</li>
+</ol>
+</div>
+<section id="CFA0008-R-s48-01-01">
+<h3 class="dp-heading">ガイダンス</h3>
+<p>ハイライト：</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s48-L2">
+<li class="cfa-curriculum-list-item">サービスの性質および費用に関する情報（Nature of Services and Information on Cost）</li>
+<li class="cfa-curriculum-list-item">投資プロセスの説明（Informing Clients of the Investment Process）</li>
+<li class="cfa-curriculum-list-item">コミュニケーションの多様な形態（Different Forms of Communication）</li>
+<li class="cfa-curriculum-list-item">リスクおよび制約の特定（Identifying Risk and Limitations）</li>
+<li class="cfa-curriculum-list-item">レポートの提示（Report Presentation）</li>
+<li class="cfa-curriculum-list-item">レポートにおける事実と意見の区別（Distinction between Facts and Opinions in Reports）</li>
+</ul>
+<p>基準V(B)は、顧客とのコミュニケーションに関する会員および受験者の行動を扱う。明確で頻繁かつ十分なコミュニケーションの維持は、高品質な金融サービスの提供に不可欠である。顧客が情報を理解することで、会員および受験者がどのように行動しているかを把握でき、十分な情報に基づく投資判断が可能となる。この理解は明確なコミュニケーションによってのみ達成される。</p>
+<section id="CFA0008-R-s48-01-01-01">
+<h4>サービスの性質および費用の開示（Disclosing Nature of Services and Information about Costs to Clients and Prospective Clients）</h4>
+<p>規範および基準の基本目的は、顧客利益の保護と、投資および財務に関する十分な情報に基づく意思決定を可能にすることである。提供サービスの内容および費用に関する情報の提供は、この目的達成に不可欠である。これにより顧客は、サービス利用の可否を判断できる。</p>
+<p>完全かつ公正な開示は顧客との信頼を構築する。提供されるサービスの内容を明確に理解することは、顧客関係の基盤である。提供されるサービスだけでなく、提供されないサービスについても明確にし、適切な期待を設定する必要がある。最善の実務として、契約書等において文書で明示することが望ましい。</p>
+<p>顧客はサービスの内容だけでなく費用も理解する必要がある。開示対象は顧客が負担する費用であり、合理的な詳細を提供すべきであるが、具体的金額の提示までは要求されない。企業側のコストの開示は不要である。</p>
+<p>開示義務は継続的であり、サービスや費用に変更があれば適時に更新しなければならない。</p>
+<p>開示範囲は直接契約している主体に限定されず、関連会社や第三者サービスに伴う費用も含まれる。顧客の知識水準に応じて情報は調整できるが、開示義務の免除理由にはならない。</p>
+<p>開示方法は自由であるが、適切・正確・適時・完全でなければならず、書面が望ましい。企業の開示に依存する場合でも、基準を満たしているか確認し、不十分であれば補完または是正を求める義務がある。不可能な場合は異議を記録し、関与を解消するべきである。</p>
+<p>本基準は主に顧客対応を行う会員に適用される。顧客と直接関わらない者に対して他者の遵守責任までは課さない。</p>
+</section>
+<section id="CFA0008-R-s48-01-01-02">
+<h4>投資プロセスの説明（Informing Clients of the Investment Process）</h4>
+<p>会員および受験者は、投資意思決定プロセスの方法を十分に説明しなければならない。推奨に影響を与える要因、特に重要なリスクおよび制約を含める必要がある。また、プロセスに変更があれば継続的に情報提供しなければならない。顧客はサービスの本質を理解することで、その変更が投資目的に与える影響を判断できる。</p>
+<p>Understanding the basic characteristics of an investment is of great importance in judging the suitability of that investment on a standalone basis, but it is especially important in determining the impact each investment will have on the characteristics of a portfolio. Although the risk and return characteristics of a common stock might seem to be essentially the same for any investor when the stock is viewed in isolation, the effects of those characteristics greatly depend on the other investments held. For instance, if the particular stock will represent 90% of an individual’s investments, the stock’s importance in the portfolio is vastly different from what it would be to an investor with a highly diversified portfolio for whom the stock will represent only 2% of the holdings.</p>
+<p>A firm’s investment policy may include the use of outside advisers to manage various portions of clients’ assets under management. Members and candidates should inform the clients about the specialization or diversification expertise provided by the external adviser(s). This information allows clients to understand the full mix of products and strategies being applied that may affect their investment objectives.</p>
+</section>
+<section id="CFA0008-R-s48-01-01-03">
+<h4>Different Forms of Communication</h4>
+<p>For purposes of Standard V(B), communication is not confined to a written report of the type traditionally generated by an analyst researching a security, company, or industry. A presentation of information can be made via any means of communication, including in-person recommendation or description, telephone conversation, media broadcast, or transmission by computer (e.g., on the internet). </p>
+<p>Computer and mobile device communications have rapidly evolved over the past few years. Members and candidates using any social media service to communicate business information must be diligent in their efforts to avoid unintended problems because these services may not be available to all clients. When providing information to clients through new technologies, members and candidates should take reasonable steps to ensure that such delivery would treat all clients fairly and, if necessary, be considered publicly disseminated.</p>
+<p>The nature of client communications is highly diverse—from one word (“buy” or “sell”) to in-depth reports of more than 100 pages. A communication may contain a general recommendation about the market, asset allocations, or classes of investments (e.g., stocks, bonds, real estate) or may relate to a specific security. If recommendations are contained in capsule form (such as a recommended stock list), members and candidates should notify clients that additional information and analyses are available from the producer of the report.</p>
+</section>
+<section id="CFA0008-R-s48-01-01-04">
+<h4>Identifying Risks and Limitations </h4>
+<p>Members and candidates must outline to clients and prospective clients significant risks and limitations of the analysis contained in their investment products or recommendations. The type and nature of significant risks will depend on the investment process that members and candidates are following and on the personal circumstances of the client. In general, the use of leverage constitutes a significant risk and should be disclosed. </p>
+<p>Members and candidates must adequately disclose the general market-related risks and the risks associated with the use of complex financial instruments that are deemed significant. Other types of risks that members and candidates may consider disclosing include, but are not limited to, counterparty risk, country risk, sector or industry risk, security-specific risk, and credit risk.</p>
+<p>Investment securities and vehicles may have limiting factors that influence a client’s or potential client’s investment decision. Members and candidates must report to clients and prospective clients the existence of limitations significant to the decision-making process. Examples of such factors and attributes include, but are not limited to, investment liquidity and capacity. Liquidity is the ability to liquidate an investment on a timely basis at a reasonable cost. Capacity is the investment amount beyond which returns will be negatively affected by new investments. </p>
+<p>The appropriateness of risk disclosure should be assessed on the basis of what was known at the time the investment action was taken (often called an <em>ex ante</em> basis). Members and candidates must disclose significant risks known to them at the time of the disclosure. Members and candidates cannot be expected to disclose risks they are unaware of at the time recommendations or investment actions are made. In assessing compliance with Standard V(B), it is important to establish knowledge of a purported significant risk or limitation. A one-time investment loss that occurs after the disclosure does not constitute a pertinent factor in assessing whether significant risks and limitations were properly disclosed. Having no knowledge of a risk or limitation that subsequently triggers a loss may reveal a deficiency in the diligence and reasonable basis of the research of the member or candidate but may not reveal a breach of Standard V(B).</p>
+</section>
+<section id="CFA0008-R-s48-01-01-05">
+<h4>Report Presentation</h4>
+<p>Once the analytical process has been completed, the member or candidate who prepares the report must include those elements that are important to the analysis and conclusions of the report so that the reader can follow and challenge the report’s reasoning. A report writer who has done adequate investigation may emphasize certain areas, touch briefly on others, and omit certain aspects deemed unimportant. For instance, a report may dwell on a quarterly earnings release or new-product introduction and omit other matters as long as the analyst clearly stipulates the limits to the scope of the report.</p>
+<p>Investment advice based on quantitative research and analysis must be supported by readily available reference material and should be applied in a manner consistent with previously applied methodology. If changes in methodology are made, they should be highlighted.</p>
+</section>
+<section id="CFA0008-R-s48-01-01-06">
+<h4>Distinction between Facts and Opinions in Reports</h4>
+<p>Standard V(B) requires that opinion be separated from fact. Violations often occur when reports fail to separate the past from the future by not indicating that earnings estimates, changes in the outlook for dividends, or future market price information are <em>opinions</em> subject to future circumstances. </p>
+<p>In the case of complex quantitative analyses, members and candidates must clearly separate fact from statistical conjecture and should identify the known limitations of an analysis. Members and candidates may violate Standard V(B) by failing to identify the limits of statistically developed projections because such omission leaves readers unaware of the limits of the published projections.</p>
+<p>Members and candidates should explicitly discuss with clients and prospective clients the assumptions used in the investment models and processes to generate the analysis. Caution should be used in promoting the perceived accuracy of any model or process to clients because the ultimate output is merely an estimate of future results and not a certainty.</p>
+</section>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147389_347_Standard_VA_Application_of_the_Standard.html" >← 前へ</a>
+  <span class="title">3.48 | Standard V(B) Communication with Clients and Prospective Clients</span>
+  <a href="" class="disabled">次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.03 | CFA Institute Code of Ethics and Standards of Professional Conduct</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0006-R-s03-R-1" title="2.03 | CFA Institute Code of Ethics and Standards of Professional Conduct">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 2: Code of Ethics and Standards of Professional Conduct</span>2.03 | CFA Institute Code of Ethics and Standards of Professional Conduct</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">identify the six components of the Code of Ethics and the seven Standards of Professional Conduct</li>
+<li class="cfa-curriculum-los-item">explain the ethical responsibilities required by the Code and Standards, including the sub-sections of each Standard</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<section id="CFA0006-R-s03-01-01">
+<h3 class="dp-heading">Preamble</h3>
+<p>The CFA Institute Code of Ethics and Standards of Professional Conduct are fundamental to the values of CFA Institute and essential to achieving its mission to continue to lead the investment profession globally by promoting the highest standards of ethics, education, and professional excellence for the ultimate benefit of society. High ethical standards are critical to maintaining the public’s trust in financial markets and in the investment profession. Since their creation in the 1960s, the Code and Standards have promoted the integrity of CFA Institute members and served as a model for measuring the ethics of investment professionals globally, regardless of job function, cultural differences, or local laws and regulations. All CFA Institute members (including holders of the Chartered Financial Analyst [CFA] designation) and CFA candidates have the personal responsibility to embrace and uphold the provisions of the Code and Standards and are encouraged to notify their employer of this responsibility. Violations may result in disciplinary sanctions by CFA Institute. Sanctions can include revocation of membership, revocation of candidacy in the CFA Program, and revocation of the right to use the CFA designation.</p>
+</section>
+<section id="CFA0006-R-s03-01-02">
+<h3 class="dp-heading">The Code of Ethics</h3>
+<p>Members of CFA Institute (including CFA charterholders) and candidates for the CFA designation (“Members and Candidates”) must:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0006-R-s03-L1">
+<li class="cfa-curriculum-list-item">
+<p>Act with integrity, competence, diligence, and respect and in an ethical manner with the public, clients, prospective clients, employers, employees, colleagues in the investment profession, and other participants in the global capital markets.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Place the integrity of the investment profession and the interests of clients above their own personal interests.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Use reasonable care and exercise independent professional judgment when conducting investment analysis, making investment recommendations, taking investment actions, and engaging in other professional activities.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Practice and encourage others to practice in a professional and ethical manner that will reflect credit on themselves and the profession.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Promote the integrity and viability of the global capital markets for the ultimate benefit of society.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Maintain and improve their professional competence and strive to maintain and improve the competence of other investment professionals.</p>
+</li>
+</ul>
+</section>
+<section id="CFA0006-R-s03-01-03">
+<h3 class="dp-heading">Standards of Professional Conduct</h3>
+<ol class="cfa-curriculum-list-upper-roman" id="CFA0006-R-s03-L2">
+<li class="cfa-curriculum-list-item">
+<p>PROFESSIONALISM</p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA0006-R-s03-L3">
+<li class="cfa-curriculum-list-item">
+<p>Knowledge of the Law</p>
+<p>Members and Candidates must understand and comply with all applicable laws, rules, and regulations (including the CFA Institute Code of Ethics and Standards of Professional Conduct) of any government, regulatory organization, licensing agency, or professional association governing their professional activities. In the event of conflict, Members and Candidates must comply with the more strict law, rule, or regulation. Members and Candidates must not knowingly participate or assist in and must dissociate from any violation of such laws, rules, or regulations.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Independence and Objectivity</p>
+<p>Members and Candidates must use reasonable care and judgment to achieve and maintain independence and objectivity in their professional activities. Members and Candidates must not offer, solicit, or accept any gift, benefit, compensation, or consideration that reasonably could be expected to compromise their own or another’s independence and objectivity.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Misrepresentation</p>
+<p>Members and Candidates must not knowingly make any misrepresentations relating to investment analysis, recommendations, actions, or other professional activities.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Misconduct</p>
+<p>Members and Candidates must not engage in any professional conduct involving dishonesty, fraud, or deceit or commit any act that reflects adversely on their professional reputation, integrity, or competence.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Competence</p>
+<p>Members and Candidates must act with and maintain the competence necessary to fulfill their professional responsibilities.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>INTEGRITY OF CAPITAL MARKETS</p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA0006-R-s03-L4">
+<li class="cfa-curriculum-list-item">
+<p>Material Nonpublic Information</p>
+<p>Members and Candidates who possess material nonpublic information that could affect the value of an investment must not act or cause others to act on the information.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Market Manipulation</p>
+<p>Members and Candidates must not engage in practices that distort prices or artificially inflate trading volume with the intent to mislead market participants.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>DUTIES TO CLIENTS</p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA0006-R-s03-L5">
+<li class="cfa-curriculum-list-item">
+<p>Loyalty, Prudence, and Care</p>
+<p>Members and Candidates have a duty of loyalty to their clients and must act with reasonable care and exercise prudent judgment. Members and Candidates must act for the benefit of their clients and place their clients’ interests before their employer’s or their own interests.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Fair Dealing</p>
+<p>Members and Candidates must deal fairly and objectively with all clients when providing investment analysis, making investment recommendations, taking investment action, or engaging in other professional activities.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Suitability</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA0006-R-s03-L6">
+<li class="cfa-curriculum-list-item">
+<p>When Members and Candidates are in an advisory relationship with a client, they must:</p>
+<ol class="cfa-curriculum-list-lower-alpha" id="CFA0006-R-s03-L7">
+<li class="cfa-curriculum-list-item">
+<p>Make a reasonable inquiry into a client’s or prospective client’s investment experience, risk and return objectives, and financial constraints prior to making any investment recommendation or taking investment action and must reassess and update this information regularly.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Determine that an investment is suitable to the client’s financial situation and consistent with the client’s written objectives, mandates, and constraints before making an investment recommendation or taking investment action.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Judge the suitability of investments in the context of the client’s total portfolio.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>When Members and Candidates are responsible for managing a portfolio to a specific mandate, strategy, or style, they must make only investment recommendations or take only investment actions that are consistent with the stated objectives and constraints of the portfolio.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Performance Presentation</p>
+<p>When communicating investment performance information, Members and Candidates must make reasonable efforts to ensure that it is fair, accurate, and complete.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Preservation of Confidentiality</p>
+<p>Members and Candidates must keep information about current, former, and prospective clients confidential unless:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA0006-R-s03-L8">
+<li class="cfa-curriculum-list-item">
+<p>The information concerns illegal activities on the part of the client or prospective client,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Disclosure is required by law, or</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The client or prospective client permits disclosure of the information.</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>DUTIES TO EMPLOYERS</p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA0006-R-s03-L9">
+<li class="cfa-curriculum-list-item">
+<p>Loyalty</p>
+<p>In matters related to their employment, Members and Candidates must act for the benefit of their employer and not deprive their employer of the advantage of their skills and abilities, divulge confidential information, or otherwise cause harm to their employer.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Additional Compensation Arrangements</p>
+<p>Members and Candidates must not accept gifts, benefits, compensation, or consideration that competes with or might reasonably be expected to create a conflict of interest with their employer’s interest unless they obtain written consent from all parties involved.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Responsibilities of Supervisors</p>
+<p>Members and Candidates must make reasonable efforts to ensure that anyone subject to their supervision or authority complies with applicable laws, rules, regulations, and the Code and Standards.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>INVESTMENT ANALYSIS, RECOMMENDATIONS, AND ACTIONS</p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA0006-R-s03-L10">
+<li class="cfa-curriculum-list-item">
+<p>Diligence and Reasonable Basis</p>
+<p>Members and Candidates must:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA0006-R-s03-L11">
+<li class="cfa-curriculum-list-item">
+<p>Exercise diligence, independence, and thoroughness in analyzing investments, making investment recommendations, and taking investment actions.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Have a reasonable and adequate basis, supported by appropriate research and investigation, for any investment analysis, recommendation, or action.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Communication with Clients and Prospective Clients</p>
+<p>Members and Candidates must:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA0006-R-s03-L12">
+<li class="cfa-curriculum-list-item">
+<p>Disclose to clients and prospective clients the nature of the services provided, along with information about the costs to the client associated with those services.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Disclose to clients and prospective clients the basic format and general principles of the investment processes they use to analyze investments, select securities, and construct portfolios and must promptly disclose any changes that might materially affect those processes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Disclose to clients and prospective clients significant limitations and risks associated with the investment process.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Use reasonable judgment in identifying which factors are important to their investment analyses, recommendations, or actions and include those factors in communications with clients and prospective clients.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Distinguish between fact and opinion in the presentation of investment analysis and recommendations.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Record Retention</p>
+<p>Members and Candidates must develop and maintain appropriate records to support their investment analyses, recommendations, actions, and other investment-related communications with clients and prospective clients.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>CONFLICTS OF INTEREST</p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA0006-R-s03-L13">
+<li class="cfa-curriculum-list-item">
+<p>Avoid or Disclose Conflicts</p>
+<p>Members and Candidates must avoid or make full and fair disclosure of all matters that could reasonably be expected to impair their independence and objectivity and interfere with respective duties to their clients, prospective clients, and employer. Members and Candidates must ensure that such disclosures are prominent, are delivered in plain language, and communicate the relevant information effectively.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Priority of Transactions</p>
+<p>Investment transactions for clients and employers must have priority over investment transactions in which a Member or Candidate is the beneficial owner.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Referral Fees</p>
+<p>Members and Candidates must disclose to their employer, clients, and prospective clients, as appropriate, any compensation, consideration, or benefit received from or paid to others for the recommendation of products or services.</p>
+</li>
+</ol>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>RESPONSIBILITIES AS A CFA INSTITUTE MEMBER OR CFA CANDIDATE</p>
+<ol class="cfa-curriculum-list-upper-alpha" id="CFA0006-R-s03-L14">
+<li class="cfa-curriculum-list-item">
+<p>Conduct as Participants in CFA Institute Programs</p>
+<p>Members and Candidates must not engage in any conduct that compromises the reputation or integrity of CFA Institute or the CFA designation or the integrity, validity, or security of CFA Institute programs.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Reference to CFA Institute, the CFA Designation, and the CFA Program</p>
+<p>When referring to CFA Institute, CFA Institute membership, the CFA designation, or candidacy in the CFA Program, Members and Candidates must not misrepresent or exaggerate the meaning or implications of membership in CFA Institute, holding the CFA designation, or candidacy in the CFA Program.</p>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147210_202_Ethics_and_the_Investment_Industry.html" >← 前へ</a>
+  <span class="title">2.03 | CFA Institute Code of Ethics and Standards of Professional Conduct</span>
+  <a href="courses_1873_modules_items_147218_Real_World_Applications_Bloombergs_Risk_Management.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

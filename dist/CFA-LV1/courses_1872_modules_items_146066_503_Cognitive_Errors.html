@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.03 | Cognitive Errors</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2252-R-s03" title="5.03 | Cognitive Errors">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 5: The Behavioral Biases of Individuals</span>5.03 | Cognitive Errors</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">discuss commonly recognized behavioral biases and their implications for financial decision making</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>We classify cognitive errors into two categories: “belief perseverance biases” and “processing errors.”</p>
+<p>Belief perseverance is the tendency to cling to one’s previously held beliefs by committing statistical, information-processing, or memory errors. The belief perseverance biases discussed are conservatism, confirmation, representativeness, illusion of control, and hindsight.</p>
+<p>Processing errors describe how information may be processed and used illogically or irrationally in financial decision making. The processing errors discussed are anchoring and adjustment, mental accounting, framing, and availability.</p>
+<section id="CFA2252-R-s03-01">
+<h3 class="dp-heading">Belief Perseverance Biases</h3>
+<p>Belief perseverance biases result from the mental discomfort that occurs when new information conflicts with previously held beliefs or cognitions, known as <a aria-describedby="CognitiveDissonanceContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#CognitiveDissonanceContent">cognitive dissonance</a>. To resolve this discomfort, people may ignore or modify conflicting information and consider only information that confirms their existing beliefs or thoughts.</p>
+<section id="CFA2252-R-s03-01-01">
+<h4>Conservatism Bias</h4>
+<p><a aria-describedby="ConservatismBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ConservatismBiasContent">Conservatism bias</a> is a belief perseverance bias in which people maintain their prior views or forecasts by inadequately incorporating new, conflicting information. In Bayesian terms, they tend to overweight their prior probability of the event and underweight the new information, resulting in revised beliefs about probabilities and outcomes that underreact to the new information.</p>
+<section id="CFA2252-R-s03-01-01-01">
+<h5><em>Consequences of Conservatism Bias</em></h5>
+<p>As a result of conservatism bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L3">
+<li class="cfa-curriculum-list-item">
+<p>Maintain or be slow to update a view or a forecast, even when presented with new information; and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Maintain a prior belief rather than deal with the mental stress of updating beliefs given complex data. This behavior relates to an underlying difficulty in processing new information.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s03-01-01-02">
+<h5><em>Detection of and Guidance for Overcoming Conservatism Bias</em></h5>
+<p>The effect of conservatism bias may be corrected for or reduced by properly analyzing and weighting new information. The first step is to be aware that a bias exists, especially about information that is technical, abstract, and/or statistical, because the <a aria-describedby="CognitiveCostContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#CognitiveCostContent">cognitive cost</a> involved in processing those forms of information is higher than for other types.</p>
+<p>When new information is presented, the FMP should ask such questions as, “How does this information change my forecast?” or “What effect does this information have on my forecast?” FMPs should conduct careful analysis incorporating the new information and then respond appropriately. This updating of prior beliefs in light of new information is consistent with the tenets of Bayes’ Rule, in which updated probabilities are derived by systematically combining previous estimates and new information.</p>
+<p>If information is difficult to interpret or understand, FMPs should seek guidance from someone who can either explain how to interpret the information or can explain its implications.</p>
+</section>
+</section>
+<section id="CFA2252-R-s03-01-02">
+<h4>Confirmation Bias</h4>
+<p><a aria-describedby="ConfirmationBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ConfirmationBiasContent">Confirmation bias</a> refers to the tendency to look for and notice what confirms prior beliefs and to ignore or undervalue whatever contradicts them. A response to cognitive dissonance, confirmation bias reflects a predisposition to justify to ourselves what we want to believe.</p>
+<p>Most experienced private wealth advisers have dealt with a client who conducts some research and insists on adding a particular investment to the portfolio. The client may insist on continuing to hold the investment, even when the adviser recommends otherwise, because the client’s follow-up research seeks only information that confirms his belief that the investment is still a good value. The confirmation bias is not limited to individual investors; all FMPs should be wary of the potential confirmation biases within themselves.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM1">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 1<span style="display: block;">Confirmation Bias</span></h5>
+<p>A portfolio manager at Sarter Investment Advisors recommended shares of Real Media Inc., a hypothetical television production and distribution company, largely on the basis of compelling analytical and valuation work from a top equity research analyst. Sarter’s clients have owned the shares for several years.</p>
+<p>Recently, the shares have underperformed significantly as a result of the company missing analysts’ earnings estimates and also in response to executive management turnover. The portfolio manager’s colleagues believe this underperformance is a result of Real Media losing market share to a competitor with superior technology and distribution. The competitor is publicly traded, but Sarter’s portfolio managers and analysts have not done research on it.</p>
+<p>After another poor earnings release from Real Media, the portfolio manager speaks with the equity research analyst whose work was the primary source of the investment. The equity research analyst, who maintains a buy rating on the stock, believes that Real Media is now a more compelling investment than ever because its share price has fallen while its earnings estimates remain unchanged. As a result of the conversation, the portfolio manager feels reassured and holds the position.</p>
+<p>The portfolio manager is subject to confirmation bias. Rather than speaking with a research analyst who has a sell rating on the stock or conducting research on the competitor to consider a different perspective, the portfolio manager speaks with someone who has an opinion she already shares.</p>
+</div>
+<section id="CFA2252-R-s03-01-02-02">
+<h5>Consequences of Confirmation Bias</h5>
+<p>As a result of confirmation bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L4">
+<li class="cfa-curriculum-list-item">
+<p>Consider only the positive information about an existing investment while ignoring any negative information about the investment.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Develop screening criteria while ignoring information that either refutes the validity of the criteria or supports other criteria. As a result, some good investments that do not meet the screening criteria may be ignored, and conversely, some bad investments that do meet the screening criteria may be made.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Under-diversify portfolios. FMPs may become convinced of the value of a single company’s stock. They ignore negative news, and they gather and process only information confirming that the company is a good investment. They build a larger position than appropriate and hold an under-diversified portfolio.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Hold a disproportionate amount of their investment assets in their employing company’s stock, because they believe in their company and are convinced of its favorable prospects. Favorable information is cited, and unfavorable information is ignored. If the employee were to acknowledge unfavorable information, the associated mental discomfort might make work very difficult for the employee.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s03-01-02-03">
+<h5>Detection of and Guidance for Overcoming Confirmation Bias</h5>
+<p>The effect of confirmation bias may be corrected for or reduced by actively seeking out information that challenges existing beliefs.</p>
+<p>Another useful step is to corroborate an investment decision. For example, if investment selections are based on criteria confirming an existing belief, such as stocks breaking through 52-week highs, it is usually advisable to corroborate that decision with research from another perspective or source (e.g., fundamental research on the company, industry, or sector).</p>
+</section>
+</section>
+<section id="CFA2252-R-s03-01-03">
+<h4>Representativeness Bias</h4>
+<p><a aria-describedby="RepresentativenessBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RepresentativenessBiasContent">Representativeness bias</a> refers to the tendency to classify new information based on past experiences and classifications. New information may resemble or seem <em>representative</em> of familiar elements already classified, but in reality, it can be very different. In these instances, the classification reflex can deceive, producing an incorrect understanding that biases all future thinking about the information. <em>Base-rate neglect</em> and <em>sample-size neglect</em> are two types of representativeness bias that apply to FMPs.</p>
+<p>In <a aria-describedby="BaseRateNeglectContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#BaseRateNeglectContent">base-rate neglect</a>, a phenomenon’s rate of incidence in a larger population—its base rate—is neglected in favor of specific information. The specific, individual information may be misleading relative to the more appropriate base rate or general information. FMPs often follow this erroneous path because diligent research is often conducted on an individual security or strategy, leading FMPs to overlook or ignore general information about the “class” to which an investment belongs, such as an industry, sector, or geography.</p>
+<p>A second type of representativeness bias is <a aria-describedby="SampleSizeNeglectContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SampleSizeNeglectContent">sample-size neglect</a>, in which FMPs incorrectly assume that small sample sizes are <em>representative</em> of populations. Individuals prone to sample-size neglect are quick to treat properties reflected in small samples as properties that accurately describe large pools of data, overweighting the information in the small sample.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM2">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 2<span style="display: block;">Representativeness Bias</span></h5>
+<section>
+<p>Jacques Verte is evaluating the future prospects of APM Company, a large auto parts manufacturer having some difficulties. During the last 50 years, very few auto part manufacturers have failed, even during periods of difficulty. A number of recent headlines have highlighted APM’s business and financial difficulties, however, with some commentators suggesting that APM may go out of business.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Which of the following scenarios is more likely? Explain why.</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>APM will solve its difficulties.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section id="CFA2252-R-s03-01-03-01-01">
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>Scenario A is more likely. The base rate, based on 50 years of data, is that more auto parts companies survive difficult times than fail. Thus, it is more likely that APM will solve its difficulties than go out of business.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>APM will go out of business.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section id="CFA2252-R-s03-01-03-01-01">
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>Scenario A is more likely. The base rate, based on 50 years of data, is that more auto parts companies survive difficult times than fail. Thus, it is more likely that APM will solve its difficulties than go out of business.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>If Verte is subject to representativeness bias, is he more likely to classify APM into A or B? Explain why.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section id="CFA2252-R-s03-01-03-01-02">
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>If Verte is subject to representativeness bias, he is likely to choose Scenario B, predicting that the company will go out of business because of the headlines he has read. In classifying APM as likely to go out of business, Verte would be guilty of base-rate neglect by ignoring the low base rate of auto parts manufacturers failing even during times of difficulty.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<section id="CFA2252-R-s03-01-03-02">
+<h5>Consequences of Representativeness Bias</h5>
+<p>As a result of representativeness bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L7">
+<li class="cfa-curriculum-list-item">
+<p>Adopt a view or a forecast based almost exclusively on individual, specific information or a small sample; and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Update beliefs using simple classifications rather than deal with the mental stress of updating beliefs given the high cognitive costs of complex data.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s03-01-03-03">
+<h5>Detection of and Guidance on Overcoming Representativeness Bias</h5>
+<p>When FMPs sense that base-rate or sample-size neglect may be a problem, they should ask the following question: “What is the probability that X (the investment under consideration) belongs to Group A (the group it resembles or is considered representative of) versus Group B (the group it is statistically more likely to belong to)?” This question, or a similar question, will help FMPs think through whether they are failing to consider base-rate probabilities or neglecting the law of small numbers and thus inaccurately assessing a particular situation. It may be necessary to do more research to obtain base-rate information and/or widen the sample size of observations.</p>
+</section>
+</section>
+<section id="CFA2252-R-s03-01-04">
+<h4>Illusion of Control Bias</h4>
+<p>In <a aria-describedby="IllusionOfControlBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#IllusionOfControlBiasContent">illusion of control bias</a>, people tend to believe that they can control or influence outcomes when, in fact, they cannot. Many researchers have uncovered situations where people perceived themselves as possessing more control than they did, inferred causal connections where none existed, or displayed surprisingly great certainty in their predictions for the outcomes of chance events. A classic example is that people prefer choosing their own lottery numbers over random numbers selected for them.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM3">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 3<span style="display: block;">Illusion of Control Bias</span></h5>
+<p>Adelia Scott is a wealth adviser at Sarter Investment Advisors (Sarter), an investment advisory firm for high-net-worth individuals. Scott meets with a client who has 30% of his account in shares of his employer’s stock. The client is not subject to any employee holding requirement.</p>
+<p>Prior meeting notes indicate that the client initially agreed to diversify the concentrated position over a five-year period. Scott recommends a faster schedule, however, based on recent research indicating that the company’s future growth prospects have considerably worsened as a result of industry trends and macroeconomic conditions.</p>
+<p>When presented with this information, the client is reluctant to change his diversification plan, citing the company’s history of double-digit growth and his belief that this rate of growth will continue for the foreseeable future. The client remarks, “Trust me, my team and I are not going to let those forecasts you’re citing come true.”</p>
+<p>The client is subject to illusion of control bias. He is unwilling to believe Scott’s opinion because he believes that he and his team can control the company’s performance and stock price.</p>
+</div>
+<section id="CFA2252-R-s03-01-04-02">
+<h5>Consequences of Illusion of Control</h5>
+<p>As a result of illusion of control bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L8">
+<li class="cfa-curriculum-list-item">
+<p>Inadequately diversify portfolios. Research has found that some investors prefer to invest in companies that they feel they have control over, such as the companies they work for, leading them to hold concentrated positions. In fact, most investors have little or no control over the companies they work for. If the company performs poorly, these investors may experience both the loss of employment and investment losses.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Trade more than is prudent. Researchers have found that portfolio turnover is negatively correlated with investment returns.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Construct financial models and forecasts that are overly detailed. FMPs may require detailed models before making an investment decision, believing that forecasts from these models control uncertainty. Although a greater understanding of an investment, issuer, or industry is often useful, increased model complexity does not control the inherent risk and uncertainty of investment outcomes.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s03-01-04-03">
+<h5>Detection of and Guidelines for Overcoming Illusion of Control Bias</h5>
+<p>The first and most basic idea that investors need to recognize is that investing is a probabilistic activity. Even the largest investment management firms have little control over the outcomes of the investments they make. Companies are subject to macroeconomic and industry forces, as well as the actions of competitors, customers, and suppliers.</p>
+<p>Second, it is advisable to seek contrary viewpoints. As you contemplate a new investment, take a moment to think about considerations that might weigh against making the investment. Ask yourself: What are the downside risks? What might go wrong? When will I sell? It is often useful to speak with someone who has an opposing view, such as an equity research analyst with a sell rating on the subject stock.</p>
+</section>
+</section>
+<section id="CFA2252-R-s03-01-05">
+<h4>Hindsight Bias</h4>
+<p><a aria-describedby="HindsightBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#HindsightBiasContent">Hindsight bias</a> refers to believing past events as having been predictable and reasonable to expect. This behavior results from the obvious fact that outcomes that did occur are more readily evident than outcomes that did not. Similarly, people tend to remember their own predictions of the future as more accurate than they actually were because they are biased by the knowledge of what actually occurred. Poorly reasoned decisions with positive results may be remembered as brilliant tactical moves, and poor results of well-reasoned decisions may be described as avoidable mistakes.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM4">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 4<span style="display: block;">Hindsight Bias</span></h5>
+<p>Beverly Bolo, an analyst at an investment advisory firm, is giving a presentation to clients that, among other topics, explains the firm’s investment results during past macroeconomic downturns. In the presentation, Bolo points out that the “occurrence of the last recession was obvious upon inspection of the yield curve and other leading indicators eight months before the downturn started.”</p>
+<p>Bolo’s comment exhibits hindsight bias. Recessions, like any other event, appear obvious in hindsight but are hardly ever accurately predicted. Bolo could augment her remarks by exploring how often these leading indicators suggested that a recession is imminent against how often a recession subsequently occurred.</p>
+</div>
+<section id="CFA2252-R-s03-01-05-02">
+<h5>Consequences of Hindsight Bias</h5>
+<p>As a result of hindsight bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L9">
+<li class="cfa-curriculum-list-item">
+<p>Overestimate the degree to which they correctly predicted an investment outcome, or the predictability of an outcome generally. This bias is closely related to overconfidence bias, which is discussed later in the reading.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Unfairly assess money manager or security performance. Based on the ability to look back at what has taken place in securities markets, performance is compared against what has happened as opposed to expectations at the time the investment was made.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s03-01-05-03">
+<h5>Detection of and Guidelines for Overcoming Hindsight Bias</h5>
+<p>Once understood, hindsight bias should be recognizable. FMPs should ask such questions as, “Am I re-writing history or being honest with myself about the mistakes I made?”</p>
+<p>To guard against hindsight bias, FMPs should carefully record their investment decisions and key reasons for making those decisions in writing at or around the time the decision is made. Consulting these written records rather than memory will often produce a far more accurate examination of past decisions.</p>
+</section>
+</section>
+</section>
+<section id="CFA2252-R-s03-02">
+<h3 class="dp-heading">Processing Errors</h3>
+<p>Processing errors refer to information being processed and used illogically or irrationally. As opposed to belief perseverance biases, processing errors are less related to errors of memory or in assigning and updating probabilities; rather, they relate more closely to flaws in how information itself is processed.</p>
+<section id="CFA2252-R-s03-02-01">
+<h4>Anchoring and Adjustment Bias</h4>
+<p><a aria-describedby="AnchoringAndAdjustmentBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#AnchoringAndAdjustmentBiasContent">Anchoring and adjustment bias</a> refers to relying on an initial piece of information to make subsequent estimates, judgments, and decisions. When required to estimate a value with unknown magnitude, people generally begin with some initial default number—an “anchor”—which they then adjust up or down. Regardless of how the initial anchor was chosen, people tend to adjust their anchors insufficiently and produce end approximations that are, consequently, biased. Anchoring and adjustment bias is closely related to conservatism bias. Bayes Rule again provides guidance for how new information should be incorporated into changing prior beliefs.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM5">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 5<span style="display: block;">Anchoring and Adjustment Bias</span></h5>
+<p>Aiden Smythe is an equity research analyst at a brokerage firm. Smythe covers Industrial Lift Plc, a company that manufactures construction machinery. The company’s business is sensitive to macroeconomic conditions, particularly non-residential construction activity. Last year, Industrial Lift reported £1.00 in EPS amid mostly strong non-residential construction activity levels. Smythe is updating his EPS estimate for this year. Non-residential construction activity has severely declined in the last two months, and some economists fear that a recession is likely. As a result, Smythe forecasts that EPS will fall 10% from the prior-year level, publishing a £0.90 estimate for the year.</p>
+<p>Smythe’s estimate exhibits anchoring and adjustment. Smythe’s anchor is the prior year’s EPS of £1.00, despite the possibility of a material change in underlying conditions.</p>
+</div>
+<section id="CFA2252-R-s03-02-01-02">
+<h5>Consequences of Anchoring and Adjustment Bias</h5>
+<p>As a result of anchoring and adjustment bias, FMPs may stick too closely to their original estimates when learning new information. This mindset is not limited to downside adjustments; the same phenomenon occurs with upside adjustments as well.</p>
+</section>
+<section id="CFA2252-R-s03-02-01-03">
+<h5>Detection of and Guidelines for Overcoming Anchoring and Adjustment Bias</h5>
+<p>The primary action FMPs can take is consciously asking questions that may reveal an anchoring and adjustment bias. Examples of such questions include, “Am I holding onto this stock based on rational analysis, or am I trying to attain a price that I am anchored to, such as the purchase price or a high water mark?” and “Am I making this forecast based on previously observed quantities or based on future expected conditions?”</p>
+<p>It is important to remember that a company’s revenues and earnings for a given period reflect conditions in that period. If the conditions in the future differ from the past, revenues and earnings will likely differ as well, sometimes radically. Similarly, security prices reflect investors’ perception of the future at a given point in time; a given investor’s cost basis, past market levels, and other conditions based in the past are often irrelevant. FMPs should look at the basis for any investment recommendation to see whether it is anchored to previous estimates or some “default” number.</p>
+</section>
+</section>
+<section id="CFA2252-R-s03-02-02">
+<h4>Mental Accounting Bias</h4>
+<p><a aria-describedby="MentalAccountingBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MentalAccountingBiasContent">Mental accounting bias</a> refers to mentally dividing money into “accounts” that influence decisions, even though money is <a aria-describedby="FungibleContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#FungibleContent">fungible</a> (<a aria-describedby="CFA2252-R-R11Content" class="dp-popover-trigger" href="#CFA2252-R-R11Content">Thaler 1980</a>). Despite traditional finance theory assuming that FMPs consider their entire portfolio holistically in a risk–return context, <a aria-describedby="CFA2252-R-R9Content" class="dp-popover-trigger" href="#CFA2252-R-R9Content">Statman (1999</a>, <a aria-describedby="CFA2252-R-R10Content" class="dp-popover-trigger" href="#CFA2252-R-R10Content">2008</a>) contends that the difficulty individuals have in addressing the interaction of different investments leads to mental accounting: Investors construct portfolios in a layered pyramid format, with each layer addressing a specific financial goal.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM6">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 6<span style="display: block;">Mental Accounting Bias</span></h5>
+<p>Kendra Liu, an individual investor, owns shares in New Horizons Ltd., a pharmaceutical company. A drug in that company’s research and development pipeline unexpectedly succeeds in a clinical trial, resulting in the shares doubling overnight. Liu sells half of her position in New Horizons and uses the proceeds to purchase shares of Cutting Edge Ltd., a small-cap biotechnology company. Liu believes that an investment in Cutting Edge is a “high-risk, high-reward bet” that could result in a total loss, but she is comfortable making the investment because she is using the proceeds from the sale of New Horizons Ltd., money that she did not expect to have anyway.</p>
+<p>Liu’s investment in Cutting Edge exhibits mental accounting bias. She has sorted the gains from New Horizons into a mental account based on its source, even though the money is fungible. Liu should invest the proceeds in a manner consistent with a holistic portfolio strategy.</p>
+</div>
+<section id="CFA2252-R-s03-02-02-02">
+<h5>Consequences of Mental Accounting Bias</h5>
+<p>As a result of mental accounting bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L10">
+<li class="cfa-curriculum-list-item">
+<p>Neglect opportunities to reduce risk by combining assets with low correlations. Offsetting positions across various portfolio layers or mental accounts can lead to suboptimal aggregate performance.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Irrationally distinguish between returns derived from income and those derived from capital appreciation. Although many investors feel the need to preserve principal, they focus on the idea of spending income that the principal generates. As a result, many FMPs chase income streams, unwittingly risking principal in the process.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Irrationally bifurcate wealth or a portfolio into investment principal and investment returns. Some FMPs may believe that greater risk can be taken with returns (from either income or capital appreciation) than the principal initially contributed. A common euphemism for this scenario, from the casino world, is “playing with house money.”</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s03-02-02-03">
+<h5>Detection of and Guidelines for Overcoming Mental Accounting Bias</h5>
+<p>An effective way to detect and overcome mental accounting behavior is to recognize its drawbacks. The primary drawback is that correlations between investments are not considered, leading to unintentional risk taking. FMPs should go through the exercise of combining all of their assets onto one spreadsheet (without headings or account labels) to see the holistic asset allocation. This exercise often produces information that is surprising when seen as a whole, such as higher cash balances than expected. The logical next step would be to create a portfolio strategy taking all assets into consideration.</p>
+</section>
+</section>
+<section id="CFA2252-R-s03-02-03">
+<h4>Framing Bias</h4>
+<p><a aria-describedby="FramingBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#FramingBiasContent">Framing bias</a> is an information-processing bias in which a person answers a question differently based on the way in which it is asked or framed. It is often possible to frame a given decision problem in more than one way.</p>
+<p>For example, a situation may be presented within a <em>gain</em> context (one in four start-up companies succeed) or within a <em>loss</em> context (three out of four start-ups fail). Given the first frame, an FMP may adopt a positive outlook and make venture capital investments. Given the second frame, the FMP might not.</p>
+<p>Narrow framing occurs when people evaluate information based on a <em>narrow frame</em> of reference—that is, losing sight of the big picture in favor of one or two specific points. For example, an investor might focus solely on a company’s executive management team, overlooking or even dismissing other important properties such as industry characteristics, fundamental performance, and valuation.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM7">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 7<span style="display: block;">Effects of Framing Bias</span></h5>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Decision-making frames are quite prevalent in the context of investor behavior. Risk tolerance questionnaires can demonstrate how framing bias may occur in practice and how FMPs should be aware of its effects.</p>
+<p>Suppose an investor is to take a risk tolerance questionnaire for the purpose of determining which “risk category” she is in. The risk category will determine asset allocations and the appropriate types of investments. The following information is provided to each questionnaire taker:</p>
+<p style="padding-left: 20px">Over a 10-year period, Portfolio ABC has averaged an annual return of 10% with an annual standard deviation of 16%. Assuming a normal return distribution, in a given year there is a 67% probability that the return will fall within one standard deviation of the mean, a 95% probability that the return will fall within two standard deviations of the mean, and a 99.7% probability that the return will fall within three standard deviations of the mean. Thus, there is a 67% chance that the return earned by Portfolio ABC will be between −6% and 26%, a 95% chance that the return will be between −22% and 42%, and a 99.7% chance that the return will be between −38% and 58%.</p>
+<p>The following two questions focus on hypothetical Portfolio ABC, DEF, and XYZ. The risk and return for each portfolio are the same in each of the two questions, but the presentation of information differs.</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA2252-R-L11">
+<li class="cfa-curriculum-list-item">
+<p>Based on the following chart, which investment portfolio fits your risk tolerance and desire for long-term return?</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2252-R-Ta">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Portfolio</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>95% Probability Return Range</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>10-Year Average Return</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">XYZ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.5% to 6.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">DEF</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−18.0% to 30.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ABC</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−22.0% to 42.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10.0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Based on the following chart, which investment portfolio fits your risk tolerance and desire for long-term return?</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2252-R-Tb">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Portfolio</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>10-Year Average Return</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Standard Deviation of Returns</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">XYZ</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">DEF</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">12.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ABC</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">16.0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</li>
+</ol>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<p>An investor may choose different portfolios when asked Question 1 compared with Question 2. Portfolio XYZ may appear more attractive in the first question, which uses two standard deviations to define the range of returns and show the risk, than in the second, which shows only the standard deviations. Also, in the second question, the returns are presented first and the measure of risk second. Thus, how questions are framed and the order in which they are presented can significantly affect how they are answered. FMPs should be acutely aware of how framing can affect investment choices.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="CFA2252-R-s03-02-03-02">
+<h5>Consequences of Framing Bias</h5>
+<p>As a result of framing bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L13">
+<li class="cfa-curriculum-list-item">
+<p>Misidentify risk tolerances because of how questions about risk tolerance were framed, becoming more risk-averse when presented with a gain frame of reference and more risk-seeking when presented with a loss frame of reference. This misidentification may result in suboptimal portfolios.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Focus on short-term price fluctuations, which may result in long-run considerations being ignored in the decision-making process.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s03-02-03-03">
+<h5>Detection of and Guidelines for Overcoming Framing Bias</h5>
+<p>Framing bias is detected by asking such questions as, “Is the decision the result of focusing on a net gain or net loss position?” As discussed earlier, an investor who has framed the decision as a potential net loss is more likely to select a riskier investment; if the decision is framed as a potential net gain, however, the investor is more likely to go with a less risky investment. When making decisions, FMPs should try to eliminate any reference to gains and losses already incurred. Instead, they should focus on the future prospects of an investment and try to be as neutral and open-minded as possible when interpreting investment-related situations.</p>
+</section>
+</section>
+<section id="CFA2252-R-s03-02-04">
+<h4>Availability Bias</h4>
+<p><a aria-describedby="AvailabilityBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#AvailabilityBiasContent">Availability bias</a> is an information-processing bias in which people estimate the probability of an outcome or the importance of a phenomenon based on how easily information is recalled. Various sources of availability bias exist; the four most applicable to FMPs are retrievability, categorization, narrow range of experience, and resonance.</p>
+<p>Retrievability: If an answer or idea comes to mind more quickly than another answer or idea, the first answer or idea will likely be chosen as correct even if it is not the reality.</p>
+<p>Categorization: When solving problems, people gather information from what they perceive as relevant search sets. Different problems require different search sets, which are often based on familiar categorizations. If it is difficult to come up with a search set, because the object of the search is difficult to characterize, the estimated probability of an event may be biased.</p>
+<p>Narrow Range of Experience: When making an estimate, a person may use only a narrow range of experience instead of considering multiple perspectives. For example, assuming a product or service that has launched successfully in one country will be globally successful.</p>
+<p>Resonance: People are often biased by how closely a situation parallels their own personal situation.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM8">
+<h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 8<span style="display: block;">Availability Bias</span></h5>
+<p>A portfolio manager asks an analyst to research and present a list of companies that have “strong growth potential.” The manager suggests looking for companies that sell a product or service different from its competitors—but with a compelling value proposition for customers—and that have a small share of a large market.</p>
+<p>The analyst is familiar with technology companies, software in particular, based on prior work experience. The analyst has also seen a lot of news articles covering various software companies that, he believes, fit the criteria. The analyst begins screening among technology companies that have high revenue growth rates for the last two quarters. Although the analyst is aware that other companies in other sectors probably fit the criteria as well, the criteria are qualitative and vague such that they cannot be easily translated as screening input.</p>
+<p>The analyst’s behavior exhibits availability bias from by considering only technology companies in the search because he is familiar with them. The analyst should consult colleagues and/or external resources to widen his search to include all sectors and for help with creatively specifying screening criteria.</p>
+</div>
+<section id="CFA2252-R-s03-02-04-02">
+<h5>Consequences of Availability Bias</h5>
+<p>As a result of availability bias, FMPs may do the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2252-R-L14">
+<li class="cfa-curriculum-list-item">
+<p>Limit their investment opportunity set. This limitation may result because they use familiar classification schemes. They may restrict investments to stocks or bonds, securities of one country or one sector, and so on.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Choose an investment, investment adviser, or mutual fund based on advertising or the quantity of news coverage. For instance, when asked to name potential mutual fund companies to invest with, many people will name only the funds that do extensive advertising. The choice of mutual fund should be based on a variety of factors that make it a good fit given the investor’s objectives and risk–return profile.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Fail to diversify. This failure may occur because they make their choices based on a narrow range of experience. For example, an investor who works for a company in a particular industry may overweight investments in that industry.</p>
+</li>
+</ul>
+</section>
+<section id="CFA2252-R-s03-02-04-03">
+<h5>Detection of and Guidelines for Overcoming Availability Bias</h5>
+<p>To overcome availability bias, investors need to develop an appropriate investment policy strategy, carefully research and analyze investment decisions before making them, and focus on long-term historical data. Questions such as, “How did you decide which investments to consider? Did you choose investments based on your familiarity with the industry or country? Did you see them in an article or research report?” and “Did you choose your investments because you like the companies’ products?” can help identify issues of categorization, narrow range of experience, and resonance as sources of availability bias. Availability bias may cause FMPs to think that events that receive heavy media attention are more important than they actually are.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2252-R-EXM9">
+<h6 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 9</h6>
+<section>
+<p><strong>The following information relates to Questions 1–5</strong></p>
+<p>Luca Gerber recently became the chief investment officer for the Ludwigs Family Charity, a mid-size private foundation in Switzerland. Prior to assuming this role, Gerber was a well-known health care industry analyst. The Ludwigs’s family fortune is primarily the result of entrepreneurship. Gerhard Ludwigs founded ABC Innovations (ABC), a biotech company dedicated to small cell lung cancer research. The foundation’s portfolio is 15% invested in ABC.</p>
+<p>Gerber initially feels that the 15% investment in ABC is high. Upon review, however, he decides it is appropriate based on the Ludwigs’s involvement and their past success with similar ventures. Gerber makes a mental note to closely monitor the investment in ABC because he is unfamiliar with small-cap start-up companies. The remaining 85% of the foundation’s portfolio is invested in equity of high-quality large-cap pharmaceutical companies. Gerber deems this allocation appropriate and is excited that he can continue to use his superior knowledge of the health care industry.</p>
+<p>For the past two years, ABC has been dedicated to Project M, an effort directed at developing a drug to treat relapses in small cell lung cancer. Project M has delayed its Phase Two trials twice. Published results from Phase One trials have raised some concerns regarding the drug. In its last two quarterly investors’ conference calls, ABC’s CEO was very cautious in discussing expectations for Project M. ABC’s stock price decreased by more than 20% during the past six months. Gerber believes that the research setbacks are temporary because of ABC’s past success with projects. He expects that ABC will begin Phase Two within a year, and he also believes that once Project M goes into Phase Two, ABC’s stock price should reach a new 52-week high of CHF80.</p>
+<p>Soon after deciding to hold the stock, Gerber reads an article by ABC’s chief scientist that details certain scientific results from Project M. As a conclusion, the article states: “Although we still have some major obstacles to overcome, the Project M team has seen positive signs that a treatment for small cell lung cancer is achievable.” Although Gerber has difficulty interpreting the scientific results, he feels reassured after reading the concluding statement.</p>
+<p>Today, ABC announces the news that it will no longer pursue Project M, citing early signs of the project’s failure. In response to the announcement, the stock price drops by 50%. Gerber is stunned. He reviews the company’s history and notes that ABC had made numerous comments on its struggles to solve Project M issues, which make the failure seem predictable at the time.</p>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Gerber’s assessment of the foundation’s 100% allocation to biotechnology and pharmaceutical companies is most likely an example of which bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Framing</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. A consequence of availability bias is a limited investment opportunity set, based on the narrow range of experience of the FMP. Gerber’s prior experience has likely resulted in perceiving a portfolio concentrated in a single sector as appropriate because that sector reflects what he knows.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Availability</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. A consequence of availability bias is a limited investment opportunity set, based on the narrow range of experience of the FMP. Gerber’s prior experience has likely resulted in perceiving a portfolio concentrated in a single sector as appropriate because that sector reflects what he knows.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Hindsight</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. A consequence of availability bias is a limited investment opportunity set, based on the narrow range of experience of the FMP. Gerber’s prior experience has likely resulted in perceiving a portfolio concentrated in a single sector as appropriate because that sector reflects what he knows.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Gerber’s belief that the research setbacks were merely temporary given ABC’s success with past projects is most likely an example of which bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Availability</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Conservatism bias can result in FMPs maintaining or only slowly updating their views when presented with new information, especially when the information is complex. Faced with complex information in the form of clinical trial delays that should have reduced his assessment of Project M’s probability of success, Gerber elected to maintain his original views.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Mental accounting</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Conservatism bias can result in FMPs maintaining or only slowly updating their views when presented with new information, especially when the information is complex. Faced with complex information in the form of clinical trial delays that should have reduced his assessment of Project M’s probability of success, Gerber elected to maintain his original views.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Conservatism</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>C is correct. Conservatism bias can result in FMPs maintaining or only slowly updating their views when presented with new information, especially when the information is complex. Faced with complex information in the form of clinical trial delays that should have reduced his assessment of Project M’s probability of success, Gerber elected to maintain his original views.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Researching the biotechnology industry average probability of success of Phase 2 trials, particularly those that have experienced delays, is a strategy that Gerber could have used to most likely mitigate which behavioral bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Hindsight</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. A form of representativeness bias is base-rate neglect, in which general information, such as the rate of incidence of a phenomenon for its “reference class” of phenomena, is ignored in favor of individual, specific information. Gerber did not consider the “base rate” of the success of Phase 2 trials.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Representativeness</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. A form of representativeness bias is base-rate neglect, in which general information, such as the rate of incidence of a phenomenon for its “reference class” of phenomena, is ignored in favor of individual, specific information. Gerber did not consider the “base rate” of the success of Phase 2 trials.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Framing</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. A form of representativeness bias is base-rate neglect, in which general information, such as the rate of incidence of a phenomenon for its “reference class” of phenomena, is ignored in favor of individual, specific information. Gerber did not consider the “base rate” of the success of Phase 2 trials.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">4. </span>
+<p>Gerber’s approach to reading the article by ABC’s chief scientist could best be described by exhibiting which behavioral bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Representativeness</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Confirmation bias refers to the tendency to seek confirming information and ignore contradictory information. Gerber did not adequately interpret the scientific results or the broader message of the article, choosing instead to focus on the reassuring concluding message that confirmed his existing beliefs.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Confirmation</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Confirmation bias refers to the tendency to seek confirming information and ignore contradictory information. Gerber did not adequately interpret the scientific results or the broader message of the article, choosing instead to focus on the reassuring concluding message that confirmed his existing beliefs.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Mental accounting</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Confirmation bias refers to the tendency to seek confirming information and ignore contradictory information. Gerber did not adequately interpret the scientific results or the broader message of the article, choosing instead to focus on the reassuring concluding message that confirmed his existing beliefs.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id=""><span class="cfa-curriculum-question-with-label">5. </span>
+<p>Gerber’s conclusion, upon re-examining ABC’s history, is most likely an example of which behavioral bias?</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>Confirmation</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Hindsight bias is the result of selectively interpreting the past using knowledge of the present. Although Gerber should have implemented various mitigation strategies over the life of the investment, it is also true that investing, especially investing in a small-cap biotechnology company, is a probabilistic activity. Had Project M succeeded, Gerber may have been tempted to see the investment as evidence of his investment acumen, which would also be biased. The most useful examination of the past for Gerber would be investigating whether any mitigating actions or strategies would have been useful and putting them in place for subsequent investments.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>Hindsight</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Hindsight bias is the result of selectively interpreting the past using knowledge of the present. Although Gerber should have implemented various mitigation strategies over the life of the investment, it is also true that investing, especially investing in a small-cap biotechnology company, is a probabilistic activity. Had Project M succeeded, Gerber may have been tempted to see the investment as evidence of his investment acumen, which would also be biased. The most useful examination of the past for Gerber would be investigating whether any mitigating actions or strategies would have been useful and putting them in place for subsequent investments.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>Conservatism</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i> </span>
+<div class="dp-qc-content">
+<section>
+<h6 class="cfa-curriculum-solution">Solution</h6>
+<p>B is correct. Hindsight bias is the result of selectively interpreting the past using knowledge of the present. Although Gerber should have implemented various mitigation strategies over the life of the investment, it is also true that investing, especially investing in a small-cap biotechnology company, is a probabilistic activity. Had Project M succeeded, Gerber may have been tempted to see the investment as evidence of his investment acumen, which would also be biased. The most useful examination of the past for Gerber would be investigating whether any mitigating actions or strategies would have been useful and putting them in place for subsequent investments.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a>
+</div>
+</div>
+</section>
+</div>
+</section>
+</section>
+</section>
+<div class="dp-content-block cfa-curriculum-reflist">
+<h3 class="dp-has-icon cfa-curriculum-reflist"><i aria-hidden="true" class="dp-icon fas fa-clipboard-list" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Reference List</h3>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title">References</h3>
+<div class="dp-panel-content">
+<ul>
+<li id="CFA2252-R-R9list">Statman, Meir (1999). “Behavioral Finance: Past Battles and Future Engagements.” <em>Financial Analysts Journal</em> vol. 55 (6):18–27. doi:<a href="https://doi.org/10.2469/faj.v55.n6.2311" target="_blank">10.2469/faj.v55.n6.2311</a></li>
+<li id="CFA2252-R-R10list">Statman, Meir (2008). “What Is Behavioral Finance?” In <em>Handbook of Finance</em>, ed. Fabozzi, Frank. Hoboken, NJ: John Wiley &amp; Sons.</li>
+<li id="CFA2252-R-R11list">Thaler, Richard H. (1980). “Toward a Positive Theory of Economic Choice.” <em>Journal of Economic Behavior &amp; Organization</em> vol. 1 (1):39–60. doi:<a href="https://doi.org/10.1016/0167-2681(80)90051-7" target="_blank">10.1016/0167-2681(80)90051-7</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA2252-R-R11Content">Thaler, Richard H. (1980). “Toward a Positive Theory of Economic Choice.” <em>Journal of Economic Behavior &amp; Organization</em> vol. 1 (1):39–60. doi:<a href="https://doi.org/10.1016/0167-2681(80)90051-7" target="_blank">10.1016/0167-2681(80)90051-7</a></div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA2252-R-R9Content">Statman, Meir (1999). “Behavioral Finance: Past Battles and Future Engagements.” <em>Financial Analysts Journal</em> vol. 55 (6):18–27. doi:<a href="https://doi.org/10.2469/faj.v55.n6.2311" target="_blank">10.2469/faj.v55.n6.2311</a></div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA2252-R-R10Content">Statman, Meir (2008). “What Is Behavioral Finance?” In <em>Handbook of Finance</em>, ed. Fabozzi, Frank. Hoboken, NJ: John Wiley &amp; Sons.</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="CognitiveDissonanceContent">
+<p>The mental discomfort that occurs when new information conflicts with previously held beliefs or cognitions.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ConservatismBiasContent">
+<p>A belief perseverance bias in which people maintain their prior views or forecasts by inadequately incorporating new information.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="CognitiveCostContent">
+<p>The effort involved in processing new information and updating beliefs.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ConfirmationBiasContent">
+<p>A type of cognitive bias that makes individuals view information that confirms beliefs they already hold as more salient.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RepresentativenessBiasContent">
+<p>A belief perseverance bias in which people tend to classify new information based on past experiences and classifications.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="BaseRateNeglectContent">
+<p>A type of representativeness bias in which the base rate or probability of the categorization is not adequately considered.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SampleSizeNeglectContent">
+<p>A type of representativeness bias in which financial market participants incorrectly assume that small sample sizes are representative of populations (or “real” data).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="IllusionOfControlBiasContent">
+<p>A bias in which people tend to believe that they can control or influence outcomes when, in fact, they cannot.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="HindsightBiasContent">
+<p>A type of cognitive bias that makes individuals misremember the past in ways that make them appear to have made better and more well-informed choices.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="AnchoringAndAdjustmentBiasContent">
+<p>An information-processing bias in which the use of a psychological heuristic influences the way people estimate probabilities.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MentalAccountingBiasContent">
+<p>An information-processing bias in which people treat one sum of money differently from another equal-sized sum based on which mental account the money is assigned to.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="FungibleContent">
+<p>Freely exchangeable, interchangeable, or substitutable with other things of the same type. Money and commodities are the most common examples.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="FramingBiasContent">
+<p>An information-processing bias in which a person answers a question differently based on the way in which it is asked (framed).</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="AvailabilityBiasContent">
+<p>An information-processing bias in which people take a heuristic approach to estimating the probability of an outcome based on how easily the outcome comes to mind.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146060_502_Behavioral_Bias_Categories.html" >← 前へ</a>
+  <span class="title">5.03 | Cognitive Errors</span>
+  <a href="courses_1872_modules_items_146070_504_Emotional_Biases.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

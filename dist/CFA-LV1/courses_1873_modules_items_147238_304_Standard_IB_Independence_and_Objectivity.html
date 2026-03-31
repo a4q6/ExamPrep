@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.04 | Standard I(B) Independence and Objectivity</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s04-R-1" title="3.04 | Standard I(B) Independence and Objectivity"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.04 | Standard I(B) Independence and Objectivity</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">demonstrate the application of the Code of Ethics and Standards of Professional Conduct to situations involving issues of professional integrity</li>
+<li class="cfa-curriculum-los-item">recommend practices and procedures designed to prevent violations of the Code of Ethics and Standards of Professional Conduct</li>
+<li class="cfa-curriculum-los-item">identify conduct that conforms to the Code and Standards and conduct that violates the Code and Standards</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="">
+<h3 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i></h3>
+<p>Members and Candidates must use reasonable care and judgment to achieve and maintain independence and objectivity in their professional activities. Members and Candidates must not offer, solicit, or accept any gift, benefit, compensation, or consideration that reasonably could be expected to compromise their own or another’s independence and objectivity.</p>
+</div>
+<section id="CFA0008-R-s04-01-01">
+<h3 class="dp-heading">Guidance</h3>
+<p><strong>Highlights:</strong></p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0008-R-s04-L1">
+<li class="cfa-curriculum-list-item">
+<p><em>Buy-Side Clients</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Fund Manager and Custodial Relationships</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Investment Banking Relationships</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Performance Measurement and Attribution</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Public Companies</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Credit Rating Agency Opinions</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Influence during the Manager Selection/Procurement Process</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Issuer-Paid Research</em></p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><em>Travel Funding</em></p>
+</li>
+</ul>
+<p>Standard I(B) states the responsibility of CFA Institute members and candidates in the CFA Program to maintain independence and objectivity so that their clients will have the benefit of their work and opinions unaffected by any potential conflict of interest or other circumstance adversely affecting their judgment. Every member and candidate should endeavor to avoid situations that could cause or be perceived to cause a loss of independence or objectivity in recommending investments or taking investment action.</p>
+<p>External sources may try to influence the investment process by offering analysts and portfolio managers a variety of benefits. Corporations may seek expanded research coverage, issuers and underwriters may wish to promote new securities offerings, brokers may want to increase commission business, and independent rating agencies may be influenced by the company requesting the rating. Benefits may include gifts, invitations to lavish functions, tickets, favors, or job referrals. One type of benefit is the allocation of shares in oversubscribed IPOs to investment managers for their personal accounts. This practice affords managers the opportunity to make quick profits that may not be available to their clients. Such a practice is prohibited under Standard I(B). Modest gifts and entertainment are acceptable, but special care must be taken by members and candidates to resist subtle and not-so-subtle pressures to act in conflict with the interests of their clients. Best practice dictates that members and candidates reject any offer of gift or entertainment that could be expected to threaten their independence and objectivity.</p>
+<p>Receiving a gift, benefit, or consideration from a <em>client</em> can be distinguished from gifts given by entities seeking to influence a member or candidate to the detriment of other clients. In a client relationship, the client has already entered some type of compensation arrangement with the member, candidate, or his or her firm. A gift from a client could be considered supplementary compensation. The potential for obtaining influence to the detriment of other clients, although present, is not as great as in situations where no compensation arrangement exists. When possible, prior to accepting “bonuses” or gifts from clients, members and candidates should disclose to their employers such benefits offered by clients. If notification is not possible prior to acceptance, members and candidates must disclose to their employer benefits previously accepted from clients. Disclosure allows the employer of a member or candidate to make an independent determination about the extent to which the gift may affect the member’s or candidate’s independence and objectivity.</p>
+<p>Members and candidates may also come under pressure from their own firms to, for example, issue favorable research reports or recommendations for certain companies with potential or continuing business relationships with the firm. The situation may be aggravated if an executive of the company sits on the bank or investment firm’s board and attempts to interfere in investment decision making. Members and candidates acting in a sales or marketing capacity must be especially mindful of their objectivity in promoting appropriate investments for their clients.</p>
+<p>Left unmanaged, pressures that threaten independence place research analysts in a difficult position and may jeopardize their ability to act independently and objectively. One of the ways that research analysts have coped with these pressures in the past is to use subtle and ambiguous language in their recommendations or to temper the tone of their research reports. Such subtleties are lost on some investors, however, who reasonably expect research reports and recommendations to be straightforward and transparent and to communicate clearly an analyst’s views based on unbiased analysis and independent judgment.</p>
+<p>Members and candidates are personally responsible for maintaining independence and objectivity when preparing research reports, making investment recommendations, and taking investment action on behalf of clients. Recommendations must convey the member’s or candidate’s true opinions, free of bias from internal or external pressures, and be stated in clear and unambiguous language.</p>
+<p>Members and candidates also should be aware that some of their professional or social activities within CFA Institute or its member societies may subtly threaten their independence or objectivity. When seeking corporate financial support for conventions, seminars, or even weekly society luncheons, the members or candidates responsible for the activities should evaluate both the actual effect of such solicitations on their independence and whether their objectivity might be perceived to be compromised in the eyes of their clients.</p>
+<section id="CFA0008-R-s04-01-01-01">
+<h4>Buy-Side Clients</h4>
+<p>One source of pressure on sell-side analysts is buy-side clients. Institutional clients are traditionally the primary users of sell-side research, either directly or with soft dollar brokerage. Portfolio managers may have significant positions in the security of a company under review. A rating downgrade may adversely affect the portfolio’s performance, particularly in the short term, because the sensitivity of stock prices to ratings changes has increased in recent years. A downgrade may also affect the manager’s compensation, which is usually tied to portfolio performance. Moreover, portfolio performance is subject to media and public scrutiny, which may affect the manager’s professional reputation. Consequently, some portfolio managers implicitly or explicitly support sell-side ratings inflation.</p>
+<p>Portfolio managers have a responsibility to respect and foster the intellectual honesty of sell-side research. Therefore, it is improper for portfolio managers to threaten or engage in retaliatory practices, such as reporting sell-side analysts to the covered company in order to instigate negative corporate reactions. Although most portfolio managers do not engage in such practices, the perception by the research analyst that a reprisal is possible may cause concern and make it difficult for the analyst to maintain independence and objectivity.</p>
+</section>
+<section id="CFA0008-R-s04-01-01-02">
+<h4>Fund Manager and Custodial Relationships</h4>
+<p>Research analysts are not the only people who must be concerned with maintaining their independence. Members and candidates who are responsible for hiring and retaining outside managers and third-party custodians should not accepts gifts, entertainment, or travel funding that may be perceived as impairing their decisions. The use of secondary fund managers has evolved into a common practice to manage specific asset allocations. The use of third-party custodians is common practice for independent investment advisory firms and helps them with trading capabilities and reporting requirements. Primary and secondary fund managers, as well as third-party custodians, often arrange educational and marketing events to inform others about their business strategies, investment process, or custodial services. Members and candidates must review the merits of each offer individually in determining whether they may attend yet maintain their independence.</p>
+</section>
+<section id="CFA0008-R-s04-01-01-03">
+<h4>Investment Banking Relationships</h4>
+<p>Some sell-side firms may exert pressure on their analysts to issue favorable research reports on current or prospective investment banking clients. For many of these firms, income from investment banking has become increasingly important to overall firm profitability because brokerage income has declined as a result of price competition. Consequently, firms offering investment banking services work hard to develop and maintain relationships with investment banking clients and prospects. These companies are often covered by the firm’s research analysts because companies often select their investment banks on the basis of the reputation of their research analysts, the quality of their work, and their standing in the industry.</p>
+<p>In some countries, research analysts frequently work closely with their investment banking colleagues to help evaluate prospective investment banking clients. In other countries, because of past abuses in managing the obvious conflicts of interest, regulators have established clear rules prohibiting the interaction of these groups. Although collaboration between research analysts and investment banking colleagues may benefit the firm and enhance market efficiency (e.g., by allowing firms to assess risks more accurately and make better pricing assumptions), it requires firms to carefully balance the conflicts of interest inherent in the collaboration. Having analysts work with investment bankers is appropriate only when the conflicts are adequately and effectively managed and disclosed. Firm managers have a responsibility to provide an environment in which analysts are neither coerced nor enticed into issuing research that does not reflect their true opinions. Firms should require public disclosure of actual conflicts of interest to investors.</p>
+<p>Members, candidates, and their firms must adopt and follow perceived best practices in maintaining independence and objectivity in the corporate culture and protecting analysts from undue pressure by their investment banking colleagues. The “firewalls” traditionally built between these two functions must be managed to minimize conflicts of interest; indeed, enhanced firewall policies may go as far as prohibiting all communications between these groups. A key element of an enhanced firewall is separate reporting structures for personnel on the research side and personnel on the investment banking side. For example, investment banking personnel should not have any authority to approve, disapprove, or make changes to research reports or recommendations. Another element should be a compensation arrangement that minimizes the pressures on research analysts and rewards objectivity and accuracy. Compensation arrangements should not link analyst remuneration directly to investment banking assignments in which the analyst may participate as a team member. Firms should also regularly review their policies and procedures to determine whether analysts are adequately safeguarded and to improve the transparency of disclosures relating to conflicts of interest. The highest level of transparency is achieved when disclosures are prominent and specific rather than marginalized and generic.</p>
+</section>
+<section id="CFA0008-R-s04-01-01-04">
+<h4>Performance Measurement and Attribution</h4>
+<p>Members and candidates working within a firm’s investment performance measurement department may also be presented with situations that challenge their independence and objectivity. As performance analysts, their analyses may reveal instances where managers may appear to have strayed from their mandate. Additionally, the performance analyst may receive requests to alter the construction of composite indexes owing to negative results for a selected account or fund. The member or candidate must not allow internal or external influences to affect their independence and objectivity as they faithfully complete their performance calculation and analysis-related responsibilities.</p>
+</section>
+<section id="CFA0008-R-s04-01-01-05">
+<h4>Public Companies</h4>
+<p>Analysts may be pressured to issue favorable reports and recommendations by the companies they follow. Not every stock is a “buy,” and not every research report is favorable—for many reasons, including the cyclical nature of many business activities and market fluctuations. For instance, a “good company” does not always translate into a “good stock” rating if the current stock price is fully valued. In making an investment recommendation, the analyst is responsible for anticipating, interpreting, and assessing a company’s prospects and stock price performance in a factual manner. Many company managers, however, believe that their company’s stock is undervalued, and these managers may find it difficult to accept critical research reports or ratings downgrades. Company managers’ compensation may also be dependent on stock performance.</p>
+<p>Due diligence in financial research and analysis involves gathering information from a wide variety of sources, including public disclosure documents (such as proxy statements, annual reports, and other regulatory filings) and also company management and investor-relations personnel, suppliers, customers, competitors, and other relevant sources. Research analysts may justifiably fear that companies will limit their ability to conduct thorough research by denying analysts who have “negative” views direct access to company managers and/or barring them from conference calls and other communication venues. Retaliatory practices include companies bringing legal action against analysts personally and/or their firms to seek monetary damages for the economic effects of negative reports and recommendations. Although few companies engage in such behavior, the perception that a reprisal is possible is a reasonable concern for analysts. This concern may make it difficult for them to conduct the comprehensive research needed to make objective recommendations. For further information and guidance, members and candidates should refer to the CFA Institute publication <em>Best Practice Guidelines Governing Analyst/Corporate Issuer Relations</em> (<a href="https://rpc.cfainstitute.org/policy/positions/best-practice-guidelines-governing-analyst">Best Practice Guidelines Governing Analyst/Corporate Issuer Relations | CFA Institute Research and Policy Center</a>).</p>
+</section>
+<section id="CFA0008-R-s04-01-01-06">
+<h4>Credit Rating Agency Opinions</h4>
+<p>Credit rating agencies provide a service by grading the fixed-income products offered by companies. Analysts face challenges related to incentives and compensation schemes that may be tied to the final rating and successful placement of the product. Members and candidates employed at rating agencies should ensure that procedures and processes at the agencies prevent undue influences from a sponsoring company during the analysis. Members and candidates should abide by their agencies’ and the industry’s standards of conduct regarding the analytical process and the distribution of their reports.</p>
+<p>The work of credit rating agencies also raises concerns similar to those inherent in investment banking relationships. Analysts may face pressure to issue ratings at a specific level because of other services the agency offers companies—namely, advising on the development of structured products. The rating agencies need to develop the necessary firewalls and protections to allow the independent operations of their different business lines.</p>
+<p>When using information provided by credit rating agencies, members and candidates should be mindful of the potential conflicts of interest. And because of the potential conflicts, members and candidates may need to independently validate the rating granted.</p>
+</section>
+<section id="CFA0008-R-s04-01-01-07">
+<h4>Influence during the Manager Selection/Procurement Process</h4>
+<p>Members and candidates may find themselves on either side of the manager selection process. An individual may be on the hiring side as a representative of a pension organization or an investment committee member of an endowment or a charitable organization. Additionally, other members may be representing their organizations in attempts to earn new investment allocation mandates. The responsibility of members and candidates to maintain their independence and objectivity extends to the hiring or firing of those who provide business services beyond investment management.</p>
+<p>When serving in a hiring capacity, members and candidates should not solicit gifts, contributions, or other compensation that may affect their independence and objectivity. Solicitations do not have to benefit members and candidates personally to conflict with Standard I(B). Requesting contributions to a favorite charity or political organization may also be perceived as an attempt to influence the decision-making process. Additionally, members and candidates serving in a hiring capacity should refuse gifts, donations, and other offered compensation that may be perceived to influence their decision-making process.</p>
+<p>When working to earn a new investment allocation, members and candidates should not offer gifts, contributions, or other compensation to influence the decision of the hiring representative. The offering of these items with the intent to impair the independence and objectivity of another person would not comply with Standard I(B). Such prohibited actions may include offering donations to a charitable organization or political candidate referred by the hiring representative.</p>
+<p>A clear example of improperly influencing hiring representatives was displayed in the “pay-to-play” scandal involving government-sponsored pension funds in the United States. Managers looking to gain lucrative allocations from the large funds made requested donations to the political campaigns of individuals directly responsible for the hiring decisions. This scandal and other similar events have led to new laws requiring additional reporting concerning political contributions and bans on hiring—or hiring delays for—managers that made campaign contributions to representatives associated with the decision-making process.</p>
+</section>
+<section id="CFA0008-R-s04-01-01-08">
+<h4>Issuer-Paid Research</h4>
+<p>In light of the recent reduction of sell-side research coverage, many companies, seeking to increase visibility both in the financial markets and with potential investors, have hired analysts to produce research reports analyzing their companies. These reports bridge the gap created by the lack of coverage and can be an effective method of communicating with investors.</p>
+<p>Issuer-paid research conducted by independent analysts, however, is fraught with potential conflicts. Depending on how the research is written and distributed, investors may be misled into believing that the research is from an independent source when, in reality, it has been paid for by the subject company.</p>
+<p>Members and candidates must adhere to strict standards of conduct that govern how the research is to be conducted and what disclosures must be made in the report. Analysts must engage in thorough, independent, and unbiased analysis and must fully disclose potential conflicts of interest, including the nature of their compensation. Otherwise, analysts risk misleading investors.</p>
+<p>Investors need clear, credible, and thorough information about companies, and they need research based on independent thought. At a minimum, issuer-paid research should include a thorough analysis of the company’s financial statements based on publicly disclosed information, benchmarking within a peer group, and industry analysis. Analysts must exercise diligence, independence, and thoroughness in conducting their research in an objective manner. Analysts must distinguish between fact and opinion in their reports. Conclusions must have a reasonable and adequate basis and must be supported by appropriate research.</p>
+<p>Independent analysts must also strictly limit the type of compensation that they accept for conducting issuer-paid research. Otherwise, the content and conclusions of the reports could reasonably be expected to be determined or affected by compensation from the sponsoring companies. Compensation that might influence the research report could be direct, such as payment based on the conclusions of the report, or indirect, such as stock warrants or other equity instruments that could increase in value on the basis of positive coverage in the report. In such instances, the independent analyst has an incentive to avoid including negative information or making negative conclusions. Best practice is for independent analysts, prior to writing their reports, to negotiate only a flat fee for their work that is not linked to their conclusions or recommendations.</p>
+</section>
+<section id="CFA0008-R-s04-01-01-09">
+<h4>Travel Funding</h4>
+<p>The benefits related to accepting paid travel extend beyond the cost savings to the member or candidate and his firm, such as the chance to talk exclusively with the executives of a company or learning more about the investment options provided by an investment organization. Acceptance also comes with potential concerns; for example, members and candidates may be influenced by these discussions when flying on a corporate or chartered jet or attending sponsored conferences where many expenses, including airfare and lodging, are covered. To avoid the appearance of compromising their independence and objectivity, best practice dictates that members and candidates always use commercial transportation at their expense or at the expense of their firm rather than accept paid travel arrangements from an outside company. Should commercial transportation be unavailable, members and candidates may accept modestly arranged travel to participate in appropriate information-gathering events, such as a property tour.</p>
+</section>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147235_303_Standard_IA_Application_of_the_Standard.html" >← 前へ</a>
+  <span class="title">3.04 | Standard I(B) Independence and Objectivity</span>
+  <a href="courses_1873_modules_items_147241_305_Standard_IB_Recommended_Procedures.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

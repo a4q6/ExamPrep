@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.03 | Option Exercise Value</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1006-R-s03" title="8.03 | Option Exercise Value">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 8: Pricing and Valuation of Options</span>8.03 | Option Exercise Value</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">explain the exercise value, moneyness, and time value of an option</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>An option buyer will exercise a call or put option at maturity only if it returns a positive payoff—that is:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1006-s03-L1">
+<li class="cfa-curriculum-list-item">
+<p>(<em>S<sub>T</sub> </em> − <em>X</em>) &gt; 0 for a call</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>(<em>X</em> − <em>S<sub>T</sub> </em>) &gt; 0 for a put</p>
+</li>
+</ul>
+<p>If not exercised, the option expires worthless and the option buyer’s loss equals the premium paid.</p>
+<p>At any time <em>before</em> maturity (<em>t</em> &lt; <em>T</em>), buyers and sellers often gauge an option’s value by comparing the underlying spot price (<em>S<sub>t</sub> </em>) with the exercise price (<em>X</em>) to determine the option’s exercise value at time <em>t</em>. This is the option contract’s value <em>if</em> the option were exercisable at time <em>t</em>. The exercise value for a call and a put option at time t incorporating the time value of money is the difference between the spot price (<em>S<sub>t</sub> </em>) and the present value of the exercise price (PV(<em>X</em>)), as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s03-E-1-1">Call Option Exercise Value: <math>
+<semantics>
+<mrow>
+<mi>M</mi>
+<mi>a</mi>
+<mi>x</mi>
+<mfenced>
+<mrow>
+<mn>0</mn>
+<mo>,</mo>
+<mtext> </mtext>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+<mo>−</mo>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">1</span></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s03-E-1-2">Put Option Exercise Value: <math>
+<semantics>
+<mrow>
+<mi>M</mi>
+<mi>a</mi>
+<mi>x</mi>
+<mfenced>
+<mrow>
+<mn>0</mn>
+<mo>,</mo>
+<mtext> </mtext>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+</mrow>
+</mfenced>
+</mrow>
+</semantics>
+</math> <span class="cfa-curriculum-display-formula-number">2</span></div>
+<p>If we assume an exercise price, <em>X</em>, equal to the forward price, <em>F<sub>0</sub> </em>(<em>T</em>), the exercise value of a call option is the <em>same</em> as the value of a long forward commitment at time <em>t</em> (<em>V<sub>t</sub> </em>(<em>T</em>)). This forward commitment was shown earlier to equal <em>S<sub>t</sub> </em> − PV(<em>F<sub>0</sub> </em>(<em>T</em>)), <em>provided that</em> <em>S<sub>t</sub> </em> &gt; PV(<em>X</em>). That is, for a call option where <em>F<sub>0</sub> </em>(<em>T</em>) = <em>X</em>:</p>
+<p>If <em>S<sub>t</sub> </em> &gt; PV(<em>X</em>):         <em>S<sub>t</sub> </em> − PV(<em>F</em> <sub>0</sub>(<em>T</em>)) = Max (0, <em>S<sub>t</sub> </em> − PV(<em>X</em>))</p>
+<p>Note that this comparison <em>ignores</em> the upfront call option premium paid by the option buyer (<em>c<sub>0</sub> </em> at time <em>t</em> = 0).</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA1006-s03-EXM-1-1">
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 1<span style="display: block;">Put Option Exercise Value</span></h3>
+<p>Consider the case of a one-year put option with an exercise price (<em>X</em>) of EUR 1,000 and a risk-free rate of 1%. What is the exercise value of the option in six months if the spot price (<em>S<sub>t</sub> </em>) equals EUR 950?</p>
+<p>Use <a class="internal" href="#CFA1006-s03-E-1-2" role="button">Equation 2</a> to solve for Max (0, PV(<em>X</em>) − <em>S<sub>t</sub> </em>):</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s03-E-1-___1"><math>
+<semantics>
+<mrow>
+<mi>X</mi>
+<msup>
+<mrow>
+<mfenced>
+<mrow>
+<mn>1</mn>
+<mo>+</mo>
+<mi>r</mi>
+</mrow>
+</mfenced>
+</mrow>
+<mrow>
+<mo>−</mo>
+<mfenced>
+<mrow>
+<mi>T</mi>
+<mo>−</mo>
+<mi>t</mi>
+</mrow>
+</mfenced>
+</mrow>
+</msup>
+<mo>−</mo>
+<msub>
+<mi>S</mi>
+<mi>t</mi>
+</msub>
+</mrow>
+</semantics>
+</math></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA1006-s03-E-1-950">= EUR 45.04 (= EUR 1,000(1.01)<sup>-0.5</sup> − EUR 950)</div>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1870_modules_items_145448_802_Option_Value_relative_to_the_Underlying_Spot_Price.html" >← 前へ</a>
+  <span class="title">8.03 | Option Exercise Value</span>
+  <a href="courses_1870_modules_items_145454_804_Option_Moneyness.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

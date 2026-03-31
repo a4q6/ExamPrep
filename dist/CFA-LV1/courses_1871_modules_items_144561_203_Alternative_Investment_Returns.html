@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.03 | Alternative Investment Returns</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA2456-R-s03-R-1" title="2.03 | Alternative Investment Returns"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 2: Alternative Investment Performance and Returns</span>2.03 | Alternative Investment Returns</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">calculate and interpret alternative investment returns both before and after fees</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>Hedge funds often use complex strategies to achieve outsized returns with low correlation with the broader market. These more complex strategies require more sophisticated portfolio management tools and a larger range of skills, making them more expensive to run. Rather than paying a very high flat management fee, investors demand that some of the compensation is aligned to the performance delivered by the strategy in the form of a performance fee.</p>
+<p>Apart from the performance fee, there are also other customized, complex compensation arrangements that seek to align manager and investor incentives. These structures are designed to reward investors for early involvement, larger investments, and/or longer lockup periods. Managers benefit from applying specialized knowledge and skills to achieve steadily rising returns in excess of a designated hurdle rate. These complex fee structures impact returns for different investors in the same fund, as well as returns before and after fees across various alternative investments.</p>
+<p>Another factor that can lock in or magnify losses for hedge funds is investor redemptions. Redemptions frequently occur when a hedge fund is performing poorly. Redemptions may require the hedge fund manager to liquidate some positions and potentially receive particularly disadvantageous prices when forced to do so by redemption pressures, while also incurring transaction costs.</p>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="CFA2456-R-s03-B-1-a">
+<h3 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i></h3>
+<p>Funds sometimes charge a <a aria-describedby="RedemptionFeeContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RedemptionFeeContent">redemption fee</a> to discourage redemption and to offset the transaction costs for remaining investors in the fund. A <a aria-describedby="NoticePeriodContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#NoticePeriodContent">notice period</a> is a period (typically 30–90 days) in advance that investors may be required to notify a fund of their intent to redeem some or all their investment. This notice period allows the fund manager an opportunity to liquidate a position in an orderly fashion without magnifying the losses. A <a aria-describedby="LockupPeriodContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#LockupPeriodContent">lockup period</a> is the minimum holding period before investors are allowed to make withdrawals or redeem shares from a fund. This provision is intended to allow the hedge fund manager the required time to implement and potentially realize a strategy’s expected results. If the fund receives a drawdown request shortly after a new investment, the lockup period forces the investors who made the request to stay in the fund for a period of time rather than be allowed to immediately withdraw. In addition, funds sometimes impose a <a aria-describedby="GateContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#GateContent">gate</a>, a provision that when implemented limits or restricts redemptions for a period of time, usually at the discretion of the fund manager. Investors should be aware of their liquidity needs before investing in a fund with restrictive provisions.</p>
+</div>
+<p>A hedge fund’s ability to demand a long lockup period while raising a significant amount of investment capital depends a great deal on the reputation of either the firm or the hedge fund manager. Funds of hedge funds may offer more redemption flexibility than is afforded to direct investors in hedge funds because of special redemption arrangements with the underlying hedge fund managers, the maintenance of added cash reserves, access to temporary bridge-loan financing, or the simple avoidance of less liquid hedge fund strategies.</p>
+<p>Ideally, redemption terms should be designed to match the expected liquidity of the assets being invested in, but even with careful planning, an initial drawdown can turn into something far more serious when it involves illiquid and obscure assets. These left-tailed loss events are not easily modeled for hedge funds.</p>
+<section id="CFA2456-R-s03-01-01">
+<h3 class="dp-heading">Alternative Investment Returns</h3>
+<section id="CFA2456-R-s03-01-01-01">
+<h4>Custom Fee Arrangements</h4>
+<p>Alternative investments often involve customized fee arrangements combining management and performance-based fees that vary based on the size, timing, and/or terms of investor participation in the investment over time. Examples include the following:</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2456-R-s03-L1">
+<li class="cfa-curriculum-list-item">
+<p><strong>Fees based on liquidity terms and asset size:</strong> Limited partnerships may charge different rates depending on the liquidity terms that an investor is willing to accept (longer lockups resulting in lower fees), and managers may discount their fees for larger investors or for placement agents who introduced these investors. Different investors in the same fund may face different fee structures. For example, management fees for large LPs might range from 0.5% to 1.5%, with incentive fees reduced to 10%–15%, depending on the mandate. Such reductions can be meaningful in terms of net realized returns. However, smaller funds with strong performance (and capacity constraints) are able to maintain higher fees and may even decline business from larger investors rather than agree to a lower fee.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><strong>Founders shares:</strong> As a way to entice early participation in startup funds, managers sometimes offer incentives known as <a aria-describedby="FoundersClassSharesContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#FoundersClassSharesContent">founders class shares</a>. Founders shares entitle investors to a lower fee structure, such as a 1.5% management fee and a 10% performance fee rather than a more standard 2% management fee and a 20% performance fee, and may apply only to the first $100 million in assets invested, although cutoff thresholds vary. Another alternative is to reduce the fees for early founders share investors once the fund achieves a critical mass or performance targets.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p><strong>“Either/or” fees:</strong> Major institutional investors, such as the Teacher Retirement System of Texas, have demanded that alternative investment funds accept an <a aria-describedby="EitherorFeeContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#EitherorFeeContent">either/or fee</a> agreement by choosing <em>between</em> fixed management and variable performance fees. Managers agree <em>either</em> to charge a lower, 1% management fee (to cover expenses during down years) <em>or</em> to accept a higher, 30% incentive fee above a mutually agreed-upon annual hurdle (to incentivize and reward managers during up years), whichever is greater. Major investors offering larger commitments may negotiate such novel fee structures designed to reward returns in excess of a benchmark, while smaller investors, such as high-net-worth individuals with smaller commitments, usually face more traditional fees.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="CFA2456-R-s03-01-02">
+<h3 class="dp-heading">Alternative Investment Return Calculations</h3>
+<p>Return calculations vary among alternative investments based on the form of the investments, as described in an earlier lesson. While more liquid alternative investments, such as REITs, commodity index exchange-traded funds, or other frequently traded investments, have a simple management fee structure similar to common assets, those with longer life cycles, illiquidity, and less transparency, such as private equity, hedge funds, and real estate, often use performance fees with modifications to create incentives for managers to act in the best interest of investors.</p>
+<p>The impact of different fee arrangements and their effect on the resulting returns to investors is best illustrated using a series of examples. If we assume fixed GP management fees as a percentage of assets under management (AUM) of <em>r<sub>m</sub></em>, beginning-of-period assets of <em>P</em><sub>0</sub>, end-of-period assets of <em>P</em><sub>1</sub>, and a GP performance fee (<em>p</em>) that is a percentage of total return, the GP’s return in currency terms (<em>R<sub>GP</sub></em>) is as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-4"><em>R<sub>GP</sub> </em> = (<em>P</em><sub>1</sub> × <em>r<sub>m</sub></em>) + max[0, (<em>P</em><sub>1</sub> – <em>P</em><sub>0</sub>) × <em>p</em>].<span class="cfa-curriculum-display-formula-number">4</span></div>
+<p>And we may solve for an investor’s periodic rate of return, <em>r<sub>i</sub> </em>, as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-5"><em>r<sub>i</sub> </em> = (<em>P</em><sub>1</sub> – <em>P</em><sub>0</sub> – <em>R<sub>GP</sub></em>)/<em>P</em><sub>0</sub>.<span class="cfa-curriculum-display-formula-number">5</span></div>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2456-R-s03-EXM-1-3">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 3<span style="display: block;">Kettleside Timberland LP</span></h4>
+<p>Kettleside is a timberland investment management organization with $100 million of initial investment capital. It charges a 1% management fee based on year-end AUM (<em>r<sub>m</sub></em>) and a 20% performance fee (<em>p</em>). In its first year, Kettleside generates a 30% return. Assume management fees are calculated using an end-of-period valuation.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>What are Kettleside’s fees if the performance and management fees are calculated independently? What is an investor’s effective return given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>Using <a class="internal" href="#CFA2456-R-s03-E-1-4" role="button">Equation 4</a> with <em>P</em><sub>0</sub> equal to $100 million, <em>P</em><sub>1</sub> of $130 million, <em>r<sub>m</sub> </em> = 1%, and <em>p</em> = 20%,</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-"><em>R<sub>GP</sub> </em> = $130 million × 1% + max[0, ($130 million – $100 million) × 20%]</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___1">= $7.3 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___2"><em>r<sub>i</sub> </em> = ($130 million – $100 million – $7.3 million)/$100 million</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___3">= 22.7%.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>What are Kettleside’s fees if the performance fee is calculated from the return <em>net</em> of the management fee? What is an investor’s net return given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>In order to solve for GP return where performance fee is calculated <em>net</em> of management fees, we must modify <a class="internal" href="#CFA2456-R-s03-E-1-4" role="button">Equation 4</a> as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-6"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>Net</sub></em><sub>)</sub> = (<em>P</em><sub>1</sub> × <em>r<sub>m</sub></em>) + max{0, [<em>P</em><sub>1</sub>(1 – <em>r<sub>m</sub></em>) – <em>P</em><sub>0</sub>] × <em>p</em>}.<span class="cfa-curriculum-display-formula-number">6</span></div>
+<p>Using Equation 6 with <em>P</em><sub>0</sub> of $100 million, <em>P</em><sub>1</sub> of $130 million, <em>r<sub>m</sub> </em> = 1%, and <em>p</em> = 20%,</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___4"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>Net</sub></em><sub>)</sub> = $130 million × 1% + max{0, [$130 million(0.99) – $100 million] × 20%}</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___5">= $7.04 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___6"><em>r<sub>i</sub> </em> = ($130 million – $100 million – $7.04 million)/$100 million</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___7">= 22.96%.</div>
+<div class="cfa-curriculum-display-formula-container">Note: P<sub>1<sup> </sup></sub>is equal to $130 million – $7.04 million = $122.96 million.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The previous example demonstrates how fee calculations affect investor returns, with a higher return when fees are calculated on a net basis. Alternative investment databases and indexes usually report fund performance net of aggregated fees. If fee structures vary, the actual net-of-fee returns earned by various investors may vary from the quoted return.</p>
+<p>One fee structure variation involves the modification of performance fees using hurdle rates and high-water marks. In the next example, we consider the effect of both on investor returns using the same details from the prior example.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2456-R-s03-EXM-1-4">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 4<span style="display: block;">Kettleside Timberland LP Performance Fee Modifications</span></h4>
+<section>
+<p>As in the prior case, Kettleside Timberland LP has initial capital of $100 million, charging a 1% management fee based on year-end AUM (<em>r<sub>m</sub></em>) and a 20% performance fee (<em>p</em>).</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>If Kettleside’s fee agreement specifies a 6% hurdle rate with performance fees based on returns <em>in excess of</em> the hurdle rate, what are Kettleside’s fees assuming the performance fee is calculated <em>net</em> of the management fee? What is an investor’s net return given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>To solve for Kettleside’s fees with a hard hurdle rate calculated net of management fees, we make a further adjustment to <a class="internal" href="#CFA2456-R-s03-E-1-4" role="button">Equation 4</a> by incorporating the hurdle rate, <em>r<sub>h</sub> </em>, as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-7"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>Net with Hurdle</sub></em><sub>)</sub> = (<em>P</em><sub>1</sub> × <em>r<sub>m</sub></em>) + max{0, [<em>P</em><sub>1</sub>(1 – <em>r<sub>m</sub></em>) – <em>P</em><sub>0</sub> × (1 + <em>r<sub>h</sub></em>)] × <em>p</em>}<span class="cfa-curriculum-display-formula-number">7</span></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___8"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>Net with Hurdle</sub></em><sub>)</sub> = $130 million × 1% + max{0, [$130 million(0.99) – $100 million(1.06)] × 20%}</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___9">= $5.84 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___10"><em>r<sub>i</sub> </em> = ($130 million – $100 million – $5.84 million)/$100 million</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___11">= 24.16%.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>In the second year, Kettleside fund value declines to $110 million. The fee structure is as specified in Question 2 of Example 3 but also includes the use of a high-water mark (<em>P<sub>HWM</sub></em>) computed net of fees (note: no hurdle rate). What are Kettleside’s fees in the second year? What is an investor’s net return for the second year given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>We must again alter <a class="internal" href="#CFA2456-R-s03-E-1-4" role="button">Equation 4</a> to include the high-water mark (<em>P<sub>HWM</sub></em>) provision, as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-8"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>High-Water Mark</sub></em><sub>)</sub> = (<em>P</em><sub>2</sub> × <em>r<sub>m</sub></em>) + max[0,(P<sub>2</sub>(1 − <em>r<sub>m </sub></em>) − <em>P<sub>HWM</sub> )</em> × <em>p</em>]<span class="cfa-curriculum-display-formula-number">8</span></div>
+<p>where <em>P<sub>HWM</sub> </em> is defined as the maximum fund value at the end of any <em>previous</em> period net of fees. We may solve for investor return <em>r<sub>i</sub> </em> in Period 2 as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-9"><em>r<sub>i</sub> </em> = (<em>P</em><sub>2</sub> − <em>P</em><sub>1</sub>−<em>R<sub>GP</sub></em>)/<em>P</em><sub>1</sub>,<span class="cfa-curriculum-display-formula-number">9</span></div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___12"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>Net with High-Water Mark</sub></em><sub>)</sub></div>
+<div class="cfa-curriculum-display-formula-container">= $110 million × 1% + max[0, [$110 × 0.99 − $124.16] × 20%]</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___13">= $1.1 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___14"><em>r<sub>i</sub> </em> = ($110 million − $122.96 million − $1.1 million)/$122.96 million</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___15">= −11.435%.</div>
+<p>The beginning capital position in the second year for the investors is $130 million − $7.04 million = $122.96 million. The ending capital position at the end of the second year is $110 million − $1.1 million = $108.9 million.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>In the third year, Kettleside’s fund value increases to $128 million. The fee structure is as specified in Questions 1 and 2 of <a aria-label="View Example 4" class="internal" href="#CFA2456-R-s03-EXM-1-4" role="button">Example 4</a>. What are Kettleside’s fees in the third year? What is an investor’s net return for the third year given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>We amend <a class="internal" href="#CFA2456-R-s03-E-1-8" role="button">Equations 8</a> and <a class="internal" href="#CFA2456-R-s03-E-1-9" role="button">9</a> to reflect returns for the third period and calculate as follows:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___16"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>Net with High-Water Mark</sub></em><sub>)</sub> = (<em>P</em><sub>3</sub> × <em>r<sub>m</sub></em>) + max[0,(P<sub>3</sub>(1 − <em>r<sub>m</sub></em>) − <em>P<sub>HWM </sub></em>) × <em>p</em>]</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___17"><em>r<sub>i</sub> </em> = (<em>P</em><sub>3</sub> – <em>P</em><sub>2</sub> – <em>R<sub>GP</sub></em>)/<em>P</em><sub>2</sub>.</div>
+<p>Note that the high-water mark, <em>P<sub>HWM</sub> </em>, is the highest value of the fund after fees in all previous years. In Kettleside’s case, it was $122.96 million, the ending value in the first year, <em>P</em><sub>1</sub>.</p>
+<div class="cfa-curriculum-exhibit-figure" id="CFA2456-R-s03-F-1-a">
+<h6 class="cfa-curriculum-figure-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i> <span style="display: block;">Kettleside Timberland LP Performance Fee Modifications</span></h6>
+<div class="cfa-curriculum-graphic"><img alt="CFA2456-R-s03-F-1-a.png" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1871/files/460464" data-api-returntype="File" loading="lazy" src="data:image/png;base64,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" style="width: 680; height: 98; display: block; margin-left: auto; margin-right: auto;"/></div>
+</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___18"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>High-Water Mark</sub></em><sub>)</sub></div>
+<div class="cfa-curriculum-display-formula-container">= $128 million × 1% + max[0, ($128 × 0.99 − $122.96) × 20%]</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___19">= $2.032 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___20"><em>r<sub>i</sub> </em> = ($128 million − $108.9 million − $2.032 million)/$108.9 million</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___21">= 15.67%.</div>
+<p>The beginning capital position in the third year for the investors is $110 million − $1.1 million = $108.9 million. The ending capital position for the third year is $128 million − $2.032 million = $1265.968 million, which represents a new high-water mark to be applied the following year for this investor.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p>Performance fee modifications may have similar or different effects on the periodic investor returns depending on the timing of an investment. For example, if two Kettleside investors were to purchase the fund at different times and had otherwise similar fee structures, they would both realize a fee reduction in the case of a hard hurdle equal to <em>P<sub>t</sub> </em> × <em>r<sub>h</sub> </em> × <em>p</em>, or the product of the end-of-period fund value for year <em>t</em>, the hurdle rate, and the performance fee. However, in the case of a high-water mark, the time-dependent nature of this fee modification gives different results for an investor who enters the fund at a later date, as in the following example.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2456-R-s03-EXM-1-5">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 5<span style="display: block;">Kettleside Timberland LP High-Water Mark for New Investor</span></h4>
+<p>At the end of Year 2, Kettleside Timberland LP has capital of $108.9 million. Consider the Year 3 returns of a <em>new</em> investor assuming the same fund performance and fee structure—namely, a 1% management fee based on year-end AUM (<em>r<sub>m</sub></em>), a 20% performance fee (<em>p</em>), and a high-water mark provision.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___22"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>High-Water Mark</sub></em><sub>)</sub> = (<em>P</em><sub>3</sub> × <em>r<sub>m</sub></em>) + max[0, (<em>P</em><sub>3</sub>(1– <em>r<sub>m</sub></em>)– <em>P<sub>HWM</sub></em>) × <em>p</em>].</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___23"><em>r<sub>i</sub> </em> = (<em>P</em><sub>3</sub> – <em>P</em><sub>2</sub> – <em>R<sub>GP</sub></em>)/<em>P</em><sub>2</sub>.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___24"><em>R<sub>GP</sub></em><sub>(</sub><em><sub>High-Water Mark</sub></em><sub>)</sub> = $128 million × 1% + max[0, ($128 million × 0.99– $108.9 million) × 20%]</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___25">= $4.85 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___26"><em>r<sub>i</sub> </em> = ($128 million – $108.9 million – $4.85 million)/$108.9 million</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___27">= 13.09%.</div>
+</div>
+<p>Note that the new investor in <a aria-label="View Example 5" class="internal" href="#CFA2456-R-s03-EXM-1-5" role="button">Example 5</a> realizes <em>no</em> high-water mark reduction in fees as in the prior case and therefore faces a <em>lower</em> periodic return than the investor participating since the fund’s inception.</p>
+<p>In other instances, the timing of returns can have a meaningful impact on manager fees and investor returns, as shown in the following example of a clawback provision.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2456-R-s03-EXM-1-6">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 6<span style="display: block;">Tenderledge Opportunity Fund LP—Clawback Provision</span></h4>
+<section>
+<p>Tenderledge Opportunity Fund makes $20 million in new investments, evenly divided with $10 million into Arguston Inc. (a leveraged buyout) and $10 million to Heartfield Digital (an early-stage venture) One year later, Arguston is sold to a strategic buyer for $22 million after costs. Two years later, Heartfield Digital fails and Tenderledge is unable to recoup any of its original investment.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>If Tenderledge’s fee agreement as general partner (GP) specifies a 20% performance fee of aggregate profits (<em>p</em>) with a clawback provision, which performance fees will Tenderledge accrue and what will it ultimately receive?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___28">Gain in the Arguston investment: $22 million – $10 million = $12 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___29">Loss in the Heartfield Digital investment: $0 – $10 million = –$10 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___30">Aggregate gain of Tenderledge after two years = $12 million – $10 million = $2 million.</div>
+<p>Tenderledge would initially accrue 20% of the $12 million aggregate profit from the sale of Arguston at the end of the first year, or $12 million × 20% = $2.4 million. This amount is typically held in escrow for the benefit of the GP but not paid.</p>
+<p>The failure of Heartfield Digital in Year 2 reduces the original $12 million gain by $10 million, so the aggregate fund gain at the end of Year 2 is only $2 million. This net profit results in a performance fee of $400,000 (= $2 million × 20%). Tenderledge would then have to return $2 million of the previously accrued performance fees to LP investor capital accounts due to the clawback provision.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2456-R-s03-B-1-b">
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Knowledge Check Fee and Return Calculations</h4>
+<section>
+<p>AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>What are the fees earned by AWJ if the incentive and management fees are calculated independently? What is an investor’s effective return given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>AWJ fees:</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___31">$130 million × 2% = $2.6 million management fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___32">($130 million − $100 million) × 20% = $6 million incentive fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___33">Total fees to AWJ Capital = $8.6 million.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>What are the fees earned by AWJ assuming that the incentive fee is calculated from the return net of the management fee? What is an investor’s net return given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___34">$130 million × 2% = $2.6 million management fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___35">($130 million − $100 million − $2.6 million) × 20% = $5.48 million incentive fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___36">Total fees to AWJ Capital = $8.08 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___37">Investor return = ($130 million − $100 million − $8.08 million)/$100 million = 21.92%.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>If the fee structure specifies a hurdle rate of 5% and the incentive fee is based on returns in excess of the hurdle rate, what are the fees earned by AWJ assuming the performance fee is calculated net of the management fee? What is an investor’s net return given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___38">$130 million × 2% = $2.6 million management fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___39">($130 million − $100 million − $5 million − $2.6 million) × 20% = $4.48 million incentive fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___40">Total fees to AWJ Capital = $7.08 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___41">Investor return = ($130 million − $100 million − $7.08 million)/$100 million = 22.92%.</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>In the second year, the fund value declines to $110 million. The fee structure is as specified for Question 1 but also includes the use of a high-water mark (computed net of fees). What are the fees earned by AWJ in the second year? What is an investor’s net return for the second year given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___42">$110 million × 2% = $2.2 million management fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___43">No incentive fee because the fund has declined in value.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___44">Total fees to AWJ Capital = $2.2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___45">Investor return = ($110 million − $2.2 million − $121.4 million)/$121.4 million = –11.20%.</div>
+<p>The beginning capital position in the second year for the investors is $130 million − $8.6 million = $121.4 million. The ending capital position at the end of the second year is $110 million − $2.2 million = $107.8 million.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">5. </span>
+<p>In the third year, the fund value increases to $128 million. The fee structure is as specified in Questions 1 and 4. What are the fees earned by AWJ in the third year? What is an investor’s net return for the third year given this fee structure?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___46">$128 million × 2% = $2.56 million management fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___47">($128 million − $121.4 million) × 20% = $1.32 million incentive fee.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-1">The $121.4 million represents the high-water mark established at the end of Year 1.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___48">Total fees to AWJ Capital = $3.88 million.</div>
+<p>Investor return = ($128 million − $3.88 million − $107.8 million)/$107.8 million = 15.14%. The ending capital position at the end of Year 3 is $124.12 million. This amount is the new high-water mark.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</section>
+<section id="CFA2456-R-s03-01-03">
+<h3 class="dp-heading">Relative Alternative Investment Returns and Survivorship Bias</h3>
+<p>Investors seeking higher risk-adjusted returns with low correlation with common asset classes in alternative investments often track their performance based on <em>relative</em> returns. As is the case for more common asset classes, returns on individual alternative investments are usually compared to a benchmark of investments with similar features. These benchmarks may be interpreted differently or take on different characteristics in the case of alternative investments. For example, the use of a composite benchmark for private equity or real estate investments may be misleading if a specific investment is in a different life cycle phase than most of its peers. However, return comparisons between such investments of the same vintage year on an annual or “since inception” basis lead to more accurate results. That said, lockups and illiquidity may prevent an investor from reacting to underperformance by selling an investment.</p>
+<p>Hedge fund indexes deserve greater scrutiny given changes to the universe of funds included in a benchmark over time. For example, studies suggest that over a quarter of all hedge funds fail within the first three years due to performance problems that lead to investor defections and fund closure. The exclusion of failed funds from a given benchmark is a form of selection bias that can lead investors to overly optimistic return expectations known as <a aria-describedby="SurvivorshipBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SurvivorshipBiasContent">survivorship bias</a>. Survivorship bias is a major problem among hedge fund indexes that include only current investment funds and exclude those funds that are no longer available. A second form of bias relates to how and when hedge fund returns are initially included in a benchmark index. For example, a fund manager may launch several hedge fund investments at once and include only the most successful funds in an index a couple of years after inception. The subsequent inclusion or “backfilling” of prior performance data on a selective basis serves to increase average reported returns in what is known as <a aria-describedby="BackfillBiasContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#BackfillBiasContent">backfill bias</a>. Because of survivorship and backfill biases, hedge fund indexes may not reflect actual average hedge fund performance but, rather, only the returns of those hedge funds that initially performed best and/or have not failed.</p>
+<div class="dp-content-block cfa-curriculum-example-box" id="CFA2456-R-s03-EXM-1-7">
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 7<span style="display: block;">Comparison of Returns: Investment Directly into a Hedge Fund or through a Fund of Hedge Funds</span></h4>
+<section>
+<p>An investor is contemplating investing €100 million in either the ABC Hedge Fund (ABC HF) or the XYZ Fund of Funds (XYZ FOF). XYZ FOF has a “1 and 10” fee structure and invests 10% of its AUM in ABC HF. ABC HF has a standard “2 and 20” fee structure with no hurdle rate. Management fees are calculated on an annual basis on AUM at the beginning of the year. For simplicity, assume that management fees and incentive fees are calculated independently. ABC HF has a 20% return for the year before management and incentive fees.</p>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Calculate the return to the investor from investing directly in ABC HF.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>ABC HF has a profit before fees on a €100 million investment of €20 million (= €100 million × 20%). The management fee is €2 million (= €100 million × 2%), and the incentive fee is €4 million (= €20 million × 20%). The return to the investor is 14% [= (20 − 2 − 4)/100].</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Calculate the return to the investor from investing in XYZ FOF. <span>Assume that the other investments in the XYZ FOF portfolio generate the same return before management fees as those of ABC HF.</span></p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>XYZ FOF earns a 14% return, or €14 million profit after fees on €100 million invested with hedge funds. XYZ FOF charges the investor a management fee of €1 million (= €100 million × 1%) and an incentive fee of €1.4 million (= €14 million × 10%). The return to the investor is 11.6% [= (14 − 1 − 1.4)/100].</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Why would the investor choose to invest in a fund of funds instead of a hedge fund given the effect of the “double fee” demonstrated in the answers to Questions 1 and 2?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>This scenario assumes that returns are the same for all underlying hedge funds. In practice, this result will not likely be the case, and XYZ FOF may provide due diligence expertise and potentially valuable diversification. In addition, the underlying hedge fund might be closed to new investors and investing in the FOF may be the only way to access the hedge fund.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2456-R-s03-B-1-c">
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Question Set</h4>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
+<p>Soft Hurdle</p>
+<p>A real estate investment fund has deployed $100 million initial capital to purchase a property. The fund has a soft hurdle preferred return to investors of 8% per annum and an 80%/20% carried interest incentive split thereafter (with a standard catch-up clause). At the end of Year 2, the property is sold for a total of $160 million.</p>
+<p>Ignoring management fees, what are the correct distributions to the LPs and the GP?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>With a soft hurdle arrangement, the carried interest is calculated on the entire annual gross return as long as the set hurdle is exceeded. To calculate the distributions of gain, one needs to construct a waterfall of cash flows.</p>
+<p>First, the LPs would be due their $100 million initial investment.</p>
+<p>Then, they would be due $16 million (8% preferred return on initial capital for two years).</p>
+<p>The soft hurdle has been met, and the GP is due the carried interest until 20% of the profits generated is received, or $4 million (2% for two years), which would be paid to the GP next as a catch-up to the achieved hurdle return.</p>
+<p>The residual amount would be $160 million − $100 million − $16 million − $4 million = $40 million. This amount would then be split 80% to the LPs and 20% to the GP, or $32 million and $8 million, respectively.</p>
+<p>So, the total payout with a soft annual hurdle of 8% of the $160 million would end up with the following waterfall:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2456-R-s03-T-1-a">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>LP</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>GP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Return of Capital</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$100 m</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">8% Preferred per Annum</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$16 m</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">GP Catch-Up 20%</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$4 m</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">80%/20% Split</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$32 m</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$8 m</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total Payout</strong></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$148 m</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$12 m</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
+<p>Hard Hurdle</p>
+<p>Following Question 1, how would the distributions to the LPs and GP have been different if the real estate investment fund had a hard hurdle of 8% per annum and no catch-up clause?</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>If the fund had a hard hurdle rate instead (i.e., no catch-up clause), only the amount above the $100 return of capital and $16 million preferred return would be subject to the 20% carried interest incentive to the GP: 20% × $44 million = $8.8 million—quite a bit less than the carried interest payment with the soft hurdle. The LPs would be due the balance of $35.2 million (= $44 million − $8.8 million incentive). This would result in the following total payout:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2456-R-s03-T-1-b">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"> </th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>LP</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>GP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Return of Capital</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$100 m</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">8% Preferred per Annum</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$16 m</td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">80%/20% Split above Hurdle</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$35.2 m</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$8.8 m</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total Payout</strong></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">$151.2 m</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">8.8 m</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2456-R-s03-Q17"><span class="cfa-curriculum-question-with-label">3. </span>
+<p>Calculating Net Return</p>
+<p>Capricorn Fund of Funds invests GBP100 million in each of Alpha Hedge Fund and ABC Hedge Fund. Capricorn Fund of Funds has a “1 and 10” fee structure. Management fees and incentive fees are calculated independently at the end of each year. After one year, net of their respective management and incentive fees, Capricorn’s investment in Alpha is valued at GBP80 million and Capricorn’s investment in ABC is valued at GBP140 million. The annual return to an investor in Capricorn Fund of Funds, net of fees assessed at the fund-of-funds level, is closest to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>7.9%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct, because the net investor return is 7.9%, calculated as follows:</p>
+<p>First, note that “1 and 10” refers to a 1% management fee and a 10% incentive fee.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___49">End-of-year capital = GBP140 million + GBP80 million = GBP220 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___50">Management fee = GBP220 million × 1% = GBP2.2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___51">Incentive fee = (GBP220 million − GBP200 million) × 10% = GBP2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___52">Total fees to Capricorn = GBP2.2 million + GBP2 million = GBP4.2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___53">Investor net return = (GBP220 − GBP200 − GBP4.2)/GBP200 = 7.9%.</div>
+<p>If, however, the incentive fee is calculated after deduction of management fees (instead of being calculated independently), then the incentive fee would become (GBP220 million – GBP200 million – GBP2.2 million) × 10% = GBP1.78 million</p>
+<p>Investor net return would have become (GBP220 – GBP200 – GBP2.2 – GBP1.78)/GBP200 ≈ 8.0%.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>8.0%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct, because the net investor return is 7.9%, calculated as follows:</p>
+<p>First, note that “1 and 10” refers to a 1% management fee and a 10% incentive fee.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___49">End-of-year capital = GBP140 million + GBP80 million = GBP220 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___50">Management fee = GBP220 million × 1% = GBP2.2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___51">Incentive fee = (GBP220 million − GBP200 million) × 10% = GBP2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___52">Total fees to Capricorn = GBP2.2 million + GBP2 million = GBP4.2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___53">Investor net return = (GBP220 − GBP200 − GBP4.2)/GBP200 = 7.9%.</div>
+<p>If, however, the incentive fee is calculated after deduction of management fees (instead of being calculated independently), then the incentive fee would become (GBP220 million – GBP200 million – GBP2.2 million) × 10% = GBP1.78 million</p>
+<p>Investor net return would have become (GBP220 – GBP200 – GBP2.2 – GBP1.78)/GBP200 ≈ 8.0%.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>8.1%.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>A is correct, because the net investor return is 7.9%, calculated as follows:</p>
+<p>First, note that “1 and 10” refers to a 1% management fee and a 10% incentive fee.</p>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___49">End-of-year capital = GBP140 million + GBP80 million = GBP220 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___50">Management fee = GBP220 million × 1% = GBP2.2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___51">Incentive fee = (GBP220 million − GBP200 million) × 10% = GBP2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___52">Total fees to Capricorn = GBP2.2 million + GBP2 million = GBP4.2 million.</div>
+<div class="cfa-curriculum-display-formula-container" id="CFA2456-R-s03-E-1-___53">Investor net return = (GBP220 − GBP200 − GBP4.2)/GBP200 = 7.9%.</div>
+<p>If, however, the incentive fee is calculated after deduction of management fees (instead of being calculated independently), then the incentive fee would become (GBP220 million – GBP200 million – GBP2.2 million) × 10% = GBP1.78 million</p>
+<p>Investor net return would have become (GBP220 – GBP200 – GBP2.2 – GBP1.78)/GBP200 ≈ 8.0%.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">4. </span>
+<p>IRR vs. MOIC</p>
+<p>Match the advantages and disadvantages of IRR and MOIC as performance measures for long-lived alternative investments:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2456-R-s03-T-1-c">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Return Metrics</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Advantages/Disadvantages</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1. IRR</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">A. ignores timing of cash flows.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">B. considers timing of cash flows.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">C. is more complicated to calculate.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2. MOIC</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">D. is easy to calculate and understand.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">E. requires assumptions on opportunity costs and reinvestment rates.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">F. is the preferred measure for long-lived alternative investments.</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">G. is commonly used by private equity and real estate investors as a shortcut.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<ol class="cfa-curriculum-list-decimal" id="CFA2456-R-s03-L2">
+<li class="cfa-curriculum-list-item">
+<p>IRR (F) is the preferred measure for long-lived alternative investments, because it (B) considers timing of cash flows, but it (C) is more complicated to calculate and (E) requires assumptions on opportunity costs and reinvestment rates.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>MOIC (G) is commonly used by private equity and real estate investors as a shortcut, because it (D) is easy to calculate and understand, but it (A) ignores timing of cash flows.</p>
+</li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">5. </span>
+<p>Either/or Fee Structure</p>
+<p>A closed-end infrastructure fund with initial capital of €100 million has an either/or fee structure under which the GP can either charge a 1% management fee or accept a higher 25% incentive fee, whichever is higher. All fees are calculated based on end-of-period net asset value. Standard high-water mark provisions apply.</p>
+<p>The fund returns for the first five years are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2456-R-s03-T-1-d">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Year</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>NAV (€ millions)</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Gross Return</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">98.00</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">-2%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">93.10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">-5%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">3</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">108.00</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">16%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">4</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">129.60</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">176.26</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">36%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Please calculate the fees received by the GP for each of the five years.</p>
+<div class="dp-panels-wrapper dp-accordion-default">
+<div class="dp-panel-group">
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<div class="dp-panel-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>The management and incentive fees that can be received by the GP in each year are tabulated as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CFA2456-R-s03-T-1-e">
+<div class="cfa-curriculum-table-container">
+<table class="table-bordered" data-active-table="true">
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Year</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>NAV</strong> <br/><br/><strong>(€ millions)</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Gross Return</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Management Fee (%)</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Incentive Fee (%)</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Total Fee</strong> <br/><br/><strong>(€ millions)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">1</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">98.00</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">–2%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">1%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">—</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">0.98</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">2</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">93.10</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">–5%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">1%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">—</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">0.93</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">3</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">108.00</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">16%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">—</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">25%<br/><br/>(108 – 100) × 25%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">2.00</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">4</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">129.60</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">20%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">—</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">25%<br/><br/>(129.6 – 108.0) × 25%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">5.40</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;">5</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">176.26</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">36%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">—</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">25%<br/><br/>(176.26 – 129.60) × 25%</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">11.67</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"> </td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: left; vertical-align: bottom; padding: 8px;"></td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;">Cumulative fees</td>
+<td style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>20.98</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Note that because the fund made a loss in Year 1 and in Year 2, there is no incentive fee and the GP can receive only the 1% management fee. In Year 3, when the fund made a profit, the incentive fee can be charged on the gain above the last high-water mark, which was the initial €100 million in Year 0. Since the management fee for Year 3 would have been just €1.08 million (= €108 million × 1%), the GP will be better off receiving the incentive fee of €2 million. Likewise, for Years 4 and 5, the GP can choose to receive the incentive fee at 25% of the profits in those two years without earning any management fee.</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc">
+<div class="dp-qc-question">
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2456-R-s03-Q20"><span class="cfa-curriculum-question-with-label">6. </span>
+<p>Hedge Fund Indexes</p>
+<p>A common problem with hedge fund indexes is the upward bias due to:</p>
+</div>
+</div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">A. </span>backfill bias only.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Both backfill bias and survivorship bias are common in hedge fund indexes.</p>
+<p>Survivorship bias refers to the selection bias in the index due to the exclusion of failed funds from a given benchmark. It leads to overly optimistic return expectations. Backfill bias refers to hedge funds including only the most successful funds in an index a few years after inception. The subsequent inclusion or “backfilling” of prior performance data on a selective basis serves to increase average reported returns. Both of these biases result in an upward bias in hedge fund indexes because they may reflect not actual average hedge fund performance but, rather, only the returns of those funds that initially performed best and/or have not failed.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">B. </span>survivorship bias only.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
+<div class="dp-qc-content">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Both backfill bias and survivorship bias are common in hedge fund indexes.</p>
+<p>Survivorship bias refers to the selection bias in the index due to the exclusion of failed funds from a given benchmark. It leads to overly optimistic return expectations. Backfill bias refers to hedge funds including only the most successful funds in an index a few years after inception. The subsequent inclusion or “backfilling” of prior performance data on a selective basis serves to increase average reported returns. Both of these biases result in an upward bias in hedge fund indexes because they may reflect not actual average hedge fund performance but, rather, only the returns of those funds that initially performed best and/or have not failed.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct" onclick="">
+<div class="dp-qc-content">
+<p><span class="cfa-curriculum-option-label">C. </span>both backfill and survivorship bias.</p>
+</div>
+</dt>
+<dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
+<div class="dp-qc-content dp-qc-correct-flag">
+<section>
+<h4 class="cfa-curriculum-solution">Solution</h4>
+<p>C is correct. Both backfill bias and survivorship bias are common in hedge fund indexes.</p>
+<p>Survivorship bias refers to the selection bias in the index due to the exclusion of failed funds from a given benchmark. It leads to overly optimistic return expectations. Backfill bias refers to hedge funds including only the most successful funds in an index a few years after inception. The subsequent inclusion or “backfilling” of prior performance data on a selective basis serves to increase average reported returns. Both of these biases result in an upward bias in hedge fund indexes because they may reflect not actual average hedge fund performance but, rather, only the returns of those funds that initially performed best and/or have not failed.</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="#" role="button">Check Answer</a></div>
+</div>
+</div>
+</section>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RedemptionFeeContent">
+<p>A fee charged to discourage redemptions and to offset the transaction costs for remaining investors in the fund.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="NoticePeriodContent">
+<p>The length of time (typically 30–90 days) in advance that investors may be required to notify a fund of their intent to redeem some or all of their investment. This allows a fund manager to liquidate a position in an orderly fashion without magnifying losses.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="LockupPeriodContent">
+<p>The minimum holding period before investors are allowed to make withdrawals or redeem shares from a fund. Its purpose is to allow the hedge fund manager the required time to implement and potentially realize a strategy’s expected results.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="GateContent">
+<p>A provision that when implemented limits or restricts redemptions for a period of time.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="FoundersClassSharesContent">
+<p>A way to entice early participation in startup funds whereby managers offer incentives that entitle investors to a lower fee structure and/or other favorable terms.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="EitherorFeeContent">
+<p>A custom fee arrangement whereby major investors are offered a structure where managers agree to charge <em>either</em> a lower management fee <em>or</em> a higher incentive fee, whichever is greater.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SurvivorshipBiasContent">
+<p>Relates to the inclusion of only current investment funds in a database. As such, the returns of funds that are no longer available in the marketplace (have been liquidated) are excluded from the database. Also see <em>backfill bias</em>.</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="BackfillBiasContent">
+<p>A problem whereby certain surviving hedge funds may be added to databases and various hedge fund indexes only after they are initially successful and start to report their returns. Also see <em>survivorship bias</em>.</p>
+</div>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1871_modules_items_144555_202_Alternative_Investment_Performance.html" >← 前へ</a>
+  <span class="title">2.03 | Alternative Investment Returns</span>
+  <a href="courses_1871_modules_items_144570_Glossary_Alternative_Investment_Performance_and_Returns.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.06 | Standard I(B): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s06-R-1" title="3.06 | Standard I(B): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.06 | Standard I(B): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s06-01-01">
+<h3 class="dp-heading">Example 1 (Travel Expenses):</h3>
+<p>Steven Taylor, a mining analyst with Bronson Brokers, is invited by Precision Metals to join a group of his peers in a tour of mining facilities in several western US states. The company arranges for chartered group flights from site to site and for accommodations in Spartan Motels, the only chain with accommodations near the mines, for three nights. Taylor allows Precision Metals to pick up his tab, as do the other analysts, with one exception—John Adams, an employee of a large trust company who insists on following his company’s policy and paying for his hotel room himself.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: The policy of the company where Adams works complies closely with Standard I(B) by avoiding even the appearance of a conflict of interest, but Taylor and the other analysts were not necessarily violating Standard I(B). In general, when allowing companies to pay for travel and/or accommodations in these circumstances, members and candidates must use their judgment. They must be on guard that such arrangements not impinge on a member’s or candidate’s independence and objectivity. In this example, the trip was strictly for business and Taylor was not accepting irrelevant or lavish hospitality. The itinerary required chartered flights, for which analysts were not expected to pay. The accommodations were modest. These arrangements are not unusual and did not violate Standard I(B) as long as Taylor’s independence and objectivity were not compromised. In the final analysis, members and candidates should consider both whether they can remain objective and whether their integrity might be perceived by their clients to have been compromised.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-02">
+<h3 class="dp-heading">Example 2 (Research Independence):</h3>
+<p>Susan Dillon, an analyst in the corporate finance department of an investment services firm, is making a presentation to a potential new business client that includes the promise that her firm will provide full research coverage of the potential client.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Dillon may agree to provide research coverage, but she must not commit her firm’s research department to providing a favorable recommendation. The firm’s recommendation (favorable, neutral, or unfavorable) must be based on an independent and objective investigation and analysis of the company and its securities.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-03">
+<h3 class="dp-heading">Example 3 (Research Independence and Intrafirm Pressure):</h3>
+<p>Walter Fritz is an equity analyst with Hilton Brokerage who covers the mining industry. He has concluded that the stock of Metals &amp; Mining is overpriced at its current level, but he is concerned that a negative research report will hurt the good relationship between Metals &amp; Mining and the investment banking division of his firm. In fact, a senior manager of Hilton Brokerage has just sent him a copy of a proposal his firm has made to Metals &amp; Mining to underwrite a debt offering. Fritz needs to produce a report right away and is concerned about issuing a less-than-favorable rating.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Fritz’s analysis of Metals &amp; Mining must be objective and based solely on consideration of company fundamentals. Any pressure from other divisions of his firm is inappropriate. This conflict could have been eliminated if, in anticipation of the offering, Hilton Brokerage had placed Metals &amp; Mining on a restricted list for its sales force.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-04">
+<h3 class="dp-heading">Example 4 (Research Independence and Issuer Relationship Pressure):</h3>
+<p>As in Example 3, Walter Fritz has concluded that Metals &amp; Mining stock is overvalued at its current level, but he is concerned that a negative research report might jeopardize a close rapport that he has nurtured over the years with Metals &amp; Mining’s CEO, chief finance officer, and investment relations officer. Fritz is concerned that a negative report might result also in management retaliation—for instance, cutting him off from participating in conference calls when a quarterly earnings release is made, denying him the ability to ask questions on such calls, and/or denying him access to top management for arranging group meetings between Hilton Brokerage clients and top Metals &amp; Mining managers.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: As in Example 3, Fritz’s analysis must be objective and based solely on consideration of company fundamentals. Any pressure from Metals &amp; Mining is inappropriate. Fritz should reinforce the integrity of his conclusions by stressing that his investment recommendation is based on relative valuation, which may include qualitative issues with respect to Metals &amp; Mining’s management.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-05">
+<h3 class="dp-heading">Example 5 (Research Independence and Sales Pressure):</h3>
+<p>As support for the sales effort of her corporate bond department, Lindsey Warner offers credit guidance to purchasers of fixed-income securities. Her compensation is closely linked to the performance of the corporate bond department. Near the quarter’s end, Warner’s firm has a large inventory position in the bonds of Milton, Ltd., and has been unable to sell the bonds because of Milton’s recent announcement of an operating problem. Salespeople have asked her to contact large clients to push the bonds.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Unethical sales practices create significant potential violations of the Code and Standards. Warner’s opinion of the Milton bonds must not be affected by internal pressure or compensation. In this case, Warner must refuse to push the Milton bonds unless she is able to justify that the market price has already adjusted for the operating problem.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-06">
+<h3 class="dp-heading">Example 6 (Research Independence and Prior Coverage):</h3>
+<p>Jill Jorund is a securities analyst following airline stocks and a rising star at her firm. Her boss has been carrying a “buy” recommendation on International Airlines and asks Jorund to take over coverage of that airline. He tells Jorund that under no circumstances should the prevailing buy recommendation be changed.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Jorund must be independent and objective in her analysis of International Airlines. If she believes that her boss’s instructions have compromised her, she has two options: She can tell her boss that she cannot cover the company under these constraints, or she can take over coverage of the company, reach her own independent conclusions, and if they conflict with her boss’s opinion, share the conclusions with her boss or other supervisors in the firm so that they can make appropriate recommendations. Jorund must issue only recommendations that reflect her independent and objective opinion.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-07">
+<h3 class="dp-heading">Example 7 (Gifts and Entertainment from Related Party):</h3>
+<p>Edward Grant directs a large amount of his commission business to a New York–based brokerage house. In appreciation for all the business, the brokerage house gives Grant two tickets to the World Cup in South Africa, two nights at a nearby resort, several meals, and transportation via limousine to the game. Grant fails to disclose receiving this package to his supervisor.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Grant has violated Standard I(B) because accepting these substantial gifts may impede his independence and objectivity. Every member and candidate should endeavor to avoid situations that might cause or be perceived to cause a loss of independence or objectivity in recommending investments or taking investment action. By accepting the trip, Grant has opened himself up to the accusation that he may give the broker favored treatment in return.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-08">
+<h3 class="dp-heading">Example 8 (Gifts and Entertainment from Client):</h3>
+<p>Theresa Green manages the portfolio of Ian Knowlden, a client of Tisbury Investments. Green achieves an annual return for Knowlden that is consistently better than that of the benchmark she and the client previously agreed to. As a reward, Knowlden offers Green two tickets to Wimbledon and the use of Knowlden’s flat in London for a week. Green discloses this gift to her supervisor at Tisbury.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Green is in compliance with Standard I(B) because she disclosed the gift from one of her clients in accordance with the firm’s policies. Members and candidates may accept bonuses or gifts from clients as long as they disclose them to their employer because gifts in a client relationship are deemed less likely to affect a member’s or candidate’s objectivity and independence than gifts in other situations. Disclosure is required, however, so that supervisors can monitor such situations to guard against employees favoring a gift-giving client to the detriment of other fee-paying clients (such as by allocating a greater proportion of IPO stock to the gift-giving client’s portfolio).</p>
+<p>Best practices for monitoring include comparing the transaction costs of the Knowlden account with the costs of other accounts managed by Green and other similar accounts within Tisbury. The supervisor could also compare the performance returns with the returns of other clients with the same mandate. This comparison will assist in determining whether a pattern of favoritism by Green is disadvantaging other Tisbury clients or the possibility that this favoritism could affect her future behavior.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-09">
+<h3 class="dp-heading">Example 9 (Travel Expenses from External Manager):</h3>
+<p>Tom Wayne is the investment manager of the Franklin City Employees Pension Plan. He recently completed a successful search for a firm to manage the foreign equity allocation of the plan’s diversified portfolio. He followed the plan’s standard procedure of seeking presentations from a number of qualified firms and recommended that his board select Penguin Advisors because of its experience, well-defined investment strategy, and performance record. The firm claims compliance with the Global Investment Performance Standards (GIPS<sup>®</sup>) and has been verified. Following the selection of Penguin, a reporter from the <em>Franklin City Record</em> calls to ask if there was any connection between this action and the fact that Penguin was one of the sponsors of an “investment fact-finding trip to Asia” that Wayne made earlier in the year. The trip was one of several conducted by the Pension Investment Academy, which had arranged the itinerary of meetings with economic, government, and corporate officials in major cities in several Asian countries. The Pension Investment Academy obtains support for the cost of these trips from a number of investment managers, including Penguin Advisors; the Academy then pays the travel expenses of the various pension plan managers on the trip and provides all meals and accommodations. The president of Penguin Advisors was also one of the travelers on the trip.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Although Wayne can probably put to good use the knowledge he gained from the trip in selecting portfolio managers and in other areas of managing the pension plan, his recommendation of Penguin Advisors may be tainted by the possible conflict incurred when he participated in a trip partly paid for by Penguin Advisors and when he was in the daily company of the president of Penguin Advisors. To avoid violating Standard I(B), Wayne’s basic expenses for travel and accommodations should have been paid by his employer or the pension plan; contact with the president of Penguin Advisors should have been limited to informational or educational events only; and the trip, the organizer, and the sponsor should have been made a matter of public record. Even if his actions were not in violation of Standard I(B), Wayne should have been sensitive to the public perception of the trip when reported in the newspaper and the extent to which the subjective elements of his decision might have been affected by the familiarity that the daily contact of such a trip would encourage. This advantage would probably not be shared by firms competing with Penguin Advisors.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-10">
+<h3 class="dp-heading">Example 10 (Research Independence and Compensation Arrangements):</h3>
+<p>Javier Herrero recently left his job as a research analyst for a large investment adviser. While looking for a new position, he was hired by an investor-relations firm to write a research report on one of its clients, a small educational software company. The investor-relations firm hopes to generate investor interest in the technology company. The firm will pay Herrero a flat fee plus a bonus if any new investors buy stock in the company as a result of Herrero’s report.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: If Herrero accepts this payment arrangement, he will be in violation of Standard I(B) because the compensation arrangement can reasonably be expected to compromise his independence and objectivity. Herrero will receive a bonus for attracting investors, which provides an incentive to draft a positive report regardless of the facts and to ignore or play down any negative information about the company. Herrero should accept only a flat fee that is not tied to the conclusions or recommendations of the report. Issuer-paid research that is objective and unbiased can be done under the right circumstances as long as the analyst takes steps to maintain his or her objectivity and includes in the report proper disclosures regarding potential conflicts of interest.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-11">
+<h3 class="dp-heading">Example 11 (Recommendation Objectivity and Service Fees):</h3>
+<p>Two years ago, Bob Wade, trust manager for Central Midas Bank, was approached by Western Funds about promoting its family of funds, with special interest in the service-fee class of funds. To entice Central to promote this class, Western Funds offered to pay the bank a service fee of 0.25%. Without disclosing the fee being offered to the bank, Wade asked one of the investment managers to review Western’s funds to determine whether they were suitable for clients of Central Midas Bank. The manager completed the normal due diligence review and determined that the new funds were fairly valued in the market with fee structures on a par with competitors. Wade decided to accept Western’s offer and instructed the team of portfolio managers to exclusively promote these funds and the service-fee class to clients seeking to invest new funds or transfer from their current investments.</p>
+<p>Now, two years later, the funds managed by Western begin to underperform their peers. Wade is counting on the fees to reach his profitability targets and continues to push these funds as acceptable investments for Central’s clients.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Wade is violating Standard I(B) because the fee arrangement has affected the objectivity of his recommendations. Wade is relying on the fee as a component of the department’s profitability and is unwilling to offer other products that may affect the fees received.</p>
+<p>See also Standard VI(A) Disclosure of Conflicts.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-12">
+<h3 class="dp-heading">Example 12 (Recommendation Objectivity):</h3>
+<p>Bob Thompson has been doing research for the portfolio manager of the fixed-income department. His assignment is to do sensitivity analysis on securitized subprime mortgages. He has discussed with the manager possible scenarios to use to calculate expected returns. A key assumption in such calculations is housing price appreciation (HPA) because it drives “prepays” (prepayments of mortgages) and losses. Thompson is concerned with the significant appreciation experienced over the previous five years as a result of the increased availability of funds from subprime mortgages. Thompson insists that the analysis should include a scenario run with –10% for Year 1, –5% for Year 2, and then (to project a worst-case scenario) 0% for Years 3 through 5. The manager replies that these assumptions are too dire because there has never been a time in their available database when HPA was negative.</p>
+<p>Thompson conducts his research to better understand the risks inherent in these securities and evaluates these securities in the worst-case scenario, an unlikely but possible environment. Based on the results of the enhanced scenarios, Thompson does not recommend the purchase of the securitization. Against the general market trends, the manager follows Thompson’s recommendation and does not invest. The following year, the housing market collapses. In avoiding the subprime investments, the manager’s portfolio outperforms its peer group that year.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Thompson’s actions in running the worst-case scenario against the protests of the portfolio manager are in alignment with the principles of Standard I(B). Thompson did not allow his research to be pressured by the general trends of the market or the manager’s desire to limit the research to historical norms.</p>
+<p>See also Standard V(A) Diligence and Reasonable Basis.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-13">
+<h3 class="dp-heading">Example 13 (Influencing Manager Selection Decisions):</h3>
+<p>Adrian Mandel, CFA, is a senior portfolio manager for ZZYY Capital Management who oversees a team of investment professionals who manage labor union pension funds. A few years ago, ZZYY sought to win a competitive asset manager search to manage a significant allocation of the pension fund of the United Doughnut and Pretzel Bakers Union (UDPBU). UDPBU’s investment board is chaired by a recognized key decision maker and long-time leader of the union, Ernesto Gomez. To improve ZZYY’s chances of winning the competition, Mandel made significant monetary contributions to Gomez’s union reelection campaign fund. Even after ZZYY was hired as a primary manager of the pension, Mandel believed that his firm’s position was not secure. Mandel continued to contribute to Gomez’s reelection campaign chest as well as to entertain lavishly the union leader and his family at top restaurants on a regular basis. All of Mandel’s outlays were routinely handled as marketing expenses reimbursed by ZZYY’s expense accounts and were disclosed to his senior management as being instrumental in maintaining a strong close relationship with an important client.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Mandel not only offered but actually gave monetary gifts, benefits, and other considerations that reasonably could be expected to compromise Gomez’s objectivity. Therefore, Mandel was in violation of Standard I(B).</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-14">
+<h3 class="dp-heading">Example 14 (Influencing Manager Selection Decisions):</h3>
+<p>Adrian Mandel, CFA, had heard about the manager search competition for the UDPBU Pension Fund through a broker/dealer contact. The contact told him that a well-known retired professional golfer, Bobby “The Bear” Finlay, who had become a licensed broker/dealer serving as a pension consultant, was orchestrating the UDPBU manager search. Finlay had gained celebrity status with several labor union pension fund boards by entertaining their respective board members and regaling them with colorful stories of fellow pro golfers’ antics in clubhouses around the world. Mandel decided to improve ZZYY’s chances of being invited to participate in the search competition by befriending Finlay to curry his favor. Knowing Finlay’s love of entertainment, Mandel wined and dined Finlay at high-profile bistros where Finlay could glow in the fan recognition lavished on him by all the other patrons. Mandel’s endeavors paid off handsomely when Finlay recommended to the UDPBU board that ZZYY be entered as one of three finalist asset management firms in its search.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Similar to Example 13, Mandel lavished gifts, benefits, and other considerations in the form of expensive entertainment that could reasonably be expected to influence the consultant to recommend the hiring of his firm. Therefore, Mandel was in violation of Standard I(B).</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-15">
+<h3 class="dp-heading">Example 15 (Fund Manager Relationships):</h3>
+<p>Amie Scott is a performance analyst within her firm with responsibilities for analyzing the performance of external managers. While completing her quarterly analysis, Scott notices a change in one manager’s reported composite construction. The change concealed the bad performance of a particularly large account by placing that account into a new residual composite. This change allowed the manager to remain at the top of the list of manager performance. Scott knows her firm has a large allocation to this manager, and the fund’s manager is a close personal friend of the CEO. She needs to deliver her final report but is concerned with pointing out the composite change.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Scott would be in violation of Standard I(B) if she did not disclose the change in her final report. The analysis of managers’ performance should not be influenced by personal relationships or the size of the allocation to the outside managers. By not including the change, Scott would not be providing an independent analysis of the performance metrics for her firm.</p>
+</div>
+</section>
+<section id="CFA0008-R-s06-01-16">
+<h3 class="dp-heading">Example 16 (Intrafirm Pressure):</h3>
+<p>Jill Stein is head of performance measurement for her firm. During the last quarter, many members of the organization’s research department were removed because of the poor quality of their recommendations. The subpar research caused one larger account holder to experience significant underperformance, which resulted in the client withdrawing his money after the end of the quarter. The head of sales requests that Stein remove this account from the firm’s performance composite because the performance decline can be attributed to the departed research team and not the client’s adviser.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Pressure from other internal departments can create situations that cause a member or candidate to violate the Code and Standards. Stein must maintain her independence and objectivity and refuse to exclude specific accounts from the firm’s performance composites to which they belong. As long as the client invested under a strategy similar to that of the defined composite, it cannot be excluded because of the poor stock selections that led to the underperformance and asset withdrawal.</p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147241_305_Standard_IB_Recommended_Procedures.html" >← 前へ</a>
+  <span class="title">3.06 | Standard I(B): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147247_307_Standard_IC_Misrepresentation.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

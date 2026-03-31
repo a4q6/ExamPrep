@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.23 | Standard III(A): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s23-R-1" title="3.23 | Standard III(A): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.23 | Standard III(A): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s23-01-01">
+<h3 class="dp-heading">Example 1 (Identifying the Client—Plan Participants):</h3>
+<p>First Country Bank serves as trustee for the Miller Company’s pension plan. Miller is the target of a hostile takeover attempt by Newton, Inc. In attempting to ward off Newton, Miller’s managers persuade Julian Wiley, an investment manager at First Country Bank, to purchase Miller common stock in the open market for the employee pension plan. Miller’s officials indicate that such action would be favorably received and would probably result in other accounts being placed with the bank. Although Wiley believes the stock is overvalued and would not ordinarily buy it, he purchases the stock to support Miller’s managers, to maintain Miller’s good favor toward the bank, and to realize additional new business. The heavy stock purchases cause Miller’s market price to rise to such a level that Newton retracts its takeover bid.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Standard III(A) requires that a member or candidate, in evaluating a takeover bid, act prudently and solely in the interests of plan participants and beneficiaries. To meet this requirement, a member or candidate must carefully evaluate the long-term prospects of the company against the short-term prospects presented by the takeover offer and by the ability to invest elsewhere. In this instance, Wiley, acting on behalf of his employer, which was the trustee for a pension plan, clearly violated Standard III(A). He used the pension plan to perpetuate existing management, perhaps to the detriment of plan participants and the company’s shareholders, and to benefit himself. Wiley’s responsibilities to the plan participants and beneficiaries should have taken precedence over any ties of his bank to corporate managers and over his self-interest. Wiley had a duty to examine the takeover offer on its own merits and to make an independent decision. The guiding principle is the appropriateness of the investment decision to the pension plan, not whether the decision benefited Wiley or the company that hired him.</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-02">
+<h3 class="dp-heading">Example 2 (Client Commission Practices):</h3>
+<p>JNI, a successful investment counseling firm, serves as investment manager for the pension plans of several large regionally based companies. Its trading activities generate a significant amount of commission-related business. JNI uses the brokerage and research services of many firms, but most of its trading activity is handled through a large brokerage company, Thompson, Inc., because the executives of the two firms have a close friendship. Thompson’s commission structure is high in comparison with charges for similar brokerage services from other firms. JNI considers Thompson’s research services and execution capabilities average. In exchange for JNI directing its brokerage to Thompson, Thompson absorbs a number of JNI overhead expenses, including those for rent.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: JNI executives are breaching their responsibilities by using client brokerage for services that do not benefit JNI clients and by not obtaining best price and best execution for their clients. Because JNI executives are not upholding their duty of loyalty, they are violating Standard III(A).</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-03">
+<h3 class="dp-heading">Example 3 (Brokerage Arrangements):</h3>
+<p>Charlotte Everett, a struggling independent investment adviser, serves as investment manager for the pension plans of several companies. One of her brokers, Scott Company, is close to consummating management agreements with prospective new clients whereby Everett would manage the new client accounts and trade the accounts exclusively through Scott. One of Everett’s existing clients, Crayton Corporation, has directed Everett to place securities transactions for Crayton’s account exclusively through Scott. But to induce Scott to exert efforts to send more new accounts to her, Everett also directs transactions to Scott from other clients without their knowledge.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Everett has an obligation at all times to seek best price and best execution on all trades. Everett may direct new client trades exclusively through Scott Company as long as Everett receives best price and execution on the trades or receives a written statement from new clients that she is <em>not</em> to seek best price and execution and that they are aware of the consequence for their accounts. Everett may trade other accounts through Scott as a reward for directing clients to Everett only if the accounts receive best price and execution and the practice is disclosed to the accounts. Because Everett does not disclose the directed trading, Everett has violated Standard III(A).</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-04">
+<h3 class="dp-heading">Example 4 (Brokerage Arrangements):</h3>
+<p>Emilie Rome is a trust officer for Paget Trust Company. Rome’s supervisor is responsible for reviewing Rome’s trust account transactions and her monthly reports of personal stock transactions. Rome has been using Nathan Gray, a broker, almost exclusively for trust account brokerage transactions. When Gray makes a market in stocks, he has been giving Rome a lower price for personal purchases and a higher price for sales than he gives to Rome’s trust accounts and other investors.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Rome is violating her duty of loyalty to the bank’s trust accounts by using Gray for brokerage transactions simply because Gray trades Rome’s personal account on favorable terms. Rome is placing her own interests before those of her clients.</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-05">
+<h3 class="dp-heading">Example 5 (Client Commission Practices):</h3>
+<p>Lauren Parker, an analyst with Provo Advisors, covers South American equities for her firm. She likes to travel to the markets for which she is responsible and decides to go on a trip to Chile, Argentina, and Brazil. The trip is sponsored by SouthAM, Inc., a research firm with a small broker/dealer affiliate that uses the clearing facilities of a larger New York brokerage house. SouthAM specializes in arranging South American trips for analysts during which they can meet with central bank officials, government ministers, local economists, and senior executives of corporations. SouthAM accepts commission dollars at a ratio of 2 to 1 against the hard-dollar costs of the research fee for the trip. Parker is not sure that SouthAM’s execution is competitive, but without informing her supervisor, she directs the trading desk at Provo to start giving commission business to SouthAM so she can take the trip. SouthAM has conveniently timed the briefing trip to coincide with the beginning of Carnival season, so Parker also decides to spend five days of vacation in Rio de Janeiro at the end of the trip. Parker uses commission dollars to pay for the five days of hotel expenses.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Parker is violating Standard III(A) by not exercising her duty of loyalty to her clients. She should have determined whether the commissions charged by SouthAM are reasonable in relation to the benefit of the research provided by the trip. She also should have determined whether best execution and prices could be received from SouthAM. In addition, the five extra days are not part of the research effort because they do not assist in the investment decision making. Thus, the hotel expenses for the five days should not be paid for with client assets.</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-06">
+<h3 class="dp-heading">Example 6 (Excessive Trading):</h3>
+<p>Vida Knauss manages the portfolios of a number of high-net-worth individuals. A major part of her investment management fee is based on trading commissions. Knauss engages in extensive trading for each of her clients to ensure that she attains the minimum commission level set by her firm. Although the securities purchased and sold for the clients are appropriate and fall within the acceptable asset classes for the clients, the amount of trading for each account exceeds what is necessary to accomplish the client’s investment objectives.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Knauss has violated Standard III(A) because she is using the assets of her clients to benefit her firm and herself.</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-07">
+<h3 class="dp-heading">Example 7 (Managing Family Accounts):</h3>
+<p>Adam Dill recently joined New Investments Asset Managers. To assist Dill in building a book of clients, both his father and brother opened new fee-paying accounts. Dill followed all the firm’s procedures in noting his relationships with these clients and in developing their investment policy statements.</p>
+<p>After several years, the number of Dill’s clients has grown, but he still manages the original accounts of his family members. An IPO is coming to market that is a suitable investment for many of his clients, including his brother. Dill does not receive the amount of stock he requested, so to avoid any appearance of a conflict of interest, he does not allocate any shares to his brother’s account.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Dill has violated Standard III(A) because he is not acting for the benefit of his brother’s account as well as his other accounts. The brother’s account is a regular fee-paying account comparable to the accounts of his other clients. By not allocating the shares proportionately across <em>all</em> accounts for which he thought the IPO was suitable, Dill is disadvantaging specific clients.</p>
+<p>Dill would have been correct in not allocating shares to his brother’s account if that account was being managed outside the normal fee structure of the firm.</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-08">
+<h3 class="dp-heading">Example 8 (Identifying the Client):</h3>
+<p>Donna Hensley has been hired by a law firm to testify as an expert witness. Although the testimony is intended to represent impartial advice, she is concerned that her work may have negative consequences for the law firm. If the law firm is Hensley’s client, how does she ensure that her testimony will not violate the required duty of loyalty, prudence, and care to one’s client?</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: In this situation, the law firm represents Hensley’s employer and the aspect of “who is the client” is not well defined. When acting as an expert witness, Hensley is bound by the standard of independence and objectivity in the same manner as an independent research analyst would be bound. Hensley must not let the law firm influence the testimony she provides in the legal proceedings.</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-09">
+<h3 class="dp-heading">Example 9 (Identifying the Client):</h3>
+<p>Jon Miller is a mutual fund portfolio manager. The fund is focused on the global financial services sector. Wanda Spears is a private wealth manager in the same city as Miller and is a friend of Miller. At a local CFA Institute society meeting, Spears mentions to Miller that her new client is an investor in Miller’s fund. She states that the two of them now share a responsibility to this client.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Spears’ statement is not totally correct. Because she provides the advisory services to her new client, she alone is bound by the duty of loyalty to this client. Miller’s responsibility is to manage the fund according to the investment policy statement of the fund. His actions should not be influenced by the needs of any particular fund investor.</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-10">
+<h3 class="dp-heading">Example 10 (Client Loyalty):</h3>
+<p>After providing client account investment performance to the external-facing departments but prior to it being finalized for release to clients, Teresa Nguyen, an investment performance analyst, notices the reporting system missed a trade. Correcting the omission resulted in a large loss for a client that had previously placed the firm on “watch” for potential termination owing to underperformance in prior periods. Nguyen knows this news is unpleasant but informs the appropriate individuals that the report needs to be updated before releasing it to the client.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Nguyen’s actions align with the requirements of Standard III(A). Even though the correction may lead to the firm’s termination by the client, withholding information on errors would not be in the best interest of the client.</p>
+</div>
+</section>
+<section id="CFA0008-R-s23-01-11">
+<h3 class="dp-heading">Example 11 (Execution-Only Responsibilities):</h3>
+<p>Baftija Sulejman recently became a candidate in the CFA Program. He is a broker who executes client-directed trades for several high-net-worth individuals. Sulejman does not provide any investment advice and only executes the trading decisions made by clients. He is concerned that the Code and Standards impose a fiduciary duty on him in his dealing with clients and sends an e-mail to the CFA Ethics Helpdesk (<a href="mailto:ethics@cfainstitute.org" target="_blank">ethics@cfainstitute.org</a>) to seek guidance on this issue.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: In this instance, Sulejman serves in an execution-only capacity and his duty of loyalty, prudence, and care is centered on the skill and diligence used when executing trades—namely, by seeking best execution and making trades within the parameters set by the clients (instructions on quantity, price, timing, etc.). Acting in the best interests of the client dictates that trades are executed on the most favorable terms that can be achieved for the client. Given this job function, the requirements of the Code and Standards for loyalty, prudence, and care clearly do not impose a fiduciary duty.</p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147301_322_Standard_IIIA_Recommended_Procedures.html" >← 前へ</a>
+  <span class="title">3.23 | Standard III(A): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147310_324_Standard_IIIB_Fair_Dealing.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

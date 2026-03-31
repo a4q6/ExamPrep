@@ -424,9 +424,6 @@ def main():
         ip = "YOUR_MAC_IP"
 
     print(f"\nDone. {len(lessons)} pages → {OUT_DIR}")
-    print(f"\nスマホからアクセス（同じWiFi）:")
-    print(f"  cd CFA/LV1/viewer && python3 -m http.server 8080")
-    print(f"  http://{ip}:8080")
 
 
 if __name__ == '__main__':

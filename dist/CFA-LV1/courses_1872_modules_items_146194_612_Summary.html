@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.12 | Summary</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA1642-R-s12" title="6.12 | Summary">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 6: Introduction to Risk Management</span>6.12 | Summary</h2>
+</header>
+<p>Success in business and investing requires the skillful selection and management of risks. A well-developed risk management process ties together an organization’s goals, strategic competencies, and tools to create value to help it both thrive and survive. Good risk management results in better decision making and a keener assessment of the many important trade-offs in business and investing, helping managers maximize value.</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1642-s012-L1">
+<li class="cfa-curriculum-list-item">
+<p>Risk and risk management are critical to good business and investing. Risk management is <em>not</em> only about avoiding risk.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Taking risk is an active choice by boards and management, investment managers, and individuals. Risks must be understood and carefully chosen and managed.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk exposure is the extent to which an organization’s value may be affected through sensitivity to underlying risks.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk management is a process that defines risk tolerance and measures, monitors, and modifies risks to be in line with that tolerance.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>A risk management framework is the infrastructure, processes, and analytics needed to support effective risk management; it includes risk governance, risk identification and measurement, risk infrastructure, risk policies and processes, risk mitigation and management, communication, and strategic risk analysis and integration.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk governance is the top-level foundation for risk management, including risk oversight and setting risk tolerance for the organization.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk identification and measurement is the quantitative and qualitative assessment of all potential sources of risk and the organization’s risk exposures.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk infrastructure comprises the resources and systems required to track and assess the organization’s risk profile.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk policies and processes are management’s complement to risk governance at the operating level.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk mitigation and management is the active monitoring and adjusting of risk exposures, integrating all the other factors of the risk management framework.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Communication includes risk reporting and active feedback loops so that the risk process improves decision making.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Strategic risk analysis and integration involves using these risk tools to rigorously sort out the factors that are and are not adding value as well as incorporating this analysis into the management decision process, with the intent of improving outcomes.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Employing a risk management committee, along with a chief risk officer (CRO), are hallmarks of a strong risk governance framework.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Governance and the entire risk process should take an enterprise risk management perspective to ensure that the value of the entire enterprise is maximized.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk tolerance, a key element of good risk governance, delineates which risks are acceptable, which are unacceptable, and how much risk the overall organization can be exposed to.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk budgeting is any means of allocating investments or assets by their risk characteristics.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Financial risks are those that arise from activity in the financial markets.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Non-financial risks arise from actions within an organization or from external origins, such as the environment, the community, regulators, politicians, suppliers, and customers.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Financial risks consist of market risk, credit risk, and liquidity risk.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Market risk arises from movements in stock prices, interest rates, exchange rates, and commodity prices.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Credit risk is the risk that a counterparty will not pay an amount owed.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Liquidity risk is the risk that, as a result of degradation in market conditions or the lack of market participants, one will be unable to sell an asset without lowering the price to less than the fundamental value.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Non-financial risks consist of a variety of risks, including settlement risk, legal risk, regulatory risk, accounting risk, tax risk, model risk, tail risk, and operational risk.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Operational risk is the risk that arises either from within the operations of an organization or from external events that are beyond the control of the organization but affect its operations. Operational risk can be caused by employees, the weather and natural disasters, vulnerabilities of IT systems, or terrorism.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Solvency risk is the risk that the organization does not survive or succeed because it runs out of cash to meet its financial obligations.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Individuals face many of the same organizational risks outlined here but also face health risk, mortality or longevity risk, and property and casualty risk.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risks are not necessarily independent because many risks arise as a result of other risks; risk interactions can be extremely non-linear and harmful.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk drivers are the fundamental global and domestic macroeconomic and industry factors that create risk.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Common measures of risk include standard deviation or volatility; asset-specific measures, such as beta or duration; derivative measures, such as delta, gamma, vega, and rho; and tail measures such as value at risk, CVaR and expected loss given default.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk can be modified by prevention and avoidance, risk transfer (insurance), or risk shifting (derivatives).</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Risk can be mitigated internally through self-insurance or diversification.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>The primary determinants of which method is best for modifying risk are the benefits weighed against the costs, with consideration for the overall final risk profile and adherence to risk governance objectives.</p>
+</li>
+</ul>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1872_modules_items_146189_611_Risk_Modification_Transferring_Shifting_and_How_to_Choose.html" >← 前へ</a>
+  <span class="title">6.12 | Summary</span>
+  <a href="courses_1872_modules_items_146208_Glossary_Introduction_to_Risk_Management.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

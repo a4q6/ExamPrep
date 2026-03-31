@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.18 | Standard II(A): Application of the Standard</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0008-R-s18-R-1" title="3.18 | Standard II(A): Application of the Standard">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 3: Guidance for Standards I–VII</span>3.18 | Standard II(A): Application of the Standard</h2>
+</header>
+<section id="CFA0008-R-s18-01-01">
+<h3 class="dp-heading">Example 1 (Acting on Nonpublic Information):</h3>
+<p>Frank Barnes, the president and controlling shareholder of the SmartTown clothing chain, decides to accept a tender offer and sell the family business at a price almost double the market price of its shares. He describes this decision to his sister (SmartTown’s treasurer), who conveys it to her daughter (who owns no stock in the family company at present), who tells her husband, Staple. Staple, however, tells his stockbroker, Alex Halsey, who immediately buys SmartTown stock for himself.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: The information regarding the pending sale is both material and nonpublic. Staple has violated Standard II(A) by communicating the inside information to his broker. Halsey also has violated the standard by buying the shares on the basis of material nonpublic information.</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-02">
+<h3 class="dp-heading">Example 2 (Controlling Nonpublic Information):</h3>
+<p>Samuel Peter, an analyst with Scotland and Pierce Incorporated, is assisting his firm with a secondary offering for Bright Ideas Lamp Company. Peter participates, via telephone conference call, in a meeting with Scotland and Pierce investment banking employees and Bright Ideas’ CEO. Peter is advised that the company’s earnings projections for the next year have significantly dropped. Throughout the telephone conference call, several Scotland and Pierce salespeople and portfolio managers walk in and out of Peter’s office, where the telephone call is taking place. As a result, they are aware of the drop in projected earnings for Bright Ideas. Before the conference call is concluded, the salespeople trade the stock of the company on behalf of the firm’s clients and other firm personnel trade the stock in a firm proprietary account and in employees’ personal accounts.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Peter has violated Standard II(A) because he failed to prevent the transfer and misuse of material nonpublic information to others in his firm. Peter’s firm should have adopted information barriers to prevent the communication of nonpublic information between departments of the firm. The salespeople and portfolio managers who traded on the information have also violated Standard II(A) by trading on inside information.</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-03">
+<h3 class="dp-heading">Example 3 (Selective Disclosure of Material Information):</h3>
+<p>Elizabeth Levenson is based in Hanoi and covers the Vietnamese market for her firm, which is based in Singapore. She is invited, together with the other 10 largest shareholders of a manufacturing company, to meet the finance director of that company. During the meeting, the finance director states that the company expects its workforce to strike next Friday, which will cripple productivity and distribution. Can Levenson use this information as a basis to change her rating on the company from “buy” to “sell”?</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Levenson must first determine whether the material information is public. According to Standard II(A), if the company has not made this information public (a small group forum does not qualify as a method of public dissemination), she cannot use the information.</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-04">
+<h3 class="dp-heading">Example 4 (Determining Materiality):</h3>
+<p>Leah Fechtman is trying to decide whether to hold or sell shares of an oil-and-gas exploration company that she owns in several of the funds she manages. Although the company has underperformed the index for some time already, the trends in the industry sector signal that companies of this type might become takeover targets. While she is considering her decision, her doctor, who casually follows the markets, mentions that she thinks that the company in question will soon be bought out by a large multinational conglomerate and that it would be a good idea to buy the stock right now. After talking to various investment professionals and checking their opinions on the company as well as checking industry trends, Fechtman decides the next day to accumulate more stock in the oil-and-gas exploration company.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Although information on an expected takeover bid may be of the type that is generally material and nonpublic, in this case, the source of information is unreliable, so the information cannot be considered material. Therefore, Fechtman is not prohibited from trading the stock on the basis of this information.</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-05">
+<h3 class="dp-heading">Example 5 (Applying the Mosaic Theory):</h3>
+<p>Jagdish Teja is a buy-side analyst covering the furniture industry. Looking for an attractive company to recommend as a buy, he analyzes several furniture makers by studying their financial reports and visiting their operations. He also talks to some designers and retailers to find out which furniture styles are trendy and popular. Although none of the companies that he analyzes are a clear buy, he discovers that one of them, Swan Furniture Company (SFC), may be in financial trouble. SFC’s extravagant new designs have been introduced at substantial cost. Even though these designs initially attracted attention, the public is now buying more conservative furniture from other makers. Based on this information and on a profit-and-loss analysis, Teja believes that SFC’s next-quarter earnings will drop substantially. He issues a sell recommendation for SFC. Immediately after receiving that recommendation, investment managers start reducing the SFC stock in their portfolios.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Information on quarterly earnings data is material and nonpublic. Teja arrived at his conclusion about the earnings drop on the basis of public information and pieces of nonmaterial nonpublic information (such as opinions of designers and retailers). Therefore, trading based on Teja’s correct conclusion is not prohibited by Standard II(A).</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-06">
+<h3 class="dp-heading">Example 6 (Applying the Mosaic Theory):</h3>
+<p>Roger Clement is a senior financial analyst who specializes in the European automobile sector at Rivoli Capital. Because he has been repeatedly nominated by many leading industry magazines and newsletters as a “best analyst” for the automobile industry, he is widely regarded as an authority on the sector. After speaking with representatives of Turgot Chariots—a European auto manufacturer with sales primarily in South Korea—and after conducting interviews with salespeople, labor leaders, his firm’s South Korean currency analysts, and banking officials, Clement analyzed Turgot Chariots and concluded that (1) its newly introduced model will probably not meet sales expectations, (2) its corporate restructuring strategy may well face serious opposition from unions, (3) the depreciation of the South Korean won should lead to pressure on margins for the industry in general and Turgot’s market segment in particular, and (4) banks could take a tougher-than-expected stance in the upcoming round of credit renegotiations with the company. For these reasons, he changes his conclusion about the company from “market outperform” to “market underperform.” Clement retains the support material used to reach his conclusion in case questions later arise.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: To reach a conclusion about the value of the company, Clement has pieced together a number of nonmaterial or public bits of information that affect Turgot Chariots. Therefore, under the mosaic theory, Clement has not violated Standard II(A) in drafting the report.</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-07">
+<h3 class="dp-heading">Example 7 (Analyst Recommendations as Material Nonpublic Information):</h3>
+<p>The next day, Clement is preparing to be interviewed on a global financial news television program where he will discuss his changed recommendation on Turgot Chariots for the first time in public. While preparing for the program, he mentions to the show’s producers and Mary Zito, the journalist who will be interviewing him, the information he will be discussing. Just prior to going on the air, Zito sells her holdings in Turgot Chariots. She also phones her father with the information because she knows that he and other family members have investments in Turgot Chariots.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: When Zito receives advance notice of Clement’s change of opinion, she knows it will have a material impact on the stock price, even if she is not totally aware of Clement’s underlying reasoning. She is not a client of Clement but obtains early access to the material nonpublic information prior to publication. Her trades are thus based on material nonpublic information and violate Standard II(A).</p>
+<p>Zito further violates the Standard by relaying the information to her father. It would not matter if he or any other family member traded; the act of providing the information violates Standard II(A). The fact that the information is provided to a family member does not absolve someone of the prohibition of using or communicating material nonpublic information.</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-08">
+<h3 class="dp-heading">Example 8 (Acting on Nonpublic Information):</h3>
+<p>Ashton Kellogg is a retired investment professional who manages his own portfolio. He owns shares in National Savings, a large local bank. A close friend and golfing buddy, John Mayfield, is a senior executive at National. National has seen its stock price drop considerably, and the news and outlook are not good. In a conversation about the economy and the banking industry on the golf course, Mayfield relays the information that National will surprise the investment community in a few days when it announces excellent earnings for the quarter. Kellogg is pleasantly surprised by this information, and thinking that Mayfield, as a senior executive, knows the law and would not disclose inside information, he doubles his position in the bank. Subsequently, National announces that it had good operating earnings but had to set aside reserves for anticipated significant losses on its loan portfolio. The combined news causes the stock to go down 60%.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Even though Kellogg believes that Mayfield would not break the law by disclosing inside information and money was lost on the purchase, Kellogg should not have purchased additional shares of National. It is the member’s or candidate’s responsibility to make sure, before executing investment actions, that comments about earnings are not material nonpublic information. Kellogg has violated Standard II(A).</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-09">
+<h3 class="dp-heading">Example 9 (Mosaic Theory): </h3>
+<p>John Doll is a research analyst for a hedge fund that also sells its research to a select group of paying-client investment firms. Doll’s focus is medical technology companies and products, and he has been in the business long enough and has been successful enough to build up a very credible network of friends and experts in the business. Doll has been working on a major research report recommending Boyce Health, a medical device manufacturer. He recently ran into an old acquaintance at a wedding who is a senior executive at Boyce, and Doll asked about the business. Doll was drawn to a statement that the executive, who has responsibilities in the new products area, made about a product: “I would not get too excited about the medium-term prospects; we have a lot of work to do first.” Doll incorporated this and other information about the new Boyce product in his long-term recommendation of Boyce.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Doll’s conversation with the senior executive is part of the mosaic of information used in recommending Boyce. When holding discussions with a firm executive, Doll would need to guard against soliciting or obtaining material nonpublic information. Before issuing the report, the executive’s statement about the continuing development of the product would need to be weighed against the other known public facts to determine whether it would be considered material. </p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-10">
+<h3 class="dp-heading">Example 10 (Materiality Determination):</h3>
+<p>Larry Nadler, a trader for a mutual fund, gets a text message from another firm’s trader, whom he has known for years. The message indicates a software company is going to report strong earnings when the firm publicly announces in two days. Nadler has a buy order from a portfolio manager within his firm to purchase several hundred thousand shares of the stock. Nadler is aggressive in placing the portfolio manager’s order and completes the purchases by the following morning, a day ahead of the firm’s planned earnings announcement.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: There are often rumors and whisper numbers before a release of any kind. The text message from the other trader would most likely be considered market noise. Unless Nadler knew that the trader had an ongoing business relationship with the public firm, he had no reason to suspect he was receiving material nonpublic information that would prevent him from completing the trading request of the portfolio manager. </p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-11">
+<h3 class="dp-heading">Example 11 (Using an Expert Network):</h3>
+<p>Mary McCoy is the senior drug analyst at a mutual fund. Her firm hires a service that connects her to experts in the treatment of cancer. Through various phone conversations, McCoy enhances her understanding of the latest therapies for successful treatment. This information is critical to Mary making informed recommendations of the companies producing these drugs. </p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: McCoy is appropriately using the expert networks to enhance her evaluation process. She has neither asked for nor received information that may be considered material and nonpublic, such as preliminary trial results. McCoy is allowed to seek advice from professionals within the industry that she follows.</p>
+</div>
+</section>
+<section id="CFA0008-R-s18-01-12">
+<h3 class="dp-heading">Example 12 (Using an Expert Network):</h3>
+<p>Tom Watson is a research analyst working for a hedge fund. To stay informed, Watson relies on outside experts for information on such industries as technology and pharmaceuticals, where new advancements occur frequently. The meetings with the industry experts often are arranged through networks or placement agents that have specific policies and procedures in place to deter the exchange of material nonpublic information. </p>
+<p>Watson arranges a call to discuss future prospects for one of the fund’s existing technology company holdings, a company that was testing a new semiconductor product. The scientist leading the tests indicates his disappointment with the performance of the new semiconductor. Following the call, Watson relays the insights he received to others at the fund. The fund sells its current position in the company and buys many put options because the market is anticipating the success of the new semiconductor and the share price reflects the market’s optimism.</p>
+<div class="cfa-curriculum-blockquote">
+<p>
+<em>Comment</em>: Watson has violated Standard II(A) by passing along material nonpublic information concerning the ongoing product tests, which the fund used to trade in the securities and options of the related company. Watson cannot simply rely on the agreements signed by individuals who participate in expert networks that state that he has not received information that would prohibit his trading activity. He must make his own determination whether information he received through these arrangements reaches a materiality threshold that would affect his trading abilities.</p>
+</div>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147282_317_Standard_IIA_Recommended_Procedures.html" >← 前へ</a>
+  <span class="title">3.18 | Standard II(A): Application of the Standard</span>
+  <a href="courses_1873_modules_items_147290_319_Standard_IIB_Market_Manipulation.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>

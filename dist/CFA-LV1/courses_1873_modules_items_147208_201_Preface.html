@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.01 | Preface</title>
+
+
+<style id="viewer-nav-style">
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Bootstrap utility missing from Canvas CDN CSS */
+.d-none { display: none !important; }
+/* Hide all KC responses by default regardless of d-none */
+dd.dp-qc-response { display: none !important; }
+dd.dp-qc-response.qc-show { display: block !important; }
+/* Canvas elements that are normally hidden without Canvas CSS */
+.dp-popup-content,
+.dp-popover-content,
+.dp-icon-content,
+.screenreader-only,
+[style*="display: none"] { display: none !important; }
+
+/* ── Knowledge Check ── */
+dt.dp-qc-answer {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(7,112,163,0.15);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+dt.dp-qc-answer.qc-selected { background: #e3f2fd !important; outline: 2px solid #0770a3; }
+dt.dp-qc-answer.qc-correct-reveal { background: #e8f5e9 !important; outline: 2px solid #2e7d32; }
+dt.dp-qc-answer.qc-wrong-reveal   { background: #ffebee !important; outline: 2px solid #c62828; }
+dd.dp-qc-response.qc-show { display: block !important; }
+.qc-result-banner {
+  display: none; padding: 10px 16px; border-radius: 6px; margin: 8px 0;
+  font-weight: 700; font-size: 14px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-reset-btn {
+  display: none; margin: 8px 0; background: #546e7a; color: #fff; border: none;
+  padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 13px;
+}
+</style>
+
+</head>
+<body class="full-width-layout lti-student-view">
+<div class="ic-app-nav-toggle-and-crumbs" style="display:none"></div>
+<div id="main" style="margin:0;padding:0 16px 16px;">
+  <div class="show-content user_content clearfix enhanced">
+<div class="dp-wrapper dp-flat-sections variation-2" id="CFA0006-R-s01-R-1" title="2.01 | Preface">
+<header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">
+<span class="dp-header-pre">Module 2: Code of Ethics and Standards of Professional Conduct</span>2.01 | Preface</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box">
+<i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul>
+<li class="cfa-curriculum-los-item">describe the structure of the CFA Institute Professional Conduct Program and the process for the enforcement of the Code and Standards</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>The <em>Standards of Practice Handbook</em> (<em>Handbook</em>) provides guidance to the people who grapple with real ethical dilemmas in the investment profession on a daily basis; the <em>Handbook</em> addresses the professional intersection where theory meets practice and where the concept of ethical behavior crosses from the abstract to the concrete. The <em>Handbook</em> is intended for a diverse and global audience: CFA Institute members navigating ambiguous ethical situations; supervisors and direct/indirect reports determining the nature of their responsibilities to each other, to existing and potential clients, and to the broader financial markets; and candidates preparing for the Chartered Financial Analyst (CFA) examinations.</p>
+<p>Events in global financial markets test the ethical mettle of financial market participants, including CFA Institute members and candidates. The standards taught in the CFA Program and by which CFA Institute members and candidates must abide represent timeless ethical principles and professional conduct for all market conditions. Through adherence to these standards, which continue to serve as the model for ethical behavior in the investment profession globally, each market participant does his or her part to improve the integrity and efficient operations of the financial markets.</p>
+<p>The <em>Handbook</em> provides guidance for understanding the interconnectedness of the aspirational and practical principles and provisions of the Code of Ethics and Standards of Professional Conduct (Code and Standards). The Code contains high-level aspirational ethical principles that drive members and candidates to create a positive and reputable investment profession. The Standards contain practical ethical principles of conduct that members and candidates must follow to achieve the broader industry expectations. However, applying the principles individually may not capture the complexity of ethical requirements related to the investment industry. The Code and Standards should be viewed and interpreted as an interwoven tapestry of ethical requirements. Through members’ and candidates’ adherence to these principles as a whole, the integrity of and trust in the capital markets are improved.</p>
+<section id="CFA0006-R-s01-01-01">
+<h3 class="dp-heading">Evolution of the CFA Institute Code of Ethics and Standards of Professional Conduct</h3>
+<p>The Code and Standards are regularly reviewed and updated so that they remain effective and continue to represent the highest ethical standards in the global investment industry. CFA Institute strongly believes that revisions of the Code and Standards are undertaken not for cosmetic purposes but to add value by addressing legitimate concerns and improving comprehension. In 2023, the CFA Institute Board of Governors approved revisions to the Code and Standards that are fully described later in this learning module.</p>
+<p>Changes to the Code and Standards have far-reaching implications for the CFA Institute membership, the CFA Program, and the investment industry as a whole. CFA Institute members and candidates are <em>required</em> to adhere to the Code and Standards. In addition, the Code and Standards are often adopted, in whole or in part, by firms and regulatory authorities. Their relevance goes well beyond CFA Institute members and candidates.</p>
+</section>
+<section id="CFA0006-R-s01-01-02">
+<h3 class="dp-heading">
+<em>Standards of Practice Handbook</em>
+</h3>
+<p>The periodic revisions of the <em>Standards of Practice Handbook</em> have come in conjunction with updates of the Code and Standards. The <em>Handbook</em> is the fundamental element of the ethics education effort of CFA Institute and the primary resource for guidance in interpreting and implementing the Code and Standards. The <em>Handbook</em> seeks to educate members and candidates on how to apply the Code and Standards to their professional lives and thereby benefit their clients, employers, and the investing public in general. The <em>Handbook</em> explains the purpose of the Code and Standards and how they apply in a variety of situations. The sections discuss and amplify each standard and suggest procedures for compliance.</p>
+<p>Examples in the “Application of the Standard” sections are meant to illustrate how the standard applies to hypothetical but factual situations. The names contained in the examples are fictional and are not meant to refer to any actual person or entity. Unless otherwise stated (e.g., one or more people are specifically identified), individuals in each example are subject to the requirements of the Code and Standards. Because factual circumstances vary so widely and often involve gray areas, the explanatory material and examples are not intended to be all inclusive. Many examples set forth in the application sections involve standards that have legal counterparts; <strong>
+<em>members are strongly urged to discuss with their supervisors and legal and compliance departments the content of the Code and Standards and the members’ general obligations under the Code and Standards</em>
+</strong>.</p>
+<p>CFA Institute recognizes that the presence of any set of ethical standards may create a false sense of security unless the documents are fully understood, enforced, and made a meaningful part of everyday professional activities. The <em>Handbook</em> is intended to provide a useful frame of reference that outlines ethical professional conduct for the organization’s members and candidates. The <em>Handbook</em> cannot cover every contingency or circumstance, however, and it does not attempt to do so. The development and interpretation of the Code and Standards are evolving processes; the Code and Standards will be subject to continuing refinement.</p>
+</section>
+<section id="CFA0006-R-s01-01-03">
+<h3 class="dp-heading">Summary of the 2023 Revisions to the Code and Standards</h3>
+<p>In 2023, the CFA Institute Board of Governors revised the Standards of Professional Conduct in three areas, resulting in the inclusion of one new standard and revisions to two existing standards. The following is a summary of the changes:</p>
+<ol class="cfa-curriculum-list-decimal" id="CFA0006-R-s01-L1">
+<li class="cfa-curriculum-list-item">
+<p>Within Standard I: Professionalism, the Board approved a new standard requiring members to act with and maintain the competence necessary to fulfill their professional responsibilities, thus reinforcing the principle set forth in the Code of Ethics.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Within Standard V: Investment Analysis, Recommendations, and Actions, the Board revised Standard V(B) Communication with Clients and Prospective Clients to require disclosures about the nature of the services provided by members and candidates and the costs to the client associated with those services.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Within Standard VI: Conflicts of Interest, the Board changed the name of Standard VI(A) to “Standard VI(A) Avoid or Disclose Conflicts” and revised the standard to require members and candidates to either avoid conflicts of interest or disclose those conflicts. Previously, there was no mention of avoiding conflicts of interest in the standard.</p>
+</li>
+</ol>
+<p>New guidance and examples have been added to the <em>Handbook</em> to fully explain these new requirements.</p>
+</section>
+<section id="CFA0006-R-s01-01-04">
+<h3 class="dp-heading">New and Revised Standards of Professional Conduct</h3>
+<section id="CFA0006-R-s01-01-04-01">
+<h4>Competence Standard</h4>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="CFA0006-R-s01-Ba">
+<h5 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i>
+<span style="display: block;">I. PROFESSIONALISM</span>
+</h5>
+<section id="CFA0006-R-s01-01-04-01-01-01">
+<h5 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-h1">E. Competence</h5>
+<p>
+<strong>Members and Candidates must:</strong>
+</p>
+<ol class="cfa-curriculum-list-decimal" id="d20e115">
+<li class="cfa-curriculum-list-item">
+<p>Act with and maintain the competence necessary to fulfill their professional responsibilities.</p>
+</li>
+</ol>
+</section>
+</div>
+<p>Given the diverse range of professional services engaged in by members and candidates, the knowledge, skills, and abilities necessary to successfully fulfill their role will vary according to the nature of their professional duties. Over time, a member’s role may expand, requiring new or different knowledge, skills, and abilities. Members will develop and refine their skills and abilities throughout their professional careers. Requiring members and candidates to act with and maintain appropriate levels of competence will help ensure they provide a high standard of professional service for their clients and employers.</p>
+<p>Currently, the Code of Ethics requires members and candidates to “act with integrity, competence, and diligence” and to “maintain and improve their professional competence and strive to improve the competence of other investment professionals.” This new standard is consistent with and directly supports the requirements of the Code of Ethics. Standard I(E) makes these requirements of the Code of Ethics more explicit and emphasizes the need for members and candidates to continuously maintain or improve the competence required by their professional position.</p>
+<p>The skills and abilities necessary for members and candidates to successfully fulfill their role vary according to the nature and complexity of their professional duties. As a result, there will be different criteria for competence for different members. An examination of the facts and circumstances of each member or candidate will dictate their expected conduct under this standard.</p>
+<p>Finally, Standard I(E) does not require members and candidates to engage in any specific program of professional development or continuing education. There are a variety of ways members and candidates can demonstrate and maintain competence when engaging in their professional responsibilities.</p>
+</section>
+<section id="CFA0006-R-s01-01-04-02">
+<h4>Disclosure of Nature of Services and Costs to Client</h4>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="CFA0006-R-s01-Bb">
+<h5 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i>
+<span style="display: block;">V. INVESTMENT ANALYSIS, RECOMMENDATIONS, AND ACTIONS</span>
+</h5>
+<section id="CFA0006-R-s01-01-04-02-01-01">
+<h5 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-h1">B. Communication with Clients and Prospective Clients</h5>
+<p>
+<strong>Members and Candidates must:</strong>
+</p>
+<ol class="cfa-curriculum-list-decimal" id="d20e131">
+<li class="cfa-curriculum-list-item">
+<p>Disclose to clients and prospective clients the nature of the services provided, along with information about the costs to the client associated with those services.</p>
+</li>
+</ol>
+</section>
+</div>
+<p>A fundamental goal of the Code and Standards is to protect client interests and allow clients to make fully informed decisions about their investments and financial well-being. Providing clients with information about the nature of the services they can expect from investment professionals and the financial impact they can expect from those services is critical to achieving this goal. The disclosures required by this new standard will permit clients to make informed decisions as to whether to engage with the member or candidate and their firm.</p>
+<p>Standard V(B) Communication with Clients and Prospective Clients also requires members to disclose the basic format and general principles of the investment processes they use to analyze investments, select securities, and construct portfolios and to promptly disclose any material changes to these processes. The associated financial impact is an important part of the investment process but, until now, was not explicitly addressed as part of this disclosure. The revision to Standard V(B) fills this gap.</p>
+</section>
+<section id="CFA0006-R-s01-01-04-03">
+<h4>Revised Standard Relating to Conflicts</h4>
+<div class="dp-content-block cfa-curriculum-shaded-box" id="CFA0006-R-s01-Bc">
+<h5 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-title">
+<i aria-hidden="true" class="fas fa-info-circle" style="background: inherit !important;"> </i>
+<span style="display: block;">VI. CONFLICTS OF INTEREST</span>
+</h5>
+<section id="CFA0006-R-s01-01-04-03-01-01">
+<h5 class="dp-has-icon cfa-curriculum-shaded-box cfa-curriculum-box-h1">A. Avoid or Disclose Conflicts</h5>
+<p>
+<strong>Members and Candidates must:</strong>
+</p>
+<ol class="cfa-curriculum-list-decimal" id="d20e145">
+<li class="cfa-curriculum-list-item">
+<p>Avoid or make full and fair disclosure of all matters that could reasonably be expected to impair their independence and objectivity and interfere with respective duties to their clients, prospective clients, and employer.</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>Ensure that such disclosures are prominent, are delivered in plain language, and communicate the relevant information effectively.</p>
+</li>
+</ol>
+</section>
+</div>
+<p>Standard VI(A) has always required members and candidates to disclose conflicts, but previously, the language of the standard made no mention of avoiding conflicts. Nevertheless, the guidance for Standard VI: Conflicts of Interest has long stated that best practice is to avoid conflicts or the appearance of conflicts. Including the option to avoid versus simply disclosing conflicts in the language of the standard emphasizes that members and candidates should avoid conflicts of interest whenever reasonably possible. While avoiding conflicts altogether is preferred, often in the investment industry it may not be reasonable for members and candidates to avoid a conflict or the perception of a conflict. When it is not reasonable for members and candidates to avoid a conflict, Standard VI(A) continues to require clear and complete disclosure of the conflict.</p>
+</section>
+</section>
+<section id="CFA0006-R-s01-01-05">
+<h3 class="dp-heading">CFA Institute Professional Conduct Program</h3>
+<p>All CFA Institute members and candidates enrolled in the CFA Program are required to comply with the Code and Standards. The CFA Institute Board of Governors maintains oversight and responsibility for the Professional Conduct Program (PCP), which, in conjunction with the Disciplinary Review Committee (DRC), is responsible for enforcement of the Code and Standards. The DRC is a volunteer committee of CFA charterholders who serve on panels to review conduct and partner with Professional Conduct staff to establish and review professional conduct policies. The CFA Institute Bylaws and Rules of Procedure for Professional Conduct (Rules of Procedure) form the basic structure for enforcing the Code and Standards. The Professional Conduct division is also responsible for enforcing testing policies of other CFA Institute education programs, as well as the professional conduct of Certificate in Investment Performance Measurement (CIPM) certificants.</p>
+<p>Professional Conduct inquiries come from a number of sources. First, members and candidates must self-disclose on the annual Professional Conduct Statement all matters that question their professional conduct, such as involvement in civil litigation or a criminal investigation or being the subject of a written complaint. Second, written complaints received by Professional Conduct staff can bring about an investigation. Third, CFA Institute staff may become aware of questionable conduct by a member or candidate through the media, regulatory notices, or another public source. Fourth, candidate conduct is monitored by proctors who complete reports on candidates suspected to have violated testing rules on exam day. Lastly, CFA Institute may also conduct analyses of scores and exam materials after the exam, as well as monitor online and social media to detect disclosure of confidential exam information.</p>
+<p>When an inquiry is initiated, the Professional Conduct staff conducts an investigation that may include requesting a written explanation from the member or candidate; interviewing the member or candidate, complaining parties, and third parties; and collecting documents and records relevant to the investigation. Upon reviewing the material obtained during the investigation, the Professional Conduct staff may conclude the inquiry with no disciplinary sanction, issue a cautionary letter, or continue proceedings to discipline the member or candidate. If the Professional Conduct staff believes a violation of the Code and Standards or testing policies has occurred, the member or candidate has the opportunity to reject or accept any charges and the proposed sanctions.</p>
+<p>If the member or candidate does not accept the charges and proposed sanction, the matter is referred to a panel composed of DRC members. Panels review materials and presentations from Professional Conduct staff and from the member or candidate. The panel’s task is to determine whether a violation of the Code and Standards or testing policies occurred and, if so, what sanction should be imposed.</p>
+<p>Sanctions imposed by CFA Institute may have significant consequences; they include public censure, suspension of membership and use of the CFA designation, and revocation of the CFA charter. Candidates enrolled in the CFA Program who have violated the Code and Standards or testing policies may be suspended or prohibited from further participation in the CFA Program.</p>
+</section>
+<section id="CFA0006-R-s01-01-06">
+<h3 class="dp-heading">Adoption of the Code and Standards</h3>
+<p>The Code and Standards apply to individual members of CFA Institute and candidates in the CFA Program. CFA Institute does encourage firms to adopt the Code and Standards, however, as part of their code of ethics. Those who claim compliance should fully understand the requirements of each of the principles of the Code and Standards.</p>
+<p>Once a party—nonmember or firm—ensures its code of ethics meets the principles of the Code and Standards, that party should make the following statement whenever claiming compliance:</p>
+<div class="cfa-curriculum-blockquote">
+<p>[Insert name of party] claims compliance with the CFA Institute Code of Ethics and Standards of Professional Conduct. This claim has not been verified by CFA Institute.</p>
+</div>
+<p>CFA Institute welcomes public acknowledgement, when appropriate, that firms are complying with the CFA Institute Code of Ethics and Standards of Professional Conduct. For firms that would like to distribute the Code and Standards to clients and potential clients, attractive one-page copies of the Code and Standards, including translations, are available on the CFA Institute website (<a href="http://www.cfainstitute.org" target="_blank">www.cfainstitute.org</a>).</p>
+<p>CFA Institute has also published the Asset Manager Code, which is designed, in part, to help asset managers comply with regulations mandating codes of ethics for investment advisers. Whereas the Code and Standards are aimed at individual investment professionals who are members of CFA Institute or candidates in the CFA Program, the Asset Manager Code applies to firms. The Asset Manager Code provides specific, practical guidelines for asset managers in six areas: loyalty to clients, the investment process, trading, compliance, performance, and disclosure. The Asset Manager Code and the appropriate steps to acknowledge compliance can be found on the CFA Institute website (<a href="http://www.cfainstitute.org" target="_blank">www.cfainstitute.org</a>).</p>
+</section>
+<section id="CFA0006-R-s01-01-07">
+<h3 class="dp-heading">Acknowledgments</h3>
+<p>CFA Institute is a not-for-profit organization that is heavily dependent on the expertise and intellectual contributions of member volunteers. Members devote their time because they share a mutual interest in the organization’s mission to promote and achieve ethical practice in the investment profession. CFA Institute owes much to the volunteers’ abundant generosity and energy in extending ethical integrity.</p>
+<p>The CFA Institute Standards of Practice Council (SPC), a group consisting of CFA charterholder volunteers from many different countries, is charged with maintaining and interpreting the Code and Standards and ensuring that they are effective. The SPC draws its membership from a broad spectrum of organizations in the securities field, including brokers, investment advisers, banks, and insurance companies.</p>
+<p>The SPC continually evaluates the Code and Standards, as well as the guidance in the <em>Handbook</em>, to ensure that they are</p>
+<ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA0006-R-s01-L2">
+<li class="cfa-curriculum-list-item">
+<p>representative of high standards of professional conduct,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>relevant to the changing nature of the investment profession,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>globally applicable,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>sufficiently comprehensive, practical, and specific,</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>enforceable, and</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>testable for the CFA Program.</p>
+</li>
+</ul>
+<p>Over the years, many volunteer members of the SPC have spent countless hours reviewing and discussing revisions to the Code and Standards and updates to the guidance that make up the <em>Handbook</em>. CFA Institute would like to thank all the current and former members of the SPC who generously donated their time and energy to this effort.</p>
+</section>
+</div>
+  </div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1873_modules_items_147206_Learning_Outcomes_Code_of_Ethics_and_Standards_of_Professional_Conduct.html" >← 前へ</a>
+  <span class="title">2.01 | Preface</span>
+  <a href="courses_1873_modules_items_147210_202_Ethics_and_the_Investment_Industry.html" >次へ →</a>
+</div>
+
+<script id="viewer-interactive">
+(function() {
+
+  // ── Knowledge Check ──
+  // Use a single state map keyed by qc element
+  var qcStates = new Map();
+
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var dts = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+    if (!dts.length) return;
+
+    var state = { answered: false, selectedIdx: -1, dts: dts };
+    qcStates.set(qc, state);
+
+    var submitBtn = qc.querySelector('a.dp-qc-submit');
+    var dl = qc.querySelector('dl.dp-qc-answers');
+
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    (submitBtn || dl).parentNode.insertBefore(banner, submitBtn || dl);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    banner.after(resetBtn);
+
+    state.banner = banner;
+    state.resetBtn = resetBtn;
+    state.submitBtn = submitBtn;
+
+    resetBtn.addEventListener('click', function() { resetQc(qc); });
+  });
+
+  function selectAnswer(qc, idx) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.selectedIdx = idx;
+    s.dts.forEach(function(d) { d.classList.remove('qc-selected'); });
+    s.dts[idx].classList.add('qc-selected');
+  }
+
+  function revealAnswer(qc) {
+    var s = qcStates.get(qc);
+    if (!s || s.answered) return;
+    s.answered = true;
+
+    var idx = s.selectedIdx;
+    var correct = idx >= 0 && s.dts[idx].classList.contains('dp-qc-correct');
+
+    s.dts.forEach(function(dt, i) {
+      dt.classList.remove('qc-selected');
+      dt.style.pointerEvents = 'none';
+      var dd = dt.nextElementSibling;
+      if (dt.classList.contains('dp-qc-correct')) {
+        dt.classList.add('qc-correct-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      } else if (i === idx) {
+        dt.classList.add('qc-wrong-reveal');
+        if (dd) { dd.classList.remove('d-none'); dd.classList.add('qc-show'); }
+      }
+    });
+
+    s.banner.style.display = 'block';
+    s.banner.className = 'qc-result-banner ' + (correct ? 'correct' : 'wrong');
+    s.banner.textContent = idx < 0 ? '選択肢を選んでください' : (correct ? '✓ 正解！' : '✗ 不正解');
+    if (s.submitBtn) s.submitBtn.style.display = 'none';
+    s.resetBtn.style.display = 'inline-block';
+  }
+
+  function resetQc(qc) {
+    var s = qcStates.get(qc);
+    if (!s) return;
+    s.answered = false;
+    s.selectedIdx = -1;
+    s.dts.forEach(function(dt) {
+      dt.classList.remove('qc-selected', 'qc-correct-reveal', 'qc-wrong-reveal');
+      dt.style.pointerEvents = '';
+      var dd = dt.nextElementSibling;
+      if (dd) { dd.classList.remove('qc-show'); dd.classList.add('d-none'); }
+    });
+    s.banner.style.display = 'none';
+    s.resetBtn.style.display = 'none';
+    if (s.submitBtn) s.submitBtn.style.display = '';
+  }
+
+  // Single document-level delegation — catches taps anywhere inside dt or submit
+  document.addEventListener('click', function(e) {
+    var dt = e.target.closest('dt.dp-qc-answer');
+    var submit = e.target.closest('a.dp-qc-submit');
+    if (dt) {
+      var qc = dt.closest('.dp-qc');
+      var s = qcStates.get(qc);
+      if (s) selectAnswer(qc, s.dts.indexOf(dt));
+    } else if (submit) {
+      e.preventDefault();
+      var qc = submit.closest('.dp-qc');
+      if (qc) revealAnswer(qc);
+    }
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (!cards.length) return;
+
+  var current = 0;
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+
+  // Add hint under first card
+  cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+  // Nav bar before first card
+  var nav = document.createElement('div');
+  nav.className = 'fc-nav';
+  nav.innerHTML =
+    '<button id="fc-prev" disabled>← 前へ</button>' +
+    '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+    '<button id="fc-next">次へ →</button>';
+  cards[0].parentNode.insertBefore(nav, cards[0]);
+
+  function show(n) {
+    cards[current].style.display = 'none';
+    cards[current].classList.remove('flipped');
+    current = n;
+    cards[current].style.display = '';
+    document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+    document.getElementById('fc-prev').disabled = current === 0;
+    document.getElementById('fc-next').disabled = current === cards.length - 1;
+  }
+
+  document.getElementById('fc-prev').addEventListener('click', function() {
+    if (current > 0) show(current - 1);
+  });
+  document.getElementById('fc-next').addEventListener('click', function() {
+    if (current < cards.length - 1) show(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>
