@@ -1,18 +1,11 @@
-"""
-Build a standalone offline viewer from saved CIPM HTML files.
-Output: CIPM/LV1/viewer/ with index.html and per-lesson pages.
-"""
-
-import re
-import json
-from pathlib import Path
-from collections import defaultdict
-
-RAW_DIR = Path(__file__).parent.parent / "CIPM" / "LV1" / "translated_html"
-OUT_DIR = Path(__file__).parent.parent.parent / "dist" / "CIPM-LV1"
-OUT_DIR.mkdir(parents=True, exist_ok=True)
-
-SHARED_CSS = """
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.03 | Taking Your Exam</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
 body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
 .page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
 nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
@@ -202,9 +195,38 @@ ul.lesson-list li a.has-quiz::after {
   border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
   font-weight: 700; letter-spacing: .3px;
 }
-"""
-
-SHARED_JS = """
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › General</nav>
+<h1 class="page-title screenreader-only">0.03 | Taking Your Exam</h1>
+<div id="todo-date-mount-point"></div>
+<div class="dp-wrapper dp-flat-sections variation-2" id="dp-wrapper"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading">モジュール0：導入 0.03 | 試験の受験（Taking Your Exam）</h2>
+</header>
+<p>CIPM試験は、試験運営パートナーであるPrometricによって実施される。受験者は、試験ウィンドウに対して公表された期限までに試験予約を行う責任がある。予約は先着順であり、試験会場ごとに空き状況は異なる。</p>
+<p>近くの試験会場を探すには、テストセンター所在地ページ（Test Center Locations page）を参照すること。</p>
+<p>注意：すべての試験会場は、利用可能状況および需要に応じて変更される可能性がある。予約手続き中には、実際に空席が確認されている試験会場の選択肢が提示される。</p>
+<p>試験ウィンドウ内で試験予約を変更する場合、返金不可の250米ドル（USD 250）および該当する税金が課される。</p>
+<p>予約変更は公表された期限までに行う必要がある。予約を行わなかった場合、または試験を受験しなかった場合、受験料は返金不可、延期不可、譲渡不可である。</p>
+<p>予約確認の電子メールが送信される。</p>
+<p><a aria-label="Contact Prometric (opens in a new tab)" class="inline_disabled external" href="https://www.prometric.com/get-testing-support" rel="noreferrer noopener" target="_blank"><span>Contact Prometric</span><span class="external_link_icon" role="presentation" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; "><svg style="width:1em; height:1em; vertical-align:middle; fill:currentColor" viewbox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+<path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a> if you do not receive a confirmation of your appointment. </p>
+<p>CIPM試験の詳細については、このリンクを参照すること。</p>
+<h3 data-end="1738" data-start="1692">カリキュラムおよびCanvasへのアクセスについて（About the Curriculum and Canvas Access）</h3>
+<p data-end="1903" data-start="1742">Canvasコースは、CIPMプログラムのカリキュラムにアクセスする方法の一つである。受験者は、ダウンロード可能なePub版または印刷版を使用して学習することもできる。</p>
+<p data-end="2092" data-start="1906">各トピック末のクイズは任意であり、あくまで学習補助として提供されている。試験を受けるために、これらを完了する必要や、Canvas内のすべてのページを学習する必要はない。</p>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1366_modules_items_99452_002_Course_Policies.html" >← 前へ</a>
+  <span class="title">0.03 | Taking Your Exam</span>
+  <a href="courses_1366_modules_items_99456_004_Getting_Help.html" >次へ →</a>
+</div>
+<script>
 (function() {
   // ── Knowledge Check quiz ──
   document.querySelectorAll('.dp-qc').forEach(function(qc) {
@@ -358,174 +380,6 @@ SHARED_JS = """
     });
   });
 })();
-"""
-
-
-def extract_content(html: str) -> tuple:
-    """Extract main content div and title from saved HTML."""
-    # Try to find the populated show-content div
-    sc_match = re.search(
-        r'<div[^>]+class="[^"]*show-content[^"]*"[^>]*>(.*?)</div>\s*\n\s*<div id="assign-to',
-        html, re.DOTALL
-    )
-    if sc_match:
-        content = sc_match.group(1).strip()
-    else:
-        # Fallback: look for dp-wrapper directly
-        dp_match = re.search(r'(<div[^>]+class="dp-wrapper[^"]*".*?</div>)\s*\n', html, re.DOTALL)
-        content = dp_match.group(1) if dp_match else ""
-
-    # Extract title from h1 or dp-heading
-    title_match = re.search(r'<h[12][^>]*class="[^"]*(?:dp-heading|page-title)[^"]*"[^>]*>(.*?)</h[12]>', content, re.DOTALL)
-    if title_match:
-        title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip()
-    else:
-        title_match2 = re.search(r'<title>(.*?)</title>', html)
-        title = re.sub(r'<[^>]+>', '', title_match2.group(1)).strip() if title_match2 else "Untitled"
-
-    return content, title
-
-
-def has_quiz(content: str) -> bool:
-    return 'dp-qc' in content
-
-
-def page_html(title: str, content: str, breadcrumb: str, prev_link: str, next_link: str) -> str:
-    nav_bar = f"""<div id="viewer-nav">
-  <a href="index.html">☰ Index</a>
-  <a href="{prev_link}" {"" if prev_link else 'class="disabled"'}>← 前へ</a>
-  <span class="title">{title}</span>
-  <a href="{next_link}" {"" if next_link else 'class="disabled"'}>次へ →</a>
-</div>"""
-
-    return f"""<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>{SHARED_CSS}</style>
-</head>
-<body>
-<div class="page-wrapper">
-<nav class="breadcrumb">{breadcrumb}</nav>
-{content}
-</div>
-{nav_bar}
-<script>{SHARED_JS}</script>
+</script>
 </body>
-</html>"""
-
-
-def index_html(courses: dict) -> str:
-    total_pages = sum(len(items) for c in courses.values() for items in c.values())
-    total_kc = sum(1 for c in courses.values() for items in c.values() for (_, _, has_kc) in items if has_kc)
-
-    body = f"""<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIPM LV1 Curriculum</title>
-<style>{SHARED_CSS}</style>
-</head>
-<body>
-<div class="index-header">
-  <h1>CIPM Level 1 Curriculum</h1>
-  <p>{total_pages} lessons &nbsp;·&nbsp; {total_kc} pages with Knowledge Check</p>
-</div>
-<div class="page-wrapper" style="box-shadow:none; padding-top:0;">
-"""
-    for course_name, modules in sorted(courses.items()):
-        body += f'<div class="course-section"><h2>{course_name}</h2>\n'
-        for module_name, items in sorted(modules.items()):
-            body += f'<div class="module-section"><h3>{module_name}</h3><ul class="lesson-list">\n'
-            for (fname, title, has_kc) in items:
-                kc_class = ' has-quiz' if has_kc else ''
-                body += f'<li><a href="{fname}" class="{kc_class.strip()}">{title}</a></li>\n'
-            body += '</ul></div>\n'
-        body += '</div>\n'
-
-    body += '</div></body></html>'
-    return body
-
-
-def get_course_name(filename: str) -> str:
-    course_map = {
-        '1366': 'Performance Evaluation: Rate-of-Return Measurement',
-        '1367': 'Return Attribution and Benchmarks',
-        '1368': 'Risk Measurement and Attribution',
-        '1369': 'Investment Performance Appraisal',
-        '1370': 'Investment Performance Presentation and GIPS',
-    }
-    m = re.search(r'courses_(\d+)_', filename)
-    return course_map.get(m.group(1) if m else '', 'Unknown') if m else 'Unknown'
-
-
-def get_module_name(content: str) -> str:
-    m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', content)
-    return m.group(1).strip() if m else 'General'
-
-
-def main():
-    # Collect all lesson files (exclude module index and debug files)
-    lesson_files = sorted([
-        f for f in RAW_DIR.glob("courses_*_modules_items_*.html")
-        if '{{' not in f.name and '_debug_' not in f.name
-        and 'duplicate' not in f.name
-    ])
-
-    print(f"Processing {len(lesson_files)} lesson files...")
-
-    # First pass: extract content and metadata
-    lessons = []
-    for f in lesson_files:
-        html = f.read_text(errors='ignore')
-        content, title = extract_content(html)
-        if not content:
-            print(f"  [skip] no content: {f.name}")
-            continue
-        lessons.append({
-            'src': f,
-            'content': content,
-            'title': title,
-            'has_kc': has_quiz(content),
-            'course': get_course_name(f.name),
-            'module': get_module_name(content),
-        })
-
-    # Build course->module->lessons index
-    courses = defaultdict(lambda: defaultdict(list))
-    all_out_names = []
-
-    for lesson in lessons:
-        out_name = lesson['src'].name  # same filename
-        all_out_names.append(out_name)
-        courses[lesson['course']][lesson['module']].append(
-            (out_name, lesson['title'], lesson['has_kc'])
-        )
-
-    # Second pass: write lesson HTML files
-    for i, lesson in enumerate(lessons):
-        out_name = all_out_names[i]
-        prev_link = all_out_names[i - 1] if i > 0 else ''
-        next_link = all_out_names[i + 1] if i < len(lessons) - 1 else ''
-        bc = f'<a href="index.html">Index</a> › {lesson["course"]} › {lesson["module"]}'
-
-        html_out = page_html(lesson['title'], lesson['content'], bc, prev_link, next_link)
-        (OUT_DIR / out_name).write_text(html_out, encoding='utf-8')
-
-        kc_marker = ' [KC]' if lesson['has_kc'] else ''
-        print(f"  [{i+1}/{len(lessons)}] {lesson['title'][:60]}{kc_marker}")
-
-    # Write index
-    idx = index_html(courses)
-    (OUT_DIR / 'index.html').write_text(idx, encoding='utf-8')
-
-    print(f"\nDone. Open: {OUT_DIR}/index.html")
-    print(f"Pages with Knowledge Check: {sum(1 for l in lessons if l['has_kc'])}")
-
-
-if __name__ == '__main__':
-    main()
+</html>

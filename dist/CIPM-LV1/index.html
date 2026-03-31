@@ -132,10 +132,50 @@ dd.dp-qc-response:not(.dp-qc-correct) {
 }
 .dp-popover-trigger.open .dp-popup-content { display: block; }
 
-/* Nav buttons */
-.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }
-.nav-buttons a { color: #0770a3; text-decoration: none; font-size: 14px; padding: 8px 16px; border: 1px solid #ccc; border-radius: 5px; }
-.nav-buttons a:hover { background: #f0f4f7; }
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Fixed bottom nav */
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
 
 /* Index page */
 .index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
@@ -159,7 +199,45 @@ ul.lesson-list li a.has-quiz::after {
 <body>
 <div class="index-header">
   <h1>CIPM Level 1 Curriculum</h1>
-  <p>0 lessons &nbsp;·&nbsp; 0 pages with Knowledge Check</p>
+  <p>32 lessons &nbsp;·&nbsp; 8 pages with Knowledge Check</p>
 </div>
 <div class="page-wrapper" style="box-shadow:none; padding-top:0;">
+<div class="course-section"><h2>Performance Evaluation: Rate-of-Return Measurement</h2>
+<div class="module-section"><h3>General</h3><ul class="lesson-list">
+<li><a href="courses_1366_modules_items_104341_008_CIPM_Abbreviations_List.html" class="">0.08 | CIPM Abbreviations List</a></li>
+<li><a href="courses_1366_modules_items_104852_011_Using_Your_Program_Dashboard.html" class="">0.11 | Using Your Program Dashboard</a></li>
+<li><a href="courses_1366_modules_items_111715_223_Appendix.html" class="has-quiz">2.23 | Appendix</a></li>
+<li><a href="courses_1366_modules_items_99450_001_CIPM_Program_Overview_and_Information.html" class="">0.01 | CIPM Program Overview and Information</a></li>
+<li><a href="courses_1366_modules_items_99452_002_Course_Policies.html" class="">0.02 | Course Policies</a></li>
+<li><a href="courses_1366_modules_items_99454_003_Taking_Your_Exam.html" class="">0.03 | Taking Your Exam</a></li>
+<li><a href="courses_1366_modules_items_99456_004_Getting_Help.html" class="">0.04 | Getting Help</a></li>
+<li><a href="courses_1366_modules_items_99458_005_Errata_and_Feedback.html" class="">0.05 | Errata and Feedback</a></li>
+<li><a href="courses_1366_modules_items_99459_006_Traits_of_Successful_Candidates.html" class="">0.06 | Traits of Successful Candidates</a></li>
+<li><a href="courses_1366_modules_items_99460_007_Overview_and_Return_Measurement_Overview.html" class="">0.07 | Overview and Return Measurement Overview</a></li>
+<li><a href="courses_1366_modules_items_99461_009_Overview_and_Return_Measurement_Glossary.html" class="">0.09 | Overview and Return Measurement Glossary</a></li>
+<li><a href="courses_1366_modules_items_99463_010_Overview_and_Return_Measurement_Flashcards.html" class="">0.10 | Overview and Return Measurement Flashcards</a></li>
+<li><a href="courses_1366_modules_items_99468_Learning_Outcomes_Performance_Evaluation_An_Introduction.html" class="">Learning Outcomes: Performance Evaluation: An Introduction</a></li>
+<li><a href="courses_1366_modules_items_99470_101_Introduction.html" class="">1.01 | Introduction</a></li>
+<li><a href="courses_1366_modules_items_99472_102_Overview_of_Performance_Evaluation.html" class="">1.02 | Overview of Performance Evaluation</a></li>
+<li><a href="courses_1366_modules_items_99474_103_Why_Performance_Evaluation_is_Important.html" class="">1.03 | Why Performance Evaluation is Important</a></li>
+<li><a href="courses_1366_modules_items_99475_104_Performance_Evaluation_Component_Activities.html" class="">1.04 | Performance Evaluation: Component Activities</a></li>
+<li><a href="courses_1366_modules_items_99476_105_Factors_Defining_the_Output_of_Performance_Evaluation_Activities.html" class="">1.05 | Factors Defining the Output of Performance Evaluation Activities</a></li>
+<li><a href="courses_1366_modules_items_99480_107_Scope_of_Manager_Selection.html" class="">1.07 | Scope of Manager Selection</a></li>
+<li><a href="courses_1366_modules_items_99482_108_Summary.html" class="">1.08 | Summary</a></li>
+<li><a href="courses_1366_modules_items_99487_Learning_Outcomes_Performance_Evaluation_Rate-of-Return_Measurement.html" class="">Learning Outcomes: Performance Evaluation: Rate-of-Return Measurement</a></li>
+<li><a href="courses_1366_modules_items_99489_201_Introduction.html" class="">2.01 | Introduction</a></li>
+<li><a href="courses_1366_modules_items_99491_202_Single-Period_Rates_of_Return.html" class="">2.02 | Single-Period Rates of Return</a></li>
+<li><a href="courses_1366_modules_items_99493_203_Holding_Period_Rates_of_Return.html" class="has-quiz">2.03 | Holding Period Rates of Return</a></li>
+<li><a href="courses_1366_modules_items_99494_204_Common_Shares.html" class="has-quiz">2.04 | Common Shares</a></li>
+<li><a href="courses_1366_modules_items_99496_205_Bonds.html" class="has-quiz">2.05 | Bonds</a></li>
+<li><a href="courses_1366_modules_items_99498_206_Cash_in_Portfolio_Performance.html" class="has-quiz">2.06 | Cash in Portfolio Performance</a></li>
+<li><a href="courses_1366_modules_items_99499_207_Returns_on_Foreign_Assets.html" class="has-quiz">2.07 | Returns on Foreign Assets</a></li>
+<li><a href="courses_1366_modules_items_99501_208_Short_and_Leveraged_Positions.html" class="has-quiz">2.08 | Short and Leveraged Positions</a></li>
+<li><a href="courses_1366_modules_items_99503_209_Accounting_and_Trade_Considerations.html" class="">2.09 | Accounting and Trade Considerations</a></li>
+<li><a href="courses_1366_modules_items_99505_210_Factors_Affecting_Returns_and_Related_Adjustments.html" class="has-quiz">2.10 | Factors Affecting Returns and Related Adjustments</a></li>
+</ul></div>
+<div class="module-section"><h3>Module 1: Performance Evaluation: An Introduction</h3><ul class="lesson-list">
+<li><a href="courses_1366_modules_items_99478_106_The_Scope_of_the_Performance_Evaluation_Process.html" class="">1.06 | The Scope of the Performance Evaluation Process</a></li>
+</ul></div>
+</div>
 </div></body></html>

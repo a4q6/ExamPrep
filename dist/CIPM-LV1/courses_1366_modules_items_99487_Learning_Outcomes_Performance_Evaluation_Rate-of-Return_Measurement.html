@@ -1,18 +1,11 @@
-"""
-Build a standalone offline viewer from saved CIPM HTML files.
-Output: CIPM/LV1/viewer/ with index.html and per-lesson pages.
-"""
-
-import re
-import json
-from pathlib import Path
-from collections import defaultdict
-
-RAW_DIR = Path(__file__).parent.parent / "CIPM" / "LV1" / "translated_html"
-OUT_DIR = Path(__file__).parent.parent.parent / "dist" / "CIPM-LV1"
-OUT_DIR.mkdir(parents=True, exist_ok=True)
-
-SHARED_CSS = """
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning Outcomes: Performance Evaluation: Rate-of-Return Measurement</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
 body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
 .page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
 nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
@@ -202,9 +195,22 @@ ul.lesson-list li a.has-quiz::after {
   border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
   font-weight: 700; letter-spacing: .3px;
 }
-"""
-
-SHARED_JS = """
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Performance Evaluation: Rate-of-Return Measurement › General</nav>
+<h1 class="page-title screenreader-only">Learning Outcomes: Performance Evaluation: Rate-of-Return Measurement</h1>
+<div id="todo-date-mount-point"></div>
+<div class="dp-wrapper dp-flat-sections variation-2" id="CIPM0005-LOS" title="Learning Outcomes: Performance Evaluation: Rate-of-Return Measurement"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading">モジュール2：パフォーマンス評価（Performance Evaluation）：収益率測定（Rate-of-Return Measurement）学習目標（Learning Outcomes）：パフォーマンス評価（Performance Evaluation）：収益率測定（Rate-of-Return Measurement）</h2></header><div class="cfa-curriculum-contrib"><p class="cfa-curriculum-contrib-group">Carl R. Bacon, CIPM、David R. Cariño, PhD、Arin Stancil, CFA, CIPM</p></div><div class="dp-content-block content-block"><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"></i></h3><p class="p1" style="text-align: left;">The candidate should be able to:</p><ul id="CIPM0005-L-L1"><li>保有期間収益率（holding period rates of return）の計算における投資収益（investment income）（例：配当（dividends）および利息（interest））の取り扱いを説明せよ。</li><li>ポートフォリオ収益率（portfolio rate of return）を計算し、解釈せよ。</li><li>株式または債券投資における保有期間収益率（holding period rate of return）を計算し、解釈せよ。</li><li>非国内（non-domestic）収益率の自国通貨換算値（home currency equivalent）を計算し、その分解（decomposition）を説明せよ。</li><li>空売りポジション（short positions）およびレバレッジポジション（leveraged positions）から生じる収益率を計算し、解釈せよ。</li><li>簿価（book value）と時価（market value）、実現損益（realized gains and losses）と未実現損益（unrealized gains and losses）、取引日会計（trade date accounting）と受渡日会計（settlement date accounting）を区別し、これらの要素が収益率計算に用いる資産価値の決定にどのように反映されるかを示せ。</li><li>収益率計算の主要な基準（bases）を説明せよ：名目（nominal）と実質（real）、手数料控除前（gross-of-fees）と手数料控除後（net-of-fees）、税引前（pre-tax）と税引後（post-tax）、およびレバレッジベース（leveraged）とキャッシュベース（cash basis）。</li><li>離散複利（discrete compounding）および連続複利（continuous compounding）を説明し、実演せよ。</li><li>収益率を年率換算（annual basis）し、年率化（annualization）が適切な場合と不適切な場合を説明せよ。</li><li>算術平均収益率（arithmetic mean rates of return）と幾何平均収益率（geometric mean rates of return）を比較せよ。</li><li>超過リターン（excess returns）の算術および幾何的基準（arithmetic and geometric bases）を説明せよ。</li><li>パフォーマンス評価において外部キャッシュフロー（external cash flows）がもたらす問題を説明せよ。</li><li>マネーウェイト収益率（money-weighted rates of return）およびタイムウェイト収益率（time-weighted rates of return）を計算し、解釈せよ。</li><li>ユニットバリュープライシング（unit value pricing）を説明せよ。</li><li>真のタイムウェイト収益率（true time-weighted rate of return）に対する主要な近似手法（approximation methods）を説明せよ。</li><li>ポートフォリオの各セグメントおよび全体ポートフォリオのタイムウェイト収益率を計算する際の整合性条件（condition of consistency）を説明せよ。</li><li>コンポジット収益率（composite returns）の計算方法を比較せよ。</li></ul></div></div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1366_modules_items_99482_108_Summary.html" >← 前へ</a>
+  <span class="title">Learning Outcomes: Performance Evaluation: Rate-of-Return Measurement</span>
+  <a href="courses_1366_modules_items_99489_201_Introduction.html" >次へ →</a>
+</div>
+<script>
 (function() {
   // ── Knowledge Check quiz ──
   document.querySelectorAll('.dp-qc').forEach(function(qc) {
@@ -358,174 +364,6 @@ SHARED_JS = """
     });
   });
 })();
-"""
-
-
-def extract_content(html: str) -> tuple:
-    """Extract main content div and title from saved HTML."""
-    # Try to find the populated show-content div
-    sc_match = re.search(
-        r'<div[^>]+class="[^"]*show-content[^"]*"[^>]*>(.*?)</div>\s*\n\s*<div id="assign-to',
-        html, re.DOTALL
-    )
-    if sc_match:
-        content = sc_match.group(1).strip()
-    else:
-        # Fallback: look for dp-wrapper directly
-        dp_match = re.search(r'(<div[^>]+class="dp-wrapper[^"]*".*?</div>)\s*\n', html, re.DOTALL)
-        content = dp_match.group(1) if dp_match else ""
-
-    # Extract title from h1 or dp-heading
-    title_match = re.search(r'<h[12][^>]*class="[^"]*(?:dp-heading|page-title)[^"]*"[^>]*>(.*?)</h[12]>', content, re.DOTALL)
-    if title_match:
-        title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip()
-    else:
-        title_match2 = re.search(r'<title>(.*?)</title>', html)
-        title = re.sub(r'<[^>]+>', '', title_match2.group(1)).strip() if title_match2 else "Untitled"
-
-    return content, title
-
-
-def has_quiz(content: str) -> bool:
-    return 'dp-qc' in content
-
-
-def page_html(title: str, content: str, breadcrumb: str, prev_link: str, next_link: str) -> str:
-    nav_bar = f"""<div id="viewer-nav">
-  <a href="index.html">☰ Index</a>
-  <a href="{prev_link}" {"" if prev_link else 'class="disabled"'}>← 前へ</a>
-  <span class="title">{title}</span>
-  <a href="{next_link}" {"" if next_link else 'class="disabled"'}>次へ →</a>
-</div>"""
-
-    return f"""<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>{SHARED_CSS}</style>
-</head>
-<body>
-<div class="page-wrapper">
-<nav class="breadcrumb">{breadcrumb}</nav>
-{content}
-</div>
-{nav_bar}
-<script>{SHARED_JS}</script>
+</script>
 </body>
-</html>"""
-
-
-def index_html(courses: dict) -> str:
-    total_pages = sum(len(items) for c in courses.values() for items in c.values())
-    total_kc = sum(1 for c in courses.values() for items in c.values() for (_, _, has_kc) in items if has_kc)
-
-    body = f"""<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIPM LV1 Curriculum</title>
-<style>{SHARED_CSS}</style>
-</head>
-<body>
-<div class="index-header">
-  <h1>CIPM Level 1 Curriculum</h1>
-  <p>{total_pages} lessons &nbsp;·&nbsp; {total_kc} pages with Knowledge Check</p>
-</div>
-<div class="page-wrapper" style="box-shadow:none; padding-top:0;">
-"""
-    for course_name, modules in sorted(courses.items()):
-        body += f'<div class="course-section"><h2>{course_name}</h2>\n'
-        for module_name, items in sorted(modules.items()):
-            body += f'<div class="module-section"><h3>{module_name}</h3><ul class="lesson-list">\n'
-            for (fname, title, has_kc) in items:
-                kc_class = ' has-quiz' if has_kc else ''
-                body += f'<li><a href="{fname}" class="{kc_class.strip()}">{title}</a></li>\n'
-            body += '</ul></div>\n'
-        body += '</div>\n'
-
-    body += '</div></body></html>'
-    return body
-
-
-def get_course_name(filename: str) -> str:
-    course_map = {
-        '1366': 'Performance Evaluation: Rate-of-Return Measurement',
-        '1367': 'Return Attribution and Benchmarks',
-        '1368': 'Risk Measurement and Attribution',
-        '1369': 'Investment Performance Appraisal',
-        '1370': 'Investment Performance Presentation and GIPS',
-    }
-    m = re.search(r'courses_(\d+)_', filename)
-    return course_map.get(m.group(1) if m else '', 'Unknown') if m else 'Unknown'
-
-
-def get_module_name(content: str) -> str:
-    m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', content)
-    return m.group(1).strip() if m else 'General'
-
-
-def main():
-    # Collect all lesson files (exclude module index and debug files)
-    lesson_files = sorted([
-        f for f in RAW_DIR.glob("courses_*_modules_items_*.html")
-        if '{{' not in f.name and '_debug_' not in f.name
-        and 'duplicate' not in f.name
-    ])
-
-    print(f"Processing {len(lesson_files)} lesson files...")
-
-    # First pass: extract content and metadata
-    lessons = []
-    for f in lesson_files:
-        html = f.read_text(errors='ignore')
-        content, title = extract_content(html)
-        if not content:
-            print(f"  [skip] no content: {f.name}")
-            continue
-        lessons.append({
-            'src': f,
-            'content': content,
-            'title': title,
-            'has_kc': has_quiz(content),
-            'course': get_course_name(f.name),
-            'module': get_module_name(content),
-        })
-
-    # Build course->module->lessons index
-    courses = defaultdict(lambda: defaultdict(list))
-    all_out_names = []
-
-    for lesson in lessons:
-        out_name = lesson['src'].name  # same filename
-        all_out_names.append(out_name)
-        courses[lesson['course']][lesson['module']].append(
-            (out_name, lesson['title'], lesson['has_kc'])
-        )
-
-    # Second pass: write lesson HTML files
-    for i, lesson in enumerate(lessons):
-        out_name = all_out_names[i]
-        prev_link = all_out_names[i - 1] if i > 0 else ''
-        next_link = all_out_names[i + 1] if i < len(lessons) - 1 else ''
-        bc = f'<a href="index.html">Index</a> › {lesson["course"]} › {lesson["module"]}'
-
-        html_out = page_html(lesson['title'], lesson['content'], bc, prev_link, next_link)
-        (OUT_DIR / out_name).write_text(html_out, encoding='utf-8')
-
-        kc_marker = ' [KC]' if lesson['has_kc'] else ''
-        print(f"  [{i+1}/{len(lessons)}] {lesson['title'][:60]}{kc_marker}")
-
-    # Write index
-    idx = index_html(courses)
-    (OUT_DIR / 'index.html').write_text(idx, encoding='utf-8')
-
-    print(f"\nDone. Open: {OUT_DIR}/index.html")
-    print(f"Pages with Knowledge Check: {sum(1 for l in lessons if l['has_kc'])}")
-
-
-if __name__ == '__main__':
-    main()
+</html>

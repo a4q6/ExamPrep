@@ -16,7 +16,6 @@ Serve for smartphone (same WiFi):
 import re
 import json
 from pathlib import Path
-from collections import defaultdict
 
 TRANSLATED_DIR = Path(__file__).parent.parent / "CFA" / "LV1" / "translated_html"
 OUT_DIR        = Path(__file__).parent.parent.parent / "dist" / "CFA-LV1"
@@ -280,9 +279,65 @@ def get_title(html: str) -> str:
     return title
 
 
-def get_module_name(html: str) -> str:
+def _normalize_module_name(name: str) -> str:
+    name = re.sub(r'&amp;', 'and', name)
+    name = re.sub(r',\s+and\b', ' and', name)
+    name = re.sub(r'[–—]', '-', name)   # normalize em/en-dash to hyphen
+    name = name.replace('\xa0', ' ')    # normalize non-breaking space
+    name = re.sub(r'\s+', ' ', name).strip()
+    # Normalize capitalization: title-case the part after "Module N: "
+    m = re.match(r'(Module \d+:)\s*(.*)', name, re.IGNORECASE)
+    if m:
+        rest = m.group(2).strip().title()
+        # Fix common title-case artifacts (prepositions/articles)
+        for word in ('And', 'Of', 'The', 'For', 'In', 'A', 'An', 'With', 'To', 'At', 'By', 'From'):
+            rest = re.sub(rf'\b{word}\b', word.lower(), rest)
+        # Uppercase abbreviations in parentheses e.g. (Abs) -> (ABS)
+        rest = re.sub(r'\(([^)]{1,6})\)', lambda x: '(' + x.group(1).upper() + ')', rest)
+        # Ensure first character is uppercase
+        rest = rest[0].upper() + rest[1:] if rest else rest
+        name = m.group(1) + ' ' + rest
+    return name
+
+
+def _extract_module_num(filename: str):
+    """Extract module number from lesson code, e.g. _101_ -> 1, _1001_ -> 10."""
+    m = re.search(r'_items_\d+_(\d{3,4})_', filename)
+    if not m:
+        return None
+    return int(m.group(1)) // 100
+
+
+def get_module_name(html: str, filename: str = '', module_map=None) -> str:
+    course_id = None
+    if filename:
+        cm = re.search(r'courses_(\d+)_', filename)
+        if cm:
+            course_id = cm.group(1)
+
+    def _map_lookup(mod_num):
+        if module_map and course_id and mod_num is not None:
+            return module_map.get((course_id, mod_num))
+        return None
+
+    # Try numeric lesson code in filename first
+    result = _map_lookup(_extract_module_num(filename))
+    if result:
+        return result
+
+    # Try dp-header-pre
     m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', html)
-    return m.group(1).strip() if m else "General"
+    if m:
+        raw = m.group(1).strip()
+        # Extract module number from text (e.g. "Module 3: ..." -> 3)
+        nm = re.match(r'Module\s+(\d+):', raw, re.IGNORECASE)
+        if nm:
+            result = _map_lookup(int(nm.group(1)))
+            if result:
+                return result
+        return _normalize_module_name(raw)
+
+    return "General"
 
 
 def get_course_name(filename: str) -> str:
@@ -346,15 +401,22 @@ def build_clean_page(html: str, title: str, prev_name: str, next_name: str) -> s
 
 
 def index_html(lessons: list) -> str:
-    courses = defaultdict(lambda: defaultdict(list))
+    # Use plain dicts to preserve insertion order (= file order).
+    # module_keys[course][module_key] = display_name  (dedup by lowercase key)
+    courses: dict = {}       # course -> {module_key -> [items]}
+    module_display: dict = {}  # course -> {module_key -> display_name}
     for l in lessons:
-        courses[l['course']][l['module']].append((l['name'], l['title']))
+        course = l['course']
+        mod_key = l['module'].lower()
+        courses.setdefault(course, {}).setdefault(mod_key, []).append((l['name'], l['title']))
+        module_display.setdefault(course, {}).setdefault(mod_key, l['module'])
 
     rows = ""
-    for course, modules in sorted(courses.items()):
+    for course, modules in courses.items():
         rows += f'<h2>{course}</h2>\n'
-        for module, items in sorted(modules.items()):
-            rows += f'<h3>{module}</h3><ul>\n'
+        for mod_key, items in modules.items():
+            display = module_display[course][mod_key]
+            rows += f'<h3>{display}</h3><ul>\n'
             for name, title in items:
                 rows += f'<li><a href="{name}">{title}</a></li>\n'
             rows += '</ul>\n'
@@ -392,6 +454,19 @@ def main():
     ])
     print(f"Processing {len(files)} files...")
 
+    # First pass: build (course_id, module_num) -> module_name from files with dp-header-pre
+    module_map: dict = {}
+    for f in files:
+        html = f.read_text(encoding="utf-8", errors="ignore")
+        m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', html)
+        if m:
+            course_m = re.search(r'courses_(\d+)_', f.name)
+            mod_num = _extract_module_num(f.name)
+            if course_m and mod_num is not None:
+                key = (course_m.group(1), mod_num)
+                if key not in module_map:
+                    module_map[key] = _normalize_module_name(m.group(1).strip())
+
     lessons = []
     for f in files:
         html = f.read_text(encoding="utf-8", errors="ignore")
@@ -401,7 +476,7 @@ def main():
             'name': f.name,
             'title': title,
             'course': get_course_name(f.name),
-            'module': get_module_name(html),
+            'module': get_module_name(html, f.name, module_map),
             'html': html,
         })
 

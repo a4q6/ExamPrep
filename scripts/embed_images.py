@@ -33,8 +33,9 @@ with open(env_path) as f:
 CFA_USER = env_vars["CFA_USER"]
 CFA_PASS = env_vars["CFA_PASS"]
 
-RAW_DIR        = Path(__file__).parent.parent / "CFA" / "LV1" / "raw_html"
-TRANSLATED_DIR = Path(__file__).parent.parent / "CFA" / "LV1" / "translated_html"
+ROOT_DIR       = Path(__file__).parent.parent
+RAW_DIR        = ROOT_DIR / "CFA" / "LV1" / "raw_html"
+TRANSLATED_DIR = ROOT_DIR / "CFA" / "LV1" / "translated_html"
 
 IMG_PATTERN = re.compile(
     r'https://learn\.cfainstitute\.org/courses/\d+/files/\d+/preview'
@@ -110,9 +111,16 @@ def main():
                     help="Show stats without downloading or modifying files")
     ap.add_argument("--translated-only", action="store_true",
                     help="Only process translated_html/ (skip raw_html/)")
+    ap.add_argument("--dirs", nargs="+", metavar="DIR",
+                    help="Explicit directories to process (overrides defaults)")
     args = ap.parse_args()
 
-    dirs = [TRANSLATED_DIR] if args.translated_only else None
+    if args.dirs:
+        dirs = [ROOT_DIR / d for d in args.dirs]
+    elif args.translated_only:
+        dirs = [TRANSLATED_DIR]
+    else:
+        dirs = None
     url_to_files = collect_urls(dirs)
     total_urls = len(url_to_files)
     total_refs = sum(len(v) for v in url_to_files.values())
