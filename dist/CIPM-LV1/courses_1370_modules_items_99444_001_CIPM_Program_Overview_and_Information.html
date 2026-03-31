@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.01 | CIPM Program Overview and Information</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Fixed bottom nav */
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Investment Performance Presentation and GIPS › Module 0: Getting Started</nav>
+<h1 class="page-title screenreader-only">0.01 | CIPM Program Overview and Information</h1>
+<div id="todo-date-mount-point"></div>
+<div class="dp-wrapper dp-flat-sections variation-2" id="dp-wrapper"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 0: Getting Started </span> <span class="dp-header-title">0.01 | CIPM Program Overview and Information</span></h2>
+</header>
+<div class="dp-content-block">
+<div class="dp-content-block">
+<h3 class="" style="text-align: center;">Introduction</h3>
+<p>Congratulations on your decision to enter the Certificate in Investment Performance Measurement (CIPM®) Program. This exciting and rewarding program of study reflects your desire to become a serious portfolio evaluation professional. You are embarking on a program noted for its high ethical standards and the depth of knowledge, skills, and abilities it develops. Your commitment to the CIPM Program should be educationally and professionally rewarding.</p>
+</div>
+</div>
+<div class="dp-panels-wrapper dp-tabs-pills-vertical dp-panels-built dp-tab-flex"><ul aria-label="Tabs Group" class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+<a aria-controls="dpPanel0Content" aria-selected="true" class="nav-link dp-panel-heading , active active" data-toggle="tab" href="#dpPanel0Content" id="dpPanel0" role="tab" tabindex="0">1. Navigating Your Materials</a>
+</li> <li class="nav-item" role="presentation">
+<a aria-controls="dpPanel1Content" aria-selected="false" class="nav-link dp-panel-heading ," data-toggle="tab" href="#dpPanel1Content" id="dpPanel1" role="tab" tabindex="-1">2. Prerequisites</a>
+</li> <li class="nav-item" role="presentation">
+<a aria-controls="dpPanel2Content" aria-selected="false" class="nav-link dp-panel-heading ," data-toggle="tab" href="#dpPanel2Content" id="dpPanel2" role="tab" tabindex="-1">3. CIPM Program Overview and Learning Outcome Statements</a>
+</li> <li class="nav-item" role="presentation">
+<a aria-controls="dpPanel9Content" aria-selected="false" class="nav-link dp-panel-heading ," data-toggle="tab" href="#dpPanel9Content" id="dpPanel9" role="tab" tabindex="-1">4. Tools and Technologies</a>
+</li> <li class="nav-item" role="presentation">
+<a aria-controls="dpPanel10Content" aria-selected="false" class="nav-link dp-panel-heading ," data-toggle="tab" href="#dpPanel10Content" id="dpPanel10" role="tab" tabindex="-1">5. Accessibility</a>
+</li> </ul><div class="tab-content active">
+<div aria-labelledby="dpPanel0" class="tab-pane dp-panel-content fade show active" data-panel-classes="  active" id="dpPanel0Content" role="tabpanel" tabindex="0"><h3 class="active sr-only m-0 p-0 border-0">1. Navigating Your Materials</h3>
+<div class="dp-content-block">
+<h4 class="" style="text-align: left;">Learning Ecosystem</h4>
+<p>Our exam registration fee includes access to the CFA Institute Learning Ecosystem (LES) in Canvas. This digital learning platform provides access to all the curriculum content and practice questions. The LES is organized as a series of learning modules consisting of short online lessons and associated practice questions. This tool is your source for all study materials, including practice questions and mock exams. The LES is the primary method by which CFA Institute delivers your curriculum experience. Here, you will find additional practice questions to test your knowledge, including some interactive questions.</p>
+</div>
+</div>
+<div aria-labelledby="dpPanel1" class="dp-panel-content tab-pane fade show" id="dpPanel1Content" role="tabpanel" tabindex="0"><h3 class="sr-only m-0 p-0 border-0">2. Prerequisites</h3>
+<div class="dp-content-block">
+<h4 class="" style="text-align: left;">Prerequisites</h4>
+<p><span style="font-family: inherit; font-size: 1rem;"><span>There are no specific prerequisites for the CIPM Program, although candidates typically have some experience in investment performance measurement, analysis, or a related field.</span></span></p>
+</div>
+</div>
+<div aria-labelledby="dpPanel2" class="dp-panel-content tab-pane fade show" id="dpPanel2Content" role="tabpanel" tabindex="0"><h3 class="sr-only m-0 p-0 border-0">3. CIPM Program Overview and Learning Outcome Statements</h3>
+<div class="dp-content-block">
+<h4 class="">CIPM Level I Program Overview</h4>
+<p><span>The CIPM Program builds your knowledge across several key areas of performance measurement</span>. Level I e<span>mphasizes the conceptual foundations of performance measurement, attribution, appraisal, and presentation, as well as the GIPS® standards. </span>The curriculum is organized into topics, each represented as a course in our Learning Ecosystem, and each topic contains learning modules. You can access each of these courses through your Learner Dashboard. </p>
+<div class="dp-panels-wrapper dp-no-expander-controls dp-expander-plus dp-panels-built" id="dp-expander-0">
+<h3 class="dp-panel-heading dp-panels-built" id="dpPanel3"><a aria-controls="dpPanel3Content" aria-expanded="false" class="dp-panel-toggler" href="#dpPanel3" role="button"><i aria-hidden="true" class="dp-panel-icon fas fa-plus"></i> Ethical and Professional Standards</a></h3>
+<div aria-labelledby="dpPanel3" class="dp-panel-content" id="dpPanel3Content" style="display: none;" tabindex="0">
+<p><span>Ethical and Professional Standards addresses ideas and concepts which underscore the importance of ethical behavior in the investment industry. Areas of focus include ethics and trust in the investment industry, the </span><span data-highlighted="true" data-vc="highlighted-text"><span class="_kqswh2mm"><span class="_5pioz8co _189eyh40 _1il9buyh _19lcevot _d0altlke" data-testid="definition-highlighter">CFA</span></span></span><span> Institute Code of Ethics and Standards of Professional Conduct and Standards of Practice Handbook, guidance for adherence to the Standards, Global Investment Performance Standards (GIPS®) and ethics application. </span></p>
+</div>
+<h3 class="dp-panel-heading dp-panels-built" id="dpPanel4"><a aria-controls="dpPanel4Content" aria-expanded="false" class="dp-panel-toggler" href="#dpPanel4" role="button"><i aria-hidden="true" class="dp-panel-icon fas fa-plus"></i> Overview and Return Measurement</a></h3>
+<div aria-labelledby="dpPanel4" class="dp-panel-content" id="dpPanel4Content" style="display: none;" tabindex="0">
+<p><span>Overview and Return Measurement focuses on core skills in calculating and interpreting portfolio returns and risk. Topics include data quality, time-weighted and dollar-weighted return methods, benchmark selection basics, and an overview of GIPS® composite construction.</span></p>
+</div>
+<h3 class="dp-panel-heading dp-panels-built" id="dpPanel5"><a aria-controls="dpPanel5Content" aria-expanded="false" class="dp-panel-toggler" href="#dpPanel5" role="button"><i aria-hidden="true" class="dp-panel-icon fas fa-plus"></i> Return Attribution and Benchmark Analysis</a></h3>
+<div aria-labelledby="dpPanel5" class="dp-panel-content" id="dpPanel5Content" style="display: none;" tabindex="0">
+<p><span>Return Attribution and Benchmark Analysis explores the building blocks of risk measurement and risk attribution analysis. You’ll learn single-period equity and fixed-income attribution basics, plus how to reconcile portfolio returns against a chosen benchmark.</span></p>
+</div>
+<h3 class="dp-panel-heading dp-panels-built" id="dpPanel6"><a aria-controls="dpPanel6Content" aria-expanded="false" class="dp-panel-toggler" href="#dpPanel6" role="button"><i aria-hidden="true" class="dp-panel-icon fas fa-plus"></i> Risk Measurement, Risk Attribution and Security Characteristics</a></h3>
+<div aria-labelledby="dpPanel6" class="dp-panel-content" id="dpPanel6Content" style="display: none;" tabindex="0">
+<p><span>Risk Measurement, Risk Attribution, and Security Characteristics addresses contrasting perspectives on risk, the many ways to measure it. Equity portfolios are analyzed for style and attribution effects.</span></p>
+</div>
+<h3 class="dp-panel-heading dp-panels-built" id="dpPanel7"><a aria-controls="dpPanel7Content" aria-expanded="false" class="dp-panel-toggler" href="#dpPanel7" role="button"><i aria-hidden="true" class="dp-panel-icon fas fa-plus"></i> Performance Appraisal</a></h3>
+<div aria-labelledby="dpPanel7" class="dp-panel-content" id="dpPanel7Content" style="display: none;" tabindex="0">
+<p><span>Performance Appraisal covers essential appraisal metrics and ratios for evaluating risk-return characteristics. You’ll get an introduction to Sharpe, Treynor, Information ratios, and learn how to compare manager performance against peers and benchmarks.</span></p>
+</div>
+<h3 class="dp-panel-heading dp-panels-built" id="dpPanel8"><a aria-controls="dpPanel8Content" aria-expanded="false" class="dp-panel-toggler" href="#dpPanel8" role="button"><i aria-hidden="true" class="dp-panel-icon fas fa-plus"></i> Investment Performance Presentation</a></h3>
+<div aria-labelledby="dpPanel8" class="dp-panel-content" id="dpPanel8Content" style="display: none;" tabindex="0">
+<p><span>Investment Performance Presentation focuses on the process of constructing performance presentation reports and production of performance reports for internal and external audiences. Discover how to apply introductory GIPS® reporting guidelines and communicate results clearly to support client understanding.</span></p>
+</div>
+</div>
+<h4 class="">Learning Outcome Statements</h4>
+<p>The CIPM Program Learning Outcome Statements (LOS) are the backbone of the program. They outline the specific knowledge and skills that you will need to demonstrate in each topic area. You can use the LOS to help guide your study efforts by focusing on the subjects you would like to strengthen. </p>
+<p>You can find a complete list of the <span class="instructure_file_holder link_holder instructure_file_link_holder"><a class="inline_disabled preview_in_overlay" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1177/files/231453" data-api-returntype="File" data-canvas-previewable="false" href="https://learn.cfainstitute.org/courses/1177/files/231453?wrap=1" target="_blank" title="2026_CIPM_L1_TopicOutline_ONLINE.pdf">CIPM Program LOS</a><a class="file_download_btn" download="" href="https://learn.cfainstitute.org/courses/1177/files/231453/download?download_frd=1" role="button" style="margin-inline-start: 5px; text-decoration: none;"><span role="presentation"><svg style="width:1em; height:1em; vertical-align:middle; fill:currentColor" viewbox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+<path d="m1807.093 1482.477 79.736 79.963-355.313 355.312H355.346L.035 1562.44l79.85-79.963 322.22 322.334H1484.76l322.334-322.334ZM997.677-.033v1167.02l355.313-355.313 79.962 79.85-491.858 491.633L449.46 891.524l79.962-79.85 355.313 355.313V-.033h112.941Z" fill-rule="evenodd"></path>
+</svg>
+</span><span class="screenreader-only">Download CIPM Program LOS</span></a></span> at this link. </p>
+</div>
+</div>
+<div aria-labelledby="dpPanel9" class="dp-panel-content tab-pane fade show" id="dpPanel9Content" role="tabpanel" tabindex="0"><h3 class="sr-only m-0 p-0 border-0">4. Tools and Technologies</h3>
+<div class="dp-content-block">
+<h4 class="">Computer Hardware and Peripherals</h4>
+<p>The information provided below relates to most standard desktop and laptop computers. Many devices, including tablets and mobile phones, offer a high level of access to most of the functions in the courses. Access to all functions of the courses may be best experienced by using a computer (desktop or notebook) that meets the requirements described below.</p>
+<ul>
+<li><span style="color: #000000;">A computer that supports the most recent versions of web browsers. It is recommended to use a computer five years old or newer with at least 1GB of RAM. </span></li>
+<li><span style="color: #000000;">Speakers or ability to use headphones for audio playback. </span></li>
+<li><span style="color: #000000;">(Optional) A printer is recommended as needed to download and print material. Not required.</span></li>
+</ul>
+</div>
+<hr/>
+<div class="dp-content-block" style="background-color: #ffffff; color: #000000;">
+<h4 class="">Canvas</h4>
+<p>For best performance, Canvas can be accessed using Windows, Mac, Linux, iOS, Android, or any other device on the current or previous major releases of Chrome, Firefox, Edge, or Safari.</p>
+<p>Canvas only requires an operating system that can run the latest compatible web browsers. Your computer operating system and chosen web browser should be kept up to date with the latest recommended security updates and upgrades.</p>
+<p>Should you encounter technical problems within Canvas or have any questions regarding Canvas tools or features, please contact Canvas support via the Help menu in the navigation bar. We recommend using the Chat for the best service.</p>
+</div>
+<hr/>
+<div class="dp-content-block">
+<h4 class="">Canvas Mobile App</h4>
+<p><span data-teams="true">Candidates </span>can access courses using a mobile device with the Canvas app that is available on both<span> </span><a class="dp-ext-ignore external" href="https://community.canvaslms.com/t5/Canvas-Student-Android-Guide/tkb-p/student_android" rel="noreferrer noopener" target="_blank"><span>Android</span><span class="external_link_icon" role="presentation" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; "><svg style="width:1em; height:1em; vertical-align:middle; fill:currentColor" viewbox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+<path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a><span> </span>and<span> </span><a class="dp-ext-ignore external" href="https://community.canvaslms.com/t5/Canvas-Student-iOS-Guide/tkb-p/student_ios" rel="noreferrer noopener" target="_blank"><span>iOS</span><span class="external_link_icon" role="presentation" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; "><svg style="width:1em; height:1em; vertical-align:middle; fill:currentColor" viewbox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+<path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a><span> </span>devices. The app also provides access to course calendars, To Do items, notifications, and Conversations messages as well as course materials.</p>
+<p>To log in to the app, use the QR code found in your Account &gt; QR for Mobile Login.  For more information on this feature, please read about the <a class="inline_disabled external" href="https://community.canvaslms.com/t5/Canvas-Student-iOS-Guide/How-do-I-log-in-to-the-Student-app-on-my-iOS-device-with-a-QR/ta-p/1891" rel="noreferrer noopener" target="_blank"><span>QR for Canvas Mobile Login</span><span class="external_link_icon" role="presentation" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; "><svg style="width:1em; height:1em; vertical-align:middle; fill:currentColor" viewbox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+<path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a> here.</p>
+<span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 12pt;">For the best course experience and ease of completing assignments, we recommend using the desktop version. </span></div>
+</div>
+<div aria-labelledby="dpPanel10" class="tab-pane dp-panel-content fade show" data-panel-classes=" " id="dpPanel10Content" role="tabpanel" tabindex="0"><h3 class="sr-only m-0 p-0 border-0">5. Accessibility</h3>
+<div class="dp-content-block">
+<h4 class="" style="text-align: left;">Our Commitment to Accessibility Standards</h4>
+<p>At CFA Institute, we are deeply committed to fostering an inclusive and accessible educational experience for all. We recognize the significance of providing equitable access to our curriculum materials and proactively seek ways to enhance and improve our accessibility features.</p>
+<p>The World Wide Web Consortium (W3C) develops standards and guidelines to help everyone build a web based on the principles of accessibility, internationalization, privacy, and security. We strive to ensure that our curriculum materials comply with the Web Content Accessibility Guidelines (WCAG) 2.2 AA published by the W3C. We recognize the importance of accessible digital content, and we are fully committed to adhering to all applicable laws pertaining to accessibility.</p>
+</div>
+<div class="dp-content-block">
+<h4 class="">Microsoft Immersive Reader</h4>
+<p><span>The Microsoft Immersive Reader enhances your reading experience by improving accessibility and boosting reading comprehension. You can use the Microsoft Immersive Reader when viewing Canvas pages and assignments.  For information about the reader, visit the <a class="dp-ext-ignore external" href="https://www.microsoft.com/en-us/education/products/learning-tools/default.aspx#immersive-reader" rel="noreferrer noopener" target="_blank"><span>Microsoft Immersive Reader</span><span class="external_link_icon" role="presentation" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; "><svg style="width:1em; height:1em; vertical-align:middle; fill:currentColor" viewbox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+<path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a> website.</span></p>
+<p><span>For instructions on how to enable <a class="inline_disabled external" href="https://community.canvaslms.com/t5/Student-Guide/How-do-I-use-the-Microsoft-Immersive-Reader-in-a-course-as-a/ta-p/446" rel="noreferrer noopener" target="_blank"><span>Microsoft Immersive Reader in Canvas</span><span class="external_link_icon" role="presentation" style="margin-inline-start: 5px; display: inline-block; text-indent: initial; "><svg style="width:1em; height:1em; vertical-align:middle; fill:currentColor" viewbox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+<path d="M1226.667 267c88.213 0 160 71.787 160 160v426.667H1280v-160H106.667v800C106.667 1523 130.56 1547 160 1547h1066.667c29.44 0 53.333-24 53.333-53.333v-213.334h106.667v213.334c0 88.213-71.787 160-160 160H160c-88.213 0-160-71.787-160-160V427c0-88.213 71.787-160 160-160Zm357.706 442.293 320 320c20.8 20.8 20.8 54.614 0 75.414l-320 320-75.413-75.414 228.907-228.906H906.613V1013.72h831.254L1508.96 784.707l75.413-75.414Zm-357.706-335.626H160c-29.44 0-53.333 24-53.333 53.333v160H1280V427c0-29.333-23.893-53.333-53.333-53.333Z" fill-rule="evenodd"></path>
+</svg>
+<span class="screenreader-only">Links to an external site.</span></span></a>, please use this link. </span></p>
+</div>
+<div class="dp-content-block">
+<h4 class="">We Welcome Your Feedback</h4>
+<p>Our pledge to accessibility extends beyond this statement, and we welcome your feedback and input, which are invaluable to us as we strive to construct a more robust and accessible learning environment. </p>
+<p>For any issues or concerns related to accessibility, or if you require assistance, please do not hesitate to reach out to our dedicated support team. <span>You can reach them via the Inbox and under Teachers in the address book, select ‘CIPM Program Staff’.  </span>They are here to provide support and assistance regarding any accessibility challenges.</p>
+</div>
+</div>
+</div></div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1369_modules_items_104856_011_Using_Your_Program_Dashboard.html" >← 前へ</a>
+  <span class="title">0.01 | CIPM Program Overview and Information</span>
+  <a href="courses_1370_modules_items_99445_002_Course_Policies.html" >次へ →</a>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (cards.length) {
+    var current = 0;
+
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        card.classList.toggle('flipped');
+      });
+    });
+
+    cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+    var nav = document.createElement('div');
+    nav.className = 'fc-nav';
+    nav.innerHTML =
+      '<button id="fc-prev" disabled>← 前へ</button>' +
+      '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+      '<button id="fc-next">次へ →</button>';
+    cards[0].parentNode.insertBefore(nav, cards[0]);
+
+    function showCard(n) {
+      cards[current].style.display = 'none';
+      cards[current].classList.remove('flipped');
+      current = n;
+      cards[current].style.display = '';
+      document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+      document.getElementById('fc-prev').disabled = current === 0;
+      document.getElementById('fc-next').disabled = current === cards.length - 1;
+    }
+
+    document.getElementById('fc-prev').addEventListener('click', function() {
+      if (current > 0) showCard(current - 1);
+    });
+    document.getElementById('fc-next').addEventListener('click', function() {
+      if (current < cards.length - 1) showCard(current + 1);
+    });
+  }
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

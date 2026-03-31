@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.11 | Return Attribution Analysis at Multiple Levels</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Fixed bottom nav */
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Return Attribution and Benchmarks › Module 1: Return Attribution</nav>
+<h1 class="page-title screenreader-only">1.11 | Return Attribution Analysis at Multiple Levels</h1>
+<div id="todo-date-mount-point"></div>
+<div class="dp-wrapper dp-flat-sections variation-2" id="CIPM0017-R-s11-R-1" title="1.11 | Return Attribution Analysis at Multiple Levels"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 1: Return Attribution</span>1.11 | Return Attribution Analysis at Multiple Levels</h2>
+</header>
+<div class="cfa-curriculum-los-box">
+<h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Learning Outcomes</h3>
+<p class="p1">The candidate should be able to:</p>
+<ul id="CIPM0017-R-s11-los-1CIPM0017-R-s11-los-2">
+<li class="cfa-curriculum-los-item">distinguish between the effects of sponsors’ and managers’ investment decisions</li>
+<li class="cfa-curriculum-los-item">calculate and interpret attribution analysis at different levels: plan sponsor, portfolio manager, country, industrial sector, and individual security</li>
+</ul>
+</div>
+<hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
+<p>The example used to demonstrate return attribution so far is a single country model in which the investment process allocates weight to industry sectors and then selects securities within each of those industry sectors. The same return attribution formulas for allocation and selection can be used at multiple levels in the entire decision process to evaluate different decisions. Consider an example in which the top level is the fund sponsor (e.g., a university endowment or a defined-benefit pension plan sponsor). At the fund sponsor level, the first decision might be to allocate a certain weight to asset classes—the strategic asset allocation. If the fund sponsor does not manage funds internally, they would delegate a second decision in the investment process to the investment managers who could decide on any tactical deviations from the strategic asset allocation. And the sponsor might choose a number of portfolio managers to manage against specific mandates within a given asset class. (Attribution at the sponsor level is sometimes called <a aria-describedby="CIPM-MacroAttributionContent" aria-expanded="false" class="dp-popover-trigger cfa-curriculum-cite-glossary" data-transformed="true" href="#transformedTip0Content" id="transformedTip0" role="button">macro attribution</a>; attribution at the portfolio manager level is sometimes called <a aria-describedby="CIPM-MicroAttributionContent" aria-expanded="false" class="dp-popover-trigger cfa-curriculum-cite-glossary" data-transformed="true" href="#transformedTip1Content" id="transformedTip1" role="button">micro attribution</a>.)</p>
+<p>Using the investment decision process just described, the allocation formula can be used to measure the tactical asset allocation decision of the sponsor against its own strategic benchmark, which could be a weighted average of appropriate asset class indexes using the strategic asset allocation weights or a representation of the sponsor’s liabilities, as in the case of many pension funds. The selection formula can be used to measure the added value of the performance of each of the portfolio managers relative to their assigned benchmarks. To the fund sponsor, the selection of portfolio managers is in effect a selection decision in the return attribution analysis performed at the highest level.</p>
+<p>When we calculate return attribution, we have the opportunity to choose which level(s) to analyze. Consider the example of a fund sponsor who hires two investment managers for the equity portion of the fund. The overall fund has an equity allocation benchmark of:</p>
+<ul class="cfa-curriculum-list-simple" id="CIPM0017-R-s11-L1">
+<li class="cfa-curriculum-list-item">
+<p>50% Large-Cap Value Equities</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>25% Small-Cap Value Equities</p>
+</li>
+<li class="cfa-curriculum-list-item">
+<p>25% Large-Cap Growth Equities</p>
+</li>
+</ul>
+<p>For this overall allocation, the fund sponsor hires Value Portfolio Manager to manage the large-cap and small-cap value allocations and Growth Portfolio Manager to manage the growth equity allocation. For a specific time period, this arrangement results in the performance shown in <a aria-label="View Exhibit 20" class="internal" href="#CIPM0017-R-s11-EXH19" role="button">Exhibit 20</a>.</p>
+<div class="cfa-curriculum-table-wrap" id="CIPM0017-R-s11-EXH19">
+<div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 20<span style="display: block;">Performance of Value and Growth Equity Managers</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table aria-labelledby="CIPM0017-R-s11-EXH19-title" class="table" data-active-table="true"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0017-R-s11-EXH19-title">Exhibit 20: Performance of Value and Growth Equity Managers</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Fund Weight</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Fund Return</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ベンチマークウェイト(Benchmark Weight)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ベンチマークリターン(Benchmark Return)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.95</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−0.03</strong></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">バリューポートフォリオマネージャー(Value Portfolio Manager)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">78%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.99</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">75%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.32</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">小型株バリュー株(Small-cap value equities)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">2.39</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">25%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.52</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">大型株バリュー株(Large-cap value equities)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">58%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.51</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">50%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.28</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">グロースポートフォリオマネージャー(Growth Portfolio Manager)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">22%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.82</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">25%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−1.08</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">大型株グロース株(Large-cap growth equities)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">22%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.82</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">25%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">-1.08</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>You will note that this fund outperformed its total benchmark by 98 bps (95 bps compared with –3 bps). You will also note that the fund sponsor has allocated 78% of the total fund to the Value Portfolio Manager, exceeding the benchmark weight of 75%, with the remaining 22% allocated to the Growth Portfolio Manager, below the benchmark 25%. This overall weighting decision is that of the fund sponsor.</p>
+<p>Within each of these total allocations, the portfolio manager has discretion about how to invest the assets. The managers have full discretion over the securities purchased, within the particular market segment benchmark. For this example, we assume that the Value Manager has full discretion to allocate between market cap segments—that is, how to divide the total 78% allocation to value equities between small cap and large cap.</p>
+<p>Before we calculate our return attribution effects, we need to decide whom we want to evaluate. Do we want to evaluate the decisions of the portfolio manager, or those of the fund sponsor? In this first set of return attribution results, we will evaluate the portfolio manager’s decisions. To do this, we will calculate the return attribution effects (using the BF approach) at the segment level (e.g., small-cap value, large-cap value, and large-cap growth). Using the earlier formulas, where:</p>
+<div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s11-E">Allocation = (<em>w<sub>i</sub></em> – <em>W<sub>i</sub></em>)(<em>B<sub>i</sub></em> – <em>B</em>)</div>
+<div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s11-E___1">Selection + Interaction = <em>W<sub>i</sub></em>(<em>R<sub>i</sub></em> – <em>B<sub>i</sub></em>) + (<em>w<sub>i</sub></em> – <em>W<sub>i</sub></em>)(<em>R<sub>i</sub></em> – <em>B<sub>i</sub></em>)</div>
+<p>We can calculate the attribution effects for the small-cap value equities:</p>
+<div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s11-E___2">Allocation = (20% – 25%)[1.52 – (–0.03)] = –0.08</div>
+<div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s11-E___3">Selection + Interaction = [(25%)(2.39 – 1.52)] + [(20% – 25%)(2.39 – 1.52)] = 0.17</div>
+<p>Using the same approach for large-cap value equities and large-cap growth equities yields the results shown in <a aria-label="View Exhibit 21" class="internal" href="#CIPM0017-R-s11-EXH20" role="button">Exhibit 21</a>. (Note that numbers are shown to two decimal places and may not sum because of rounding.)</p>
+<div class="cfa-curriculum-table-wrap" id="CIPM0017-R-s11-EXH20">
+<div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 21<span style="display: block;">Segment Level Return Attribution</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table aria-labelledby="CIPM0017-R-s11-EXH20-title" class="table" data-active-table="true"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0017-R-s11-EXH20-title">Exhibit 21: Segment Level Return Attribution</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Return attribution</strong><br/><strong>(segment level)</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Fund Weight</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">選択+相互作用(Selection + Interaction)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">配分(Allocation)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Total</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>1.05</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−0.07</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.98</strong></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Value Portfolio Manager</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">78%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.63</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.53</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><em>Small-cap value equities</em></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>20%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.17</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−0.08</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.10</strong></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><em>Large-cap value equities</em></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>58%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.46</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−0.02</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.44</strong></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Growth Portfolio Manager</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">22%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.42</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.03</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.45</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><em>Large-cap growth equities</em></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>22%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.42</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.03</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.45</strong></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>In <a aria-label="View Exhibit 21" class="internal" href="#CIPM0017-R-s11-EXH20" role="button">Exhibit 21</a>, the attribution results in bold are calculated at the segment level. The attribution results at the next level above, the Value Portfolio Manager and Growth Portfolio Manager, are sums of the segment level results. For example, the allocation effect for the Value Portfolio Manager is equal to −0.08 + −0.02 = −0.10.</p>
+<p>Because we are calculating the effects at the segment level and rolling up (summing) to a total for each manager, we are able to evaluate the specific decisions of the portfolio managers and their impact on the total fund. The total 98 bps of outperformance at the overall fund level is almost entirely the result of positive security selection decisions (105 bps in total). The decision of the Value Manager to underweight small cap in favor of large cap was a poor decision because the small-cap value benchmark outperformed the total benchmark (1.52% versus –0.03%) and the large-cap value benchmark underperformed the total benchmark (−0.28% versus –0.03%). Therefore, we calculate a negative allocation effect of –7 bps.</p>
+<p>別途、ファンドスポンサー(fund sponsor)の判断(decisions)も評価できる。このために、展示図20(Exhibit 20)の同じウェイト(weights)とリターンデータ(returns data)を用いて2回目のリターンアトリビューション(return attribution)分析を行うが、今回はセグメントレベル(segment level)ではなく、ポートフォリオマネージャー(portfolio manager)レベルで計算する。例えば、バリューポートフォリオマネージャー(Value Portfolio Manager)の場合、影響(effects)は次のように計算される。</p>
+<div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s11-E___4">Allocation = (78% – 75%)[0.32 – (–0.03)] = 0.01</div>
+<div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s11-E___5">Selection + Interaction = [(75%)(0.99 – 0.32)] + [(78% – 75%)(0.99 – 0.32)] = 0.52</div>
+<p>同じ方法でグロースポートフォリオマネージャー(Growth Portfolio Manager)についても計算し、展示図22(Exhibit 22)に示される結果を得る。</p>
+<div class="cfa-curriculum-table-wrap" id="CIPM0017-R-s11-EXH21">
+<div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 22<span style="display: block;">Return Attribution at the Portfolio Manager Level</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table aria-labelledby="CIPM0017-R-s11-EXH21-title" class="table" data-active-table="true"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0017-R-s11-EXH21-title">展示図22: ポートフォリオマネージャー(portfolio manager)レベルでのリターンアトリビューション(return attribution)</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">リターンアトリビューション(ポートフォリオマネージャー(portfolio manager)レベル)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Selection + Interaction</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">配分(Allocation)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Total</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.94</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.04</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.98</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Value Portfolio Manager</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.52</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.01</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.53</strong></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Small-cap value equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Large-cap value equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Growth Portfolio Manager</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.42</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.03</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>0.45</strong></td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Large-cap growth equities</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>マネージャーレベル(manager level)でのみ結果を計算したため、セグメントレベル(segment level)でのリターンアトリビューション効果は存在しないことに注意。測定する判断(decisions)が異なるため、アトリビューション結果(attribution results)も異なる。依然として総合的な正の証券選択効果(positive security selection effect)は存在し(94bps)、予想通りの結果となる。しかし、総配分効果(total allocation effect)は負ではなく正である。これは異なる配分判断(allocation decision)を評価しているためである。この場合、価値株(value equities)を重視(overweight)し、グロース株(growth equities)を軽視(underweight)するというファンドスポンサー(fund sponsor)の判断の影響を計算している。配分効果(allocation)は4bpsの正となり、価値株(value equities)のベンチマーク(benchmark)が総ベンチマーク(total benchmark)をアウトパフォーム(outperform)し、グロース株(growth equities)のベンチマークが総ベンチマーク(total benchmark)をアンダーパフォーム(underperform)したことを反映している。</p>
+<p>リターンアトリビューション(return attribution)分析は、最も一般的にはポートフォリオ(portfolio)の合意されたベンチマーク(agreed benchmark)に基づいて計算される。しかし、同じまたは類似の投資戦略(investment strategy)を用いて、あるポートフォリオ(portfolio)を別のポートフォリオに対してアトリビュート(attribution)することも十分に可能である。このような分析の目的は、同じポートフォリオマネージャー(portfolio manager)が同じ投資判断プロセス(investment decision process)を用いて運用する2つのポートフォリオ(portfolios)間で予期せぬリターンの差を説明することかもしれない。</p>
+<p>次のレベルに掘り下げると、ポートフォリオマネージャー(portfolio manager)は国(country)ごとの配分(allocation)投資プロセスを持っている場合がある。この分析レベル(level of analysis)では、同じ配分公式(allocation formula)でマネージャー(manager)のポートフォリオ(portfolio)内での国配分決定(country allocation decisions)の影響を計算でき、選択公式(selection formula)で各国(country)内での選択決定(selection decisions)の影響を計算できる。</p>
+<p>さらにもう一段階掘り下げると、ポートフォリオマネージャー(portfolio manager)は、各国(country)内で先に述べたようなセクター配分(sector allocation)プロセスを持っている場合があり、これにより、配分公式(allocation formula)で各国内でのセクター選択(sector selection)決定の影響や、セクター内での選択(selection)決定の影響を計算できる。</p>
+<p>どの分析レベル(level of analysis)であっても、リターンアトリビューション(return attribution)はポートフォリオマネージャー(portfolio manager)の意思決定プロセス(decision process)を反映することが不可欠である。例えば、ユーロ圏(Eurozone)の投資戦略(investment strategy)は、各国(country)内での証券選択(security selection)を伴う国別配分(country allocation)プロセス、または各産業セクター(industrial sector)内での証券選択を伴うセクター配分(sector allocation)プロセスを使用する場合がある。展示図23(Exhibit 23)および展示図24(Exhibit 24)は、異なる投資プロセス(investment process)を想定した場合に、同じポートフォリオ(portfolio)から得られる可能性のある異なる分析結果(different analysis)を示す。いずれの場合も、算術的(arithmetic)なブリンソン・アンド・ファッヒラー(Brinson and Fachler)アプローチが使用されている。</p>
+<div class="cfa-curriculum-table-wrap" id="CIPM0017-R-s11-EXH22">
+<div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 23<span style="display: block;">Country Allocation</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table aria-labelledby="CIPM0017-R-s11-EXH22-title" class="table" data-active-table="true"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0017-R-s11-EXH22-title">展示図23: 国別配分(Country Allocation)</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ポートフォリオウェイト(Portfolio Weight)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ベンチマークウェイト(Benchmark Weight)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ポートフォリオリターン(Portfolio Return)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ベンチマークリターン(Benchmark Return)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">配分(Allocation)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">選択(Selection)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">フランス(France)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.15%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.40%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ドイツ(Germany)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">35</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.07</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.20</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">オランダ(Holland)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">9.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.76</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−1.20</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Italy</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">9.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.23</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.30</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Spain</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.00</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.05</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>8.30</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>7.45%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>1.20%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.35%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="cfa-curriculum-table-wrap" id="CIPM0017-R-s11-EXH23">
+<div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 24<span style="display: block;">Industry Sector Allocation</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table aria-labelledby="CIPM0017-R-s11-EXH23-title" class="table" data-active-table="true"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0017-R-s11-EXH23-title">展示図24: 産業セクター配分(Industry Sector Allocation)</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ポートフォリオウェイト(Portfolio Weight)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Benchmark Weight</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ポートフォリオリターン(Portfolio Return)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Benchmark Return</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Allocation</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">選択(Selection)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">エネルギー(Energy)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">25%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">18.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">12.0%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.23%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.50%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ヘルスケア(Health Care)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−3.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−6.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−1.35</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.90</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">金融(Financial)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">20</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">12.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.46</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.40</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">輸送(Transportation)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">12.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.03</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.40</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">金属・鉱業(Metals and Mining)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">15</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5.0</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.25</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.75</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Total</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>8.30%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>7.45%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−2.30%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>3.15%</strong></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p><a aria-label="View Exhibit 23" class="internal" href="#CIPM0017-R-s11-EXH22" role="button">Exhibit 23</a> demonstrates good country allocation but negative security selection within countries, whereas <a aria-label="View Exhibit 24" class="internal" href="#CIPM0017-R-s11-EXH23" role="button">Exhibit 24</a> demonstrates poor sector allocation but strongly positive security selection within industrial sectors. The message with regard to selection effects is completely different depending on the investment decision process used.</p>
+<p>Drilling down to the lowest level, the same allocation and selection formulas can be used to calculate individual security decisions within sectors. For example, the allocation formula can determine the impact of over- or underweighting individual securities, whereas the selection formula will determine the contribution as a result of the returns of a security in the portfolio differing from the return of the same security in the benchmark. If the pricing sources used in the portfolio and the benchmark are identical, then any difference in return will be caused by transaction activity. Transaction activity as a result of trading expenses and bid–offer spreads will negatively affect returns, but very occasionally because of timing, the portfolio manager may be able to trade at advantageous prices during the day and recover all the transaction costs by the end of the day resulting in a positive effect.</p>
+<p><a aria-label="View Exhibit 25" class="internal" href="#CIPM0017-R-s11-EXH24" role="button">Exhibit 25</a> shows the security level return attribution effects for a small portfolio of oil stocks against a customized benchmark consisting of the same oil stocks. This approach would be used by a pure stock picker, the only decisions in the portfolio being individual stock weighting and timing decisions.</p>
+<div class="cfa-curriculum-table-wrap" id="CIPM0017-R-s11-EXH24">
+<div aria-hidden="true" class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Exhibit 25<span style="display: block;">Security Level Return Attribution Effects of Pure Stock Picker</span></div>
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table aria-labelledby="CIPM0017-R-s11-EXH24-title" class="table" data-active-table="true"><caption class="cfa-curriculum-table-caption-hidden" id="CIPM0017-R-s11-EXH24-title">Exhibit 25: Security Level Return Attribution Effects of Pure Stock Picker</caption>
+<thead>
+<tr>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;"></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Portfolio Weight</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Benchmark Weight</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Portfolio Return</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Benchmark Return</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Allocation</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Transaction Costs and Timing Effects</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Chevron Corporation</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">24%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">30%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">10%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.18%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Conoco Phillips</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">21%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">25%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.04%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ExxonMobil</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">41%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">35%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.06%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.41%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Marathon Oil</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">6%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.03%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Newfield Exploration</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">8%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−5%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">−0.36%</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">0.0%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>5.97%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>7.05%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−0.67%</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>−0.41%</strong></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>The arithmetic allocation effects of each security using the BF approach are as follows:</p>
+<div class="cfa-curriculum-table-wrap" id="CIPM0017-R-s11-Ta">
+<div class="cfa-curriculum-table-container">
+<div class="dp-table-scroll"><table class="table" data-active-table="true">
+<tbody>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Chevron Corporation</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">(24% – 30%) × (10% – 7.05%) = –0.18%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Conoco Phillips</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">(21% – 25%) × (8.0% – 7.05%) = –0.04%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ExxonMobil</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">(41% – 35%) × (6.0% – 7.05%) = –0.06%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Marathon Oil</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">(6% – 5%) × (4.0% – 7.05%) = –0.03%</td>
+</tr>
+<tr>
+<td style="text-align: left; vertical-align: top; padding: 8px;">Newfield Exploration</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">(8% – 5%) × (–5.0% – 7.05%) = –0.36%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>Allocation in this context measures the value added from individual security selection. There are transactions in only one security during the period—ExxonMobil—therefore, there are selection effects (transaction costs and timing) in only this security. The calculation is</p>
+<div class="cfa-curriculum-display-formula-container" id="CIPM0017-R-s11-E___6">ExxonMobil 41% × (5.0% – 6.0%) = –0.41%</div>
+<figure class="dp-content-block cfa-curriculum-exercise-box" id="CIPM0017-R-s11-Ba">
+<figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Knowledge Check: Levels of Return Attribution</figcaption>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0017-R-s11-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span>
+<p>At the lowest level of return attribution analysis, the selection type formula is <em>most likely</em> used to analyze:</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer dp-qc-correct"><input class="dp-qc-field" data-response="dpQcResponse0-0" id="dp-qc-0-0" name="dp-qc-0" type="radio" value="true"/><label for="dp-qc-0-0">
+<p><span class="cfa-curriculum-option-label">A. </span>transactions costs.</p>
+</label><br/>
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h3 class="cfa-curriculum-solution-title">解答(Solution)</h3>
+<p>A is correct. At the lowest level, return attribution analysis is used to investigate the differences in return of a security in the portfolio and the benchmark, which is most likely caused by transaction costs. At the lowest level the allocation formula will measure individual security decision and the contribution of portfolio managers are normally measured at the highest level.</p>
+</section>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse0-1" id="dp-qc-0-1" name="dp-qc-0" type="radio" value="false"/><label for="dp-qc-0-1">
+<p>B. 証券レベル(security level)の判断(decisions)</p>
+</label><br/>
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p>Bは不正解。正しい答えを選択して詳細を確認すること。</p>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse0-2" id="dp-qc-0-2" name="dp-qc-0" type="radio" value="false"/><label for="dp-qc-0-2">
+<p>C. 個別ポートフォリオマネージャー(individual portfolio managers)</p>
+</label><br/>
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p>Cは不正解。正しい答えを選択して詳細を確認すること。</p>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="javascript:void(0)" role="button" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+<div class="dp-content-block">
+<div class="dp-qc dp-qc-built"><fieldset>
+<div class="dp-qc-question"><legend>
+<div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM0017-R-s11-Q2"><legend><span class="cfa-curriculum-question-with-label">2. </span>
+<p>リターンアトリビューション(return attribution)分析の最上位レベル(highest level)では、選択タイプ(selection type)公式(formula)が最も適しているのは次の分析である:</p>
+</legend></div>
+</legend></div>
+<dl class="dp-qc-answers">
+<dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse1-0" id="dp-qc-1-0" name="dp-qc-1" type="radio" value="false"/><label for="dp-qc-1-0">
+<p>A. 配分(allocation)の判断(decisions)</p>
+</label><br/>
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p>Aは不正解。正しい答えを選択して詳細を確認すること。</p>
+</div>
+</dd>
+<dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse1-1" id="dp-qc-1-1" name="dp-qc-1" type="radio" value="false"/><label for="dp-qc-1-1">
+<p>B. 証券レベル(security level)の判断(decisions)</p>
+</label><br/>
+</dt>
+<dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"><span class="dp-icon-content" style="display: none;"> </span></i></span>
+<div class="dp-qc-content cfa-curriculum-solution">
+<p>Bは不正解。正しい答えを選択して詳細を確認すること。</p>
+</div>
+</dd>
+<dt class="dp-qc-answer dp-qc-correct"><input class="dp-qc-field" data-response="dpQcResponse1-2" id="dp-qc-1-2" name="dp-qc-1" type="radio" value="true"/><label for="dp-qc-1-2">
+<p>C. 個別ポートフォリオマネージャー(individual portfolio managers)</p>
+</label><br/>
+</dt>
+<dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"><span class="dp-icon-content" style="display: none;"> </span></i></span>
+<div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution">
+<section>
+<h3 class="cfa-curriculum-solution-title">Solution</h3>
+<p>Cが正解。選択タイプ(selection type)公式は、個別ポートフォリオマネージャー(individual portfolio managers)の選択能力(selection ability)を評価するために使用される。</p>
+</section>
+</div>
+</dd>
+</dl>
+<a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="javascript:void(0)" role="button" style="display: inline-block;">Check Answer</a></fieldset></div>
+</div>
+</figure>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="transformedTip2Content" role="tooltip" style="display: none;">
+<p>6 一部のポートフォリオ(portfolios)では、次のレベル(next level)が資産クラス(asset classes)である場合がある。</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip0Content" role="tooltip" style="display: none;">
+<p>スポンサー(sponsor)レベルでのアトリビューション(attribution)</p>
+</div>
+<div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip1Content" role="tooltip" style="display: none;">
+<p>ポートフォリオマネージャー(portfolio manager)レベルでのアトリビューション(attribution)</p>
+</div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1367_modules_items_99581_110_Holdings-_and_Transaction-Based_Return_Attribution.html" >← 前へ</a>
+  <span class="title">1.11 | Return Attribution Analysis at Multiple Levels</span>
+  <a href="courses_1367_modules_items_99585_112_Factor_Models_in_Return_Attribution.html" >次へ →</a>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (cards.length) {
+    var current = 0;
+
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        card.classList.toggle('flipped');
+      });
+    });
+
+    cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+    var nav = document.createElement('div');
+    nav.className = 'fc-nav';
+    nav.innerHTML =
+      '<button id="fc-prev" disabled>← 前へ</button>' +
+      '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+      '<button id="fc-next">次へ →</button>';
+    cards[0].parentNode.insertBefore(nav, cards[0]);
+
+    function showCard(n) {
+      cards[current].style.display = 'none';
+      cards[current].classList.remove('flipped');
+      current = n;
+      cards[current].style.display = '';
+      document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+      document.getElementById('fc-prev').disabled = current === 0;
+      document.getElementById('fc-next').disabled = current === cards.length - 1;
+    }
+
+    document.getElementById('fc-prev').addEventListener('click', function() {
+      if (current > 0) showCard(current - 1);
+    });
+    document.getElementById('fc-next').addEventListener('click', function() {
+      if (current < cards.length - 1) showCard(current + 1);
+    });
+  }
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -6,7 +6,6 @@ Output: CIPM/LV1/viewer/ with index.html and per-lesson pages.
 import re
 import json
 from pathlib import Path
-from collections import defaultdict
 
 RAW_DIR = Path(__file__).parent.parent / "CIPM" / "LV1" / "translated_html"
 OUT_DIR = Path(__file__).parent.parent.parent / "dist" / "CIPM-LV1"
@@ -418,7 +417,7 @@ def page_html(title: str, content: str, breadcrumb: str, prev_link: str, next_li
 </html>"""
 
 
-def index_html(courses: dict) -> str:
+def index_html(courses: dict, module_display: dict) -> str:
     total_pages = sum(len(items) for c in courses.values() for items in c.values())
     total_kc = sum(1 for c in courses.values() for items in c.values() for (_, _, has_kc) in items if has_kc)
 
@@ -437,10 +436,11 @@ def index_html(courses: dict) -> str:
 </div>
 <div class="page-wrapper" style="box-shadow:none; padding-top:0;">
 """
-    for course_name, modules in sorted(courses.items()):
+    for course_name, modules in courses.items():
         body += f'<div class="course-section"><h2>{course_name}</h2>\n'
-        for module_name, items in sorted(modules.items()):
-            body += f'<div class="module-section"><h3>{module_name}</h3><ul class="lesson-list">\n'
+        for mod_key, items in modules.items():
+            display = module_display[course_name][mod_key]
+            body += f'<div class="module-section"><h3>{display}</h3><ul class="lesson-list">\n'
             for (fname, title, has_kc) in items:
                 kc_class = ' has-quiz' if has_kc else ''
                 body += f'<li><a href="{fname}" class="{kc_class.strip()}">{title}</a></li>\n'
@@ -463,25 +463,138 @@ def get_course_name(filename: str) -> str:
     return course_map.get(m.group(1) if m else '', 'Unknown') if m else 'Unknown'
 
 
-def get_module_name(content: str) -> str:
-    m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', content)
-    return m.group(1).strip() if m else 'General'
+def _normalize_module_name(name: str) -> str:
+    name = re.sub(r'&amp;', 'and', name)
+    name = re.sub(r',\s+and\b', ' and', name)
+    name = re.sub(r'[–—]', '-', name)
+    name = name.replace('\xa0', ' ')
+    name = re.sub(r'\s+', ' ', name).strip()
+    m = re.match(r'(Module \d+:)\s*(.*)', name, re.IGNORECASE)
+    if m:
+        rest = m.group(2).strip().title()
+        for word in ('And', 'Of', 'The', 'For', 'In', 'A', 'An', 'With', 'To', 'At', 'By', 'From'):
+            rest = re.sub(rf'\b{word}\b', word.lower(), rest)
+        rest = re.sub(r'\(([^)]{1,6})\)', lambda x: '(' + x.group(1).upper() + ')', rest)
+        rest = rest[0].upper() + rest[1:] if rest else rest
+        name = m.group(1) + ' ' + rest
+    return name
+
+
+def _extract_module_num(filename: str):
+    m = re.search(r'_items_\d+_(\d{3,4})_', filename)
+    if not m:
+        return None
+    return int(m.group(1)) // 100
+
+
+def _extract_info_from_header(html: str):
+    m = re.search(r'<header[^>]*class="dp-header[^"]*"[^>]*>(.*?)</header>', html, re.DOTALL)
+    if not m:
+        nm = re.search(r'モジュール(\d+)', html)
+        return (int(nm.group(1)), None) if nm else (None, None)
+    text = re.sub(r'<[^>]+>', ' ', m.group(1))
+    nm = re.search(r'モジュール(\d+)', text)
+    if not nm:
+        return None, None
+    module_num = int(nm.group(1))
+    before_pipe = text.split('｜')[0]
+    topic_m = re.search(r'[（(]([^）)]{3,60})[）)]', before_pipe)
+    topic = topic_m.group(1).strip() if topic_m else None
+    return module_num, topic
+
+
+def _extract_topic_from_wrapper_title(html: str):
+    m = re.search(
+        r'<div[^>]+class="dp-wrapper[^"]*"[^>]+title="'
+        r'(?:Learning Outcomes|Glossary|Flashcards)[^:]*:\s*([^"]+)"',
+        html, re.IGNORECASE
+    )
+    return m.group(1).strip() if m else None
+
+
+def get_module_name(html: str, filename: str = '', module_map=None) -> str:
+    course_id = None
+    if filename:
+        cm = re.search(r'courses_(\d+)_', filename)
+        if cm:
+            course_id = cm.group(1)
+
+    def _map_lookup(mod_num):
+        if module_map and course_id and mod_num is not None:
+            return module_map.get((course_id, mod_num))
+        return None
+
+    result = _map_lookup(_extract_module_num(filename))
+    if result:
+        return result
+
+    m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', html)
+    if m:
+        raw = m.group(1).strip()
+        nm = re.match(r'Module\s+(\d+):', raw, re.IGNORECASE)
+        if nm:
+            result = _map_lookup(int(nm.group(1)))
+            if result:
+                return result
+        return _normalize_module_name(raw)
+
+    mod_num, hdr_topic = _extract_info_from_header(html)
+    if mod_num is not None:
+        result = _map_lookup(mod_num)
+        if result:
+            return result
+        topic = _extract_topic_from_wrapper_title(html) or hdr_topic
+        if topic:
+            return _normalize_module_name(f'Module {mod_num}: {topic}')
+        return f'Module {mod_num}'
+
+    return 'General'
 
 
 def main():
-    # Collect all lesson files (exclude module index and debug files)
     lesson_files = sorted([
         f for f in RAW_DIR.glob("courses_*_modules_items_*.html")
         if '{{' not in f.name and '_debug_' not in f.name
         and 'duplicate' not in f.name
-    ])
+    ], key=lambda f: (
+        re.search(r'courses_(\d+)_', f.name).group(1),
+        int(re.search(r'_items_(\d+)_', f.name).group(1))
+        if re.search(r'_items_(\d+)_', f.name) else 0
+    ))
 
     print(f"Processing {len(lesson_files)} lesson files...")
 
-    # First pass: extract content and metadata
+    # First pass: cache HTML and build module_map
+    html_cache = {}
+    for f in lesson_files:
+        html_cache[f.name] = f.read_text(errors='ignore')
+
+    module_map = {}
+    for f in lesson_files:
+        html = html_cache[f.name]
+        course_m = re.search(r'courses_(\d+)_', f.name)
+        if not course_m:
+            continue
+        cid = course_m.group(1)
+
+        pre_m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', html)
+        mod_num_file = _extract_module_num(f.name)
+        if pre_m and mod_num_file is not None:
+            key = (cid, mod_num_file)
+            if key not in module_map:
+                module_map[key] = _normalize_module_name(pre_m.group(1).strip())
+
+        mod_num_hdr, hdr_topic = _extract_info_from_header(html)
+        topic = _extract_topic_from_wrapper_title(html) or hdr_topic
+        if mod_num_hdr is not None and topic:
+            key = (cid, mod_num_hdr)
+            if key not in module_map:
+                module_map[key] = _normalize_module_name(f'Module {mod_num_hdr}: {topic}')
+
+    # Second pass: extract content and metadata
     lessons = []
     for f in lesson_files:
-        html = f.read_text(errors='ignore')
+        html = html_cache[f.name]
         content, title = extract_content(html)
         if not content:
             print(f"  [skip] no content: {f.name}")
@@ -492,21 +605,25 @@ def main():
             'title': title,
             'has_kc': has_quiz(content),
             'course': get_course_name(f.name),
-            'module': get_module_name(content),
+            'module': get_module_name(html, f.name, module_map),
         })
 
-    # Build course->module->lessons index
-    courses = defaultdict(lambda: defaultdict(list))
+    # Build course->module->lessons index (insertion order, lowercase key dedup)
+    courses = {}
+    module_display = {}
     all_out_names = []
 
     for lesson in lessons:
-        out_name = lesson['src'].name  # same filename
+        out_name = lesson['src'].name
         all_out_names.append(out_name)
-        courses[lesson['course']][lesson['module']].append(
+        course = lesson['course']
+        mod_key = lesson['module'].lower()
+        courses.setdefault(course, {}).setdefault(mod_key, []).append(
             (out_name, lesson['title'], lesson['has_kc'])
         )
+        module_display.setdefault(course, {}).setdefault(mod_key, lesson['module'])
 
-    # Second pass: write lesson HTML files
+    # Third pass: write lesson HTML files
     for i, lesson in enumerate(lessons):
         out_name = all_out_names[i]
         prev_link = all_out_names[i - 1] if i > 0 else ''
@@ -520,7 +637,7 @@ def main():
         print(f"  [{i+1}/{len(lessons)}] {lesson['title'][:60]}{kc_marker}")
 
     # Write index
-    idx = index_html(courses)
+    idx = index_html(courses, module_display)
     (OUT_DIR / 'index.html').write_text(idx, encoding='utf-8')
 
     print(f"\nDone. Open: {OUT_DIR}/index.html")

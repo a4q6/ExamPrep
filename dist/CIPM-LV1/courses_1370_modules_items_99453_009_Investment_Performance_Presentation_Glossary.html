@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.09 | Investment Performance Presentation Glossary</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Fixed bottom nav */
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Investment Performance Presentation and GIPS › Module 0: Getting Started</nav>
+<h1 class="page-title screenreader-only">0.09 | Investment Performance Presentation Glossary</h1>
+<div id="todo-date-mount-point"></div>
+<div class="dp-wrapper dp-flat-sections variation-2" id="VolumeCIPML1V2-InvestPerf-glossary" title="Glossary: L1V2-InvestPerf"><header class="dp-header dp-flat-sections variation-2">
+<h2 class="dp-heading"><span class="dp-header-pre">Module 0: Getting Started</span><span>0.09 | Investment Performance Presentation Glossary</span></h2>
+</header>
+<h3 class="dp-has-icon"><i aria-hidden="true" class="dp-icon fas fa-book-reader"></i></h3>
+<h4 id="glossary-A-content">A</h4>
+<dl>
+<dt id="CIPM-AccrualAccounting"><strong>Accrual accounting</strong></dt>
+<dd>
+<p>The recording of transactions as income is earned or expenses are incurred, rather than when income is received, or expenses are paid.</p>
+</dd>
+<dt id="CIPM-AdvisoryOnlyAssets"><strong>Advisory-only assets</strong></dt>
+<dd>
+<p>Assets for which the firm provides investment recommendations but has no control over implementation of investment decisions and no trading authority.</p>
+</dd>
+<dt id="CIPM-AggregateReturnMethod"><strong>Aggregate Return Method</strong></dt>
+<dd>
+<p>A composite return calculation method that combines all the assets and external cash flows for the portfolios included in the composite to calculate the composite return in the same manner as an individual portfolio.</p>
+</dd>
+<dt id="CIPM-AssetOwner"><strong>Asset owner</strong></dt>
+<dd>
+<p>An entity that manages investments, directly and/or through the use of external managers, on behalf of participants, beneficiaries, or the organization itself.</p>
+</dd>
+</dl>
+<h4 id="glossary-B-content">B</h4>
+<dl>
+<dt id="CIPM-BeginningAssetsPlusWeightedCashFlowsMethod"><strong>Beginning Assets Plus Weighted Cash Flows Method</strong></dt>
+<dd>
+<p>A composite return calculation method that weights the underlying portfolio returns using beginning-of-period values plus weighted cash flows. Each external cash flow is applied its proportionate weight during the period based on the day on which the cash flow occurred.</p>
+</dd>
+<dt id="CIPM-BeginningAssetsWeightingMethod"><strong>Beginning Assets Weighting Method</strong></dt>
+<dd>
+<p>A composite return calculation method that weights the underlying portfolio returns using beginning-of-period values.</p>
+</dd>
+<dt id="CIPM-Benchmark"><strong>Benchmark</strong></dt>
+<dd>
+<p>In an investments context, a standard or point of reference for evaluating the performance of an investment portfolio.</p>
+</dd>
+<dt id="CIPM-BroadDistributionPooledFund"><strong>Broad distribution pooled fund</strong></dt>
+<dd>
+<p>A pooled fund that is regulated under a framework that would permit the general public to purchase or hold the pooled fund’s shares and is not exclusively offered in one-on-one presentations.</p>
+</dd>
+<dt id="CIPM-BundledFee"><strong>Bundled fee</strong></dt>
+<dd>
+<p>A fee that can combine multiple fees into one total or “bundled” fee. Bundled fees can include any combination of investment management fees, transaction costs, custody fees, and/or administrative fees.</p>
+</dd>
+</dl>
+<h4 id="glossary-C-content">C</h4>
+<dl>
+<dt id="CIPM-CarriedInterest"><strong>Carried interest</strong></dt>
+<dd>
+<p>The profits that the general partner is allocated from the profits on the investments made by the investment vehicle.</p>
+</dd>
+<dt id="CIPM-Composite"><strong>Composite</strong></dt>
+<dd>
+<p>Aggregation of one or more portfolios that a firm manages according to a similar investment mandate, objective, or strategy.</p>
+</dd>
+<dt id="CIPM-CompositeDefinition"><strong>Composite definition</strong></dt>
+<dd>
+<p>Detailed criteria that determine the assignment of portfolios to composites.</p>
+</dd>
+<dt id="CIPM-CompositeDescription"><strong>Composite description</strong></dt>
+<dd>
+<p>General information regarding the investment mandate, objective, or strategy of the composite.</p>
+</dd>
+</dl>
+<h4 id="glossary-D-content">D</h4>
+<dl>
+<dt id="CIPM-Discretion"><strong>Discretion</strong></dt>
+<dd>
+<p>The ability of a firm to implement its intended strategy.</p>
+</dd>
+<dt id="CIPM-DistinctBusinessEntity"><strong>Distinct business entity</strong></dt>
+<dd>
+<p>A unit, division, department, or office that is organizationally and functionally segregated from other units, divisions, departments, or offices and that retains discretion over the assets it manages and that should have autonomy over the investment decision-making process.</p>
+</dd>
+</dl>
+<h4 id="glossary-E-content">E</h4>
+<dl>
+<dt id="CIPM-ExternalCashFlow"><strong>External cash flow</strong></dt>
+<dd>
+<p>Capital (cash or investments) that enters or exits a portfolio, excluding income (dividends or interest payments).</p>
+</dd>
+</dl>
+<h4 id="glossary-F-content">F</h4>
+<dl>
+<dt id="CIPM-FairValue"><strong>Fair value</strong></dt>
+<dd>
+<p>The amount at which an investment could be sold in an arm's-length transaction between willing parties in an orderly transaction. The valuation must be determined using the objective, observable, unadjusted quoted market price for an identical investment in an active market on the measurement date, if available. Fair value must include any accrued income.</p>
+</dd>
+<dt id="CIPM-FeePayingPortfolios"><strong>Fee-paying portfolios</strong></dt>
+<dd>
+<p>Portfolios that are charged a fee for investment management services.</p>
+</dd>
+<dt id="CIPM-Firm"><strong>Firm</strong></dt>
+<dd>
+<p>An entity that has been defined for compliance with the GIPS standards. The most common example of such an entity is an investment manager.</p>
+</dd>
+</dl>
+<h4 id="glossary-G-content">G</h4>
+<dl>
+<dt id="CIPM-GIPSAssetOwnerReport"><strong>GIPS Asset Owner Report</strong></dt>
+<dd>
+<p>An asset owner’s presentation for a total fund or composite that contains all the information required by the GIPS standards and may also include recommended information or supplemental information.</p>
+</dd>
+<dt id="CIPM-GIPSCompositeReport"><strong>GIPS Composite Report</strong></dt>
+<dd>
+<p>A presentation for a composite that contains all the information required by the GIPS standards and may also include recommended information or supplemental information.</p>
+</dd>
+<dt id="CIPM-GIPSPooledFundReport"><strong>GIPS Pooled Fund Report</strong></dt>
+<dd>
+<p>A presentation for a pooled fund that contains all the information required by the GIPS standards and may also include recommended information or supplemental information.</p>
+</dd>
+<dt id="CIPM-GIPSReport"><strong>GIPS Report</strong></dt>
+<dd>
+<p>A presentation for a composite or pooled fund that contains all the information required by the GIPS standards and may also include recommended information or supplemental information.</p>
+</dd>
+<dt id="CIPM-GrossOfFeesReturn"><strong>Gross-of-fees return</strong></dt>
+<dd>
+<p>The return on investments reduced by any transaction costs.</p>
+</dd>
+</dl>
+<h4 id="glossary-I-content">I</h4>
+<dl>
+<dt id="CIPM-InternalDispersion"><strong>Internal dispersion</strong></dt>
+<dd>
+<p>A measure of the spread of the annual returns of individual portfolios within a composite. Measures may include, but are not limited to high/low, range, and standard deviation (asset weighted or equal weighted) of portfolio returns.</p>
+</dd>
+<dt id="CIPM-InternalRateOfReturnIRR"><strong>Internal rate of return (IRR)</strong></dt>
+<dd>
+<p>The implied discount rate or effective compounded rate of return that equates the present value of cash outflows with the present value of cash inflows. A common method for calculating a money-weighted return.</p>
+</dd>
+<dt id="CIPM-InvestmentManagementFees"><strong>Investment management fees</strong></dt>
+<dd>
+<p>The fees payable to the firm for managing a portfolio. Investment management fees are typically asset based, performance based, or a combination of the two but may take different forms as well. Investment management fees also include carried interest.</p>
+</dd>
+<dt id="CIPM-InvestmentManager"><strong>Investment manager</strong></dt>
+<dd>
+<p>An organization that manages assets on behalf of clients.</p>
+</dd>
+</dl>
+<h4 id="glossary-L-content">L</h4>
+<dl>
+<dt id="CIPM-LargeCashFlow"><strong>Large cash flow</strong></dt>
+<dd>
+<p>The level at which the firm determines that an external cash flow may distort performance if the portfolio is not valued and a sub-period return is not calculated. Must be defined based on the value of cash flow or a percentage of the portfolio or composite assets.</p>
+</dd>
+<dt id="CIPM-Leverage"><strong>Leverage</strong></dt>
+<dd>
+<p>The use of borrowing or use of various financial instruments to magnify potential gains and losses relative to the investor’s equity position.</p>
+</dd>
+<dt id="CIPM-LimitedDistributionPooledFund"><strong>Limited distribution pooled fund</strong></dt>
+<dd>
+<p>Any pooled fund that is not a broad distribution pooled fund.</p>
+</dd>
+<dt id="CIPM-Linking"><strong>Linking</strong></dt>
+<dd>
+<p>The method by which sub-period returns are geometrically combined to calculate the period return, or by which periodic returns are geometrically combined to calculate longer-period returns.</p>
+</dd>
+</dl>
+<h4 id="glossary-M-content">M</h4>
+<dl>
+<dt id="CIPM-MarketValue"><strong>Market value</strong></dt>
+<dd>
+<p>The price at which investors can buy or sell an investment at a given time multiplied by the quantity held, plus any accrued income.</p>
+</dd>
+<dt id="CIPM-ModifiedDietzMethod"><strong>Modified Dietz Method</strong></dt>
+<dd>
+<p>A method for calculating portfolio returns that adjusts for daily-weighted external cash flows.</p>
+</dd>
+<dt id="CIPM-MoneyWeightedReturnMWR"><strong>Money-weighted return (MWR)</strong></dt>
+<dd>
+<p>A method of calculating returns that reflects the change in value and the timing and size of external cash flows.</p>
+</dd>
+</dl>
+<h4 id="glossary-N-content">N</h4>
+<dl>
+<dt id="CIPM-NetOfFeesReturn"><strong>Net-of-fees return</strong></dt>
+<dd>
+<p>The gross-of-fees return reduced by the investment management fees (including performance-based fees and carried interest).</p>
+</dd>
+<dt id="CIPM-NonFeePayingPortfolios"><strong>Non-fee-paying portfolios</strong></dt>
+<dd>
+<p>Portfolios that are not charged a fee for investment management services.</p>
+</dd>
+</dl>
+<h4 id="glossary-P-content">P</h4>
+<dl>
+<dt id="CIPM-PerformanceExamination"><strong>Performance examination</strong></dt>
+<dd>
+<p>The process by which an independent verifier conducts testing of a specific composite or pooled fund in accordance with the required performance examination procedures of the GIPS standards.</p>
+</dd>
+<dt id="CIPM-PooledFund"><strong>Pooled fund</strong></dt>
+<dd>
+<p>A fund whose ownership interests may be held by more than one investor.</p>
+</dd>
+<dt id="CIPM-PooledFundDescription"><strong>Pooled fund description</strong></dt>
+<dd>
+<p>General information regarding the investment mandate, objective, or strategy of the pooled fund.</p>
+</dd>
+<dt id="CIPM-Portability"><strong>Portability</strong></dt>
+<dd>
+<p>A firm’s ability to use performance from a past firm or affiliation and represent it as its own historical performance, if specific conditions have been met.</p>
+</dd>
+<dt id="CIPM-Portfolio"><strong>Portfolio</strong></dt>
+<dd>
+<p>An individually managed group of investments.</p>
+</dd>
+<dt id="CIPM-PrivateMarketInvestments"><strong>Private market investments</strong></dt>
+<dd>
+<p>Investments that are illiquid, not publicly traded, and not traded on an exchange, including real assets (e.g., real estate and infrastructure), private equity, and similar investments.</p>
+</dd>
+<dt id="CIPM-ProspectiveClient"><strong>Prospective client</strong></dt>
+<dd>
+<p>Any person or entity that has expressed interest in one of the firm’s composite strategies and qualifies to invest in the composite.</p>
+</dd>
+<dt id="CIPM-ProspectiveInvestor"><strong>Prospective investor</strong></dt>
+<dd>
+<p>Any person or entity that has expressed interest in one of the firm’s pooled funds and qualifies to invest in the pooled fund.</p>
+</dd>
+<dt id="CIPM-Provisions"><strong>Provisions</strong></dt>
+<dd>
+<p>Individually itemized points that the principles of the GIPS standards are separated into. Each provision addresses a task or action as a requirement or a recommendation.</p>
+</dd>
+</dl>
+<h4 id="glossary-R-content">R</h4>
+<dl>
+<dt id="CIPM-Recommendation"><strong>Recommendation</strong></dt>
+<dd>
+<p>A suggested task or action that should be followed or performed; identified in the GIPS standards by the word “should.” A recommendation is considered to be best practice but is not a requirement.</p>
+</dd>
+<dt id="CIPM-Requirement"><strong>Requirement</strong></dt>
+<dd>
+<p>A task or action that must be followed or performed; identified in the GIPS standards by the word “must.”</p>
+</dd>
+</dl>
+<h4 id="glossary-S-content">S</h4>
+<dl>
+<dt id="CIPM-SegregatedAccount"><strong>Segregated account</strong></dt>
+<dd>
+<p>A portfolio owned by a single client.</p>
+</dd>
+<dt id="CIPM-SignificantCashFlow"><strong>Significant cash flow</strong></dt>
+<dd>
+<p>The level at which the firm determines that one or more client-directed external cash flows may temporarily prevent the firm from implementing the composite strategy.</p>
+</dd>
+<dt id="CIPM-SubAdvisor"><strong>Sub-advisor</strong></dt>
+<dd>
+<p>A third-party investment manager hired by the firm to manage some or all of the assets for which a firm has investment management responsibility.</p>
+</dd>
+</dl>
+<h4 id="glossary-T-content">T</h4>
+<dl>
+<dt id="CIPM-TemporaryNewAccount"><strong>Temporary new account</strong></dt>
+<dd>
+<p>An account for temporarily holding client-directed external cash flows until they are either invested according to the composite strategy or disbursed.</p>
+</dd>
+<dt id="CIPM-TheoreticalPerformance"><strong>Theoretical performance</strong></dt>
+<dd>
+<p>Performance that is not derived from a portfolio or composite with actual assets invested in the strategy presented.</p>
+</dd>
+<dt id="CIPM-TimeWeightedReturnTWR"><strong>Time-weighted return (TWR)</strong></dt>
+<dd>
+<p>A method of calculating returns that reflects the change in value and attempts to negate or neutralize the impact of external cash flows.</p>
+</dd>
+<dt id="CIPM-TotalFirmAssets"><strong>Total firm assets</strong></dt>
+<dd>
+<p>All discretionary and non-discretionary assets for which a firm has investment management responsibility.</p>
+</dd>
+<dt id="CIPM-TotalFund"><strong>Total fund</strong></dt>
+<dd>
+<p>A pool of assets managed by an asset owner according to a specific investment mandate, which is typically composed of multiple asset classes. The total fund usually consists of underlying portfolios, each representing one of the strategies used to achieve the asset owner’s investment mandate.</p>
+</dd>
+<dt id="CIPM-TotalPooledFundFees"><strong>Total pooled fund fees</strong></dt>
+<dd>
+<p>All fees and expenses charged to the pooled fund, including but not limited to investment management fees and administrative fees.</p>
+</dd>
+<dt id="CIPM-TotalReturn"><strong>Total return</strong></dt>
+<dd>
+<p>The rate of return that includes realized and unrealized gains and losses plus income for the measurement period.</p>
+</dd>
+<dt id="CIPM-TradeDateAccounting"><strong>Trade date accounting</strong></dt>
+<dd>
+<p>Recognizes the asset or liability on the date of the purchase or sale and not on the settlement date.</p>
+</dd>
+<dt id="CIPM-TransactionCosts"><strong>Transaction costs</strong></dt>
+<dd>
+<p>The costs of buying and selling investments. These costs typically take the form of brokerage commissions, exchange fees, and/or bid–offer spreads from brokers.</p>
+</dd>
+</dl>
+<h4 id="glossary-U-content">U</h4>
+<dl>
+<dt id="CIPM-UncalledCommittedCapital"><strong>Uncalled committed capital</strong></dt>
+<dd>
+<p>Assets that have been pledged to the firm by clients or investors, but the firm has yet to call (or “draw down”) the capital.</p>
+</dd>
+</dl>
+<h4 id="glossary-V-content">V</h4>
+<dl>
+<dt id="CIPM-Verification"><strong>Verification</strong></dt>
+<dd>
+<p>The process by which an independent verifier conducts testing of a firm on a firm-wide basis, in accordance with the required verification procedures of the GIPS standards.</p>
+</dd>
+<dt id="CIPM-Verifier"><strong>Verifier</strong></dt>
+<dd>
+<p>A third party, independent from the firm or asset owner that claims compliance with the GIPS standards, that is hired to conduct a verification.</p>
+</dd>
+</dl>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1370_modules_items_99451_007_Investment_Performance_Presentation_Overview.html" >← 前へ</a>
+  <span class="title">0.09 | Investment Performance Presentation Glossary</span>
+  <a href="courses_1370_modules_items_99455_010_Investment_Performance_Presentation_Flashcards.html" >次へ →</a>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (cards.length) {
+    var current = 0;
+
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        card.classList.toggle('flipped');
+      });
+    });
+
+    cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+    var nav = document.createElement('div');
+    nav.className = 'fc-nav';
+    nav.innerHTML =
+      '<button id="fc-prev" disabled>← 前へ</button>' +
+      '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+      '<button id="fc-next">次へ →</button>';
+    cards[0].parentNode.insertBefore(nav, cards[0]);
+
+    function showCard(n) {
+      cards[current].style.display = 'none';
+      cards[current].classList.remove('flipped');
+      current = n;
+      cards[current].style.display = '';
+      document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+      document.getElementById('fc-prev').disabled = current === 0;
+      document.getElementById('fc-next').disabled = current === cards.length - 1;
+    }
+
+    document.getElementById('fc-prev').addEventListener('click', function() {
+      if (current > 0) showCard(current - 1);
+    });
+    document.getElementById('fc-next').addEventListener('click', function() {
+      if (current < cards.length - 1) showCard(current + 1);
+    });
+  }
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

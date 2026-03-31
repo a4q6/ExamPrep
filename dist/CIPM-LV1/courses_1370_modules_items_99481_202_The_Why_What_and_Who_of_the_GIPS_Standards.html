@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.02 | The Why, What, and Who of the GIPS Standards</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; font-size: 16px; line-height: 1.6; }
+.page-wrapper { max-width: 900px; margin: 0 auto; background: #fff; padding: 32px 48px 64px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+nav.breadcrumb { font-size: 13px; color: #666; margin-bottom: 20px; }
+nav.breadcrumb a { color: #0770a3; text-decoration: none; }
+nav.breadcrumb a:hover { text-decoration: underline; }
+
+/* Reading content */
+.dp-wrapper { margin: 0; }
+.dp-header { margin-bottom: 24px; }
+.dp-heading { font-size: 22px; font-weight: 700; color: #2d3b45; margin: 0; line-height: 1.3; }
+.dp-header-pre { display: block; font-size: 13px; font-weight: 400; color: #666; margin-bottom: 4px; }
+.dp-hr-solid-light { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+.dp-flat-sections p { margin: 0 0 14px; }
+.dp-flat-sections ul, .dp-flat-sections ol { margin: 0 0 14px 24px; }
+.dp-flat-sections li { margin-bottom: 6px; }
+.dp-flat-sections h3 { font-size: 17px; font-weight: 700; color: #2d3b45; margin: 24px 0 8px; }
+.dp-flat-sections table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+.dp-flat-sections th, .dp-flat-sections td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+.dp-flat-sections th { background: #f0f4f7; font-weight: 600; }
+.dp-flat-sections figure { margin: 20px 0; }
+.dp-flat-sections img { max-width: 100%; height: auto; }
+
+/* Learning Outcomes box */
+.cfa-curriculum-los-box { background: #eef5fb; border-left: 4px solid #0770a3; padding: 14px 18px; margin: 0 0 20px; border-radius: 0 4px 4px 0; }
+.cfa-curriculum-los-box h3 { margin: 0 0 8px; font-size: 15px; color: #0770a3; }
+.cfa-curriculum-los-box ul { margin: 0 0 0 20px; }
+.cfa-curriculum-los-box li { font-size: 14px; margin-bottom: 4px; }
+
+/* ── Knowledge Check ── */
+figure.dp-content-block { margin: 36px 0 0; border: 2px solid #0770a3; border-radius: 8px; overflow: hidden; }
+figure.dp-content-block > figcaption {
+  background: #0770a3; color: #fff; padding: 12px 18px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px;
+  letter-spacing: .3px;
+}
+figure.dp-content-block > figcaption i { opacity: .85; }
+
+/* fieldset reset */
+.dp-qc fieldset { border: none; margin: 0; padding: 20px; }
+.dp-qc-question { margin-bottom: 18px; }
+.dp-qc-question legend { font-size: 15px; font-weight: 500; padding: 0; float: left; width: 100%; }
+.dp-qc-question p { margin: 0 0 8px; }
+.cfa-curriculum-question-with-label { font-size: 15px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Answer choices — radio hidden, dt acts as button */
+dl.dp-qc-answers { margin: 0; padding: 0; list-style: none; }
+dt.dp-qc-answer {
+  border: 2px solid #ccc; border-radius: 6px; margin-bottom: 10px;
+  padding: 12px 16px; cursor: pointer; background: #fafafa;
+  transition: border-color .15s, background .15s;
+  display: flex; align-items: flex-start; gap: 10px; position: relative;
+}
+dt.dp-qc-answer:hover { border-color: #0770a3; background: #f0f7fc; }
+dt.dp-qc-answer label { cursor: pointer; flex: 1; margin: 0; }
+dt.dp-qc-answer label p { margin: 0; }
+/* hide the actual radio */
+dt.dp-qc-answer input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+/* status icon slot */
+dt.dp-qc-answer::after {
+  content: ''; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0; margin-top: 1px;
+  display: inline-block;
+}
+/* selected wrong */
+dt.dp-qc-answer.qc-wrong {
+  border-color: #c62828; background: #ffebee; cursor: default;
+}
+dt.dp-qc-answer.qc-wrong::after {
+  content: '✗'; border-color: #c62828; background: #c62828;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+/* correct answer revealed */
+dt.dp-qc-answer.qc-correct {
+  border-color: #2e7d32; background: #e8f5e9; cursor: default;
+}
+dt.dp-qc-answer.qc-correct::after {
+  content: '✓'; border-color: #2e7d32; background: #2e7d32;
+  color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dt.dp-qc-answer.qc-disabled { cursor: default; }
+
+/* Response / explanation */
+dd.dp-qc-response {
+  display: none !important;   /* overridden by JS with style.display */
+  margin: -4px 0 10px 0; padding: 12px 16px;
+  border-radius: 0 0 6px 6px; font-size: 14px; line-height: 1.55;
+}
+dd.dp-qc-response.dp-qc-correct {
+  background: #e8f5e9; border: 2px solid #2e7d32; border-top: none;
+}
+dd.dp-qc-response:not(.dp-qc-correct) {
+  background: #ffebee; border: 2px solid #c62828; border-top: none;
+}
+.dp-qc-answer-type { display: none; } /* icons handled by dt::after */
+.dp-qc-content p { margin: 0 0 6px; }
+.cfa-curriculum-option-label { font-weight: 700; }
+
+/* Result banner */
+.qc-result-banner {
+  margin: 0 0 16px; padding: 12px 18px; border-radius: 6px;
+  font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px;
+}
+.qc-result-banner.correct { background: #e8f5e9; color: #1b5e20; border: 2px solid #2e7d32; }
+.qc-result-banner.wrong   { background: #ffebee; color: #b71c1c; border: 2px solid #c62828; }
+.qc-result-banner .icon   { font-size: 20px; }
+
+/* Reset button */
+.qc-reset-btn {
+  margin-top: 14px; background: #546e7a; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: block;
+}
+.qc-reset-btn:hover { background: #37474f; }
+
+/* Popover (glossary) */
+.dp-popover-trigger { color: #0770a3; border-bottom: 1px dotted #0770a3; cursor: help; position: relative; }
+.dp-popup-content {
+  display: none; position: absolute; z-index: 100; background: #fff;
+  border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px;
+  font-size: 13px; max-width: 280px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  left: 0; top: 1.6em; white-space: normal;
+}
+.dp-popover-trigger.open .dp-popup-content { display: block; }
+
+/* ── Flashcard ── */
+.flashcard { cursor: pointer; margin: 12px 0; }
+.flashcard .front,
+.flashcard .back {
+  padding: 24px 20px; border: 2px solid #0770a3; border-radius: 8px;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 15px; line-height: 1.5;
+}
+.flashcard .front { background: #f0f7fc; }
+.flashcard .back  { background: #e8f5e9; border-color: #2e7d32; display: none; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back  { display: flex; }
+.fc-hint { text-align: center; font-size: 12px; color: #888; margin: 4px 0 10px; }
+.fc-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 16px;
+}
+.fc-nav button {
+  background: #0770a3; color: #fff; border: none;
+  padding: 7px 18px; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+.fc-nav button:disabled { background: #bbb; cursor: default; }
+.fc-nav .fc-counter { font-size: 13px; color: #555; }
+
+/* Fixed bottom nav */
+#viewer-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+  background: rgba(30,50,70,.93); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; gap: 8px;
+  font-family: sans-serif; font-size: 13px;
+}
+#viewer-nav a {
+  color: #fff; text-decoration: none;
+  background: rgba(255,255,255,.15); border-radius: 5px;
+  padding: 6px 14px; white-space: nowrap;
+}
+#viewer-nav a:hover { background: rgba(255,255,255,.28); }
+#viewer-nav a.disabled { opacity: .3; pointer-events: none; }
+#viewer-nav .title {
+  color: #cde; font-size: 12px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; flex: 1; text-align: center;
+}
+body { padding-bottom: 52px; }
+
+/* Index page */
+.index-header { background: #2d3b45; color: #fff; padding: 28px 40px; margin-bottom: 32px; }
+.index-header h1 { margin: 0 0 6px; font-size: 26px; }
+.index-header p { margin: 0; color: #aec7d8; font-size: 14px; }
+.course-section { margin-bottom: 36px; }
+.course-section h2 { font-size: 18px; color: #2d3b45; border-bottom: 2px solid #0770a3; padding-bottom: 6px; margin-bottom: 14px; }
+.module-section { margin-bottom: 20px; }
+.module-section h3 { font-size: 13px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 8px; }
+ul.lesson-list { list-style: none; margin: 0; padding: 0; }
+ul.lesson-list li { margin-bottom: 5px; }
+ul.lesson-list li a { color: #0770a3; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+ul.lesson-list li a:hover { text-decoration: underline; }
+ul.lesson-list li a.has-quiz::after {
+  content: "KC"; font-size: 10px; background: #fff3e0; color: #e65100;
+  border: 1px solid #ffb74d; border-radius: 3px; padding: 0 5px;
+  font-weight: 700; letter-spacing: .3px;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<nav class="breadcrumb"><a href="index.html">Index</a> › Investment Performance Presentation and GIPS › Module 2: An Introduction to the Global Investment Performance Standards (GIPS®)</nav>
+<h1 class="page-title screenreader-only">2.02 | The Why, What, and Who of the GIPS Standards</h1>
+<div id="todo-date-mount-point"></div>
+<div class="dp-wrapper dp-flat-sections variation-2" id="CIPM2113-R-s02-R-1" title="2.02 | The Why, What, and Who of the GIPS Standards"><header class="dp-header dp-flat-sections variation-2"><h2 class="dp-heading"><span class="dp-header-pre">Module 2: An Introduction to the Global Investment Performance Standards (GIPS®)</span>2.02 | The Why, What, and Who of the GIPS Standards</h2></header><div class="cfa-curriculum-los-box"><h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"></i>Learning Outcome</h3><p class="p1">The candidate should be able to:</p><ul id="CIPM2113-R-s02-los-1"><li class="cfa-curriculum-los-item">describe why the GIPS standards were created, what parties the GIPS standards apply to, and who benefits from the GIPS standards</li></ul></div><hr class="dp-hr-solid-light dp-hr-color-dp-primary"/><p>The GIPS standards are recognized around the world as the most widely accepted standard for calculating and presenting investment performance results. This was not always the case, though. Prior to the introduction of the GIPS standards, investment firms typically had a great deal of latitude in how they chose to present investment performance. Starting in the 1980s, countries separately began to establish their own standards for performance calculation and reporting to increase consistency and accuracy of performance information. Two examples were the AIMR Performance Presentation Standards (AIMR-PPS<sup>®</sup>) in the United States and Canada and the UK Investment Performance Standard (UKIPS) in the United Kingdom. In 1995, the initiative to consolidate the various country-specific standards began, culminating in the adoption of the first edition of the GIPS standards in 1999. For a time, the various regional performance presentation standards were endorsed as “country versions” of the GIPS standards, but ultimately all country versions were retired, leaving behind a single version of the GIPS standards that transcended geography.</p><p>The GIPS standards have continued to evolve over time, including a major revision in 2010 that introduced several new requirements, such as the use of fair valuation procedures for valuing investments. In June 2019, the 2020 edition of the GIPS standards was adopted. The motivating factors behind this most recent revision were to make the GIPS standards more relevant to different types of investment firms, including managers of pooled funds and alternative investment strategies, and to attempt to ease the burden of compliance with the GIPS standards without reducing the relevance of or diluting the value of complying. The 2020 edition of the GIPS standards also formally incorporated guidance specific to asset owners.</p><section id="CIPM2113-R-s02-01-01"><h3 class="dp-heading">Why Were the GIPS Standards Created?</h3><p>The GIPS standards grew from the need for investors to be able to obtain reliable performance data from their investment managers that could be easily compared with results produced by competing firms. Regulation with respect to advertising investment performance typically focuses on principles such as ensuring that the information presented is fair, honest, and not misleading; it does not generally prescribe specific requirements for calculating and presenting performance information. In the past, the lack of specific regulatory requirements or industry standards led to abuses in the reporting of investment performance results, including the following:</p><ul class="cfa-curriculum-list-bullet" id="CIPM2113-R-s02-L1"><li class="cfa-curriculum-list-item"><p>misrepresenting theoretical, simulated, or hypothetical performance results as performance achieved through the management of actual assets;</p></li><li class="cfa-curriculum-list-item"><p>selectively applying different calculation methodologies in order to present performance results that appear more favorable;</p></li><li class="cfa-curriculum-list-item"><p>presenting performance for a single portfolio that outperformed all others managed to a particular strategy as “representative” of the results achieved by the strategy (cherry-picking portfolios);</p></li><li class="cfa-curriculum-list-item"><p>presenting performance for select time periods when the strategy achieved its best results (cherry-picking time periods);</p></li><li class="cfa-curriculum-list-item"><p>presenting composite results that excluded terminated portfolios (survivorship bias);</p></li><li class="cfa-curriculum-list-item"><p>presenting performance results compared to an inappropriate benchmark or no benchmark at all; or</p></li><li class="cfa-curriculum-list-item"><p>presenting performance information without adequate disclosure.</p></li></ul><p>These abuses gave rise to the GIPS standards. Rather than relying solely on regulation, the profession moved to promote self-regulation and developed a practitioner-driven set of voluntary, ethical principles that would produce a standardized, industry-wide approach to calculating and reporting investment performance results.</p></section><section id="CIPM2113-R-s02-01-02"><h3 class="dp-heading">Who Do the GIPS Standards Apply to?</h3><p>The GIPS standards were originally created for investment firms managing discretionary client assets, with a focus on the presentation of historical performance to prospective clients. Over time, the GIPS standards have expanded to include guidance targeted toward asset owners that desire to claim compliance. Additionally, another group plays an important role in the GIPS compliance process—verifiers—but they do not claim compliance themselves.</p><p>The 2020 edition of the GIPS standards is divided into four chapters, with a chapter dedicated to each target audience:</p><ul class="cfa-curriculum-list-bullet" id="CIPM2113-R-s02-L2"><li class="cfa-curriculum-list-item"><p>GIPS Standards for Firms</p></li><li class="cfa-curriculum-list-item"><p>GIPS Standards for Asset Owners</p></li><li class="cfa-curriculum-list-item"><p>GIPS Standards for Verifiers</p></li><li class="cfa-curriculum-list-item"><p>GIPS Standards for Fiduciary Management Providers to UK Pension Schemes</p></li></ul><p>The majority of this learning module focuses on the GIPS Standards for Firms, but candidates should be familiar with the other chapters and how the target audiences differ.</p><p>In the GIPS standards, a <a aria-describedby="CIPM-FirmContent" aria-expanded="false" class="dp-popover-trigger cfa-curriculum-cite-glossary" data-transformed="true" href="#transformedTip0Content" id="transformedTip0" role="button">firm</a> is an entity that has been defined for compliance with the GIPS standards. The most common example of such an entity is an investment manager. An <a aria-describedby="CIPM-InvestmentManagerContent" aria-expanded="false" class="dp-popover-trigger cfa-curriculum-cite-glossary" data-transformed="true" href="#transformedTip1Content" id="transformedTip1" role="button">investment manager</a> is an organization that manages assets on behalf of clients, which may be individuals, organizations, or pooled funds. A single investment management organization may have many constituent <em>firms</em>, or multiple investment managers may be combined into one firm depending on how the organization is held out to the investing public. We will discuss the concept of defining the firm in detail later in this learning module.</p><p>An <a aria-describedby="CIPM-AssetOwnerContent" aria-expanded="false" class="dp-popover-trigger cfa-curriculum-cite-glossary" data-transformed="true" href="#transformedTip2Content" id="transformedTip2" role="button">asset owner</a> is an entity that manages investments, directly and/or through the use of external managers, on behalf of participants, beneficiaries, or the organization itself. Asset owners include, but are not limited to, public and private pension funds, endowments, foundations, family offices, provident funds, insurers and reinsurers, sovereign wealth funds, and fiduciaries.</p><p>A key differentiator between asset owners and investment managers is that asset owners typically do not compete for new business. However, that is not always the case. In certain instances, an asset owner may have the ability to market its services to outside investors and function in a manner similar to an investment management firm. An example is a family office that was initially established to manage and oversee the assets for a single family but later expands its business model in an effort to attract assets from groups or individuals outside the family. Asset owners that do not market their services would follow the GIPS Standards for Asset Owners, but asset owners that market their services would follow the GIPS Standards for Firms when competing for business.</p><p>It is important to note that the terms “investment manager” and “asset owner” in the context of the GIPS standards apply to the organizations that claim compliance, not to individuals. Only firms or asset owners that manage actual assets may claim compliance with the GIPS standards.</p><p>Performance or accounting software vendors—as well as the programs that they create and disseminate—cannot claim compliance with the GIPS standards. Software can assist an organization in achieving compliance with the GIPS standards by facilitating calculations that adhere to the requirements of the GIPS standards, but a software vendor cannot claim that its program is “GIPS compliant” or that the program, by itself, can make a firm or asset owner compliant with the GIPS standards.</p><p>Additionally, investment consultants typically cannot claim compliance with the GIPS standards, except in instances where they have full discretion over the selection of investment managers. The latter is often the case with outsourced chief investment officer (OCIO) services offered by some consultants. The act of selecting an investment management firm to which a portion or all of a portfolio’s assets will be delegated is a form of investment management, and the ability to exercise discretion in this manner can establish the framework for an OCIO or other firms offering similar consulting services to claim compliance with the GIPS standards.</p><p>We now turn our attention to verifiers and their role in the process. A <a aria-describedby="CIPM-VerifierContent" aria-expanded="false" class="dp-popover-trigger cfa-curriculum-cite-glossary" data-transformed="true" href="#transformedTip3Content" id="transformedTip3" role="button">verifier</a> is a third party, independent from the firm or asset owner that claims compliance with the GIPS standards, that is hired to conduct a verification. <a aria-describedby="CIPM-VerificationContent" aria-expanded="false" class="dp-popover-trigger cfa-curriculum-cite-glossary" data-transformed="true" href="#transformedTip4Content" id="transformedTip4" role="button">Verification</a> is the process by which an independent verifier conducts testing of a firm or asset owner that claims compliance with the GIPS standards, in accordance with the required verification procedures of the GIPS standards. Verification provides assurance on whether the firm’s or asset owner’s policies and procedures related to composite, pooled fund, and/or total fund maintenance, as well as the calculation, presentation, and distribution of performance, have been designed in compliance with the GIPS standards and have been implemented on a firm-wide or asset owner–wide basis. Verification offers additional credibility to a firm’s or asset owner’s claim of compliance with the GIPS standards. Verification is not required in order to claim compliance with the GIPS standards, but it is considered best practice and is recommended.</p><p>A key aspect of verification is that the verifier must be independent from the firm or asset owner being verified. To be independent, there must be no unresolved independence issues between the verifier and the firm or asset owner. A crucial element is that a verifier must not test its own work; in other words, the verifier cannot lead the project of bringing the organization into compliance or make decisions regarding how the GIPS standards will be applied. Otherwise, the verifier would potentially be conflicted and unable to perform its service in an unbiased manner.</p><p>Like the claim of GIPS compliance itself, verification is conducted on the firm or asset owner as a whole and does not apply to individual composites, pooled funds, or total funds. However, firms or asset owners may choose to have a verifier also conduct focused testing of a specific composite, pooled fund, or total fund. This process is referred to in the GIPS standards as a <a aria-describedby="CIPM-PerformanceExaminationContent" aria-expanded="false" class="dp-popover-trigger cfa-curriculum-cite-glossary" data-transformed="true" href="#transformedTip5Content" id="transformedTip5" role="button">performance examination</a>. A performance examination may only be performed concurrent with or subsequent to the completion of a verification.</p><p>The GIPS Standards for Verifiers explain the procedures a verifier must follow when conducting a verification or a performance examination.</p></section><section id="CIPM2113-R-s02-01-03"><h3 class="dp-heading">Who Benefits from the GIPS Standards?</h3><p>The GIPS standards offer unique benefits to the investment managers and asset owners that claim compliance, but they also benefit the investing public, intermediaries, regulators, and the investment management industry as a whole.</p><section id="CIPM2113-R-s02-01-03-01"><h4>Investment Managers</h4><p>In many markets, the ability to claim compliance with the GIPS standards is vital for investment management firms to gain and retain business, particularly institutional clients. Manager searches often inquire as to whether the firm complies with the GIPS standards and whether the firm has been verified. If the firm cannot respond affirmatively to these questions, it risks being excluded from the search.</p><p>The GIPS standards also offer benefits to firms that seek to compete for new business and to market their investment management services <em>globally</em>. The standardized reporting requirements of the GIPS standards allow firms to present consistent performance information comparable to competing firms that also claim compliance, regardless of where they do business, helping to remove international barriers to entry. By complying with the GIPS standards, firms in countries with minimal or no local standards or regulations related to investment performance calculation and presentation can better compete for business with firms from more developed countries.</p><p>There are also internal benefits for firms that comply with the GIPS standards that can help to strengthen core business functions. For example, the creation of meaningful and accurately maintained composites can improve the firm’s ability to monitor adherence to client guidelines, identify deviations from the intended strategy, and identify trading errors or other abnormalities. In addition, enhancements to systems and processes related to performance measurement, which are often necessary in order to meet all of the requirements of the GIPS standards, may have the indirect benefit of offering more robust statistical reporting and analytical tools that portfolio managers can use to better assess their strategies’ success.</p></section><section id="CIPM2113-R-s02-01-03-02"><h4>Asset Owners</h4><p>Because asset owners typically do not market their services or compete for business, the benefits of complying with the GIPS standards for asset owners differ from the benefits to investment management firms. Asset owners do not produce marketing materials that are presented to prospective clients, but they do report performance to their stakeholders, including their oversight bodies and beneficiaries. Adherence to the GIPS standards helps assure stakeholders that the asset owner’s investment performance is completely and fairly presented.</p><p>Asset owners also benefit when their underlying managers comply with the GIPS standards, as it offers them greater transparency and more comparable information when making manager selection and retention decisions. Likewise, when the asset owner itself complies with the GIPS standards, it demonstrates a commitment to adhere to the same high standards expected of its managers.</p></section><section id="CIPM2113-R-s02-01-03-03"><h4>Investing Public</h4><p>The investing public benefits from the GIPS standards as well. The standardized and fully disclosed performance information required by the GIPS standards makes it easier to compare investment results across strategies and other firms that claim compliance. Reliable, consistently produced historical performance reporting is essential for investors looking to make sound manager or fund selection decisions. When reviewing a performance track record provided by a firm that claims compliance with the GIPS standards, a prospective client is assured that the information is both complete and fairly presented.</p><p>Complying with the GIPS standards also demonstrates a commitment by the firm to follow best practices and ethical standards. As a result, a claim of compliance can give the investing public greater confidence that the manager will act in a trustworthy, ethical, and professional manner.</p></section><section id="CIPM2113-R-s02-01-03-04"><h4>Intermediaries</h4><p>Intermediaries, such as investment consultants, also benefit from the GIPS standards. When receiving performance information that adheres to the calculation requirements of the GIPS standards, a consultant can be assured of the quality and the consistency of the data underlying the information. Because the information provided is standardized, it can also be processed more quickly and can be compared more efficiently with data from other firms that claim compliance. In some cases, investment consultants will exclude managers from searches if they do not claim compliance or at least require them to provide information of similar substance and quality in order to be considered.</p></section><section id="CIPM2113-R-s02-01-03-05"><h4>Regulators</h4><p>Complying with the GIPS standards is voluntary; firms and asset owners are not typically required by legal or regulatory authorities to comply with the GIPS standards. However, adherence to industry accepted standards can increase a regulator’s comfort level concerning the regulated entity and its willingness to follow best practices. A claim of GIPS compliance can help assure a regulator of the firm’s desire to calculate and present performance information in an ethical and transparent manner. Regulators may also look to the GIPS standards or other voluntary standards to inform rulemaking for their market.</p><p>Regulators typically are not accountable for policing or conducting comprehensive assessments of firms’ claims of compliance with the GIPS standards. However, regulators may seek to validate the accuracy of a firm’s claim under their general mandate of ensuring that advertisements are not false or misleading. As such, if a firm is found to have made a false claim of compliance with the GIPS standards, it may be subject to enforcement action.</p></section><section id="CIPM2113-R-s02-01-03-06"><h4>The Investment Management Industry</h4><p>The continued success and growth of the investment management industry depend on investors’ confidence in the managers that they work with. The GIPS standards can help to maintain that confidence by assuring clients and investors of their manager’s dedication to following best practices in the area of investment performance reporting. Additionally, industry accepted standards and self-regulation create a level of standardization around practices that have the potential to vary considerably across firms and regions, helping to level the playing field and facilitate fair competition on a global level.</p><figure class="dp-content-block cfa-curriculum-exercise-box" id="CIPM2113-R-s02-Ba"><figcaption class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"></i>Knowledge Check: Scope and Purpose of the GIPS Standards</figcaption><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s02-Q1"><legend><span class="cfa-curriculum-question-with-label">1. </span><p>Which of the following entities <em>cannot</em> claim compliance with the GIPS standards?</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse0-0" id="dp-qc-0-0" name="dp-qc-0" type="radio" value="false"/><label for="dp-qc-0-0"><p><span class="cfa-curriculum-option-label">A. </span>Investment management firms</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse0-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input class="dp-qc-field" data-response="dpQcResponse0-1" id="dp-qc-0-1" name="dp-qc-0" type="radio" value="true"/><label for="dp-qc-0-1"><p><span class="cfa-curriculum-option-label">B. </span>Software vendors</p></label><br/></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse0-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>B is correct. Only investment management firms and asset owners (including pension funds, whether public or private) that manage actual assets may claim compliance with the GIPS standards. Software vendors and other intermediaries cannot claim compliance.</p></section></div></dd><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse0-2" id="dp-qc-0-2" name="dp-qc-0" type="radio" value="false"/><label for="dp-qc-0-2"><p><span class="cfa-curriculum-option-label">C. </span>Private pension funds</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse0-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="javascript:void(0)" role="button" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s02-Q2"><legend><span class="cfa-curriculum-question-with-label">2. </span><p>Which of the following is an abusive practice that the GIPS standards were designed to avoid?</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse1-0" id="dp-qc-1-0" name="dp-qc-1" type="radio" value="false"/><label for="dp-qc-1-0"><p><span class="cfa-curriculum-option-label">A. </span>Presenting performance results that include terminated portfolios</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse1-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse1-1" id="dp-qc-1-1" name="dp-qc-1" type="radio" value="false"/><label for="dp-qc-1-1"><p><span class="cfa-curriculum-option-label">B. </span>Comparing performance results with an appropriate benchmark</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse1-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input class="dp-qc-field" data-response="dpQcResponse1-2" id="dp-qc-1-2" name="dp-qc-1" type="radio" value="true"/><label for="dp-qc-1-2"><p><span class="cfa-curriculum-option-label">C. </span>Presenting performance results for select time periods</p></label><br/></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse1-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>C is correct. The GIPS standards require performance to be presented for consistent, standardized time periods.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="javascript:void(0)" role="button" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s02-Q3"><legend><span class="cfa-curriculum-question-with-label">3. </span><p>The process of testing a firm or asset owner that claims compliance with the GIPS standards is referred to as a:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer dp-qc-correct"><input class="dp-qc-field" data-response="dpQcResponse2-0" id="dp-qc-2-0" name="dp-qc-2" type="radio" value="true"/><label for="dp-qc-2-0"><p><span class="cfa-curriculum-option-label">A. </span>verification.</p></label><br/></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse2-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>A is correct. Verification is the process of testing a firm or asset owner that claims compliance with the GIPS standards, in accordance with the required verification procedures of the GIPS standards.</p></section></div></dd><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse2-1" id="dp-qc-2-1" name="dp-qc-2" type="radio" value="false"/><label for="dp-qc-2-1"><p><span class="cfa-curriculum-option-label">B. </span>validation.</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse2-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse2-2" id="dp-qc-2-2" name="dp-qc-2" type="radio" value="false"/><label for="dp-qc-2-2"><p><span class="cfa-curriculum-option-label">C. </span>certification.</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse2-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="javascript:void(0)" role="button" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s02-Q4"><legend><span class="cfa-curriculum-question-with-label">4. </span><p>Firms that claim compliance with the GIPS standards are required to receive a verification:</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse3-0" id="dp-qc-3-0" name="dp-qc-3" type="radio" value="false"/><label for="dp-qc-3-0"><p><span class="cfa-curriculum-option-label">A. </span>before the firm can initially claim compliance.</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse3-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse3-1" id="dp-qc-3-1" name="dp-qc-3" type="radio" value="false"/><label for="dp-qc-3-1"><p><span class="cfa-curriculum-option-label">B. </span>after the firm has claimed compliance for 12 months.</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse3-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">B is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input class="dp-qc-field" data-response="dpQcResponse3-2" id="dp-qc-3-2" name="dp-qc-3" type="radio" value="true"/><label for="dp-qc-3-2"><p><span class="cfa-curriculum-option-label">C. </span>never; verification is not required.</p></label><br/></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse3-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>C is correct. Firms are not required to be verified in order to claim compliance with the GIPS standards, although verification is recommended and viewed as best practice.</p></section></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="javascript:void(0)" role="button" style="display: inline-block;">Check Answer</a></fieldset></div></div><div class="dp-content-block"><div class="dp-qc dp-qc-built"><fieldset><div class="dp-qc-question"><legend><div class="dp-qc-question cfa-curriculum-question-with-label" id="CIPM2113-R-s02-Q5"><legend><span class="cfa-curriculum-question-with-label">5. </span><p>Which of the following is not a commonly perceived benefit of the GIPS standards?</p></legend></div></legend></div><dl class="dp-qc-answers"><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse4-0" id="dp-qc-4-0" name="dp-qc-4" type="radio" value="false"/><label for="dp-qc-4-0"><p><span class="cfa-curriculum-option-label">A. </span>Comparability of results across managers that claim compliance</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse4-0" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">A is incorrect.</span> Select the correct answer to learn more.</p></div></dd><dt class="dp-qc-answer dp-qc-correct"><input class="dp-qc-field" data-response="dpQcResponse4-1" id="dp-qc-4-1" name="dp-qc-4" type="radio" value="true"/><label for="dp-qc-4-1"><p><span class="cfa-curriculum-option-label">B. </span>Adherence to regulatory requirements</p></label><br/></dt><dd class="dp-qc-response dp-qc-correct" id="dpQcResponse4-1" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-check"></i></span><div class="dp-qc-content dp-qc-correct-flag cfa-curriculum-solution"><section><h5 class="cfa-curriculum-solution-title">Solution</h5><p>B is correct. Compliance with the GIPS standards is not typically required by regulators, nor are the GIPS standards intended to cover all regulatory requirements that may apply to a firm or asset owner.</p></section></div></dd><dt class="dp-qc-answer"><input class="dp-qc-field" data-response="dpQcResponse4-2" id="dp-qc-4-2" name="dp-qc-4" type="radio" value="false"/><label for="dp-qc-4-2"><p><span class="cfa-curriculum-option-label">C. </span>Increased confidence by investors and beneficiaries</p></label><br/></dt><dd class="dp-qc-response" id="dpQcResponse4-2" style="display: none;"><span class="dp-qc-answer-type"><i class="fas fa-fw fa-times"></i></span><div class="dp-qc-content cfa-curriculum-solution"><p><span class="cfa-curriculum-option-label">C is incorrect.</span> Select the correct answer to learn more.</p></div></dd></dl><a class="dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" href="javascript:void(0)" role="button" style="display: inline-block;">Check Answer</a></fieldset></div></div></figure></section></section><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip0Content" role="tooltip" style="display: none;"><p>An entity that has been defined for compliance with the GIPS standards. The most common example of such an entity is an investment manager.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip1Content" role="tooltip" style="display: none;"><p>An organization that manages assets on behalf of clients.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip2Content" role="tooltip" style="display: none;"><p>An entity that manages investments, directly and/or through the use of external managers, on behalf of participants, beneficiaries, or the organization itself.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip3Content" role="tooltip" style="display: none;"><p>A third party, independent from the firm or asset owner that claims compliance with the GIPS standards, that is hired to conduct a verification.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip4Content" role="tooltip" style="display: none;"><p>The process by which an independent verifier conducts testing of a firm on a firm-wide basis, in accordance with the required verification procedures of the GIPS standards.</p></div><div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="transformedTip5Content" role="tooltip" style="display: none;"><p>The process by which an independent verifier conducts testing of a specific composite or pooled fund in accordance with the required performance examination procedures of the GIPS standards.</p></div>
+</div>
+<div id="viewer-nav">
+  <a href="index.html">☰ Index</a>
+  <a href="courses_1370_modules_items_99479_201_Introduction.html" >← 前へ</a>
+  <span class="title">2.02 | The Why, What, and Who of the GIPS Standards</span>
+  <a href="courses_1370_modules_items_99483_203_Fundamentals_of_Firm_Compliance.html" >次へ →</a>
+</div>
+<script>
+(function() {
+  // ── Knowledge Check quiz ──
+  document.querySelectorAll('.dp-qc').forEach(function(qc) {
+    var answered = false;
+    var answers  = Array.from(qc.querySelectorAll('dt.dp-qc-answer'));
+
+    // Find response dd by data-response id on the radio inside each dt
+    function getResponse(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      if (!radio) return null;
+      var id = radio.getAttribute('data-response');
+      return id ? document.getElementById(id) : dt.nextElementSibling;
+    }
+
+    function isCorrect(dt) {
+      var radio = dt.querySelector('input[type="radio"]');
+      return radio ? radio.value === 'true' : dt.classList.contains('dp-qc-correct');
+    }
+
+    // Insert result banner placeholder before the dl
+    var dl = qc.querySelector('dl.dp-qc-answers');
+    var banner = document.createElement('div');
+    banner.className = 'qc-result-banner';
+    banner.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(banner, dl);
+
+    // Insert reset button after the dl
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.className = 'qc-reset-btn';
+    resetBtn.textContent = '↩ もう一度';
+    resetBtn.style.display = 'none';
+    if (dl) dl.parentNode.insertBefore(resetBtn, dl.nextSibling);
+
+    function revealAnswer(selectedDt) {
+      if (answered) return;
+      answered = true;
+      var correct = isCorrect(selectedDt);
+
+      // Style each answer dt and show its response
+      answers.forEach(function(dt) {
+        dt.classList.add('qc-disabled');
+        var resp = getResponse(dt);
+        if (isCorrect(dt)) {
+          dt.classList.add('qc-correct');
+          if (resp) resp.style.display = 'block';
+        } else if (dt === selectedDt && !correct) {
+          dt.classList.add('qc-wrong');
+          if (resp) resp.style.display = 'block';
+        }
+      });
+
+      // Show result banner
+      banner.style.display = 'flex';
+      if (correct) {
+        banner.className = 'qc-result-banner correct';
+        banner.innerHTML = '<span class="icon">✓</span> 正解です！';
+      } else {
+        banner.className = 'qc-result-banner wrong';
+        // Find correct label text
+        var correctDt = answers.find(function(d) { return isCorrect(d); });
+        var correctLabel = correctDt ? correctDt.querySelector('label') : null;
+        var correctText = correctLabel ? correctLabel.textContent.trim() : '';
+        banner.innerHTML = '<span class="icon">✗</span> 不正解。正解：' + correctText;
+      }
+
+      resetBtn.style.display = 'block';
+    }
+
+    // Click on dt or label
+    answers.forEach(function(dt) {
+      dt.addEventListener('click', function() { revealAnswer(dt); });
+      dt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealAnswer(dt); }
+      });
+      dt.setAttribute('tabindex', '0');
+      dt.setAttribute('role', 'button');
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function() {
+      answered = false;
+      answers.forEach(function(dt) {
+        dt.classList.remove('qc-correct', 'qc-wrong', 'qc-disabled');
+        var resp = getResponse(dt);
+        if (resp) resp.style.display = 'none';
+      });
+      banner.style.display = 'none';
+      resetBtn.style.display = 'none';
+    });
+  });
+
+  // ── Flashcards ──
+  var cards = Array.from(document.querySelectorAll('.flashcard'));
+  if (cards.length) {
+    var current = 0;
+
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        card.classList.toggle('flipped');
+      });
+    });
+
+    cards[0].insertAdjacentHTML('afterend', '<p class="fc-hint">タップで裏面を表示</p>');
+
+    var nav = document.createElement('div');
+    nav.className = 'fc-nav';
+    nav.innerHTML =
+      '<button id="fc-prev" disabled>← 前へ</button>' +
+      '<span class="fc-counter" id="fc-count">1 / ' + cards.length + '</span>' +
+      '<button id="fc-next">次へ →</button>';
+    cards[0].parentNode.insertBefore(nav, cards[0]);
+
+    function showCard(n) {
+      cards[current].style.display = 'none';
+      cards[current].classList.remove('flipped');
+      current = n;
+      cards[current].style.display = '';
+      document.getElementById('fc-count').textContent = (current+1) + ' / ' + cards.length;
+      document.getElementById('fc-prev').disabled = current === 0;
+      document.getElementById('fc-next').disabled = current === cards.length - 1;
+    }
+
+    document.getElementById('fc-prev').addEventListener('click', function() {
+      if (current > 0) showCard(current - 1);
+    });
+    document.getElementById('fc-next').addEventListener('click', function() {
+      if (current < cards.length - 1) showCard(current + 1);
+    });
+  }
+
+  // ── Glossary popovers ──
+  document.querySelectorAll('.dp-popover-trigger').forEach(function(trigger) {
+    var targetId = trigger.getAttribute('aria-describedby');
+    if (!targetId) return;
+    var popup = document.getElementById(targetId);
+    if (!popup) return;
+    popup.classList.add('dp-popup-content');
+    popup.style.display = 'none';
+    trigger.style.position = 'relative';
+    trigger.appendChild(popup);
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      trigger.classList.toggle('open');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) trigger.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

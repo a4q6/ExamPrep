@@ -308,6 +308,37 @@ def _extract_module_num(filename: str):
     return int(m.group(1)) // 100
 
 
+def _extract_info_from_header(html: str):
+    """Extract (module_num, topic) from Japanese dp-header.
+    e.g. 'モジュール1：固定利付証券の特徴（Fixed-Income Instrument Features）...' -> (1, 'Fixed-Income Instrument Features')
+    """
+    m = re.search(r'<header[^>]*class="dp-header[^"]*"[^>]*>(.*?)</header>', html, re.DOTALL)
+    if not m:
+        # Fallback: bare search for モジュールN in full HTML
+        nm = re.search(r'モジュール(\d+)', html)
+        return (int(nm.group(1)), None) if nm else (None, None)
+    text = re.sub(r'<[^>]+>', ' ', m.group(1))
+    nm = re.search(r'モジュール(\d+)', text)
+    if not nm:
+        return None, None
+    module_num = int(nm.group(1))
+    # Extract English topic from first （...） or (...) before ｜ separator
+    before_pipe = text.split('｜')[0]
+    topic_m = re.search(r'[（(]([^）)]{3,60})[）)]', before_pipe)
+    topic = topic_m.group(1).strip() if topic_m else None
+    return module_num, topic
+
+
+def _extract_topic_from_wrapper_title(html: str):
+    """Extract topic from dp-wrapper title like 'Learning Outcomes: Fixed-Income ...' -> 'Fixed-Income ...'"""
+    m = re.search(
+        r'<div[^>]+class="dp-wrapper[^"]*"[^>]+title="'
+        r'(?:Learning Outcomes|Glossary|Flashcards)[^:]*:\s*([^"]+)"',
+        html, re.IGNORECASE
+    )
+    return m.group(1).strip() if m else None
+
+
 def get_module_name(html: str, filename: str = '', module_map=None) -> str:
     course_id = None
     if filename:
@@ -320,22 +351,32 @@ def get_module_name(html: str, filename: str = '', module_map=None) -> str:
             return module_map.get((course_id, mod_num))
         return None
 
-    # Try numeric lesson code in filename first
+    # 1. Numeric lesson code in filename -> map lookup
     result = _map_lookup(_extract_module_num(filename))
     if result:
         return result
 
-    # Try dp-header-pre
+    # 2. dp-header-pre text -> map lookup or direct normalize
     m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', html)
     if m:
         raw = m.group(1).strip()
-        # Extract module number from text (e.g. "Module 3: ..." -> 3)
         nm = re.match(r'Module\s+(\d+):', raw, re.IGNORECASE)
         if nm:
             result = _map_lookup(int(nm.group(1)))
             if result:
                 return result
         return _normalize_module_name(raw)
+
+    # 3. Japanese header -> map lookup, then build from topic sources
+    mod_num, hdr_topic = _extract_info_from_header(html)
+    if mod_num is not None:
+        result = _map_lookup(mod_num)
+        if result:
+            return result
+        topic = _extract_topic_from_wrapper_title(html) or hdr_topic
+        if topic:
+            return _normalize_module_name(f'Module {mod_num}: {topic}')
+        return f'Module {mod_num}'
 
     return "General"
 
@@ -454,22 +495,40 @@ def main():
     ])
     print(f"Processing {len(files)} files...")
 
-    # First pass: build (course_id, module_num) -> module_name from files with dp-header-pre
+    # First pass: build (course_id, module_num) -> module_name
+    # Read all HTML once and cache; build map from multiple sources
+    html_cache: dict = {}
+    for f in files:
+        html_cache[f.name] = f.read_text(encoding="utf-8", errors="ignore")
+
     module_map: dict = {}
     for f in files:
-        html = f.read_text(encoding="utf-8", errors="ignore")
-        m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', html)
-        if m:
-            course_m = re.search(r'courses_(\d+)_', f.name)
-            mod_num = _extract_module_num(f.name)
-            if course_m and mod_num is not None:
-                key = (course_m.group(1), mod_num)
-                if key not in module_map:
-                    module_map[key] = _normalize_module_name(m.group(1).strip())
+        html = html_cache[f.name]
+        course_m = re.search(r'courses_(\d+)_', f.name)
+        if not course_m:
+            continue
+        course_id = course_m.group(1)
+
+        # Priority 1: dp-header-pre + numeric filename code
+        pre_m = re.search(r'<span class="dp-header-pre">([^<]+)</span>', html)
+        mod_num_file = _extract_module_num(f.name)
+        if pre_m and mod_num_file is not None:
+            key = (course_id, mod_num_file)
+            if key not in module_map:
+                module_map[key] = _normalize_module_name(pre_m.group(1).strip())
+
+        # Priority 2: Japanese header (module num + topic) OR dp-wrapper title topic
+        mod_num_hdr, hdr_topic = _extract_info_from_header(html)
+        title_topic = _extract_topic_from_wrapper_title(html)
+        topic = title_topic or hdr_topic
+        if mod_num_hdr is not None and topic:
+            key = (course_id, mod_num_hdr)
+            if key not in module_map:
+                module_map[key] = _normalize_module_name(f'Module {mod_num_hdr}: {topic}')
 
     lessons = []
     for f in files:
-        html = f.read_text(encoding="utf-8", errors="ignore")
+        html = html_cache[f.name]
         title = get_title(html)
         lessons.append({
             'src': f,
