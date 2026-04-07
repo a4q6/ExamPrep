@@ -93,51 +93,41 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div id="main" style="margin:0;padding:0 16px 16px;">
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA1001-R-s01" title="7.01 | Introduction"><header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 7: Pricing and Valuation of Interest Rates and Other Swaps</span>7.01 | Introduction</h2>
+<h2 class="dp-heading">モジュール7：金利スワップ（interest rate swaps）およびその他のスワップ（other swaps）の価格決定（pricing）と評価（valuation） 7.01｜導入（Introduction）</h2>
 </header>
-<p>Swap contracts were introduced earlier as a firm commitment to exchange a series of cash flows in the future, with interest rate swaps where fixed cash flows are exchanged for floating payments being the most common type. Subsequent lessons addressed the pricing and valuation of forward and futures contracts across the term structure, which form the building blocks for swap contracts.</p>
-<p>In this lesson, we will explore how swap contracts are related to these other forward commitment types. While financial intermediaries often use forward rate agreements or short-term interest rate futures contracts to manage interest rate exposure, issuers and investors usually prefer swap contracts, since they better match rate-sensitive assets and liabilities with periodic cash flows, such as fixed-coupon bonds, variable-rate loans, or known future commitments. It is important for these market participants not only to be able to match expected future cash flows using swaps but also to ensure that their change in value is consistent with existing or desired underlying exposures. The following lessons compare swap contracts with forward contracts and contrast the value and price of swaps.</p>
+<p>スワップ契約（swap contracts）は以前に、将来にわたる一連のキャッシュフロー（cash flows）を交換する確定的契約（firm commitment）として導入された。中でも、固定キャッシュフロー（fixed cash flows）と変動支払い（floating payments）を交換する金利スワップ（interest rate swaps）が最も一般的なタイプである。その後のレッスンでは、期間構造（term structure）全体にわたるフォワード契約（forward contracts）および先物契約（futures contracts）の価格決定と評価を扱い、これらはスワップ契約の構成要素（building blocks）となる。</p>
+<p>本レッスンでは、スワップ契約がこれら他のフォワード・コミットメント（forward commitment）とどのように関連しているかを考察する。金融仲介機関（financial intermediaries）は金利エクスポージャー（interest rate exposure）の管理にフォワード・レート・アグリーメント（forward rate agreements, FRAs）や短期金利先物（short-term interest rate futures）を用いることが多い一方で、発行体（issuers）や投資家（investors）は通常、スワップ契約を好む。これは、固定利付債（fixed-coupon bonds）、変動金利ローン（variable-rate loans）、または既知の将来コミットメント（known future commitments）といった、定期的なキャッシュフロー（periodic cash flows）を持つ金利感応資産・負債（rate-sensitive assets and liabilities）とより適合するためである。これらの市場参加者にとって重要なのは、スワップを用いて将来のキャッシュフローを整合させるだけでなく、その価値変化が既存または望ましい原資産エクスポージャー（underlying exposures）と一致することを確保することである。以下のレッスンでは、スワップ契約とフォワード契約を比較し、スワップの価値と価格を対比する。</p>
 <div class="dp-content-block cfa-curriculum-overview-box" id="CFA1001-s01-B-1-b">
-<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュール概要（Learning Module Overview）</h3>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1001-s01-L1">
-<li class="cfa-curriculum-list-item">
-<p>A swap contract is an agreement between two counterparties to exchange a <em>series</em> of future cash flows, whereas a forward contract is a <em>single</em> exchange of value at a later date.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Interest rate swaps are similar to forwards in that both contracts are firm commitments with symmetric payoff profiles and no cash is exchanged at inception, but they differ in that the fixed swap rate is constant, whereas a series of forward contracts has different forward rates at each maturity.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>A swap is priced by solving for the par swap rate, a fixed rate that sets the present value of all future expected floating cash flows equal to the present value of all future fixed cash flows.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>The value of a swap at inception is zero (ignoring transaction and counterparty credit costs). On any settlement date, the value of a swap equals the current settlement value plus the present value of all remaining future swap settlements.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>A swap contract’s value changes as time passes and interest rates change. For example, a rise in expected forward rates increases the present value of floating payments, causing a mark-to-market (MTM) gain for the fixed-rate payer (floating-rate receiver) and an MTM loss for the fixed-rate receiver (floating-rate payer).</p>
-</li>
+<li class="cfa-curriculum-list-item">スワップ契約は、2つのカウンターパーティ（counterparties）間で将来の一連のキャッシュフローを交換する合意であるのに対し、フォワード契約は将来のある時点における単一の価値交換（single exchange of value）である。</li>
+<li class="cfa-curriculum-list-item">金利スワップは、対称的なペイオフ（symmetric payoff）を持つ確定契約（firm commitments）であり、契約開始時に現金のやり取りがない点でフォワード契約と類似しているが、固定スワップレート（fixed swap rate）が一定であるのに対し、一連のフォワード契約では各満期ごとに異なるフォワードレート（forward rates）が適用される点で異なる。</li>
+<li class="cfa-curriculum-list-item">スワップは、パー・スワップレート（par swap rate）を求めることによって価格決定される。このレートは、将来のすべての期待変動キャッシュフロー（expected floating cash flows）の現在価値（present value）と、将来のすべての固定キャッシュフロー（fixed cash flows）の現在価値が等しくなるように設定される。</li>
+<li class="cfa-curriculum-list-item">スワップの価値は、契約開始時にはゼロである（取引コスト（transaction costs）およびカウンターパーティ信用コスト（counterparty credit costs）を無視する場合）。任意の決済日において、スワップの価値は、現在の決済価値（current settlement value）と残存するすべての将来スワップ決済の現在価値の合計に等しい。</li>
+<li class="cfa-curriculum-list-item">スワップ契約の価値は、時間の経過および金利の変化に伴って変動する。例えば、将来のフォワードレート（forward rates）の上昇は、変動支払いの現在価値を増加させ、固定金利支払者（fixed-rate payer）（変動金利受取者（floating-rate receiver））にとってはマーク・トゥ・マーケット利益（MTM gain）を生み、固定金利受取者（fixed-rate receiver）（変動金利支払者（floating-rate payer））にとってはMTM損失（MTM loss）を生じさせる。</li>
 </ul>
 </div>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA1001-s01-B-1-a">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
-<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">学習モジュール自己評価（Learning Module Self-Assessment）</h3>
+<p>これらの初期の質問は、この学習モジュールに対する現在の理解度を測るためのものである。</p>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
-<p>Identify which of the following characteristics matches which forward commitment contract.</p>
+<p>次の特徴がどのフォワード・コミットメント契約に該当するかを識別せよ。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA1001-s01-T-1-a">
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">1. Involves periodic settlements based on the difference between a fixed rate established for each period and market reference rate (MRR)</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">A. Both an interest rate swap and a series of forward rate agreements</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1. 各期間ごとに設定された固定金利と市場参照金利（market reference rate, MRR）の差に基づく定期的な決済を伴う。</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">A. 金利スワップおよび一連のフォワード・レート・アグリーメントの両方（Both an interest rate swap and a series of forward rate agreements）</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">2. Has a symmetric payoff profile and a value of zero to both counterparties at inception</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">B. A series of forward rate agreements (FRAs)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2. 対称的なペイオフ（symmetric payoff）を持ち、契約開始時に双方にとって価値がゼロである。</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">B. 一連のフォワード・レート・アグリーメント（A series of forward rate agreements, FRAs）</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">3. Involves periodic settlements based on the difference between a constant fixed rate and the MRR</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">C. Interest rate swap</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">3. 一定の固定金利と市場参照金利（MRR）の差に基づく定期的な決済を伴う。</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">C. 金利スワップ（Interest rate swap）</td>
 </tr>
 </tbody>
 </table>
@@ -145,20 +135,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
 <ol class="cfa-curriculum-list-decimal" id="CFA1001-s01-L2">
-<li class="cfa-curriculum-list-item">
-<p>B is correct. A series of FRAs involves periodic settlements based on the difference between a fixed rate established for each period and the MRR.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>A is correct. Both an interest rate swap and a series of forward rate agreements have a symmetric payoff profile and a value of zero to both counterparties at inception.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>C is correct. An interest rate swap involves periodic settlements based on the difference between a constant fixed rate and the MRR.</p>
-</li>
+<li class="cfa-curriculum-list-item">Bが正しい。一連のFRAは、各期間ごとに設定された固定金利とMRRの差に基づく定期的な決済を伴う。</li>
+<li class="cfa-curriculum-list-item">Aが正しい。金利スワップと一連のFRAの両方は、対称的なペイオフを持ち、契約開始時に双方にとって価値がゼロである。</li>
+<li class="cfa-curriculum-list-item">Cが正しい。金利スワップは、一定の固定金利とMRRの差に基づく定期的な決済を伴う。</li>
 </ol>
 </section>
 </div>
@@ -170,46 +154,46 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1001-s01-Q2"><span class="cfa-curriculum-question-with-label">2. </span>
-<p>Which of the following transactions would allow a fixed-income portfolio manager to gain from falling interest rates?</p>
+<p>次のうち、金利低下から利益を得ることができる固定利付ポートフォリオ・マネージャーの取引はどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>Buy a floating-rate bond</p>
+<p>A. 変動金利債（floating-rate bond）を購入する。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. A fixed-income portfolio manager seeking to gain from falling interest rates may consider entering a <em>receive</em>-fixed, <em>pay</em>-floating interest rate swap rather than purchasing bonds. The fixed-rate payments become more valuable as interest rates decline A is incorrect as the floating-rate bond interest rate payments decline as interest rates decline, thus the bond does not increase in value. C is incorrect as the fixed interest rate payments become more costly as interest rates decline.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Bが正しい。金利低下から利益を得たい固定利付ポートフォリオ・マネージャーは、債券を購入する代わりに、固定受取（receive-fixed）・変動支払（pay-floating）の金利スワップに参入することを検討できる。金利が低下すると固定支払いの価値は増加する。Aは誤りである。変動金利債の利払いは金利低下とともに減少するため、価値は上昇しない。Cも誤りである。金利低下時には固定支払いは相対的にコストが高くなる。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>Enter into a receive-fixed, pay-floating interest rate swap</p>
+<p>B. 固定受取（receive-fixed）・変動支払（pay-floating）の金利スワップに参入する。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. A fixed-income portfolio manager seeking to gain from falling interest rates may consider entering a <em>receive</em>-fixed, <em>pay</em>-floating interest rate swap rather than purchasing bonds. The fixed-rate payments become more valuable as interest rates decline A is incorrect as the floating-rate bond interest rate payments decline as interest rates decline, thus the bond does not increase in value. C is incorrect as the fixed interest rate payments become more costly as interest rates decline.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Bが正しい。金利低下から利益を得たい固定利付ポートフォリオ・マネージャーは、債券を購入する代わりに、固定受取・変動支払の金利スワップに参入することを検討できる。金利が低下すると固定支払いの価値は増加する。Aは誤りである。変動金利債の利払いは金利低下とともに減少するため、価値は上昇しない。Cも誤りである。金利低下時には固定支払いは相対的にコストが高くなる。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>Enter into a pay-fixed, receive-floating interest rate swap</p>
+<p>C. 固定支払（pay-fixed）・変動受取（receive-floating）の金利スワップに参入する。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. A fixed-income portfolio manager seeking to gain from falling interest rates may consider entering a <em>receive</em>-fixed, <em>pay</em>-floating interest rate swap rather than purchasing bonds. The fixed-rate payments become more valuable as interest rates decline A is incorrect as the floating-rate bond interest rate payments decline as interest rates decline, thus the bond does not increase in value. C is incorrect as the fixed interest rate payments become more costly as interest rates decline.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Bが正しい。金利低下から利益を得たい固定利付ポートフォリオ・マネージャーは、債券を購入する代わりに、固定受取（receive-fixed）・変動支払（pay-floating）の金利スワップ（interest rate swap）に参入することを検討できる。金利が低下すると固定金利支払い（fixed-rate payments）の価値は上昇する。Aは誤りである。変動金利債（floating-rate bond）の利払いは金利低下とともに減少するため、債券の価値は上昇しない。Cも誤りである。金利が低下すると固定金利支払いは相対的にコストが高くなる。</p>
 </section>
 </div>
 </dd>
@@ -220,46 +204,46 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1001-s01-Q3"><span class="cfa-curriculum-question-with-label">3. </span>
-<p>Which of the following statements provides a correct description of a pay-fixed, receive-floating interest rate swap position?</p>
+<p>次のうち、固定支払（pay-fixed）・変動受取（receive-floating）の金利スワップ・ポジションを正しく説明しているものはどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>Long a floating-rate note priced at the MRR and short a fixed-rate bond with a coupon equal to the fixed swap rate</p>
+<p>A. 市場参照金利（market reference rate, MRR）で価格付けされた変動金利債（floating-rate note）のロングと、固定スワップレート（fixed swap rate）と等しいクーポンを持つ固定利付債（fixed-rate bond）のショート</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. An interest rate swap is economically equivalent to a long and short position in underlying debt securities. In the case of a pay-fixed, receive-floating swap, the cash flow received reflects the long position. In this case, the party receives floating payments, so this is like buying a floating-rate note. The pay-fixed portion of the swap is like selling a fixed-rate bond and paying fixed coupons to the bond buyer. B is incorrect as this response is economically equivalent to entering into a receive-fixed, pay-floating swap. C is incorrect because the response does not reflect the short position.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Aが正しい。金利スワップは、基礎となる債券のロングおよびショートポジションの組み合わせと経済的に等価である。固定支払・変動受取スワップの場合、受け取るキャッシュフローはロングポジションを反映する。この場合、変動支払いを受け取るため、変動金利債を購入することに相当する。一方、固定支払い部分は、固定利付債を売却し、債券保有者に固定クーポンを支払うことに相当する。Bは誤りである。この選択肢は固定受取・変動支払スワップに相当する。Cは誤りである。この選択肢はショートポジションを反映していない。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>Long a fixed-rate bond with a coupon equal to the fixed swap rate and short a floating-rate note priced at the MRR</p>
+<p>B. 固定スワップレートと等しいクーポンを持つ固定利付債のロングと、MRRで価格付けされた変動金利債のショート</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. An interest rate swap is economically equivalent to a long and short position in underlying debt securities. In the case of a pay-fixed, receive-floating swap, the cash flow received reflects the long position. In this case, the party receives floating payments, so this is like buying a floating-rate note. The pay-fixed portion of the swap is like selling a fixed-rate bond and paying fixed coupons to the bond buyer. B is incorrect as this response is economically equivalent to entering into a receive-fixed, pay-floating swap. C is incorrect because the response does not reflect the short position.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Aが正しい。金利スワップは、基礎となる債券のロングおよびショートポジションの組み合わせと経済的に等価である。固定支払・変動受取スワップの場合、受け取るキャッシュフローはロングポジションを反映する。この場合、変動支払いを受け取るため、変動金利債を購入することに相当する。一方、固定支払い部分は、固定利付債を売却し、債券保有者に固定クーポンを支払うことに相当する。Bは誤りである。この選択肢は固定受取・変動支払スワップに相当する。Cは誤りである。この選択肢はショートポジションを反映していない。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>Long a floating-rate note priced at the MRR</p>
+<p>C. MRRで価格付けされた変動金利債のロング</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. An interest rate swap is economically equivalent to a long and short position in underlying debt securities. In the case of a pay-fixed, receive-floating swap, the cash flow received reflects the long position. In this case, the party receives floating payments, so this is like buying a floating-rate note. The pay-fixed portion of the swap is like selling a fixed-rate bond and paying fixed coupons to the bond buyer. B is incorrect as this response is economically equivalent to entering into a receive-fixed, pay-floating swap. C is incorrect because the response does not reflect the short position.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Aが正しい。金利スワップは、基礎となる債券のロングおよびショートポジションの組み合わせと経済的に等価である。固定支払・変動受取スワップの場合、受け取るキャッシュフローはロングポジションを反映する。この場合、変動支払いを受け取るため、変動金利債を購入することに相当する。一方、固定支払い部分は、固定利付債を売却し、債券保有者に固定クーポンを支払うことに相当する。Bは誤りである。この選択肢は固定受取・変動支払スワップに相当する。Cは誤りである。この選択肢はショートポジションを反映していない。</p>
 </section>
 </div>
 </dd>
@@ -270,55 +254,55 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1001-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
-<p>An investor enters into a 10-year, pay-fixed EUR100 million swap at a rate of 1.12% versus six-month EUR MRR. Assume six-month EUR MRR sets today at 0.25%. Which of the following is closest to the correct calculation of the periodic settlement value of the swap from the investor’s perspective in six months’ time?</p>
+<p>ある投資家が、6か月EURの市場参照金利（EUR MRR）に対して、利率1.12%でEUR1億の10年固定支払スワップに参入したとする。現在の6か月EUR MRRは0.25%である。6か月後における投資家の観点からのスワップの期中決済額（periodic settlement value）として最も近いものはどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>EUR870,000</p>
+<p>A. EUR870,000</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. From the investor’s (fixed-rate payer’s) perspective, the periodic settlement value of the swap is equal to</p>
-<p>Periodic settlement value = (MRR – <em>s<sub>N</sub></em>) × Notional amount × Period</p>
-<p>= –EUR435,000 = (0.25% – 1.12%) × EUR100 million × 0.5 years.</p>
-<p>Since EUR MRR has set below the fixed swap rate, the fixed-rate payer must make a net payment to the fixed-rate receiver at the end of the interest period. Both A and B responses omit the period of the swap (0.5 years) so are incorrect. A is also incorrect because the reversed sign on the answer would properly reflect the counterparty’s periodic settlement value, not the investor’s.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Cが正しい。投資家（固定金利支払者）の観点から、スワップの期中決済額は次の通りである：</p>
+<p>期中決済額（Periodic settlement value）＝（MRR − sₙ）× 元本（Notional amount）× 期間（Period）</p>
+<p>＝ −EUR435,000 ＝ (0.25% − 1.12%) × EUR100 million × 0.5年</p>
+<p>EUR MRRが固定スワップレートを下回っているため、固定金利支払者は利払い期間の終了時に固定金利受取者へ純支払いを行う必要がある。AおよびBはスワップ期間（0.5年）を考慮していないため誤りである。またAは符号が逆であり、カウンターパーティの期中決済額を表している。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>–EUR870,000</p>
+<p>B. −EUR870,000</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. From the investor’s (fixed-rate payer’s) perspective, the periodic settlement value of the swap is equal to</p>
-<p>Periodic settlement value = (MRR – <em>s<sub>N</sub></em>) × Notional amount × Period</p>
-<p>= –EUR435,000 = (0.25% – 1.12%) × EUR100 million × 0.5 years.</p>
-<p>Since EUR MRR has set below the fixed swap rate, the fixed-rate payer must make a net payment to the fixed-rate receiver at the end of the interest period. Both A and B responses omit the period of the swap (0.5 years) so are incorrect. A is also incorrect because the reversed sign on the answer would properly reflect the counterparty’s periodic settlement value, not the investor’s.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Cが正しい。投資家（固定金利支払者）の観点から、スワップの期中決済額は次の通りである：</p>
+<p>期中決済額（Periodic settlement value）＝（MRR − sₙ）× 元本（Notional amount）× 期間（Period）</p>
+<p>＝ −EUR435,000 ＝ (0.25% − 1.12%) × EUR100 million × 0.5年</p>
+<p>EUR MRRが固定スワップレートを下回っているため、固定金利支払者は利払い期間の終了時に固定金利受取者へ純支払いを行う必要がある。AおよびBはスワップ期間（0.5年）を考慮していないため誤りである。またAは符号が逆であり、カウンターパーティの期中決済額を表している。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>–EUR435,000</p>
+<p>C. −EUR435,000</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. From the investor’s (fixed-rate payer’s) perspective, the periodic settlement value of the swap is equal to</p>
-<p>Periodic settlement value = (MRR – <em>s<sub>N</sub></em>) × Notional amount × Period</p>
-<p>= –EUR435,000 = (0.25% – 1.12%) × EUR100 million × 0.5 years.</p>
-<p>Since EUR MRR has set below the fixed swap rate, the fixed-rate payer must make a net payment to the fixed-rate receiver at the end of the interest period. Both A and B responses omit the period of the swap (0.5 years) so are incorrect. A is also incorrect because the reversed sign on the answer would properly reflect the counterparty’s periodic settlement value, not the investor’s.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Cが正しい。投資家（固定金利支払者）の観点から、スワップの期中決済額は次の通りである：</p>
+<p>期中決済額（Periodic settlement value）＝（MRR − sₙ）× 元本（Notional amount）× 期間（Period）</p>
+<p>＝ −EUR435,000 ＝ (0.25% − 1.12%) × EUR100 million × 0.5年</p>
+<p>EUR MRRが固定スワップレートを下回っているため、固定金利支払者は利払い期間の終了時に固定金利受取者へ純支払いを行う必要がある。AおよびBはスワップ期間（0.5年）を考慮していないため誤りである。またAは符号が逆であり、カウンターパーティの期中決済額を表している。</p>
 </section>
 </div>
 </dd>

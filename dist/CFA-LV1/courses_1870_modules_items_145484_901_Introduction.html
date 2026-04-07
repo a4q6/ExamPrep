@@ -93,83 +93,71 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div id="main" style="margin:0;padding:0 16px 16px;">
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA1008-R-s01" title="9.01 | Introduction"><header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 9: Option Replication Using Put–Call Parity</span>9.01 | Introduction</h2>
+<h2 class="dp-heading">モジュール9：プット・コール・パリティ（put–call parity）を用いたオプションの複製 9.01｜導入（Introduction）</h2>
 </header>
-<p>Previous lessons examined the payoff and profit profiles of call options and put options, the upper and lower bounds of an option’s value, and the factors impacting option values. In doing so, we contrasted the asymmetry of one-sided option payoffs with the linear or symmetric payoff of forwards and underlying assets.</p>
-<p>We now extend this analysis further to show that there are ways to <em>combine</em> options to have an equivalent payoff to that of the underlying and a risk-free asset as well as a forward commitment. In the first lesson, we demonstrate that the value of a European call may be used to derive the value of a European put option with the same underlying details, and vice versa, under a no-arbitrage condition referred to as put–call parity. In the second lesson, we show how this may be extended to forward commitments and how the put–call parity relationship may be applied to option and other investment strategies. We will focus on European options on underlying assets with no income or benefit.</p>
+<p>これまでのレッスンでは、コール・オプション（call options）およびプット・オプション（put options）のペイオフおよび損益プロファイル、オプション価値の上限および下限、ならびにオプション価値に影響を与える要因を検討してきた。その過程で、フォワード契約（forwards）や原資産（underlying assets）の線形または対称的なペイオフと比較して、片側的（one-sided）なオプションのペイオフの非対称性を対比した。</p>
+<p>ここでは、この分析をさらに発展させ、オプションを組み合わせることで、原資産と無リスク資産（risk-free asset）の組合せやフォワード契約（forward commitment）と同等のペイオフを持たせる方法があることを示す。最初のレッスンでは、ヨーロピアン・コール（European call）の価値を用いて、同一の原資産条件を持つヨーロピアン・プット（European put）の価値を導出できること、またその逆も可能であることを、プット・コール・パリティ（put–call parity）と呼ばれる無裁定条件（no-arbitrage condition）のもとで示す。第2のレッスンでは、これをフォワード契約に拡張する方法、およびプット・コール・パリティの関係がオプションおよびその他の投資戦略にどのように適用されるかを示す。本モジュールでは、配当やその他の利益を生まない原資産に対するヨーロピアン・オプションに焦点を当てる。</p>
 <div class="dp-content-block cfa-curriculum-overview-box" id="CFA1008-s01-B-1-b">
-<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュール概要（Learning Module Overview）</h3>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1008-s01-L1">
-<li class="cfa-curriculum-list-item">
-<p>Put–call parity establishes a relationship that allows the price of a call option to be derived from the price of a put option with the same underlying details and vice versa.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Put–call parity holds for European options with the same exercise price and expiration date, representing a no-arbitrage relationship between put option, call option, underlying asset, and risk-free asset prices.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>If put–call parity does not hold, then riskless arbitrage profit opportunities may be available to investors.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Put–call forward parity extends the put–call parity relationship to forward contracts given the equivalence of an underlying asset position and a long forward contract plus a risk-free bond.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Under put–call forward parity, we may demonstrate that a purchased put option and a sold call option are equivalent to a long risk-free bond and short forward position, and a sold put and purchased call are equivalent to a long forward and short risk-free bond.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Put–call parity may be applied beyond option-based strategies in finance—for example, to demonstrate that equity holders have a position equivalent to a purchased call option on the value of the firm with unlimited upside, while debtholders have a sold put option position on firm value with limited upside.</p>
-</li>
+<li class="cfa-curriculum-list-item">プット・コール・パリティ（put–call parity）は、同一の原資産条件を持つプット・オプション（put option）の価格からコール・オプション（call option）の価格を導出でき、その逆も可能である関係を示す。</li>
+<li class="cfa-curriculum-list-item">プット・コール・パリティ（put–call parity）は、同一の行使価格（exercise price）および満期日（expiration date）を持つヨーロピアン・オプション（European options）に成立し、プット・オプション、コール・オプション、原資産、および無リスク資産の価格間における無裁定関係（no-arbitrage relationship）を表す。</li>
+<li class="cfa-curriculum-list-item">プット・コール・パリティ（put–call parity）が成立しない場合、投資家にとって無リスク裁定利益（riskless arbitrage profit）の機会が生じ得る。</li>
+<li class="cfa-curriculum-list-item">プット・コール・フォワード・パリティ（put–call forward parity）は、原資産ポジションとロングのフォワード契約（long forward contract）および無リスク債券（risk-free bond）の組合せが等価であることに基づき、プット・コール・パリティの関係をフォワード契約へと拡張する。</li>
+<li class="cfa-curriculum-list-item">プット・コール・フォワード・パリティ（put–call forward parity）のもとでは、プット・オプションの買い（purchased put）とコール・オプションの売り（sold call）は、無リスク債券のロング（long risk-free bond）とフォワードのショート（short forward position）に等価であり、またプットの売り（sold put）とコールの買い（purchased call）は、フォワードのロング（long forward）と無リスク債券のショート（short risk-free bond）に等価であることを示すことができる。</li>
+<li class="cfa-curriculum-list-item">プット・コール・パリティ（put–call parity）は、金融におけるオプション戦略にとどまらず、例えば企業価値（firm value）に対して株主（equity holders）が無限の上昇余地を持つコール・オプションの買いポジションに等価であり、一方で債権者（debtholders）は企業価値に対する上昇余地が限定されたプット・オプションの売りポジションに等価であることを示すためにも適用できる。</li>
 </ul>
 </div>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA1008-s01-B-1-a">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
-<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">学習モジュール自己評価（Learning Module Self-Assessment）</h3>
+<p>これらの初期問題は、本学習モジュールに関する現在の理解度を測るためのものである。</p>
 <div class="dp-content-block">
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1008-s01-Q1"><span class="cfa-curriculum-question-with-label">1. </span>
-<p>Which of the following statements correctly describes the equivalent to a long position in an underlying according to put–call parity?</p>
+<p>次のうち、プット・コール・パリティ（put–call parity）に基づき、原資産のロングポジション（long position in an underlying）と等価なものを正しく表しているのはどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>Long a put option on the underlying, short a call option on the underlying, and long a risk-free bond</p>
+<p>A. 原資産に対するプット・オプションのロング、コール・オプションのショート、および無リスク債券のロング</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. Put–call parity demonstrates that a long underlying position is equivalent to a sold put option, a purchased call option, and a long risk-free bond. This is shown in the following equation:</p>
-<p>Put–call parity: <em>S</em> <sub>0</sub> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup> implies <em>S</em> <sub>0</sub> = –<em>p</em> <sub>0</sub> + <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em>.</sup></p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Bが正しい。プット・コール・パリティ（put–call parity）は、原資産のロングポジションが、プット・オプションの売り（sold put）、コール・オプションの買い（purchased call）、および無リスク債券のロングに等価であることを示す。これは以下の式で表される：</p>
+<p>プット・コール・パリティ（put–call parity）：</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>Short a put option on the underlying, long a call option on the underlying, and long a risk-free bond</p>
+<p>B. 原資産に対するプット・オプションのショート、コール・オプションのロング、および無リスク債券のロング</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. Put–call parity demonstrates that a long underlying position is equivalent to a sold put option, a purchased call option, and a long risk-free bond. This is shown in the following equation:</p>
-<p>Put–call parity: <em>S</em> <sub>0</sub> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup> implies <em>S</em> <sub>0</sub> = –<em>p</em> <sub>0</sub> + <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em>.</sup></p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Bが正しい。プット・コール・パリティ（put–call parity）は、原資産のロングポジションが、プット・オプションの売り（sold put）、コール・オプションの買い（purchased call）、および無リスク債券のロングに等価であることを示す。これは以下の式で表される：</p>
+<p>プット・コール・パリティ（put–call parity）：</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>Short a put option on the underlying, long a call option on the underlying, and short a risk-free bond</p>
+<p>C. 原資産に対するプット・オプションのショート、コール・オプションのロング、および無リスク債券のショート</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. Put–call parity demonstrates that a long underlying position is equivalent to a sold put option, a purchased call option, and a long risk-free bond. This is shown in the following equation:</p>
-<p>Put–call parity: <em>S</em> <sub>0</sub> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup> implies <em>S</em> <sub>0</sub> = –<em>p</em> <sub>0</sub> + <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em>.</sup></p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Bが正しい。プット・コール・パリティ（put–call parity）は、原資産のロングポジションが、プット・オプションの売り（sold put）、コール・オプションの買い（purchased call）、および無リスク債券のロングに等価であることを示す。これは以下の式で表される：</p>
+<p>プット・コール・パリティ（put–call parity）：</p>
 </section>
 </div>
 </dd>
@@ -178,22 +166,22 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
-<p>Identify which of the following positions has the same no-arbitrage value as which portfolio under put–call parity:</p>
+<p>次のポジションのうち、プット・コール・パリティ（put–call parity）のもとで、どのポートフォリオと無裁定価値（no-arbitrage value）が等しいかを特定せよ：</p>
 <div class="cfa-curriculum-table-wrap" id="CFA1008-s01-T-1-a">
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">1. Long call option (<em>c</em> <sub>0</sub>)</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">A. Long underlying, short risk-free bond, and short call option</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1. コール・オプションのロング（long call option）（c₀）</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">A. 原資産のロング、無リスク債券のショート、コール・オプションのショート</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">2. Short risk-free bond (–<em>X</em>(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em>)</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">B. Long underlying, long put option, and short risk-free bond</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2. 無リスク債券のショート（short risk-free bond）（−X (1 + r)^(−T)）</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">B. 原資産のロング、プット・オプションのロング、無リスク債券のショート</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">3. Short put option (–<em>p</em> <sub>0</sub>)</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">C. Short underlying, long call option, and short put option</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">3. プット・オプションのショート（short put option）（−p₀）</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">C. 原資産のショート、コール・オプションのロング、プット・オプションのショート</td>
 </tr>
 </tbody>
 </table>
@@ -201,15 +189,15 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Recall that the put–call parity relationship may be expressed as</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>プット・コール・パリティ（put–call parity）の関係は次のように表されることを思い出そう。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1008-s01-E-1-___1"><em>S</em> <sub>0</sub> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em>.</div>
-<p>1. B is correct. A long call option position is the no-arbitrage equivalent of a long underlying position, a long put option, and a short risk-free bond position.</p>
-<p>2. C is correct. A short risk-free bond position is equivalent to a short underlying position, a long call option, and a short put option.</p>
-<p>3. A is correct. A short put option is equivalent to a long underlying position, a short risk-free bond, and a short call option.</p>
+<p>1. Bが正しい。コール・オプションのロングポジション（long call option position）は、原資産のロングポジション（long underlying position）、プット・オプションのロング（long put option）、および無リスク債券のショートポジション（short risk-free bond position）と無裁定のもとで等価である。</p>
+<p>2. Cが正しい。無リスク債券のショートポジション（short risk-free bond position）は、原資産のショートポジション（short underlying position）、コール・オプションのロング（long call option）、およびプット・オプションのショート（short put option）に等価である。</p>
+<p>3. Aが正しい。プット・オプションのショート（short put option）は、原資産のロングポジション（long underlying position）、無リスク債券のショート（short risk-free bond）、およびコール・オプションのショート（short call option）に等価である。</p>
 </section>
 </div>
 </div>
@@ -220,49 +208,49 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1008-s01-Q3"><span class="cfa-curriculum-question-with-label">3. </span>
-<p>Which of the following statements correctly describes a synthetic protective put position according to put–call forward parity?</p>
+<p>次のうち、プット・コール・フォワード・パリティ（put–call forward parity）に基づくシンセティック・プロテクティブ・プット（synthetic protective put）のポジションを正しく表しているのはどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>A long forward contract on the underlying, a long put option on the underlying, and long a risk-free bond</p>
+<p>A. 原資産に対するフォワード契約のロング（long forward contract）、原資産に対するプット・オプションのロング（long put option）、および無リスク債券のロング</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. The formula for put–call forward parity is as follows:</p>
-<p><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–<em>T</em> </sup> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup>.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Aが正しい。プット・コール・フォワード・パリティ（put–call forward parity）の式は次のとおりである：</p>
+<p>F₀(T)(1 + r)^(−T) + p₀ = c₀ + X(1 + r)^(−T)。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>A short forward contract on the underlying, a long put option on the underlying, and short a risk-free bond</p>
+<p>B. 原資産に対するフォワード契約のショート（short forward contract）、原資産に対するプット・オプションのロング（long put option）、および無リスク債券のショート</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. The formula for put–call forward parity is as follows:</p>
-<p><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–<em>T</em> </sup> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup>.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Aが正しい。プット・コール・フォワード・パリティ（put–call forward parity）の式は次のとおりである：</p>
+<p>F₀(T)(1 + r)^(−T) + p₀ = c₀ + X(1 + r)^(−T)。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>A short forward contract on the underlying, a short put option on the underlying, and short a risk-free bond</p>
+<p>C. 原資産に対するフォワード契約のショート（short forward contract）、原資産に対するプット・オプションのショート（short put option）、および無リスク債券のショート</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. The formula for put–call forward parity is as follows:</p>
-<p><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–<em>T</em> </sup> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–<em>T</em> </sup>.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Aが正しい。プット・コール・フォワード・パリティ（put–call forward parity）の式は次のとおりである：</p>
+<p>F₀(T)(1 + r)^(−T) + p₀ = c₀ + X(1 + r)^(−T)。</p>
 </section>
 </div>
 </dd>
@@ -273,46 +261,46 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1008-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
-<p>Which of the following statements best describes a shareholder’s claim in terms of an option payoff?</p>
+<p>次のうち、オプションのペイオフ（option payoff）の観点から株主（shareholder）の請求権を最も適切に表しているものはどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>Shareholder payoff resembles the payoff of a put option on firm value.</p>
+<p>A. 株主のペイオフは、企業価値（firm value）に対するプット・オプション（put option）のペイオフに類似している。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. When considering shareholder claims in option terms, the shareholder payoff resembles a call option on firm value.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Cが正しい。オプションの観点から株主の請求権を考えると、そのペイオフは企業価値に対するコール・オプション（call option）のペイオフに類似している。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>Shareholder payoff resembles the payoff of a covered call option on firm value.</p>
+<p>B. 株主のペイオフは、企業価値に対するカバード・コール（covered call option）のペイオフに類似している。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. When considering shareholder claims in option terms, the shareholder payoff resembles a call option on firm value.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Cが正しい。オプションの観点から株主の請求権を考えると、そのペイオフは企業価値に対するコール・オプション（call option）のペイオフに類似している。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>Shareholder payoff resembles the payoff of a call option on firm value.</p>
+<p>C. 株主のペイオフは、企業価値に対するコール・オプション（call option）のペイオフに類似している。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. When considering shareholder claims in option terms, the shareholder payoff resembles a call option on firm value.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>Cが正しい。オプションの観点から株主の請求権を考えると、そのペイオフは企業価値に対するコール・オプション（call option）のペイオフに類似している。</p>
 </section>
 </div>
 </dd>

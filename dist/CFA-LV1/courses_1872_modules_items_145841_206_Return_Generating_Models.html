@@ -94,24 +94,24 @@ dd.dp-qc-response.qc-show { display: block !important; }
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA0160-R-s06" title="2.06 | Return Generating Models">
 <header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 2: Portfolio Risk and Return: Part II</span>2.06 | Return Generating Models</h2>
+<h2 class="dp-heading">モジュール2：ポートフォリオのリスクとリターン：パートII 2.06 | リターン生成モデル（Return Generating Models）</h2>
 </header>
 <div class="cfa-curriculum-los-box">
 <h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
 <p class="p1">The candidate should be able to:</p>
 <ul>
-<li class="cfa-curriculum-los-item">explain return generating models (including the market model) and their uses</li>
+<li class="cfa-curriculum-los-item">リターン生成モデル（市場モデル（market model）を含む）を説明し、その用途を説明せよ</li>
 </ul>
 </div>
 <hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
-<p>As previously mentioned, in order to form the market portfolio, you should combine all available risky assets. Knowledge of the correlations among those assets allows us to estimate portfolio risk. You also learned that a fully diversified portfolio will include all asset classes and essentially all assets in those asset classes. The work required for construction of the market portfolio is formidable. For example, for a portfolio of 1,000 assets, we will need 1,000 return estimates, 1,000 standard deviation estimates, and 499,500 (1,000 × 999 ÷ 2) correlations. Other related questions that arise with this analysis are whether we really need all 1,000 assets and what happens if there are errors in these estimates.</p>
-<p>An alternate method of constructing an optimal portfolio is simpler and easier to implement. An investor begins with a known portfolio, such as the S&amp;P 500, and then adds other assets one at a time on the basis of the asset’s standard deviation, expected return, and impact on the portfolio’s risk and return. This process continues until the addition of another asset does not have a significant impact on the performance of the portfolio. The process requires only estimates of systematic risk for each asset because investors will not be compensated for nonsystematic risk. Expected returns can be calculated by using return-generating models, as we will discuss in this section. In addition to using return-generating models, we will also decompose total variance into systematic variance and nonsystematic variance and establish a formal relationship between systematic risk and return. In the next section, we will expand on this discussion and introduce the CAPM as the preferred return-generating model.</p>
+<p>前述のとおり、市場ポートフォリオを構築するには、利用可能なすべてのリスク資産を組み合わせる必要がある。これらの資産間の相関を把握することで、ポートフォリオのリスクを推定できる。また、完全に分散されたポートフォリオは、すべての資産クラスおよびそれらの資産クラスに属するほぼすべての資産を含むことも学んだ。市場ポートフォリオの構築に必要な作業は膨大である。例えば、1,000資産からなるポートフォリオの場合、1,000個のリターン推定値、1,000個の標準偏差推定値、そして499,500（1,000 × 999 ÷ 2）の相関が必要となる。この分析に関連して生じる他の問題として、本当に1,000すべての資産が必要なのか、またこれらの推定値に誤差がある場合にどうなるのか、という点がある。</p>
+<p>最適ポートフォリオを構築する別の方法は、より単純で実行しやすい。投資家はまず、S&amp;P500のような既知のポートフォリオから出発し、その後、各資産の標準偏差、期待リターン、およびポートフォリオのリスクとリターンへの影響に基づいて、資産を1つずつ追加していく。このプロセスは、追加される資産がポートフォリオのパフォーマンスに有意な影響を与えなくなるまで続けられる。この方法では、各資産についてシステマティックリスク（systematic risk）の推定のみが必要である。なぜなら、投資家は非システマティックリスク（nonsystematic risk）に対しては報酬を得られないからである。期待リターンは、本節で説明するリターン生成モデルを用いて計算できる。さらに、リターン生成モデルを用いることで、総分散をシステマティック分散と非システマティック分散に分解し、システマティックリスクとリターンの形式的な関係を確立することができる。次の節では、この議論を発展させ、代表的なリターン生成モデルとしてCAPM（capital asset pricing model）を導入する。</p>
 <section id="CFA0160-R-s06-01">
-<h3 class="dp-heading">Return-Generating Models</h3>
-<p>A <a aria-describedby="ReturnGeneratingModelContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#ReturnGeneratingModelContent">return-generating model</a> is a model that can provide an estimate of the expected return of a security given certain parameters. If systematic risk is the only relevant parameter for return, then the return-generating model will estimate the expected return for any asset given the level of systematic risk.</p>
-<p>As with any model, the quality of estimates of expected return will depend on the quality of input estimates and the accuracy of the model. Because it is difficult to decide which factors are appropriate for generating returns, the most general form of a return-generating model is a multi-factor model. A <a aria-describedby="MultiFactorModelContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MultiFactorModelContent">multi-factor model</a> allows more than one variable to be considered in estimating returns and can be built using different kinds of factors, such as macroeconomic, fundamental, and statistical factors.</p>
-<p>Macroeconomic factor models use economic factors that are correlated with security returns. These factors may include economic growth, the interest rate, the inflation rate, productivity, employment, and consumer confidence. Past relationships with returns are estimated to obtain parameter estimates, which are, in turn, used for computing expected returns. Fundamental factor models analyze and use relationships between security returns and the company’s underlying fundamentals, such as, for example, earnings, earnings growth, cash flow generation, investment in research, advertising, and number of patents. Finally, in a statistical factor model, historical and cross-sectional return data are analyzed to identify factors that explain variance or covariance in observed returns. These statistical factors, however, may or may not have an economic or fundamental connection to returns. For example, the conference to which the American football Super Bowl winner belongs, whether the American Football Conference or the National Football Conference, may be a factor in US stock returns, but no obvious economic connection seems to exist between the winner’s conference and US stock returns. Moreover, data mining may generate many spurious factors that are devoid of any economic meaning. Because of this limitation, analysts prefer the macroeconomic and fundamental factor models for specifying and estimating return-generating models.</p>
-<p>A general return-generating model is expressed in the following manner:</p>
+<h3 class="dp-heading">リターン生成モデル（Return-Generating Models）</h3>
+<p>リターン生成モデルとは、特定のパラメータが与えられたときに証券の期待リターンを推定できるモデルである。もしリターンに関連する唯一のパラメータがシステマティックリスクであるならば、このモデルはシステマティックリスクの水準に基づいて任意の資産の期待リターンを推定する。</p>
+<p>他のモデルと同様に、期待リターンの推定の質は入力値の質とモデルの正確性に依存する。リターンを生成する適切な要因を特定することは難しいため、リターン生成モデルの最も一般的な形はマルチファクターモデル（multi-factor model）である。マルチファクターモデルは複数の変数を考慮してリターンを推定することを可能にし、マクロ経済要因、ファンダメンタル要因、統計的要因など、さまざまな種類の要因を用いて構築される。</p>
+<p>マクロ経済ファクターモデル（macroeconomic factor models）は、証券リターンと相関のある経済要因を使用する。これらの要因には、経済成長、金利、インフレ率、生産性、雇用、消費者信頼感などが含まれる。過去のリターンとの関係を推定してパラメータを求め、それを用いて期待リターンを計算する。ファンダメンタル・ファクターモデル（fundamental factor models）は、証券リターンと企業の基礎的要因（例：利益、利益成長、キャッシュフロー創出、研究開発投資、広告、特許数など）との関係を分析・利用する。最後に、統計的ファクターモデル（statistical factor model）では、過去およびクロスセクションのリターンデータを分析し、観測されたリターンの分散や共分散を説明する要因を特定する。ただし、これらの統計的要因は必ずしも経済的またはファンダメンタルな意味を持つとは限らない。例えば、アメリカンフットボールのスーパーボウル優勝チームが所属するカンファレンス（American Football ConferenceまたはNational Football Conference）が米国株式リターンの要因となる可能性はあるが、両者の間に明確な経済的関係は存在しない。また、データマイニング（data mining）は経済的意味を持たない多くの擬似的な要因を生み出す可能性がある。このような制約のため、アナリストはリターン生成モデルの特定と推定において、マクロ経済モデルやファンダメンタルモデルを好む傾向がある。</p>
+<p>一般的なリターン生成モデルは以下のように表される：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___42"><math>
 <semantics>
 <mrow>
@@ -228,15 +228,15 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math></div>
-<p>The model has <em>k</em> factors, <em>E</em>(<em>F</em><sub>1</sub>), <em>E</em>(<em>F</em><sub>2</sub>), ... <em>E</em>(<em>F<sub>k</sub></em>). The coefficients, β<em><sub>ij</sub> </em>, are the factor weights (sometimes called factor loadings) associated with each factor. The left-hand side of the model has the expected excess return (i.e., the expected return over the risk-free rate). The right-hand side provides the risk factors that would generate the return or premium required to assume that risk. We have separated out one factor, <em>E</em>(<em>R<sub>m</sub></em>), which represents the market return. All models contain return on the market portfolio as a key factor.</p>
+<p>このモデルにはk個の要因、E(F₁), E(F₂), …, E(F_k)が含まれる。係数β_ijは各要因に対応するファクターウェイト（factor loadings）である。モデルの左辺は期待超過リターン（すなわち無リスク金利を超える期待リターン）である。右辺は、そのリスクを引き受けるために必要なリターン（プレミアム）を生み出すリスク要因を示している。ここでは、市場リターンを表すE(R_m)という要因を分離している。すべてのモデルは主要な要因として市場ポートフォリオのリターンを含む。</p>
 <section id="CFA0160-R-s06-01-01">
-<h4>Three-Factor and Four-Factor Models</h4>
-<p>Eugene Fama and Kenneth French<a aria-describedby="CFA0160-R-FN1Content" class="dp-popover-trigger" href="#CFA0160-R-FN1Content"> <sup>1</sup> </a> suggested that a return-generating model for stock returns should include relative market capitalization of the company (“size”) relative book-to-market value of the company in addition to beta. Fama and French found that past returns could be explained better with their model than with other models available at that time, most notably, the capital asset pricing model. Mark <a aria-describedby="CFA0160-R-R1Content" class="dp-popover-trigger" href="#CFA0160-R-R1Content">Carhart (1997)</a> extended the Fama and French model by adding another factor: momentum, defined as relative past stock returns.</p>
+<h4>3ファクターおよび4ファクターモデル（Three-Factor and Four-Factor Models）</h4>
+<p>Eugene FamaおよびKenneth Frenchは、株式リターンのリターン生成モデルにはベータに加えて、企業の相対的な時価総額（「サイズ」）および簿価対市場価値比（book-to-market value）を含めるべきであると提案した。FamaとFrenchは、当時利用可能であった他のモデル、特にCAPMよりも、自らのモデルの方が過去リターンをより良く説明できることを示した。Mark Carhart（1997）は、このFama-Frenchモデルにモメンタム（momentum）という要因を追加し、過去の相対的な株式リターンとして定義した。</p>
 </section>
 <section id="CFA0160-R-s06-01-02">
-<h4>The Single-Index Model</h4>
-<p>The simplest form of a return-generating model is a single-factor linear model, in which only one factor is considered. The most common implementation is a single-index model, which uses the market factor in the following form: <em>E</em>(<em>R<sub>i</sub></em>) – <em>R<sub>f</sub> </em> = β<em><sub>i</sub> </em>[<em>E</em>(<em>R<sub>m</sub></em>) – <em>R<sub>f</sub></em>].</p>
-<p>Although the single-index model is simple, it fits nicely with the capital market line. Recall that the CML is linear, with an intercept of <em>R<sub>f</sub> </em> and a slope of [<em>E</em>(<em>R<sub>m</sub></em>) – <em>R<sub>f</sub></em>]/σ<em><sub>m</sub></em>. We can rewrite the CML by moving the intercept to the left-hand side of the equation, rearranging the terms, and generalizing the subscript from <em>p</em> to <em>i</em>, for any security:</p>
+<h4>シングルインデックスモデル（The Single-Index Model）</h4>
+<p>リターン生成モデルの最も単純な形は、単一の要因のみを考慮する単一ファクター線形モデルである。最も一般的な実装はシングルインデックスモデルであり、以下の形で市場要因を使用する：</p>
+<p>シングルインデックスモデルは単純であるが、資本市場線（capital market line: CML）と整合的である。CMLは切片がR_f、傾きが[E(R_m) − R_f]/σ_mの線形関係であることを思い出そう。この式を変形し、切片を左辺に移し、項を整理し、添字をpから任意の証券iへ一般化すると、次のように書き換えられる：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___43"><math>
 <semantics>
 <mrow>
@@ -304,16 +304,16 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math></div>
-<p>The factor loading or factor weight, σ<em><sub>i</sub> </em>/σ<em><sub>m</sub></em>, refers to the ratio of total security risk to total market risk. To obtain a better understanding of factor loading and to illustrate that the CML reduces to a single-index model, we decompose total risk into its components.</p>
+<p>ファクターローディング（factor loading）またはファクターウェイトσ_i/σ_mは、個別証券の総リスクと市場全体の総リスクの比率を表す。この概念をよりよく理解し、CMLがシングルインデックスモデルに帰着することを示すために、総リスクをその構成要素に分解する。</p>
 </section>
 </section>
 <section id="CFA0160-R-s06-02">
-<h3 class="dp-heading">Decomposition of Total Risk for a Single-Index Model</h3>
-<p>With the introduction of return-generating models, particularly the single-index model, we are able to decompose total variance into systematic and nonsystematic variances. Instead of using expected returns in the single index, let us use realized returns. The difference between expected returns and realized returns is attributable to non-market changes, as an error term, <em>e<sub>i</sub></em>, in the second equation below:</p>
+<h3 class="dp-heading">シングルインデックスモデルにおける総リスクの分解（Decomposition of Total Risk for a Single-Index Model）</h3>
+<p>リターン生成モデル、特にシングルインデックスモデルの導入により、総分散をシステマティック分散と非システマティック分散に分解することが可能となる。シングルインデックスでは期待リターンではなく実現リターンを用いるとする。期待リターンと実現リターンの差は、市場以外の要因による変化として、以下の第2式における誤差項e_iで表される：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___44"><em>E</em>(<em>R<sub>i</sub></em>) – <em>R<sub>f</sub> </em> = β<em><sub>i</sub> </em>[<em>E</em>(<em>R<sub>m</sub></em>) – <em>R<sub>f</sub></em>]</div>
 <p>and</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___45"><em>R<sub>i</sub> </em> – <em>R<sub>f</sub> </em> = β<em><sub>i</sub> </em>(<em>R<sub>m</sub> </em> – <em>R<sub>f</sub></em>) + <em>e<sub>i</sub></em></div>
-<p>The variance of realized returns can be expressed in the equation below (note that <em>R<sub>f</sub> </em> is a constant). We can further drop the covariance term in this equation because, by definition, any non-market return is uncorrelated with the market. Thus, we are able to decompose total variance into systematic and nonsystematic variances in the second equation below:</p>
+<p>実現リターンの分散は以下の式で表される（R_fは定数であることに注意）。また、この式における共分散項は、市場以外のリターンは市場と無相関であるという定義により、省略できる。その結果、総分散は以下の第2式のようにシステマティック分散と非システマティック分散に分解できる：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___46"><math>
 <semantics>
 <mrow>
@@ -362,7 +362,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math></div>
-<p>Total variance = Systematic variance + Nonsystematic variance, which can be written as</p>
+<p>総分散 ＝ システマティック分散 ＋ 非システマティック分散</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___47"><math>
 <semantics>
 <mrow>
@@ -391,7 +391,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math></div>
-<p>Total risk can be expressed as</p>
+<p>総リスクは以下のように表される：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___48"><math>
 <semantics>
 <mrow>
@@ -423,7 +423,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math></div>
-<p>Because nonsystematic risk is zero for well-diversified portfolios, such as the market portfolio, the total risk of a market portfolio and other similar portfolios is only systematic risk, which is β<em><sub>i</sub> </em>σ<em><sub>m</sub></em>. We can now return to the CML discussed in the previous subsection and replace σ<em><sub>i</sub> </em> with β<em><sub>i</sub> </em>σ<em><sub>m</sub> </em> because the CML assumes that the market is a diversified portfolio. By making this substitution for the above equation, we get the following single-index model:</p>
+<p>よく分散されたポートフォリオ（市場ポートフォリオなど）では非システマティックリスクはゼロであるため、総リスクはシステマティックリスクのみとなり、β_i σ_mで表される。ここで前節で議論したCMLに戻り、市場が分散されたポートフォリオであるという仮定のもと、σ_iをβ_i σ_mで置き換えると、次のシングルインデックスモデルが得られる：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___49"><math>
 <semantics>
 <mrow>
@@ -544,20 +544,20 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math></div>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___50"><em>E</em>(<em>R<sub>i</sub></em>) – <em>R<sub>f</sub> </em> = β<em><sub>i</sub> </em>[<em>E</em>(<em>R<sub>m</sub></em>) – <em>R<sub>f</sub></em>]</div>
-<p>Thus, the CML, which holds only for well-diversified portfolios, is fully consistent with a single-index model.</p>
-<p>In summary, total variance may be decomposed into systematic and nonsystematic variances and the CML is the same as a single-index model for diversified portfolios.</p>
+<p>したがって、分散されたポートフォリオに対してのみ成立するCMLは、シングルインデックスモデルと完全に整合的である。</p>
+<p>要約すると、総分散はシステマティック分散と非システマティック分散に分解でき、CMLは分散されたポートフォリオに対してはシングルインデックスモデルと同一である。</p>
 </section>
 <section id="CFA0160-R-s06-03">
-<h3 class="dp-heading">Return-Generating Models: The Market Model</h3>
-<p>The most common implementation of a single-index model is the <a aria-describedby="MarketModelContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MarketModelContent">market model</a>, in which the market return is the single factor or single index. In principle, the market model and the single-index model are similar. The difference is that the market model is easier to work with and is normally used for estimating beta risk and computing abnormal returns. The market model is</p>
+<h3 class="dp-heading">リターン生成モデル：市場モデル（The Market Model）</h3>
+<p>シングルインデックスモデルの最も一般的な実装は市場モデルであり、市場リターンを単一の要因（インデックス）として用いる。原理的には市場モデルとシングルインデックスモデルは類似しているが、市場モデルの方が扱いやすく、通常はベータリスクの推定や異常リターン（abnormal returns）の計算に用いられる。市場モデルは以下の通りである：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___51"><em>R<sub>i</sub> </em> = α<em><sub>i</sub> </em> + β<em><sub>i</sub>R<sub>m</sub> </em> + <em>e<sub>i</sub> </em></div>
-<p>To be consistent with the previous section, α<em><sub>i</sub> </em> = <em>R<sub>f</sub> </em>(1 – β). The intercept, α<em><sub>i</sub></em>, and slope coefficient, β<em><sub>i</sub></em>, can be estimated by using historical security and market returns. These parameter estimates are then used to predict company-specific returns that a security may earn in a future period. Assume that a regression of Wal-Mart’s historical daily returns on S&amp;P 500 daily returns gives an α<em><sub>i</sub> </em> of 0.0001 and a β<em><sub>i</sub> </em> of 0.9. Thus, Wal-Mart’s expected daily return = 0.0001 + 0.90 × <em>R<sub>m</sub></em>. If, on a given day the market rises by 1 percent and Wal-Mart’s stock rises by 2 percent, then Wal-Mart’s company-specific return (<em>e<sub>i</sub></em>) for that day = <em>R<sub>i</sub> </em> − <em>E</em>(<em>R<sub>i</sub></em>) = <em>R<sub>i</sub> </em> – (α<em><sub>i</sub> </em> + β<em><sub>i</sub>R<sub>m</sub></em>) = 0.02 – (0.0001 + 0.90 × 0.01) = 0.0109, or 1.09%. In other words, Wal-Mart earned an abnormal return of 1.09 percent on that day.</p>
+<p>前節と整合的にするため、α_i = R_f(1 − β_i)とする。切片α_iと傾き係数β_iは、過去の証券リターンと市場リターンを用いて推定できる。これらのパラメータ推定値は、将来期間における個別企業のリターンを予測するために用いられる。例えば、ウォルマート（Wal-Mart）の過去の日次リターンをS&amp;P500の日次リターンに対して回帰した結果、α_i = 0.0001、β_i = 0.9が得られたとする。このとき、ウォルマートの期待日次リターンは</p>
 </section>
 <div class="dp-content-block cfa-curriculum-reflist">
-<h3 class="dp-has-icon cfa-curriculum-reflist"><i aria-hidden="true" class="dp-icon fas fa-clipboard-list" style="background: inherit !important;"> </i>Reference List</h3>
+<h3 class="dp-has-icon cfa-curriculum-reflist">参考文献一覧（Reference List）</h3>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h3 class="dp-panel-heading cfa-curriculum-reflist-title">References</h3>
+<h3 class="dp-panel-heading cfa-curriculum-reflist-title">参考文献（References）</h3>
 <div class="dp-panel-content">
 <ul>
 <li id="CFA0160-R-R1list">Carhart, Mark (1997). “On Persistence in Mutual Fund Performance.” <em>Journal of Finance</em>, vol. 52, no. 1:57–82. <a href="http://dx.doi.org/10.2307/2329556" target="_blank">http://dx.doi.org/10.2307/2329556</a></li>
@@ -567,17 +567,17 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-fn" id="CFA0160-R-FN1Content">
-<p><sup>1</sup> Fama and French (1992).</p>
+<p>1 Fama and French（1992）</p>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-ref" id="CFA0160-R-R1Content">Carhart, Mark (1997). “On Persistence in Mutual Fund Performance.” <em>Journal of Finance</em>, vol. 52, no. 1:57–82. <a href="http://dx.doi.org/10.2307/2329556" target="_blank">http://dx.doi.org/10.2307/2329556</a></div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ReturnGeneratingModelContent">
-<p>A model that can provide an estimate of the expected return of a security given certain parameters and estimates of the values of the independent variables in the model.</p>
+<p>特定のパラメータおよびモデル内の独立変数の値の推定値に基づき、証券の期待リターンを推定できるモデル。</p>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MultiFactorModelContent">
-<p>A model that explains a variable in terms of the values of a set of factors.</p>
+<p>ある変数を複数の要因の値によって説明するモデル。</p>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MarketModelContent">
-<p>A regression model with the return on a stock as the dependent variable and the returns on a market index as the independent variable.</p>
+<p>株式リターンを従属変数、市場インデックスのリターンを独立変数とする回帰モデル。</p>
 </div>
 </div>
   </div>

@@ -94,53 +94,35 @@ dd.dp-qc-response.qc-show { display: block !important; }
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA2349-R-s01" title="2.01 | Introduction">
 <header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading">
-<span class="dp-header-pre">Module 2: Forward Commitment and Contingent Claim Features and Instruments</span>2.01 | Introduction</h2>
+<h2 class="dp-heading">モジュール2: フォワード契約(Forward Commitment)および偶発的権利(Contingent Claim)の特徴(Features)と商品(Instruments) 2.01 | はじめに(Introduction)</h2>
 </header>
-<p>An earlier lesson established a derivative as a financial instrument that derives its performance from an underlying asset, index, or other financial variable, such as equity price volatility. Primary derivative types include a firm commitment in which a predetermined amount is agreed to be exchanged between counterparties at settlement and a contingent claim in which one of the counterparties determines whether and when the trade will settle. The following lessons define and compare the basic features of forward commitments and contingent claims and explain how to calculate their values at maturity.</p>
+<p>以前のレッスンでは、デリバティブ(Derivative)を基礎資産(Underlying Asset)、指数(Index)、または株価ボラティリティ(Equity Price Volatility)などの他の金融変数(Financial Variable)に基づくパフォーマンス(Performance)を持つ金融商品(Financial Instrument)として定義しました。主要なデリバティブの種類には、カウンターパーティー(Counterparties)間で決済(Settlement)時に事前合意された金額(Pre-Determined Amount)が交換される確定的権利(Firm Commitment)と、カウンターパーティーの一方が取引(Trade)をいつ、または行うかを決定する偶発的権利(Contingent Claim)があります。以下のレッスンでは、フォワード契約(Forward Commitments)と偶発的権利(Contingent Claims)の基本的特徴(Basic Features)を定義し比較し、満期(Maturity)時の価値(Value)を計算する方法を説明します。</p>
 <div class="dp-content-block cfa-curriculum-overview-box" id="CFA2349-s01-B-1-b">
-<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">
-<i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i>
-         Learning Module Overview</h3>
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュール概要(Learning Module Overview)</h3>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2349-s01-L1">
-<li class="cfa-curriculum-list-item">
-<p>Forwards, futures, and swaps represent firm commitments, or derivative contracts that require counterparties to exchange an underlying in the future based on an agreed-on price.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Forwards are a flexible over-the-counter (OTC) derivative instrument, while futures are standardized and traded on an exchange with a daily settlement of contract gains and losses.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Swap contracts are a firm commitment to exchange a series of cash flows in the future. Interest rate swaps are the most common type and involve the exchange of fixed interest payments for floating interest payments.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Option contracts are contingent claims in which one of the counterparties determines whether and when a trade will settle. The option buyer pays a premium to the seller for the right to transact the underlying in the future at a pre-agreed exercise price.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Option contract payoff and profit profiles are non-linear as the underlying price changes, as opposed to firm commitments, such as forwards, futures, and swaps, which are linear in underlying price changes.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Market participants often create similar exposures to an underlying using firm commitments and contingent claims, although these derivative instrument types involve different payoff and profit profiles.</p>
-</li>
+<li class="cfa-curriculum-list-item">フォワード(Forwards)、先物(Futures)、スワップ(Swaps)は確定的権利(Firm Commitments)を表し、合意された価格(Agreed-on Price)に基づいて将来(Future)に基礎資産(Underlying)を交換するデリバティブ契約(Derivative Contracts)です。</li>
+<li class="cfa-curriculum-list-item">フォワード(Forwards)は柔軟な店頭取引(Over-the-Counter, OTC)デリバティブ(Derivative Instrument)であり、先物(Futures)は標準化(Standardized)され取引所(Exchange)で取引され、契約(Counteracts)の損益(Gains and Losses)が日次(Daily)で決済(Settled)されます。</li>
+<li class="cfa-curriculum-list-item">スワップ契約(Swap Contracts)は、将来(Future)に一連のキャッシュフロー(Cash Flows)を交換する確定的権利(Firm Commitment)です。金利スワップ(Interest Rate Swaps)が最も一般的なタイプであり、固定金利(Fixed Interest Payments)と変動金利(Floating Interest Payments)の交換を伴います。</li>
+<li class="cfa-curriculum-list-item">オプション契約(Option Contracts)は偶発的権利(Contingent Claims)であり、カウンターパーティー(Counterparties)の一方が取引(Trade)をいつ、または行うかを決定します。オプション購入者(Option Buyer)は、将来(Future)に基礎資産(Underlying)を事前合意の行使価格(Pre-Agreed Exercise Price)で取引する権利(Right)のために、売り手(Seller)にプレミアム(Premium)を支払います。</li>
+<li class="cfa-curriculum-list-item">オプション契約(Option Contract)のペイオフ(Payoff)および利益(Profit)のプロファイル(Profile)は基礎資産価格(Underlying Price)の変化に対して非線形(Non-Linear)ですが、フォワード(Forwards)、先物(Futures)、スワップ(Swaps)などの確定的権利(Firm Commitments)は基礎資産価格(Underlying Price)の変化に対して線形(Linear)です。</li>
+<li class="cfa-curriculum-list-item">市場参加者(Market Participants)は、フォワード契約(Forward Commitments)および偶発的権利(Contingent Claims)を使用して、基礎資産(Underlying)に対して類似したエクスポージャー(Exposures)を作ることがよくありますが、これらのデリバティブ商品タイプ(Derivative Instrument Types)は異なるペイオフ(Payoff)および利益(Profit)プロファイル(Profile)を伴います。</li>
 </ul>
 </div>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2349-s01-B-1-a">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
-<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
-         Learning Module Self-Assessment</h3>
-<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">学習モジュール自己評価(Learning Module Self-Assessment)</h3>
+<p>この最初の質問は、この学習モジュール(Learning Module)の現在の理解度(Current Level of Understanding)を測るためのものです。</p>
 <div class="dp-content-block">
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2349-s01-Q1">
 <span class="cfa-curriculum-question-with-label">1. </span>
-<p>Which of the following statements correctly describes a difference between a forward contract and a futures contract?</p>
+<p>次のうち、フォワード契約(Forward Contract)と先物契約(Futures Contract)の違い(Difference)を正しく説明しているのはどれですか？</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">A. </span>A forward contract sets an agreed-on price for buyer and seller, while a futures contract does not.</p>
+<p>A. フォワード契約(Forward Contract)は買い手(Buyer)と売り手(Seller)のために合意された価格(Agreed-on Price)を設定するが、先物契約(Futures Contract)は設定しない。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -149,15 +131,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. Futures contracts require daily settlement through the exchange clearinghouse mark-to-market process. Forward contracts are settled at their maturity date, although the two parties to the contract may customize alternative settlement procedures. A is incorrect because both forward and futures contracts set an agreed-on price for a future transaction. B is incorrect because both forwards and futures contracts include a maturity date when the underlying will be exchanged.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。先物契約(Futures Contracts)は、取引所清算機構(Exchange Clearinghouse)の時価評価(Mark-to-Market)プロセスを通じて日次決済(Daily Settlement)を要求します。フォワード契約(Forward Contracts)は満期日(Maturity Date)に決済(Settled)されますが、契約の両当事者(Two Parties)は代替の決済手順(Alternative Settlement Procedures)をカスタマイズ(Customize)できます。Aは不正解です。フォワード契約と先物契約はどちらも将来(Future)の取引(Transaction)の合意価格(Agreed-on Price)を設定するためです。Bは不正解です。フォワード契約と先物契約はいずれも基礎資産(Underlying)が交換される満期日(Maturity Date)を含みます。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">B. </span>A forward contract sets an agreed-on transaction date for the seller to deliver the underlying to the buyer, while a futures contract does not.</p>
+<p>B. フォワード契約(Forward Contract)は売り手(Seller)が基礎資産(Underlying)を買い手(Buyer)に引き渡す合意された取引日(Agreed-on Transaction Date)を設定するが、先物契約(Futures Contract)は設定しない。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -166,15 +147,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. Futures contracts require daily settlement through the exchange clearinghouse mark-to-market process. Forward contracts are settled at their maturity date, although the two parties to the contract may customize alternative settlement procedures. A is incorrect because both forward and futures contracts set an agreed-on price for a future transaction. B is incorrect because both forwards and futures contracts include a maturity date when the underlying will be exchanged.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。先物契約(Futures Contracts)は、取引所清算機構(Exchange Clearinghouse)の時価評価(Mark-to-Market)プロセスを通じて日次決済(Daily Settlement)を要求します。フォワード契約(Forward Contracts)は満期日(Maturity Date)に決済(Settled)されますが、契約の両当事者(Two Parties)は代替の決済手順(Alternative Settlement Procedures)をカスタマイズ(Customize)できます。Aは不正解です。フォワード契約と先物契約はいずれも将来(Future)の取引(Transaction)の合意価格(Agreed-on Price)を設定します。Bは不正解です。フォワード契約と先物契約はいずれも基礎資産(Underlying)が交換される満期日(Maturity Date)を含みます。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">C. </span>A forward contract does not require daily settlement of gains and losses, while a futures contract does.</p>
+<p>C. フォワード契約(Forward Contract)は損益(Gains and Losses)の毎日の決済(Daily Settlement)を必要としないが、先物契約(Futures Contract)は必要とする。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct">
@@ -183,8 +163,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. Futures contracts require daily settlement through the exchange clearinghouse mark-to-market process. Forward contracts are settled at their maturity date, although the two parties to the contract may customize alternative settlement procedures. A is incorrect because both forward and futures contracts set an agreed-on price for a future transaction. B is incorrect because both forwards and futures contracts include a maturity date when the underlying will be exchanged.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。先物契約(Futures Contracts)は、取引所清算機構(Exchange Clearinghouse)の時価評価(Mark-to-Market)プロセスを通じて日次決済(Daily Settlement)を要求します。フォワード契約(Forward Contracts)は満期日(Maturity Date)に決済(Settled)されますが、契約の両当事者(Two Parties)は代替の決済手順(Alternative Settlement Procedures)をカスタマイズ(Customize)できます。Aは不正解です。フォワード契約と先物契約はいずれも将来(Future)の取引(Transaction)の合意価格(Agreed-on Price)を設定します。Bは不正解です。フォワード契約と先物契約はいずれも基礎資産(Underlying)が交換される満期日(Maturity Date)を含みます。</p>
 </section>
 </div>
 </dd>
@@ -195,22 +175,22 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label">
 <span class="cfa-curriculum-question-with-label">2. </span>
-<p>Identify which example fits each of the following firm commitments:</p>
+<p>以下の確定的権利(Firm Commitments)に対応する例を特定してください。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2349-s01-T-1-a">
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">A. Futures contract purchaser</td>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">1. Agrees to make a single exchange in the future at a pre-agreed price under an OTC contract</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">A. 先物契約購入者(Futures Contract Purchaser)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">1. OTC契約(OTC Contract)に基づき、事前合意された価格(Pre-Agreed Price)で将来(Future)に単一交換(Single Exchange)を行うことに合意する</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">B. Forward contract seller</td>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">2. Agrees to a single exchange in the future based on standardized terms set by an exchange</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">B. フォワード契約売り手(Forward Contract Seller)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">2. 取引所(Exchange)によって設定された標準化条件(Standardized Terms)に基づき、将来(Future)に単一交換(Single Exchange)を行うことに合意する</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">C. Fixed-rate payer on an interest rate swap</td>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">3. Agrees to a series of exchanges of interest fixed for floating interest payments</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">C. 金利スワップ(Interest Rate Swap)の固定金利支払者(Fixed-Rate Payer)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">3. 固定金利(Fixed Interest)と変動金利(Floating Interest)の一連の交換(Series of Exchanges)を行うことに合意する</td>
 </tr>
 </tbody>
 </table>
@@ -218,13 +198,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答(Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>1. B is correct. A forward contract seller agrees to make a single exchange in the future at a pre-agreed price under an OTC contract.</p>
-<p>2. A is correct. A futures contract purchaser agrees to a single exchange in the future based on standardized terms set by an exchange.</p>
-<p>3. C is correct. A fixed-rate payer on an interest rate swap agrees to a series of exchanges of fixed for floating interest payments.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>1. Bが正しいです。フォワード契約売り手(Forward Contract Seller)は、OTC契約(OTC Contract)に基づき、事前合意された価格(Pre-Agreed Price)で将来(Future)に単一交換(Single Exchange)を行うことに合意します。</p>
+<p>2. Aが正しいです。先物契約購入者(Futures Contract Purchaser)は、取引所(Exchange)によって設定された標準化条件(Standardized Terms)に基づき、将来(Future)に単一交換(Single Exchange)を行うことに合意します。</p>
+<p>3. Cが正しいです。金利スワップ(Interest Rate Swap)の固定金利支払者(Fixed-Rate Payer)は、固定金利(Fixed Interest)と変動金利(Floating Interest)の一連の交換(Series of Exchanges)を行うことに合意します。</p>
 </section>
 </div>
 </div>
@@ -234,22 +214,22 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label">
 <span class="cfa-curriculum-question-with-label">3. </span>
-<p>Identify which example fits each of the following contingent claims:</p>
+<p>以下の偶発的権利(Contingent Claims)に対応する例を特定してください。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2349-s01-T-1-b">
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">A. Put option purchaser</td>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">1. Seeks to gain from an increase in the underlying price</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">A. プットオプション購入者(Put Option Purchaser)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">1. 基礎資産(Underlying)の価格上昇から利益を得ようとする</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">B. Call option purchaser</td>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">2. Allows the option to expire at maturity of the underlying price is above the exercise price</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">B. コールオプション購入者(Call Option Purchaser)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">2. 基礎資産(Underlying)の価格が行使価格(Exercise Price)を上回った場合、満期(Maturity)でオプションを放棄(Expire)できる</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">C. Both a put option purchaser and a call option purchaser</td>
-<td style="text-align: left; vertical-align: top; padding: 8px; ">3. Pays an option premium to the option seller when the contract is agreed on</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">C. プットオプション購入者(Put Option Purchaser)およびコールオプション購入者(Call Option Purchaser)の両方(Both)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px; ">3. オプション契約(Option Contract)が締結されたときに、オプション売り手(Option Seller)にオプション料(Option Premium)を支払う</td>
 </tr>
 </tbody>
 </table>
@@ -257,13 +237,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答(Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>1. B is correct. A call option purchaser seeks to gain from an increase in the underlying price.</p>
-<p>2. A is correct. A put option purchaser will allow an option to expire at maturity without exercise if the underlying price is above the exercise price.</p>
-<p>3. C is correct. Both a put option purchaser and a call option purchaser will pay a premium to the option seller when the option contract is executed.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>1. Bが正しいです。コールオプション購入者(Call Option Purchaser)は基礎資産(Underlying)の価格上昇から利益を得ようとします。</p>
+<p>2. Aが正しいです。プットオプション購入者(Put Option Purchaser)は、基礎資産(Underlying)の価格が行使価格(Exercise Price)を上回った場合、満期(Maturity)でオプションを行使せず放棄(Expire)します。</p>
+<p>3. Cが正しいです。プットオプション購入者(Put Option Purchaser)およびコールオプション購入者(Call Option Purchaser)は、オプション契約(Option Contract)の締結時にオプション売り手(Option Seller)にオプション料(Option Premium)を支払います。</p>
 </section>
 </div>
 </div>
@@ -275,14 +255,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2349-s01-Q4">
 <span class="cfa-curriculum-question-with-label">4. </span>
-<p>An option to buy an underlying security at an exercise price of USD45 in three months trades at a premium of USD6. After three months, the underlying trades at USD50. Which of the following responses correctly describes the profit/loss position of the option buyer and seller?</p>
+<p>基礎資産(Underlying)を3か月後に行使価格(Exercise Price)USD45で購入するオプションがUSD6のプレミアム(Premium)で取引されている。3か月後、基礎資産はUSD50で取引されている。次のうち、オプション購入者(Option Buyer)と売り手(Option Seller)の損益(Profit/Loss)を正しく説明しているのはどれか？</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">A. </span>Option buyer earns USD5 profit, and option seller earns USD5 loss.</p>
+<p>A. オプション購入者はUSD5の利益、オプション売り手はUSD5の損失。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -291,15 +270,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. The option buyer’s position generates a payoff of USD5, equal to max(0, 50 – 45). The option buyer paid USD6 to buy the option position, and this cash flow more than offsets the positive payoff. Thus, the option buyer’s overall profit is a loss of USD1 (i.e., 5 – 6). For the option seller, the option position creates a negative payoff of –USD5, equal to –max(0, 50 – 45). However, the option seller received the option premium of USD6, so the overall profit is USD1 (i.e., 6 – 5). A is incorrect because the USD5 amount reflects the option payoff only, not profits and losses accounting for the option premium. C is incorrect because the buyer’s profit incorrectly states the payoff only to the option position, not the profit. The seller’s profit would be correct only if the underlying traded at 51, not 50.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Bが正しいです。オプション購入者(Option Buyer)のポジション(Position)は、最大値(max)関数を使ったペイオフ(Payoff)でUSD5を生み出します。購入者はオプション購入にUSD6を支払っており、このキャッシュフローが正のペイオフを相殺するため、オプション購入者の全体の利益はUSD1の損失(5 – 6)となります。オプション売り手(Option Seller)はオプションの負のペイオフ(-USD5)を受けますが、オプション料(USD6)を受け取っているため、全体の利益はUSD1です。Aは不正解です。USD5はオプションのペイオフのみで、オプション料を考慮した損益を反映していません。Cは不正解です。購入者の利益はペイオフのみを誤って示しており、実際の利益ではありません。売り手の利益は基礎資産がUSD51であれば正しいですが、USD50では正しくありません。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">B. </span>Option buyer earns USD1 loss, and option seller earns USD1 profit.</p>
+<p>B. オプション購入者はUSD1の損失、オプション売り手はUSD1の利益。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct">
@@ -308,15 +286,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. The option buyer’s position generates a payoff of USD5, equal to max(0, 50 – 45). The option buyer paid USD6 to buy the option position, and this cash flow more than offsets the positive payoff. Thus, the option buyer’s overall profit is a loss of USD1 (i.e., 5 – 6). For the option seller, the option position creates a negative payoff of –USD5, equal to –max(0, 50 – 45). However, the option seller received the option premium of USD6, so the overall profit is USD1 (i.e., 6 – 5). A is incorrect because the USD5 amount reflects the option payoff only, not profits and losses accounting for the option premium. C is incorrect because the buyer’s profit incorrectly states the payoff only to the option position, not the profit. The seller’s profit would be correct only if the underlying traded at 51, not 50.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Bが正しいです。説明は[15]と同内容です。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">C. </span>Option buyer earns USD5 profit, and option seller earns USD0.</p>
+<p>C. オプション購入者はUSD5の利益、オプション売り手はUSD0。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -325,8 +302,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>B is correct. The option buyer’s position generates a payoff of USD5, equal to max(0, 50 – 45). The option buyer paid USD6 to buy the option position, and this cash flow more than offsets the positive payoff. Thus, the option buyer’s overall profit is a loss of USD1 (i.e., 5 – 6). For the option seller, the option position creates a negative payoff of –USD5, equal to –max(0, 50 – 45). However, the option seller received the option premium of USD6, so the overall profit is USD1 (i.e., 6 – 5). A is incorrect because the USD5 amount reflects the option payoff only, not profits and losses accounting for the option premium. C is incorrect because the buyer’s profit incorrectly states the payoff only to the option position, not the profit. The seller’s profit would be correct only if the underlying traded at 51, not 50.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Bが正しいです。説明は[15]と同内容です。</p>
 </section>
 </div>
 </dd>
@@ -339,14 +316,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2349-s01-Q5">
 <span class="cfa-curriculum-question-with-label">5. </span>
-<p>A put option buyer earns a positive profit in which of the following conditions?</p>
+<p>プットオプション購入者(Put Option Buyer)が利益を得る条件は次のどれか？</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">A. </span>The price of the underlying at option expiration is less than the option’s exercise price.</p>
+<p>A. オプション満期(Option Expiration)時の基礎資産価格(Underlying Price)がオプションの行使価格(Exercise Price)未満</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -355,15 +331,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. For a put option buyer to earn a positive profit, the underlying price must be sufficiently below the put option’s exercise price such that (1) the put option can be exercised with a positive payoff and (2) the positive payoff is greater than the option premium paid. Thus, only if the underlying price falls below the exercise price minus the premium can this occur. A is incorrect because this condition only implies a positive payoff on the option but would include prices at which the payoff is not greater than the premium. B is incorrect because the put option would be out of the money and would generate zero payoff.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。プットオプション購入者が利益を得るには、基礎資産(Underlying)の価格が十分に行使価格より下回る必要があります。これにより、(1) プットオプションが正のペイオフ(Payoff)で行使できる、(2) 正のペイオフが支払ったオプション料(Premium)を上回る、という条件が満たされます。基礎資産価格が行使価格からプレミアムを差し引いた価格を下回る場合のみ成立します。Aは不正解です。条件はオプションのペイオフが正になることのみを示し、プレミアムを超えるかは含まれません。Bは不正解です。プットオプションは権利行使できずペイオフがゼロとなります。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">B. </span>The price of the underlying at option expiration is greater than the option’s exercise price.</p>
+<p>B. オプション満期(Option Expiration)時の基礎資産価格(Underlying Price)がオプションの行使価格(Exercise Price)より高い。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -372,15 +347,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. For a put option buyer to earn a positive profit, the underlying price must be sufficiently below the put option’s exercise price such that (1) the put option can be exercised with a positive payoff and (2) the positive payoff is greater than the option premium paid. Thus, only if the underlying price falls below the exercise price minus the premium can this occur. A is incorrect because this condition only implies a positive payoff on the option but would include prices at which the payoff is not greater than the premium. B is incorrect because the put option would be out of the money and would generate zero payoff.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。説明は[25]と同内容です。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">C. </span>The price of the underlying is less than the option’s exercise price minus the option’s premium.</p>
+<p>C. 基礎資産価格(Underlying Price)がオプション行使価格(Exercise Price)からオプション料(Premium)を差し引いた価格より低い。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct">
@@ -389,8 +363,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. For a put option buyer to earn a positive profit, the underlying price must be sufficiently below the put option’s exercise price such that (1) the put option can be exercised with a positive payoff and (2) the positive payoff is greater than the option premium paid. Thus, only if the underlying price falls below the exercise price minus the premium can this occur. A is incorrect because this condition only implies a positive payoff on the option but would include prices at which the payoff is not greater than the premium. B is incorrect because the put option would be out of the money and would generate zero payoff.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。説明は[25]と同内容です。</p>
 </section>
 </div>
 </dd>
@@ -403,14 +377,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2349-s01-Q6">
 <span class="cfa-curriculum-question-with-label">6. </span>
-<p>Which of the following positions on the same underlying benefit from opposite price movements in an underlying?</p>
+<p>同じ基礎資産(Underlying)において、価格変動(Price Movements)の方向が逆のポジション(Position)はどれか？</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">A. </span>Long forward contract, short put option</p>
+<p>A. ロングフォワード(Long Forward Contract)、ショートプット(Short Put Option)</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -419,15 +392,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. A short forward position benefits as the underlying price declines, while a short put benefits only when the underlying price increases. A is incorrect because both a long forward and a short put benefit from underlying price increases. B is incorrect because both a short forward and a long put option benefit from underlying price decreases.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。ショートフォワード(Short Forward)は基礎資産価格が下落すると利益を得ますが、ショートプット(Short Put)は基礎資産価格が上昇した場合にのみ利益を得ます。Aは不正解です。ロングフォワード(Long Forward)とショートプット(Short Put)はどちらも基礎資産価格の上昇で利益を得るわけではありません。Bは不正解です。ショートフォワード(Short Forward)とロングプット(Long Put)はどちらも基礎資産価格下落で利益を得るわけではありません。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">B. </span>Short forward contract, long put option</p>
+<p>B. ショートフォワード(Short Forward Contract)、ロングプット(Long Put Option)</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -436,15 +408,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. A short forward position benefits as the underlying price declines, while a short put benefits only when the underlying price increases. A is incorrect because both a long forward and a short put benefit from underlying price increases. B is incorrect because both a short forward and a long put option benefit from underlying price decreases.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。説明は[35]と同内容です。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">C. </span>Short forward contract, short put option</p>
+<p>C. ショートフォワード(Short Forward Contract)、ショートプット(Short Put Option)</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct">
@@ -453,8 +424,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>C is correct. A short forward position benefits as the underlying price declines, while a short put benefits only when the underlying price increases. A is incorrect because both a long forward and a short put benefit from underlying price increases. B is incorrect because both a short forward and a long put option benefit from underlying price decreases.</p>
+<h3 class="cfa-curriculum-solution">解答(Solution)</h3>
+<p>Cが正しいです。ショートフォワード(Short Forward)は基礎資産(Underlying)の価格が下落すると利益を得ますが、ショートプット(Short Put)は基礎資産価格が上昇した場合にのみ利益を得ます。Aは不正解です。ロングフォワード(Long Forward)とショートプット(Short Put)はどちらも基礎資産価格の上昇で利益を得るわけではありません。Bは不正解です。ショートフォワード(Short Forward)とロングプット(Long Put)はどちらも基礎資産価格下落で利益を得るわけではありません。</p>
 </section>
 </div>
 </dd>

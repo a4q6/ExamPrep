@@ -93,50 +93,40 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div id="main" style="margin:0;padding:0 16px 16px;">
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA2439-R-s01-R-1" title="9.01 | Introduction"><header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 9: The Term Structure of Interest Rates: Spot, Par, and Forward Curves</span>9.01 | Introduction</h2>
+<h2 class="dp-heading">モジュール9：金利の期間構造（The Term Structure of Interest Rates）：スポットカーブ（spot）、パーカーブ（par）、フォワードカーブ（forward） 9.01｜イントロダクション（Introduction）</h2>
 </header>
-<p>Prior lessons priced fixed-income instruments by discounting all future cash flows using a single interest rate, such as the yield-to-maturity or a market reference rate (MRR) plus a discount margin. The next three lessons relax this assumption by introducing the term structure of interest rates, or the fact that interest rates vary with time-to-maturity. The ideal data to use for term structure analysis are default-risk-free zero-coupon bonds, known as spot rates or the spot curve. Since these are generally not directly observable, various estimation techniques are used. The spot curve is used to derive two other important yield curves: the par curve and the forward curve. A par curve involves bond yields for hypothetical benchmark securities priced at par, while the forward curve involves rates for interest periods starting in the future. All three of these curves are fundamental to fixed-income analysis and other applications because they represent default-risk-free rates of return for time periods that start today and in the future. We show the pricing of bonds using these different rates and establish their relationships.</p>
+<p>これまでのレッスンでは、満期利回り（yield-to-maturity）や市場参照レート（market reference rate, MRR）にディスカウントマージン（discount margin）を加えた単一の金利を用いて、将来のすべてのキャッシュフローを割引くことで固定利付証券（fixed-income instruments）の価格を算定していた。次の3つのレッスンではこの仮定を緩和し、金利が満期までの期間（time-to-maturity）によって変化するという事実、すなわち金利の期間構造（term structure of interest rates）を導入する。期間構造分析に理想的なデータは、デフォルトリスクのないゼロクーポン債（default-risk-free zero-coupon bonds）であり、これらの利回りはスポットレート（spot rates）またはスポットカーブ（spot curve）として知られる。これらは通常直接観測できないため、さまざまな推定手法（estimation techniques）が用いられる。スポットカーブからは、パーカーブ（par curve）とフォワードカーブ（forward curve）という2つの重要なイールドカーブ（yield curves）が導出される。パーカーブはパーで価格付けされた仮想的なベンチマーク証券（benchmark securities）の利回りを表し、フォワードカーブは将来開始する利息期間に対するレートを表す。これら3つのカーブはいずれも、現在および将来の期間におけるデフォルトリスクのない収益率を示すため、固定利付分析（fixed-income analysis）やその他の応用において基本的である。本モジュールでは、これら異なるレートを用いた債券価格の算定方法を示し、それらの関係を明らかにする。</p>
 <p>Most of the examples and exhibits used throughout the reading can be <a href="https://1drv.ms/x/s!AozBCmlHo86vgWgpYGnF-PnnSL5w?e=cZTnUt" target="_blank">downloaded as a Microsoft Excel workbook</a>. Each worksheet in the workbook is labeled with the corresponding example or exhibit number in the text.</p>
 <div class="dp-content-block cfa-curriculum-overview-box" id="CFA2439-R-s01-Ba">
-<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュール概要（Learning Module Overview）</h3>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2439-R-s01-L1">
-<li class="cfa-curriculum-list-item">
-<p>Spot rates are market discount rates on default-risk-free zero-coupon bonds, sometimes referred to as zero rates. By using a sequence of spot rates in calculating bond prices, a no-arbitrage bond price is obtained.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>A par rate is the market discount rate for a specific maturity that would result in a bond priced at par. A par rate is derived from the spot rates up to and including the maturity date.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Implied forward rates are calculated using spot rates and can be interpreted as an incremental, or marginal, return for extending the time-to-maturity for an additional time period. As such, they reflect a breakeven reinvestment rate.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Since par and forward rates can be derived from spot rates, the shape of the spot curve is closely related to the shape of the par and forward curves.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>In upward-sloping term structures, par rates will be lower than their corresponding spot rates and forward rates will be greater than spot rates. In downward-sloping term structures, par rates will be greater than spot rates and forward rates will be lower than spot rates.</p>
-</li>
+<li class="cfa-curriculum-list-item">スポットレート（spot rates）は、デフォルトリスクのないゼロクーポン債（default-risk-free zero-coupon bonds）に対する市場割引率であり、ゼロレート（zero rates）とも呼ばれる。債券価格の計算において一連のスポットレートを用いることで、無裁定（no-arbitrage）の債券価格が得られる。</li>
+<li class="cfa-curriculum-list-item">パーレート（par rate）は、特定の満期において債券がパーで価格付けされるようにする市場割引率である。パーレートは、当該満期までのスポットレートから導出される。</li>
+<li class="cfa-curriculum-list-item">インプライド・フォワードレート（implied forward rates）はスポットレートを用いて計算され、追加の期間だけ満期を延長した場合の増分的（incremental）または限界的（marginal）な収益として解釈できる。そのため、これらは損益分岐の再投資レート（breakeven reinvestment rate）を反映する。</li>
+<li class="cfa-curriculum-list-item">パーレートおよびフォワードレートはスポットレートから導出できるため、スポットカーブの形状はパーカーブおよびフォワードカーブの形状と密接に関連している。</li>
+<li class="cfa-curriculum-list-item">右肩上がりの期間構造（upward-sloping term structures）においては、パーレートは対応するスポットレートより低くなり、フォワードレートはスポットレートより高くなる。右肩下がりの期間構造（downward-sloping term structures）においては、パーレートはスポットレートより高くなり、フォワードレートはスポットレートより低くなる。</li>
 </ul>
 </div>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2439-R-s01-Bb">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
-<p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">学習モジュール自己評価（Learning Module Self-Assessment）</h3>
+<p>これらの初期問題は、本学習モジュールに対する現在の理解度を測ることを目的としている。</p>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
-<p>Calculate the price and yield-to-maturity (YTM) of a 1% coupon, three-year bond with par value of 100 given the following spot rates:</p>
+<p>次のスポットレートが与えられたとき、クーポン1%、満期3年、額面100の債券の価格および満期利回り（yield-to-maturity, YTM）を計算せよ：</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2439-R-s01-Ta">
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">1-year</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1年</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">1.0%</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">2-year</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2年</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">1.5%</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">3-year</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">3年</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">2.0%</td>
 </tr>
 </tbody>
@@ -145,14 +135,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>The price is 97.135:</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>価格は97.135である：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2439-R-s01-E"><math> <semantics> <mtable columnalign="left"> <mtr> <mtd> <mi>P</mi> <mi>V</mi> <mo>=</mo> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>P</mi> <mi>M</mi> <mi>T</mi> </mrow> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <msub> <mi>Z</mi> <mn>1</mn> </msub> </mrow> </mfenced> </mrow> <mn>1</mn> </msup> </mrow> </mfrac> </mstyle> <mo>+</mo> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>P</mi> <mi>M</mi> <mi>T</mi> </mrow> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <msub> <mi>Z</mi> <mn>2</mn> </msub> </mrow> </mfenced> </mrow> <mn>2</mn> </msup> </mrow> </mfrac> </mstyle> <mo>+</mo> <mo>⋯</mo> <mo>+</mo> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>P</mi> <mi>M</mi> <mi>T</mi> <mo>+</mo> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <msub> <mi>Z</mi> <mi>N</mi> </msub> </mrow> </mfenced> </mrow> <mi>N</mi> </msup> </mrow> </mfrac> </mstyle> </mtd> </mtr> <mtr> <mtd> <mrow></mrow> </mtd> </mtr> <mtr> <mtd> <mi>P</mi> <mi>V</mi> <mo>=</mo> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mn>0.01</mn> </mrow> </mfenced> </mrow> <mn>1</mn> </msup> </mrow> </mfrac> </mstyle> <mo>+</mo> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mn>0.015</mn> </mrow> </mfenced> </mrow> <mn>2</mn> </msup> </mrow> </mfrac> </mstyle> <mo>+</mo> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>101</mn> </mrow> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mn>0.02</mn> </mrow> </mfenced> </mrow> <mn>3</mn> </msup> </mrow> </mfrac> </mstyle> </mtd> </mtr> </mtable> </semantics> </math></div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2439-R-s01-E___1"><em>PV</em> = 97.135</div>
-<p>The YTM is 1.993%:</p>
+<p>YTMは1.993%である：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2439-R-s01-E___2"><math> <semantics> <mtable columnalign="left"> <mtr> <mtd> <mi>P</mi> <mi>V</mi> <mo>=</mo> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>P</mi> <mi>M</mi> <mi>T</mi> </mrow> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mi>r</mi> </mrow> </mfenced> </mrow> <mn>1</mn> </msup> </mrow> </mfrac> </mstyle> <mo>+</mo> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>P</mi> <mi>M</mi> <mi>T</mi> </mrow> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mi>r</mi> </mrow> </mfenced> </mrow> <mn>2</mn> </msup> </mrow> </mfrac> </mstyle> <mo>+</mo> <mo>⋯</mo> <mo>+</mo> <mstyle displaystyle="true"> <mfrac> <mrow> <mi>P</mi> <mi>M</mi> <mi>T</mi> <mo>+</mo> <mi>F</mi> <mi>V</mi> </mrow> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mi>r</mi> </mrow> </mfenced> </mrow> <mi>N</mi> </msup> </mrow> </mfrac> </mstyle> </mtd> </mtr> <mtr> <mtd> <mrow></mrow> </mtd> </mtr> <mtr> <mtd> <mn>97.135</mn> <mo>=</mo> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mi>r</mi> </mrow> </mfenced> </mrow> <mn>1</mn> </msup> </mrow> </mfrac> </mstyle> <mo>+</mo> <mstyle displaystyle="true"> <mfrac> <mn>1</mn> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mi>r</mi> </mrow> </mfenced> </mrow> <mn>2</mn> </msup> </mrow> </mfrac> </mstyle> <mo>+</mo> <mstyle displaystyle="true"> <mfrac> <mrow> <mn>101</mn> </mrow> <mrow> <msup> <mrow> <mfenced> <mrow> <mn>1</mn> <mo>+</mo> <mi>r</mi> </mrow> </mfenced> </mrow> <mn>3</mn> </msup> </mrow> </mfrac> </mstyle> </mtd> </mtr> </mtable> </semantics> </math></div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2439-R-s01-E___3"><em>r </em>= 0.01993 = 1.993%</div>
 </section>
@@ -163,14 +153,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
-<p>Define what a par rate represents in the context of bond pricing.</p>
+<p>債券価格評価の文脈において、パーレート（par rate）が何を表すかを定義せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>The par rate is the yield-to-maturity that makes the present value of a bond’s cash flows (i.e., its price) equal to its par or face value.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>パーレートとは、債券のキャッシュフローの現在価値（すなわち価格）が額面価値（par value または face value）と等しくなるようにする満期利回り（yield-to-maturity）である。</p>
 </section>
 </div>
 </div>
@@ -179,21 +169,21 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
-<p>Calculate an implied one-year forward rate two years from now (i.e., 2y1y) given the following spot rates, assuming annual compounding:</p>
+<p>次のスポットレートが与えられたとき、年次複利（annual compounding）を仮定して、2年後からの1年フォワードレート（すなわち2y1y）を計算せよ：</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2439-R-s01-Tb">
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">1-year</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">1年</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">1.0%</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">2-year</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">2年</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">1.5%</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">3-year</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">3年</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">2.0%</td>
 </tr>
 </tbody>
@@ -202,10 +192,10 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
 <div class="cfa-curriculum-display-formula-container" id="CFA2439-R-s01-E___4">(1 + <em>Z<sub>A</sub></em>)<em><sup>A</sup> </em> × (1 + <em>IFR<sub>A,B – A</sub></em>)<em><sup>B</sup></em><sup>−</sup><em><sup>A</sup> </em> = (1 + <em>Z<sub>B</sub></em>)<em><sup>B</sup></em>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2439-R-s01-E___5">(1 + 0.015)<sup>2</sup> × (1 + <em>IFR</em><sub>2,1</sub>)<sup>1</sup> = (1 + 0.02)<sup>3</sup>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2439-R-s01-E___6"><em>IFR</em><sub>2,1 </sub>= 3.01%.</div>
@@ -217,14 +207,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">4. </span>
-<p>Explain the economic meaning of the forward rate result calculated in Question 3.</p>
+<p>問題3で計算したフォワードレートの経済的意味を説明せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>The one-year forward rate two years from now (2y1y) of 3.01% implies that investors expect the one-year interest rate to be 3.01% at the end of two years. This reflects the rate at which reinvestment would yield the same results over a three-year horizon regardless of whether the investor initially bought a two-year bond versus a three-year bond.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>2年後からの1年フォワードレート（2y1y）が3.01%であることは、投資家が2年後時点での1年金利が3.01%になると期待していることを意味する。これは、投資家が当初2年債を購入するか3年債を購入するかに関わらず、3年間の投資期間において同一の結果をもたらす再投資レートを反映している。</p>
 </section>
 </div>
 </div>
@@ -233,14 +223,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">5. </span>
-<p>Contrast spot and forward rates.</p>
+<p>スポットレート（spot rates）とフォワードレート（forward rates）を対比せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Spot rates reflect borrowing and investing rates for funds immediately (or in the next few days) over the specified tenor, while forward rates reflect rates applicable to agreements to borrow or invest beginning on a future date for a specified tenor.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>スポットレート（spot rates）は、指定されたテナー（tenor）にわたって即時（または数日以内）に資金を借入または投資する際の金利を反映する一方で、フォワードレート（forward rates）は、将来の特定の日付から開始され、指定されたテナーにわたる借入または投資契約に適用される金利を反映する。</p>
 </section>
 </div>
 </div>
@@ -251,33 +241,33 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2439-R-s01-Q6"><span class="cfa-curriculum-question-with-label">6. </span>
-<p>True or false: One-year forward rates are higher compared to their corresponding spot rates when the spot rate curve is downward sloping.</p>
+<p>正誤問題：スポットレートカーブ（spot rate curve）が右肩下がりの場合、1年フォワードレート（one-year forward rates）は対応するスポットレートよりも高くなる。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>True</p>
+<p>A. 正しい（True）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>False. When the spot curve is downward sloping, the one-year forward rate curve will lie below the spot rate curve. Declining spot rates for longer maturities imply that investors should expect lower rates of reinvestment in future years, and the forward curve reflects these expectations.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>誤りである。スポットカーブが右肩下がりの場合、1年フォワードレートカーブはスポットレートカーブよりも下方に位置する。長期のスポットレートが低下していることは、投資家が将来の再投資レートが低くなると予想していることを意味し、フォワードカーブはこれらの期待を反映している。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>False</p>
+<p>B. 誤り（False）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>False. When the spot curve is downward sloping, the one-year forward rate curve will lie below the spot rate curve. Declining spot rates for longer maturities imply that investors should expect lower rates of reinvestment in future years, and the forward curve reflects these expectations.</p>
+<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<p>誤りである。スポットカーブが右肩下がりの場合、1年フォワードレートカーブはスポットレートカーブよりも下方に位置する。長期のスポットレートが低下していることは、投資家が将来の再投資レートが低くなると予想していることを意味し、フォワードカーブはこれらの期待を反映している。</p>
 </section>
 </div>
 </dd>

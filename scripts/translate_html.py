@@ -257,15 +257,15 @@ def process_file(html_path: Path, translator: ChatGPTTranslator,
     elements = extract_elements(soup)
     if not elements:
         print(f"  [no-content] {html_path.name}")
-        # Save as-is with controls injected
-        out_path.write_text(
-            build_bilingual_html(original_html, {}, []), encoding="utf-8"
-        )
         return True
 
     print(f"  {html_path.name}  ({len(elements)} elements)")
 
     translations = translate_elements(elements, translator)
+
+    if not translations:
+        print(f"  [skip] {html_path.name}: all batches failed, not saving")
+        return False
 
     bilingual = build_bilingual_html(original_html, translations, elements)
     out_path.write_text(bilingual, encoding="utf-8")

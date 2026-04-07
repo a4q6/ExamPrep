@@ -94,51 +94,47 @@ dd.dp-qc-response.qc-show { display: block !important; }
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA2442-R-s03-R-1" title="12.03 | Bond Risk and Return Using Duration and Convexity">
 <header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 12: Yield-Based Bond Convexity and Portfolio Properties</span>12.03 | Bond Risk and Return Using Duration and Convexity</h2>
+<h2 class="dp-heading">モジュール12: 利回りベースの債券コンベクシティとポートフォリオ特性 12.03 | デュレーションとコンベクシティを用いた債券リスクとリターン</h2>
 </header>
 <div class="cfa-curriculum-los-box">
 <h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
 <p class="p1">The candidate should be able to:</p>
 <ul>
-<li class="cfa-curriculum-los-item">calculate the percentage price change of a bond for a specified change in yield, given the bond’s duration and convexity</li>
+<li class="cfa-curriculum-los-item">債券のデュレーションとコンベクシティを用いて、指定された利回り変化に対する債券の価格変化率を計算する</li>
 </ul>
 </div>
 <hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
-<p>We now show how to estimate the percentage price change of a bond for a specified yield change, given the bond’s duration and convexity. As we will show, such an estimate is substantially closer to the bond’s actual price change than if estimated using duration alone, allowing for more efficient risk management.</p>
-<p>Continuing with our focus on BRWA’s five-year, 3.2% (semiannual) coupon bond priced at par for settlement on 15 October 2025 and maturity on 15 October 2030, if its yield-to-maturity changes by ±100 bps from 3.20%, then the actual prices, using Excel’s PRICE function, would be as follows:</p>
+<p>債券のデュレーションとコンベクシティが与えられた場合、指定された利回り変化に対する債券価格の百分率変化を推定する方法を示します。このような推定は、デュレーションのみで推定する場合よりも債券の実際の価格変化に近くなり、より効率的なリスク管理が可能となります。</p>
+<p>BRWA債 (BRWA’s five-year, 3.2% semiannual coupon bond) を例として、2025年10月15日の決済時に額面価格で、2030年10月15日償還とします。この債券の利回りが3.20％から±100ベーシスポイント変化した場合、ExcelのPRICE関数を用いた実際の価格は以下の通りです：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E"><em>PV</em><sub>+</sub> = PRICE(DATE(2025,10,15),DATE(2030,10,15),0.032,0.0420,100,2,0) = 95.53212.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___1"><em>PV</em><sub>–</sub> = PRICE(DATE(2025,10,15),DATE(2030,10,15),0.032,0.0220,100,2,0) = 104.71035.</div>
-<p>So, the actual price–yield relationship for this bond is as follows:</p>
+<p>この債券の実際の価格－利回り関係は以下の通りです：</p>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2442-R-s03-L1">
-<li class="cfa-curriculum-list-item">
-<p>100 bp increase in yield (4.20%): Price = 95.53212; %∆<em>PV<sup>Full</sup> </em> = –4.46788%.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>100 bp decrease in yield (2.20%): Price = 104.71035; %∆<em>PV<sup>Full</sup> </em> = 4.71035%.</p>
-</li>
+<li class="cfa-curriculum-list-item">利回りが100ベーシスポイント上昇 (4.20%)：価格 = 95.53212；総価格の変化率 %∆ PV Full = –4.46788％</li>
+<li class="cfa-curriculum-list-item">利回りが100ベーシスポイント低下 (2.20%)：価格 = 104.71035；総価格の変化率 %∆ PV Full = 4.71035％</li>
 </ul>
-<p>The modified duration for this bond was previously found to be 4.58676, so a 100 bp increase (decrease) in yield-to-maturity results in %∆<em>PV<sup>Full</sup> </em> ≈ –4.58676% (4.58676%).</p>
-<p>We now show the enhanced precision and risk reduction achieved by adding the convexity adjustment to the duration estimate when determining the BRWA bond’s percentage price changes. Using Equation 1 and the <em>AnnConvexity</em> metric, for ±100 bp changes in yield-to-maturity (from 3.20%), we have the following:</p>
+<p>この債券の修正デュレーション (modified duration) は以前に4.58676と求められたため、利回りが100ベーシスポイント上昇（低下）すると、総価格の変化率 %∆ PV Full ≈ –4.58676％（4.58676％）となります。</p>
+<p>次に、デュレーション推定にコンベクシティ調整を加えることで、BRWA債の価格変化率における精度向上とリスク低減を示します。式1 (Equation 1) と年間コンベクシティ (AnnConvexity) 指標を用いると、利回りが3.20％から±100ベーシスポイント変化した場合の結果は以下の通りです：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___2">%∆<em>PV<sup>Full</sup> </em> ≈ (–4.58676 × 0.0100) + [½ × 24.23895 × (0.0100)<sup>2</sup>] = –4.46556%.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___3">%∆<em>PV<sup>Full</sup> </em> ≈ (–4.58676 × –0.0100) + [½ × 24.23895 × (–0.0100)<sup>2</sup>] = 4.70795%.</div>
-<p><a aria-label="View Exhibit 4" class="internal" href="#CFA2442-R-s03-EXH4" role="button">Exhibit 4</a> compares the estimated percentage changes in BRWA’s bond prices for ±100 bp changes in yield using duration alone and using duration plus convexity against the exact changes from Excel’s PRICE function. It is clear that enhanced precision is achieved by adding the convexity adjustment, because the percentage price difference is less than ¼ of a basis point by adding convexity versus about 12 bps with duration alone. Note that this difference would be substantially greater for larger changes in yield or for longer-maturity or lower-coupon bonds.</p>
+<p>図4 (Exhibit 4) は、利回り±100ベーシスポイント変化時にデュレーションのみで推定した場合と、デュレーション＋コンベクシティで推定した場合のBRWA債価格の百分率変化を、ExcelのPRICE関数で求めた正確な変化と比較しています。コンベクシティ調整を加えることで精度が向上していることが明確です。コンベクシティを加えた場合の価格差は¼ベーシスポイント未満ですが、デュレーションのみの場合は約12ベーシスポイントとなります。利回りの変化が大きい場合や、償還期間が長い、あるいはクーポン率が低い債券では、この差はさらに大きくなります。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2442-R-s03-EXH4">
-<h3 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 4<span style="display: block;">Using Duration and Convexity to Estimate Bond Price Changes</span></h3>
+<h3 class="cfa-curriculum-exhibit-table-title">図4 (Exhibit 4) デュレーションとコンベクシティを用いた債券価格変化の推定</h3>
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <thead>
 <tr>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Change in Bond Yield</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Actual %∆<em>PV<sup>Full</sup> </em> </strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Estimated %∆<em>PV<sup>Full</sup> </em> Using <em>ModDur</em> </strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Difference from Actual Change</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Estimated %∆<em>PV<sup>Full</sup> </em> Using <em>ModDur</em> + Convexity</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Difference from Actual Change</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">債券利回りの変化 (Change in Bond Yield)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">実際の総価格変化率 %∆ PV Full (Actual %∆ PV Full)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">修正デュレーションを用いた推定総価格変化率 %∆ PV Full (Estimated %∆ PV Full Using ModDur)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">実際の変化との差 (Difference from Actual Change)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">修正デュレーション＋コンベクシティを用いた推定総価格変化率 %∆ PV Full (Estimated %∆ PV Full Using ModDur + Convexity)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">実際の変化との差 (Difference from Actual Change)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">+ 100 bps</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">利回り +100ベーシスポイント (+100 bps)</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">–4.46788</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">–4.58676</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">–0.11887</td>
@@ -146,7 +142,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <td style="text-align: center; vertical-align: top; padding: 8px;">0.00232</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">– 100 bps</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">利回り –100ベーシスポイント (–100 bps)</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">4.71035</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">4.58676</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">–0.12359</td>
@@ -157,9 +153,9 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </table>
 </div>
 </div>
-<p>Recall that money duration indicates the first-order effect on the full price of a bond in currency units given a change in yield-to-maturity. <a aria-describedby="MoneyConvexityContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#MoneyConvexityContent">Money convexity</a> (<em>MoneyCon</em>) captures the second-order effect in currency terms and is the annual convexity multiplied by the full price, as in <a aria-label="View Equation 3" class="internal" href="#CFA2442-R-s03-E3" role="button">Equation 3</a>.</p>
+<p>マネー・デュレーション (money duration) は、利回り変化に対する債券の総価格への一次効果を通貨単位で示します。マネー・コンベクシティ (MoneyCon) は、通貨単位での二次効果を捉え、年間コンベクシティに総価格を掛けた値として式3 (Equation 3) に示されます。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E3"><em>MoneyCon</em> = <em>AnnConvexity</em> × <em>PV<sup>Full</sup> </em>.<span class="cfa-curriculum-display-formula-number">3</span></div>
-<p>Similar to estimating the percentage change in a bond’s full price, MoneyDur and MoneyCon are combined to achieve a more accurate, thus less risky, estimate of the change in a bond’s full price, as shown in <a aria-label="View Equation 4" class="internal" href="#CFA2442-R-s03-E4" role="button">Equation 4</a>.</p>
+<p>債券の総価格の百分率変化を推定するのと同様に、MoneyDur と MoneyCon を組み合わせることで、より正確でリスクの小さい総価格変化の推定が可能となります（式4に示す通り）。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E4"><math>
 <semantics>
 <mrow>
@@ -235,10 +231,10 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math> <span class="cfa-curriculum-display-formula-number">4</span></div>
-<p>For a money convexity example, consider again BRWA’s five-year, 3.2% semiannual coupon bond, settling 15 October 2025, maturing 15 October 2030, and yielding 3.2%—thus, priced at par. We saw previously that annual modified duration and annual convexity for this bond are 4.58676 and 24.23895, respectively.</p>
-<p>Suppose the investor has a position in the bond with a par value of USD100 million and the yield-to-maturity increases by 100 bps. We saw earlier that the bond’s price declines to 95.53212, so the market value of the position decreases to $95,532,116 (= $100,000,000 × 0.9553212), a decline of $4,467,884.</p>
-<p>Estimating the market value change using <em>MoneyDur</em> alone results in a larger decline, $4,586,759 (= $458,675,875 × 0.0100), a difference of $118,875.</p>
-<p>However, using <a aria-label="View Equation 3" class="internal" href="#CFA2442-R-s03-E3" role="button">Equation 3</a>, the <em>MoneyCon</em> for this position is $2,423,894,503 (= 24.23895 × $100,000,000), and if we apply <a aria-label="View Equation 4" class="internal" href="#CFA2442-R-s03-E4" role="button">Equation 4</a>, which uses both <em>MoneyDur</em> and <em>MoneyCon</em>, to estimate the market value change, the result is a decline of –$4,465,564, as follows:</p>
+<p>マネー・コンベクシティの例として、再びBRWAの5年もの3.2％半期ごとクーポン債を考えます。2025年10月15日決済、2030年10月15日償還、利回り3.2％（額面価格で価格設定）です。この債券の年間修正デュレーションと年間コンベクシティは、それぞれ4.58676と24.23895でした。</p>
+<p>投資家が額面1億米ドルの債券ポジションを持っており、利回りが100ベーシスポイント上昇したとします。この場合、債券価格は95.53212に下落するため、ポジションの時価総額は95,532,116ドル（= 100,000,000 × 0.9553212）に下がり、損失は4,467,884ドルとなります。</p>
+<p>MoneyDur のみで市場価値の変化を推定すると、より大きな下落、4,586,759ドル（= 458,675,875 × 0.0100）が生じ、差額は118,875ドルとなります。</p>
+<p>しかし、式3を用いてこのポジションのMoneyConを計算すると2,423,894,503ドル（= 24.23895 × 100,000,000ドル）となり、さらにMoneyDurとMoneyConの両方を用いる式4により市場価値変化を推定すると、結果は–4,465,564ドルとなります。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___4"><math>
 <semantics>
 <mrow>
@@ -297,56 +293,56 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math></div>
-<p>By using both MoneyDur and MoneyCon, the difference in the estimated versus the actual changes in bond position value is only $2,320. <a aria-label="View Exhibit 5" class="internal" href="#CFA2442-R-s03-EXH5" role="button">Exhibit 5</a> summarizes these results and shows the estimated and actual changes in position value for a 100 bp decrease in yield.</p>
+<p>MoneyDurとMoneyConの両方を用いることで、推定値と実際の債券ポジション価値の差はわずか2,320ドルとなります。図5 (Exhibit 5) は、利回りが100ベーシスポイント低下した場合の推定値と実際のポジション価値の変化をまとめたものです。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2442-R-s03-EXH5">
-<h3 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 5<span style="display: block;">Using Money Duration and Money Convexity to Estimate Bond Price Changes</span></h3>
+<h3 class="cfa-curriculum-exhibit-table-title">図5 (Exhibit 5) マネー・デュレーションとマネー・コンベクシティを用いた債券価格変化の推定</h3>
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <thead>
 <tr>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Change in Bond Yield</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Actual ∆<em>PV<sup>Full</sup> </em> </strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Estimated ∆<em>PV<sup>Full</sup> </em> Using <em>MoneyDur</em> </strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Difference from Actual Change</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Estimated ∆<em>PV<sup>Full</sup> </em> Using <em>MoneyDur</em> + <em>MoneyCon</em> </strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Difference from Actual Change</strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">債券利回りの変化 (Change in Bond Yield)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">実際の総価格変化 (Actual ∆ PV Full)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">マネー・デュレーションを用いた推定総価格変化 (Estimated ∆ PV Full Using MoneyDur)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">実際の変化との差 (Difference from Actual Change)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">マネー・デュレーション＋マネー・コンベクシティを用いた推定総価格変化 (Estimated ∆ PV Full Using MoneyDur + MoneyCon)</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">実際の変化との差 (Difference from Actual Change)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">+ 100 BPS</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">–$4,467,884</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">–$4,586,759</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">$118,875</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">–$4,465,564</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">–$2,320</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">利回り +100ベーシスポイント (+100 BPS)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–4,467,884ドル</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–4,586,759ドル</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">118,875ドル</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–4,465,564ドル</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–2,320ドル</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">– 100 BPS</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">$4,710,348</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">$4,586,759</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">–$123,590</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">4,707,953</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">–$2,395</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">利回り –100ベーシスポイント (–100 BPS)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4,710,348ドル</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4,586,759ドル</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–123,590ドル</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">4,707,953ドル</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">–2,395ドル</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2442-R-s03-Ba">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Knowledge Check</h3>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">知識確認 (Knowledge Check)</h3>
 <section>
-<p>An investor holds a position in five-year, zero-coupon Federal Republic of Germany bonds settling 11 May 2025 and maturing 11 April 2030. The yield-to-maturity is –0.72%, stated as an effective annual rate on an Act/Act basis. There are five annual periods, and settlement is 30 days into the 365-day year.</p>
+<p>投資家が、決済日2025年5月11日、償還日2030年4月11日の5年ゼロクーポン債 (five-year, zero-coupon Federal Republic of Germany bonds) を保有している。利回り (yield-to-maturity) は–0.72％（Act/Actベースの実効年率）。年間5期間で、決済日は365日中30日目。</p>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
-<p>Calculate the full price of the bond per 100 of par value.</p>
+<p>額面100あたりの債券総価格を計算せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">回答を確認 (Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Because Excel’s PRICE function does not work for negative yields, the equation for <em>PV</em> of a zero-coupon bond must be used. There are five annual periods, settlement is 30 days into the 365-day year, and because 1 + <em>r</em> = 1 + (–0.0072) = 0.9928, the full price of the bond is 103.6175 per 100 of par value:</p>
+<h3 class="cfa-curriculum-solution">解答 (Solution)</h3>
+<p>Excel の PRICE 関数は負利回りでは動作しないため、ゼロクーポン債の現在価値 (PV) の公式を使用する必要があります。年間5期間、決済日は365日中30日目、1 + r = 1 + (–0.0072) = 0.9928 となるため、債券の総価格は額面100あたり103.6175となります。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___5"><math>
 <semantics>
 <mrow>
@@ -409,14 +405,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
-<p>Calculate <em>ApproxModDur</em> and <em>ApproxCon</em> using a 1 bp increase and decrease in the yield-to-maturity.</p>
+<p>利回りを1ベーシスポイント上げ下げして、近似修正デュレーション (ApproxModDur) と近似コンベクシティ (ApproxCon) を計算せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">回答を確認 (Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p><em>PV</em><sub>+</sub> = 103.566215, and <em>PV</em><sub>–</sub> = 103.668868:</p>
+<h3 class="cfa-curriculum-solution">解答 (Solution)</h3>
+<p>PV+ = 103.566215、PV– = 103.668868</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___7"><math>
 <semantics>
 <mrow>
@@ -525,7 +521,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math></div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___10"><em>PV</em><sub>−</sub> = 103.668868.</div>
-<p>The approximate modified duration is 4.9535:</p>
+<p>近似修正デュレーションは 4.9535</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___11"><math>
 <semantics>
 <mrow>
@@ -567,7 +563,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math></div>
-<p>The approximate convexity is 29.918:</p>
+<p>近似コンベクシティは 29.918</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___12"><math>
 <semantics>
 <mrow>
@@ -625,14 +621,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
-<p>Calculate the estimated convexity-adjusted percentage price change resulting from a 100 bp increase in the yield-to-maturity.</p>
+<p>利回りが100ベーシスポイント上昇した場合のコンベクシティ調整後の推定価格変化率を計算せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">回答を確認 (Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>The convexity-adjusted percentage price change from a 100 bp increase in yield-to-maturity is estimated as –4.80391%. Modified duration alone estimates the change as –4.9535%. The convexity adjustment adds 14.96 bps.</p>
+<h3 class="cfa-curriculum-solution">解答 (Solution)</h3>
+<p>利回りが100ベーシスポイント上昇した場合のコンベクシティ調整後の価格変化率は –4.80391％と推定されます。修正デュレーションのみでは –4.9535％。コンベクシティ調整による追加効果は14.96ベーシスポイントです。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___13"><math>
 <semantics>
 <mrow>
@@ -766,14 +762,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">4. </span>
-<p>Compare the estimated percentage price change with the actual change, assuming the yield-to-maturity jumps 100 bps, to 0.28%, on the settlement date.</p>
+<p>決済日に利回りが100ベーシスポイント上昇して0.28％になったと仮定し、推定価格変化率と実際の変化を比較せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">回答を確認 (Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>The new full price if the yield-to-maturity jumps from –0.72% to 0.28% on the settlement date is 98.634349:</p>
+<h3 class="cfa-curriculum-solution">解答 (Solution)</h3>
+<p>利回りが–0.72％から0.28％に上昇した場合の新しい総価格は98.634349</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___16"><math>
 <semantics>
 <mrow>
@@ -833,7 +829,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math></div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___17"><em>PV<sup>Full</sup> </em> = 98.634349</div>
-<p>The actual percentage change in the bond price is –4.80920% (98.634349/103.617526 − 1). The convexity-adjusted estimate is –4.80391%, whereas the estimated change using modified duration alone is –4.95350%.</p>
+<p>債券価格の実際の百分率変化は –4.80920％（98.634349/103.617526 − 1）。コンベクシティ調整後の推定値は –4.80391％、修正デュレーションのみの推定値は –4.95350％。</p>
 </section>
 </div>
 </div>
@@ -843,19 +839,19 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </section>
 </div>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2442-R-s03-Bb">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Question Set</h3>
-<p>Questions 1–4 relate to the following information.</p>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">問題セット (Question Set)</h3>
+<p>質問1～4は以下の情報に関連しています。</p>
 <section>
-<p>An investor purchases a €10 million semi-annual 2.95% coupon bond with a yield-to-maturity of 2.95%, settling 30 June 2025 and maturing 30 June 2032.</p>
+<p>投資家が、額面1,000万ユーロの半年ごとクーポン2.95％債券 (semi-annual 2.95% coupon bond) を利回り2.95％で購入し、2025年6月30日に決済、2032年6月30日に償還する。</p>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
-<p>Calculate <em>ApproxModDur</em> and <em>ApproxCon</em> for the bond using a 1 bp increase and decrease in yield-to-maturity.</p>
+<p>利回りを1ベーシスポイント上げ下げして、債券の近似修正デュレーション (ApproxModDur) と近似コンベクシティ (ApproxCon) を計算せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">回答を確認 (Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
+<h3 class="cfa-curriculum-solution">解答 (Solution)</h3>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___18"><em>PV</em><sub>+</sub> = PRICE(DATE(2025,6,30),DATE(2032,6,30),0.0295,0.0296,100,2,0) = 99.937.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___19"><em>PV</em><sub>–</sub> = PRICE(DATE(2025,6,30),DATE(2032,6,30),0.0295,0.0294,100,2,0) = 100.063.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___20"><math>
@@ -956,13 +952,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">2. </span>
-<p>Calculate <em>MoneyDur</em> and <em>MoneyCon</em> for the bond position using the results from Question 1.</p>
+<p>質問1の結果を用いて、債券ポジションのマネー・デュレーション (MoneyDur) とマネー・コンベクシティ (MoneyCon) を計算せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">回答を確認 (Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
+<h3 class="cfa-curriculum-solution">解答 (Solution)</h3>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___22"><em>MoneyDur</em> ≈ 6.283 × EUR10,000,000 = EUR62,829,180.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___23"><em>MoneyCon</em> ≈ 44.965 × EUR10,000,000 = EUR449,647,660.</div>
 </section>
@@ -973,13 +969,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">3. </span>
-<p>Calculate the estimated price change in the investor’s position in the bond using <em>MoneyDur</em> and <em>MoneyCon</em> for a 50 bp decrease in yield-to-maturity.</p>
+<p>利回りが50ベーシスポイント低下した場合に、投資家の債券ポジションの推定価格変化を、MoneyDur と MoneyCon を用いて計算せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">回答を確認 (Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
+<h3 class="cfa-curriculum-solution">解答 (Solution)</h3>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___24">Δ<em>PV<sup>Full</sup> </em> ≈ –(EUR62,829,180 × –0.005) + [½ × EUR449,647,660 × (–0.005)<sup>2</sup>] = EUR319,767.</div>
 </section>
 </div>
@@ -989,17 +985,17 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">4. </span>
-<p>Calculate the difference between the estimated price change and the actual price change given a 50 bp yield-to-maturity decrease.</p>
+<p>利回りが50ベーシスポイント低下した場合の、推定価格変化と実際の価格変化との差を計算せよ。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">回答を確認 (Check Answer)</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
+<h3 class="cfa-curriculum-solution">解答 (Solution)</h3>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___25"><em>PV<sup>Full</sup> </em> = PRICE(DATE(2025,6,30),DATE(2032,6,30),0.0295,0.0345,100,2,0) = 103.198.</div>
-<p>The actual increase in the bond price is 3.1984%:</p>
+<p>債券価格の実際の上昇は3.1984％</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s03-E___26">Δ<em>PV<sup>Full</sup> </em> = 3.1984% × $10,000,000 = EUR319,840.</div>
-<p>The difference between the actual and the estimated price change is EUR73 (= 319,840 – 319,767).</p>
+<p>実際の価格変化と推定価格変化との差は73ユーロ (= 319,840 – 319,767)</p>
 </section>
 </div>
 </div>
@@ -1009,7 +1005,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </section>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="MoneyConvexityContent">
-<p>A measure that is used to complement modified duration to capture the second-order effect of yield changes on a bond’s price, expressed in currency terms.</p>
+<p>修正デュレーションを補完するために使用される指標で、債券価格に対する利回り変化の二次効果を通貨単位で表す。</p>
 </div>
 </div>
   </div>

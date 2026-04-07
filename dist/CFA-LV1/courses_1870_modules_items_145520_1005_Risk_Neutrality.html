@@ -94,30 +94,19 @@ dd.dp-qc-response.qc-show { display: block !important; }
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA1012-R-s05" title="10.05 | Risk Neutrality">
 <header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading">
-<span class="dp-header-pre">Module 10: Valuing a Derivative Using a One-Period Binomial Model</span>10.05 | Risk Neutrality</h2>
+<h2 class="dp-heading">モジュール10：1期間二項モデル（one-period binomial model）を用いたデリバティブの評価 10.05 | リスク中立性（Risk Neutrality）</h2>
 </header>
 <div class="cfa-curriculum-los-box">
 <h3 class="dp-has-icon cfa-curriculum-los-box">
 <i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
 <p class="p1">The candidate should be able to:</p>
 <ul>
-<li class="cfa-curriculum-los-item">describe the concept of risk neutrality in derivatives pricing</li>
+<li class="cfa-curriculum-los-item">デリバティブ価格付けにおけるリスク中立性（risk neutrality）の概念を説明せよ。</li>
 </ul>
 </div>
 <hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
-<p>As shown in the prior lesson, an option’s value is not affected by actual
-                  (real-world) probabilities of underlying price increases or decreases. This
-                  realization contributed to the growing use of options as it became easier to agree
-                  on a given option’s value. As we will see in this lesson, only the expected
-                  volatility—that is, gross returns <em>R<sup>u</sup>
-</em> and <em>R<sup>d</sup>
-</em> introduced earlier—and not the expected return are required to price an
-                  option.</p>
-<p>We may generalize the relationship between an option’s value and that of the hedge
-                  portfolios from Equation 5 of the prior lesson using the example of a call option
-                     <em>c</em>
-<sub>0</sub> as follows:</p>
+<p>前のレッスンで示したように、オプションの価値は、原資産価格が上昇または下落する実際の（現実世界の）確率（real-world probabilities）には影響されない。この認識により、与えられたオプション価値について合意しやすくなり、オプションの利用が拡大した。本レッスンで見るように、オプションの価格付けに必要なのは期待収益率ではなく、期待ボラティリティ（expected volatility）、すなわち先に導入した総収益率</p>
+<p>前のレッスンの式5から、オプション価値とヘッジ・ポートフォリオ（hedge portfolio）の関係を、コール・オプション</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-6">
 <math>
 <semantics>
@@ -176,36 +165,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </math>
 <span class="cfa-curriculum-display-formula-number">9</span>
 </div>
-<p>The value of the call option today, <em>c</em>
-<sub>0</sub>, is computed as the expected value of the option at expiration,
-                     <em>c</em>
-<sub>1</sub>
-<em>
-<sup>u</sup>
-</em> and <em>c</em>
-<sub>1</sub>
-<em>
-<sup>d</sup>
-</em>, discounted at the risk-free rate, <em>r</em>. This shows the
-                  derivative’s value as similar to any other asset in that it equals the present
-                  value of expected future cash flows. In this case, these cash flows are weighted
-                  by assumed probabilities that are consistent with risk-neutral returns on the
-                  underlying.</p>
-<p>The <a aria-describedby="RiskNeutralProbabilityContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskNeutralProbabilityContent">risk-neutral probability</a> (π) is the computed probability used in
-                  binomial option pricing by which the discounted weighted sum of expected values of
-                  the underlying, <em>S</em>
-<sub>1</sub>
-<em>
-<sup>u</sup>
-</em> = <em>R<sup>u</sup>S</em>
-<sub>0</sub> and <em>S</em>
-<sub>1</sub>
-<em>
-<sup>d</sup>
-</em> = <em>R<sup>d</sup>S</em>
-<sub>0</sub>, equal the current option price. Specifically, this probability is
-                  computed using the risk-free rate and assumed up gross return and down gross
-                  return of the underlying as in Equation 7.</p>
+<p>現在のコール・オプション価値</p>
+<p>リスク中立確率（risk-neutral probability,</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-7">
 <math>
 <semantics>
@@ -243,26 +204,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </math>
 <span class="cfa-curriculum-display-formula-number">10</span>
 </div>
-<p>More specifically, π, is the risk-neutral probability of an increase in the
-                  underlying price to <em>S</em>
-<sub>1</sub>
-<em>
-<sup>u</sup> = R<sup>u</sup>S</em>
-<sub>0,</sub> and (1 − π) is that of a decrease, <em>S</em>
-<sub>1</sub>
-<em>
-<sup>d</sup> = R<sup>d</sup>S</em>
-<sub>0</sub>.</p>
-<p>Substituting the details from our earlier example, where
-                     <em>R<sup>u</sup>S</em>
-<sub>0</sub>
-<em>=</em> €110, <em>R<sup>d</sup>S</em>
-<sub>0</sub>
-<em>=</em> €60, <em>S</em>
-<sub>0</sub>
-<em>=</em> €80, and <em>X =</em> €100, <em>R<sup>u</sup>
-                     =</em> 1.375 and <em>R<sup>d</sup> =</em> 0.75 and assuming an
-                  annual risk-free rate of 5%:</p>
+<p>より具体的には、</p>
+<p>先の例の数値（</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-">
 <math>
 <semantics>
@@ -377,46 +320,20 @@ dd.dp-qc-response.qc-show { display: block !important; }
                      Max(0, €60 − €100)]/1.05</div>
 <p>= €4.80/1.05 = €4.57, which matches our
                   earlier result from the prior lesson.</p>
-<p>In Equation 7, the risk-neutral probabilities are determined solely by the up and
-                  down gross returns, <em>R<sup>u</sup>
-</em> and <em>R<sup>d</sup>
-</em>, representing underlying asset volatility and the risk-free rate used to
-                  calculate the present value of future cash flows. This no-arbitrage derivative
-                  value established separately from investor views on risk is referred to as
-                     <a aria-describedby="RiskNeutralPricingContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#RiskNeutralPricingContent">risk-neutral pricing</a>.</p>
-<p>The use of risk-neutral pricing goes well beyond the simple one-period binomial
-                  tree and may be applied to any model that uses future underlying asset price
-                  movements, as we will see later in the curriculum.</p>
+<p>式7において、リスク中立確率は上昇および下落の総収益率</p>
+<p>リスク中立価格付けは、単純な1期間二項ツリー（one-period binomial tree）を超えて広く用いられ、将来の原資産価格の動きを扱うあらゆるモデルに適用可能である（本カリキュラムの後半で扱う）。</p>
 <div class="dp-content-block cfa-curriculum-example-box" id="CFA1012-s05-EXM-1-2">
-<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">
-<i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i>
-         Example 2<span style="display: block;">Hightest Capital (revisited)</span>
-</h3>
-<p>Revisiting Example 1 and the European call option sold by Hightest Capital,
-                        we can now explore the option price using risk-neutral pricing. Answer the
-                        following questions:</p>
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">例2 Hightest Capital（再訪）</h3>
+<p>例1およびHightest Capitalによるヨーロピアン・コール・オプションの売却を再度取り上げ、リスク中立価格付けを用いてオプション価格を検討する。以下の問いに答えよ：</p>
 <ol class="cfa-curriculum-list-decimal" id="CFA1012-s05-L1">
-<li class="cfa-curriculum-list-item">
-<p>What is the risk-neutral probability of an up move and a down move in
-                              the one-period binomial model described in Example 1?</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Demonstrate how this risk-neutral probability can be used to arrive at
-                              the no-arbitrage price of the call option.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>What would be the value of a European <em>put</em> option on
-                              the same stock with the same exercise price and expiration date?</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Confirm that the call option price computed in question 2 and the put
-                              option price computed in question 3 both satisfy the put–call parity
-                              relationship.</p>
-</li>
+<li class="cfa-curriculum-list-item">例1で説明された1期間二項モデルにおける上昇および下落のリスク中立確率はいくらか。</li>
+<li class="cfa-curriculum-list-item">このリスク中立確率を用いて、コール・オプションの無裁定価格にどのように到達できるかを示せ。</li>
+<li class="cfa-curriculum-list-item">同一の株式、同一の行使価格および満期を持つヨーロピアン・プット・オプションの価値はいくらか。</li>
+<li class="cfa-curriculum-list-item">問2で求めたコール・オプション価格と問3で求めたプット・オプション価格が、いずれもプット・コール・パリティ（put–call parity）の関係を満たすことを確認せよ。</li>
 </ol>
 <section id="CFA1012-s05-01-01-01">
-<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h1">Solution to 1:</h3>
-<p>The risk-neutral probability of an up move, denoted π, is:</p>
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h1">解答1：</h3>
+<p>上昇のリスク中立確率</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___3">
 <math>
 <semantics>
@@ -471,15 +388,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math>
 </div>
-<p>The risk-neutral probability of a down move is therefore:</p>
+<p>したがって、下落のリスク中立確率は：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___4">1 – π = 1 – 0.625 =
                            0.375.</div>
 </section>
 <section id="CFA1012-s05-01-01-02">
-<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Solution to 2:</h4>
-<p>The call option price today is given by the (risk-neutral) expected value
-                           of the option payoff at maturity, discounted at the risk-free rate,
-                              <em>r</em>. In Equation 6:</p>
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">解答2：</h4>
+<p>現在のコール・オプション価格は、満期におけるオプションのペイオフの（リスク中立）期待値を無リスク利子率</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___5">
 <math>
 <semantics>
@@ -561,12 +476,11 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math>
 </div>
-<p>which matches the value in Example 1.</p>
+<p>これは例1の値と一致する。</p>
 </section>
 <section id="CFA1012-s05-01-01-03">
-<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Solution to 3:</h4>
-<p>Since Equation 6 is valid for any European option, the put option value
-                           with an exercise price of $55 is:</p>
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">解答3：</h4>
+<p>式6は任意のヨーロピアン・オプションに適用可能であるため、行使価格$55のプット・オプション価値は：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___8">
 <math>
 <semantics>
@@ -627,15 +541,11 @@ dd.dp-qc-response.qc-show { display: block !important; }
                            × Max (0, $55 − $40)]/1.05</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___10">= $5.625/1.05 =
                            $5.36.</div>
-<p>Note that we have used the same risk-neutral probability π as in
-                           Questions 1 and 2, since these values are a function of the binomial
-                           model for the underlying asset for a given asset volatility and risk-free
-                           rate, not the specific option being priced.</p>
+<p>これらの値は、原資産のボラティリティおよび無リスク利子率に基づく二項モデルの関数であり、特定のオプションに依存しないため、問1および問2と同じリスク中立確率</p>
 </section>
 <section id="CFA1012-s05-01-01-04">
-<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">Solution to 4:</h4>
-<p>European call and put options with the same exercise price and maturity
-                           date must satisfy put–call parity as defined by:</p>
+<h4 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-h2">解答4：</h4>
+<p>同一の行使価格と満期を持つヨーロピアン・コールおよびプット・オプションは、次式で定義されるプット・コール・パリティを満たさなければならない：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___11">
 <em>S</em>
 <sub>0</sub> + <em>p</em>
@@ -645,30 +555,26 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <sup>T</sup>
 </em> = $50 + $5.36 = $2.98 + $55 × 1.05<sup>−1</sup> =
                               $55.36,</div>
-<p>which confirms the relationship.</p>
+<p>これにより関係が確認される。</p>
 </section>
 </div>
 <p> </p>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA1012-s05-B-1-a">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">
-<i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i>
-         Question Set</h3>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">問題セット（Question Set）</h3>
 <section id="CFA1012-s05-01-02">
-<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-h1">Hedging and Risk Neutrality</h4>
+<h4 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-h1">ヘッジとリスク中立性（Hedging and Risk Neutrality）</h4>
 <div class="dp-content-block">
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1012-s05-Q1">
 <span class="cfa-curriculum-question-with-label">1. </span>
-<p>Which of the following factors influences the value of an option price
-                              when using a binomial model?</p>
+<p>二項モデルを用いる場合、オプション価格に影響を与える要因は次のうちどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">A. </span>The risk-free rate of return</p>
+<p>A. 無リスク利子率（risk-free rate of return）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct">
@@ -677,25 +583,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is A, the risk-free rate of return. The value of an
-                              option is determined by its risk-neutral expectation discounted at the
-                              risk-free rate. In a one-period binomial model, the risk-neutral
-                              probabilities are determined only by the risk-free rate over the life
-                              of the option and the underlying asset’s volatility (as measured by
-                              the up and down gross returns, <em>R<sup>u</sup>
-</em> and <em>R<sup>d</sup>
-</em>). Because of the ability to construct a perfect hedge of the
-                              option using the underlying asset, an option’s price is independent of
-                              investors’ risk aversion and the probability of the underlying price
-                              moving up (or down).</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はAである。オプションの価値は、無リスク利子率で割り引いたリスク中立期待値によって決定される。1期間二項モデルでは、リスク中立確率はオプション期間中の無リスク利子率と原資産のボラティリティ（上昇・下落の総収益率</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">B. </span>The level of investors’ risk aversion</p>
+<p>B. 投資家のリスク回避度（risk aversion）の水準</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -704,25 +599,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is A, the risk-free rate of return. The value of an
-                              option is determined by its risk-neutral expectation discounted at the
-                              risk-free rate. In a one-period binomial model, the risk-neutral
-                              probabilities are determined only by the risk-free rate over the life
-                              of the option and the underlying asset’s volatility (as measured by
-                              the up and down gross returns, <em>R<sup>u</sup>
-</em> and <em>R<sup>d</sup>
-</em>). Because of the ability to construct a perfect hedge of the
-                              option using the underlying asset, an option’s price is independent of
-                              investors’ risk aversion and the probability of the underlying price
-                              moving up (or down).</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はAである。オプションの価値は、無リスク利子率（risk-free rate）で割り引いたリスク中立期待値（risk-neutral expectation）によって決定される。1期間二項モデル（one-period binomial model）では、リスク中立確率（risk-neutral probabilities）は、オプション期間中の無リスク利子率と原資産のボラティリティ（上昇および下落の総収益率</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">C. </span>The probability of an upward price move</p>
+<p>C. 価格が上昇する確率（probability of an upward price move）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -731,18 +615,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is A, the risk-free rate of return. The value of an
-                              option is determined by its risk-neutral expectation discounted at the
-                              risk-free rate. In a one-period binomial model, the risk-neutral
-                              probabilities are determined only by the risk-free rate over the life
-                              of the option and the underlying asset’s volatility (as measured by
-                              the up and down gross returns, <em>R<sup>u</sup>
-</em> and <em>R<sup>d</sup>
-</em>). Because of the ability to construct a perfect hedge of the
-                              option using the underlying asset, an option’s price is independent of
-                              investors’ risk aversion and the probability of the underlying price
-                              moving up (or down).</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はAである。オプションの価値は、無リスク利子率で割り引いたリスク中立期待値によって決定される。1期間二項モデルでは、リスク中立確率は無リスク利子率と原資産のボラティリティ（</p>
 </section>
 </div>
 </dd>
@@ -753,21 +627,15 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label">
 <span class="cfa-curriculum-question-with-label">2. </span>
-<p>If the underlying asset price in a one-period binomial model can
-                              increase by 15% or decrease by 10% over the period and the prevailing
-                              risk-free rate over the period is 4%, what is the risk-neutral
-                              probability of an asset pricing decrease?</p>
+<p>1期間二項モデルにおいて、原資産価格が期間中に15%上昇または10%下落し、当該期間の無リスク利子率が4%である場合、価格下落のリスク中立確率はいくらか。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>If the underlying asset price in a one-period binomial model can
-                              increase by 15%, then the up gross return is <em>R<sup>u</sup>
-                                 =</em> 1.15. Similarly, if the price can decrease by 10%, then
-                              the down gross return is <em>R<sup>d</sup> =</em> 0.9.</p>
-<p>The risk-neutral probability of an upward price move is:</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>原資産価格が15%上昇する場合、上昇時の総収益率は</p>
+<p>価格上昇のリスク中立確率は：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___12">
 <math>
 <semantics>
@@ -822,8 +690,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math>
 </div>
-<p>The risk-neutral probability of a downward price move is 1 – 0.56 =
-                              0.44.</p>
+<p>したがって、価格下落のリスク中立確率は</p>
 </section>
 </div>
 </div>
@@ -835,16 +702,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1012-s05-Q3">
 <span class="cfa-curriculum-question-with-label">3. </span>
-<p>Which of the following <em>best</em> describes the
-                              risk-neutral pricing interpretation of the one-period binomial option
-                              pricing formula?</p>
+<p>次のうち、1期間二項オプション価格式のリスク中立的解釈（risk-neutral pricing interpretation）を最もよく表しているものはどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">A. </span>The real-world expected payoff discounted at the risk-free rate</p>
+<p>A. 無リスク利子率で割り引いた現実世界の期待ペイオフ（real-world expected payoff）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -853,20 +717,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is B, the risk-neutral expected payoff discounted
-                              at the risk-free rate. The risk-neutral pricing interpretation of the
-                              option pricing formula states that the value of an option today is its
-                              risk-neutral expected value at maturity, discounted at the risk-free
-                              rate.</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はBである。リスク中立価格付けの解釈では、オプションの現在価値は、満期におけるリスク中立期待値を無リスク利子率で割り引いたものである。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">B. </span>The risk-neutral expected payoff discounted at the risk-free
-                                 rate</p>
+<p>B. 無リスク利子率で割り引いたリスク中立期待ペイオフ（risk-neutral expected payoff）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct">
@@ -875,20 +733,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is B, the risk-neutral expected payoff discounted
-                              at the risk-free rate. The risk-neutral pricing interpretation of the
-                              option pricing formula states that the value of an option today is its
-                              risk-neutral expected value at maturity, discounted at the risk-free
-                              rate.</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はBである。オプション価格式のリスク中立的解釈は、オプションの現在価値が満期におけるリスク中立期待値を無リスク利子率で割り引いたものであることを意味する。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">C. </span>The risk-neutral expected payoff discounted at a risk-adjusted
-                                 rate</p>
+<p>C. リスク調整後利子率（risk-adjusted rate）で割り引いたリスク中立期待ペイオフ</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -897,12 +749,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is B, the risk-neutral expected payoff discounted
-                              at the risk-free rate. The risk-neutral pricing interpretation of the
-                              option pricing formula states that the value of an option today is its
-                              risk-neutral expected value at maturity, discounted at the risk-free
-                              rate.</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はBである。オプション価格式は、満期におけるリスク中立期待値を無リスク利子率で割り引いたものとして表される。</p>
 </section>
 </div>
 </dd>
@@ -913,26 +761,15 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label">
 <span class="cfa-curriculum-question-with-label">4. </span>
-<p>Determine the correct answers to fill in the blanks: If a call option
-                              is trading at a higher price than that implied from the binomial
-                              model, investors can earn a return in excess of the risk-free rate by
-                                 <span class="answer">________</span> at
-                              the risk-free rate, <span class="answer">__________</span> the call, and <span class="answer">_________</span> the underlying.</p>
+<p>空欄を埋めて正しい答えを選べ：コール・オプションが二項モデルから示唆される価格よりも高く取引されている場合、投資家は無リスク利子率を上回るリターンを得るために、無リスク利子率で________し、コールを________し、原資産を________することができる。</p>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>If a call option is trading at a higher price than that implied from
-                              the binomial model, investors can earn a return in excess of the
-                              risk-free rate by <em>borrowing</em> at the risk-free rate,
-                                 <em>selling</em> the call, and <em>buying</em> the
-                              underlying.</p>
-<p>A synthetic risk-free asset can be created by this strategy that earns
-                              a return higher than the risk-free rate. Selling the over-priced call
-                              will provide a higher cash inflow than is required to generate the
-                              risk-free rate of return.</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>コール・オプションが理論価格よりも高い場合、投資家は無リスク利子率で借入（borrowing）を行い、コールを売却（selling）し、原資産を購入（buying）することで、無リスク利子率を上回るリターンを得ることができる。</p>
+<p>この戦略により、無リスク利子率を上回る収益を得る合成無リスク資産（synthetic risk-free asset）を構築できる。過大評価されたコールを売却することで、無リスク収益を得るために必要な額よりも多くのキャッシュ流入が得られる。</p>
 </section>
 </div>
 </div>
@@ -944,17 +781,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA1012-s05-Q5">
 <span class="cfa-curriculum-question-with-label">5. </span>
-<p>A stock’s price is currently ¥8,000. At the end of one month when its
-                              options expire, the stock price is either up by 5% or down by 15%. If
-                              the risk-free rate is –0.20% for the period, what is the value of a
-                              put option with a strike price of ¥7,950?</p>
+<p>ある株式の現在価格は¥8,000である。1か月後のオプション満期時に、株価は5%上昇または15%下落する。期間中の無リスク利子率が–0.20%である場合、行使価格¥7,950のプット・オプションの価値はいくらか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">A. </span>¥333.67</p>
+<p>A. ¥333.67</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -963,9 +796,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is B, ¥299.60. Using risk-neutral pricing, we can
-                              determine the risk-neutral probability as:</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はBの¥299.60である。リスク中立価格付けを用いて、リスク中立確率は次のように求められる：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___13">
 <math>
 <semantics>
@@ -1020,9 +852,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math>
 </div>
-<p>The risk-neutral probability of a down move is therefore 1 – π = 1 –
-                              0.74 = 0.26. The value of a put option with an exercise price of
-                              ¥7,950 is:</p>
+<p>したがって、下落のリスク中立確率は</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___14">
 <math>
 <semantics>
@@ -1088,8 +918,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">B. </span>¥299.60</p>
+<p>B. ¥299.60</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct">
@@ -1098,9 +927,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is B, ¥299.60. Using risk-neutral pricing, we can
-                              determine the risk-neutral probability as:</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はBの¥299.60である。リスク中立価格付けにより、リスク中立確率を求めると：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___13">
 <math>
 <semantics>
@@ -1155,9 +983,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math>
 </div>
-<p>The risk-neutral probability of a down move is therefore 1 – π = 1 –
-                              0.74 = 0.26. The value of a put option with an exercise price of
-                              ¥7,950 is:</p>
+<p>下落のリスク中立確率は</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___14">
 <math>
 <semantics>
@@ -1223,8 +1049,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>
-<span class="cfa-curriculum-option-label">C. </span>¥236.93</p>
+<p>C. ¥236.93</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none">
@@ -1233,9 +1058,8 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </span>
 <div class="dp-qc-content">
 <section>
-<h4 class="cfa-curriculum-solution">Solution</h4>
-<p>The correct answer is B, ¥299.60. Using risk-neutral pricing, we can
-                              determine the risk-neutral probability as:</p>
+<h4 class="cfa-curriculum-solution">解答</h4>
+<p>正解はBの¥299.60である。リスク中立確率を用いて計算すると：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___13">
 <math>
 <semantics>
@@ -1290,9 +1114,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </semantics>
 </math>
 </div>
-<p>The risk-neutral probability of a down move is therefore 1 – π = 1 –
-                              0.74 = 0.26. The value of a put option with an exercise price of
-                              ¥7,950 is:</p>
+<p>下落のリスク中立確率は</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1012-s05-E-1-___14">
 <math>
 <semantics>
@@ -1363,10 +1185,10 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </section>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskNeutralProbabilityContent">
-<p>The computed probability used in binomial option pricing by which the discounted weighted sum of expected values of the underlying equal the current option price. Specifically, this probability is computed using the risk-free rate and assumed up gross return and down gross return of the underlying.</p>
+<p>二項オプション価格付けにおいて用いられる確率であり、原資産の期待値の割引加重平均が現在のオプション価格と一致するように定義される。この確率は、無リスク利子率および原資産の上昇・下落の総収益率に基づいて計算される。</p>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="RiskNeutralPricingContent">
-<p>A no-arbitrage derivative value established separately from investor views on risk that uses underlying asset volatility and the risk-free rate to calculate the present value of future cash flows.</p>
+<p>投資家のリスクに関する見解とは独立に確立される無裁定デリバティブ価値であり、原資産のボラティリティ（volatility）と無リスク利子率（risk-free rate）を用いて将来キャッシュフローの現在価値を計算するもの。</p>
 </div>
 </div>
   </div>

@@ -93,92 +93,88 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div id="main" style="margin:0;padding:0 16px 16px;">
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA1008-R-s05" title="9.05 | Put–Call Forward Parity"><header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 9: Option Replication Using Put–Call Parity</span>9.05 | Put–Call Forward Parity</h2>
+<h2 class="dp-heading">モジュール9：プット・コール・パリティ（put–call parity）を用いたオプションの複製 9.05｜プット・コール・フォワード・パリティ（Put–Call Forward Parity）</h2>
 </header>
 <div class="cfa-curriculum-los-box">
 <h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
 <p class="p1">The candidate should be able to:</p>
 <ul>
-<li class="cfa-curriculum-los-item">explain put–call <em>forward</em> parity for European options</li>
+<li class="cfa-curriculum-los-item">ヨーロピアン・オプション（European options）におけるプット・コール・フォワード・パリティ（put–call forward parity）を説明する</li>
 </ul>
 </div>
 <hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
-<p>In an earlier lesson, we learned that a long underlying asset position can be replicated by entering a long forward contract and purchasing the risk-free asset. Combining the synthetic asset with the put–call parity relationship—so, substituting the present value of <em>F</em> <sub>0</sub>(<em>T</em>) for <em>S</em> <sub>0</sub> in Equation 1—we have what is referred to as <a aria-describedby="PutcallForwardParityContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#PutcallForwardParityContent">put–call forward parity</a>:</p>
+<p>以前のレッスンでは、原資産のロングポジション（long underlying asset position）は、フォワード契約のロング（long forward contract）と無リスク資産（risk-free asset）の購入によって複製できることを学んだ。この合成原資産（synthetic asset）をプット・コール・パリティ（put–call parity）の関係と組み合わせ、すなわち式1のS₀の代わりにF₀(T)の現在価値を代入すると、プット・コール・フォワード・パリティ（put–call forward parity）と呼ばれる関係が得られる。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1008-s05-E-1-4"><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em>. <span class="cfa-curriculum-display-formula-number">4</span></div>
-<p>We can demonstrate put–call forward parity by comparing a synthetic protective put position to the protective put and fiduciary call positions. Consider a modification of the portfolios used earlier to demonstrate put–call parity, as follows:</p>
+<p>プット・コール・フォワード・パリティ（put–call forward parity）は、合成プロテクティブ・プット（synthetic protective put）と、プロテクティブ・プット（protective put）およびフィデューシャリー・コール（fiduciary call）を比較することで示すことができる。以前にプット・コール・パリティを示すために用いたポートフォリオを次のように修正して考える。</p>
 <ol class="cfa-curriculum-list-decimal" id="CFA1008-s05-L1">
-<li class="cfa-curriculum-list-item">
-<p>At <em>t</em> = 0, an investor purchases a forward contract and a risk-free bond with a face value equal to the forward price, <em>F</em> <sub>0</sub>(<em>T</em>), and a put option on the underlying (<em>p</em> <sub>0</sub>) with an exercise price of <em>X</em> at <em>t</em> = <em>T</em>.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>At <em>t</em> = 0, an investor purchases a call option (<em>c</em> <sub>0</sub>) on the same underlying with an exercise price of <em>X</em> and a risk-free bond that pays <em>X</em> at <em>t</em> = <em>T</em>.</p>
-</li>
+<li class="cfa-curriculum-list-item">時点t = 0において、投資家はフォワード契約を購入し、フォワード価格F₀(T)を額面とする無リスク債券（risk-free bond）と、満期t = Tに行使価格Xの原資産に対するプット・オプション（p₀）を購入する。</li>
+<li class="cfa-curriculum-list-item">時点t = 0において、投資家は同一の原資産に対する行使価格Xのコール・オプション（c₀）と、満期t = TにXを支払う無リスク債券を購入する。</li>
 </ol>
-<p>The first portfolio has replaced the <em>cash</em> underlying position with a <em>synthetic</em> underlying position using a forward purchase and a risk-free bond. The combination of the synthetic underlying position and a purchased put on the underlying is known as a <a aria-describedby="SyntheticProtectivePutContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SyntheticProtectivePutContent">synthetic protective put</a>. <a aria-label="View Exhibit 7" class="internal" href="#CFA1008-s05-EXH-1-7" role="button">Exhibit 7</a> demonstrates the equivalence of the protective and synthetic protective puts by comparing their cash flows at both <em>t</em> = 0 and contract maturity, <em>T</em>.</p>
+<p>最初のポートフォリオは、現物の原資産ポジションを、フォワード購入と無リスク債券による合成原資産ポジション（synthetic underlying position）に置き換えている。この合成原資産ポジションと原資産に対するプットの購入の組合せは、合成プロテクティブ・プット（synthetic protective put）と呼ばれる。Exhibit 7は、時点t = 0および満期Tにおけるキャッシュフローを比較することで、プロテクティブ・プットと合成プロテクティブ・プットの等価性を示している。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA1008-s05-EXH-1-7">
-<h3 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 7<span style="display: block;">Protective Put vs. Synthetic Protective Put</span></h3>
+<h3 class="cfa-curriculum-exhibit-table-title">Exhibit 7 プロテクティブ・プット（Protective Put）と合成プロテクティブ・プット（Synthetic Protective Put）の比較</h3>
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <thead>
 <tr>
-<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Position</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong> <br/><br/><strong>at <em>t</em> = 0</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Put Exercised (<em>S<sub>T</sub> </em> &lt; <em>X</em>)</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>No Exercise</strong> <br/><br/><strong>(<em>S<sub>T</sub> </em> ≥ <em>X</em>)</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">ポジション（Position）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">時点t = 0のキャッシュフロー（Cash Flow at t = 0）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">プット行使（Put Exercised）（S_T &lt; X）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">行使なし（No Exercise）（S_T ≥ X）</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Protective Put:</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">プロテクティブ・プット（Protective Put）：</td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Purchased Put (<em>p</em> <sub>0</sub>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">プット購入（Purchased Put）（p₀）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>p</em> <sub>0</sub></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em> – <em>S<sub>T</sub> </em></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">X − S_T</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">0</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Cash Underlying (<em>S</em> <sub>0</sub>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">現物原資産（Cash Underlying）（S₀）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>S</em> <sub>0</sub></td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em></td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em></td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total:</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>p</em> <sub>0</sub> + <em>S</em> <sub>0</sub></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">合計（Total）：</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">p₀ + S₀</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em></td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em></td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Synthetic Protective Put:</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">合成プロテクティブ・プット（Synthetic Protective Put）：</td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Purchased Put (<em>p</em> <sub>0</sub>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">プット購入（Purchased Put）（p₀）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>p</em> <sub>0</sub></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em> – <em>S<sub>T</sub> </em></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">X − S_T</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">0</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Forward Purchase</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">フォワード購入（Forward Purchase）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">0</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">S<sub>T</sub> – F<sub>0</sub>(T)</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;">S<sub>T</sub> – F<sub>0</sub>(T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">S_T − F₀(T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">S_T − F₀(T)</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Risk-Free Bond<br/><br/><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>F</em> <sub>0</sub>(<em>T</em>)</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>F</em> <sub>0</sub>(<em>T</em>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">無リスク債券（Risk-Free Bond）F₀(T)(1 + r)^(−T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">F₀(T)(1 + r)^(−T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">F₀(T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">F₀(T)</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total:</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>p</em> <sub>0</sub> + <em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em> (= <em>p</em> <sub>0</sub> + <em>S</em> <sub>0</sub>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">合計（Total）：</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">p₀ + F₀(T)(1 + r)^(−T)（= p₀ + S₀）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em></td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em></td>
 </tr>
@@ -186,98 +182,98 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </table>
 </div>
 </div>
-<p><a aria-label="View Exhibit 8" class="internal" href="#CFA1008-s05-EXH-1-8" role="button">Exhibit 8</a> compares the future cash flows of the synthetic protective put with the fiduciary call under all possible scenarios at expiration.</p>
+<p>Exhibit 8は、満期時のすべてのシナリオにおいて、合成プロテクティブ・プットとフィデューシャリー・コールの将来キャッシュフローを比較している。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA1008-s05-EXH-1-8">
-<h3 class="cfa-curriculum-exhibit-table-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i>Exhibit 8<span style="display: block;">Synthetic Protective Put vs. Fiduciary Call</span></h3>
+<h3 class="cfa-curriculum-exhibit-table-title">Exhibit 8 合成プロテクティブ・プット（Synthetic Protective Put）とフィデューシャリー・コール（Fiduciary Call）の比較</h3>
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <thead>
 <tr>
-<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Portfolio Position</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Put Exercised (<em>S<sub>T</sub> </em> &lt; <em>X</em>)</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>No Exercise</strong> <br/><br/><strong>(<em>S<sub>T</sub> </em> = <em>X</em>)</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Call Exercised</strong> <br/><br/><strong>(<em>S<sub>T</sub> </em> &gt; <em>X</em>)</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">ポートフォリオのポジション（Portfolio Position）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">プット行使（Put Exercised）（S_T &lt; X）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">行使なし（No Exercise）（S_T = X）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">コール行使（Call Exercised）（S_T &gt; X）</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Synthetic Protective Put:</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">合成プロテクティブ・プット（Synthetic Protective Put）：</td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Purchased Put (<em>p</em> <sub>0</sub>)</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em> – <em>S<sub>T</sub> </em></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">プット購入（Purchased Put）（p₀）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">X − S_T</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">0</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">0</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Forward Purchase</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em> – <em>F</em> <sub>0</sub>(<em>T</em>)</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em> – <em>F</em> <sub>0</sub>(<em>T</em>)</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em> – <em>F</em> <sub>0</sub>(<em>T</em>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">フォワード購入（Forward Purchase）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">S_T − F₀(T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">S_T − F₀(T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">S_T − F₀(T)</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Risk-Free Bond <em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>F</em> <sub>0</sub>(<em>T</em>)</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>F</em> <sub>0</sub>(<em>T</em>)</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>F</em> <sub>0</sub>(<em>T</em>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">無リスク債券（Risk-Free Bond）F₀(T)(1 + r)^(−T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">F₀(T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">F₀(T)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">F₀(T)</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total:</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">合計（Total）：</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em> (= <em>X</em>)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">S_T（= X）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em></td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Fiduciary Call:</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">フィデューシャリー・コール（Fiduciary Call）：</td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Purchased Call (c<sub>0</sub>)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">コール購入（Purchased Call）（c₀）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">0</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;">0</td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em> – <em>X</em></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">S_T − X</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Risk-Free Asset</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">無リスク資産（Risk-Free Asset）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em></td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em></td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em></td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Total:</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">合計（Total）：</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><em>X</em> (= <em>S<sub>T</sub> </em>)</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">X（= S_T）</td>
 <td style="text-align: center; vertical-align: top; padding: 8px;"><em>S<sub>T</sub> </em></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>It follows that the cost of the fiduciary call must equal the cost of the synthetic protective put, thereby demonstrating the put–call forward parity relationship:</p>
+<p>したがって、フィデューシャリー・コール（fiduciary call）のコストは合成プロテクティブ・プット（synthetic protective put）のコストと等しくなければならず、これによりプット・コール・フォワード・パリティ（put–call forward parity）の関係が示される：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1008-s05-E-1-"><em>F</em> <sub>0</sub>(<em>T</em>)(1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em> + <em>p</em> <sub>0</sub> = <em>c</em> <sub>0</sub> + <em>X</em>(1+ <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em>.</div>
-<p>If we rearrange these terms, we can demonstrate that a long put and a short call are equivalent to a long risk-free bond and short forward position:</p>
+<p>これらの式を変形すると、プットのロング（long put）とコールのショート（short call）は、無リスク債券のロング（long risk-free bond）とフォワードのショート（short forward position）に等価であることが示される：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1008-s05-E-1-5"><em>p</em> <sub>0</sub> – <em>c</em> <sub>0</sub> = [<em>X</em> – <em>F</em> <sub>0</sub>(<em>T</em>)](1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em>. <span class="cfa-curriculum-display-formula-number">5</span></div>
-<p>Consider the earlier put–call parity example using a synthetic underlying position, as in the following example.</p>
+<p>合成原資産ポジション（synthetic underlying position）を用いた先のプット・コール・パリティの例を考えよ。以下の例のとおりである。</p>
 <div class="dp-content-block cfa-curriculum-example-box" id="CFA1008-s05-EXM-1-4">
-<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 4<span style="display: block;">VFO Put–Call Forward Parity</span></h3>
-<p>Consider the Viswan Family Office example using a long forward and a risk-free bond, rather than a cash underlying position as in the prior example. Biomian shares trade at a price (<em>S</em> <sub>0</sub>) of INR295 per share. VFO is considering the purchase of a six-month put on Biomian shares at an exercise price (<em>X</em>) of INR265. If VFO’s chief investment officer observes a traded six-month call option price of INR59 per share for the same INR265 exercise price, what should he expect to pay for the put option per share if the relevant risk-free rate is 4%?</p>
-<p>From <a class="internal" href="#CFA1008-s05-E-1-5" role="button">Equation 5</a>, the put–call forward parity relationship is</p>
+<h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title">例4 VFO プット・コール・フォワード・パリティ（Put–Call Forward Parity）</h3>
+<p>前の例のような現物原資産ポジションの代わりに、フォワードのロングと無リスク債券を用いたViswanファミリーオフィス（Viswan Family Office, VFO）の例を考える。Biomian株は現在1株あたりINR295（S₀）で取引されている。VFOは行使価格X = INR265の6か月満期のプットの購入を検討している。同じ行使価格INR265の6か月コールが1株あたりINR59で取引されている場合、関連する無リスク金利が4%であるとき、VFOの最高投資責任者（chief investment officer）はプットの価格をいくらと予想すべきか。</p>
+<p>式5より、プット・コール・フォワード・パリティ（put–call forward parity）は次のように表される：</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1008-s05-E-1-___1"><em>p</em> <sub>0</sub> – <em>c</em> <sub>0</sub> = [<em>X</em> – <em>F</em> <sub>0</sub>(<em>T</em>)](1 + <em>r</em>)<sup>–</sup> <em> <sup>T</sup> </em>.</div>
-<p>Substituting terms and solving for <em>F</em> <sub>0</sub>(<em>T</em>) = INR300.84 (= INR295(1.04)<sup>0.5</sup>),</p>
+<p>各項を代入してF₀(T) = INR300.84（= INR295(1.04)^(0.5)）を求めると、</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1008-s05-E-1-___2"><em>p</em> <sub>0</sub> – INR59 = (INR265 – INR300.84)(1.04)<sup>–0.5</sup>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA1008-s05-E-1-___3"><em>p</em> <sub>0</sub> = INR23.86.</div>
-<p>VFO should expect to pay a six-month put option premium of <em>p</em> <sub>0</sub> = INR23.86.</p>
+<p>VFOは6か月のプット・オプションのプレミアムとしてp₀ = INR23.86を支払うと予想すべきである。</p>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="PutcallForwardParityContent">
-<p>Describes the no-arbitrage condition in which at <em>t</em> = 0 the present value of the price of a long forward commitment plus the price of the long put must equal the price of the long call plus the price of the risk-free asset (with face value of the exercise price of both the call and the put).</p>
+<p>時点t = 0において、フォワード契約のロングの価格の現在価値とプットのロングの価格の合計が、コールのロングの価格と無リスク資産（コールおよびプットの行使価格を額面とする）の価格の合計に等しくならなければならないという無裁定条件（no-arbitrage condition）を表す。</p>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SyntheticProtectivePutContent">
-<p>The combination of a synthetic long underlying position (i.e., a long forward and risk-free borrowing) and a purchased put on the underlying.</p>
+<p>合成ロング原資産ポジション（synthetic long underlying position）（すなわち、フォワードのロングと無リスクでの借入）と、原資産に対するプットの購入の組合せ。</p>
 </div>
 </div>
   </div>

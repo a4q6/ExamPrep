@@ -94,27 +94,23 @@ dd.dp-qc-response.qc-show { display: block !important; }
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA1006-R-s03" title="8.03 | Option Exercise Value">
 <header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 8: Pricing and Valuation of Options</span>8.03 | Option Exercise Value</h2>
+<h2 class="dp-heading">モジュール8：オプションの価格付けと評価（Pricing and Valuation of Options）8.03｜オプションの行使価値（Option Exercise Value）</h2>
 </header>
 <div class="cfa-curriculum-los-box">
 <h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i>Learning Outcome</h3>
 <p class="p1">The candidate should be able to:</p>
 <ul>
-<li class="cfa-curriculum-los-item">explain the exercise value, moneyness, and time value of an option</li>
+<li class="cfa-curriculum-los-item">オプションの行使価値（exercise value）、マネーネス（moneyness）、および時間価値（time value）を説明せよ。</li>
 </ul>
 </div>
 <hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
-<p>An option buyer will exercise a call or put option at maturity only if it returns a positive payoff—that is:</p>
+<p>オプションの買い手は、満期時に正のペイオフをもたらす場合にのみコールオプションまたはプットオプションを行使する。すなわち：</p>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1006-s03-L1">
-<li class="cfa-curriculum-list-item">
-<p>(<em>S<sub>T</sub> </em> − <em>X</em>) &gt; 0 for a call</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>(<em>X</em> − <em>S<sub>T</sub> </em>) &gt; 0 for a put</p>
-</li>
+<li class="cfa-curriculum-list-item">（Sₜ − X） &gt; 0（コールの場合）</li>
+<li class="cfa-curriculum-list-item">（X − Sₜ） &gt; 0（プットの場合）</li>
 </ul>
-<p>If not exercised, the option expires worthless and the option buyer’s loss equals the premium paid.</p>
-<p>At any time <em>before</em> maturity (<em>t</em> &lt; <em>T</em>), buyers and sellers often gauge an option’s value by comparing the underlying spot price (<em>S<sub>t</sub> </em>) with the exercise price (<em>X</em>) to determine the option’s exercise value at time <em>t</em>. This is the option contract’s value <em>if</em> the option were exercisable at time <em>t</em>. The exercise value for a call and a put option at time t incorporating the time value of money is the difference between the spot price (<em>S<sub>t</sub> </em>) and the present value of the exercise price (PV(<em>X</em>)), as follows:</p>
+<p>行使されない場合、オプションは無価値で満期を迎え、オプション買い手の損失は支払ったプレミアムに等しい。</p>
+<p>満期前の任意の時点（t &lt; T）において、買い手および売り手は通常、原資産のスポット価格（spot price, Sₜ）と行使価格（exercise price, X）を比較することで、その時点tにおけるオプションの行使価値を評価する。これは、時点tにおいてオプションが行使可能であった場合の契約価値を意味する。時間価値（time value of money）を考慮した時点tにおけるコールおよびプットの行使価値は、スポット価格（Sₜ）と行使価格の現在価値（present value, PV(X)）との差として以下のように表される。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1006-s03-E-1-1">Call Option Exercise Value: <math>
 <semantics>
 <mrow>
@@ -201,13 +197,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </mrow>
 </semantics>
 </math> <span class="cfa-curriculum-display-formula-number">2</span></div>
-<p>If we assume an exercise price, <em>X</em>, equal to the forward price, <em>F<sub>0</sub> </em>(<em>T</em>), the exercise value of a call option is the <em>same</em> as the value of a long forward commitment at time <em>t</em> (<em>V<sub>t</sub> </em>(<em>T</em>)). This forward commitment was shown earlier to equal <em>S<sub>t</sub> </em> − PV(<em>F<sub>0</sub> </em>(<em>T</em>)), <em>provided that</em> <em>S<sub>t</sub> </em> &gt; PV(<em>X</em>). That is, for a call option where <em>F<sub>0</sub> </em>(<em>T</em>) = <em>X</em>:</p>
-<p>If <em>S<sub>t</sub> </em> &gt; PV(<em>X</em>):         <em>S<sub>t</sub> </em> − PV(<em>F</em> <sub>0</sub>(<em>T</em>)) = Max (0, <em>S<sub>t</sub> </em> − PV(<em>X</em>))</p>
-<p>Note that this comparison <em>ignores</em> the upfront call option premium paid by the option buyer (<em>c<sub>0</sub> </em> at time <em>t</em> = 0).</p>
+<p>行使価格Xがフォワード価格（forward price, F₀(T)）と等しいと仮定すると、コールオプションの行使価値は、時点tにおけるロング・フォワード契約（long forward commitment）の価値（Vₜ(T)）と同一となる。このフォワード契約の価値は、Sₜ − PV(F₀(T))に等しいことが先に示されている（ただし Sₜ &gt; PV(X) の場合）。すなわち、F₀(T) = X であるコールオプションについて：</p>
+<p>Sₜ &gt; PV(X) のとき：Sₜ − PV(F₀(T)) = Max（0, Sₜ − PV(X)）</p>
+<p>この比較は、オプション買い手が時点t = 0で支払うコールオプションのプレミアム（c₀）を考慮していないことに注意する。</p>
 <div class="dp-content-block cfa-curriculum-example-box" id="CFA1006-s03-EXM-1-1">
 <h3 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"><span class="dp-icon-content" style="display: none;"> </span></i> Example 1<span style="display: block;">Put Option Exercise Value</span></h3>
-<p>Consider the case of a one-year put option with an exercise price (<em>X</em>) of EUR 1,000 and a risk-free rate of 1%. What is the exercise value of the option in six months if the spot price (<em>S<sub>t</sub> </em>) equals EUR 950?</p>
-<p>Use <a class="internal" href="#CFA1006-s03-E-1-2" role="button">Equation 2</a> to solve for Max (0, PV(<em>X</em>) − <em>S<sub>t</sub> </em>):</p>
+<p>行使価格（X）が1,000ユーロ、無リスク金利（risk-free rate）が1%である1年満期のプットオプションを考える。スポット価格（Sₜ）が950ユーロである場合、6か月後におけるこのオプションの行使価値はいくらか。</p>
+<p>式2を用いて Max（0, PV(X) − Sₜ）を求めよ。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA1006-s03-E-1-___1"><math>
 <semantics>
 <mrow>

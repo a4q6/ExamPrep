@@ -93,64 +93,52 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div id="main" style="margin:0;padding:0 16px 16px;">
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA0160-R-s05" title="2.05 | Systematic and Nonsystematic Risk"><header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 2: Portfolio Risk and Return: Part II</span>2.05 | Systematic and Nonsystematic Risk</h2>
+<h2 class="dp-heading">モジュール(Module) 2: ポートフォリオリスクとリターン(Portfolio Risk and Return): パートII 2.05 | システマティックリスク(Systematic Risk)と非システマティックリスク(Nonsystematic Risk)</h2>
 </header>
 <div class="cfa-curriculum-los-box">
 <h3 class="dp-has-icon cfa-curriculum-los-box"><i aria-hidden="true" class="icon-outcomes" style="background: inherit !important;"> </i>Learning Outcome</h3>
 <p class="p1">The candidate should be able to:</p>
 <ul>
-<li class="cfa-curriculum-los-item">explain systematic and nonsystematic risk, including why an investor should not expect to receive additional return for bearing nonsystematic risk</li>
+<li class="cfa-curriculum-los-item">システマティックリスク(Systematic Risk)および非システマティックリスク(Nonsystematic Risk)を説明し、なぜ投資家が非システマティックリスクに対して追加リターンを期待すべきでないかを含めて解説する</li>
 </ul>
 </div>
 <hr class="dp-hr-solid-light dp-hr-color-dp-primary"/>
-<p>In constructing a portfolio, it is important to understand the concept of correlation and how less than perfect correlation can diversify the risk of a portfolio. As a consequence, the risk of an asset held alone may be greater than the risk of that same asset when it is part of a portfolio. Because the risk of an asset varies from one environment to another, which kind of risk should an investor consider and how should that risk be priced? This section addresses the question of pricing of risk by decomposing the total risk of a security or a portfolio into systematic and nonsystematic risk. The meaning of these risks, how they are computed, and their relevance to the pricing of assets are also discussed.</p>
+<p>ポートフォリオを構築する際、相関(correlation)の概念と、完全でない相関がポートフォリオのリスクを分散できる仕組みを理解することが重要です。その結果、単独で保有する資産のリスクは、同じ資産がポートフォリオの一部である場合のリスクよりも大きくなることがあります。資産のリスクは環境によって異なるため、投資家はどの種類のリスクを考慮すべきか、またそのリスクはどのように価格付けされるべきかを検討する必要があります。本節では、証券またはポートフォリオの総リスクをシステマティックリスク(Systematic Risk)と非システマティックリスク(Nonsystematic Risk)に分解することでリスクの価格付け(pricing of risk)の問題を扱います。これらのリスクの意味、計算方法、資産の価格付けにおける関連性も議論されます。</p>
 <section id="CFA0160-R-s05-01">
-<h3 class="dp-heading">Systematic Risk and Nonsystematic Risk</h3>
-<p>Systematic risk, also known as non-diversifiable or market risk, is the risk that affects the entire market or economy. In contrast, nonsystematic risk is the risk that pertains to a single company or industry and is also known as company-specific, industry-specific, diversifiable, or idiosyncratic risk.</p>
-<p><a aria-describedby="SystematicRiskContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#SystematicRiskContent">Systematic risk</a> is risk that cannot be avoided and is inherent in the overall market. It is non-diversifiable because it includes risk factors that are innate within the market and affect the market as a whole. Examples of factors that constitute systematic risk include interest rates, inflation, economic cycles, political uncertainty, and widespread natural disasters. These events affect the entire market, and there is no way to avoid their effect. Systematic risk can be magnified through selection or by using leverage, or diminished by including securities that have a low correlation with the portfolio, assuming they are not already part of the portfolio.</p>
-<p><a aria-describedby="NonsystematicRiskContent" class="dp-popover-trigger cfa-curriculum-cite-glossary" href="#NonsystematicRiskContent">Nonsystematic risk</a> is risk that is local or limited to a particular asset or industry that need not affect assets outside of that asset class. Examples of nonsystematic risk could include the failure of a drug trial or an airliner crash. All these events will directly affect their respective companies and possibly industries, but have no effect on assets that are far removed from these industries. Investors can avoid nonsystematic risk through diversification by forming a portfolio of assets that are not highly correlated with one another.</p>
-<p>We will derive expressions for each kind of risk later in this reading. You will see that the sum of systematic variance and nonsystematic variance equals the total variance of the security or portfolio:</p>
+<h3 class="dp-heading">システマティックリスク(Systematic Risk)と非システマティックリスク(Nonsystematic Risk)</h3>
+<p>システマティックリスク(Systematic Risk)は、非分散化不可(non-diversifiable)または市場リスク(market risk)とも呼ばれ、市場全体または経済全体に影響を与えるリスクです。これに対して、非システマティックリスク(Nonsystematic Risk)は特定の企業や業界に関連するリスクであり、企業固有(company-specific)、業界固有(industry-specific)、分散可能(diversifiable)、または特異性リスク(idiosyncratic risk)とも呼ばれます。</p>
+<p>システマティックリスク(Systematic Risk)は回避できず、市場全体に内在するリスクです。市場内に固有で市場全体に影響を及ぼすリスク要因を含むため非分散化不可です。システマティックリスク(Systematic Risk)を構成する要因には、金利(interest rates)、インフレ(inflation)、景気循環(economic cycles)、政治的不確実性(political uncertainty)、広範な自然災害(widespread natural disasters)などがあります。これらの事象は市場全体に影響を及ぼし、その影響を避ける方法はありません。システマティックリスク(Systematic Risk)は、選択やレバレッジ(leverage)を用いることで拡大することも、ポートフォリオに低相関(low correlation)の証券を含めることで軽減することも可能です（ただし、既にポートフォリオに含まれていない場合に限ります）。</p>
+<p>非システマティックリスク(Nonsystematic Risk)は、特定の資産や業界に限定され、同資産クラス外の資産には影響しないリスクです。非システマティックリスク(Nonsystematic Risk)の例として、薬の臨床試験の失敗や航空機事故があります。これらの事象は直接的に該当する企業や業界に影響しますが、遠く離れた資産には影響を及ぼしません。投資家は、相互に高い相関を持たない資産でポートフォリオを構築することで、非システマティックリスク(Nonsystematic Risk)を分散(diversification)して回避できます。</p>
+<p>本節の後半で、各リスクの式(expression)を導出します。システマティック分散(variance)と非システマティック分散の合計が、証券またはポートフォリオの総分散(total variance)に等しいことがわかります。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA0160-R-E___41">Total variance = Systematic variance + Nonsystematic variance</div>
-<p>Although the equality relationship is between variances, you will find frequent references to total risk as the sum of systematic risk and nonsystematic risk. In those cases, the statements refer to variance, not standard deviation.</p>
+<p>この等式は分散に関するものですが、総リスク(total risk)をシステマティックリスク(Systematic Risk)と非システマティックリスク(Nonsystematic Risk)の合計として言及する場合が頻繁にあります。その場合、標準偏差ではなく分散を指しています。</p>
 <section id="CFA0160-R-s05-01-01">
-<h4>Pricing of Risk</h4>
-<p>Pricing or valuing an asset is equivalent to estimating its expected rate of return. If an asset has a known terminal value, such as the face value of a bond, then a lower current price implies a higher future return and a higher current price implies a lower future return. The relationship between price and return can also be observed in the valuation expression shown in Section 2.1.2. Therefore, we will occasionally use price and return interchangeably when discussing the price of risk.</p>
-<p>Consider an asset with both systematic and nonsystematic risk. Assume that both kinds of risk are priced—that is, you receive a return for both systematic risk and nonsystematic risk. What will you do? Realizing that nonsystematic risk can be diversified away, you would buy assets that have a large amount of nonsystematic risk. Once you have bought those assets with nonsystematic risk, you would diversify, or reduce that risk, by including other assets that are not highly correlated. In the process, you will minimize nonsystematic risk and eventually eliminate it altogether from your portfolio. You would now have a diversified portfolio with only systematic risk, yet you would be compensated for nonsystematic risk that you no longer have. Just like everyone else, you would have an incentive to take on more and more diversifiable risk because you are compensated for it even though you can get rid of it. The demand for diversifiable risk would keep increasing until its price becomes infinite and its expected return falls to zero. This means that our initial assumption of a non-zero return for diversifiable risk was incorrect and that the correct assumption is zero return for diversifiable risk. Therefore, according to theory, in an efficient market no incremental reward is earned for taking on diversifiable risk.</p>
-<p>We have argued that investors should not be compensated for taking on nonsystematic risk. Therefore, investors who have nonsystematic risk must diversify it away by investing in many industries, many countries, and many asset classes. Because future returns are unknown and it is not possible to pick only winners, diversification helps in offsetting poor returns in one asset class by garnering good returns in another asset class, thereby reducing the overall risk of the portfolio. In contrast, investors must be compensated for accepting systematic risk because that risk cannot be diversified away. If investors do not receive a return commensurate with the amount of systematic risk they are taking, they will refuse to accept systematic risk.</p>
-<p>In summary, according to theory, systematic or non-diversifiable risk is priced and investors are compensated for holding assets or portfolios based only on that investment’s systematic risk. Investors do not receive any return for accepting nonsystematic or diversifiable risk. Therefore, it is in the interest of risk-averse investors to hold only well-diversified portfolios.</p>
+<h4>リスクの価格付け(Pricing of Risk)</h4>
+<p>資産の価格付けまたは評価(valuing an asset)は、その期待リターン(expected rate of return)の推定に相当します。資産が満期価値(terminal value)を持つ場合（例: 債券の額面価格(face value)）、現在価格が低ければ将来リターンは高く、現在価格が高ければ将来リターンは低くなります。価格とリターンの関係は、2.1.2節で示した評価式でも観察可能です。そのため、リスクの価格(price of risk)の議論では、価格(price)とリターン(return)を時折同義で扱います。</p>
+<p>システマティックリスク(Systematic Risk)と非システマティックリスク(Nonsystematic Risk)を持つ資産を考えます。両方のリスクが価格付けされると仮定します。すなわち、システマティックリスクと非システマティックリスクの両方に対してリターンが得られるとします。もし非システマティックリスク(Nonsystematic Risk)を持つ資産を購入した場合、他の非高相関資産を含めて分散(diversify)することで、その非システマティックリスクを最小化し、最終的には完全に排除できます。結果として、ポートフォリオにはシステマティックリスク(Systematic Risk)のみが残り、非システマティックリスクに対する報酬は得られません。つまり、分散可能リスク(diversifiable risk)には追加報酬は存在せず、効率的市場(efficient market)では、分散可能リスクに対してはゼロリターンが理論的に正しいとされます。</p>
+<p>投資家は非システマティックリスク(Nonsystematic Risk)に対して報酬を受け取るべきではないため、投資家は複数の業界、複数の国、複数の資産クラスに分散投資することで非システマティックリスクを除去する必要があります。将来のリターンは未知であり、勝者だけを選ぶことは不可能なため、分散投資(diversification)により、ある資産クラスの低リターンを別の資産クラスの高リターンで相殺し、ポートフォリオ全体のリスクを低減できます。一方、システマティックリスク(Systematic Risk)は分散できないため、投資家はこれを受け入れることで報酬(compensated)を得る必要があります。システマティックリスクに対して適切なリターンを得られない場合、投資家はそのリスクを受け入れません。</p>
+<p>まとめると、理論によれば、システマティックリスク(Systematic Risk)は価格付けされ、その投資のシステマティックリスクに応じて投資家は報酬を受けます。非システマティックリスク(Nonsystematic Risk)については報酬はなく、リスク回避型(risk-averse)投資家は十分に分散されたポートフォリオのみを保有することが合理的です。</p>
 <div class="dp-content-block cfa-curriculum-example-box" id="CFA0160-R-EXM4">
 <h5 class="dp-has-icon cfa-curriculum-example-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-search" style="background: inherit !important;"> </i> Example 4<span style="display: block;">Systematic and Nonsystematic Risk</span></h5>
 <ol class="cfa-curriculum-list-decimal" id="CFA0160-R-L6">
-<li class="cfa-curriculum-list-item">
-<p>Describe the systematic and nonsystematic risk components of the following assets:</p>
-<ol class="cfa-curriculum-list-upper-alpha" id="CFA0160-R-L7">
-<li class="cfa-curriculum-list-item">
-<p>A risk-free asset, such as a three-month Treasury bill</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>The market portfolio, such as the S&amp;P 500.</p>
-</li>
-</ol>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Consider two assets, A and B. Asset A has twice the amount of total risk as Asset B. For Asset A, systematic risk comprises two-thirds of total risk. For Asset B, all of total risk is systematic risk. Which asset should have a higher expected rate of return?</p>
-</li>
+<li class="cfa-curriculum-list-item">次の資産のシステマティックリスク(Systematic Risk)と非システマティックリスク(Nonsystematic Risk)の構成要素を説明してください: 3か月物財務省短期証券(three-month Treasury bill)のようなリスクフリー資産(risk-free asset)、S&amp;P 500のような市場ポートフォリオ(market portfolio)</li>
+<li class="cfa-curriculum-list-item">資産AとBを考えます。資産Aの総リスク(total risk)は資産Bの2倍です。資産Aでは総リスクの3分の2がシステマティックリスク(Systematic Risk)であり、資産Bでは総リスクの全てがシステマティックリスクです。どちらの資産が高い期待リターン(expected rate of return)を持つべきでしょうか。</li>
 </ol>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認(Check Answer)</h4>
 <div class="dp-panel-content">
 <section id="CFA0160-R-s05-01-01-01-01">
-<h4 class="cfa-curriculum-solution">Solution to 1A:</h4>
-<p>By definition, a risk-free asset has no risk. Therefore, a risk-free asset has zero systematic risk and zero nonsystematic risk.</p>
+<h4 class="cfa-curriculum-solution">解答1A(Solution to 1A):</h4>
+<p>定義により、リスクフリー資産(risk-free asset)にはリスクはありません。したがって、システマティックリスク(Systematic Risk)も非システマティックリスク(Nonsystematic Risk)もゼロです。</p>
 </section>
 <section id="CFA0160-R-s05-01-01-01-02">
-<h4 class="cfa-curriculum-solution">Solution to 1B:</h4>
-<p>As we mentioned earlier, a market portfolio is a diversified portfolio, one in which no more risk can be diversified away. We have also described it as an efficient portfolio. Therefore, a market portfolio does not contain any nonsystematic risk.</p>
+<h4 class="cfa-curriculum-solution">解答1B(Solution to 1B):</h4>
+<p>前述のように、市場ポートフォリオ(market portfolio)は分散されたポートフォリオ(diversified portfolio)であり、これ以上リスクを分散できません。また、効率的ポートフォリオ(efficient portfolio)とも呼ばれます。そのため、市場ポートフォリオには非システマティックリスクは含まれません。</p>
 </section>
 <section id="CFA0160-R-s05-01-01-01-03">
-<h4 class="cfa-curriculum-solution">Solution to 2:</h4>
-<p>Based on the facts given, Asset A’s systematic risk is one-third greater than Asset B’s systematic risk. Because only systematic risk is priced or receives a return, the expected rate of return must be higher for Asset A.</p>
+<h4 class="cfa-curriculum-solution">解答2(Solution to 2):</h4>
+<p>与えられた事実に基づき、資産Aのシステマティックリスク(Systematic Risk)は資産Bよりも3分の1多いです。システマティックリスクのみが価格付けされるため、資産Aの期待リターン(expected rate of return)は資産Bよりも高くなります。</p>
 </section>
 </div>
 </div>
@@ -159,10 +147,10 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </section>
 </section>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="SystematicRiskContent">
-<p>Risk that affects the entire market or economy; it cannot be avoided and is inherent in the overall market. Systematic risk is also known as <em>non-diversifiable</em> or <em>market risk</em>.</p>
+<p>市場全体または経済全体に影響を与えるリスクであり、回避できず、市場全体に内在するリスクです。システマティックリスク(Systematic Risk)は非分散化不可(non-diversifiable)または市場リスク(market risk)とも呼ばれます。</p>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="NonsystematicRiskContent">
-<p>Unique risk that is local or limited to a particular asset or industry that need not affect assets outside of that asset class.</p>
+<p>特定の資産や業界に限定され、同資産クラス外の資産に影響を及ぼす必要のない固有リスク(unique risk)が非システマティックリスク(Nonsystematic Risk)です。</p>
 </div>
 </div>
   </div>
