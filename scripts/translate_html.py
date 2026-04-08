@@ -8,8 +8,7 @@ Math formulas (.cfa-curriculum-display-formula-container) are kept as-is.
 
 Usage:
     python3 scripts/translate_html.py                                         # CFA LV1 (default)
-    python3 scripts/translate_html.py --input-dir CIPM/LV1/original \\
-                                       --output-dir CIPM/LV1/translated_html  # CIPM LV1
+    python3 scripts/translate_html.py --input-dir CIPM/LV1/original --output-dir CIPM/LV1/translated_html
     python3 scripts/translate_html.py --sample 5                              # first N lessons
     python3 scripts/translate_html.py --file <name>                           # single file
     python3 scripts/translate_html.py --resume                                # skip already translated
