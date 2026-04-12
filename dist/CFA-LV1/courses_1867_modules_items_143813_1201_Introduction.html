@@ -93,28 +93,28 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div id="main" style="margin:0;padding:0 16px 16px;">
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA1434-R-s01-R-1" title="12.01 | Introduction"><header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading">モジュール12：財務諸表モデリング入門（Introduction to Financial Statement Modeling）12.01 | 導入（Introduction）</h2>
+<h2 class="dp-heading">モジュール12：財務諸表モデリング入門（Introduction to Financial Statement Modeling）12.01｜導入（Introduction）</h2>
 </header>
-<p>財務諸表モデリングは、企業およびその発行する証券の評価プロセスにおける重要なステップである。本節ではまず、売上高予測の作成に関する概要から議論を開始する。次に、各財務諸表の予測に関する一般的なアプローチを説明し、予測損益計算書、貸借対照表、キャッシュフロー計算書を含む財務諸表モデルの構築を実演する。その後、モデリングプロセスに影響を与える主要な行動バイアスと、それらを軽減するための戦略について説明する。さらに、財務諸表モデルに対するミクロおよびマクロ経済条件の影響に関する重要なトピック、すなわち競争要因が価格およびコストに与える影響、インフレーションおよびデフレーションの影響、技術的進歩、長期予測に関する考慮事項について取り上げる。</p>
+<p>財務諸表モデリング（financial statement modeling）は、企業およびそれらが発行した証券の評価プロセスにおける重要なステップである。本章ではまず、売上予測（revenue forecast）の作成に関する概要から議論を始める。次に、各財務諸表の予測に対する一般的なアプローチを説明し、予測損益計算書（income statements）、貸借対照表（balance sheets）、キャッシュフロー計算書（statements of cash flows）を含む財務諸表モデルの構築を示す。その後、モデリングプロセスに影響を与える主要な行動バイアス（behavioral biases）と、それらを軽減するための戦略について説明する。さらに、ミクロおよびマクロ経済条件が財務諸表モデルに与える影響に関する重要なトピックとして、競争要因が価格やコストに与える影響、インフレーションおよびデフレーションの影響、技術的進展、長期予測に関する考慮事項を取り上げる。</p>
 <p>Most of the examples and exhibits used throughout the reading can <a class="instructure_file_link instructure_scribd_file inline_disabled" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1802/files/382204" data-api-returntype="File" data-canvas-previewable="true" href="https://learn.cfainstitute.org/courses/1802/files/382204?wrap=1" id="382204" target="_blank" title="Link">be downloaded as a Microsoft Excel workbook</a>. Each worksheet in the workbook is labeled with the corresponding example or exhibit number in the text.</p>
 <div class="dp-content-block cfa-curriculum-overview-box" id="CFA1434-R-s01-Ba">
-<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュール概要（Learning Module Overview）</h3>
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュールの概要（Learning Module Overview）</h3>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA1434-R-s01-L1">
-<li class="cfa-curriculum-list-item">財務諸表モデルは、ほとんどのバリュエーションモデルの出発点であり、フリーキャッシュフロー（free cash flow）、EPS、EBITDA、EBITなど、さまざまな指標に基づいて評価を行うことができる。</li>
-<li class="cfa-curriculum-list-item">利益剰余金（retained earnings）のような貸借対照表項目の一部は損益計算書から直接導かれる一方で、売掛金（accounts receivable）、買掛金（accounts payable）、および棚卸資産（inventory）は損益計算書の予測と非常に密接に関連している。</li>
-<li class="cfa-curriculum-list-item">運転資本勘定（working capital accounts）は、運転資本比率（例えば在庫保有日数（days of inventory）、売掛金回収日数（days sales outstanding）、支払日数（days payable outstanding））を予測することによってモデル化され、これらは売上高および売上原価の予測と組み合わせて、貸借対照表上の運転資本勘定の予測値を算出する。</li>
+<li class="cfa-curriculum-list-item">財務諸表モデル（financial statement model）は、ほとんどのバリュエーションモデルの出発点であり、評価はフリーキャッシュフロー（free cash flow）、EPS、EBITDA、EBITなどさまざまな指標に基づいて行うことができる。</li>
+<li class="cfa-curriculum-list-item">利益剰余金（retained earnings）などの貸借対照表の一部項目は損益計算書から直接流入する一方で、売掛金（accounts receivable）、買掛金（accounts payable）、棚卸資産（inventory）は損益計算書の予測と非常に密接に関連している。</li>
+<li class="cfa-curriculum-list-item">運転資本（working capital）関連項目は、運転資本比率（working capital ratios）（例：在庫回転日数（days of inventory）、売上債権回収日数（days sales outstanding）、買入債務支払日数（days payable outstanding））を予測し、それを売上および売上原価（cost of sales）の予測と組み合わせることで、貸借対照表上の将来の運転資本項目を算出する形でモデル化される。</li>
 <li class="cfa-curriculum-list-item">アナリストの予測に影響を与える5つの主要な行動バイアスは、過信（overconfidence）、コントロールの錯覚（illusion of control）、保守性（conservatism）、代表性（representativeness）、および確証バイアス（confirmation bias）である。</li>
-<li class="cfa-curriculum-list-item">コントロールの錯覚（illusion of control）は過信と関連するバイアスであり、制御できないものを過大に制御できると見積もり、最終的には無益となる行動を取る傾向を指す。</li>
-<li class="cfa-curriculum-list-item">投資アナリストにおける確証バイアス（confirmation bias）の一般的な現れは、ポジティブな情報や特定の基準のみを追求する、または狭い範囲でリサーチプロセスを構築することである。</li>
-<li class="cfa-curriculum-list-item">競争要因（competitive factors）は、企業がサプライヤーとの交渉によって仕入価格を引き下げる能力や、製品およびサービスの価格を引き上げる能力に影響を与える。ポーターのファイブフォース（Porter’s five forces）フレームワークは、これらの要因を特定する基礎として利用できる。</li>
-<li class="cfa-curriculum-list-item">ポーターのファイブフォース（Porter’s five forces）には、代替品の脅威（Threat of substitutes）、競争の激しさ（Rivalry）、供給者の交渉力（Bargaining power of suppliers）、買い手の交渉力（Bargaining power of buyers）、および新規参入の脅威（Threat of new entrants）が含まれる。</li>
-<li class="cfa-curriculum-list-item">投下資本利益率（ROIC）は、営業利益から調整後税金を差し引いたものを、営業資産と営業負債の差で割って定義される税引後の収益性指標である。高く持続的なROICは、競争優位を有していることと関連していることが多い。</li>
-<li class="cfa-curriculum-list-item">インフレーション（inflation）およびデフレーション（deflation）は、企業の将来の売上、利益、キャッシュフローの予測精度に大きな影響を与える可能性がある。</li>
-<li class="cfa-curriculum-list-item">投入コストのインフレーションに直面している企業の売上予測には、製品の価格弾力性（price elasticity）、企業が事業を展開する各国におけるコストインフレ率の違い、および企業の各製品カテゴリーに関連するコストのインフレ見通しを理解する必要がある。</li>
-<li class="cfa-curriculum-list-item">投入価格が上昇する状況において、企業はコストを顧客に転嫁してマージンを維持することを選択する場合もあれば、市場シェア拡大のためにマージンの一部低下を受け入れる場合もある。</li>
-<li class="cfa-curriculum-list-item">予測期間（forecast time horizon）の選択は、対象証券に関連する投資戦略、業界の循環性、企業固有の要因、およびアナリストの所属機関の方針などの要因によって影響を受ける。</li>
-<li class="cfa-curriculum-list-item">正常化利益（normalized earnings）とは、収益性に影響を与える異常または一時的な要因が存在しない場合における、企業の中期的な利益水準を指す。</li>
-<li class="cfa-curriculum-list-item">アナリストにとって最も大きな課題の一つは、経済的混乱、規制、技術などによって、将来が直近の過去とは大きく異なる転換点（inflection points）を予測することである。</li>
+<li class="cfa-curriculum-list-item">コントロールの錯覚（illusion of control）は過信に関連するバイアスであり、制御できないものを制御できると過大評価し、その制御を追求するために最終的には無益な行動をとる傾向である。</li>
+<li class="cfa-curriculum-list-item">投資アナリストにおける確証バイアスの一般的な現れは、肯定的なニュースや特定の基準のみを追求する、あるいは狭い範囲に限定した形で調査プロセスを構築することである。</li>
+<li class="cfa-curriculum-list-item">競争要因（competitive factors）は、企業がサプライヤーとの交渉により投入価格を引き下げたり、製品やサービスの価格を引き上げたりする能力に影響を与える。このような要因の特定には、ポーターの5つの力（Porter’s five forces）フレームワークが基礎として利用できる。</li>
+<li class="cfa-curriculum-list-item">ポーターの5つの力（Porter’s five forces）は、代替品の脅威（Threat of substitutes）、競争関係（Rivalry）、供給者の交渉力（Bargaining power of suppliers）、買い手の交渉力（Bargaining power of buyers）、新規参入の脅威（Threat of new entrants）である。</li>
+<li class="cfa-curriculum-list-item">投下資本利益率（Return on invested capital：ROIC）は、調整後税引き後営業利益（net operating profit less adjusted taxes）を営業資産と営業負債の差で除して定義される、税引後の収益性指標である。ROICが高く持続的であることは、競争優位性を有していることとしばしば関連付けられる。</li>
+<li class="cfa-curriculum-list-item">インフレーションおよびデフレーションは、企業の将来の売上、利益、キャッシュフローの予測精度に大きな影響を与える可能性がある。</li>
+<li class="cfa-curriculum-list-item">投入コストのインフレに直面する企業の売上予測には、製品の価格弾力性（price elasticity）、企業が事業を展開する各国におけるコストインフレ率の違い、および各製品カテゴリーに関連するコストのインフレ見通しの理解が必要である。</li>
+<li class="cfa-curriculum-list-item">投入価格が上昇した場合、企業はコストを顧客に転嫁してマージンを維持することもできるし、市場シェアを拡大するために一定のマージン低下を受け入れることもできる。</li>
+<li class="cfa-curriculum-list-item">予測期間（forecast time horizon）の選択は、当該証券が検討される投資戦略、産業の循環性（cyclicality）、企業固有の要因、およびアナリストの所属組織の方針などの要因によって影響を受ける可能性がある。</li>
+<li class="cfa-curriculum-list-item">正常利益（normalized earnings）とは、収益性に影響を与える異常要因や一時的要因が存在しない場合における、企業の景気循環中間期（mid-cycle）で期待される利益水準を指す。</li>
+<li class="cfa-curriculum-list-item">アナリストにとって最大の課題の一つは、経済的混乱（economic disruption）、規制（regulation）、技術（technology）などに起因し、将来が直近の過去とは大きく異なる様相を呈する転換点（inflection points）を予測することである。</li>
 </ul>
 </div>
 </div>

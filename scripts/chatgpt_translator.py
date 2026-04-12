@@ -92,7 +92,7 @@ class ChatGPTTranslator:
                 if not self._page:
                     ctx = contexts[0] if contexts else self._browser.new_context()
                     self._page = ctx.new_page()
-                    self._page.goto("https://chat.openai.com/", wait_until="networkidle", timeout=30000)
+                    self._page.goto("https://chatgpt.com/", wait_until="domcontentloaded", timeout=30000)
                 print(f"既存のChromeに接続しました。 ({self._page.url[:60]})")
             except Exception as e:
                 print(f"CDP接続失敗: {e}")
@@ -124,12 +124,12 @@ class ChatGPTTranslator:
         # Re-use existing page if available, otherwise open new one
         pages = self._ctx.pages
         self._page = pages[0] if pages else self._ctx.new_page()
-        self._page.goto("https://chat.openai.com/", wait_until="networkidle", timeout=30000)
+        self._page.goto("https://chatgpt.com/", wait_until="domcontentloaded", timeout=30000)
         self._page.wait_for_timeout(2000)
         if "login" in self._page.url or "auth" in self._page.url:
             print("ChatGPTにログインしてください。完了後Enterを押してください。")
             input()
-            self._page.goto("https://chat.openai.com/", wait_until="networkidle", timeout=30000)
+            self._page.goto("https://chatgpt.com/", wait_until="domcontentloaded", timeout=30000)
 
     def stop(self):
         """Disconnect from browser and stop playwright."""
@@ -184,7 +184,7 @@ class ChatGPTTranslator:
                 str(SESSION_DIR), headless=False, channel="chrome"
             )
             page = ctx.new_page()
-            page.goto("https://chat.openai.com/")
+            page.goto("https://chatgpt.com/")
             input("ログイン完了後Enterを押してください...")
             ctx.close()
         print("セッションを保存しました。")
@@ -192,8 +192,8 @@ class ChatGPTTranslator:
     # ── private helpers ──────────────────────────────────────────────
 
     def _new_chat(self):
-        self._page.goto("https://chat.openai.com/", wait_until="networkidle", timeout=30000)
-        self._page.wait_for_timeout(1500)
+        self._page.goto("https://chatgpt.com/", wait_until="domcontentloaded", timeout=30000)
+        self._page.wait_for_timeout(2000)
 
     def _send(self, text: str):
         box = self._page.locator(

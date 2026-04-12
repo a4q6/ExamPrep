@@ -94,67 +94,53 @@ dd.dp-qc-response.qc-show { display: block !important; }
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA2441-R-s01-R-1" title="11.01 | Introduction">
 <header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 11: Yield-Based Bond Duration Measures and Properties</span>11.01 | Introduction</h2>
+<h2 class="dp-heading">モジュール11：利回りベースの債券デュレーション指標とその特性（Yield-Based Bond Duration Measures and Properties）11.01｜導入（Introduction）</h2>
 </header>
-<p>Prior lessons explored two sources of interest rate risk—reinvestment risk and price risk—and demonstrated how holding a bond for its Macaulay duration balances them. This lesson and those that follow extend that discussion by introducing measures of price risk. Two broad categories of such measures exist: those that assume underlying bond cash flows are certain and measure price sensitivity to changes in a bond’s <em>own yield</em>, which are covered in these lessons, and those that introduce the possibility of a bond default and that measure price sensitivity to changes in a <em>benchmark</em> yield curve, which are covered in later lessons. This lesson will illustrate how the interest rate risk of a bond is a function of its features, including its time-to-maturity, coupon rate, and yield.</p>
+<p>これまでのレッスンでは、金利リスクの2つの源泉である再投資リスク（reinvestment risk）と価格リスク（price risk）を検討し、債券をそのマコーレー・デュレーション（Macaulay duration）まで保有することでそれらが均衡することを示した。本レッスンおよび以降のレッスンでは、価格リスクの測定指標を導入することでこの議論を拡張する。このような指標には大きく2つのカテゴリーが存在する。1つは、基礎となる債券キャッシュフローが確実であると仮定し、債券自身の利回り（yield）の変化に対する価格感応度を測定するものであり、本レッスンで扱う。もう1つは、債券のデフォルト可能性を考慮し、ベンチマーク・イールドカーブ（benchmark yield curve）の変化に対する価格感応度を測定するものであり、後続のレッスンで扱う。本レッスンでは、債券の金利リスクが満期までの期間（time-to-maturity）、クーポン率（coupon rate）、利回り（yield）といった特性の関数であることを示す。</p>
 <p>Most of the examples and exhibits used throughout the reading can be <a class="instructure_file_link instructure_scribd_file inline_disabled" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1802/files/382202" data-api-returntype="File" data-canvas-previewable="true" href="https://learn.cfainstitute.org/courses/1802/files/382202?wrap=1" id="382205" target="_blank" title="Interactive Spreadsheet Download">downloaded as a Microsoft Excel workbook</a>. Each worksheet in the workbook is labeled with the corresponding example or exhibit number in the text.</p>
 <div class="dp-content-block cfa-curriculum-overview-box" id="CFA2441-R-s01-Ba">
-<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュール概要（Learning Module Overview）</h3>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2441-R-s01-L1">
-<li class="cfa-curriculum-list-item">
-<p>Duration is a quantitative measure of interest rate risk. There are several duration measures, including those that measure a bond’s price sensitivity to changes in its own yield-to-maturity and assume underlying cash flows are certain (yield duration) and those that measure changes in a benchmark yield curve, with less certain underlying cash flows (curve duration).</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Macaulay duration, modified duration, money duration, and the price value of a basis point (PVBP) are yield duration measures.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Modified duration is the slope or first derivative of the price of a bond with respect to its yield-to-maturity, measuring the sensitivity of a bond’s price to changes in its yield-to-maturity. Modified duration can be calculated using a bond’s Macaulay duration and yield or through approximation.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Money duration is an extension of modified duration and incorporates the size of the bond position in currency terms. Related to this measure is the price value of a basis point, which is an estimate of the change in the price of a bond for a 1 bp change in the bond’s yield.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Duration can be used to estimate the change in the price of a bond in response to a change in yield, but it assumes a linear relationship between price and yield even though, in fact, the relationship is nonlinear. This is most evident when estimating price changes for large changes in yield and for bonds with certain features.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>A bond’s features, including its time-to-maturity, coupon rate, and yield-to-maturity, determine its duration. Duration, for a given bond, is not static and decreases as the bond approaches maturity.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>All else equal, a longer (shorter) time-to-maturity, a lower (higher) coupon rate, or a lower (higher) yield-to-maturity results in higher (lower) duration or higher (lower) interest rate risk.</p>
-</li>
+<li class="cfa-curriculum-list-item">デュレーション（duration）は金利リスクの定量的指標である。複数のデュレーション指標が存在し、債券自身の満期利回り（yield-to-maturity）の変化に対する価格感応度を測定し、基礎キャッシュフローが確実であると仮定するもの（利回りデュレーション：yield duration）と、ベンチマーク・イールドカーブの変化を測定し、基礎キャッシュフローが不確実であるもの（カーブ・デュレーション：curve duration）がある。</li>
+<li class="cfa-curriculum-list-item">マコーレー・デュレーション（Macaulay duration）、修正デュレーション（modified duration）、マネー・デュレーション（money duration）、および1ベーシスポイント当たりの価格価値（price value of a basis point, PVBP）は、利回りデュレーション（yield duration）の指標である。</li>
+<li class="cfa-curriculum-list-item">修正デュレーション（modified duration）は、債券価格を満期利回り（yield-to-maturity）で微分した傾き、すなわち一次導関数であり、満期利回りの変化に対する債券価格の感応度を測定する。修正デュレーションは、マコーレー・デュレーション（Macaulay duration）と利回りを用いて計算することも、近似によって求めることもできる。</li>
+<li class="cfa-curriculum-list-item">マネー・デュレーション（money duration）は修正デュレーション（modified duration）の拡張であり、債券ポジションの金額規模を考慮する。この指標に関連するものとして、1ベーシスポイント当たりの価格価値（price value of a basis point）があり、これは利回りが1bp変化したときの債券価格の変化額の推定値である。</li>
+<li class="cfa-curriculum-list-item">デュレーション（duration）は利回りの変化に対する債券価格の変化を推定するために用いることができるが、価格と利回りの関係が実際には非線形であるにもかかわらず、線形関係を仮定している。この点は、利回りが大きく変化する場合や、特定の特徴を持つ債券において特に顕著である。</li>
+<li class="cfa-curriculum-list-item">債券の満期までの期間（time-to-maturity）、クーポン率（coupon rate）、満期利回り（yield-to-maturity）といった特性が、そのデュレーションを決定する。デュレーションは一定ではなく、満期に近づくにつれて低下する。</li>
+<li class="cfa-curriculum-list-item">他の条件が同じであれば、満期までの期間が長い（短い）ほど、クーポン率が低い（高い）ほど、また満期利回りが低い（高い）ほど、デュレーションおよび金利リスクは高く（低く）なる。</li>
 </ul>
 </div>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2441-R-s01-Bb">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
-<p>These initial questions are intended to help you gauge your current level of understanding of the learning module.</p>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">学習モジュール自己評価（Learning Module Self-Assessment）</h3>
+<p>これらの初期問題は、本学習モジュールに対する現在の理解度を測るためのものである。</p>
 <div class="dp-content-block">
 <div class="dp-qc cfa-curriculum-question-with-label"><span class="cfa-curriculum-question-with-label">1. </span>
-<p>Match each of the following descriptions with the appropriate term:</p>
+<p>次の各説明を適切な用語と対応させよ。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2441-R-s01-Ta">
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <thead>
 <tr>
-<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Description</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">説明（Description）</th>
 <th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Term</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Present-value-weighted average time-to-receipt of a bond’s cash flows</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">i. Money duration</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">債券キャッシュフローの受取までの時間の現在価値加重平均（Present-value-weighted average time-to-receipt of a bond’s cash flows）</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">i．マネー・デュレーション（Money duration）</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Used to estimate the percentage change in a bond’s price for a given change in the bond’s yield-to-maturity</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">ii. Price value per basis point</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">債券の満期利回り（yield-to-maturity）の変化に対する価格のパーセンテージ変化を推定するために用いられる</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">ii．1ベーシスポイント当たりの価格価値（Price value per basis point）</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">The product of the annualized modified duration and the full price of a bond</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">iii. Macaulay duration</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">年率換算修正デュレーションと債券のフルプライス（full price）の積</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">iii．マコーレー・デュレーション（Macaulay duration）</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">Change in the full price of a bond for a 1 bp change in yield</td>
-<td style="text-align: left; vertical-align: top; padding: 8px;">iv. Modified duration</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">利回りが1bp変化したときの債券のフルプライスの変化</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">iv．修正デュレーション（Modified duration）</td>
 </tr>
 </tbody>
 </table>
@@ -162,14 +148,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </div>
 <div class="dp-panels-wrapper dp-accordion-default">
 <div class="dp-panel-group">
-<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">Check Answer</h4>
+<h4 class="dp-panel-heading dp-qc-submit btn btn-dp-primary cfa-curriculum-btn-checkAnswer" style="background: var(--dt-color-primary-dark-text) !important; color: #fff !important;">解答を確認せよ（Check Answer）</h4>
 <div class="dp-panel-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
-<p>Present value weighted average time-to-receipt of a bond cash flows matches with iii. Macaulay duration.</p>
-<p>Used to estimate the percentage change in a bond’s price for a given change in the bond’s yield-to-maturity matches with iv. Modified duration.</p>
-<p>The product of the annualized modified duration and the full price of a bond matches with i. Money duration.</p>
-<p>Change in the full price of a bond for a 1 bp change in yield matches with ii. Price value per basis point.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>債券キャッシュフローの受取までの時間の現在価値加重平均は iii．マコーレー・デュレーション（Macaulay duration）に対応する。</p>
+<p>満期利回りの変化に対する価格のパーセンテージ変化を推定するものは iv．修正デュレーション（Modified duration）に対応する。</p>
+<p>年率換算修正デュレーションとフルプライスの積は i．マネー・デュレーション（Money duration）に対応する。</p>
+<p>利回りが1bp変化したときのフルプライスの変化は ii．1ベーシスポイント当たりの価格価値（Price value per basis point）に対応する。</p>
 </section>
 </div>
 </div>
@@ -180,52 +166,52 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2441-R-s01-Q2"><span class="cfa-curriculum-question-with-label">2. </span>
-<p>If all other characteristics of a bond are held constant, an increase in the bond’s yield-to-maturity will <em>most likely</em> result in:</p>
+<p>他のすべての条件が一定である場合、債券の満期利回り（yield-to-maturity）が上昇すると、最も起こりやすい結果はどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>a decrease in the bond’s modified duration.</p>
+<p>A．修正デュレーション（modified duration）の低下</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
-<p>Aが正しい。債券の満期利回り上昇により将来キャッシュフローがより高い利率で割引されるため、現在価値加重平均受取期間は減少し、修正デュレーションも低下する。</p>
-<p>Bは誤り。デュレーションは債券キャッシュフローの現在価値に影響され、その現在価値は債券の利回りに依存する。</p>
-<p>Cは誤りである。債券の満期利回り（yield-to-maturity）が上昇すると、各キャッシュフローの現在価値（present value）が減少し、それによって債券のデュレーションも減少する。</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。満期利回りの上昇は、将来キャッシュフローがより高い割引率で割り引かれることを意味し、その結果、受取までの時間の現在価値加重平均が低下し、修正デュレーションは小さくなる。</p>
+<p>Bは誤りである。デュレーションは債券のキャッシュフローの現在価値に依存し、その</p>
+<p>Cは誤りである。なぜなら、満期利回り（yield-to-maturity）の上昇は各キャッシュフローの現在価値を低下させ、その結果として債券のデュレーションを低下させるためである。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>B. 債券の修正デュレーション（modified duration）に変化なし</p>
+<p>B．債券の修正デュレーション（modified duration）に変化はない。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
-<p>Aが正しい。債券の満期利回り上昇により将来キャッシュフローがより高い利率で割引されるため、現在価値加重平均受取期間は減少し、修正デュレーションも低下する。</p>
-<p>Bは誤り。デュレーションは債券キャッシュフローの現在価値に影響され、その現在価値は債券の利回りに依存する。</p>
-<p>Cは誤り。債券の満期利回り上昇により各キャッシュフローの現在価値が減少し、債券のデュレーションも減少する。</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。満期利回り（yield-to-maturity）の上昇は、将来キャッシュフローがより高い割引率で割り引かれることを意味し、その結果、受取までの時間の現在価値加重平均が低下し、修正デュレーション（modified duration）は小さくなる。</p>
+<p>Bは誤りである。デュレーションは債券キャッシュフローの現在価値に影響され、その現在価値は利回りの影響を受ける。</p>
+<p>Cは誤りである。満期利回り（yield-to-maturity）の上昇は各キャッシュフローの現在価値を低下させ、その結果として債券のデュレーションを低下させる。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>C. 債券の修正デュレーションが上昇</p>
+<p>C．債券の修正デュレーション（modified duration）の増加。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
-<p>A is correct. An increase in the bond’s yield-to-maturity will result in a lower modified duration because future cash flows are discounted at a higher rate, which reduces the present-value-weighted average of their time to receipt.</p>
-<p>B is incorrect because duration is affected by the present value of the bond’s cash flows, which, in turn, is affected by the bond’s yield.</p>
-<p>Cは誤り。債券の満期利回り上昇により各キャッシュフローの現在価値が減少し、債券のデュレーションも減少する。</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。満期利回り（yield-to-maturity）の上昇は、将来キャッシュフローがより高い割引率で割り引かれることを意味し、その結果、受取までの時間の現在価値加重平均が低下し、修正デュレーション（modified duration）は小さくなる。</p>
+<p>Bは誤りである。デュレーションは債券キャッシュフローの現在価値に影響され、その現在価値は利回りの影響を受ける。</p>
+<p>Cは誤りである。満期利回り（yield-to-maturity）の上昇は各キャッシュフローの現在価値を低下させ、その結果として債券のデュレーションを低下させる。</p>
 </section>
 </div>
 </dd>
@@ -237,70 +223,70 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2441-R-s01-Q3"><span class="cfa-curriculum-question-with-label">3. </span>
-<p>年率換算修正デュレーションが4、クーポン5%、価格95の債券がある。債券の満期利回りが50bps上昇した場合の、額面100あたりの価格変化の最も近い値は：</p>
+<p>年率換算修正デュレーション（annualized modified duration）が4、クーポン5%、価格95の債券を考える。満期利回り（yield-to-maturity）が50ベーシスポイント（bp）上昇した場合の価格変化（額面100当たり）はどれに最も近いか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>A. 4.75</p>
+<p>A．4.75</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
+<h3 class="cfa-curriculum-solution">解答</h3>
 <p>Cが正しい。マネー・デュレーション（money duration）は380である。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E"><em>MoneyDur</em> = <em>AnnModDur</em> × <em>PV<sup>Full</sup> </em>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___1"><em>MoneyDur</em> = 4.0 × 95.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___2"><em>MoneyDur</em> = 380.</div>
-<p>これにより、満期利回り50bps上昇時の価格変化は−1.90となる。</p>
+<p>これにより、利回りが50bp上昇した場合の価格変化は−1.90となる。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___3">Δ<em>PV<sup>Full</sup> </em> ≈ −<em>MoneyDur</em> × Δ<em>Yield</em>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___4">Δ<em>PV<sup>Full</sup> </em> ≈ −380 × 0.005.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___5">Δ<em>PV<sup>Full</sup> </em> ≈ −1.90.</div>
-<p>価格変化は満期利回り上昇に対して負である。</p>
+<p>満期利回りの上昇に対して価格変化は負となる。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>B. 3.80</p>
+<p>B．3.80</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
-<p>Cが正しい。マネー・デュレーションは380である。</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Cが正しい。マネー・デュレーション（money duration）は380である。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E"><em>MoneyDur</em> = <em>AnnModDur</em> × <em>PV<sup>Full</sup> </em>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___1"><em>MoneyDur</em> = 4.0 × 95.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___2"><em>MoneyDur</em> = 380.</div>
-<p>これにより、満期利回り50bps上昇時の価格変化は−1.90となる。</p>
+<p>これにより、利回りが50bp上昇した場合の価格変化は−1.90となる。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___3">Δ<em>PV<sup>Full</sup> </em> ≈ −<em>MoneyDur</em> × Δ<em>Yield</em>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___4">Δ<em>PV<sup>Full</sup> </em> ≈ −380 × 0.005.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___5">Δ<em>PV<sup>Full</sup> </em> ≈ −1.90.</div>
-<p>価格変化は満期利回り上昇に対して負である。</p>
+<p>満期利回りの上昇に対して価格変化は負となる。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>C. 1.90</p>
+<p>C．1.90</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
-<p>Cが正しい。マネー・デュレーションは380である。</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Cが正しい。マネー・デュレーション（money duration）は380である。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E"><em>MoneyDur</em> = <em>AnnModDur</em> × <em>PV<sup>Full</sup> </em>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___1"><em>MoneyDur</em> = 4.0 × 95.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___2"><em>MoneyDur</em> = 380.</div>
-<p>これにより、満期利回り50bps上昇時の価格変化は−1.90となる。</p>
+<p>これにより、利回りが50bp上昇した場合の価格変化は−1.90となる。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___3">Δ<em>PV<sup>Full</sup> </em> ≈ −<em>MoneyDur</em> × Δ<em>Yield</em>.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___4">Δ<em>PV<sup>Full</sup> </em> ≈ −380 × 0.005.</div>
 <div class="cfa-curriculum-display-formula-container" id="CFA2441-R-s01-E___5">Δ<em>PV<sup>Full</sup> </em> ≈ −1.90.</div>
-<p>価格変化は満期利回り上昇に対して負である。</p>
+<p>満期利回りの上昇に対して価格変化は負となる。</p>
 </section>
 </div>
 </dd>
@@ -312,46 +298,46 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2441-R-s01-Q4"><span class="cfa-curriculum-question-with-label">4. </span>
-<p>2つの債券、債券Xと債券Yは、Xのクーポン率がYより低い以外は同一である。したがって：</p>
+<p>債券Xと債券Yは、債券Xの方がクーポン率が低い点を除いて同一である。このとき：</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>A. 債券は同一の修正デュレーションを持つ</p>
+<p>A．両債券の修正デュレーション（modified duration）は同一である。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
-<p>Cが正しい。2つの債券が他の条件（満期までの期間、利回りなど）で同一の場合、クーポン率が低い債券の方が修正デュレーションは高くなる。これは、債券Yと比べて債券Xの各クーポンキャッシュフローの現在価値が債券価格に占める割合が小さく、額面（face value）が価格に占める割合が大きくなるためである。</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Cが正しい。その他の条件（満期、利回りなど）が同一である場合、クーポン率が低い債券の方が修正デュレーションは高くなる。これは、債券Yと比較して、債券Xのクーポンキャッシュフローの現在価値が価格に占める割合が小さくなり、額面価値からの寄与が大きくなるためである。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>B. 債券Xは債券Yより修正デュレーションが低い</p>
+<p>B．債券Xの修正デュレーションは債券Yより低い。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答（Solution）</h3>
-<p>Cが正しい。同上</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Cが正しい。その他の条件（満期、利回りなど）が同一である場合、クーポン率が低い債券の方が修正デュレーションは高くなる。これは、債券Yと比較して、債券Xのクーポンキャッシュフローの現在価値が価格に占める割合が小さくなり、額面価値からの寄与が大きくなるためである。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>C. 債券Yは債券Xより修正デュレーションが低い</p>
+<p>C．債券Yの修正デュレーションは債券Xより低い。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Cが正しい。同上</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Cが正しい。その他の条件（満期、利回りなど）が同一である場合、クーポン率が低い債券の方が修正デュレーションは高くなる。これは、債券Yと比較して、債券Xのクーポンキャッシュフローの現在価値が価格に占める割合が小さくなり、額面価値からの寄与が大きくなるためである。</p>
 </section>
 </div>
 </dd>
@@ -363,46 +349,46 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2441-R-s01-Q5"><span class="cfa-curriculum-question-with-label">5. </span>
-<p>債券のベーシスポイントあたり価格（price value per basis point）を、債券価格を0.0001減少・0.0001増加させた差を2で割って推定する方法では、以下を無視している：</p>
+<p>0.0001の低下と0.0001の上昇に対する債券価格の差を2で割って1ベーシスポイント当たりの価格価値（price value per basis point）を推定する方法は、次のどれを無視しているか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>A. 債券価格と利回りの関係の凸性（convexity）</p>
+<p>A．債券の価格–利回り関係のコンベクシティ（convexity）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. This formulation of the price value of a basis point does not include an adjustment for convexity. This is important because the price change for increases and decreases in yields is asymmetric, owing to the convex relationship between price and yield.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。この1ベーシスポイント当たりの価格価値（price value of a basis point）の定式化は、コンベクシティ（convexity）に対する調整を含んでいない。これは重要である。なぜなら、価格と利回りの関係が凸（convex）であるため、利回りの上昇と低下に対する価格変化は非対称であるからである。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>concavity of the bond’s price–yield relationship.</p>
+<p>B．債券の価格–利回り関係の凹性（concavity）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. This formulation of the price value of a basis point does not include an adjustment for convexity. This is important because the price change for increases and decreases in yields is asymmetric, owing to the convex relationship between price and yield.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。この1ベーシスポイント当たりの価格価値（price value of a basis point）の定式化は、コンベクシティ（convexity）に対する調整を含んでいない。これは重要である。なぜなら、価格と利回りの関係が凸（convex）であるため、利回りの上昇と低下に対する価格変化は非対称であるからである。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>symmetry in the bond’s price–yield relationship.</p>
+<p>C．債券の価格–利回り関係における対称性（symmetry）</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. This formulation of the price value of a basis point does not include an adjustment for convexity. This is important because the price change for increases and decreases in yields is asymmetric, owing to the convex relationship between price and yield.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。この1ベーシスポイント当たりの価格価値（price value of a basis point）の定式化は、コンベクシティ（convexity）に対する調整を含んでいない。これは重要である。なぜなら、価格と利回りの関係が凸（convex）であるため、利回りの上昇と低下に対する価格変化は非対称であるからである。</p>
 </section>
 </div>
 </dd>
@@ -414,46 +400,46 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2441-R-s01-Q6"><span class="cfa-curriculum-question-with-label">6. </span>
-<p>The change in the price of a bond when its yield increases by 100 bps is best described as:</p>
+<p>債券の利回りが100ベーシスポイント（bps）上昇したときの価格変化は、次のうちどれが最も適切に表しているか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>less than the change in price for a decrease in its yield by 100 bps.</p>
+<p>A．利回りが100bps低下した場合の価格変化よりも小さい。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. The price–yield relationship for most bonds is convex, such that the increase in the price of a bond is greater for yield decreases than a decrease in the price for the same yield increase.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。ほとんどの債券における価格–利回り関係は凸（convex）であり、利回りが低下した場合の価格上昇は、同じ幅の利回り上昇による価格下落よりも大きい。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>the same as the change in price for a decrease in its yield by 100 bps.</p>
+<p>B．利回りが100bps低下した場合の価格変化と同じである。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. The price–yield relationship for most bonds is convex, such that the increase in the price of a bond is greater for yield decreases than a decrease in the price for the same yield increase.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。ほとんどの債券における価格–利回り関係は凸（convex）であり、利回りが低下した場合の価格上昇は、同じ幅の利回り上昇による価格下落よりも大きい。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>greater than the change in price for a decrease in its yield by 100 bps.</p>
+<p>C．利回りが100bps低下した場合の価格変化よりも大きい。</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">Solution</h3>
-<p>A is correct. The price–yield relationship for most bonds is convex, such that the increase in the price of a bond is greater for yield decreases than a decrease in the price for the same yield increase.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Aが正しい。ほとんどの債券における価格–利回り関係は凸（convex）であり、利回りが低下した場合の価格上昇は、同じ幅の利回り上昇による価格下落よりも大きい。</p>
 </section>
 </div>
 </dd>

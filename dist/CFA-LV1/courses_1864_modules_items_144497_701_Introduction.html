@@ -94,16 +94,16 @@ dd.dp-qc-response.qc-show { display: block !important; }
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA2405-R-s01-R-1" title="7.01 | Introduction">
 <header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading">モジュール7：推定と推論（Estimation and Inference） 7.01｜イントロダクション</h2>
+<h2 class="dp-heading">モジュール7：推定と推論（Estimation and Inference）7.01 | 導入</h2>
 </header>
-<p>本学習モジュールでは、標本（母集団の一部）を通じて母集団（特定の集団のすべての構成員）に関する情報を得るためのさまざまな方法を説明する。通常、我々が求める母集団の情報はパラメータ（parameter）の値に関するものである。パラメータとは、データの母集団を記述するために計算される量、またはその記述に用いられる量である。レッスン1ではサンプリング（sampling）を導入し、標本を用いてパラメータを推定する方法を示す。その際、標本統計量（sample statistics）を用いる。統計量（statistic）とは、データの標本を記述するために計算される量、またはその記述に用いられる量である。</p>
-<p>標本が母集団を代表していると仮定した場合、分析者は母集団パラメータの推定における標本誤差（sampling error）をどのように評価できるだろうか。レッスン2では、中心極限定理（central limit theorem）を用いて、多くの推定問題における標本平均の標本分布（sampling distribution）を理解する。このことにより、標本平均が母集団平均にどの程度近いと期待されるかの指針が得られ、分析者は標本分布を用いて標本の精度を評価し、母集団パラメータに関する仮説検定を行うことができる。レッスン3では、さまざまなリサンプリング手法（resampling approaches）を扱う。</p>
+<p>本ラーニングモジュールでは、標本（sample：母集団の一部）を通じて母集団（population：特定のグループの全構成員）に関する情報を得るためのさまざまな方法を紹介する。私たちが求める母集団に関する情報は通常、母数（parameter：データの母集団から計算される、または母集団を記述するために用いられる量）の値に関するものである。レッスン1では標本抽出（sampling）を導入し、標本を用いて母数を推定する方法を扱う。その際、標本統計量（sample statistics）を利用する。統計量（statistic）とは、標本データから計算される、または標本データを記述するために用いられる量である。</p>
+<p>標本が基礎となる母集団を代表していると仮定した場合、分析者は母集団母数の推定における標本誤差（sampling error）をどのように評価できるだろうか。レッスン2では、中心極限定理（Central Limit Theorem）が、多くの推定問題において標本平均の標本分布（sampling distribution）を理解する助けとなる。このことにより、標本平均がどの程度母集団平均に一致すると期待できるかについての指針が得られ、分析者は標本分布を用いて標本の精度を評価し、母数に関する仮説検定（hypothesis testing）を行うことができる。レッスン3ではさまざまな再標本化（resampling）手法を扱う。</p>
 <div class="dp-content-block cfa-curriculum-overview-box" id="CFA2405-R-s01-B-1-a">
-<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュールの概要</h3>
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">ラーニングモジュール概要</h3>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2405-R-s01-L1">
-<li class="cfa-curriculum-list-item">サンプリング手法には2種類あり、確率抽出（probability sampling）には単純無作為抽出（simple random sampling）と層化抽出（stratified random sampling）が含まれ、非確率抽出（non-probability sampling）には便宜抽出（convenience sampling）と判断抽出（judgmental sampling）が含まれる。確率抽出では各要素が選ばれる確率が等しいのに対し、非確率抽出では母集団を代表しないリスクが高い。</li>
-<li class="cfa-curriculum-list-item">標本誤差（sampling error）とは、母集団の一部を用いることによって、統計量の観測値とそれが推定しようとする母集団の値との間に生じる差である。</li>
-<li class="cfa-curriculum-list-item">非確率抽出法（non-probability sampling）は、固定された抽出手順ではなく、研究者の標本選択能力に依存する。その利点としては、迅速かつ低コストでデータ収集が可能であり、専門的判断を用いて効率的な標本選択ができる点が挙げられる。</li>
+<li class="cfa-curriculum-list-item">標本抽出法には2つのタイプがあり、確率標本抽出（probability sampling）には単純無作為抽出（simple random sampling）や層化無作為抽出（stratified random sampling）が含まれ、非確率標本抽出（non-probability sampling）には便宜抽出（convenience sampling）や判断抽出（judgmental sampling）が含まれる。確率標本抽出は各標本が等しい確率で選ばれるのに対し、非確率標本抽出は代表性を欠くリスクが大きい。</li>
+<li class="cfa-curriculum-list-item">標本誤差（sampling error）とは、母集団の一部を用いることによって、統計量の観測値とそれが推定しようとする量との間に生じる差である。</li>
+<li class="cfa-curriculum-list-item">非確率標本抽出（non-probability sampling）は、固定された選択プロセスではなく、研究者の標本選択能力に依存する手法である。その利点として、迅速かつ低コストでデータ収集が可能であり、専門的判断（expert judgment）を活用して効率的に標本を選択できる点が挙げられる。</li>
 <li class="cfa-curriculum-list-item">
 <p>The Central Limit Theorem is defined as follows: Given a population described by any probability distribution with mean µ and finite variance σ<sup>2</sup>, the sampling distribution of the sample mean <strong>
 <em>
@@ -121,7 +121,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </strong> computed from random samples of size n from this population will be approximately normal with mean µ (the population mean) and variance σ<sup>2</sup>/n (the population variance divided by n) when the sample size n is large.</p>
 </li>
 <li class="cfa-curriculum-list-item">
-<p>標本平均の標準誤差（standard error）は、中心極限定理を実務で適用する上で重要な量である。通常、次のように標本分散の平方根として推定される：</p>
+<p>標本平均の標準誤差（standard error）は、中心極限定理（Central Limit Theorem）を実務で適用する際の重要な量である。通常、以下のように計算される標本分散（sample variance）の平方根を用いて推定される。</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2405-R-s01-E-1-">
 <math>
 <semantics>
@@ -204,13 +204,13 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </em>
 </strong> will be equal to the mean of the population from which samples are drawn.</p>
 </li>
-<li class="cfa-curriculum-list-item">ブートストラップ（bootstrap）は、元の標本と同じサイズの標本を繰り返し抽出する代表的なリサンプリング手法であり、z統計量（z-statistic）やt統計量（t-statistic）のような解析的手法を用いずに、コンピュータ・シミュレーションによって統計的推論を行う。標本平均の標準誤差のような複雑な推定量に対して、簡便かつ強力な方法として利用できる。</li>
-<li class="cfa-curriculum-list-item">ブートストラップは精度の面で潜在的な利点を持つ。これらの利点により、資産配分におけるヒストリカル・シミュレーション（historical simulation）や、投資戦略のパフォーマンスをベンチマークと比較評価する際など、金融分野で広く利用されている。</li>
-<li class="cfa-curriculum-list-item">ジャックナイフ（jackknife）は別のリサンプリング手法であり、元の標本から1つずつ観測値を除外して標本を作成する（復元は行わない）。ジャックナイフは推定量のバイアスを低減するために用いられることが多く、その他にも標準誤差や信頼区間の推定に利用される。</li>
+<li class="cfa-curriculum-list-item">ブートストラップ（Bootstrap）は、元の標本と同じサイズの標本を繰り返し抽出する一般的な再標本化（resampling）手法であり、z統計量（z-statistic）やt統計量（t-statistic）のような解析的な公式を用いることなく、コンピュータシミュレーションによって統計的推論を行う。標本平均の標準誤差のような複雑な推定量に対しても、単純でありながら強力な手法として利用できる。</li>
+<li class="cfa-curriculum-list-item">ブートストラップ（Bootstrap）は精度の面で潜在的な利点を持つ。これらの利点により、資産配分（asset allocation）におけるヒストリカルシミュレーション（historical simulations）や、投資戦略のパフォーマンスをベンチマーク（benchmark）と比較評価する際など、金融分野で広く応用されている。</li>
+<li class="cfa-curriculum-list-item">ジャックナイフ（Jackknife）は別の再標本化（resampling）手法であり、元の観測データ標本から1つずつ観測値を除外して（置換せずに）標本を作成する。ジャックナイフは推定量のバイアス（bias）を低減するためによく用いられ、その他の用途としては推定量の標準誤差（standard error）や信頼区間（confidence interval）の算出がある。</li>
 </ul>
 </div>
 <div class="dp-popover-content dp-popup-content cfa-curriculum-popup-glossary" id="ParameterContent">
-<p>データの母集団を記述するために計算される記述的指標であり、慣例的にギリシャ文字で表される。</p>
+<p>母集団データを記述するために計算される、または用いられる記述的指標であり、慣例的にギリシャ文字で表される。</p>
 </div>
 </div>
   </div>

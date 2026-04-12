@@ -94,73 +94,61 @@ dd.dp-qc-response.qc-show { display: block !important; }
   <div class="show-content user_content clearfix enhanced">
 <div class="dp-wrapper dp-flat-sections variation-2" id="CFA2442-R-s01-R-1" title="12.01 | Introduction">
 <header class="dp-header dp-flat-sections variation-2">
-<h2 class="dp-heading"><span class="dp-header-pre">Module 12: Yield-Based Bond Convexity and Portfolio Properties</span>12.01 | Introduction</h2>
+<h2 class="dp-heading">モジュール12：利回りベースの債券コンベクシティ（Yield-Based Bond Convexity）とポートフォリオ特性 12.01 | 導入（Introduction）</h2>
 </header>
-<p>While duration is a linear approximation of the sensitivity of a bond’s price to changes in yield, the true relationship between a bond’s price and its yield-to-maturity is a curved (convex) line. We introduce convexity as a complementary risk measure to improve bond price change estimates based on modified duration alone to account for this non-linear relationship. The convexity adjustment becomes more important when considering larger moves in yield-to-maturity and longer-maturity bonds. These lessons will also show how to estimate duration and convexity for a portfolio of bonds, as well as highlight limitations due to underlying assumptions.</p>
+<p>デュレーション（duration）は債券価格の利回り変化に対する感応度を線形近似したものであるが、実際の債券価格と最終利回り（yield-to-maturity）との関係は曲線（コンベクス、convex）である。この非線形関係を考慮するために、修正デュレーション（modified duration）のみに基づく価格変化推定を改善する補完的なリスク指標としてコンベクシティ（convexity）を導入する。コンベクシティ調整は、利回り変化が大きい場合や満期が長い債券において、より重要となる。また、本章では債券ポートフォリオのデュレーションおよびコンベクシティの推定方法と、その前提に基づく制約についても説明する。</p>
 <p>Most of the examples and exhibits used throughout the reading can be <a class="instructure_file_link instructure_scribd_file inline_disabled" data-api-endpoint="https://learn.cfainstitute.org/api/v1/courses/1802/files/382203" data-api-returntype="File" data-canvas-previewable="true" href="https://learn.cfainstitute.org/courses/1802/files/382203?wrap=1" id="382205" target="_blank" title="Interactive Spreadsheet Download">downloaded as a Microsoft Excel workbook</a>. Each worksheet in the workbook is labeled with the corresponding example or exhibit number in the text.</p>
 <div class="dp-content-block cfa-curriculum-overview-box" id="CFA2442-R-s01-Ba">
-<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-list-alt" style="background: inherit !important;"> </i> Learning Module Overview</h3>
+<h3 class="dp-has-icon cfa-curriculum-overview-box cfa-curriculum-box-title">学習モジュール概要（Learning Module Overview）</h3>
 <ul class="dp-more-space cfa-curriculum-list-bullet" id="CFA2442-R-s01-L1">
-<li class="cfa-curriculum-list-item">
-<p>Convexity is a complementary risk metric that measures the second-order (non-linear) effect of yield changes on price for an option-free fixed-rate bond. The convexity adjustment adds to the linear price estimate provided by modified duration.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Convexity is always positive for an option-free fixed-rate bond, such that estimated price increases from a decline in yields are higher than duration alone would suggest and estimated price decreases from an increase in yields are lower than duration alone would suggest. Therefore, convexity is valuable to investors.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Convexity has the same relationship with bond features as duration: a fixed-rate bond will have greater convexity the longer its time-to-maturity, the lower its coupon rate, and the lower its yield-to-maturity.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Money convexity expresses convexity in terms of currency units or percent of par for a position in a bond because it is the product of a bond’s annual convexity and its full price.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>Portfolio duration and convexity can be calculated (1) as the weighted average of time to receipt of the aggregate cash flows or (2) by using the weighted averages of the durations and convexities of the individual bonds that make up the portfolio.</p>
-</li>
-<li class="cfa-curriculum-list-item">
-<p>While the first method is theoretically correct, it is difficult to use in practice. The second method is commonly used by portfolio managers but implicitly assumes parallel shifts in the yield curve, which are rare.</p>
-</li>
+<li class="cfa-curriculum-list-item">コンベクシティ（convexity）は、オプションなし固定利付債（option-free fixed-rate bond）における利回り変化の価格への二次（非線形）効果を測定する補完的なリスク指標である。コンベクシティ調整は、修正デュレーションが与える線形的な価格推定に加算される。</li>
+<li class="cfa-curriculum-list-item">オプションなし固定利付債において、コンベクシティ（convexity）は常に正である。このため、利回り低下時の価格上昇はデュレーションのみで示されるよりも大きく、利回り上昇時の価格下落はデュレーションのみで示されるよりも小さくなる。したがって、コンベクシティは投資家にとって有用である。</li>
+<li class="cfa-curriculum-list-item">コンベクシティ（convexity）はデュレーションと同様の関係を債券特性と持つ。すなわち、固定利付債は満期までの期間（time-to-maturity）が長いほど、クーポンレートが低いほど、そして最終利回り（yield-to-maturity）が低いほど、コンベクシティは大きくなる。</li>
+<li class="cfa-curriculum-list-item">マネー・コンベクシティ（money convexity）は、債券の年率コンベクシティとフルプライス（full price）との積であるため、ポジションに対して通貨単位または額面比率でコンベクシティを表す。</li>
+<li class="cfa-curriculum-list-item">ポートフォリオのデュレーションおよびコンベクシティは、(1) 集約されたキャッシュフローの受取までの時間の加重平均として、または (2) ポートフォリオを構成する個々の債券のデュレーションおよびコンベクシティの加重平均として、計算することができる。</li>
+<li class="cfa-curriculum-list-item">第1の方法は理論的には正しいが、実務上は使用が困難である。第2の方法はポートフォリオ・マネージャーによって一般的に用いられるが、イールドカーブの平行シフト（parallel shifts）を暗黙に仮定しており、これは実際には稀である。</li>
 </ul>
 </div>
 <div class="dp-content-block cfa-curriculum-exercise-box" id="CFA2442-R-s01-Bb">
-<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title"><i aria-hidden="true" class="fas fa-pencil-alt cp-out-default" style="background: inherit !important;"> </i> Learning Module Self-Assessment</h3>
-<p>These initial questions are intended to help you gauge your current level of understanding of the learning module.</p>
+<h3 class="dp-has-icon cfa-curriculum-exercise-box cfa-curriculum-box-title">学習モジュール自己評価（Learning Module Self-Assessment）</h3>
+<p>これらの初期問題は、本学習モジュールに対する現在の理解度を測るためのものである。</p>
 <div class="dp-content-block">
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2442-R-s01-Q1"><span class="cfa-curriculum-question-with-label">1. </span>
-<p>The annualized convexity of a four-year, 2.8% (semiannual) coupon bond priced at par at issuance on 1 August 2035 and maturing on 1 August 2039 is <em>closest</em> to:</p>
+<p>2035年8月1日に発行され額面で価格付けされ、2039年8月1日に満期を迎える4年満期・クーポン2.8%（半年複利）の債券の年率コンベクシティ（annualized convexity）として最も近いものはどれか。</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">A. </span>7.624.</p>
+<p>A. 7.624</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答：</h3>
-<p>B is correct.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Bが正しい。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2442-R-s01-Ta">
 <h5 class="cfa-curriculum-unknownType-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i> <span style="display: block;">Four-Year, 2.8% Semiannual Bond at Issuance</span></h5>
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Fixed Coupon (%)</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">固定クーポン（%）（Fixed Coupon (%)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2.80</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Periods p.a.</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">年間期間数（Periods p.a.）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">価格(Price, per 100 額面価値(Par Value))</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">価格（額面100あたり）（Price (per 100 Par Value)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">100</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;">利回り(Yield-to-Maturity, %)</td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">最終利回り（%）（Yield-to-Maturity (%)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2.8000</td>
 </tr>
 </tbody>
@@ -178,17 +166,17 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(3)</strong></th>
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(4)</strong></th>
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(5)</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;">(6) = (2) × (5)</th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;">(7) = 列(Column)2 × (列2 + 1) × 列5 × (1 + YTM/2) – 2</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">（6）=（2）×（5）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">（7）= 列2 ×（列2 + 1）× 列5 ×（1 + YTM/2）–2</th>
 </tr>
 <tr>
-<th style="text-align: left; vertical-align: bottom; padding: 8px;">期間(Period)</th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;">受領までの時間(Time to Receipt)</th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;">キャッシュフロー(Cash Flow)</th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;">現在価値(Present Value)</th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;">重み(Weight)</th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;">受領までの時間 × 重み(Time to Receipt × Weight)</th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;">キャッシュフローの凸性(Convexity of Cash Flows)</th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">期間（Period）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">受取までの時間（Time to Receipt）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">キャッシュフロー（Cash Flow）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">現在価値（Present Value）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ウェイト（Weight）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">受取までの時間 × ウェイト（Time to Receipt × Weight）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">キャッシュフローのコンベクシティ（Convexity of Cash Flows）</th>
 </tr>
 </thead>
 <tbody>
@@ -268,53 +256,53 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100.0000</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>1.00000</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>7.62391</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>65.65133</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.0000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.00000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7.62391</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">65.65133</td>
 </tr>
 <tr>
-<td colspan="5" style="text-align: left; vertical-align: top; padding: 8px;"><strong>Annualized Macaulay Duration and Convexity</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>3.81195</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>16.41283</strong></td>
+<td colspan="5" style="text-align: left; vertical-align: top; padding: 8px;">年率換算マコーレー・デュレーションおよびコンベクシティ（Annualized Macaulay Duration and Convexity）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.81195</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">16.41283</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Annualized convexity is 16.41283 and results from the sum of Column 7 (65.65133) divided by the square of the periods per year (two periods per year: 2<sup>2</sup> = 4).</p>
+<p>年率コンベクシティ（annualized convexity）は16.41283であり、これは列7の合計（65.65133）を年間期間数の二乗（年2期の場合：2² = 4）で割ることによって得られる。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">B. </span>16.413.</p>
+<p>B. 16.413</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">解答：</h3>
-<p>B is correct.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Bが正しい。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2442-R-s01-Ta">
 <h5 class="cfa-curriculum-unknownType-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i> <span style="display: block;">Four-Year, 2.8% Semiannual Bond at Issuance</span></h5>
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Fixed Coupon (%)</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">固定クーポン（%）（Fixed Coupon (%)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2.80</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Periods p.a.</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">年間期間数（Periods p.a.）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Price (per 100 Par Value)</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">価格（額面100あたり）（Price (per 100 Par Value)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">100</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Yield-to-Maturity (%)</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">最終利回り（%）（Yield-to-Maturity (%)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2.8000</td>
 </tr>
 </tbody>
@@ -332,17 +320,17 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(3)</strong></th>
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(4)</strong></th>
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(5)</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(6) = (2) × (5)</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(7) = Col. 2 × (Col. 2 + 1) × Col. 5 × (1 + YTM/2)<sup>–2</sup> </strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">（6）=（2）×（5）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">（7）= 列2 ×（列2 + 1）× 列5 ×（1 + YTM/2）–2</th>
 </tr>
 <tr>
-<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Period</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Present Value</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Weight</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt × Weight</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Convexity of Cash Flows</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">期間（Period）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">受取までの時間（Time to Receipt）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">キャッシュフロー（Cash Flow）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">現在価値（Present Value）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ウェイト（Weight）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">受取までの時間 × ウェイト（Time to Receipt × Weight）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">キャッシュフローのコンベクシティ（Convexity of Cash Flows）</th>
 </tr>
 </thead>
 <tbody>
@@ -422,53 +410,53 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
 <td style="text-align: left; vertical-align: top; padding: 8px;"></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>100.0000</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>1.00000</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>7.62391</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>65.65133</strong></td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">100.0000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">1.00000</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">7.62391</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">65.65133</td>
 </tr>
 <tr>
-<td colspan="5" style="text-align: left; vertical-align: top; padding: 8px;"><strong>Annualized Macaulay Duration and Convexity</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>3.81195</strong></td>
-<td style="text-align: center; vertical-align: top; padding: 8px;"><strong>16.41283</strong></td>
+<td colspan="5" style="text-align: left; vertical-align: top; padding: 8px;">年率換算マコーレー・デュレーションおよびコンベクシティ（Annualized Macaulay Duration and Convexity）</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">3.81195</td>
+<td style="text-align: center; vertical-align: top; padding: 8px;">16.41283</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Annualized convexity is 16.41283 and results from the sum of Column 7 (65.65133) divided by the square of the periods per year (two periods per year: 2<sup>2</sup> = 4).</p>
+<p>年率コンベクシティ（annualized convexity）は16.41283であり、これは列7の合計（65.65133）を年間期間数の二乗（年2期の場合：2² = 4）で割ることによって得られる。</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p><span class="cfa-curriculum-option-label">C. </span>65.651.</p>
+<p>C. 65.651</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答：</h3>
-<p>B is correct.</p>
+<h3 class="cfa-curriculum-solution">解答</h3>
+<p>Bが正しい。</p>
 <div class="cfa-curriculum-table-wrap" id="CFA2442-R-s01-Ta">
 <h5 class="cfa-curriculum-unknownType-title"><i aria-hidden="true" class="fas fa-image" style="background: inherit !important;"> </i> <span style="display: block;">Four-Year, 2.8% Semiannual Bond at Issuance</span></h5>
 <div class="cfa-curriculum-table-container">
 <table class="table-bordered" data-active-table="true">
 <tbody>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Fixed Coupon (%)</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">固定クーポン（%）（Fixed Coupon (%)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2.80</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Periods p.a.</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">年間期間数（Periods p.a.）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Price (per 100 Par Value)</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">価格（額面100あたり）（Price (per 100 Par Value)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">100</td>
 </tr>
 <tr>
-<td style="text-align: left; vertical-align: top; padding: 8px;"><strong>Yield-to-Maturity (%)</strong></td>
+<td style="text-align: left; vertical-align: top; padding: 8px;">最終利回り（%）（Yield-to-Maturity (%)）</td>
 <td style="text-align: right; vertical-align: top; padding: 8px;">2.8000</td>
 </tr>
 </tbody>
@@ -486,17 +474,17 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(3)</strong></th>
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(4)</strong></th>
 <th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(5)</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(6) = (2) × (5)</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>(7) = Col. 2 × (Col. 2 + 1) × Col. 5 × (1 + YTM/2)<sup>–2</sup> </strong></th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">（6）=（2）×（5）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">（7）= 列2 ×（列2 + 1）× 列5 ×（1 + YTM/2）–2</th>
 </tr>
 <tr>
-<th style="text-align: left; vertical-align: bottom; padding: 8px;"><strong>Period</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Cash Flow</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Present Value</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Weight</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Time to Receipt × Weight</strong></th>
-<th style="text-align: center; vertical-align: bottom; padding: 8px;"><strong>Convexity of Cash Flows</strong></th>
+<th style="text-align: left; vertical-align: bottom; padding: 8px;">期間（Period）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">受取までの時間（Time to Receipt）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">キャッシュフロー（Cash Flow）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">現在価値（Present Value）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">ウェイト（Weight）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">受取までの時間 × ウェイト（Time to Receipt × Weight）</th>
+<th style="text-align: center; vertical-align: bottom; padding: 8px;">キャッシュフローのコンベクシティ（Convexity of Cash Flows）</th>
 </tr>
 </thead>
 <tbody>
@@ -614,7 +602,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答：</h3>
+<h3 class="cfa-curriculum-solution">Solution</h3>
 <p>C is correct. The convexity adjustment is added to the price change estimate provided by modified duration for a given change in yield-to-maturity:</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s01-E"><math>
 <semantics>
@@ -706,7 +694,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
-<h3 class="cfa-curriculum-solution">解答：</h3>
+<h3 class="cfa-curriculum-solution">Solution</h3>
 <p>C is correct. The convexity adjustment is added to the price change estimate provided by modified duration for a given change in yield-to-maturity:</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s01-E"><math>
 <semantics>
@@ -798,7 +786,7 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
-<h3 class="cfa-curriculum-solution">解答：</h3>
+<h3 class="cfa-curriculum-solution">Solution</h3>
 <p>C is correct. The convexity adjustment is added to the price change estimate provided by modified duration for a given change in yield-to-maturity:</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s01-E"><math>
 <semantics>
@@ -1843,14 +1831,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>A. 3.018%</p>
+<p><span class="cfa-curriculum-option-label">A. </span>3.018%.</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
 <h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Aが正しい。債券A(Bond A)と債券B(Bond B)のウェイトはそれぞれ40%および60%である。その結果、ポートフォリオの加重平均デュレーション(weighted-average duration)および凸性(convexity)の指標はそれぞれ6.169および52.921となる。利回り到達(yield-to-maturity, YTM)が50ベーシスポイント(bps)上昇した場合のポートフォリオの予想価格変化率(%)は以下のように計算される。</p>
+<p>A is correct. The weights of Bond A and Bond B are 40% and 60%, respectively. As a result, the portfolio weighted-average duration and convexity measures are 6.169 and 52.921, respectively. The expected portfolio percentage price change given a 50 bp increase in YTM is calculated as follows:</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s01-E___10"><math>
 <semantics>
 <mrow>
@@ -1990,14 +1978,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>B. 3.085%</p>
+<p><span class="cfa-curriculum-option-label">B. </span>3.085%.</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
 <h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Aが正しい。債券Aと債券Bのウェイトはそれぞれ40%および60%である。その結果、ポートフォリオの加重平均デュレーションおよび凸性の指標はそれぞれ6.169および52.921となる。利回り到達が50ベーシスポイント上昇した場合のポートフォリオの予想価格変化率は以下の通り。</p>
+<p>A is correct. The weights of Bond A and Bond B are 40% and 60%, respectively. As a result, the portfolio weighted-average duration and convexity measures are 6.169 and 52.921, respectively. The expected portfolio percentage price change given a 50 bp increase in YTM is calculated as follows:</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s01-E___10"><math>
 <semantics>
 <mrow>
@@ -2137,14 +2125,14 @@ dd.dp-qc-response.qc-show { display: block !important; }
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>C. 3.151%</p>
+<p><span class="cfa-curriculum-option-label">C. </span>3.151%.</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
 <h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Aが正しい。債券Aと債券Bのウェイトはそれぞれ40%および60%である。その結果、ポートフォリオの加重平均デュレーションおよび凸性の指標はそれぞれ6.169および52.921となる。利回り到達が50ベーシスポイント上昇した場合のポートフォリオの予想価格変化率は以下の通り。</p>
+<p>A is correct. The weights of Bond A and Bond B are 40% and 60%, respectively. As a result, the portfolio weighted-average duration and convexity measures are 6.169 and 52.921, respectively. The expected portfolio percentage price change given a 50 bp increase in YTM is calculated as follows:</p>
 <div class="cfa-curriculum-display-formula-container" id="CFA2442-R-s01-E___10"><math>
 <semantics>
 <mrow>
@@ -2290,46 +2278,46 @@ dd.dp-qc-response.qc-show { display: block !important; }
 <div class="dp-qc">
 <div class="dp-qc-question">
 <div class="dp-qc-question cfa-curriculum-question-with-label" id="CFA2442-R-s01-Q6"><span class="cfa-curriculum-question-with-label">6. </span>
-<p>債券ポートフォリオの金利リスクを推定するために、加重平均デュレーションおよび凸性の指標を用いること：</p>
+<p>Using weighted-average duration and convexity measures to estimate bond portfolio interest rate risk:</p>
 </div>
 </div>
 <dl class="dp-qc-answers">
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>A. 実務上は難しい</p>
+<p><span class="cfa-curriculum-option-label">A. </span>is difficult in practice.</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
 <h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Cが正しい。債券ポートフォリオの金利リスクを推定するために加重平均デュレーションおよび凸性の指標を用いることは、実務上は容易であるが、理論的に正しい方法ではない（総キャッシュフローの受取時点までの加重平均時間(weighted average of time to receipt of the aggregate cash flows)を用いることが理論的に正しい方法である）。しかしながら、この方法は暗黙のうちに利回り曲線(yield curve)の平行シフト(parallel shift)を仮定している。</p>
+<p>C is correct. Using the weighted-average duration and convexity measures to estimate bond portfolio interest rate risk is easy in practice, but it is not the theoretically correct approach (using the weighted average of time to receipt of the aggregate cash flows is theoretically correct). It does, however, implicitly assume a parallel shift in the yield curve.</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer" onclick="">
 <div class="dp-qc-content">
-<p>B. 理論的に正しい方法である</p>
+<p><span class="cfa-curriculum-option-label">B. </span>is the theoretically correct approach.</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-times"> </i> </span>
 <div class="dp-qc-content">
 <section>
 <h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Cが正しい。加重平均デュレーションおよび凸性の指標を用いて債券ポートフォリオの金利リスクを推定することは実務上容易であるが、理論的に正しい方法ではない（総キャッシュフロー受取時点の加重平均時間を用いることが理論的に正しい方法である）。ただし、この方法は暗黙のうちに利回り曲線の平行シフトを仮定している。</p>
+<p>C is correct. Using the weighted-average duration and convexity measures to estimate bond portfolio interest rate risk is easy in practice, but it is not the theoretically correct approach (using the weighted average of time to receipt of the aggregate cash flows is theoretically correct). It does, however, implicitly assume a parallel shift in the yield curve.</p>
 </section>
 </div>
 </dd>
 <dt class="dp-qc-answer dp-qc-correct" onclick="">
 <div class="dp-qc-content">
-<p>C. 利回り曲線の平行シフトを仮定している</p>
+<p><span class="cfa-curriculum-option-label">C. </span>assumes a parallel shift in the yield curve.</p>
 </div>
 </dt>
 <dd class="dp-qc-response d-none dp-qc-correct"><span class="dp-qc-answer-type"> <i class="fas fa-fw fa-check"> </i> </span>
 <div class="dp-qc-content dp-qc-correct-flag">
 <section>
 <h3 class="cfa-curriculum-solution">Solution</h3>
-<p>Cが正しい。加重平均デュレーションおよび凸性の指標を用いて債券ポートフォリオの金利リスクを推定することは実務上容易であるが、理論的に正しい方法ではない（総キャッシュフロー受取時点の加重平均時間を用いることが理論的に正しい方法である）。ただし、この方法は暗黙のうちに利回り曲線の平行シフトを仮定している。</p>
+<p>C is correct. Using the weighted-average duration and convexity measures to estimate bond portfolio interest rate risk is easy in practice, but it is not the theoretically correct approach (using the weighted average of time to receipt of the aggregate cash flows is theoretically correct). It does, however, implicitly assume a parallel shift in the yield curve.</p>
 </section>
 </div>
 </dd>
