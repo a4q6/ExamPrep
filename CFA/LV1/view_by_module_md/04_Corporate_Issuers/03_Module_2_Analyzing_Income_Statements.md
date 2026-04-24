@@ -1,0 +1,1620 @@
+# Corporate Issuers — Module 2: Analyzing Income Statements
+
+## 目次 (Table of Contents)
+
+1.  [2.01 \| Introduction](#lesson-0)
+2.  [2.02 \| Revenue Recognition](#lesson-1)
+3.  [2.03 \| Expense Recognition](#lesson-2)
+4.  [2.04 \| Non-Recurring Items](#lesson-3)
+5.  [2.05 \| Earnings per Share](#lesson-4)
+6.  [2.06 \| Income Statement Ratios and Common-Size Analysis](#lesson-5)
+7.  [Glossary: Analyzing Income Statements](#lesson-6)
+8.  [Flashcards: Analyzing Income Statements](#lesson-7)
+9.  [Real World Applications: Bloomberg's Financial Analysis - Income Statement Chart](#lesson-8)
+10. [Learning Outcomes: Analyzing Income Statements](#lesson-9)
+
+------------------------------------------------------------------------
+
+### 2.01 \| Introduction
+
+## モジュール2：損益計算書の分析（Analyzing Income Statements）　2.01｜導入（Introduction）
+
+損益計算書（income statements）およびそこから導出される分析指標（例：売上成長率（sales growth）、営業利益率（operating margin）、1株当たり利益（earnings per share, EPS））は、株式分析および信用分析において極めて重要である。投資家は企業の成長性、収益性、およびリスクを評価するために損益計算書を分析し、またバリュエーションにおいて損益計算書の数値を頻繁に利用する。企業の財務発表では、他の財務諸表よりも特に利益（earnings）など損益計算書の情報が強調されることが多い。
+
+### 学習モジュールの概要（Learning Module Overview）
+
+- 収益（revenue）は、稼得された期間に認識されるものであり、関連する現金回収と同一期間であるとは限らない。
+- アナリストは、企業間の収益認識方法（revenue recognition methods）の違いを特定し、可能であれば報告された収益を調整して比較可能性（comparability）を高めるべきである。利用可能な情報では調整が不可能な場合には、収益認識がより保守的（conservative）か否かを評価し、方針の違いが財務比率や収益性の判断に与える影響を定性的に評価することができる。
+- 2018年初頭以降、収益認識基準は米国会計基準（US GAAP）と国際財務報告基準（International Financial Reporting Standards, IFRS）の間で収斂している。収斂された基準の中核原則は、「企業が顧客に約束した財またはサービスの移転を、当該財またはサービスと引き換えに企業が受け取ると見込まれる対価を反映した金額で描写するように収益を認識する」ことである。
+- この中核原則を達成するために、基準では収益認識における5つのステップの適用が示されている。また、関連する契約コスト（contract costs）の処理および開示要件（disclosure requirements）についても規定している。
+- 費用認識（expense recognition）の一般原則には、費用を収益に対応させる（例：売上原価（cost of goods sold））、支出が発生した期間に対応させる（例：管理費（administrative costs））、または支出の便益が期待される期間に対応させる（例：減価償却（depreciation）および償却（amortization））プロセスが含まれる。
+- 費用認識においては、方法の選択（例：減価償却方法（depreciation method）、棚卸資産評価方法（inventory cost method））および見積り（例：貸倒引当金（uncollectible accounts）、保証費用（warranty expenses）、資産の耐用年数（useful life）、残存価値（salvage value））が企業の報告利益に影響を与える。アナリストは企業間の費用認識方法の違いを特定し、可能であれば財務諸表を調整して比較可能性を高めるべきである。調整が不可能な場合には、方針や見積りの保守性を評価し、それが財務比率や企業業績の判断に与える影響を定性的に評価することができる。
+- 企業の将来利益を評価するためには、過去の収益および費用のうち将来も継続する可能性が高い項目と、継続する可能性が低い項目を区別することが有用である。
+- IFRSでは、企業の財務パフォーマンスの理解に関連性がある場合、規定された項目に加えて追加の行項目、見出し、小計を表示すべきとされている。過去の項目の中には将来継続しないことが明らかなものがあり、これらは損益計算書上で別途開示される。US GAAPでは、重要性があり異常または非頻発的な項目（unusual or infrequently occurring items）は継続事業からの利益（income from continuing operations）の中で別途表示される。
+- 非営業項目（non-operating items）は、損益計算書において営業項目とは別に報告される。IFRSおよびUS GAAPのいずれにおいても、事業の一部の処分の影響は「非継続事業（discontinued operations）」として税引後で別途表示される。
+- 基本的1株当たり利益（basic EPS）は、普通株主に帰属する利益を、一定期間における加重平均発行済普通株式数で割ったものである。普通株主に帰属する利益は、優先配当（preferred dividends）支払後の純利益である。
+- 企業の資本構成が単純（すなわち潜在的な希薄化証券が存在しない）である場合、基本的EPSと希薄化後EPS（diluted EPS）は等しい。一方、希薄化証券が存在する場合、希薄化後EPSは基本的EPS以下となる。
+- 希薄化後EPSは、転換証券に対してはif-converted法（if-converted method）、オプションに対しては自己株式法（treasury stock method）を用いて計算される。
+- コモンサイズ分析（common-size analysis）は、損益計算書の各項目を売上高に対する割合として表示するものである。コモンサイズ財務諸表は、期間間および企業規模の異なる企業間での比較を容易にする。
+
+------------------------------------------------------------------------
+
+### 2.02 \| Revenue Recognition
+
+## モジュール2：損益計算書の分析（Analyzing Income Statements）　2.02｜収益認識（Revenue Recognition）
+
+### Learning Outcome
+
+The candidate should be able to:
+
+- 収益認識の一般原則、具体的な適用、および収益認識の選択が財務分析に与える影響を説明する
+
+------------------------------------------------------------------------
+
+### 一般原則（General Principles）
+
+発生主義会計（accrual accounting）の基本原則は、収益は稼得されたときに認識（損益計算書に計上）されるというものである。したがって、企業の財務記録は、所有権のリスクと便益が移転した時点での販売収益を反映することになる。これは多くの場合、財やサービスが引き渡された時点である。信用取引で引き渡された場合、売掛金（accounts receivable）などの関連資産が計上される。その後、現金が受け取られると、単に売掛金の回収として記録される。同様に、企業が先に現金を受け取り、その後に商品やサービスを提供する場合もある。この場合、企業は現金受領時に未稼得収益（unearned revenue）または繰延収益（deferred revenue）として負債を計上し、商品やサービスの提供に応じて時間をかけて収益を認識する。例えば、クラウド型ソフトウェアの1年分のサブスクリプション料金を前受けするケースが挙げられる。
+
+### 収益認識に関する会計基準（Accounting Standards for Revenue Recognition）
+
+2014年5月にIASB（International Accounting Standards Board）およびFASB（Financial Accounting Standards Board）によって公表された収斂基準は、収益認識の基本原則にいくつかの変更を導入した。両基準の内容はほぼ同一であり、特に断りがない限り両方に適用される。この収斂基準は、さまざまな収益創出活動に適用可能な原則ベース（principles-based）のアプローチを提供することを目的としている。
+
+収斂基準の中核原則は、「企業が顧客に約束した財またはサービスの移転を、当該財またはサービスと引き換えに企業が受け取ると見込まれる対価を反映した金額で描写するように収益を認識する」ことである。この原則を達成するために、次の5つのステップが示されている：
+
+1.  顧客との契約（contract）を識別する
+2.  契約における個別または独立した履行義務（performance obligations）を識別する
+3.  取引価格（transaction price）を決定する
+4.  取引価格を契約内の履行義務に配分する
+5.  履行義務が充足された時点（または充足されるにつれて）収益を認識する
+
+基準によれば、契約とは商業的実質（commercial substance）を有する当事者間の合意および約束であり、支払条件を含む各当事者の権利と義務を定めるものである。また、回収可能性（collectability）が高い場合にのみ契約が存在するとされる。両基準は同じ文言を用いるが、「probable」の閾値は異なる。IFRSでは「より可能性が高い（more likely than not）」ことを意味し、US GAAPでは「発生する可能性が高い（likely）」ことを意味する。このため、経済的に類似した契約でもIFRSとUS GAAPで異なる処理となる可能性がある。
+
+契約における履行義務は、独立した財またはサービスを移転する約束を表す。顧客が単独または容易に利用可能な他の資源と組み合わせて便益を得られる場合、また契約内の他の約束から分離可能である場合、その財またはサービスは独立しているとみなされる。識別された各履行義務は個別に会計処理される。
+
+取引価格は、契約で識別された財またはサービスの移転と引き換えに売手が受け取ると見込む金額である。この取引価格は各履行義務に配分される。収益は履行義務が充足された時点で認識される。第3および第4ステップは金額に関するものであり、第5ステップは認識のタイミングに関するものである。認識される金額は回収可能性の見込みや、複数の履行義務への配分を反映する。
+
+収益は、その後に取り消される可能性が非常に低い場合にのみ認識されるべきである。取り消される可能性が高い場合、売手は販売時に最小限の収益のみを認識し、返金負債（refund liability）および返品権資産（right to returned goods asset）を、在庫の帳簿価額から回収コストを差し引いた額に基づいて貸借対照表に計上する。
+
+企業は、財またはサービスの支配（control）を顧客に移転することで履行義務を充足できる場合に収益を認識する。顧客が支配を取得したかを判断する際には、次の要因を考慮する：
+
+- 企業が現在の支払請求権（present right to payment）を有しているか
+- 顧客が法的所有権（legal title）を有しているか
+- 顧客が物理的占有（physical possession）を有しているか
+- 顧客が所有に伴う重要なリスクおよび便益を有しているか
+- 顧客が財またはサービスを受領（accepted）しているか
+
+単一の成果物を単一時点で提供する単純な契約では、これら5つのステップの適用は容易である。しかし、履行義務が時間にわたって充足される場合、複数期間契約の条件が変更される場合、または複数の財・サービス要素を含む場合などの複雑な契約では、会計処理の選択は明確ではない。基準のステップは、多くの状況に一般化可能な指針を提供することを目的としている。
+
+履行義務が充足され、支払いに関する不確実性がない場合、収益および売掛金が認識される。収益は認識されるが、顧客の支払いが将来の履行に条件付けられている場合、履行義務が満たされるまで貸借対照表には契約資産（contract asset）が計上され、その後売掛金が認識される。財またはサービスの移転前に対価を受領した場合、売手は契約負債（contract liability）を計上する。
+
+アナリストとして、実務におけるビジネスモデルの多様性を反映した複雑な収益認識方針を持つ企業に数多く遭遇することになる。実際の企業を基にしたいくつかの例が例1で示されている。
+
+#### 例1　収益認識収斂基準の適用（Applying the Converged Revenue Recognition Standards）
+
+###### Principal Versus Agent
+
+MegaDigitalは商品を販売し迅速に顧客へ配送するオンラインマーケットプレイスである。一部の取引では、商品が顧客に移転される前にMegaDigitalが商品を支配しており、プリンシパル（principal）として行動する。他の取引では、第三者販売者が支配する商品の移転を仲介するエージェント（agent）として行動する。MegaDigitalがプリンシパルである取引では、収益は商品の移転に対して受け取る総額で計上される。一方、エージェントである取引では、収益は手数料またはコミッションに相当する部分のみが計上される。これはコモンサイズ分析や比率分析に大きな影響を与える可能性がある。エージェント取引では収益は低くなるが利益率は高くなる。
+
+MegaDigitalがある商品をプリンシパルとしてUSD100で販売し、USD70で仕入れたとする。さらに販売費及び一般管理費（selling, general, and administrative costs）がUSD10発生する場合、マージンは次のようになる：
+
+|                            |        |       |
+|:---------------------------|:------:|:-----:|
+| Sales                      | USD100 | 100％ |
+| 売上原価（Cost of Sales）  |   70   | 70％  |
+| 売上総利益（Gross Profit） |   30   | 30％  |
+| SG&A                       |   10   | 10％  |
+| 当期純利益（Net Profit）   |   20   | 20％  |
+
+同一の商品について同じ販売価格でMegaDigitalがエージェント（agent）として行動する場合、MegaDigitalはUSD30のコミッションを受け取り、依然としてUSD10のその他費用を負担する。この場合のマージンは次の通りである：
+
+|                            |       |       |
+|:---------------------------|:-----:|:-----:|
+| Sales                      | USD30 | 100％ |
+| 売上原価（Cost of Sales）  |   0   |  0％  |
+| 売上総利益（Gross Profit） |  30   | 100％ |
+| SG&A                       |  10   | 33％  |
+| 当期純利益（Net Profit）   |  20   | 67％  |
+
+プリンシパル（principal）としての販売とエージェントとしての販売の両方を行う企業（多くのEコマース企業など）については、アナリストは全体のマージンを評価・予測するために、プリンシパル販売とエージェント販売の相対的な割合を評価する必要がある。特にこの販売構成比が変化すると予想される場合には重要である。
+
+###### Franchising/Licensing
+
+Mahjong Pizzaは、世界中でピザ宅配レストランを運営するとともにフランチャイズ展開も行っている。収益認識基準は、企業が顧客との契約から生じる収益を、収益およびキャッシュフローの性質、金額、タイミング、不確実性が経済的要因によってどのように影響されるかを示すカテゴリーに分解して表示することを求めている。この要件を満たすため、企業は連結損益計算書（consolidated statements of income）において収益を分解表示しなければならない。Mahjong Pizzaは次のような区分で収益を表示している：
+
+- 自社運営店舗収益（company-owned stores revenues）
+- フランチャイズ・ロイヤルティおよび手数料（franchise royalties and fees）
+- サプライチェーン収益（supply chain revenues）
+
+自社運営店舗収益は、Mahjongが所有・運営する店舗での食品の小売販売による収益である。
+
+フランチャイズ・ロイヤルティおよび手数料は、Mahjongレストランの運営を許可された第三者フランチャイジーからの手数料で構成される。各フランチャイジーは通常、売上高の5.5％に相当する手数料を支払う必要がある。企業はフランチャイジーの総売上ではなく、このロイヤルティを収益として認識する。新規店舗開設に伴う前払手数料は当初繰延収益（deferred revenue）として認識され、その後通常10年間のフランチャイズ契約期間にわたり定額法（straight-line basis）で収益に振り替えられる。
+
+サプライチェーン収益は主に、フランチャイジーに対する食品、設備、備品の販売から構成される。収益は、出荷条件に基づき関連製品がフランチャイジーに引き渡された時点で認識される。
+
+###### Software as a Service or License
+
+CReaM Software and Servicesは、企業、政府、非営利団体向けに顧客関係管理ソフトウェア（customer relationship management software）およびサービスを提供するテクノロジー企業である。顧客はソフトウェアライセンスを購入して自社システムにインストールすることもできるし、CReaMのクラウドサービスプラットフォームを通じてインターネット経由でソフトウェアを利用する月額サブスクリプション契約を結ぶこともできる。
+
+IFRS第15号（IFRS 15）の下では、企業が顧客にソフトウェアの使用ライセンスを提供し、顧客が自社システムにインストールする場合、収益はライセンス期間にわたって、またはライセンス移転時点で認識される。以下の条件のいずれかが満たされる場合、収益はライセンス期間にわたり認識される：
+
+- ソフトウェア提供者がソフトウェアに重大な影響を与える活動（例：アップグレードや機能強化）を継続的に行う
+- その権利が顧客に対してこれらの活動の正または負の影響をもたらす
+- これらの活動が財またはサービスの移転を伴わない
+
+これらの条件が満たされない場合、収益はライセンスが顧客に移転された時点で認識される。CReaMの年次報告書の注記には次のように記載されている：
+
+ソフトウェア収益には、顧客が提供時点のソフトウェアを使用する権利を得る期間ライセンスおよび永久ライセンスに関連する収益が含まれる。これらのライセンスからの収益は通常、ソフトウェアが顧客に提供された時点で認識される。ソフトウェアのサポートおよびアップデートからの収益は、サポートおよびアップデートが提供されるにつれて、通常契約期間にわたり均等に認識される。
+
+CReaMのライセンス条件では、ソフトウェアは「現状有姿（as is）」で販売され、収益はライセンス移転時点で認識される。ただし、アップデートのためのサポート契約も提供しており、この収益は契約期間にわたり認識される。
+
+CReaMのクラウド顧客は、継続的に更新されるソフトウェアにアクセスすることができる。CReaMは次のように報告している：
+
+クラウドサービスにより、顧客はソフトウェアの所有権を取得することなく当社のソフトウェアを利用できる。収益は通常契約期間にわたり認識される。当社のサブスクリプションサービス契約のほとんどは解約不可であり、返金条項を含まない。
+
+CReaMの場合、アナリストは、前払いで収益が認識されるライセンス型ソフトウェアと、時間にわたって収益が認識されるサービス型ソフトウェア（software as a service）との収益構成を理解する必要がある。
+
+###### Long-Term Contracts
+
+Armored Vehicles Inc.（AVI）は、軍向けの兵器システムおよび車両を製造している。同社は通常、数年にわたる長期契約を締結する。これらの契約における履行義務は時間の経過に伴って充足される。IFRS第15号（IFRS 15）では、以下のいずれかの条件を満たす場合、履行義務は時間の経過とともに充足されるとされる：
+
+- 企業の履行に伴い、顧客が同時に便益を受け取り消費する場合（例：定常的なサービス契約）
+- 企業の履行が、顧客が支配する資産を創出または増強する場合（例：顧客が所有・支配する工場の改修や政府機関向けの道路建設）
+- 企業の履行が企業にとって代替的用途を持たない資産を生み出し、かつ当該時点までの履行に対する支払いを受ける強制可能な権利（enforceable right to payment）を有する場合（例：他の顧客に販売できないような特注の大型資産、例えば兵器システムの製造）
+
+AVIは、顧客への支配の継続的な移転に基づき、製品の製造やサービス提供の進捗に応じて契約期間にわたり長期契約収益を認識する。同社の軍事契約では、顧客が契約を一方的に解除できる条項、発生費用に合理的な利益を加えた金額の支払い義務、および仕掛品の支配権を取得できる条項により、この支配移転が裏付けられている。
+
+IFRS第15号の下では、進捗度はアウトプット法（output methods：例 評価額や完成単位）またはインプット法（input methods：例 総見積費用に対する発生費用）により測定される。AVIは、長期契約の会計処理において、各履行義務ごとの総売上、総コストおよび利益を見積もる判断的プロセスを含むとしている。売上原価は発生時に認識される。収益は、売上原価に見積利益の比例配分額を加えて決定される。費用の発生に応じて収益を認識することは、進捗の客観的な指標を提供し、顧客への支配移転の程度を最も適切に表す。
+
+例として、AVIが総額USD1,000万の兵器システム製造契約を締結し、総費用がUSD700万、利益がUSD300万と見積もられているとする。このシステムは2年で完成する。契約1年目において、AVIは総見積費用の60％にあたるUSD420万の費用を計上した。この場合、AVIは1年目にUSD600万の収益とUSD180万の利益を認識する（いずれも総額の60％）。
+
+2年目に実際の累計費用がUSD750万となって完成した場合、企業は2年目に収益USD400万、費用USD330万、利益USD70万を計上し、累計利益はUSD250万となる。
+
+###### Bill and Hold Arrangements
+
+前述の長期契約に加え、AVIは顧客が直ちに引き取れない（例：保管スペース不足）特注装甲車両も製造している。IFRS第15号では、このような「ビル・アンド・ホールド（bill and hold）」契約において、顧客が製品の支配を取得した時点で履行義務が充足されたと判断できるとされる。IFRS第15号の下では、以下のすべての条件が満たされた場合に該当する：
+
+- ビル・アンド・ホールド契約の理由が実質的であること（例：顧客からの要請）
+- 製品が顧客の所有物として個別に識別されていること
+- 製品が顧客への物理的移転が可能な状態にあること
+- 企業がその製品を使用または他の顧客に振り向ける能力を持たないこと
+
+AVIの場合、各車両は固有の車両識別番号（vehicle identification number）によって識別され、完成時点で所有権および損失リスクは顧客に移転している。AVIは、製品が顧客への引渡し可能な状態にあるが、顧客の指示により保管されている場合に収益を認識する。
+
+IFRS第15号における開示要件は非常に広範であり、顧客からのキャッシュフローの性質、金額、タイミングに関する十分な情報を提供することを目的としている。企業は、顧客との契約から生じる収益を複数のカテゴリーに分解して開示する必要がある。カテゴリーは、製品の種類、地理的地域、顧客または販売チャネルの種類、契約価格条件、契約期間、または移転のタイミングなどに基づくことがある。また、契約関連資産および負債の残高とその重要な変動、残存履行義務およびそれに配分された取引価格、収益認識に関する重要な判断およびその変更についても開示が求められる。これらの開示は通常、「収益（Revenue）」などの注記で提供される。
+
+------------------------------------------------------------------------
+
+### 2.03 \| Expense Recognition
+
+## Module 2: Analyzing Income Statements2.03 \| Expense Recognition
+
+### Learning Outcome
+
+The candidate should be able to:
+
+- describe general principles of expense recognition, specific expense recognition applications, implications of expense recognition choices for financial analysis and contrast costs that are capitalized versus those that are expensed in the period in which they are incurred
+
+------------------------------------------------------------------------
+
+Assume a company purchased inventory for cash and sold the entire inventory in the same period. When the company paid for the inventory, absent indications to the contrary, it is clear that inventory cost was incurred and when that inventory is sold, it should be recognized as an expense (cost of goods sold). Assume also that the company paid all operating and administrative expenses in cash within each accounting period. In such a simple hypothetical scenario, no issues of expense recognition would arise. In practice, however, as with revenue recognition, determining when expenses should be recognized can be somewhat more complex.
+
+### General Principles
+
+In general, a company recognizes expenses in the period that it consumes (i.e., uses up) the economic benefits associated with the expenditure, or loses some previously recognized economic benefit. The three common expense recognition models are as follows: the matching principle, expensing as incurred, and capitalization with subsequent depreciation or amortization.
+
+Under matching, a company recognizes expenses (e.g., cost of goods sold) when associated revenues are recognized, and thus, expenses and revenues are matched. Associated revenues and expenses are those that result directly and jointly from the same transactions or events. Unlike the simple scenario in which a company purchases inventory and sells all of the inventory within the same accounting period, in practice, it is more likely that some of the current period’s sales are made from inventory purchased in a previous period or previous periods. It is also likely that some of the inventory purchased in the current period will remain unsold at the end of the current period and so will be sold in a following period. Matching requires that a company recognizes cost of goods sold in the same period as revenues from the sale of the goods. Strictly speaking, IFRS do not refer to a “matching principle” but rather to a “matching concept” or to a process resulting in “matching of costs with revenues.”
+
+<a href="#CFA2418-R-s03-EXM2" class="internal" aria-label="View Example 2" role="button">Example 2</a> demonstrate matching applied to inventory and cost of goods sold.
+
+#### Example 2The Matching of Inventory Costs with Revenues
+
+Kahn Distribution Limited (KDL), a hypothetical company, purchases inventory items for resale. At the beginning of 20X1, Kahn had no inventory on hand. During 20X1, KDL had the following transactions:
+
+| **Inventory Purchases** |       |                                     |
+|:------------------------|:-----:|:------------------------------------|
+| First quarter           | 2,000 | units at USD40 per unit             |
+| Second quarter          | 1,500 | units at USD41 per unit             |
+| Third quarter           | 2,200 | units at USD43 per unit             |
+| Fourth quarter          | 1,900 | units at USD45 per unit             |
+| Total                   | 7,600 | units at a total cost of USD321,600 |
+
+KDL sold 5,600 units of inventory during the year at USD50 per unit and received cash. KDL determines that there were 2,000 remaining units of inventory and specifically identifies that 1,900 were those purchased in the fourth quarter and 100 were purchased in the third quarter.
+
+1. 
+
+What are the revenue and expense associated with these transactions during 20X1 based on specific identification of inventory items as sold or remaining in inventory? (Assume that the company does not expect any products to be returned.)
+
+#### 回答を確認
+
+#### 解答
+
+The revenue for 20X1 would be USD280,000 (5,600 units × USD50 per unit). Initially, the total cost of the goods purchased would be recorded as inventory (an asset) in the amount of USD321,600. During 20X1, the cost of the 5,600 units sold would be expensed (matched against the revenue) while the cost of the 2,000 remaining unsold units would remain in inventory as follows:
+
+| **Cost of Goods Sold**   |                                 |            |
+|:-------------------------|:--------------------------------|:----------:|
+| From the first quarter   | 2,000 units at USD40 per unit = | USD80,000  |
+| From the second quarter  | 1,500 units at USD41 per unit = | USD61,500  |
+| From the third quarter   | 2,100 units at USD43 per unit = | USD90,300  |
+| Total cost of goods sold |                                 | USD231,800 |
+
+| **Cost of Goods Remaining in Inventory**   |                                 |           |
+|:-------------------------------------------|:--------------------------------|:---------:|
+| From the third quarter                     | 100 units at USD43 per unit =   | USD4,300  |
+| From the fourth quarter                    | 1,900 units at USD45 per unit = | USD85,500 |
+| Total remaining (or ending) inventory cost |                                 | USD89,800 |
+
+To confirm that total costs are accounted for: USD231,800 + USD89,800 = USD321,600. The cost of the goods sold would be expensed against the revenue of USD280,000 as follows:
+
+|                    |            |
+|:-------------------|:----------:|
+| Revenue            | USD280,000 |
+| Cost of Goods Sold |  231,800   |
+| Gross Profit       |   48,200   |
+
+An alternative way to think about this is that the company created an asset (inventory) of USD321,600 as it made its purchases. At the end of the period, the value of the company’s inventory on hand is USD89,800. Therefore, the amount of the Cost of goods sold expense recognized for the period should be the difference: USD231,800.
+
+The remaining inventory amount of USD89,800 will be matched against revenue in a future year when the inventory items are sold.
+
+Period costs, expenditures that less directly match revenues, are generally expensed as incurred (i.e., either when the company makes the expenditure in cash or incurs the liability to pay). Costs associated with administrative, managerial, information technology (IT), and research and development activities as well as the maintenance or repair of assets generally fit this model. For most companies, payroll expenses are accounted for this way, excluding employees whose compensation is considered a product cost and recognized as inventory and later cost of goods sold or items like sales commissions, which are capitalized and expensed systematically or with sales.
+
+### Capitalization versus Expensing
+
+Finally, certain expenditures are capitalized as assets on the balance sheet and typically appear as an investing cash outflow on the statement of cash flows. After initial recognition, a company expenses the capitalized amount over the asset’s useful life as depreciation or amortization expense (except assets that are not depreciated, i.e., land, or amortized, e.g., intangible assets with indefinite lives). This expense reduces net income on the income statement and reduces the value of the asset on the balance sheet. Depreciation and amortization are non-cash expenses and therefore, apart from their effect on taxable income and taxes payable, they have no impact on the cash flow statement.
+
+This model is a form of the matching principle, whereby expenses are recognized on the income statement over the expected useful life of the investment, so the costs and benefits are “matched.” <a href="#CFA2418-R-s03-EXM3" class="internal" aria-label="View Example 3" role="button">Example 3</a> illustrates the impact on the financial statements of capitalizing versus expensing an expenditure.
+
+#### Example 3General Financial Statement Impact of Capitalizing versus Expensing
+
+Assume two identical (hypothetical) companies, CAP Inc. (CAP) and NOW Inc. (NOW), start with EUR1,000 cash and EUR1,000 common stock. Each year the companies recognize total revenues of EUR1,500 cash and make cash expenditures, excluding an equipment purchase, of EUR500. At the beginning of operations, each company pays EUR900 to purchase equipment. CAP estimates the equipment will have a useful life of three years and an estimated salvage value of EUR0 at the end of the three years. NOW estimates a much shorter useful life and expenses the equipment immediately. The companies have no other assets and make no other asset purchases during the three-year period. Assume the companies pay no dividends, earn zero interest on cash balances, have a tax rate of 30 percent, and use the same accounting method for financial and tax purposes.
+
+The left side of <a href="#CFA2418-R-s03-EXH1" class="internal" aria-label="View Exhibit 1" role="button">Exhibit 1</a> shows CAP’s financial statements—that is, with the expenditure capitalized and depreciated at EUR300 per year based on the straight-line method of depreciation (EUR900 cost minus EUR0 salvage value equals EUR900, divided by a three-year life equals EUR300 per year). The right side of the exhibit shows NOW’s financial statements, with the entire EUR900 expenditure treated as an expense in the first year. All amounts are in euro.
+
+##### Exhibit 1Capitalizing versus Expensing
+
+| CAP株式会社(CAP Inc.)              |         |       |       | NOW株式会社(NOW Inc.)  |       |       |       |
+|:-----------------------------------|:-------:|:-----:|:-----:|:-----------------------|:-----:|:-----:|:-----:|
+| EUR900を資産として資本化し減価償却 |         |       |       | EUR900を即時費用計上   |       |       |       |
+| 年度別                             |  **1**  | **2** | **3** | 年度別                 | **1** | **2** | **3** |
+| Revenue                            |  1,500  | 1,500 | 1,500 | Revenue                | 1,500 | 1,500 | 1,500 |
+| Cash Expenses                      |   500   |  500  |  500  | Cash expenses          | 1,400 |  500  |  500  |
+| 減価償却費(Depreciation)           |   300   |  300  |  300  | Depreciation           |   0   |   0   |   0   |
+| Income before Tax                  |   700   |  700  |  700  | Income before Tax      |  100  | 1,000 | 1,000 |
+| Tax at 30%                         |   210   |  210  |  210  | Tax at 30%             |  30   |  300  |  300  |
+| 純利益(Net Income)                 |   490   |  490  |  490  | Net Income             |  70   |  700  |  700  |
+|                                    |         |       |       |                        |       |       |       |
+| Cash from Operations               |   790   |  790  |  790  | Cash from Operations   |  70   |  700  |  700  |
+| 投資に使用された現金               | \(900\) |   0   |   0   | Cash Used in Investing |   0   |   0   |   0   |
+| 現金の総変動                       | \(110\) |  790  |  790  | 現金の総変動           |  70   |  700  |  700  |
+
+| **As of**                                | 時点0 | 年度末1 | 年度末2 | 年度末3 | **Time**                                 | 時点0 | 年度末1 | 年度末2 | 年度末3 |
+|:-----------------------------------------|:-----:|:-------:|:-------:|:-------:|:-----------------------------------------|:-----:|:-------:|:-------:|:-------:|
+| Cash                                     | 1,000 |   890   |  1,680  |  2,470  | Cash                                     | 1,000 |  1,070  |  1,770  |  2,470  |
+| 有形固定資産（純額）(PP&E (net))         |   —   |   600   |   300   |    —    | 有形固定資産（純額）(PP & E (net))       |   —   |    —    |    —    |    —    |
+| 総資産                                   | 1,000 |  1,490  |  1,980  |  2,470  | 総資産                                   | 1,000 |  1,070  |  1,770  |  2,470  |
+| 利益剰余金                               |   0   |   490   |   980   |  1,470  | 利益剰余金                               |   0   |   70    |   770   |  1,470  |
+| 普通株式(Common Stock)                   | 1,000 |  1,000  |  1,000  |  1,000  | 普通株式(Common Stock)                   | 1,000 |  1,000  |  1,000  |  1,000  |
+| 株主資本合計(Total Shareholders’ Equity) | 1,000 |  1,490  |  1,980  |  2,470  | 株主資本合計(Total Shareholders’ Equity) | 1,000 |  1,070  |  1,770  |  2,470  |
+
+1. 
+
+どの会社が3年間でより高い純利益を報告しているか？総現金フローは？営業活動による現金は？
+
+#### 回答を確認
+
+#### 解答
+
+どちらの会社も3年間の総純利益や総現金フローが高いわけではない。3年間の純利益の合計は、EUR900を資本化した場合でも費用計上した場合でも同じ（合計EUR1,470）である。また、現金の変動の合計（合計EUR1,470）もどちらのシナリオでも同一である。CAPは、資本化シナリオではEUR900の購入が投資活動によるキャッシュフローとして扱われるため、営業活動による現金がEUR900多くなる。
+
+注：両社とも財務上所得と課税所得で同じ会計手法を使用しているため、現金残高に対する利息がゼロと仮定しない限り、EUR900を費用計上すると、初年度に支払う税金が少ない（EUR30対EUR210）ことで、NOWが節税分に対する利息収入を得られ、より高い利益と現金フローを得られたことになる。
+
+2. 
+
+ROEと純利益率に基づき、両社の収益性はどのように比較されるか？
+
+#### 回答を確認
+
+#### 解答
+
+一般に、期末株主資本 = 期首株主資本 + 純利益 + その他の包括利益 – 配当 + 株主からの純資本拠出。例の会社はその他包括利益がなく、配当も支払っておらず、株主からの資本拠出も報告していないため、期末利益剰余金 = 期首利益剰余金 + 純利益、期末株主資本 = 期首株主資本 + 純利益となる。
+
+ROEは純利益 ÷ 平均株主資本で計算され、純利益率は純利益 ÷ 総収益で計算される。例えば、CAPは年度1のROEが39％（EUR490 ÷ \[(EUR1,000 + EUR1,490)/2\]）、年度1の純利益率が33％（EUR490 ÷ EUR1,500）であった。
+
+| **CAP Inc.**                                  |       |       |       | **NOW Inc.**                   |       |       |       |
+|:----------------------------------------------|:-----:|:-----:|:-----:|:-------------------------------|:-----:|:-----:|:-----:|
+| **Capitalize EUR900 as Asset and Depreciate** |       |       |       | **Expense EUR900 Immediately** |       |       |       |
+| **For Year**                                  | **1** | **2** | **3** | **For Year**                   | **1** | **2** | **3** |
+| ROE                                           |  39%  |  28%  |  22%  | ROE                            |  7%   |  49%  |  33%  |
+| 純利益率(Net Profit Margin)                   |  33%  |  33%  |  33%  | 純利益率(Net Profit Margin)    |  5%   |  47%  |  47%  |
+
+示されている通り、費用計上と比較して資本化すると、初年度はROEおよび純利益率などの収益性指標が高くなり、翌年度以降は低くなる。例えば、CAPの年度1のROEは39％でNOWの年度1のROE 7％より高かったが、年度2および3ではNOWの方が収益性が優れている。
+
+また、NOWの年度1から年度2にかけての純利益の優れた成長は、CAPと比較して優れた業績によるものではなく、むしろ費用をCAPよりも早く認識する会計上の判断によるものである。一般に、その他すべてが同じであれば、費用を早期に認識する会計上の判断は、その後の成長が大きく見える印象を与える。会計手法の違いを認識せずに両社の純利益の成長を比較すると誤解を招く。付随的に、NOWの収益および収益性は3年間でより変動が大きく見えるが、それは業績がより不安定だからではなく、会計上の判断の違いによるものである。
+
+3. 
+
+なぜNOWは年度1にEUR70の現金変動を報告するのに対し、CAPは現金の総変動が(EUR110)と報告するのか？
+
+#### 回答を確認
+
+#### 解答
+
+NOWは年度1にEUR70の現金増加を報告し、CAPはEUR110の現金減少を報告する。これはNOWの税金がCAPよりもEUR180低かったためである（EUR30対EUR210）。
+
+この問題では、各会社が税務目的で使用する会計手法が、財務報告で使用する会計手法と同一であると仮定していることに注意。多くの国では、企業は財務報告と税務で異なる減価償却方法を使用することが認められており、繰延税金が生じる可能性がある。
+
+示されている通り、費用計上するか資本化するかの裁量は、企業間の比較可能性を妨げる可能性がある。例4では、企業が1年間に単一の資産を購入すると仮定している。3年間の純利益の合計は、資産を資本化しても費用計上しても同一であるため、資本化は初年度に費用計上と比べて収益性を高めるが、翌年度以降は収益性が低下することを示している。逆に、費用計上は初年度の収益性を低下させるが、後年の収益性を高め、好ましいトレンドを示す。
+
+同様に、支出を資本化する企業の株主資本は、初期利益が高いため初年度は高くなる。例4では、企業が1年間に単一の資産を購入し、3年間の総純利益は同額と報告されるため、費用計上する企業の株主資本（および利益剰余金）は、資本化する企業の株主資本（および利益剰余金）と3年後に同一となる。
+
+例3では企業が初年度のみ資産を購入すると示されているが、もし企業が毎年同様または増加する量の資産を購入し続ける場合、費用が減価償却費を上回る限り、資本化による収益性向上効果は継続する。例4はこの点を示している。
+
+#### Example 4Impact of Capitalizing versus Expensing for Ongoing Purchases
+
+企業が年度1にGBP300のコンピュータを購入し資本化したとする。コンピュータの耐用年数は3年で、残存価値はGBP0と見込まれるため、定額法による年間減価償却費は年間GBP100である。即時にGBP300全額を費用計上する場合と比較すると、年度1の税引前利益はGBP200多くなる。
+
+1. 
+
+企業が毎年同一のコンピュータを同価格で購入し続け、同じ会計処理を適用する場合、資本化と費用計上の収益性向上効果はいつ終了するか？
+
+#### 回答を確認
+
+#### 解答
+
+資本化と費用計上の収益性向上効果は年度3に終了する。年度3では、年度1、2、3に購入した3台のコンピュータそれぞれの減価償却費の合計はGBP300（GBP100 + GBP100 + GBP100）となる。したがって、年度3の総減価償却費は年度3の資本支出と完全に一致する。年度3の費用はGBP300であり、年間コンピュータ購入を資本化しても費用計上しても変わらない。
+
+2. 
+
+企業が年度4に同一のコンピュータを購入し、過去と同じ会計処理を適用した場合、年度4の利益に対する資本化と費用計上の影響はどうなるか？
+
+#### 回答を確認(Check Answer)
+
+#### 解答
+
+年度4の利益に影響はない。前年度と同様に、年度2、3、4に購入した3台のコンピュータの減価償却費の合計はGBP300（GBP100 + GBP100 + GBP100）となる。したがって、年度4の総減価償却費は年度4の資本支出と完全に一致する。税引前利益は、年間コンピュータ購入を資本化しても費用計上してもGBP300減少する。
+
+費用計上と比較して、支出を資本化すると通常、営業活動による現金として報告される額が多くなる。アナリストは、本来費用計上すべき支出を資本化することで、企業が営業活動による現金フローを操作している証拠に注意すべきである。
+
+まとめると、その他すべてが同じであれば、支出の資本化は当期の収益性を高め、営業活動による現金フローを増加させる。資本支出が減価償却費を上回る限り、資本化による収益性向上効果は継続する。資本化を選択する収益性向上の動機は、業績分析時に考慮すべきである。例えば、企業は特定期間の収益目標を達成するため、会計基準の許容範囲内でより多くの支出を資本化する場合がある。その期間に費用計上すると当期利益は減少するが、将来の収益性を高め、利益トレンドを改善する。利益トレンド改善の動機も、業績分析時に考慮すべきである。企業が財務報告と税務で同一の会計手法を要求される環境（米国のように、財務報告と税務で異なる減価償却方法の使用を許容する国とは異なる）にある場合、費用計上はより有利な現金フローへの影響を持つ。これは、早期に低い税金を支払うことで、節約された現金に対して利息収入を得る機会が生まれるためである。
+
+これら比較的単純な例とは対照的に、支出を資本化するか費用計上するかの裁量が関与する個別事例を特定することは、一般に不可能であり望ましくもない。しかし、アナリストは通常、企業間で異なる処理がされた重要な支出項目を特定できる。企業間の最も関連性の高い差異を生む支出項目は業界ごとに異なる。この業界間の違いは、支出の資本化に関する次の議論で明らかである。
+
+#### Capitalization versus Expensing
+
+1. 
+
+その他すべてが同じであれば、耐用年数の長い設備が購入された会計年度において：
+
+A. 減価償却費が増加する。
+
+#### 解答
+
+Aが正しい。耐用年数の長い設備が購入された会計年度には、貸借対照表上の資産が増加し、損益計算書上の減価償却費が新しい長期資産のために増加する。
+
+B. 営業活動による現金が減少する。
+
+#### 解答
+
+Aが正しい。耐用年数の長い設備が購入された会計年度には、貸借対照表上の資産が増加し、損益計算書上の減価償却費が新しい長期資産のために増加する。
+
+C. 純利益は購入額だけ減少する。
+
+#### 解答
+
+Aが正しい。耐用年数の長い設備が購入された会計年度には、貸借対照表上の資産が増加し、損益計算書上の減価償却費が新しい長期資産のために増加する。
+
+2. 
+
+企業XとZは期首の株主資本簿価が同一で、税率も同じである。両社は年間を通じて同一の取引を行い、ほとんどの取引は同様に報告されるが、一点だけ異なる。両社は新年1月1日に耐用年数3年、残存価値GBP0のGBP300,000のプリンターを取得する。企業Xはプリンターを資本化し、定額法で減価償却する。一方、企業Zはプリンターを費用計上する。表2には企業Xの年末情報がまとめられている。
+
+##### Exhibit 2Company X Year-End Information
+
+|                                           | 企業X 12月31日時点 |
+|:------------------------------------------|:------------------:|
+| 期末株主資本(Ending Shareholders’ Equity) |   GBP10,000,000    |
+| 税率(Tax Rate)                            |        25%         |
+| 配当(Dividends)                           |      GBP0.00       |
+| Net Income                                |     GBP750,000     |
+
+表2の情報に基づき、企業Z(Company Z)の期末株主資本を用いた自己資本利益率(ROE)は次の値に最も近い：
+
+A. 5.4パーセント
+
+#### 解答
+
+Bが正しい。企業Zの期末株主資本に基づく自己資本利益率は6.1パーセントとなる。企業Zは企業X(Company X)と比較して追加でGBP200,000の費用が発生する。企業ZはプリンターをGBP300,000で費用計上したのに対し、企業Xはプリンターを資本化しGBP100,000の減価償却費を計上した。企業Zの純利益と株主資本は企業XよりGBP150,000低くなる（= GBP200,000 × 0.75）。
+
+$\text{ROE} = \left( \frac{\text{Net~income}}{\text{Shareholders'~Equity}} \right)$
+
+= *GBP*600,00/*GBP*9,850,000
+
+= 0.61 = 6.1%.
+
+B. 6.1パーセント
+
+#### 解答
+
+Bが正しい。企業Zの期末株主資本に基づく自己資本利益率は6.1パーセントとなる。企業Zは企業Xと比較して追加でGBP200,000の費用が発生する。企業ZはプリンターをGBP300,000で費用計上したのに対し、企業Xはプリンターを資本化しGBP100,000の減価償却費を計上した。企業Zの純利益と株主資本は企業XよりGBP150,000低くなる（= GBP200,000 × 0.75）。
+
+$\text{ROE} = \left( \frac{\text{Net~income}}{\text{Shareholders'~Equity}} \right)$
+
+= *GBP*600,00/*GBP*9,850,000
+
+= 0.61 = 6.1%.
+
+C. 7.5パーセント
+
+#### 解答
+
+Bが正しい。企業Zの期末株主資本に基づく自己資本利益率は6.1パーセントとなる。企業Zは企業Xと比較して追加でGBP200,000の費用が発生する。企業ZはプリンターをGBP300,000で費用計上したのに対し、企業Xはプリンターを資本化しGBP100,000の減価償却費を計上した。企業Zの純利益と株主資本は企業XよりGBP150,000低くなる（= GBP200,000 × 0.75）。
+
+$\text{ROE} = \left( \frac{\text{Net~income}}{\text{Shareholders'~Equity}} \right)$
+
+= *GBP*600,00/*GBP*9,850,000
+
+= 0.61 = 6.1%.
+
+以下の情報は質問3〜6に関連する。
+
+メラニー・ハート(CFA)（Melanie Hart, CFA）は運輸アナリストである。ハートはアルタイ・マウンテン・レール・カンパニー(Altai Mountain Rail Company (AMRC))に関するリサーチレポートの作成を依頼されている。鉄道業界の他の企業と同様、AMRCの事業は資本集約型であり、土地、建物、設備などの長期有形資産への多額の投資が必要である。2008年11月、AMRCの取締役会(Board of Directors)は新しい経営チームを採用した。2009年の年次報告書を確認する中で、ハートは新経営陣が行ったいくつかの会計上の選択に懸念を抱いている。これらの選択は、前経営陣の手法および業界の一般的慣行とは異なる。ハートは年次報告書から以下の記述を抜き出した。
+
+- 記述1：「2009年、AMRCは線路の交換や類似の改善に多額を支出した。AMRCはこれらの支出のかなりの割合を資本化せず、費用計上した。」
+- 記述2：「AMRCは、建物および設備に対して、財務報告および税務報告の両方で定額法(straight-line method)による減価償却を使用している。」
+- 記述3：「2009年、AMRCは機関車のフリートに対してEUR5,000万の減損損失(impairment loss)を認識した。減損損失は損益計算書の『その他の収益(other income)』として報告され、貸借対照表上の資産の帳簿価額を減少させた。」
+
+表3および4にはAMRCの2009年連結損益計算書と貸借対照表が含まれている。AMRCは国際財務報告基準(International Financial Reporting Standards)に従って財務諸表を作成している。
+
+##### Exhibit 3Consolidated Statement of Income
+
+|                                           |            **2009**             |         |            **2008**             |         |
+|:------------------------------------------|:-------------------------------:|:-------:|:-------------------------------:|:-------:|
+| 12月31日に終了する年度について            | 単位：百万ユーロ(Euro Millions) | 収益(%) | 単位：百万ユーロ(Euro Millions) | 収益(%) |
+| 営業収益(Operating revenues)              |              2,600              |  100.0  |              2,300              |  100.0  |
+| 営業費用(Operating expenses)              |                                 |         |                                 |         |
+| Depreciation                              |             \(200\)             |  (7.7)  |             \(190\)             |  (8.3)  |
+| その他の営業費用(Other operating expense) |             (1,590)             | (61.1)  |             (1,515)             | (65.9)  |
+| 営業費用合計(Total operating expenses)    |             (1,790)             | (68.8)  |             (1,705)             | (74.2)  |
+| 営業利益(Operating income)                |               810               |  31.2   |               595               |  25.8   |
+| その他の収益(Other income)                |             \(50\)              |  (1.9)  |                —                |   0.0   |
+| 支払利息(Interest expense)                |             \(73\)              |  (2.8)  |             \(69\)              |  (3.0)  |
+| 税引前利益(Income before taxes)           |               687               |  26.5   |               526               |  22.8   |
+| 法人税(Income taxes)                      |             \(272\)             | (10.5)  |             \(198\)             |  (8.6)  |
+| 純利益(Net income)                        |               415               |   16    |               328               |  14.2   |
+
+##### Exhibit 4Consolidated Balance Sheet
+
+| 12月31日時点(As of 31 December)                |            **2009**             |                      |            **2008**             |                      |     |
+|:-----------------------------------------------|:-------------------------------:|:--------------------:|:-------------------------------:|:--------------------:|:---:|
+| 資産(Assets)                                   | 単位：百万ユーロ(Euro Millions) | 資産比率(Assets (%)) | 単位：百万ユーロ(Euro Millions) | 資産比率(Assets (%)) |     |
+| 流動資産(Current assets)                       |               500               |         9.4          |               450               |         8.5          |     |
+| 有形固定資産(Property and equipment)           |                                 |                      |                                 |                      |     |
+| Land                                           |               700               |         13.1         |               700               |         13.2         |     |
+| 建物および設備(Plant and equipment)            |              6,000              |        112.1         |              5,800              |        109.4         |     |
+| 有形固定資産合計(Total property and equipment) |              6,700              |        125.2         |              6,500              |        122.6         |     |
+| 減価償却累計(Accumulated depreciation)         |             (1,850)             |        (34.6)        |             (1,650)             |        (31.1)        |     |
+| 有形固定資産純額(Net property and equipment)   |              4,850              |         90.6         |              4,850              |         91.5         |     |
+| 総資産(Total assets)                           |              5,350              |        100.0         |              5,300              |        100.0         |     |
+
+| 負債および株主資本(Liabilities and Shareholders’ Equity)                 |        |       |        |       |
+|:-------------------------------------------------------------------------|:------:|:-----:|:------:|:-----:|
+| 流動負債(Current liabilities)                                            |  480   |  9.0  |  430   |  8.1  |
+| 長期債務(Long-term debt)                                                 | 1,030  | 19.3  | 1,080  | 20.4  |
+| その他の長期引当金および負債(Other long-term provisions and liabilities) | 1,240  | 23.1  | 1,440  | 27.2  |
+| 負債合計(Total liabilities)                                              | 2,750  | 51.4  | 2,950  | 55.7  |
+| 株主資本(Shareholders’ equity)                                           |        |       |        |       |
+| 普通株式および払込剰余金(Common stock and paid-in-surplus)               |  760   | 14.2  |  760   | 14.3  |
+| 利益剰余金(Retained earnings)                                            | 1,888  | 35.5  | 1,600  | 30.2  |
+| その他包括損失(Other comprehensive losses)                               | \(48\) | (0.9) | \(10\) | (0.2) |
+| 株主資本合計(Total shareholders’ equity)                                 | 2,600  | 48.6  | 2,350  | 44.3  |
+| 負債および株主資本合計(Total liabilities & shareholders’ equity)         | 5,350  | 100.0 | 5,300  | 100.0 |
+
+3. 
+
+記述1に関して、これらの支出を資本化せず費用計上するという経営判断の最も可能性の高い影響は次のうちどれか？
+
+A. 支出を資本化した場合よりも2009年の純利益率(Net profit margin)が高くなる。
+
+#### 解答
+
+Cが正しい。長期資産への投資を資本化せず費用計上すると、当期の費用が増加し、純利益および純利益率(Net profit margin)は低下する。将来の年度の収益には、これらの支出に関連する減価償却費は含まれない。その結果、年度間の収益性の成長率は高くなる。もし支出が資本化されていれば、資産の帳簿価額は高くなり、2009年の総資産回転率(Total asset turnover)は低くなっていただろう。
+
+B. 支出を資本化した場合よりも2009年の総資産回転率(Total asset turnover)が低くなる。
+
+#### 解答(Solution)
+
+Cが正しい。長期資産への投資を資本化せず費用計上すると、当期の費用が増加し、純利益および純利益率は低下する。将来の年度の収益には、これらの支出に関連する減価償却費は含まれない。その結果、年度間の収益性の成長率は高くなる。もし支出が資本化されていれば、資産の帳簿価額は高くなり、2009年の総資産回転率は低くなっていただろう。
+
+C. 将来の利益成長(Future profit growth)は、支出を資本化した場合よりも高くなる。
+
+#### 解答
+
+Cが正しい。長期資産への投資を資本化せず費用計上すると、当期の費用が増加し、純利益および純利益率(Net profit margin)は低下する。将来年度の収益には、これらの支出に関連する減価償却費は含まれない。その結果、年度間の収益性の成長率は高くなる。もし支出が資本化されていれば、資産の帳簿価額は高くなり、2009年の総資産回転率(Total asset turnover)は低くなっていただろう。
+
+4. 
+
+記述2に関して、AMRCが財務報告および税務報告の両方で加速減価償却法(accelerated depreciation method)に切り替えた場合、2010年に最も考えられる影響は何か？
+
+A. 純利益率(Net profit margin)が増加する。
+
+#### 解答
+
+Cが正しい。2010年に加速減価償却法に切り替えると、減価償却費が増加し、税引前利益(Income before taxes)、支払税金(taxes payable)、純利益(Net income)が減少する。営業活動による現金フロー(Cash flow from operating activities)は、節税効果により増加する。
+
+B. 総資産回転率(Total asset turnover)が低下する。
+
+#### 解答
+
+Cが正しい。2010年に加速減価償却法に切り替えると、減価償却費が増加し、税引前利益、支払税金、純利益が減少する。営業活動による現金フローは、節税効果により増加する。
+
+C. 営業活動による現金フロー(Cash flow from operating activities)が増加する。
+
+#### 解答
+
+Cが正しい。2010年に加速減価償却法に切り替えると、減価償却費が増加し、税引前利益、支払税金、純利益が減少する。営業活動による現金フローは、節税効果により増加する。
+
+5. 
+
+記述3に関して、減損損失(impairment loss)の最も可能性の高い影響は何か？
+
+A. 2009年前の年度の純利益(Net income)は過小計上されていた可能性がある。
+
+#### 解答
+
+Bが正しい。2009年の純利益および純利益率(Net profit margin)は減損損失により低くなる。その結果、以降の年度の純利益率は高くなる可能性がある。減損損失は、前年度に十分な減価償却費が認識されていなかったことを示唆し、過去年度の純利益は過大計上されていた。減損損失は非現金項目であり、営業活動による現金フローには影響しない。
+
+B. 2009年以降の年度の純利益率(Net profit margins)は、2009年の純利益率を上回る可能性がある。
+
+#### 解答
+
+Bが正しい。2009年の純利益および純利益率は減損損失により低くなる。その結果、以降の年度の純利益率は高くなる可能性がある。減損損失は、前年度に十分な減価償却費が認識されていなかったことを示唆し、過去年度の純利益は過大計上されていた。減損損失は非現金項目であり、営業活動による現金フローには影響しない。
+
+C. 2009年の営業活動による現金フローは、減損損失により低下していた可能性がある。
+
+#### 解答
+
+Bが正しい。2009年の純利益および純利益率は減損損失により低くなる。その結果、以降の年度の純利益率は高くなる可能性がある。減損損失は、前年度に十分な減価償却費が認識されていなかったことを示唆し、過去年度の純利益は過大計上されていた。減損損失は非現金項目であり、営業活動による現金フローには影響しない。
+
+6. 
+
+表1および表2に基づき、2009年末時点の企業の建物および設備の平均残存耐用年数(average remaining useful life)の最良推定値は？
+
+A. 20.75年
+
+#### 解答
+
+Aが正しい。推定平均残存耐用年数は20.75年である。
+
+残存耐用年数の推定 = 有形固定資産純額(Net plant and equipment) ÷ 年間減価償却費(Annual depreciation expense)
+
+有形固定資産純額(Net plant and equipment) = 有形固定資産総額(Gross P & E) – 減価償却累計(Accumulated depreciation)
+
+= €6000 – €1850 = €4150
+
+残存耐用年数の推定 = 有形固定資産純額(Net P & E) ÷ 減価償却費(Depreciation expense)
+
+= €4150 ÷ €200 = 20.75
+
+B. 24.25年
+
+#### 解答
+
+Aが正しい。推定平均残存耐用年数は20.75年である。
+
+残存耐用年数の推定 = 有形固定資産純額 ÷ 年間減価償却費
+
+有形固定資産純額 = 有形固定資産総額 – 減価償却累計
+
+= €6000 – €1850 = €4150
+
+残存耐用年数の推定 = 有形固定資産純額 ÷ 減価償却費
+
+= €4150 ÷ €200 = 20.75
+
+C. 30.00年
+
+#### 解答(Solution)
+
+Aが正しい。推定平均残存耐用年数は20.75年である。
+
+残存耐用年数の推定 = 有形固定資産純額 ÷ 年間減価償却費
+
+有形固定資産純額 = 有形固定資産総額 – 減価償却累計
+
+= €6000 – €1850 = €4150
+
+残存耐用年数の推定 = 有形固定資産純額(Net P & E) ÷ 減価償却費(Depreciation expense)
+
+= €4150 ÷ €200 = 20.75
+
+### 利息費用の資本化(Capitalization of Interest Costs)
+
+企業は一般に、取得または建設に長期間を要する資産に関連する利息費用を資本化する必要がある。
+
+この会計処理の結果として、企業の期間中の利息費用は、貸借対照表に表示される場合（資本化された分）や、損益計算書に表示される場合（費用計上された分）があるように見えることがある。
+
+利息費用が企業自身の使用のために資産を建設する際に発生した場合、資本化された利息は貸借対照表上の該当する長期資産の一部として表示される。資本化された利息は、資産が減価償却されるにつれて費用計上され、したがって利息費用ではなく減価償却費の一部となる。例えば、不動産建設会社が販売用資産を建設する場合に発生した利息費用は、資本化されて貸借対照表上の棚卸資産の一部として表示される。その後、資産が販売された際には、売上原価の一部として費用計上される。
+
+資本化利息の取り扱いは、アナリストが考慮すべきいくつかの問題を提起する。まず、資本化利息は投資によるキャッシュアウトフローの一部として表示されるが、費用計上された利息は通常、営業キャッシュフローを減少させる。米国会計基準(US GAAP)で報告する企業は、営業キャッシュフローにおける利息を分類することが求められ、国際財務報告基準(IFRS)で報告する企業は、費用計上された利息を営業または財務キャッシュフローに分類できる。この処理は会計基準に沿ったものであるが、アナリストは報告されたキャッシュフローへの影響を検討する必要があるかもしれない。次に、利息カバレッジ比率(interest coverage ratios)は、期間中の企業の利益(またはキャッシュフロー)が利息費用をどの程度カバーしているかを測定する支払能力指標である。企業の利息カバレッジを正確に把握するためには、資本化分と費用計上分を含む利息費用全額を使用して利息カバレッジ比率を計算すべきである。さらに、企業が前期間に資本化した利息を減価償却している場合は、その減価償却の影響を除去するために利益を調整すべきである。例5が計算方法を示している。
+
+#### Example 5Effect of Capitalized Interest Costs on Coverage Ratios and Cash Flow
+
+メルコ・リゾーツ・アンド・エンターテインメント・リミテッド(Melco Resorts & Entertainment Limited (NASDAQ: MLCO))は、香港特別行政区(Hong Kong SAR)を拠点とするカジノ会社で、NASDAQ株式市場に上場しており、US GAAPに基づいて財務報告を行っている。同社は2017年の財務諸表の脚注の一つで次の情報を開示している：「主要な開発および建設プロジェクトに関連する利息および繰延融資費用の償却は資本化され、プロジェクトコストに含まれる……。発生した利息費用の総額は\$267,065、\$252,600、\$253,168であり、そのうち資本化された額は2017年、2016年、2015年の各年度でそれぞれ\$37,483、\$29,033、\$134,838である。繰延融資費用の償却額は、資本化償却を差し引いた後で2017年、2016年、2015年の各年度でそれぞれ\$26,182、\$48,345、\$38,511である」（Form 20-F 2018年4月12日提出）。繰延融資費用の現金支払いは財務活動によるキャッシュフローに計上された。
+
+##### Exhibit 5Melco Resorts and Entertainment Limited Selected Data, as Reported (US dollar thousands)
+
+|                                                                                          |  **2017**   |  **2016**   | **2015**  |
+|:-----------------------------------------------------------------------------------------|:-----------:|:-----------:|:---------:|
+| EBIT（損益計算書より）(EBIT (from income statement))                                     |   544,865   |   298,663   |  58,553   |
+| 支払利息（損益計算書より）(Interest expense (from income statement))                     |   229,582   |   223,567   |  118,330  |
+| 資本化利息（脚注より）(Capitalized interest (from footnote))                             |   37,483    |   29,033    |  134,838  |
+| 繰延融資費用の償却（脚注より）(Amortization of deferred financing costs (from footnote)) |   26,182    |   48,345    |  38,511   |
+|                                                                                          |             |             |           |
+| 営業活動による純キャッシュ(Net cash provided by operating activities)                    |  1,162,500  |  1,158,128  |  522,026  |
+| 投資活動による純キャッシュ(Net cash from (used) in investing activities)                 |  (410,226)  |   280,604   | (469,656) |
+| 財務活動による純キャッシュ(Net cash from (used) in financing activities)                 | (1,046,041) | (1,339,717) | (29,688)  |
+
+注：EBITは損益計算書の「税引前利益(Income (Loss) Before Income Tax)」に「利息費用－資本化利息(Interest expenses, net of capitalized interest)」を加えたものである。
+
+1. 
+
+メルコの利息カバレッジ比率を、資本化利息を含む場合と含まない場合で計算し解釈せよ。
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+資本化利息を含む場合と含まない場合の利息カバレッジ比率は以下の通りである：
+
+- 2017年は、資本化利息を調整せずに2.37 (USD544,865 ÷ USD229,582)；資本化済み利息の減価償却によるEBIT調整および2017年に資本化された利息を利息費用に反映した場合は2.14 \[(USD544,865 + USD26,182) ÷ (USD229,582 + USD37,483)\]
+- 2016年は、資本化利息を調整せずに1.34 (USD298,663 ÷ USD223,567)；資本化済み利息の減価償却によるEBIT調整および2016年に資本化された利息を利息費用に反映した場合は1.37 \[(USD298,663 + USD48,345) ÷ (USD223,567 + USD29,033)\]
+- 2015年は、資本化利息を調整せずに0.49 (USD58,533 ÷ USD118,330)；資本化済み利息の減価償却によるEBIT調整および2015年に資本化された利息を利息費用に反映した場合は0.38 \[(USD58,533 + USD38,511) ÷ (USD118,330 + USD134,838)\]
+
+これらの計算は、メルコ(Melco)の利息カバレッジが過去2年と比較して2017年に改善したことを示している。資本化利息を調整した場合、2017年および2015年の両方でカバレッジ比率は低くなった。
+
+2. 
+
+2016年から2017年の営業キャッシュフロー(Operating cash flow)の増減率を計算せよ。財務報告が所得税報告に影響しないと仮定した場合、資本化利息が営業および投資キャッシュフローに与えた影響は何か？
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+利息が資本化されず費用計上されていた場合、3年間すべてで営業キャッシュフローは低くなっていた。調整後の基準では、2017年の営業キャッシュフローは2016年と比べて減少したが、非調整基準では2017年は2016年比で0.4％増加した \[(USD1,162,500 ÷ USD1,158,128) – 1\]。すべての利息費用を費用計上する調整を含めると、2017年の営業キャッシュフローは0.4％減少した {\[USD1,162,500 – USD37,483) ÷ (USD1,158,128 – USD29,033)\] – 1}。
+
+利息が資本化されず費用計上されていた場合、3年間すべてで財務キャッシュフロー(Financing cash flows)は増加した。
+
+資本化利息の取り扱いは、アナリストが考慮すべき問題を提起する。まず、資本化利息は投資活動によるキャッシュアウトフローの一部として表示されるが、IFRSでは費用計上利息が営業または財務キャッシュフローを減少させ、US GAAPでは営業キャッシュフローを減少させる。企業間比較の際、利息支出が報告キャッシュフローに与える影響をアナリストは検討すべきである。次に、利息カバレッジ比率は、期間中の企業の利益(またはキャッシュフロー)が利息費用をどの程度カバーしているかを測定する支払能力指標である。企業の利息カバレッジを正確に把握するためには、資本化分と費用計上分を含む利息全額を使用すべきである。
+
+一般に、利息カバレッジ比率の計算に資本化利息を含めると、企業の支払能力をより適切に評価できる。信用格付けの割当において、格付け機関はカバレッジ比率に資本化利息を含める。例えば、スタンダード＆プアーズ(Standard & Poor’s)は、EBIT利息カバレッジ比率を、EBIT ÷ 総利息（資本化利息控除前または利息収益控除前の利息）として計算する。
+
+最低利息カバレッジ比率を維持することは、貸付契約（例：銀行ローンや社債契約）によく含まれる財務契約条件である。カバレッジ比率の定義は、企業の信用契約書に記載されている。この定義は重要であり、カバレッジ比率の計算に資本化利息を含めるかどうかで、企業の実際の比率が契約条件で指定された水準にどれだけ近いか、すなわち契約違反の可能性に影響を与える。
+
+### 内部開発費の資本化(Capitalization of Internal Development Costs)
+
+会計基準では、製品の技術的実現可能性が確立された後にソフトウェア開発費を資本化することを企業に要求している。この要件にもかかわらず、実現可能性の判断は企業によって異なる場合がある。例えば、表6に示されるように、マイクロソフト(Microsoft)は製品の技術的実現可能性を製造開始直前に確立されたと判断し、実質的に研究開発費を費用計上している。
+
+#### Exhibit 6 Disclosure on Software Development Costs 
+
+マイクロソフト(Microsoft Corporation)の経営者による議論および分析(MD&A)、重要な会計方針の適用、研究開発費用(Research and Development Costs)からの抜粋：
+
+コンピュータソフトウェア製品の研究開発に内部で発生した費用は、その製品の技術的実現可能性が確立されるまで費用計上される。技術的実現可能性が確立されると、製品が一般販売可能になるまでの間、すべてのソフトウェア費用は資本化される。製品の技術的実現可能性がいつ確立されるかの判断が必要である。当社は、ソフトウェア製品の技術的実現可能性は、すべての高リスク開発課題がコーディングおよびテストを通じて解決された後に達成されると判断している。一般に、これは製品が生産に投入される直前に発生する。これら費用の償却は、製品の推定耐用期間にわたり売上原価に含まれる。
+
+出典：Microsoft Corporation, 2017年Form 10-K年次報告書、p.45
+
+開発費を資本化せず費用計上すると、当期の純利益(Net income)は低くなる。費用計上は、当期の開発費が前期間の資本化開発費を償却した場合の償却費より高い限り、将来も純利益を低くする傾向にある—企業の開発費が増加している場合が典型である。キャッシュフロー計算書においても、費用計上は営業キャッシュフロー(Net operating cash flows)を低く、投資キャッシュフロー(Net investing cash flows)を高くする。これは、開発費が投資活動によるキャッシュアウトフローではなく、営業活動によるキャッシュアウトフローとして計上されるためである。
+
+研究開発費のほとんどまたはすべてを費用計上する企業（例：Microsoft）と、ソフトウェア開発費を資本化する企業の財務パフォーマンスを比較する際には、調整を行い両者を比較可能にできる。ソフトウェア開発費を資本化する企業の場合、アナリストは次の調整を行える：(1) 損益計算書にソフトウェア開発費を費用として含め、過去年度の資本化ソフトウェア償却を除外する；(2) 貸借対照表から資本化ソフトウェアを除外（資産と株主資本を減少）する；(3) キャッシュフロー計算書を調整し、営業キャッシュフローを減少させ、当期開発費の額だけ投資キャッシュフローを減少させる。収益、長期資産、営業キャッシュフローを含む比率（例：自己資本利益率）も影響を受ける。
+
+#### Example 6Software Development Costs
+
+あなたは、JHHソフトウェア(JHH Software)という（仮想）ソフトウェア開発企業の分析プロジェクトに取り組んでおり、同社は2017年に最初の製品の技術的実現可能性を確立した。分析の一部として、特定の市場ベースの比率を算出し、すべてのソフトウェア開発費を費用計上する他社と比較する予定である。関連データおよび年次報告書の抜粋は表7に示されている。
+
+##### Exhibit 7JHH SOFTWARE (US dollar thousands, except per share amounts)
+
+| 連結損益計算書（簡略版）(Consolidated Statement of Earnings—Abbreviated) |           |           |           |
+|:-------------------------------------------------------------------------|:---------:|:---------:|:---------:|
+| 12月31日に終了する年度(For Year Ended 31 December)                       | **2018**  | **2017**  | **2016**  |
+| 総収益(Total revenue)                                                    | USD91,424 | USD91,134 | USD96,293 |
+| 営業費用合計(Total operating expenses)                                   |  78,107   |  78,908   |  85,624   |
+| 営業利益(Operating income)                                               |  13,317   |  12,226   |  10,669   |
+| 法人税引当金(Provision for income taxes)                                 |   3,825   |   4,232   |   3,172   |
+| 純利益(Net income)                                                       | USD9,492  | USD7,994  | USD7,479  |
+| 1株当たり利益(Earnings per share (EPS))                                  |  USD1.40  |  USD0.82  |  USD0.68  |
+
+| キャッシュフロー計算書—簡略版(Statement of Cash Flows—Abbreviated)                                                             |              |              |              |
+|:-------------------------------------------------------------------------------------------------------------------------------|:------------:|:------------:|:------------:|
+| 12月31日に終了する年度(For Year Ended 31 December)                                                                             |   **2018**   |   **2017**   |   **2016**   |
+| 営業活動による純キャッシュ(Net cash provided by operating activities)                                                          |  USD15,007   |  USD14,874   |  USD15,266   |
+| 投資活動による純キャッシュ(Net cash used in investing activities\*)                                                            |   (11,549)   |   (4,423)    |   (5,346)    |
+| 財務活動による純キャッシュ(Net cash used in financing activities)                                                              |   (8,003)    |   (7,936)    |   (7,157)    |
+| 現金及び現金同等物の純増減(Net change in cash and cash equivalents)                                                            |  (USD4,545)  |   USD2,515   |   USD2,763   |
+|                                                                                                                                |              |              |              |
+| \*ソフトウェア開発費用を含み、資本支出を含む(\*Includes software development expenses of and includes capital expenditures of) |  (USD6,000)  |  (USD4,000)  |  (USD2,000)  |
+|                                                                                                                                | *(USD2,000)* | *(USD1,600)* | *(USD1,200)* |
+
+| **Additional Information:**                               |            |            |            |
+|:----------------------------------------------------------|:----------:|:----------:|:----------:|
+| **For Year Ended 31 December:**                           |  **2018**  |  **2017**  |  **2016**  |
+| Market value of outstanding debt                          |     0      |     0      |     0      |
+| Amortization of capitalized software development expenses | (USD2,000) |  (USD667)  |     0      |
+| Depreciation expense                                      | (USD2,200) | (USD1,440) | (USD1,320) |
+|                                                           |            |            |            |
+| Market price per share of common stock                    |   USD42    |   USD26    |   USD17    |
+| Shares of common stock outstanding (thousands)            |   6,780    |   9,765    |   10,999   |
+
+*Footnote disclosure of accounting policy for software development:*
+
+*Expenses that are related to the conceptual formulation and design of software products are*
+
+*expensed to research and development as incurred. The company capitalises expenses that are*
+
+*incurred to produce the finished product after technological feasibility has been established.*
+
+1. 
+
+Compute the following ratios for JHH based on the reported financial statements for fiscal year ended 31 December 2018, with no adjustments. Next, determine the approximate impact on these ratios if the company had expensed rather than capitalized its investments in software. (Assume the financial reporting does not affect reporting for income taxes. There would be no change in the effective tax rate.)
+
+1.  P/E: Price/Earnings per share
+
+2.  P/CFO: Price/Operating cash flow per share
+
+3.  EV/EBITDA: Enterprise value/EBITDA, where enterprise value is defined as the total market value of all sources of a company’s financing, including equity and debt, and EBITDA is earnings before interest, taxes, depreciation, and amortization.
+
+#### Check Answer
+
+#### Solution
+
+(US dollars are in thousands, except per share amounts.) JHH’s 2019 ratios are presented in the following table:
+
+|     |            |                 |                 |
+|:----|:----------:|:---------------:|:---------------:|
+|     | **Ratios** | **As reported** | **As adjusted** |
+| A   | P/E ratio  |      30.0       |      42.9       |
+| B   |   P/CFO    |      19.0       |      31.6       |
+| C   | EV/EBITDA  |      16.3       |      24.7       |
+
+1.  Based on the information as reported, the P/E ratio was 30.0 (USD42 ÷ USD1.40). Based on EPS adjusted to expense software development costs, the P/E ratio was 42.9 (USD42 ÷ USD0.98).
+
+    株価(Price)：企業の株式時価が基礎的価値に基づくと仮定すると、会計上の差異にかかわらず1株あたりUSD42である。
+
+    EPS: As reported, EPS was USD1.40. Adjusted EPS was USD0.98. Expensing software development costs would have reduced JHH’s 2018 operating income by USD6,000, but the company would have reported no amortization of prior years’ software costs, which would have increased operating income by USD2,000. The net change of USD4,000 would have reduced operating income from the reported USD13,317 to USD9,317. The effective tax rate for 2018 (USD3,825 ÷ USD13,317) is 28.72%, and using this effective tax rate would give an adjusted net income of USD6,641 \[USD9,317 × (1 – 0.2872)\], compared to USD9,492 before the adjustment. The EPS would therefore be reduced from the reported USD1.40 to USD0.98 (adjusted net income of USD6,641 divided by 6,780 shares).
+
+2.  報告値に基づくと、P/CFOは19.0 (USD42 ÷ USD2.21)であった。ソフトウェア開発費を費用計上するようCFOを調整すると、P/CFOは31.6 (USD42 ÷ USD1.33)となる。
+
+    Price: Assuming that the market value of the company’s equity is based on its fundamentals, the price per share is USD42, regardless of a difference in accounting.
+
+    報告値の1株当たりCFO(CFO per share, as reported)はUSD2.21（営業キャッシュフロー合計USD15,007 ÷ 6,780株）である。
+
+    調整後の1株当たりCFO(CFO per share, as adjusted)はUSD1.33である。企業のUSD6,000のソフトウェア開発費は投資活動によるキャッシュアウトフローとして報告されており、費用計上すると営業キャッシュフローがUSD6,000減少し、報告値USD15,007からUSD9,007となる。調整後の営業キャッシュフロー合計USD9,007を6,780株で割ると、1株当たりCFOはUSD1.33となる。
+
+3.  報告値に基づくと、EV/EBITDAは16.3 (USD284,760 ÷ USD17,517)であった。ソフトウェア開発費を費用計上するようEBITDAを調整すると、EV/EBITDAは24.7 (USD284,760 ÷ USD11,517)となる。企業価値(Enterprise Value)：企業価値は株式および負債を含む全資金源の時価総額の合計である。JHHは負債を持たないため、企業価値は株式の時価と等しい。株式の時価はUSD284,760 (USD42 × 6,780株)である。報告値EBITDAはUSD17,517（税引前利益13,317 + 減価償却2,200 + 償却2,000）である。ソフトウェア開発費を費用計上するよう調整したEBITDAはUSD11,517（税引前利益9,317 + 減価償却2,200 + 償却0）である。
+
+2. 
+
+比率の変化を解釈せよ。
+
+#### Check Answer
+
+#### Solution
+
+ソフトウェア開発費を費用計上すると、過去の利益、営業キャッシュフロー、およびEBITDAが減少し、すべての市場倍数(Market multiples)は増加する。そのため、ソフトウェア開発費を資本化せず費用計上した場合、JHH株はより割高に見える。
+
+調整前の市場ベース比率を、ソフトウェア開発費をすべて費用計上する競合他社との比較に使用すると、JHHは会計要因による差異のみで割安に見える可能性がある。調整済み市場ベース比率はより適切な比較基準を提供する。
+
+例6の企業では、当期のソフトウェア開発費が過去期間の資本化ソフトウェア償却額を上回っている。その結果、ソフトウェア開発費を資本化せず費用計上すると、利益は低下する。しかし、当期の開発費が過去資本化費用の償却額より少ない場合、費用計上すると資本化に比べ利益が増加する。
+
+この節では、資本化と費用計上の判断が財務諸表と比率にどのように影響するかを示した。早期の費用計上は当期利益を低下させるが、利益傾向を改善する。一方、今資本化して後に費用計上すると、当期利益は高くなる。長期資産取得の会計処理を説明したので、次に後続期間における長期資産の評価方法について説明する。
+
+### 財務アナリストへの示唆：費用認識(Implications for Financial Analysts: Expense Recognition)
+
+収益認識ポリシーと同様に、企業の費用認識の選択は相対的保守性(conservatism)で特徴付けられる。費用を早く認識するよりも遅く認識する方が保守的でないと見なされる。さらに、多くの費用項目は純利益に大きく影響する見積りを企業に要求する。企業の財務諸表の分析、特に他社との比較には、これらの見積りの差異と潜在的影響を理解することが必要である。
+
+例えば、未回収債権の売上比率、保証費用の売上比率、資産の推定耐用年数の年度間変動が大きい場合、アナリストはその理由を理解すべきである。変化は事業運営の変化（例：製品品質向上による保証請求件数減少で保証費用が低下）によるものか、それとも事業運営とは無関係で、企業が特定の純利益効果を得るために見積りを操作している兆候か？
+
+同様に、同業他社2社の未回収債権比率、保証費用比率、資産推定耐用年数が大きく異なる場合、その理由を理解することが重要である。違いは事業運営の差異と一致しているか（例：顧客基盤や与信方針の違いにより未回収債権が少ない、または新しい設備を使うことによる資産耐用年数の違い）か。それとも事業運営とは一致せず、企業が見積りを操作している兆候か？
+
+企業の会計方針や重要な見積りに関する情報は、財務諸表の脚注および年次報告書の経営者による議論と分析(MD&A)に記載されている。
+
+可能であれば、費用認識ポリシーや見積りの差異による金額的影響は、過去の業績や複数企業間での比較をより意味のあるものにする。アナリストは報告された費用を調整して比較可能にできる。
+
+金額的影響を計算できない場合でも、ポリシーや見積りの相対的保守性を特徴付け、これらの差異が報告費用および財務比率にどのように影響するかを定性的に評価することが一般に可能である。
+
+------------------------------------------------------------------------
+
+### 2.04 \| Non-Recurring Items
+
+## モジュール2：損益計算書の分析(Module 2: Analyzing Income Statements) 2.04｜非継続項目(Non-Recurring Items)
+
+### Learning Outcome
+
+The candidate should be able to:
+
+- 非継続項目（廃止事業(Discontinued operations)、異常項目(Unusual items)や稀発項目(Infrequent items)を含む）および会計方針変更の財務報告上の取り扱いと分析について説明する。
+
+------------------------------------------------------------------------
+
+企業の損益計算書から、直近年度および前年度の収益を確認できる。今後の見通しとしては、企業は来年度およびその後の年度に何を稼ぐかが問題となる。
+
+企業の将来の収益を評価するためには、過去年度の収益・費用項目のうち、将来も継続する可能性が高いものと、継続の可能性が低いものを分けることが有効である。過去年度の項目の中には、将来の期間には継続しないと明確に予想され、企業の損益計算書で別途開示されるものがある。IFRSは、基準で明示的に規定されていない情報を開示する際の考慮事項を示している。IFRSおよびUS GAAPの両方で、廃止事業の結果は継続事業から分離して報告することが規定されている。その他、損益計算書で別途報告される可能性がある項目（異常項目、稀発項目、会計変更による影響、営業外収益など）は、アナリストが一定の判断を下す必要がある。
+
+### 異常項目(Unusual items)および稀発項目(Infrequent Items)
+
+IFRSでは、企業の財務パフォーマンスの理解に重要または関連性のある収益・費用項目は、別途開示することが求められる。異常項目や稀発項目はこれらの基準を満たす可能性が高い。US GAAPでは、2015年12月15日以降に開始する報告期間において、異常または稀発で重要な項目は、継続事業の一部として表示されるが、別途表示される。例えば、工場閉鎖費用や従業員解雇費用などのリストラクチャリング費用は、企業の通常の活動の一部と見なされる。また、資産や事業の一部を帳簿価額より多いまたは少ない金額で売却した際の損益も、損益計算書で別途開示され、通常の事業活動と見なされる。
+
+これらの項目の異常性や稀発性を強調することは、アナリストがこれらの項目が再発する可能性を判断する際に役立つ。これは、企業の財務パフォーマンスの理解に関連する項目を開示するというIFRSの基準を満たすものである。表8(Exhibit 8)では、ダノン(Danone)の損益計算書に「継続的営業利益(Recurring operating income)」の金額が示され、その後に「その他営業収益(費用)(Other operating income (expense))」が別行で表示され、継続収益の構成要素には含まれていない。表9(Exhibit 9)には、この非継続項目に関するダノンの追加開示の抜粋が示されている。
+
+#### Exhibit 8Danone Income Statement
+
+| グループ・ダノン(Groupe Danone) 連結損益計算書（百ユーロ単位）\[抜粋\]                             |                                                |     |           |
+|:---------------------------------------------------------------------------------------------------|:----------------------------------------------:|:----|:---------:|
+|                                                                                                    | 12月31日に終了する年度(Year Ended 31 December) |     |           |
+|                                                                                                    |                    **2016**                    |     | **2017**  |
+| **Sales**                                                                                          |                     21,944                     |     |  24,677   |
+| 売上原価(Cost of goods sold)                                                                       |                    (10,744)                    |     | (12,459)  |
+| 販売費(Selling expense)                                                                            |                    (5,562)                     |     |  (5,890)  |
+| 一般管理費(General and administrative expense)                                                     |                    (2,004)                     |     |  (2,225)  |
+| 研究開発費(Research and development expense)                                                       |                    \(333\)                     |     |  \(342\)  |
+| その他収益(費用)(Other income (expense))                                                           |                    \(278\)                     |     |  \(219\)  |
+| 継続的営業利益(Recurring operating income)                                                         |                   **3,022**                    |     | **3,543** |
+| その他営業収益(費用)(Other operating income (expense))                                             |                     \(99\)                     |     |    192    |
+| 営業利益(Operating income)                                                                         |                   **2,923**                    |     | **3,734** |
+| 現金同等物および短期投資の利息収益(Interest income on cash equivalents and short-term investments) |                      130                       |     |    151    |
+| 支払利息(Interest expense)                                                                         |                    \(276\)                     |     |  \(414\)  |
+| 正味負債コスト(Cost of net debt)                                                                   |                    \(146\)                     |     |  \(263\)  |
+| その他の金融収益(Other financial income)                                                           |                       67                       |     |    137    |
+| その他の金融費用(Other financial expense)                                                          |                    \(214\)                     |     |  \(312\)  |
+| 税引前利益(Income before tax)                                                                      |                   **2,630**                    |     | **3,296** |
+| 法人税費用(Income tax expense)                                                                     |                    \(804\)                     |     |  \(842\)  |
+| 完全子会社からの純利益(Net income from fully consolidated companies)                               |                   **1,826**                    |     | **2,454** |
+| 持分法投資利益(Share of profit of associates)                                                      |                       1                        |     |    109    |
+| 当期純利益(Net income)                                                                             |                     1,827                      |     |   2,563   |
+|                                                                                                    |                                                |     |           |
+| 親会社株主に帰属する純利益(Net income – Group share)                                               |                   **1,720**                    |     | **2,453** |
+| 非支配株主持分に帰属する純利益(Net income – Non-controlling interests)                             |                      107                       |     |    110    |
+
+#### Exhibit 9 Highlighting Infrequent Nature of Items—Excerpt from Groupe Danone footnotes to its 2017 financial statements 
+
+注6(NOTE 6). グループの通常活動外の事象および取引(Events and Transactions Outside the Group’s Ordinary Activities) \[抜粋\]
+
+「その他営業収益(費用)」は、フランスCNC(French CNC)の勧告2013-03(Recommendation 2013-03)に基づき、国際会計基準(International Accounting Standards)に従って作成された連結財務諸表の形式に関するもので、ダノン(Danone)の現行活動に固有のものと見なせない重要項目を含む。これには主に、完全子会社の売却に伴うキャピタルゲイン・損失、のれん(Goodwill)の減損損失、戦略的リストラクチャリングや大規模外部成長取引に関連する重要コスト、主要な危機および訴訟に関連する発生または見積コストが含まれる。さらに、改訂IFRS3(Revised IFRS 3)および改訂IAS27(Revised IAS 27)に関連して、ダノンはその他営業収益(費用)に(i) 企業結合に関連する取得費用、(ii) 支配権喪失後の再評価損益、(iii) 取得日以降の企業結合に関連するアーンアウト(Earn-outs)の変動を分類している。
+
+2017年のその他営業収益(費用)の純額€192百万は、主に以下の項目で構成されている。
+
+| （百万ユーロ）(Euro Millions)                                                                                                                                                                                     | 関連収益（費用）(Related Income (Expense)) |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------:|
+| ストーニーフィールド(Stonyfield)売却によるキャピタルゲイン(Capital gain on disposal of Stonyfield)                                                                                                                |                    628                     |
+| フォンテラ(Fonterra)訴訟におけるシンガポール仲裁裁判所(Singapore arbitration court)の決定に基づく受領補償金(Compensation received following the decision of the Singapore arbitration court in the Fonterra case) |                    105                     |
+| 地域リスク、主にALMA地域(ALMA region)の特定国におけるもの(Territorial risks, mainly in certain countries in the ALMA region)                                                                                      |                  \(148\)                   |
+| ホワイトウェーブ(WhiteWave)統合に関連する費用(Costs associated with the integration of WhiteWave)                                                                                                                 |                  \(118\)                   |
+| ウォーターズ(Waters)および専門栄養(Specialized Nutrition)報告対象企業における複数の無形資産の減損(Impairment of several intangible assets in Waters and Specialized Nutrition Reporting entities)                 |                  \(115\)                   |
+
+表の残り部分は省略(Remainder of table omitted)
+
+表9(Exhibit 9)では、ダノン(Danone)は、企業の現行活動に「固有(inherent)」でない「例外的(exceptional)」項目と見なされる項目の詳細を提供している。例外的項目には、資産売却による損益、訴訟による受領、買収統合費用、無形資産の減損などが含まれる。一般に、将来の事業を予測する際、アナリストは報告された項目が再発する可能性や将来の収益への影響を評価する。すべての異常項目を単純に無視することは推奨されない。
+
+### 廃止事業(Discontinued Operations)
+
+企業が構成事業の一部を売却する、または売却計画を策定し、その事業に今後関与しない場合、損益計算書はIFRSおよびUS GAAPの両方で、この売却の影響を「廃止(discontinued)事業」として別途報告する。財務基準は、別途報告のためのさまざまな基準を提供しており、一般に廃止事業は物理的・運営上分離可能である必要がある。
+
+廃止事業の結果は、損益計算書の下部に純額(Net basis)で表示され、1株当たりでも示される。損益計算書の残りの部分（売上高、売上原価、残存事業のEPSなど）は継続事業の結果であり、そのように開示される。廃止事業に関連する資産・負債は集計され、売却予定資産として貸借対照表に認識される。この表示により、アナリストは継続事業と廃止事業を明確に評価できる。
+
+廃止事業は売却完了後、企業に収益やキャッシュフローをもたらさないため、アナリストは特定日以降の企業の将来財務パフォーマンス予測において廃止事業を除外することができる。
+
+### 会計方針の変更(Changes in Accounting Policy)
+
+標準設定者(Standard setters)が新しい基準を発行し、企業に会計方針の変更を求めることがある。基準に応じて、企業は将来の期間に適用する順次適用(prospectively)や、過去の財務諸表を遡及的に(restrospectively)修正することが許される場合がある。他の場合、在庫評価方法の変更など、会計方針の変更は、企業業績をより正確に反映するために経営陣が行うことがある。会計方針の変更は、原則として遡及適用により報告される。
+
+遡及適用(retrospective application)とは、財務報告書に示されるすべての会計年度の財務諸表が、採用された新会計原則を期間全体にわたり使用したかのように表示されることを意味する。財務諸表の脚注には、変更内容とその正当性が説明される。原則変更は遡及適用されるため、財務報告内の財務諸表は比較可能である。
+
+例7(Example 7)では、マイクロソフト(Microsoft Corporation)の2018年6月30日終了会計年度のForm 10-Kから、収益認識基準(new revenue recognition standard)に起因する会計原則の変更を説明した抜粋を示す。マイクロソフトは、必要な採用日より早く、2017年7月1日に新基準を採用することを選択した。また、「完全遡及法(full retrospective method)」を使用し、過去期間の結果を修正することも選択した。損益計算書には、2016年および2017年の両年度が、新基準が両年度で適用されたかのように表示される。脚注では、新基準採用の影響が開示されている。
+
+#### Example 7Microsoft Corporation—Excerpt from Footnotes to the Financial Statements
+
+新収益認識基準(\[new revenue recognition\] standard)の最も重要な影響は、ソフトウェアライセンス収益の会計処理に関連する。具体的には、Windows 10について、収益は関連機器の耐用期間にわたって均等配分せず、主に請求・納品時に認識する。複数年契約の商用ソフトウェアサブスクリプションでは、ライセンス収益は契約締結時に認識する。商用ライセンス契約の複雑性により、実際の収益認識は契約条件に依存し、請求時認識と異なる場合もある。ハードウェア、クラウド製品(Office 365等)、LinkedIn、専門サービスの収益認識は実質的に変更なしである。
+
+##### Exhibit 10Microsoft Impacts to Previously Reported Results
+
+| （米ドル百万、1株当たり金額を除く）(US dollar millions, except per share amounts) | 以前の報告値(As Previously Reported) | 新収益基準調整(New Revenue Standard Adjustment) | 修正後(As Restated) |
+|:----------------------------------------------------------------------------------|:-------------------------------------|:------------------------------------------------|:--------------------|
+| 損益計算書(Income Statements)                                                     |                                      |                                                 |                     |
+| 2017年6月30日に終了する年度(Year Ended 30 June 2017)                              |                                      |                                                 |                     |
+| 売上高(Revenue)                                                                   | 89,950                               | 6,621                                           | 96,571              |
+| 法人税引当金(Provision for income taxes)                                          | 1,945                                | 2,467                                           | 4,412               |
+| 純利益(Net income)                                                                | 21,204                               | 4,285                                           | 25,489              |
+| 希薄化後1株当たり利益(Diluted earnings per share)                                 | 2.71                                 | 0.54                                            | 3.25                |
+| 2016年6月30日に終了する年度(Year Ended 30 June 2016)                              |                                      |                                                 |                     |
+| 売上高(Revenue)                                                                   | 85,320                               | 5,834                                           | 91,154              |
+| 法人税引当金(Provision for income taxes)                                          | 2,953                                | 2,147                                           | 5,100               |
+| 純利益(Net income)                                                                | 16,798                               | 3,741                                           | 20,539              |
+| 希薄化後1株当たり利益(Diluted earnings per share)                                 | 2.1                                  | 0.46                                            | 2.56                |
+
+1. 
+
+表10(Exhibit 10)に基づき、新収益認識基準(new revenue recognition standard)の下でマイクロソフト(Microsoft)の業績はより良く見えるか、それとも悪く見えるかを説明せよ。
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+新収益認識基準の下では、マイクロソフトの業績はより良く見える。新基準の下では収益および利益が高く、純利益率(Net profit margin)も高い。2017年度の純利益率は、新基準で26.4％(= 25,489 ÷ 96,571)、旧基準で23.6％(= 21,204 ÷ 89,950)である。報告収益は新基準の下でより早く成長しており、新基準では収益成長率は5.9％\[= (96,571 ÷ 91,154) – 1\]、旧基準では5.4％\[= (89,950 ÷ 85,320) – 1\]である。
+
+マイクロソフトによる新収益認識の影響の提示により、アナリストは会計基準変更の影響を特定できる。
+
+新収益認識基準では、「修正遡及法(modified retrospective)」の採用オプションも提供される。修正遡及法では、企業は過去に報告した財務諸表を修正する必要はなく、代わりに新基準の累積影響を考慮して期首繰越利益(および他の適用勘定)を調整する。
+
+会計方針の変更(例：従業員株式オプション費用の費用計上の可否)とは対照的に、企業は会計見積り(例：減価償却資産の耐用年数)を変更する場合がある。会計見積りの変更は順次適用(prospectively)され、変更が生じた期間および将来期間に影響する。過去の財務諸表は修正されず、損益計算書の表面には調整は示されない。重要な変更は脚注で開示される。表11(Exhibit 11)には、米国のバイオテクノロジー企業Catalent Inc.(Catalent Inc.)の年次Form 10-Kから、会計見積りの変更を示す抜粋が示されている。
+
+#### Exhibit 11 Change in Accounting Estimate—Excerpt from Catalent Form 10-K 
+
+Catalent Inc.は、確定給付年金プラン(defined benefit pension plans)に関連する年間費用の計算方法の変更を開示している。従来の単一加重平均割引率(weighted-average discount rate)ではなく、各予想キャッシュフローに適用されるスポットレート(spot rates)を使用する。
+
+##### Post-Retirement and Pension Plans
+
+関連給付債務(benefit obligations)の測定および毎年計上される純年次給付費用(net periodic benefit costs)は、アクチュアリー計算に基づき、割引率など特定の前提に関する経営判断が必要である。
+
+2016年6月30日以降、サービスおよび利息部分の純年次給付費用の推定方法が変更され、より正確に測定する方法が採用された。従来、単一加重平均割引率に基づき計算していたが、今後は各キャッシュフローをスポットレートで割引する方法を採用する。これは会計原則の変更に伴う会計見積りの変更として順次適用される。
+
+もう一つの可能な調整は、過去期間の誤謬訂正(e.g., prior period error)である。これは当期損益計算書を単に調整することで対応できない。過去期間の誤謬は、当期財務諸表に示す過去期間の財務諸表(貸借対照表、株主持分計算書、キャッシュフロー計算書を含む)を修正して処理する。誤謬に関する開示も必要であり、企業の会計システムや内部統制の弱点を示す可能性があるため注意して確認する必要がある。
+
+### 適用範囲(Scope)および為替レート(Exchange Rates)の変動
+
+企業が他社の支配権を取得した場合、決算日を基準に連結財務諸表を作成する。対象会社の規模によっては、買収前後の企業の財務結果や財務状況の比較可能性に大きく影響する。また、多国籍企業では為替レート変動も損益計算書に影響する(例：機能通貨(functional currency)が報告通貨に対して強化されると収益が増加し、低下すると収益が減少する)。残念ながら、会計基準では適用範囲や為替変動の影響を個別項目や財務諸表に開示することを要求していないが、多くの企業は管理報告などで有用な概要情報(収益やEPS成長率から適用範囲および為替変動を除外)を開示している。
+
+適用範囲や為替変動の財務諸表への影響は、カリキュラムの後半で詳細に説明される。
+
+------------------------------------------------------------------------
+
+### 2.05 \| Earnings per Share
+
+## モジュール2：損益計算書の分析(Module 2: Analyzing Income Statements) 2.05｜1株当たり利益(Earnings per Share)
+
+### Learning Outcome
+
+The candidate should be able to:
+
+- 1株当たり利益(EPS)の計算方法を説明し、単純(Simple)および複雑(Complex)な資本構成を持つ企業、希薄化防止証券(Antidilutive Securities)を含む場合の基本(Basic)および希薄化後(Diluted)EPSを計算し解釈する。
+
+------------------------------------------------------------------------
+
+株式投資家に特に重要な損益計算書の指標の1つは1株当たり利益(EPS)である。IFRSでは、純利益(Net income)および継続事業からの利益(Income from continuing operations)について、損益計算書の表面にEPSを表示することが要求され、US GAAPでも同様の表示が必要である。本レッスンではEPSの計算方法を概説し、単純資本構成と複雑資本構成での計算の違いを説明する。
+
+### 単純(Simple)資本構成と複雑(Complex)資本構成
+
+企業の資本(Capital)は株式(Equity)と負債(Debt)で構成される。一部の株式は他の株式に優先権を持ち、一部の負債(およびその他の金融商品)は株式に転換可能である。IFRSでは、EPSが表示される株式の種類は普通株(Ordinary shares)と呼ばれる。普通株は、他のすべての株式に劣後する株式である。普通株主は基本的に企業の所有者であり、企業清算時に最後に支払われ、企業が好調な場合に最も利益を得る株主である。US GAAPでは、この普通株はコモンストック(Common stock)またはコモンシェア(Common shares)と呼ばれ、米国での用語使用を反映している。「Ordinary shares」「Common stock」「Common shares」は以下の説明で同義語として用いられる。
+
+企業がコモンストックに転換可能な金融商品を発行している場合、その企業は複雑資本構成(Complex capital structure)を持つとされる。転換可能な金融商品の例には、転換社債(Convertible bonds)、転換優先株(Convertible preferred stock)、従業員ストックオプション(Employee stock options)、ワラント(Warrants; 企業が発行する株式コールオプションで、権利行使価格で新株を購入する権利があるが義務はない)がある。企業の資本構成にこのような転換可能金融商品が含まれない場合、単純資本構成(Simple capital structure)とされる。
+
+単純資本構成と複雑資本構成の区別は、EPS計算に関係する。転換可能な金融商品は、転換や権利行使によってEPSを希薄化(Dilute; 減少)させる可能性があるためである。この潜在的希薄化情報は、企業の現在および潜在的株主にとって有用であり、会計基準ではすべての希薄化金融商品をコモンストックに転換した場合のEPSを開示することを要求している。この場合のEPSを希薄化後EPS(Diluted EPS)と呼ぶ。一方、基本EPS(Basic EPS)は、親会社のコモン株主に帰属する報告利益と加重平均株式数(Weighted Average Shares Outstanding)を用いて計算される。
+
+企業は、基本EPSと希薄化後EPSの両方、および継続事業の金額を報告する必要がある。表12(Exhibit 12)は、AB InBev(AB InBev)の損益計算書下部に報告された1株当たり金額を示している。2017年度の同社の基本EPS(希薄化前)はUSD4.06、希薄化後EPS(希薄化後)はUSD3.98であった。さらに、AB InBevの損益計算書が継続事業の利益を総利益と別に表示するのと同様に、継続事業のEPSも総EPSから分離して表示される。2017年度の継続事業の基本EPSと希薄化後EPSは、それぞれUSD4.04およびUSD3.96である。すべての指標で、2017年度のEPSは2016年度よりも大幅に高かった。アナリストは、EPSの変動の背後にある原因を理解しようとする。これについては基本EPSと希薄化後EPSの計算の説明後に扱う。
+
+#### Exhibit 12AB InBev’s Earnings per Share (USD)
+
+|                                                                                  | 12月31日に終了する12か月(12 Months Ended 31 December) |          |          |
+|:---------------------------------------------------------------------------------|:-----------------------------------------------------:|:--------:|:--------:|
+|                                                                                  |                       **2017**                        | **2016** | **2015** |
+| 基本1株当たり利益(Basic earnings per share)                                      |                         4.06                          |   0.72   |   5.05   |
+| 希薄化後1株当たり利益(Diluted earnings per share)                                |                         3.98                          |   0.71   |   4.96   |
+| 継続事業からの基本EPS(Basic earnings per share from continuing operations)       |                         4.04                          |   0.69   |   5.05   |
+| 継続事業からの希薄化後EPS(Diluted earnings per share from continuing operations) |                         3.96                          |   0.68   |   4.96   |
+
+### 基本EPS(Basic EPS)
+
+基本EPSは、コモン株主に帰属する利益額を、期間中の加重平均発行株式数で割ったものである。コモン株主に帰属する利益額は、優先株配当(あれば)支払後に残る純利益である。基本EPSの計算式は以下の通りである。
+
+$\text{Basic~EPS} = \frac{\text{Net~income} - \text{Preferred~dividends}}{\text{Weighted~average~number~of~shares~outstanding}}$.
+
+加重平均株式数(Weighted average number of shares outstanding)は、各期間の発行株式数に基づく時間加重である。例えば、ある企業が年初に2,000,000株発行しており、7月1日に100,000株を自己株式として取得した場合、加重平均株式数は2,000,000株 × 1/2年 + 1,900,000株 × 1/2年 = 1,950,000株となる。この1,950,000株を基本EPSの計算に用いる。
+
+株式配当や株式分割によりコモン株式数が増加した場合、EPS計算は期間初めにさかのぼって調整される。
+
+例8、9、10(Example 8, 9, 10)は基本EPSの計算例を示す。
+
+#### Example 8A Basic EPS Calculation (1)
+
+1. 
+
+2018年12月31日に終了する年度、Shopalot Company(Shopalot Company)の純利益はUSD1,950,000であった。発行済みコモン株式は1,500,000株、優先株なし、転換金融商品なしの場合、基本EPSはいくらか？
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+Shopalotの基本EPSはUSD1.30 (USD1,950,000 ÷ 1,500,000株)である。
+
+#### Example 9A Basic EPS Calculation (2)
+
+2018年12月31日に終了する年度、Angler Products(Angler Products)の純利益はUSD2,500,000であった。企業はUSD200,000の優先株配当を宣言・支払った。また、コモン株式数の情報は表13(Exhibit 13)に示されている。
+
+##### Exhibit 13Angler’s Common Stock Shares
+
+|                                                                                                     |           |
+|:----------------------------------------------------------------------------------------------------|:---------:|
+| 2018年1月1日の発行済み株式数(Shares outstanding on 1 January 2018)                                  | 1,000,000 |
+| 2018年4月1日に発行された株式数(Shares issued on 1 April 2018)                                       |  200,000  |
+| 2018年10月1日に自己株式として取得した株式数(Shares repurchased (treasury shares) on 1 October 2018) | (100,000) |
+| 2018年12月31日時点の発行済み株式数(Shares outstanding on 31 December 2018)                          | 1,100,000 |
+
+1. 
+
+企業の加重平均発行済み株式数は？
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+加重平均発行済み株式数は、各株式数が発行されていた期間の長さにより決定される。
+
+|                                                                     |           |
+|:--------------------------------------------------------------------|:---------:|
+| 1,000,000 × (3か月/12か月) =                                        |  250,000  |
+| 1,200,000 × (6か月/12か月) =                                        |  600,000  |
+| 1,100,000 × (3か月/12か月) =                                        |  275,000  |
+| 加重平均発行済株式数(Weighted average number of shares outstanding) | 1,125,000 |
+
+2. 
+
+企業の基本EPSは？(What is the company’s basic EPS?)
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+基本EPS(Basic EPS) = (純利益(Net income) – 優先株配当(Preferred dividends)) ÷ 加重平均発行済株式数 = (USD2,500,000 – USD200,000) ÷ 1,125,000 = USD2.04
+
+#### Example 10A Basic EPS Calculation (3)
+
+1. 
+
+例9(Example 9)と同じ条件で、2018年12月1日に2対1の株式分割(Stock Split)が実施された場合、各株主は所有株1株につき2株を受け取る。この場合の基本EPSは？
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+EPS計算では、株式分割は期首に発生したものとして扱われる。そのため加重平均株式数は2,250,000株となり、基本EPSはUSD1.02 \[= (USD2,500,000 – USD200,000) ÷ 2,250,000\]となる。
+
+### 希薄化後EPS(Diluted EPS)：If-Converted法(The If-Converted Method)
+
+企業が単純資本構成(Simple capital structure)（潜在的に希薄化可能な金融商品を含まない場合）であれば、基本EPSは希薄化後EPSと等しい。しかし、潜在的に希薄化可能な金融商品がある場合、希薄化後EPSは基本EPSと異なる可能性がある。希薄化後EPSは常に基本EPS以下である。以下では、希薄化後EPSに影響を与える3種類の潜在的希薄化金融商品（転換優先株(Convertible preferred)、転換社債(Convertible debt)、従業員ストックオプション(Employee stock options)）の効果を説明する。最後に、すべての潜在的希薄化金融商品が実際に基本EPSとの差を生じるわけではない理由を説明する。
+
+### 転換優先株(Convertible Preferred Stock)発行時の希薄化後EPS(Diluted EPS)
+
+企業が転換優先株を発行している場合、希薄化後EPSはIf-Converted法を用いて計算される。If-Converted法は、転換優先株が期首に転換された場合にEPSがどうなるかを計算する方法である。転換が行われた場合の効果は2つある。まず、転換優先株は発行済み株式から除外され、追加のコモン株式(Common stock)が発行される。そのため、加重平均発行株式数は基本EPS計算より増加する。次に、転換が行われれば優先株配当は支払われない。したがって、コモン株主に帰属する利益(Net income available to common shareholders)は基本EPS計算より大きくなる。
+
+転換優先株に対するIf-Converted法による希薄化後EPSは、基本EPS計算で使用した加重平均発行株式数に、転換時に発行される追加コモン株式を加えて計算する。計算式は以下の通りである。
+
+$\text{Diluted~EPS=}\frac{\left( \text{Net~income} \right)}{\begin{matrix}
+\text{(Weighted~average~number~of~shares} \\
+\text{outstanding~+~New~common~shares~that} \\
+\text{would~have~been~issued~at~conversion)} \\
+\end{matrix}}\text{.}$
+
+例11(Example 11)で、転換優先株に対するIf-Converted法を用いた希薄化後EPSの計算例を示す。
+
+#### Example 11A Diluted EPS Calculation Using the If-Converted Method for Preferred Stock
+
+1. 
+
+2018年12月31日に終了する年度、Bright-Warm Utility Company(Bright-Warm Utility Company、架空)の純利益はUSD1,750,000であった。同社は平均500,000株のコモン株式、20,000株の転換優先株を保有しており、その他の潜在的希薄化証券はない。各優先株の配当は1株あたりUSD10で、各株は5株のコモン株に転換可能である。基本EPSと希薄化後EPSを計算せよ。
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+もし20,000株の転換優先株がそれぞれ5株のコモン株に転換された場合、追加で100,000株のコモン株が発行されることになる。また、転換が行われればUSD200,000(20,000株 × USD10)の優先株配当は支払われない。表14(Exhibit 14)の通り、基本EPSはUSD3.10、希薄化後EPSはUSD2.92である。
+
+###### Exhibit 14Calculation of Diluted EPS for Bright-Warm Utility Company Using the If-Converted Method: Case of Preferred Stock
+
+|                                                                             | 基本EPS(Basic EPS) | If-Converted法による希薄化後EPS(Diluted EPS Using If-Converted Method) |
+|:----------------------------------------------------------------------------|:------------------:|:----------------------------------------------------------------------:|
+| 純利益(Net income)                                                          |    USD1,750,000    |                              USD1,750,000                              |
+| 優先株配当(Preferred dividend)                                              |      –200,000      |                                   0                                    |
+| 分子(Numerator)                                                             |    USD1,550,000    |                              USD1,750,000                              |
+| 加重平均発行済株式数(Weighted average number of shares outstanding)         |      500,000       |                                500,000                                 |
+| 転換時に発行される追加株式(Additional shares issued if preferred converted) |         0          |                                100,000                                 |
+| 分母(Denominator)                                                           |      500,000       |                                600,000                                 |
+| **EPS**                                                                     |      USD3.10       |                                USD2.92                                 |
+
+### 転換社債(Convertible Debt)発行時の希薄化後EPS(Diluted EPS)
+
+企業が転換社債(Convertible debt)を発行している場合、希薄化後EPSの計算にもIf-Converted法を用いる。希薄化後EPSは、転換社債が期首に転換された場合のEPSとして計算される。転換が行われた場合、社債は発行済みから除外され、追加のコモン株式(Common stock)が発行される。また、転換が行われれば社債に対する利息の支払いは不要となるため、コモン株主に帰属する純利益(Net income available to common shareholders)は、転換社債の利息費用の税後額(After-tax amount)分増加する。
+
+したがって、転換社債に対するIf-Converted法による希薄化後EPSの計算式は以下の通りである。
+
+$\text{Diluted~EPS~=~}\frac{\text{(Net~income~+~After-tax~interest~on~convertible~debt~} - \text{~Preferred~dividends)}}{\begin{matrix}
+\text{(Weighted~average~number~of~shares~outstanding~+~Additional~} \\
+\text{common~shares~that~would~have~been~issued~at~conversion)} \\
+\end{matrix}}$.
+
+例12(Example 12)に、転換社債に対するIf-Converted法の希薄化後EPS計算例が示されている。
+
+#### Example 12A Diluted EPS Calculation Using the If-Converted Method for Convertible Debt
+
+1. 
+
+Oppnox Company(Oppnox Company、架空)は2018年12月31日に終了する年度の純利益がUSD750,000であった。加重平均発行済みコモン株式は690,000株である。さらに、潜在的希薄化証券は1種類のみで、USD50,000の6％転換社債(Convertible bonds)で、合計10,000株に転換可能である。税率30％で、Oppnoxの基本EPSと希薄化後EPSを計算せよ。
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+転換社債が転換された場合、社債は発行済みから除外され、代わりに追加で10,000株のコモン株式が発行される。また、転換が行われればUSD3,000の社債利息は支払われないため、コモン株主に帰属する純利益は税後額USD2,100 \[= USD3,000 × (1 – 0.30)\] 増加する。表15(Exhibit 15)は、転換社債に対するIf-Converted法による希薄化後EPSの計算例を示している。
+
+###### Exhibit 15Calculation of Diluted EPS for Oppnox Company Using the If-Converted Method: Case of a Convertible Bond
+
+|                                                                     | 基本EPS(Basic EPS) | If-Converted法による希薄化後EPS(Diluted EPS Using If-Converted Method) |
+|:--------------------------------------------------------------------|:------------------:|:----------------------------------------------------------------------:|
+| 純利益(Net income)                                                  |     USD750,000     |                               USD750,000                               |
+| 利息費用の税後額(After-tax cost of interest)                        |                    |                                 2,100                                  |
+| 分子(Numerator)                                                     |     USD750,000     |                               USD752,100                               |
+| 加重平均発行済株式数(Weighted average number of shares outstanding) |      690,000       |                                690,000                                 |
+| 転換時(If converted)                                                |         0          |                                 10,000                                 |
+| 分母(Denominator)                                                   |      690,000       |                                700,000                                 |
+| **EPS**                                                             |      USD1.09       |                                USD1.07                                 |
+
+### 希薄化後EPS(Diluted EPS)：自己株式法(Treasury Stock Method)
+
+企業がストックオプション(Stock options)、ワラント(Warrants)、または同等の証券を発行している場合、希薄化後EPSはこれらの金融商品が権利行使されたと仮定し、企業が権利行使により得た現金で、期間中のコモン株平均市場価格で可能な限り多くの株式を買い戻した場合として計算される。したがって、希薄化後EPSの加重平均発行株式数は、権利行使により発行される株式数から買い戻される株式数を差し引いた数だけ増加する。この方法は、企業が買い戻した株式を自己株式(Treasury Stock)として保有することが一般的なため、US GAAPでは自己株式法(Treasury Stock Method)と呼ばれる。IFRSでも同様の方法が用いられるが名称はない。
+
+この方法による希薄化後EPS計算では、金融商品の権利行使を仮定すると次の効果がある。
+
+- 企業は権利行使により現金を受け取り、株式を発行すると仮定される。
+- 企業は得た現金で、期間中の加重平均市場価格で株式を買い戻すと仮定される。
+
+この2つの効果により、発行済み株式数は、発行株数から企業が買い戻すと仮定した株数を差し引いた増分株数(Incremental shares)だけ増加する。希薄化後EPS計算では、増分株数は当該金融商品が年間どれだけ発行済みであったかに基づき加重される。金融商品が年初前に発行されていれば、加重平均発行株式数は増分株数だけ増加する。金融商品が年度中に発行されていれば、増分株数は発行済み期間に応じて加重される。
+
+これら金融商品の権利行使を仮定しても純利益は変わらない。したがってEPS計算では分子は変更されない。オプションに対する自己株式法(Treasury Stock Method)による希薄化後EPSの計算式は以下の通りである(IFRSでも同様の方法)。
+
+$\text{Diluted~EPS~=~}\frac{\text{(Net~income~-~Preferred~dividends)}}{\begin{matrix}
+\text{[Weighted~average~number~of~shares} \\
+\text{~outstanding~+~(New~shares~that~would} \\
+\text{have~been~issued~at~option~exercise~-} \\
+\text{Shares~that~could~have~been~purchased} \\
+\text{with~cash~received~upon~exercise)~×} \\
+\text{(Proportion~of~year~during~which~the} \\
+\text{financial~instruments~were~outstanding)]} \\
+\end{matrix}}$
+
+例13(Example 13)に、オプションに対する自己株式法の希薄化後EPS計算例が示されている。
+
+#### Example 13A Diluted EPS Calculation Using the Treasury Stock Method for Options
+
+1. 
+
+Hihotech Company(Hihotech Company、架空)は2018年6月30日に終了する年度の純利益USD2.3百万、加重平均発行済コモン株式800,000株であった。期首に30,000株のオプションが発行済みであり、その他の潜在的希薄化証券はない。年度中の平均市場価格は1株USD55であった。基本EPSと希薄化後EPSを計算せよ。
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+自己株式法(Treasury Stock Method)を用いる場合、まずすべてのオプションが行使されたと仮定すると、企業はUSD1,050,000（30,000オプション × USD35）を受け取ったと計算する。オプションは発行済み株式から除外され、代わりに30,000株のコモン株式(Common stock)が発行される。自己株式法では、オプション行使によって得た現金で株式を買い戻すと仮定する。株式の平均市場価格が1株USD55の場合、オプション行使によるUSD1,050,000の資金で19,091株を買い戻すことができる。したがって、発行される増分株式数(Incremental number of shares)は10,909株（30,000 – 19,091）となる。希薄化後EPS計算では分子は変更されない。表16(Exhibit 16)の通り、基本EPSはUSD2.88、希薄化後EPSはUSD2.84である。
+
+###### Exhibit 16Calculation of Diluted EPS for Hihotech Company Using the Treasury Stock Method: Case of Stock Options
+
+|                                                                     | 基本EPS(Basic EPS) | 自己株式法による希薄化後EPS(Diluted EPS Using Treasury Stock Method) |
+|:--------------------------------------------------------------------|:------------------:|:--------------------------------------------------------------------:|
+| 純利益(Net income)                                                  |    USD2,300,000    |                             USD2,300,000                             |
+| 分子(Numerator)                                                     |    USD2,300,000    |                             USD2,300,000                             |
+| 加重平均発行済株式数(Weighted average number of shares outstanding) |      800,000       |                               800,000                                |
+| 転換時(If converted)                                                |         0          |                                10,909                                |
+| 分母(Denominator)                                                   |      800,000       |                               810,909                                |
+| **EPS**                                                             |      USD2.88       |                               USD2.84                                |
+
+IFRSでも同様の計算が必要であるが、「自己株式法」とは呼ばれない。企業は、仮定された資金が期間中の平均市場価格で新株発行によって受け取られると考慮する必要がある。この新しい「推定株式(Inferred shares)」は希薄化後EPS計算では無視されるが、オプション契約により発行される株式数から推定株式数を引いた残りが加重平均発行株式数に加算される。結果は自己株式法と同じであり、例14(Example 14)に示されている。
+
+#### Example 14Diluted EPS for Options under IFRS
+
+1. 
+
+例13(Example 13)と同じ条件で、IFRSにおける希薄化後EPS用の加重平均発行株式数を計算せよ。
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+オプションが行使された場合、企業はUSD1,050,000を受け取ることになる。この金額が1株USD55の平均市場価格で新株発行によって得られたとすると、企業は19,091株を発行することになる。IFRSでは、この19,091株を推定株式(Inferred shares)と呼ぶ。オプションによる発行株式数30,000株から推定株式数19,091株を引いた10,909株を、加重平均発行株式数800,000株に加算すると、希薄化後株式数は810,909株となる。この結果はUS GAAPの計算結果と同じであり、単に計算方法が異なるだけである。
+
+### 希薄化後EPSおよびEPSの変化に関するその他の問題(Other Issues with Diluted EPS and Changes in EPS)
+
+潜在的に転換可能な証券の中には逆希薄化(antidilutive)となる場合がある（計算に含めるとEPSが基本EPSより高くなる場合）。IFRSおよびUS GAAPでは、逆希薄化証券は希薄化後EPS計算に含めない。希薄化後EPSは、潜在的希薄化金融商品による最大の希薄化を反映する必要がある。希薄化後EPSは常に基本EPS以下となる。例15(Example 15)に逆希薄化証券の例を示す。
+
+#### Example 15An Antidilutive Security
+
+1. 
+
+2018年12月31日に終了する年度、Dim-Cool Utility Company(Dim-Cool Utility Company、架空)の純利益はUSD1,750,000であった。同社は平均500,000株のコモン株式、20,000株の転換優先株(Convertible preferred)を保有しており、その他の潜在的希薄化証券はない。各優先株の配当は1株USD10で、各株は3株のコモン株に転換可能である。基本EPSと希薄化後EPSは？
+
+#### 回答を確認(Check Answer)
+
+#### 解答(Solution)
+
+もし20,000株の転換優先株がそれぞれ3株のコモン株に転換された場合、追加で60,000株のコモン株が発行される。転換が行われれば、USD200,000（20,000株 × USD10）の優先株配当は支払われない。If-Converted法を用いたEPSはUSD3.13となる（表17、Exhibit 17）。これは基本EPS USD3.10より大きいため、証券は逆希薄化とされ、その転換効果は希薄化後EPSに含めない。希薄化後EPSは基本EPSと同じ、すなわちUSD3.10となる。
+
+###### Exhibit 17Calculation for an Antidilutive Security
+
+|                                                                        |  基本EPS(Basic EPS)  | If-Converted法による希薄化後EPS(Diluted EPS Using If-Converted Method) |                                                                                                                                            |
+|:-----------------------------------------------------------------------|:--------------------:|:----------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------|
+| 純利益(Net income)                                                     |     USD1,750,000     |                              USD1,750,000                              |                                                                                                                                            |
+| 優先株配当(Preferred dividend)                                         |       –200,000       |                                   0                                    |                                                                                                                                            |
+| 分子(Numerator)                                                        |     USD1,550,000     |                     1,750,000米ドル (USD1,750,000)                     |                                                                                                                                            |
+| 発行済株式の加重平均数 (Weighted average number of shares outstanding) |       500,000        |                                500,000                                 |                                                                                                                                            |
+| もし転換された場合 (If converted)                                      |          0           |                                 60,000                                 |                                                                                                                                            |
+| 分母 (Denominator)                                                     |       500,000        |                                560,000                                 |                                                                                                                                            |
+| **EPS**                                                                | 3.10米ドル (USD3.10) |                          3.13米ドル (USD3.13)                          | ← 基本EPSを超えるため、証券は希薄化抑制的 (antidilutive) であり、したがって計算に含まれない。報告される希薄化後EPSは3.10米ドル (USD3.10)。 |
+
+### EPSの変化 (Changes in EPS)
+
+基本EPSと希薄化後EPSの計算を説明した後、EPSの変化の検討に戻る。図12 (Exhibit 12) に示されているように、AB InBev(AB InBev) の継続事業からの完全希薄化後EPSは、2016年の0.68米ドル (USD0.68) から2017年には3.96米ドル (USD3.96) に増加した。一般に、EPSの増加は純利益の増加、発行済株式数の減少、またはその両方の組み合わせによって生じる。財務諸表の注記（表示されていない）によれば、AB InBevは基本EPSおよび完全希薄化EPSの両方の計算に使用される加重平均株式数が、2017年は2016年よりも多かったことを開示している。したがって、AB InBevにおける2016年から2017年へのEPS改善は、純利益の増加によってもたらされたものである。分子および分母の変化はEPSの変化を算術的に説明する。これらの変化の事業上の要因を理解するには、さらなる調査が必要である。レッスン5では、アナリストがさらなる検討が必要な領域を特定するために使用できる分析ツールを提示している。
+
+------------------------------------------------------------------------
+
+### 2.06 \| Income Statement Ratios and Common-Size Analysis
+
+## モジュール2: 損益計算書の分析 (Module 2: Analyzing Income Statements) 2.06 \| 損益計算書比率と共通サイズ分析 (Income Statement Ratios and Common-Size Analysis)
+
+### Learning Outcome
+
+The candidate should be able to:
+
+- 損益計算書に基づく財務比率および共通サイズ損益計算書を用いて、企業の財務パフォーマンスを評価する
+
+------------------------------------------------------------------------
+
+本レッスンでは、損益計算書を分析するために二つの分析ツール、共通サイズ分析 (common-size analysis) と損益計算書比率 (income statement ratios) を適用する。この分析の目的は、ある期間にわたって、企業のパフォーマンスを過去の自身の業績や他の企業の業績と比較して評価することである。
+
+### 損益計算書の共通サイズ分析 (Common-Size Analysis of the Income Statement)
+
+損益計算書の共通サイズ分析は、損益計算書の各項目を売上高に対する百分率として表示することによって行うことができる。共通サイズ損益計算書は、各項目の標準化により規模の影響が除かれるため、期間間比較（時系列分析, time series analysis）および企業間比較（横断分析, cross-sectional analysis）を容易にする。
+
+例として、図18 (Exhibit 18) のパネルAでは、同じ業界に属する三つの仮想企業の損益計算書が示されている。売上高がそれぞれ1,000万米ドル (USD10 million) の企業Aと企業Bは、売上高がわずか200万米ドル (USD2 million) の企業Cよりも大きい（売上高で測定）。さらに、企業AとBはどちらも営業利益が高く、企業Aが200万米ドル (USD2 million)、企業Bが150万米ドル (USD1.5 million) に対し、企業Cの営業利益はわずか40万米ドル (USD400,000) である。
+
+アナリストはこれらの企業のパフォーマンスをどのように意味のある形で比較できるか？ パネルBに示すように、共通サイズ損益計算書を作成することで、企業Cの費用および利益の売上高に対する割合が、企業Aとまったく同じであることを簡単に確認できる。さらに、企業Cの営業利益は絶対額では企業Bより低いが、割合で見ると高い（企業Cは20％、企業Bは15％）。売上高100米ドルあたり、企業Cは企業Bより5米ドル多く営業利益を生み出している。言い換えれば、この指標に基づくと、企業Cは企業Bより相対的に収益性が高い。
+
+共通サイズ損益計算書は、企業戦略の違いも浮き彫りにする。二つの大きな企業を比較すると、企業Aの売上高に対する粗利益率は企業Bよりも著しく高い（70％対25％）。両社が同じ業界で運営されている中、なぜ企業Aはこれほど高い粗利益を上げられるのか？ 一つの説明は、両社の営業費用を比較することで見つかる。企業Aは研究開発 (research and development) と広告 (advertising) に企業Bより大幅に多く支出している。研究開発への支出は、技術的に優れた製品を生む可能性が高い。広告への支出は、ブランド認知度の向上につながる可能性が高い。したがって、これらの違いに基づくと、企業Aは技術的に優れた製品を、より良いブランドイメージで販売していると考えられる。企業Bは、製品をより安く販売している（売上高に対する粗利益が低い）が、研究開発や広告に投資しないことで費用を節約している可能性がある。実務上、企業間の違いはより微妙であるが、概念は同じである。アナリストは重要な差異を認識した場合、さらなる調査を行い、違いの根本原因と将来の企業業績への影響を理解しようとする。
+
+#### 図18 (Exhibit 18) 三つの仮想企業の損益計算書
+
+| パネルA: 企業A、B、Cの損益計算書（米ドル, US dollars）               |                                  |                                  |                                |
+|:---------------------------------------------------------------------|:--------------------------------:|:--------------------------------:|:------------------------------:|
+|                                                                      |              **A**               |              **B**               |             **C**              |
+| Sales                                                                | 10,000,000米ドル (USD10,000,000) | 10,000,000米ドル (USD10,000,000) | 2,000,000米ドル (USD2,000,000) |
+| 売上原価 (Cost of sales)                                             |            3,000,000             |            7,500,000             |            600,000             |
+| 粗利益 (Gross profit)                                                |            7,000,000             |            2,500,000             |           1,400,000            |
+| 販売費及び一般管理費 (Selling, general, and administrative expenses) |            1,000,000             |            1,000,000             |            200,000             |
+| 研究開発費 (Research and development)                                |            2,000,000             |                —                 |            400,000             |
+| 広告費 (Advertising)                                                 |            2,000,000             |                —                 |            400,000             |
+| 営業利益 (Operating profit)                                          |            2,000,000             |            1,500,000             |            400,000             |
+
+| パネルB: 企業A、B、Cの共通サイズ損益計算書 (%) (Common-Size Income Statements for Companies A, B, and C (%)) |       |       |       |
+|:-------------------------------------------------------------------------------------------------------------|:-----:|:-----:|:-----:|
+|                                                                                                              | **A** | **B** | **C** |
+| Sales                                                                                                        | 100%  | 100%  | 100%  |
+| 売上原価 (Cost of sales)                                                                                     |  30   |  75   |  30   |
+| 粗利益 (Gross profit)                                                                                        |  70   |  25   |  70   |
+| 販売費及び一般管理費 (Selling, general, and administrative expenses)                                         |  10   |  10   |  10   |
+| 研究開発費 (Research and development)                                                                        |  20   |   0   |  20   |
+| 広告費 (Advertising)                                                                                         |  20   |   0   |  20   |
+| 営業利益 (Operating profit)                                                                                  |  20   |  15   |  20   |
+
+注: 各項目は企業の売上高に対する百分率で表示されている。
+
+ほとんどの費用については、売上高との比較が適切である。しかし、税金の場合は、税額を税引前利益 (pretax income) と比較する方がより意味がある。注記開示を利用することで、アナリストは実効税率の差異の原因を調べることができる。企業の将来の純利益を予測するためには、アナリストは企業の税引前利益を予測し、過去の税率に基づいて算出された推定実効税率を適用する。
+
+損益計算書の垂直的共通サイズ分析 (vertical common-size analysis) は、特定の期間における企業間比較（横断分析, cross-sectional analysis）や、企業と業界・セクターデータとの比較に特に有用である。アナリストは、比較のために個別の同業企業を選択したり、公表された業界データを使用したり、同業企業の選定やより広い業界データに基づいてデータベースからデータを収集したりできる。例えば、図19 (Exhibit 19) は、S&P 500(米国株価指数) の構成銘柄を、2017年データを用いてS&P/MSCIグローバル産業分類システム (GICS) の10セクターに分類し、中央値の共通サイズ損益計算書データをまとめたものである。このような集計データを作成する場合、一定レベルの集計が必要であり、同業他社の財務諸表より詳細度は低くなることがある。個別企業の業績は、業界データや同業他社データと比較して、相対的なパフォーマンスを評価することができる。
+
+#### 図19 (Exhibit 19) 2017年データに基づくS&P 500(米国株価指数) のGICSセクター別中央値共通サイズ損益計算書統計
+
+|                                 | エネルギー (Energy) | 素材 (Materials) | 資本財 (Industrials) | 一般消費財 (Consumer Discretionary) | 生活必需品 (Consumer Staples) | ヘルスケア (Health Care) |
+|:--------------------------------|:-------------------:|:----------------:|:--------------------:|:-----------------------------------:|:-----------------------------:|:------------------------:|
+| 観測数 (Number of observations) |         34          |        27        |          69          |                 81                  |              34               |            59            |
+| 粗利益率 (Gross Margin)         |        37.7%        |      33.0%       |        36.8%         |                37.6%                |             43.4%             |          59.0%           |
+| 営業利益率 (Operating Margin)   |        6.4%         |      14.9%       |        13.5%         |                11.0%                |             17.2%             |          17.4%           |
+| 純利益率 (Net Profit Margin)    |        4.9%         |       9.9%       |         8.8%         |                6.0%                 |             10.9%             |           7.2%           |
+
+|                                 | 金融 (Financials) | 情報技術 (Information Technology) | 通信サービス (Telecommunication Services) | 公益事業 (Utilities) | 不動産 (Real Estate) |
+|:--------------------------------|:-----------------:|:---------------------------------:|:-----------------------------------------:|:--------------------:|:--------------------:|
+| 観測数 (Number of observations) |        63         |                64                 |                     4                     |          29          |          29          |
+| 粗利益率 (Gross Margin)         |       40.5%       |               62.4%               |                   56.4%                   |        34.3%         |        39.8%         |
+| 営業利益率 (Operating Margin)   |       36.5%       |               21.1%               |                   15.4%                   |        21.7%         |        30.1%         |
+| 純利益率 (Net Profit Margin)    |       18.5%       |               11.3%               |                   13.1%                   |        10.1%         |        21.3%         |
+
+出典: Compustat(Compustat) のデータに基づく。営業利益率は利息・税金前利益 (EBIT, earnings before interest and taxes) に基づく。
+
+### 損益計算書比率 (Income Statement Ratios)
+
+財務パフォーマンスの一側面は収益性である。収益性の指標の一つは純利益率 (net profit margin) であり、利益率 (profit margin) や売上高利益率 (return on sales) とも呼ばれ、純利益を売上高で割って算出される。
+
+$\text{Net~profit~margin} = \frac{\text{Net~income}}{\text{Revenue}}.$
+
+純利益率は、企業が売上高1ドルあたりどれだけの利益を生み出せたかを測定する。純利益率が高いほど収益性が高く、望ましい。純利益率は共通サイズ損益計算書でも直接確認できる。
+
+AB InBev(AB InBev) において、2017年の継続事業に基づく純利益率は16.2％であった（継続事業利益9,155百万米ドル (USD9,155 million) を売上高56,444百万米ドル (USD56,444 million) で割って算出）。この比率を判断するには、比較が必要である。AB InBevの収益性は、他の企業や過去の自身の業績と比較できる。過去数年と比較すると、AB InBevの収益性は2016年より高く、2015年よりは低い。2016年の継続事業に基づく純利益率は6.0％、2015年は22.9％であった。
+
+収益性の別の指標として粗利益率 (gross profit margin) がある。粗利益 (gross profit) は売上高から売上原価を差し引いて算出され、粗利益率は粗利益を売上高で割って計算される。
+
+$\text{Gross~profit~margin} = \frac{\text{Gross~profit}}{\text{Revenue}}$.
+
+粗利益率は、企業が売上高1ドルあたりどれだけの粗利益を生み出したかを測定する。粗利益率が高いほど収益性が高く、一般的に望ましい。ただし、企業間の粗利益率の差異は企業戦略の違いを反映する。例えば、差別化製品 (differentiated product) を販売する戦略を追求する企業を考える。この場合、ブランド名、品質、優れた技術、特許保護に基づき差別化された製品は、類似の未差別化製品より高価格で販売可能であり、したがって未差別化製品を販売する企業より高い粗利益率を示す可能性が高い。差別化製品を販売する企業は高い粗利益率を示す可能性があるが、戦略の初期段階では、広告費や研究開発費など、差別化製品を作るための費用が発生し、粗利益率計算には反映されない場合がある。
+
+AB InBevの粗利益は、2017年35,058百万米ドル (USD35,058 million)、2016年27,715百万米ドル (USD27,715 million)、2015年26,467百万米ドル (USD26,467 million) であった。粗利益を売上高に対する百分率で表すと、粗利益率は2017年62.1％、2016年60.9％、2015年60.7％であった。絶対額では、AB InBevの粗利益は2016年が2015年より高かった。しかし、粗利益率は2015年と2016年の間でほぼ一定であった。
+
+図20 (Exhibit 20) はAB InBevの共通サイズ損益計算書を示し、特定の収益性指標を強調している。前述の純利益率および粗利益率は、共通サイズ損益計算書から算出できる多くの小計のうちの二つに過ぎない。アナリストが使用する他の「マージン」には、営業利益率 (operating profit margin, 営業利益を売上高で割ったもの) や税引前利益率 (pretax margin, 税引前利益を売上高で割ったもの) がある。
+
+#### 図20 AB InBevのマージン: 簡略化された共通サイズ損益計算書 (AB InBev’s Margins: Abbreviated Common-Size Income Statement)
+
+|                                                                                     | 12月31日終了の12か月 (12 Months Ended 31 December) |          |     |                     |          |     |                     |          |
+|:------------------------------------------------------------------------------------|:--------------------------------------------------:|:--------:|:----|:-------------------:|:--------:|:----|:-------------------:|:--------:|
+|                                                                                     |                      **2017**                      |          |     |      **2016**       |          |     |      **2015**       |          |
+|                                                                                     |                米ドル (US dollars)                 |  **%**   |     | 米ドル (US dollars) |  **%**   |     | 米ドル (US dollars) |  **%**   |
+| 売上高 (Revenue)                                                                    |                       56,444                       |  100.0   |     |       45,517        |  100.0   |     |       43,604        |  100.0   |
+| 売上原価 (Cost of sales)                                                            |                      (21,386)                      | (37.9％) |     |      (17,803)       | (39.1％) |     |      (17,137)       | (39.3％) |
+| 粗利益 (Gross profit)                                                               |                       35,058                       | **62.1** |     |       27,715        | **60.9** |     |       26,467        | **60.7** |
+| 配送費 (Distribution expenses)                                                      |                      (5,876)                       | (10.4％) |     |       (4,543)       | (10.0％) |     |       (4,259)       |  (9.8)   |
+| 販売費およびマーケティング費用 (Sales and marketing expenses)                       |                      (8,382)                       | (14.9％) |     |       (7,745)       | (17.0％) |     |       (6,913)       | (15.9％) |
+| 一般管理費 (Administrative expenses)                                                |                      (3,841)                       |  (6.8)   |     |       (2,883)       |  (6.3)   |     |       (2,560)       |  (5.9)   |
+| 一部省略 (Portions omitted)                                                         |                                                    |          |     |                     |          |     |                     |          |
+| 営業利益 (Profit from operations)                                                   |                       17,152                       | **30.4** |     |       12,882        | **28.3** |     |       13,904        | **31.9** |
+| 財務費用 (Finance cost)                                                             |                      (6,885)                       | (12.2％) |     |       (9,382)       | (20.6％) |     |       (3,142)       |  (7.2)   |
+| 財務収益 (Finance income)                                                           |                        378                         |   0.7    |     |         818         |   1.8    |     |        1,689        |   3.9    |
+| 財務収益／費用の純額 (Net finance income/(cost))                                    |                      (6,507)                       | (11.5％) |     |       (8,564)       | (18.8％) |     |       (1,453)       |  (3.3)   |
+| 関連会社および共同事業の持分利益 (Share of result of associates and joint ventures) |                        430                         |   0.8    |     |         16          |   0.0    |     |         10          |   0.0    |
+| 税引前利益 (Profit before tax)                                                      |                       11,076                       | **19.6** |     |      **4,334**      | **9.5**  |     |       12,461        | **28.6** |
+| 法人税費用 (Income tax expense)                                                     |                      (1,920)                       |  (3.4)   |     |       (1,613)       |  (3.5)   |     |       (2,594)       |  (5.9)   |
+| 継続事業からの利益 (Profit from continuing operations)                              |                     **9,155**                      | **16.2** |     |      **2,721**      | **6.0**  |     |      **9,867**      | **22.6** |
+| 廃止事業からの利益 (Profit from discontinued operations)                            |                         28                         |   0.0    |     |         48          |   0.1    |     |          —          |    —     |
+| 当期利益 (Profit of the year)                                                       |                     **9,183**                      | **16.3** |     |      **2,769**      | **6.1**  |     |      **9,867**      | **22.6** |
+
+注: 四捨五入のため、報告された合計額にわずかな差異が生じる場合がある
+
+収益性比率と共通サイズ損益計算書は、企業の業績変化について迅速な洞察を提供する。例えば、AB InBev(AB InBev) の2016年の収益性低下は、粗利益率の低下によるものではなかった。2016年の粗利益率は実際には2015年よりわずかに高かった。2016年の収益性低下は、部分的には営業費用の増加、特に財務費用 (finance costs) の大幅な増加によって引き起こされた。この財務費用の増加は、2016年のSABMiller(SABMiller) との合併によるものである。評価額が1,000億米ドル (USD100 billion) を超えるこの買収は、歴史上最大級のものの一つであった。AB InBevとSABMillerの統合は、売上高が約450億米ドル (USD45 billion) から560億米ドル (USD56 billion) 超に増加した理由も説明している。したがって、収益性比率と共通サイズ損益計算書は、アナリストがさらなる理解を得たい領域を浮き彫りにする。
+
+------------------------------------------------------------------------
+
+### Glossary: Analyzing Income Statements
+
+## モジュール2: 損益計算書の分析 (Module 2: Analyzing Income Statements) 用語集: 損益計算書の分析 (Glossary: Analyzing Income Statements)
+
+### 
+
+#### A
+
+**Antidilutive**  
+取引または証券に関連して、1株当たり利益 (EPS, earnings per share) を増加させる、または会社の基本EPS (basic EPS) を上回るEPSをもたらすもの—希薄化抑制的証券 (antidilutive securities) は希薄化後EPSの計算には含まれない。
+
+#### B
+
+**Basic EPS**  
+普通株主に帰属する純利益（すなわち純利益から優先配当金を差し引いたもの）を、発行済普通株式の加重平均数で割ったもの。
+
+#### C
+
+**Common shares**  
+会社に対する所有権を表す証券の一種。普通株式 (common stock) とも呼ばれる。
+
+**Common stock**  
+会社に対する所有権を表す証券の一種。普通株 (common shares) とも呼ばれる。
+
+#### D
+
+**Diluted EPS**  
+すべての希薄化要因となる証券が普通株に転換された場合に生じるEPS。
+
+#### G
+
+**Gross profit margin**  
+粗利益を売上高で割った比率。
+
+#### I
+
+**If-converted method**  
+転換証券がEPSに与える影響を会計処理する方法で、期間の初めに転換証券が転換されていた場合のEPSを、純利益および発行済株式の加重平均数への転換効果を考慮して算出する。
+
+#### N
+
+**Net profit margin**  
+収益性の指標で、純利益を売上高で割って算出される。売上高1ドルあたり、すべての費用を差し引いた後に残る利益の割合を示す。利益率 (profit margin) または売上高利益率 (return on sales) とも呼ばれる。
+
+#### O
+
+**Operating profit margin**  
+営業利益 (利息・税引前利益) を売上高で割って算出される収益性比率。営業利益率 (operating margin) とも呼ばれる。
+
+**Ordinary shares**  
+他のすべての種類の株式に劣後する株式（例：優先株式 (preferred equity)）。普通株式 (common stock) または普通株 (common shares) とも呼ばれる。
+
+#### P
+
+**Period costs**  
+売上高のタイミングと直接対応させることができない費用（例：役員給与）であり、したがって即時費用計上されるもの。
+
+**Pretax margin**  
+税引前利益を売上高で割って算出される収益性比率。
+
+**Profit margin**  
+収益性の指標で、純利益を売上高で割って算出される。売上高1ドルあたり、すべての費用を差し引いた後に残る利益の割合を示す。
+
+#### R
+
+**Return on sales**  
+収益性の指標で、純利益を売上高で割って算出される。売上高1ドルあたり、すべての費用を差し引いた後に残る利益の割合を示す。純利益率 (net profit margin) とも呼ばれる。
+
+#### U
+
+**Unearned revenue**  
+まだ提供されていない商品やサービスに対して回収されたお金の負債勘定。商品やサービスの提供前に受け取った支払い。繰延収益 (deferred revenue) または繰延所得 (deferred income) とも呼ばれる。
+
+------------------------------------------------------------------------
+
+### Flashcards: Analyzing Income Statements
+
+## モジュール2: 損益計算書の分析 (Module 2: Analyzing Income Statements) フラッシュカード: 損益計算書の分析 (Flashcards: Analyzing Income Statements)
+
+### 
+
+下のカードをクリックすると、その用語の定義が表示される。次へまたは前へをクリックしてカードをスクロールできる。
+
+表 (1/15)
+
+希薄化抑制的 (Antidilutive)
+
+裏
+
+取引または証券に関連して、1株当たり利益 (EPS, earnings per share) を増加させる、または会社の基本EPS (basic EPS) を上回るEPSをもたらすもの—希薄化抑制的証券 (antidilutive securities) は希薄化後EPSの計算には含まれない。
+
+表 (2/15)
+
+基本EPS (Basic EPS)
+
+裏
+
+普通株主に帰属する純利益（すなわち純利益から優先配当金を差し引いたもの）を、発行済普通株式の加重平均数で割ったもの。
+
+表 (3/15)
+
+普通株 (Common shares)
+
+裏
+
+会社に対する所有権を表す証券の一種。普通株式 (common stock) とも呼ばれる。
+
+表 (4/15)
+
+普通株式 (Common stock)
+
+裏
+
+会社に対する所有権を表す証券の一種。普通株 (common shares) とも呼ばれる。
+
+表 (5/15)
+
+希薄化後EPS (Diluted EPS)
+
+裏
+
+すべての希薄化要因となる証券が普通株に転換された場合に生じるEPS。
+
+表 (6/15)
+
+粗利益率 (Gross profit margin)
+
+裏
+
+粗利益を売上高で割った比率。
+
+表 (7/15)
+
+もし転換された場合の方法 (If-converted method)
+
+裏
+
+転換証券がEPSに与える影響を会計処理する方法で、期間の初めに転換証券が転換されていた場合のEPSを、純利益および発行済株式の加重平均数への転換効果を考慮して算出する。
+
+表 (8/15)
+
+純利益率 (Net profit margin)
+
+裏
+
+収益性の指標で、純利益を売上高で割って算出される。売上高1ドルあたり、すべての費用を差し引いた後に残る利益の割合を示す。利益率 (profit margin) または売上高利益率 (return on sales) とも呼ばれる。
+
+表 (9/15)
+
+営業利益率 (Operating profit margin)
+
+裏
+
+営業利益 (利息・税引前利益) を売上高で割って算出される収益性比率。営業利益率 (operating margin) とも呼ばれる。
+
+表 (10/15)
+
+普通株式 (Ordinary shares)
+
+裏
+
+他のすべての種類の株式に劣後する株式（例：優先株式 (preferred equity)）。普通株式 (common stock) または普通株 (common shares) とも呼ばれる。
+
+表 (11/15)
+
+期間費用 (Period costs)
+
+裏
+
+売上高のタイミングと直接対応させることができない費用（例：役員給与）であり、したがって即時費用計上されるもの。
+
+表 (12/15)
+
+税引前利益率 (Pretax margin)
+
+裏
+
+税引前利益を売上高で割って算出される収益性比率。
+
+表 (13/15)
+
+利益率 (Profit margin)
+
+裏
+
+収益性の指標で、純利益を売上高で割って算出される。売上高1ドルあたり、すべての費用を差し引いた後に残る利益の割合を示す。
+
+表 (14/15)
+
+売上高利益率 (Return on sales)
+
+裏
+
+収益性の指標で、純利益を売上高で割って算出される。売上高1ドルあたり、すべての費用を差し引いた後に残る利益の割合を示す。純利益率 (net profit margin) とも呼ばれる。
+
+表 (15/15)
+
+繰延収益 (Unearned revenue)
+
+裏
+
+まだ提供されていない商品やサービスに対して回収されたお金の負債勘定。商品やサービスの提供前に受け取った支払い。繰延収益 (deferred revenue) または繰延所得 (deferred income) とも呼ばれる。
+
+------------------------------------------------------------------------
+
+### Real World Applications: Bloomberg's Financial Analysis - Income Statement Chart
+
+## モジュール2: 損益計算書の分析 (Module 2: Analyzing Income Statements) 実務応用: ブルームバーグの財務分析 - 損益計算書チャート (Real World Applications: Bloomberg's Financial Analysis - Income Statement Chart)
+
+ブルームバーグ (Bloomberg) は、金融専門家が業務全体で使用する主要な市場データプラットフォームの一つである。この任意のセクションでは、CFAプログラム (CFA Program) カリキュラムの実務応用をブルームバーグ上で探求する。
+
+###  財務分析: 損益計算書チャート (FINANCIAL ANALYSIS: INCOME STATEMENT CHART)
+
+ブルームバーグのFA ISBAR機能は、任意の上場企業の共通サイズ損益計算書 (common-size income statement) を可視化できる。
+
+ 
+
+「FA \<GO\> は、企業または株式指数に関する包括的な財務情報を提供する。過去のファンダメンタルデータ (historical fundamental data) や将来の予測 (future estimates) を含み、潜在的な投資、提携、または買収対象の価値を分析できる。『追加 (Additional)』タブは、読み込んだ証券に対応する業界別データを細分化して表示する。『I/Sチャート (I/S Chart)』サブタブは、損益計算書チャートを表示する。」—ブルームバーグ (Bloomberg)
+
+ 
+
+この機能を試すには、ブルームバーグのコマンドラインにFA ISBARと入力してEnterまたは\<GO\>を押す。左上の琥珀色フィールドに、Petroleo Brasileiro S.A. (またはPETR4 BZ Equity) のような証券を入力して、Enterまたは\<GO\>を押す。
+
+![Bloomberg screen showing the FA ISBAR function executed. The screen displays a control area, a bar chart showing the driving factors of income and profit compared with price annually, and a bar chart of Net Income/Net Profit (Losses) by year.](data:image/jpeg;base64,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Vr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrRVr7F70fYvegCrTpOi/7v8AU1Y+xe9Q3CeWQvov9TQBHRRRQBPZffP+7/UVdqlZffP+7/UVdoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAJrO2N7PFApwZJEQH/eIFaV/c2dlPNBFaL+6YokjO7SbkbG9lYmMg4OV2Y5rLt52tZUlT7yOrD6qcitHUJ9OvHmuF89ZJMsI9qbFdjk/vN2So5wNgPTmh7L53/C36gt/u/wCCat9Y/wDEy1FbeO2AS03bJIzgL5SMzRhF2hgemcdayDoz2wVpZ4I5PL80ROWL4xuUH5CgLAcKzDORxzWhL4gtGvLm6US/v7J4ipVflcoqDnfyvHXAPtVS/v7HVG+0TGZZfJCsiqhjLqm1WDlgQDgEjae+DR+i/wAwW2vn+n/BLWtaObm7mkj8qGKO3t3diPLjDNEpwAin5mOcACqHhkK+pWyOquryqrK6K6kE4PDAitG/8R2uqxtbTpIsYWJo3RU8xZFjVG3LuAZTjqTkfoMbSL1dOvILhgSI5VYgdSAecU1pPyv+AndwXflX3pIsNpBl82d5I4IhO6Kz78Fgc4Cxq54HU4x70+Tw3PbeYbiWKFUlEYZ2YqzFdw27FY42kHJAHNXU8QwpDJbxz3UKid5I5IgFYh8bkdBKoOCODu/CrCodetCm29mjW6BSYIs8hJjUOrrvG0dCpyQBx2qYp2Xkl+l/1Kb1fq/1t+hlT+G5rR5lnlijSJkUyEuULMocKu1GYnBzwuB69KD4amQTNLNDGkQiJdi5VllyUZdiMSDj0z7dcbOqeJIluLy3SeaNDMjpNbtk5WNY2UjcgZTjghuozyKyrrWYZLe6hElxK0v2bEkxBY+XuLZ+ZsDn5Rk/Wm3pprtb52uCXfz/ADI38NzxNIZJYkjSOKTzSWMZWT7mAFLknnjb2Oad4ktY7RrNY9mDYwsWQYDElvm5APPuM+tW7jxBaXtv9lkEqobW1TcqqzCSHIPyl1ypB/vA+1Z2uX8F89uLcPtitY4suAGJUtzhSRzn1oe7XRS0flqJfp+OhrWuiLqM2nQTtAkcsLlWgV1kfb/eLIcvkdSMYB56VkjRMq8v2mEQqwXzT5oUsedgHl7yQOT8uPer9p4igtpNMco5+ypIsnA53E/d554PfFJaa5BaW8lpHcXUamXzUljUI+SArIyCUArgcHf17Ud/8Urf+Bf5AtlftH8v8yCTwvPbpJJPNDGiSKu5mcht67lZdiMSCPbPqBzSXHhie385TLC0kMRkaNWYtsBHzg7dvQg43Zx2qTUNahuLKS2V7iVmnik8yYgkhYyrfxMRyeBk8d6kl8Q273d5OFfbPYmFRhchtiLk/N0yp9fpR3+dvu/zH2/H77fkUbzQ2sVYSzwrIiK5hy/mYbGBnZsJwwOAx/Sl8OaXDrF4sE0mxSrnjO47VJwPlYdsnPbpzV241y1NtLAHnuFKbYluI4yYiduWWUMzcBcAAKKz9A1GPSr2O4kDFVDg7QC3zIV4BIHf1o6v0dvWzsLovxHpom5PNa6gWMvsSRvNCu2MnA8vdhcjJKge9U72yl0+d4Jhh0ODggjpkHI7EHNaRvbCe2jtJXnCwys0brEm5lcDerIZMAgjghj7iqetal/a13JcBdoO0KpOSFVQoyfXAo6r+uwf1+P+RpXvhhA1pHazo7zwI5U7xnOSzgmNQEAGfmOfaqi+HppxGbaSOcPN5WYyw2uRkAiRUIBGTnGODzV6LxDbRtZzESFobUW8ibVCspDKWD785w2QNvXvUmh6tHYPFbWCSztJcqzb1SIkBSoRQHcZ+YnJI7cUdfn+v+Qm9L/3f0/zKH/CMzSoXt5oZ8TJFiMvne2cffRRjjrnHvTo9Fa1zcpPbzLDPGjhdz8s2B8skYDDjryPSt3T0XQ4lWCOcyS38JjinRYJGVQ2QAWPGDjccDJ6VSuoING0+54nRpbqEok8YiciMluAGYkDPLcDPahO2vaUf/bb/mwaumutn/7d/kiprGj+bqF8yGOCGGXBZgVjXd91QqKxJPoBWXqGnyac6q5Vg8aujqSVZW6EZAPtggGt6XxPbtLd+XJcxLcOsgeMBJUcZBXAkAdSD/eH0rE1a7W8kRlmnmxGAXnPzZyTgDc+F9tx5zSV0kvJflr+JT1b9X+en4E1toEtwsRMsUbzAmKN2YO46AjClRuPC7iM/SpYvDMziDfNDG07OsaOZN5ZXKEHajAcjucVJDq9nKbOa4EoktUVQqKpSQRndHliwKcnDfK3qKfP4jjubiwndWzBO8kgAHO6cy4Xnng45xVaXS6OVm/7vcXR97fj1MN4HjkMTKd4YqR1OQcY4962rHRzY3kSyzW7OksQkgOXb5nVWX5kMbEbuQGJHPpWZcXu68e5jHWdpFz/AL+4ZxWlLqGnSXn279+HMySmPam1W3hn+fdlh1wNo7ZPqov4W/mDXxfgJrOhlJbyaCSJkinIdE3Axh3IUcoq4HT5ScVWn0No45pIriGYQlfMEZckAnaGy6KGGeMqTVmPW7df7S3RuwupkZV4HAmMhDEHjIOOM1duPE1qYbuKNpik0e2KLy44oYvn3YCo5B/3sA+uc8Edl/XQel/n+HcqJ4ZWC+itLm6hDNLGrKhkZ8MR0IjKgntk/XisDxDZx2F7JDHIJFUsMjdkYYjB3KvIxzgY9DW1eazFNrA1BFbYJon2kANhNuRwSO3rWL4hlhuL2SWBnKuWf50CEFmJxgM2ceufwo6R763/AAt+ou/y/UzaKKKAJIJfJbOM8Yqf7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umj7aP7pqpRQBb+2j+6aPto/umqlFAFv7aP7po+2j+6aqUUAW/to/umoJ5fNbOMcVHRQAUUUUAf//Z)
+
+©2025 ブルームバーグ有限責任会社 (Bloomberg L.P.)
+
+------------------------------------------------------------------------
+
+### Learning Outcomes: Analyzing Income Statements
+
+## モジュール 2: 損益計算書の分析 学習成果: 損益計算書の分析
+
+エレイン・ヘンリー (Elaine Henry), PhD, CFA、およびトーマス・R・ロビンソン (Thomas R. Robinson), PhD, CAIA, CFA
+
+エレイン・ヘンリー (Elaine Henry), PhD, CFA はスティーブンス工科大学 (Stevens Institute of Technology, USA) に所属。トーマス・R・ロビンソン (Thomas R. Robinson), PhD, CAIA, CFA はAACSBインターナショナル (AACSB International, USA) に所属。
+
+### 
+
+The candidate should be able to:
+
+- 収益認識の一般原則、収益認識の具体的な適用、および収益認識の選択が財務分析に与える影響について説明する
+- 費用認識の一般原則、費用認識の具体的な適用、費用認識の選択が財務分析に与える影響を説明し、資本化される費用と発生期間に費用計上される費用を対比する
+- 非継続事業、異常または稀な項目を含む非定常項目や会計方針の変更の財務報告上の扱いと分析方法について説明する
+- 1株当たり利益 (EPS) の計算方法を説明し、単純および複雑な資本構成の企業（反希薄化証券を含む）に対して、基本および希薄化後の1株当たり利益を計算・解釈する
+- 共通サイズ損益計算書および損益計算書に基づく財務比率を使用して企業の財務パフォーマンスを評価する
+
+主要な会計基準設定機関は次の2つである: 1) 国際会計基準審議会 (International Accounting Standards Board, IASB) は国際財務報告基準 (International Financial Reporting Standards, IFRS) を策定、2) 米国会計基準審議会 (Financial Accounting Standards Board, FASB) は米国会計基準 (US GAAP) を策定。本学習モジュールでは両基準が参照され、多くの、しかし全てではない、これら2つの会計規則が特定されている。注意: 本学習モジュール出版後に発行された会計基準の変更、新たな裁定や通達により、情報の一部が古くなる可能性がある。
